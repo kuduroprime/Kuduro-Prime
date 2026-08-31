@@ -63,7 +63,8 @@ label {
   font-weight: bold;
 }
 
-input, select, textarea {
+input,
+textarea {
   width: 100%;
   background: #080808;
   color: white;
@@ -73,9 +74,27 @@ input, select, textarea {
   font-size: 16px;
 }
 
+input[type="file"] {
+  cursor: pointer;
+}
+
 textarea {
   min-height: 130px;
   resize: vertical;
+}
+
+.preview-container {
+  margin-top: 15px;
+  text-align: center;
+}
+
+#previewFoto {
+  display: none;
+  width: 160px;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 3px solid #d4af37;
 }
 
 .botao {
@@ -95,10 +114,16 @@ textarea {
   background: #f5c842;
 }
 
+.botao:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
 #mensagem {
   text-align: center;
   margin-top: 20px;
   color: #d4af37;
+  min-height: 25px;
 }
 
 .voltar {
@@ -136,11 +161,10 @@ Preenche as tuas informações para criar o teu perfil público.
 
 <form id="perfilForm" class="formulario">
 
-<label>NOME ARTÍSTICO</label>
+<label for="nome">NOME ARTÍSTICO</label>
 <input type="text" id="nome" required>
 
-<label>FOTO DO ARTISTA</label>
-
+<label for="foto">FOTO DO ARTISTA</label>
 <input
   type="file"
   id="foto"
@@ -148,25 +172,29 @@ Preenche as tuas informações para criar o teu perfil público.
   required
 >
 
-<label>BIOGRAFIA</label>
+<div class="preview-container">
+  <img id="previewFoto" alt="Pré-visualização da foto">
+</div>
+
+<label for="bio">BIOGRAFIA</label>
 <textarea id="bio" required></textarea>
 
-<label>PROVÍNCIA</label>
+<label for="provincia">PROVÍNCIA</label>
 <input type="text" id="provincia" placeholder="Ex: Luanda" required>
 
-<label>WHATSAPP</label>
+<label for="whatsapp">WHATSAPP</label>
 <input type="tel" id="whatsapp" placeholder="+244">
 
-<label>INSTAGRAM</label>
+<label for="instagram">INSTAGRAM</label>
 <input type="url" id="instagram" placeholder="https://instagram.com/...">
 
-<label>TIKTOK</label>
+<label for="tiktok">TIKTOK</label>
 <input type="url" id="tiktok" placeholder="https://tiktok.com/...">
 
-<label>MÚSICA EM DESTAQUE</label>
+<label for="musica">MÚSICA EM DESTAQUE</label>
 <input type="url" id="musica" placeholder="Link da música">
 
-<button type="submit" class="botao">
+<button type="submit" class="botao" id="guardarBtn">
 GUARDAR PERFIL 👑
 </button>
 
@@ -194,7 +222,6 @@ import {
 } from
 "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 
-
 const firebaseConfig = {
   apiKey: "AIzaSyDoitCcLeLDNBNPCP6fG1s_xbHr4UmohSo",
   authDomain: "kuduro-prime.firebaseapp.com",
@@ -204,54 +231,167 @@ const firebaseConfig = {
   appId: "1:299776559545:web:04aced1ba25391eb3fce68"
 };
 
+const CLOUDINARY_CLOUD_NAME = "ge1ntqqc";
+const CLOUDINARY_UPLOAD_PRESET = "Kudu_";
+
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
 let usuarioAtual = null;
 
+const form = document.getElementById("perfilForm");
+const fotoInput = document.getElementById("foto");
+const previewFoto = document.getElementById("previewFoto");
+const mensagem = document.getElementById("mensagem");
+const guardarBtn = document.getElementById("guardarBtn");
+
+
+/* CONFIRMAR LOGIN */
 onAuthStateChanged(auth, (user) => {
+
   if (!user) {
     window.location.href = "area-do-artista.html";
-  } else {
-    usuarioAtual = user;
+    return;
   }
+
+  usuarioAtual = user;
+
 });
 
-const form = document.getElementById("perfilForm");
-const mensagem = document.getElementById("mensagem");
 
+/* PRÉ-VISUALIZAÇÃO DA FOTO */
+fotoInput.addEventListener("change", () => {
+
+  const ficheiro = fotoInput.files[0];
+
+  if (!ficheiro) {
+    previewFoto.style.display = "none";
+    return;
+  }
+
+  const leitor = new FileReader();
+
+  leitor.onload = (evento) => {
+    previewFoto.src = evento.target.result;
+    previewFoto.style.display = "inline-block";
+  };
+
+  leitor.readAsDataURL(ficheiro);
+
+});
+
+
+/* ENVIAR FOTO PARA CLOUDINARY */
+async function enviarFotoCloudinary(ficheiro) {
+
+  const formData = new FormData();
+
+  formData.append("file", ficheiro);
+  formData.append(
+    "upload_preset",
+    CLOUDINARY_UPLOAD_PRESET
+  );
+
+  const resposta = await fetch(
+    `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`,
+    {
+      method: "POST",
+      body: formData
+    }
+  );
+
+  const dados = await resposta.json();
+
+  if (!resposta.ok) {
+    console.error(dados);
+    throw new Error(
+      dados.error?.message || "Erro ao enviar a foto"
+    );
+  }
+
+  return dados.secure_url;
+}
+
+
+/* GUARDAR PERFIL */
 form.addEventListener("submit", async (event) => {
+
   event.preventDefault();
 
-  if (!usuarioAtual) return;
+  if (!usuarioAtual) {
+    mensagem.textContent =
+      "A verificar o login. Tenta novamente.";
+    return;
+  }
 
-  mensagem.textContent = "A guardar perfil...";
+  const ficheiro = fotoInput.files[0];
+
+  if (!ficheiro) {
+    mensagem.textContent =
+      "Escolhe uma foto para o teu perfil.";
+    return;
+  }
+
+  if (!ficheiro.type.startsWith("image/")) {
+    mensagem.textContent =
+      "Seleciona apenas uma imagem.";
+    return;
+  }
 
   try {
 
-    await setDoc(doc(db, "artistas", usuarioAtual.uid), {
+    guardarBtn.disabled = true;
 
-      uid: usuarioAtual.uid,
-      email: usuarioAtual.email,
+    mensagem.textContent =
+      "📷 A enviar a foto...";
 
-      nome: document.getElementById("nome").value,
-      foto: document.getElementById("foto").value,
-      bio: document.getElementById("bio").value,
-      provincia: document.getElementById("provincia").value,
-      whatsapp: document.getElementById("whatsapp").value,
-      instagram: document.getElementById("instagram").value,
-      tiktok: document.getElementById("tiktok").value,
-      musica: document.getElementById("musica").value,
+    const fotoURL =
+      await enviarFotoCloudinary(ficheiro);
 
-      criadoEm: new Date().toISOString()
+    mensagem.textContent =
+      "💾 A guardar o perfil...";
 
-    });
+    await setDoc(
+      doc(db, "artistas", usuarioAtual.uid),
+      {
+        uid: usuarioAtual.uid,
+        email: usuarioAtual.email,
 
-    mensagem.textContent = "Perfil guardado com sucesso! 👑";
+        nome:
+          document.getElementById("nome").value.trim(),
+
+        foto: fotoURL,
+
+        bio:
+          document.getElementById("bio").value.trim(),
+
+        provincia:
+          document.getElementById("provincia").value.trim(),
+
+        whatsapp:
+          document.getElementById("whatsapp").value.trim(),
+
+        instagram:
+          document.getElementById("instagram").value.trim(),
+
+        tiktok:
+          document.getElementById("tiktok").value.trim(),
+
+        musica:
+          document.getElementById("musica").value.trim(),
+
+        atualizadoEm:
+          new Date().toISOString()
+      }
+    );
+
+    mensagem.textContent =
+      "Perfil guardado com sucesso! 👑";
 
     setTimeout(() => {
-      window.location.href = "painel-do-artista.html";
+      window.location.href =
+        "painel-do-artista.html";
     }, 1500);
 
   } catch (erro) {
@@ -259,7 +399,9 @@ form.addEventListener("submit", async (event) => {
     console.error(erro);
 
     mensagem.textContent =
-      "Erro ao guardar o perfil. Tenta novamente.";
+      "Erro: " + erro.message;
+
+    guardarBtn.disabled = false;
 
   }
 
