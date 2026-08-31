@@ -1,0 +1,1460 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Perfil do Artista | KUDURO PRIME</title>
+
+<style>
+
+*{
+  box-sizing:border-box;
+}
+
+:root{
+  --bg:#080808;
+  --panel:#151515;
+  --panel2:#101010;
+  --gold:#d4af37;
+  --text:#ffffff;
+  --muted:#a7a7a7;
+  --line:#303030;
+}
+
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:Arial,Helvetica,sans-serif;
+}
+
+a{
+  color:inherit;
+  text-decoration:none;
+}
+
+/* TOPO */
+
+header{
+  height:76px;
+  background:#080808;
+  border-bottom:1px solid #222;
+  display:flex;
+  align-items:center;
+  position:sticky;
+  top:0;
+  z-index:100;
+}
+
+.header-in{
+  width:min(1180px,92%);
+  margin:auto;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+}
+
+.logo{
+  color:var(--gold);
+  font-size:22px;
+  font-weight:900;
+}
+
+.voltar{
+  color:#ccc;
+  font-size:13px;
+  font-weight:bold;
+}
+
+.voltar:hover{
+  color:var(--gold);
+}
+
+/* CAPA */
+
+.capa{
+  height:340px;
+  position:relative;
+  overflow:hidden;
+  background:
+    linear-gradient(
+      0deg,
+      #080808 0%,
+      rgba(8,8,8,.4) 35%,
+      rgba(0,0,0,.15)
+    ),
+    linear-gradient(
+      135deg,
+      #3b2b06,
+      #111
+    );
+}
+
+.capa::after{
+  content:"";
+  position:absolute;
+  inset:0;
+
+  background:
+    radial-gradient(
+      circle at 70% 20%,
+      rgba(212,175,55,.28),
+      transparent 35%
+    );
+}
+
+.capa-bg{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  opacity:.35;
+}
+
+/* PERFIL */
+
+.perfil-container{
+  width:min(1180px,92%);
+  margin:auto;
+  position:relative;
+}
+
+.perfil-top{
+  display:flex;
+  gap:28px;
+  align-items:flex-end;
+  margin-top:-125px;
+  position:relative;
+  z-index:2;
+}
+
+.foto-box{
+  width:220px;
+  height:220px;
+  flex-shrink:0;
+}
+
+.foto{
+  width:100%;
+  height:100%;
+  border-radius:50%;
+  object-fit:cover;
+  border:5px solid #080808;
+  background:#151515;
+}
+
+.info-principal{
+  padding-bottom:18px;
+}
+
+.verificado{
+  font-size:12px;
+  font-weight:bold;
+  color:var(--gold);
+  margin-bottom:8px;
+}
+
+.nome{
+  margin:0;
+  font-size:clamp(38px,6vw,76px);
+  line-height:.95;
+  letter-spacing:-2px;
+  font-weight:900;
+}
+
+.localizacao{
+  color:#ccc;
+  margin-top:14px;
+  font-size:15px;
+}
+
+.acoes{
+  margin-left:auto;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding-bottom:22px;
+}
+
+.botao{
+  border:none;
+  cursor:pointer;
+  font-weight:bold;
+  padding:13px 20px;
+  border-radius:8px;
+}
+
+.botao-seguir{
+  background:var(--gold);
+  color:#111;
+}
+
+.botao-partilhar{
+  background:#222;
+  color:white;
+  border:1px solid #444;
+}
+
+.botao:hover{
+  transform:scale(1.03);
+}
+
+/* CONTEÚDO */
+
+.conteudo{
+  width:min(1180px,92%);
+  margin:35px auto 70px;
+}
+
+.stats{
+  display:flex;
+  gap:35px;
+  border-bottom:1px solid var(--line);
+  padding-bottom:25px;
+}
+
+.stat strong{
+  display:block;
+  font-size:20px;
+}
+
+.stat span{
+  color:var(--muted);
+  font-size:12px;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:1.7fr .9fr;
+  gap:30px;
+  margin-top:35px;
+}
+
+.secao{
+  margin-bottom:45px;
+}
+
+.secao-titulo{
+  font-size:25px;
+  margin:0 0 18px;
+  font-weight:900;
+}
+
+.bio{
+  color:#c9c9c9;
+  line-height:1.7;
+  white-space:pre-line;
+}
+
+/* MÚSICA DESTAQUE */
+
+.destaque{
+  min-height:230px;
+  border-radius:16px;
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  padding:28px;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(12,12,12,.96),
+      rgba(12,12,12,.65)
+    ),
+    linear-gradient(
+      135deg,
+      #332705,
+      #151515
+    );
+
+  border:1px solid #39311c;
+}
+
+.destaque-info{
+  flex:1;
+}
+
+.destaque-tag{
+  color:var(--gold);
+  font-size:11px;
+  font-weight:bold;
+  letter-spacing:1px;
+}
+
+.destaque-titulo{
+  font-size:30px;
+  margin:10px 0;
+}
+
+.destaque-artista{
+  color:#aaa;
+}
+
+.play-grande{
+  width:60px;
+  height:60px;
+  border-radius:50%;
+  background:var(--gold);
+  color:#111;
+  border:none;
+  font-size:20px;
+  cursor:pointer;
+}
+
+/* LISTA MÚSICAS */
+
+.lista-musicas{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.musica{
+  background:var(--panel2);
+  border:1px solid #252525;
+  border-radius:12px;
+  padding:14px;
+  display:flex;
+  align-items:center;
+  gap:15px;
+  transition:.2s;
+}
+
+.musica:hover{
+  background:#181818;
+  border-color:#494949;
+}
+
+.numero{
+  width:28px;
+  text-align:center;
+  color:#888;
+  font-weight:bold;
+}
+
+.capa-musica{
+  width:58px;
+  height:58px;
+  border-radius:8px;
+  background:
+    linear-gradient(
+      135deg,
+      #5a4610,
+      #151515
+    );
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:var(--gold);
+  font-size:20px;
+}
+
+.musica-info{
+  flex:1;
+  min-width:0;
+}
+
+.musica-titulo{
+  font-weight:bold;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+.musica-artista{
+  color:#999;
+  font-size:12px;
+  margin-top:5px;
+}
+
+.musica audio{
+  max-width:280px;
+  width:30%;
+  height:35px;
+}
+
+/* SIDEBAR */
+
+.sidebar-card{
+  background:var(--panel);
+  border:1px solid #292929;
+  border-radius:16px;
+  padding:22px;
+  margin-bottom:20px;
+}
+
+.sidebar-card h3{
+  margin-top:0;
+  color:var(--gold);
+  font-size:16px;
+}
+
+.redes{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.rede{
+  background:#202020;
+  padding:13px;
+  border-radius:9px;
+  font-weight:bold;
+  font-size:13px;
+}
+
+.rede:hover{
+  border-left:3px solid var(--gold);
+  color:var(--gold);
+}
+
+.link-perfil{
+  display:flex;
+  gap:8px;
+  align-items:center;
+}
+
+.link-perfil input{
+  width:100%;
+  background:#090909;
+  color:#ccc;
+  border:1px solid #333;
+  border-radius:7px;
+  padding:10px;
+  font-size:11px;
+}
+
+.copiar{
+  background:var(--gold);
+  color:#111;
+  border:0;
+  border-radius:7px;
+  padding:10px;
+  cursor:pointer;
+  font-weight:bold;
+}
+
+/* CARREGAMENTO */
+
+#carregando{
+  min-height:80vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:var(--gold);
+  font-weight:bold;
+}
+
+/* MOBILE */
+
+@media(max-width:850px){
+
+  .capa{
+    height:270px;
+  }
+
+  .perfil-top{
+    flex-wrap:wrap;
+    margin-top:-100px;
+  }
+
+  .foto-box{
+    width:180px;
+    height:180px;
+  }
+
+  .acoes{
+    margin-left:0;
+    width:100%;
+    padding-bottom:0;
+  }
+
+  .grid{
+    grid-template-columns:1fr;
+  }
+
+}
+
+@media(max-width:600px){
+
+  header{
+    height:65px;
+  }
+
+  .logo{
+    font-size:18px;
+  }
+
+  .voltar{
+    font-size:11px;
+  }
+
+  .capa{
+    height:220px;
+  }
+
+  .perfil-top{
+    margin-top:-75px;
+    display:block;
+  }
+
+  .foto-box{
+    width:145px;
+    height:145px;
+  }
+
+  .info-principal{
+    padding-top:15px;
+  }
+
+  .nome{
+    font-size:42px;
+  }
+
+  .acoes{
+    display:flex;
+    margin-top:15px;
+  }
+
+  .stats{
+    gap:22px;
+    flex-wrap:wrap;
+  }
+
+  .destaque{
+    min-height:200px;
+  }
+
+  .musica{
+    flex-wrap:wrap;
+  }
+
+  .musica audio{
+    width:100%;
+    max-width:none;
+  }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+
+  <div class="header-in">
+
+    <a href="index.html" class="logo">
+      👑 KUDURO PRIME
+    </a>
+
+    <a href="artistas.html" class="voltar">
+      ← VOLTAR AOS ARTISTAS
+    </a>
+
+  </div>
+
+</header>
+
+
+<div id="carregando">
+  A CARREGAR PERFIL... 👑
+</div>
+
+
+<div id="paginaPerfil" style="display:none;">
+
+
+  <!-- CAPA -->
+
+  <section class="capa">
+
+    <img
+      id="capaBg"
+      class="capa-bg"
+      src=""
+      alt=""
+    >
+
+  </section>
+
+
+  <!-- CABEÇALHO -->
+
+  <div class="perfil-container">
+
+    <div class="perfil-top">
+
+      <div class="foto-box">
+
+        <img
+          id="foto"
+          class="foto"
+          src=""
+          alt="Foto do artista"
+        >
+
+      </div>
+
+
+      <div class="info-principal">
+
+        <div class="verificado">
+          👑 ARTISTA KUDURO PRIME
+        </div>
+
+        <h1
+          id="nome"
+          class="nome"
+        ></h1>
+
+        <div
+          id="provincia"
+          class="localizacao"
+        ></div>
+
+      </div>
+
+
+      <div class="acoes">
+
+        <button
+          class="botao botao-seguir"
+          id="seguirBtn"
+        >
+          ♡ SEGUIR
+        </button>
+
+        <button
+          class="botao botao-partilhar"
+          onclick="partilharPerfil()"
+        >
+          ↗ PARTILHAR
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- CONTEÚDO -->
+
+  <main class="conteudo">
+
+
+    <div class="stats">
+
+      <div class="stat">
+        <strong id="totalMusicas">0</strong>
+        <span>MÚSICAS</span>
+      </div>
+
+      <div class="stat">
+        <strong>0</strong>
+        <span>SEGUIDORES</span>
+      </div>
+
+      <div class="stat">
+        <strong>PRIME</strong>
+        <span>ARTISTA</span>
+      </div>
+
+    </div>
+
+
+    <div class="grid">
+
+
+      <!-- ESQUERDA -->
+
+      <div>
+
+
+        <!-- MÚSICA EM DESTAQUE -->
+
+        <section
+          class="secao"
+          id="destaqueSecao"
+          style="display:none;"
+        >
+
+          <h2 class="secao-titulo">
+            🎵 MÚSICA EM DESTAQUE
+          </h2>
+
+
+          <div class="destaque">
+
+            <div class="destaque-info">
+
+              <div class="destaque-tag">
+                LANÇAMENTO PRIME
+              </div>
+
+              <h2
+                id="destaqueTitulo"
+                class="destaque-titulo"
+              >
+              </h2>
+
+              <div
+                id="destaqueArtista"
+                class="destaque-artista"
+              >
+              </div>
+
+            </div>
+
+
+            <button
+              id="playDestaque"
+              class="play-grande"
+            >
+              ▶
+            </button>
+
+          </div>
+
+
+          <audio
+            id="audioDestaque"
+            style="display:none;"
+            controls
+          ></audio>
+
+        </section>
+
+
+        <!-- MÚSICAS -->
+
+        <section class="secao">
+
+          <h2 class="secao-titulo">
+            🎵 MÚSICAS PUBLICADAS
+          </h2>
+
+          <div
+            id="listaMusicas"
+            class="lista-musicas"
+          >
+          </div>
+
+        </section>
+
+
+        <!-- SOBRE -->
+
+        <section class="secao">
+
+          <h2 class="secao-titulo">
+            SOBRE
+          </h2>
+
+          <div
+            id="bio"
+            class="bio"
+          >
+          </div>
+
+        </section>
+
+
+      </div>
+
+
+      <!-- DIREITA -->
+
+      <aside>
+
+
+        <div class="sidebar-card">
+
+          <h3>👤 PERFIL DO ARTISTA</h3>
+
+          <div class="link-perfil">
+
+            <input
+              id="linkPerfil"
+              readonly
+            >
+
+            <button
+              class="copiar"
+              onclick="copiarLink()"
+            >
+              COPIAR
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <div
+          class="sidebar-card"
+          id="redesCard"
+        >
+
+          <h3>🌐 REDES SOCIAIS</h3>
+
+          <div
+            id="redes"
+            class="redes"
+          ></div>
+
+        </div>
+
+
+        <div class="sidebar-card">
+
+          <h3>👑 KUDURO PRIME</h3>
+
+          <p style="color:#aaa;font-size:13px;line-height:1.6;">
+            Este artista faz parte do movimento
+            KUDURO PRIME.
+          </p>
+
+        </div>
+
+
+      </aside>
+
+
+    </div>
+
+
+  </main>
+
+
+</div>
+
+
+<script type="module">
+
+import { initializeApp } from
+"https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+
+import {
+  getFirestore,
+  doc,
+  getDoc,
+  collection,
+  query,
+  where,
+  orderBy,
+  getDocs
+} from
+"https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDoitCcLeLDNBNPCP6fG1s_xbHr4UmohSo",
+  authDomain: "kuduro-prime.firebaseapp.com",
+  projectId: "kuduro-prime",
+  storageBucket: "kuduro-prime.firebasestorage.app",
+  messagingSenderId: "299776559545",
+  appId: "1:299776559545:web:04aced1ba25391eb3fce68"
+};
+
+
+const app = initializeApp(firebaseConfig);
+
+const db = getFirestore(app);
+
+
+/* PEGAR ID DO ARTISTA */
+
+const parametros =
+  new URLSearchParams(window.location.search);
+
+const artistaId =
+  parametros.get("id");
+
+
+if(!artistaId){
+
+  document.getElementById("carregando").textContent =
+    "Perfil do artista não encontrado.";
+
+  throw new Error("ID do artista não informado.");
+
+}
+
+
+let dadosArtista = null;
+let primeiraMusica = null;
+
+
+/* CARREGAR PERFIL */
+
+async function carregarPerfil(){
+
+  try{
+
+
+    const perfilRef =
+      doc(db,"artistas",artistaId);
+
+
+    const perfilDoc =
+      await getDoc(perfilRef);
+
+
+    if(!perfilDoc.exists()){
+
+      document.getElementById("carregando").textContent =
+        "Este perfil não existe.";
+
+      return;
+
+    }
+
+
+    dadosArtista =
+      perfilDoc.data();
+
+
+    /* FOTO */
+
+    const foto =
+      document.getElementById("foto");
+
+
+    foto.src =
+      dadosArtista.foto ||
+      "";
+
+
+    foto.onerror = () => {
+
+      foto.style.display = "none";
+
+    };
+
+
+    /* CAPA */
+
+    const capa =
+      document.getElementById("capaBg");
+
+
+    capa.src =
+      dadosArtista.foto ||
+      "";
+
+
+    /* NOME */
+
+    document.getElementById("nome").textContent =
+      dadosArtista.nome ||
+      "Artista";
+
+
+    /* PROVÍNCIA */
+
+    document.getElementById("provincia").textContent =
+      "📍 " +
+      (
+        dadosArtista.provincia ||
+        "Angola"
+      );
+
+
+    /* BIO */
+
+    document.getElementById("bio").textContent =
+      dadosArtista.bio ||
+      "Este artista ainda não escreveu uma biografia.";
+
+
+    /* LINK */
+
+    document.getElementById("linkPerfil").value =
+      window.location.href;
+
+
+    /* REDES */
+
+    carregarRedes();
+
+
+    /* MÚSICAS */
+
+    await carregarMusicas();
+
+
+    document.getElementById("carregando").style.display =
+      "none";
+
+
+    document.getElementById("paginaPerfil").style.display =
+      "block";
+
+
+  }
+
+  catch(erro){
+
+    console.error(erro);
+
+    document.getElementById("carregando").textContent =
+      "Erro ao carregar o perfil.";
+
+  }
+
+}
+
+
+/* REDES SOCIAIS */
+
+function carregarRedes(){
+
+  const redes =
+    document.getElementById("redes");
+
+
+  redes.innerHTML = "";
+
+
+  let quantidade = 0;
+
+
+  if(dadosArtista.whatsapp){
+
+    const numero =
+      dadosArtista.whatsapp.replace(/\D/g,"");
+
+
+    redes.innerHTML += `
+
+      <a
+        class="rede"
+        target="_blank"
+        href="https://wa.me/${numero}"
+      >
+        💬 WHATSAPP
+      </a>
+
+    `;
+
+    quantidade++;
+
+  }
+
+
+  if(dadosArtista.instagram){
+
+    let link =
+      dadosArtista.instagram.trim();
+
+
+    if(!link.startsWith("http")){
+
+      link =
+        "https://instagram.com/" +
+        link.replace("@","");
+
+    }
+
+
+    redes.innerHTML += `
+
+      <a
+        class="rede"
+        target="_blank"
+        href="${link}"
+      >
+        📸 INSTAGRAM
+      </a>
+
+    `;
+
+    quantidade++;
+
+  }
+
+
+  if(dadosArtista.tiktok){
+
+    let link =
+      dadosArtista.tiktok.trim();
+
+
+    if(!link.startsWith("http")){
+
+      link =
+        "https://tiktok.com/@" +
+        link.replace("@","");
+
+    }
+
+
+    redes.innerHTML += `
+
+      <a
+        class="rede"
+        target="_blank"
+        href="${link}"
+      >
+        🎵 TIKTOK
+      </a>
+
+    `;
+
+    quantidade++;
+
+  }
+
+
+  if(quantidade === 0){
+
+    document.getElementById("redesCard").style.display =
+      "none";
+
+  }
+
+}
+
+
+/* CARREGAR MÚSICAS */
+
+async function carregarMusicas(){
+
+  const lista =
+    document.getElementById("listaMusicas");
+
+
+  try{
+
+
+    const consulta =
+      query(
+
+        collection(db,"musicas"),
+
+        where(
+          "artistaId",
+          "==",
+          artistaId
+        ),
+
+        orderBy(
+          "criadoEm",
+          "desc"
+        )
+
+      );
+
+
+    const resultado =
+      await getDocs(consulta);
+
+
+    document.getElementById("totalMusicas").textContent =
+      resultado.size;
+
+
+    if(resultado.empty){
+
+      lista.innerHTML = `
+
+        <p style="color:#999;">
+          Este artista ainda não publicou músicas.
+        </p>
+
+      `;
+
+      return;
+
+    }
+
+
+    let contador = 1;
+
+
+    resultado.forEach((documento)=>{
+
+
+      const musica =
+        documento.data();
+
+
+      if(!primeiraMusica){
+
+        primeiraMusica =
+          musica;
+
+      }
+
+
+      const item =
+        document.createElement("div");
+
+
+      item.className =
+        "musica";
+
+
+      const numero =
+        String(contador).padStart(2,"0");
+
+
+      item.innerHTML = `
+
+        <div class="numero">
+          ${numero}
+        </div>
+
+
+        <div class="capa-musica">
+          🎵
+        </div>
+
+
+        <div class="musica-info">
+
+          <div class="musica-titulo">
+            ${musica.titulo || "Sem título"}
+          </div>
+
+          <div class="musica-artista">
+            ${musica.artistaNome || dadosArtista.nome}
+          </div>
+
+        </div>
+
+
+        <audio controls>
+
+          <source
+            src="${musica.audioURL}"
+          >
+
+        </audio>
+
+      `;
+
+
+      lista.appendChild(item);
+
+
+      contador++;
+
+
+    });
+
+
+    carregarDestaque();
+
+
+  }
+
+  catch(erro){
+
+    console.error(erro);
+
+
+    lista.innerHTML = `
+
+      <p style="color:#ff7777;">
+        Erro ao carregar as músicas.
+      </p>
+
+    `;
+
+  }
+
+}
+
+
+/* MÚSICA EM DESTAQUE */
+
+function carregarDestaque(){
+
+  if(!primeiraMusica) return;
+
+
+  document.getElementById("destaqueSecao").style.display =
+    "block";
+
+
+  document.getElementById("destaqueTitulo").textContent =
+    primeiraMusica.titulo ||
+    "Música";
+
+
+  document.getElementById("destaqueArtista").textContent =
+    primeiraMusica.artistaNome ||
+    dadosArtista.nome;
+
+
+  const audio =
+    document.getElementById("audioDestaque");
+
+
+  audio.src =
+    primeiraMusica.audioURL;
+
+
+  const play =
+    document.getElementById("playDestaque");
+
+
+  play.addEventListener("click",()=>{
+
+    if(audio.paused){
+
+      audio.play();
+
+      play.textContent =
+        "❚❚";
+
+    }
+
+    else{
+
+      audio.pause();
+
+      play.textContent =
+        "▶";
+
+    }
+
+  });
+
+
+  audio.addEventListener("ended",()=>{
+
+    play.textContent =
+      "▶";
+
+  });
+
+}
+
+
+/* COPIAR LINK */
+
+window.copiarLink = async function(){
+
+  const link =
+    window.location.href;
+
+
+  try{
+
+    await navigator.clipboard.writeText(link);
+
+    alert(
+      "Link do perfil copiado! 👑"
+    );
+
+  }
+
+  catch(erro){
+
+    prompt(
+      "Copia este link:",
+      link
+    );
+
+  }
+
+};
+
+
+/* PARTILHAR */
+
+window.partilharPerfil =
+async function(){
+
+  const dadosPartilha = {
+
+    title:
+      dadosArtista.nome +
+      " | KUDURO PRIME",
+
+    text:
+      "Conhece o perfil de " +
+      dadosArtista.nome +
+      " no KUDURO PRIME 👑",
+
+    url:
+      window.location.href
+
+  };
+
+
+  if(navigator.share){
+
+    try{
+
+      await navigator.share(
+        dadosPartilha
+      );
+
+    }
+
+    catch(erro){
+
+      console.log(
+        "Partilha cancelada"
+      );
+
+    }
+
+  }
+
+  else{
+
+    await navigator.clipboard.writeText(
+      window.location.href
+    );
+
+    alert(
+      "Link copiado para partilhar! 👑"
+    );
+
+  }
+
+};
+
+
+/* SEGUIR */
+
+const seguirBtn =
+  document.getElementById("seguirBtn");
+
+
+seguirBtn.addEventListener("click",()=>{
+
+  if(seguirBtn.textContent.includes("SEGUIR")){
+
+    seguirBtn.textContent =
+      "✓ A SEGUIR";
+
+  }
+
+  else{
+
+    seguirBtn.textContent =
+      "♡ SEGUIR";
+
+  }
+
+});
+
+
+/* INICIAR */
+
+carregarPerfil();
+
+</script>
+
+</body>
+</html>
