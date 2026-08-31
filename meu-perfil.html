@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Meu Perfil | KUDURO PRIME</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #080808;
+  color: white;
+  font-family: Arial, sans-serif;
+}
+
+header {
+  background: #111;
+  border-bottom: 2px solid #d4af37;
+  padding: 18px;
+  text-align: center;
+}
+
+.logo {
+  color: #d4af37;
+  font-weight: bold;
+  text-decoration: none;
+  font-size: 25px;
+}
+
+main {
+  max-width: 950px;
+  margin: auto;
+  padding: 30px 20px 60px;
+}
+
+.voltar {
+  color: #d4af37;
+  text-decoration: none;
+}
+
+.perfil {
+  margin-top: 25px;
+  background: #151515;
+  border: 1px solid #333;
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+.capa {
+  height: 220px;
+  background:
+    linear-gradient(
+      135deg,
+      #3b2b05,
+      #111
+    );
+}
+
+.info {
+  padding: 0 30px 30px;
+}
+
+.foto {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 5px solid #151515;
+  outline: 3px solid #d4af37;
+  margin-top: -75px;
+}
+
+h1 {
+  color: #d4af37;
+  margin-bottom: 8px;
+}
+
+.provincia {
+  color: #aaa;
+}
+
+.botoes {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.botao {
+  padding: 12px 18px;
+  background: #d4af37;
+  color: black;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.secundario {
+  background: transparent;
+  color: #d4af37;
+  border: 1px solid #d4af37;
+}
+
+.secao {
+  margin-top: 35px;
+}
+
+.secao h2 {
+  color: #d4af37;
+}
+
+.bio {
+  color: #ccc;
+  line-height: 1.7;
+}
+
+.musica {
+  background: #0d0d0d;
+  border: 1px solid #333;
+  border-radius: 12px;
+  padding: 18px;
+  margin-bottom: 12px;
+}
+
+.musica h3 {
+  color: #d4af37;
+  margin: 0 0 8px;
+}
+
+audio {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.link-publico {
+  width: 100%;
+  background: #080808;
+  color: #aaa;
+  border: 1px solid #444;
+  padding: 12px;
+  border-radius: 8px;
+}
+
+#carregando {
+  text-align: center;
+  color: #d4af37;
+  padding: 60px;
+}
+
+@media(max-width:600px) {
+
+  .info {
+    padding: 0 20px 25px;
+  }
+
+  .capa {
+    height: 150px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <a href="index.html" class="logo">
+    👑 KUDURO PRIME
+  </a>
+</header>
+
+<main>
+
+<a
+  href="painel-do-artista.html"
+  class="voltar"
+>
+← VOLTAR AO PAINEL
+</a>
+
+<div id="carregando">
+  A carregar o teu perfil... 👑
+</div>
+
+<div id="conteudo" style="display:none;">
+
+  <div class="perfil">
+
+    <div class="capa"></div>
+
+    <div class="info">
+
+      <img
+        id="foto"
+        class="foto"
+        alt="Foto do artista"
+      >
+
+      <h1 id="nome"></h1>
+
+      <div
+        id="provincia"
+        class="provincia"
+      ></div>
+
+      <div class="botoes">
+
+        <a
+          id="abrirPublico"
+          class="botao"
+          target="_blank"
+        >
+          🌐 VER PERFIL PÚBLICO
+        </a>
+
+        <a
+          href="editar-perfil.html"
+          class="botao secundario"
+        >
+          ✏️ EDITAR PERFIL
+        </a>
+
+      </div>
+
+      <div class="secao">
+
+        <h2>👤 SOBRE MIM</h2>
+
+        <p
+          id="bio"
+          class="bio"
+        ></p>
+
+      </div>
+
+      <div class="secao">
+
+        <h2>🔗 LINK DO MEU PERFIL</h2>
+
+        <input
+          id="linkPublico"
+          class="link-publico"
+          readonly
+        >
+
+      </div>
+
+      <div class="secao">
+
+        <h2>🎵 MINHAS MÚSICAS</h2>
+
+        <div id="listaMusicas"></div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+</main>
+
+<script type="module">
+
+import {
+  initializeApp
+} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+
+import {
+  getAuth,
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+
+import {
+  getFirestore,
+  doc,
+  getDoc,
+  collection,
+  query,
+  where,
+  getDocs
+} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDoitCcLeLDNBNPCP6fG1s_xbHr4UmohSo",
+  authDomain: "kuduro-prime.firebaseapp.com",
+  projectId: "kuduro-prime",
+  storageBucket: "kuduro-prime.firebasestorage.app",
+  messagingSenderId: "299776559545",
+  appId: "1:299776559545:web:04aced1ba25391eb3fce68"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+onAuthStateChanged(auth, async user => {
+
+  if (!user) {
+
+    window.location.href =
+      "area-do-artista.html";
+
+    return;
+
+  }
+
+  try {
+
+    const perfilDoc =
+      await getDoc(
+        doc(db, "artistas", user.uid)
+      );
+
+    if (!perfilDoc.exists()) {
+
+      window.location.href =
+        "criar-perfil.html";
+
+      return;
+
+    }
+
+    const dados = perfilDoc.data();
+
+    document.getElementById("foto").src =
+      dados.foto || "";
+
+    document.getElementById("nome").textContent =
+      dados.nome || "Artista";
+
+    document.getElementById("provincia").textContent =
+      "📍 " + (dados.provincia || "");
+
+    document.getElementById("bio").textContent =
+      dados.bio ||
+      "Ainda não foi adicionada uma biografia.";
+
+    const urlPublica =
+      window.location.origin +
+      window.location.pathname
+        .replace(
+          "meu-perfil.html",
+          "perfil.html"
+        ) +
+      "?id=" + user.uid;
+
+    document
+      .getElementById("abrirPublico")
+      .href = urlPublica;
+
+    document
+      .getElementById("linkPublico")
+      .value = urlPublica;
+
+    const consulta = query(
+      collection(db, "musicas"),
+      where("artistaId", "==", user.uid)
+    );
+
+    const resultado =
+      await getDocs(consulta);
+
+    const lista =
+      document.getElementById(
+        "listaMusicas"
+      );
+
+    lista.innerHTML = "";
+
+    if (resultado.empty) {
+
+      lista.innerHTML =
+        "<p>Ainda não publicaste músicas.</p>";
+
+    } else {
+
+      resultado.forEach(documento => {
+
+        const musica =
+          documento.data();
+
+        const item =
+          document.createElement("div");
+
+        item.className =
+          "musica";
+
+        const titulo =
+          document.createElement("h3");
+
+        titulo.textContent =
+          "🎵 " +
+          (musica.titulo ||
+          "Sem título");
+
+        const feats =
+          document.createElement("p");
+
+        const listaFeats = [
+          musica.feat1,
+          musica.feat2,
+          musica.feat3
+        ]
+        .filter(Boolean)
+        .join(", ");
+
+        if (listaFeats) {
+
+          feats.textContent =
+            "Feat: " + listaFeats;
+
+        }
+
+        const player =
+          document.createElement("audio");
+
+        player.controls = true;
+        player.src = musica.audioURL;
+
+        item.appendChild(titulo);
+
+        if (listaFeats) {
+          item.appendChild(feats);
+        }
+
+        item.appendChild(player);
+
+        lista.appendChild(item);
+
+      });
+
+    }
+
+    document
+      .getElementById("carregando")
+      .style.display = "none";
+
+    document
+      .getElementById("conteudo")
+      .style.display = "block";
+
+  } catch (erro) {
+
+    console.error(erro);
+
+    document
+      .getElementById("carregando")
+      .textContent =
+        "Erro ao carregar o perfil.";
+
+  }
+
+});
+
+</script>
+
+</body>
+</html>
