@@ -274,6 +274,7 @@ import {
   collection,
   addDoc,
   getDocs,
+  getDoc,
   query,
   where,
   orderBy,
@@ -323,6 +324,168 @@ onAuthStateChanged(auth, (user) => {
 
 
 async function carregarMusicas() {
+
+  try {
+
+    /* VERIFICAR SE O ARTISTA TEM MÚSICAS EXTRAS */
+    const perfilRef = doc(
+      db,
+      "artistas",
+      usuarioAtual.uid
+    );
+
+    const perfilDoc = await getDoc(perfilRef);
+
+    if (perfilDoc.exists()) {
+
+      const dadosPerfil =
+        perfilDoc.data();
+
+      musicasExtrasDesbloqueadas =
+        dadosPerfil.musicasExtrasDesbloqueadas === true;
+
+    }
+
+
+    /* CARREGAR MÚSICAS DO ARTISTA */
+
+    const musicasRef =
+      collection(db, "musicas");
+
+    const consulta = query(
+      musicasRef,
+      where("artistaId", "==", usuarioAtual.uid),
+      orderBy("criadoEm", "desc")
+    );
+
+    const resultado =
+      await getDocs(consulta);
+
+    quantidadeMusicas =
+      resultado.size;
+
+    totalMusicas.textContent =
+      quantidadeMusicas;
+
+    listaMusicas.innerHTML = "";
+
+
+    resultado.forEach((documento) => {
+
+      const musica =
+        documento.data();
+
+      const item =
+        document.createElement("div");
+
+      item.className =
+        "musica";
+
+      item.innerHTML = `
+        <div class="musica-info">
+
+          <h3>${musica.titulo}</h3>
+
+          <a
+            href="${musica.link}"
+            target="_blank"
+          >
+            ▶ OUVIR MÚSICA
+          </a>
+
+        </div>
+
+        <button
+          class="apagar"
+          data-id="${documento.id}"
+        >
+          🗑️ APAGAR
+        </button>
+      `;
+
+      listaMusicas.appendChild(item);
+
+    });
+
+
+    /* ATIVAR BOTÕES PARA APAGAR */
+
+    document
+      .querySelectorAll(".apagar")
+      .forEach((botao) => {
+
+        botao.addEventListener(
+          "click",
+          async () => {
+
+            const confirmar =
+              confirm(
+                "Queres apagar esta música?"
+              );
+
+            if (!confirmar) return;
+
+            try {
+
+              await deleteDoc(
+                doc(
+                  db,
+                  "musicas",
+                  botao.dataset.id
+                )
+              );
+
+              await carregarMusicas();
+
+            } catch (erro) {
+
+              console.error(erro);
+
+              alert(
+                "Erro ao apagar a música."
+              );
+
+            }
+
+          }
+        );
+
+      });
+
+
+    /* CONTROLAR O LIMITE DE 3 MÚSICAS */
+
+    if (
+      quantidadeMusicas >= 3 &&
+      !musicasExtrasDesbloqueadas
+    ) {
+
+      bloqueado.style.display =
+        "block";
+
+      form.style.display =
+        "none";
+
+    } else {
+
+      bloqueado.style.display =
+        "none";
+
+      form.style.display =
+        "block";
+
+    }
+
+  } catch (erro) {
+
+    console.error(erro);
+
+    mensagem.textContent =
+      "Erro ao carregar as músicas.";
+
+  }
+
+} {
 
   try {
 
@@ -434,9 +597,14 @@ form.addEventListener("submit", async (event) => {
 
   if (!usuarioAtual) return;
 
-  if (quantidadeMusicas >= 3) {
-    return;
-  }
+  if (
+  quantidadeMusicas >= 3 &&
+  !musicasExtrasDesbloqueadas
+) {
+  window.location.href =
+    "pagamento-musicas.html";
+  return;
+}
 
   const titulo =
     document.getElementById("titulo").value.trim();
