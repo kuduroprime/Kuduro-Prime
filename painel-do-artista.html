@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Painel do Artista | KUDURO PRIME</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #080808;
+  color: white;
+  font-family: Arial, sans-serif;
+}
+
+header {
+  background: #111;
+  padding: 20px;
+  border-bottom: 2px solid #d4af37;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  color: #d4af37;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.sair {
+  background: transparent;
+  border: 1px solid #d4af37;
+  color: #d4af37;
+  padding: 10px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+main {
+  max-width: 1200px;
+  margin: auto;
+  padding: 40px 20px;
+}
+
+.boas-vindas {
+  margin-bottom: 30px;
+}
+
+.boas-vindas h1 {
+  color: #d4af37;
+  margin-bottom: 8px;
+}
+
+.boas-vindas p {
+  color: #aaa;
+}
+
+.menu {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  background: #151515;
+  border: 1px solid #333;
+  border-radius: 15px;
+  padding: 25px;
+  text-decoration: none;
+  color: white;
+  transition: 0.3s;
+}
+
+.card:hover {
+  border-color: #d4af37;
+  transform: translateY(-5px);
+}
+
+.icone {
+  font-size: 40px;
+}
+
+.card h2 {
+  color: #d4af37;
+  font-size: 20px;
+}
+
+.card p {
+  color: #aaa;
+  line-height: 1.5;
+}
+
+footer {
+  text-align: center;
+  padding: 30px;
+  color: #777;
+  background: #111;
+  margin-top: 50px;
+}
+
+@media (max-width: 600px) {
+  header {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .logo {
+    font-size: 20px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">👑 KUDURO PRIME</div>
+
+  <button class="sair" id="logoutBtn">
+    SAIR 🚪
+  </button>
+</header>
+
+<main>
+
+<section class="boas-vindas">
+  <h1>Olá, <span id="artistName">Artista</span>! 👑</h1>
+
+  <p>
+    Bem-vindo à tua Área do Artista. Aqui podes gerir o teu perfil
+    e os teus conteúdos no KUDURO PRIME.
+  </p>
+</section>
+
+<section class="menu">
+
+  <a href="#" class="card">
+    <div class="icone">👤</div>
+    <h2>MEU PERFIL</h2>
+    <p>Cria e edita as informações do teu perfil público.</p>
+  </a>
+
+  <a href="#" class="card">
+    <div class="icone">✏️</div>
+    <h2>EDITAR PERFIL</h2>
+    <p>Atualiza a tua biografia, localização e informações.</p>
+  </a>
+
+  <a href="#" class="card">
+    <div class="icone">🎵</div>
+    <h2>MINHAS MÚSICAS</h2>
+    <p>Adiciona e gere as tuas músicas.</p>
+  </a>
+
+  <a href="#" class="card">
+    <div class="icone">🎬</div>
+    <h2>MEUS VÍDEOS</h2>
+    <p>Adiciona os links dos teus vídeos e videoclipes.</p>
+  </a>
+
+  <a href="#" class="card">
+    <div class="icone">📊</div>
+    <h2>ESTATÍSTICAS</h2>
+    <p>Acompanha a evolução do teu perfil.</p>
+  </a>
+
+</section>
+
+</main>
+
+<footer>
+  © 2026 KUDURO PRIME — ÁREA DO ARTISTA 👑
+</footer>
+
+<script type="module">
+
+import { initializeApp } from
+"https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+
+import {
+  getAuth,
+  onAuthStateChanged,
+  signOut
+} from
+"https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDoitCcLeLDNBNPCP6fG1s_xbHr4UmohSo",
+  authDomain: "kuduro-prime.firebaseapp.com",
+  projectId: "kuduro-prime",
+  storageBucket: "kuduro-prime.firebasestorage.app",
+  messagingSenderId: "299776559545",
+  appId: "1:299776559545:web:04aced1ba25391eb3fce68"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+onAuthStateChanged(auth, (user) => {
+
+  if (!user) {
+    window.location.href = "area-do-artista.html";
+    return;
+  }
+
+  const nome = user.email.split("@")[0];
+  document.getElementById("artistName").textContent = nome;
+
+});
+
+document.getElementById("logoutBtn").addEventListener("click", async () => {
+
+  await signOut(auth);
+
+  window.location.href = "index.html";
+
+});
+
+</script>
+
+</body>
+</html>
