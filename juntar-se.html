@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Junta-te | KUDURO PRIME</title>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: #080808;
+  color: white;
+  font-family: Arial, sans-serif;
+}
+
+header {
+  background: #111;
+  padding: 20px;
+  text-align: center;
+  border-bottom: 2px solid #d4af37;
+}
+
+.logo {
+  color: #d4af37;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+nav {
+  margin-top: 15px;
+}
+
+nav a {
+  color: white;
+  margin: 10px;
+  text-decoration: none;
+}
+
+main {
+  max-width: 800px;
+  margin: 50px auto;
+  padding: 20px;
+}
+
+h1 {
+  color: #d4af37;
+  text-align: center;
+  font-size: 42px;
+}
+
+.subtitulo {
+  text-align: center;
+  color: #aaa;
+  line-height: 1.6;
+  margin-bottom: 35px;
+}
+
+.formulario {
+  background: #151515;
+  border: 1px solid #333;
+  border-radius: 15px;
+  padding: 30px;
+}
+
+label {
+  display: block;
+  margin: 18px 0 8px;
+  color: #d4af37;
+  font-weight: bold;
+}
+
+input, select, textarea {
+  width: 100%;
+  background: #080808;
+  color: white;
+  border: 1px solid #444;
+  border-radius: 8px;
+  padding: 14px;
+  font-size: 16px;
+}
+
+textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+button {
+  width: 100%;
+  margin-top: 25px;
+  padding: 16px;
+  background: #d4af37;
+  color: black;
+  border: none;
+  border-radius: 8px;
+  font-size: 17px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #f5c842;
+}
+
+footer {
+  margin-top: 50px;
+  background: #111;
+  text-align: center;
+  padding: 30px;
+  color: #777;
+}
+
+@media (max-width: 600px) {
+  h1 { font-size: 32px; }
+  .formulario { padding: 20px; }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">👑 KUDURO PRIME</div>
+
+  <nav>
+    <a href="index.html">INÍCIO</a>
+    <a href="artistas.html">ARTISTAS</a>
+    <a href="musicas.html">MÚSICAS</a>
+    <a href="ranking.html">RANKING</a>
+    <a href="eventos.html">EVENTOS</a>
+  </nav>
+</header>
+
+<main>
+  <h1>👑 JUNTA-TE AO KUDURO PRIME</h1>
+
+  <p class="subtitulo">
+    És artista de Kuduro? Preenche a tua candidatura para fazer parte
+    da maior comunidade digital do movimento.
+  </p>
+
+  <form class="formulario">
+
+    <label>NOME ARTÍSTICO</label>
+    <input type="text" required>
+
+    <label>NOME COMPLETO</label>
+    <input type="text" required>
+
+    <label>E-MAIL</label>
+    <input type="email" required>
+
+    <label>WHATSAPP</label>
+    <input type="tel" placeholder="+244">
+
+    <label>PROVÍNCIA</label>
+    <select required>
+      <option value="">Seleciona a tua província</option>
+      <option>Luanda</option>
+      <option>Benguela</option>
+      <option>Huambo</option>
+      <option>Huíla</option>
+      <option>Cabinda</option>
+      <option>Outra</option>
+    </select>
+
+    <label>LINK DA TUA MÚSICA OU VÍDEO</label>
+    <input type="url" placeholder="YouTube, SoundCloud, etc.">
+
+    <label>CONTA-NOS SOBRE TI</label>
+    <textarea placeholder="Fala sobre a tua carreira, estilo e experiência no Kuduro..." required></textarea>
+
+    <button type="submit">ENVIAR CANDIDATURA 👑</button>
+
+  </form>
+</main>
+
+<footer>
+  © 2026 KUDURO PRIME — O KUDURO VIVE AQUI 👑
+</footer>
+
+</body>
+</html>
