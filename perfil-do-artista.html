@@ -8,532 +8,602 @@
 
 <style>
 
-*{
-  box-sizing:border-box;
+* {
+  box-sizing: border-box;
 }
 
-:root{
-  --bg:#080808;
-  --panel:#151515;
-  --panel2:#101010;
-  --gold:#d4af37;
-  --text:#ffffff;
-  --muted:#a7a7a7;
-  --line:#303030;
+html {
+  scroll-behavior: smooth;
 }
 
-body{
-  margin:0;
-  background:var(--bg);
-  color:var(--text);
-  font-family:Arial,Helvetica,sans-serif;
+body {
+  margin: 0;
+  background: #080808;
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
-a{
-  color:inherit;
-  text-decoration:none;
-}
-
-/* TOPO */
-
-header{
-  height:76px;
-  background:#080808;
-  border-bottom:1px solid #222;
-  display:flex;
-  align-items:center;
-  position:sticky;
-  top:0;
-  z-index:100;
-}
-
-.header-in{
-  width:min(1180px,92%);
-  margin:auto;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:20px;
-}
-
-.logo{
-  color:var(--gold);
-  font-size:22px;
-  font-weight:900;
-}
-
-.voltar{
-  color:#ccc;
-  font-size:13px;
-  font-weight:bold;
-}
-
-.voltar:hover{
-  color:var(--gold);
-}
-
-/* CAPA */
-
-.capa{
-  height:340px;
-  position:relative;
-  overflow:hidden;
-  background:
-    linear-gradient(
-      0deg,
-      #080808 0%,
-      rgba(8,8,8,.4) 35%,
-      rgba(0,0,0,.15)
-    ),
-    linear-gradient(
-      135deg,
-      #3b2b06,
-      #111
-    );
-}
-
-.capa::after{
-  content:"";
-  position:absolute;
-  inset:0;
-
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
   background:
     radial-gradient(
-      circle at 70% 20%,
-      rgba(212,175,55,.28),
+      circle at top,
+      rgba(212, 175, 55, 0.14),
       transparent 35%
     );
+  pointer-events: none;
+  z-index: -1;
 }
 
-.capa-bg{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  opacity:.35;
+/* HEADER */
+
+header {
+  height: 70px;
+  background: rgba(8, 8, 8, 0.96);
+  border-bottom: 1px solid #2b2b2b;
+  display: flex;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-interno {
+  width: min(1200px, 92%);
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  color: #d4af37;
+  text-decoration: none;
+  font-size: 22px;
+  font-weight: 900;
+}
+
+.voltar {
+  color: #ccc;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.voltar:hover {
+  color: #d4af37;
+}
+
+/* LOADING */
+
+#carregando {
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #d4af37;
+  font-size: 18px;
 }
 
 /* PERFIL */
 
-.perfil-container{
-  width:min(1180px,92%);
-  margin:auto;
-  position:relative;
+#perfil {
+  display: none;
 }
 
-.perfil-top{
-  display:flex;
-  gap:28px;
-  align-items:flex-end;
-  margin-top:-125px;
-  position:relative;
-  z-index:2;
+.perfil-capa {
+  min-height: 440px;
+  display: flex;
+  align-items: end;
+  position: relative;
+  overflow: hidden;
+
+  background:
+    linear-gradient(
+      to top,
+      #080808 0%,
+      rgba(8, 8, 8, 0.3) 60%,
+      rgba(8, 8, 8, 0.15)
+    ),
+    linear-gradient(
+      120deg,
+      rgba(212, 175, 55, 0.25),
+      transparent
+    );
 }
 
-.foto-box{
-  width:220px;
-  height:220px;
-  flex-shrink:0;
+.perfil-capa::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background-image: var(--capa);
+
+  background-size: cover;
+  background-position: center;
+
+  filter: blur(5px);
+  opacity: 0.7;
+  transform: scale(1.05);
 }
 
-.foto{
-  width:100%;
-  height:100%;
-  border-radius:50%;
-  object-fit:cover;
-  border:5px solid #080808;
-  background:#151515;
+.perfil-capa-conteudo {
+  width: min(1200px, 92%);
+  margin: auto;
+  padding: 50px 0;
+  position: relative;
+  z-index: 2;
+
+  display: flex;
+  align-items: end;
+  gap: 30px;
 }
 
-.info-principal{
-  padding-bottom:18px;
+.foto-artista {
+  width: 220px;
+  height: 220px;
+
+  border-radius: 50%;
+  object-fit: cover;
+
+  border: 5px solid #d4af37;
+
+  background: #151515;
+
+  box-shadow:
+    0 10px 40px rgba(0, 0, 0, 0.7);
 }
 
-.verificado{
-  font-size:12px;
-  font-weight:bold;
-  color:var(--gold);
-  margin-bottom:8px;
+.info-principal {
+  flex: 1;
 }
 
-.nome{
-  margin:0;
-  font-size:clamp(38px,6vw,76px);
-  line-height:.95;
-  letter-spacing:-2px;
-  font-weight:900;
+.verificado {
+  color: #d4af37;
+  font-size: 13px;
+  font-weight: bold;
+  margin-bottom: 10px;
 }
 
-.localizacao{
-  color:#ccc;
-  margin-top:14px;
-  font-size:15px;
+.verificado span {
+  background: #d4af37;
+  color: black;
+
+  width: 18px;
+  height: 18px;
+
+  border-radius: 50%;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 11px;
 }
 
-.acoes{
-  margin-left:auto;
-  display:flex;
-  align-items:center;
-  gap:10px;
-  padding-bottom:22px;
+.tipo-artista {
+  font-size: 13px;
+  color: #ccc;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
-.botao{
-  border:none;
-  cursor:pointer;
-  font-weight:bold;
-  padding:13px 20px;
-  border-radius:8px;
+.nome-artista {
+  font-size: clamp(45px, 8vw, 100px);
+  line-height: 0.9;
+  margin: 12px 0;
+  font-weight: 950;
+  letter-spacing: -4px;
 }
 
-.botao-seguir{
-  background:var(--gold);
-  color:#111;
-}
-
-.botao-partilhar{
-  background:#222;
-  color:white;
-  border:1px solid #444;
-}
-
-.botao:hover{
-  transform:scale(1.03);
+.local-artista {
+  color: #ddd;
+  font-size: 16px;
 }
 
 /* CONTEÚDO */
 
-.conteudo{
-  width:min(1180px,92%);
-  margin:35px auto 70px;
+main {
+  width: min(1200px, 92%);
+  margin: auto;
+  padding: 35px 0 80px;
 }
 
-.stats{
-  display:flex;
-  gap:35px;
-  border-bottom:1px solid var(--line);
-  padding-bottom:25px;
+.acoes {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
 }
 
-.stat strong{
-  display:block;
-  font-size:20px;
+.botao-ouvir {
+  border: none;
+  border-radius: 30px;
+
+  background: #d4af37;
+  color: black;
+
+  padding: 15px 28px;
+
+  font-size: 14px;
+  font-weight: 900;
+
+  cursor: pointer;
 }
 
-.stat span{
-  color:var(--muted);
-  font-size:12px;
+.botao-ouvir:hover {
+  background: #f5cf58;
+  transform: scale(1.03);
 }
 
-.grid{
-  display:grid;
-  grid-template-columns:1.7fr .9fr;
-  gap:30px;
-  margin-top:35px;
+.botao-seguir,
+.botao-partilhar {
+  background: transparent;
+  color: white;
+
+  border: 1px solid #555;
+
+  padding: 14px 22px;
+
+  border-radius: 30px;
+
+  font-size: 13px;
+  font-weight: bold;
+
+  cursor: pointer;
 }
 
-.secao{
-  margin-bottom:45px;
+.botao-seguir:hover,
+.botao-partilhar:hover {
+  border-color: #d4af37;
+  color: #d4af37;
 }
 
-.secao-titulo{
-  font-size:25px;
-  margin:0 0 18px;
-  font-weight:900;
+.info-musicas {
+  color: #999;
+  font-size: 14px;
+  margin-left: 10px;
 }
 
-.bio{
-  color:#c9c9c9;
-  line-height:1.7;
-  white-space:pre-line;
+/* TÍTULOS */
+
+.secao {
+  margin-top: 45px;
 }
 
-/* MÚSICA DESTAQUE */
+.secao-titulo {
+  color: white;
+  font-size: 28px;
+  font-weight: 900;
+  margin: 0 0 20px;
+}
 
-.destaque{
-  min-height:230px;
-  border-radius:16px;
-  overflow:hidden;
-  display:flex;
-  align-items:center;
-  padding:28px;
+/* MÚSICAS */
+
+.lista-musicas {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.musica {
+  display: grid;
+  grid-template-columns:
+    45px
+    55px
+    1fr
+    auto;
+
+  gap: 15px;
+
+  align-items: center;
+
+  padding: 12px 15px;
+
+  border-radius: 10px;
+
+  cursor: pointer;
+}
+
+.musica:hover {
+  background: #171717;
+}
+
+.numero-musica {
+  color: #999;
+  text-align: center;
+  font-size: 14px;
+}
+
+.capa-musica {
+  width: 52px;
+  height: 52px;
+
+  border-radius: 7px;
 
   background:
     linear-gradient(
-      90deg,
-      rgba(12,12,12,.96),
-      rgba(12,12,12,.65)
-    ),
-    linear-gradient(
       135deg,
-      #332705,
-      #151515
+      #d4af37,
+      #3d2d05
     );
 
-  border:1px solid #39311c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: black;
+  font-size: 20px;
 }
 
-.destaque-info{
-  flex:1;
+.dados-musica {
+  min-width: 0;
 }
 
-.destaque-tag{
-  color:var(--gold);
-  font-size:11px;
-  font-weight:bold;
-  letter-spacing:1px;
+.titulo-musica {
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.destaque-titulo{
-  font-size:30px;
-  margin:10px 0;
+.nome-musica-artista {
+  color: #999;
+  font-size: 13px;
+  margin-top: 5px;
 }
 
-.destaque-artista{
-  color:#aaa;
+.acoes-musica {
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
-.play-grande{
-  width:60px;
-  height:60px;
-  border-radius:50%;
-  background:var(--gold);
-  color:#111;
-  border:none;
-  font-size:20px;
-  cursor:pointer;
+.botao-play-musica {
+  width: 45px;
+  height: 45px;
+
+  border-radius: 50%;
+
+  background: #d4af37;
+  color: black;
+
+  border: none;
+
+  font-size: 16px;
+
+  cursor: pointer;
 }
 
-/* LISTA MÚSICAS */
-
-.lista-musicas{
-  display:flex;
-  flex-direction:column;
-  gap:10px;
+.botao-play-musica:hover {
+  transform: scale(1.08);
 }
 
-.musica{
-  background:var(--panel2);
-  border:1px solid #252525;
-  border-radius:12px;
-  padding:14px;
-  display:flex;
-  align-items:center;
-  gap:15px;
-  transition:.2s;
+.botao-partilhar-musica {
+  background: transparent;
+  border: 0;
+  color: #aaa;
+  font-size: 18px;
+  cursor: pointer;
 }
 
-.musica:hover{
-  background:#181818;
-  border-color:#494949;
+.botao-partilhar-musica:hover {
+  color: #d4af37;
 }
 
-.numero{
-  width:28px;
-  text-align:center;
-  color:#888;
-  font-weight:bold;
+/* SOBRE */
+
+.sobre {
+  max-width: 850px;
+
+  color: #c7c7c7;
+
+  line-height: 1.8;
+
+  font-size: 16px;
+
+  white-space: pre-line;
 }
 
-.capa-musica{
-  width:58px;
-  height:58px;
-  border-radius:8px;
-  background:
-    linear-gradient(
-      135deg,
-      #5a4610,
-      #151515
-    );
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:var(--gold);
-  font-size:20px;
+/* REDES */
+
+.redes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
 }
 
-.musica-info{
-  flex:1;
-  min-width:0;
+.rede {
+  padding: 13px 20px;
+
+  border-radius: 8px;
+
+  border: 1px solid #333;
+
+  background: #111;
+
+  color: white;
+
+  text-decoration: none;
+
+  font-size: 13px;
+  font-weight: bold;
 }
 
-.musica-titulo{
-  font-weight:bold;
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
+.rede:hover {
+  border-color: #d4af37;
+  color: #d4af37;
 }
 
-.musica-artista{
-  color:#999;
-  font-size:12px;
-  margin-top:5px;
+/* SEM MÚSICAS */
+
+.sem-musicas {
+  background: #111;
+  border: 1px solid #252525;
+
+  border-radius: 12px;
+
+  padding: 40px;
+
+  color: #999;
+
+  text-align: center;
 }
 
-.musica audio{
-  max-width:280px;
-  width:30%;
-  height:35px;
+/* PLAYER FIXO */
+
+.player-fixo {
+  position: fixed;
+
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  background: rgba(15, 15, 15, 0.98);
+
+  border-top: 1px solid #333;
+
+  padding: 12px 0;
+
+  z-index: 200;
+
+  display: none;
 }
 
-/* SIDEBAR */
+.player-interno {
+  width: min(1200px, 92%);
+  margin: auto;
 
-.sidebar-card{
-  background:var(--panel);
-  border:1px solid #292929;
-  border-radius:16px;
-  padding:22px;
-  margin-bottom:20px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
 }
 
-.sidebar-card h3{
-  margin-top:0;
-  color:var(--gold);
-  font-size:16px;
+.player-info {
+  min-width: 200px;
 }
 
-.redes{
-  display:flex;
-  flex-direction:column;
-  gap:10px;
+.player-titulo {
+  font-size: 14px;
+  font-weight: bold;
 }
 
-.rede{
-  background:#202020;
-  padding:13px;
-  border-radius:9px;
-  font-weight:bold;
-  font-size:13px;
+.player-artista {
+  color: #999;
+  font-size: 12px;
+  margin-top: 4px;
 }
 
-.rede:hover{
-  border-left:3px solid var(--gold);
-  color:var(--gold);
+audio {
+  width: 100%;
+  height: 40px;
 }
 
-.link-perfil{
-  display:flex;
-  gap:8px;
-  align-items:center;
-}
+#mensagemPartilha {
+  position: fixed;
 
-.link-perfil input{
-  width:100%;
-  background:#090909;
-  color:#ccc;
-  border:1px solid #333;
-  border-radius:7px;
-  padding:10px;
-  font-size:11px;
-}
+  bottom: 90px;
+  left: 50%;
 
-.copiar{
-  background:var(--gold);
-  color:#111;
-  border:0;
-  border-radius:7px;
-  padding:10px;
-  cursor:pointer;
-  font-weight:bold;
-}
+  transform: translateX(-50%);
 
-/* CARREGAMENTO */
+  background: #d4af37;
+  color: black;
 
-#carregando{
-  min-height:80vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:var(--gold);
-  font-weight:bold;
+  padding: 13px 20px;
+
+  border-radius: 30px;
+
+  font-size: 13px;
+  font-weight: bold;
+
+  display: none;
+
+  z-index: 300;
 }
 
 /* MOBILE */
 
-@media(max-width:850px){
+@media (max-width: 700px) {
 
-  .capa{
-    height:270px;
+  .perfil-capa {
+    min-height: auto;
   }
 
-  .perfil-top{
-    flex-wrap:wrap;
-    margin-top:-100px;
+  .perfil-capa-conteudo {
+    padding: 50px 0 35px;
+
+    flex-direction: column;
+    align-items: center;
+
+    text-align: center;
   }
 
-  .foto-box{
-    width:180px;
-    height:180px;
+  .foto-artista {
+    width: 170px;
+    height: 170px;
   }
 
-  .acoes{
-    margin-left:0;
-    width:100%;
-    padding-bottom:0;
+  .nome-artista {
+    font-size: 48px;
+    letter-spacing: -2px;
   }
 
-  .grid{
-    grid-template-columns:1fr;
+  .acoes {
+    justify-content: center;
   }
 
-}
-
-@media(max-width:600px){
-
-  header{
-    height:65px;
+  .info-musicas {
+    width: 100%;
+    text-align: center;
+    margin-left: 0;
   }
 
-  .logo{
-    font-size:18px;
+  .musica {
+    grid-template-columns:
+      25px
+      45px
+      1fr
+      auto;
+
+    gap: 10px;
+
+    padding: 10px;
   }
 
-  .voltar{
-    font-size:11px;
+  .capa-musica {
+    width: 45px;
+    height: 45px;
   }
 
-  .capa{
-    height:220px;
+  .numero-musica {
+    font-size: 12px;
   }
 
-  .perfil-top{
-    margin-top:-75px;
-    display:block;
+  .botao-play-musica {
+    width: 40px;
+    height: 40px;
   }
 
-  .foto-box{
-    width:145px;
-    height:145px;
+  .botao-partilhar-musica {
+    display: none;
   }
 
-  .info-principal{
-    padding-top:15px;
+  .player-interno {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 7px;
   }
 
-  .nome{
-    font-size:42px;
-  }
-
-  .acoes{
-    display:flex;
-    margin-top:15px;
-  }
-
-  .stats{
-    gap:22px;
-    flex-wrap:wrap;
-  }
-
-  .destaque{
-    min-height:200px;
-  }
-
-  .musica{
-    flex-wrap:wrap;
-  }
-
-  .musica audio{
-    width:100%;
-    max-width:none;
+  .player-info {
+    min-width: 0;
   }
 
 }
@@ -545,14 +615,14 @@ header{
 
 <header>
 
-  <div class="header-in">
+  <div class="header-interno">
 
     <a href="index.html" class="logo">
       👑 KUDURO PRIME
     </a>
 
-    <a href="artistas.html" class="voltar">
-      ← VOLTAR AOS ARTISTAS
+    <a href="painel-do-artista.html" class="voltar">
+      ← VOLTAR AO PAINEL
     </a>
 
   </div>
@@ -561,283 +631,191 @@ header{
 
 
 <div id="carregando">
-  A CARREGAR PERFIL... 👑
+  A carregar o perfil do artista... 👑
 </div>
 
 
-<div id="paginaPerfil" style="display:none;">
+<div id="perfil">
 
 
   <!-- CAPA -->
 
-  <section class="capa">
+  <section
+    class="perfil-capa"
+    id="perfilCapa"
+  >
 
-    <img
-      id="capaBg"
-      class="capa-bg"
-      src=""
-      alt=""
-    >
+    <div class="perfil-capa-conteudo">
 
-  </section>
-
-
-  <!-- CABEÇALHO -->
-
-  <div class="perfil-container">
-
-    <div class="perfil-top">
-
-      <div class="foto-box">
-
-        <img
-          id="foto"
-          class="foto"
-          src=""
-          alt="Foto do artista"
-        >
-
-      </div>
-
+      <img
+        id="foto"
+        class="foto-artista"
+        src=""
+        alt="Foto do artista"
+      >
 
       <div class="info-principal">
 
         <div class="verificado">
-          👑 ARTISTA KUDURO PRIME
+          <span>✓</span>
+          ARTISTA DO KUDURO PRIME
+        </div>
+
+        <div class="tipo-artista">
+          PERFIL DE ARTISTA
         </div>
 
         <h1
           id="nome"
-          class="nome"
+          class="nome-artista"
         ></h1>
 
         <div
           id="provincia"
-          class="localizacao"
+          class="local-artista"
         ></div>
 
       </div>
 
-
-      <div class="acoes">
-
-        <button
-          class="botao botao-seguir"
-          id="seguirBtn"
-        >
-          ♡ SEGUIR
-        </button>
-
-        <button
-          class="botao botao-partilhar"
-          onclick="partilharPerfil()"
-        >
-          ↗ PARTILHAR
-        </button>
-
-      </div>
-
     </div>
 
-  </div>
+  </section>
 
 
-  <!-- CONTEÚDO -->
-
-  <main class="conteudo">
+  <main>
 
 
-    <div class="stats">
+    <!-- BOTÕES -->
 
-      <div class="stat">
-        <strong id="totalMusicas">0</strong>
-        <span>MÚSICAS</span>
-      </div>
+    <div class="acoes">
 
-      <div class="stat">
-        <strong>0</strong>
-        <span>SEGUIDORES</span>
-      </div>
+      <button
+        id="ouvirPrimeira"
+        class="botao-ouvir"
+      >
+        ▶ OUVIR
+      </button>
 
-      <div class="stat">
-        <strong>PRIME</strong>
-        <span>ARTISTA</span>
-      </div>
+      <button
+        id="partilharPerfil"
+        class="botao-partilhar"
+      >
+        ↗ PARTILHAR
+      </button>
+
+      <span
+        id="infoMusicas"
+        class="info-musicas"
+      >
+        A carregar músicas...
+      </span>
 
     </div>
 
 
-    <div class="grid">
+    <!-- MÚSICAS -->
+
+    <section class="secao">
+
+      <h2 class="secao-titulo">
+        🎵 MÚSICAS PUBLICADAS
+      </h2>
+
+      <div
+        id="listaMusicas"
+        class="lista-musicas"
+      ></div>
+
+    </section>
 
 
-      <!-- ESQUERDA -->
+    <!-- SOBRE -->
 
-      <div>
+    <section class="secao">
 
+      <h2 class="secao-titulo">
+        👤 SOBRE O ARTISTA
+      </h2>
 
-        <!-- MÚSICA EM DESTAQUE -->
+      <div
+        id="bio"
+        class="sobre"
+      ></div>
 
-        <section
-          class="secao"
-          id="destaqueSecao"
-          style="display:none;"
-        >
-
-          <h2 class="secao-titulo">
-            🎵 MÚSICA EM DESTAQUE
-          </h2>
+    </section>
 
 
-          <div class="destaque">
+    <!-- REDES -->
 
-            <div class="destaque-info">
+    <section class="secao">
 
-              <div class="destaque-tag">
-                LANÇAMENTO PRIME
-              </div>
+      <h2 class="secao-titulo">
+        🌐 ENCONTRA O ARTISTA
+      </h2>
 
-              <h2
-                id="destaqueTitulo"
-                class="destaque-titulo"
-              >
-              </h2>
+      <div
+        id="redes"
+        class="redes"
+      ></div>
 
-              <div
-                id="destaqueArtista"
-                class="destaque-artista"
-              >
-              </div>
-
-            </div>
-
-
-            <button
-              id="playDestaque"
-              class="play-grande"
-            >
-              ▶
-            </button>
-
-          </div>
-
-
-          <audio
-            id="audioDestaque"
-            style="display:none;"
-            controls
-          ></audio>
-
-        </section>
-
-
-        <!-- MÚSICAS -->
-
-        <section class="secao">
-
-          <h2 class="secao-titulo">
-            🎵 MÚSICAS PUBLICADAS
-          </h2>
-
-          <div
-            id="listaMusicas"
-            class="lista-musicas"
-          >
-          </div>
-
-        </section>
-
-
-        <!-- SOBRE -->
-
-        <section class="secao">
-
-          <h2 class="secao-titulo">
-            SOBRE
-          </h2>
-
-          <div
-            id="bio"
-            class="bio"
-          >
-          </div>
-
-        </section>
-
-
-      </div>
-
-
-      <!-- DIREITA -->
-
-      <aside>
-
-
-        <div class="sidebar-card">
-
-          <h3>👤 PERFIL DO ARTISTA</h3>
-
-          <div class="link-perfil">
-
-            <input
-              id="linkPerfil"
-              readonly
-            >
-
-            <button
-              class="copiar"
-              onclick="copiarLink()"
-            >
-              COPIAR
-            </button>
-
-          </div>
-
-        </div>
-
-
-        <div
-          class="sidebar-card"
-          id="redesCard"
-        >
-
-          <h3>🌐 REDES SOCIAIS</h3>
-
-          <div
-            id="redes"
-            class="redes"
-          ></div>
-
-        </div>
-
-
-        <div class="sidebar-card">
-
-          <h3>👑 KUDURO PRIME</h3>
-
-          <p style="color:#aaa;font-size:13px;line-height:1.6;">
-            Este artista faz parte do movimento
-            KUDURO PRIME.
-          </p>
-
-        </div>
-
-
-      </aside>
-
-
-    </div>
+    </section>
 
 
   </main>
 
+</div>
+
+
+<!-- PLAYER -->
+
+<div
+  id="playerFixo"
+  class="player-fixo"
+>
+
+  <div class="player-interno">
+
+    <div class="player-info">
+
+      <div
+        id="playerTitulo"
+        class="player-titulo"
+      >
+        Nenhuma música
+      </div>
+
+      <div
+        id="playerArtista"
+        class="player-artista"
+      ></div>
+
+    </div>
+
+    <audio
+      id="audioPlayer"
+      controls
+    ></audio>
+
+  </div>
 
 </div>
 
 
+<div id="mensagemPartilha"></div>
+
+
 <script type="module">
 
-import { initializeApp } from
+import {
+  initializeApp
+} from
 "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+
+import {
+  getAuth,
+  onAuthStateChanged
+} from
+"https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
 
 import {
   getFirestore,
@@ -853,111 +831,169 @@ import {
 
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDoitCcLeLDNBNPCP6fG1s_xbHr4UmohSo",
-  authDomain: "kuduro-prime.firebaseapp.com",
-  projectId: "kuduro-prime",
-  storageBucket: "kuduro-prime.firebasestorage.app",
-  messagingSenderId: "299776559545",
-  appId: "1:299776559545:web:04aced1ba25391eb3fce68"
+
+  apiKey:
+  "AIzaSyDoitCcLeLDNBNPCP6fG1s_xbHr4UmohSo",
+
+  authDomain:
+  "kuduro-prime.firebaseapp.com",
+
+  projectId:
+  "kuduro-prime",
+
+  storageBucket:
+  "kuduro-prime.firebasestorage.app",
+
+  messagingSenderId:
+  "299776559545",
+
+  appId:
+  "1:299776559545:web:04aced1ba25391eb3fce68"
+
 };
 
 
-const app = initializeApp(firebaseConfig);
+const app =
+  initializeApp(firebaseConfig);
 
-const db = getFirestore(app);
+const auth =
+  getAuth(app);
 
-
-/* PEGAR ID DO ARTISTA */
-
-const parametros =
-  new URLSearchParams(window.location.search);
-
-const artistaId =
-  parametros.get("id");
+const db =
+  getFirestore(app);
 
 
-if(!artistaId){
+const carregando =
+  document.getElementById("carregando");
 
-  document.getElementById("carregando").textContent =
-    "Perfil do artista não encontrado.";
+const perfil =
+  document.getElementById("perfil");
 
-  throw new Error("ID do artista não informado.");
+const listaMusicas =
+  document.getElementById("listaMusicas");
 
-}
+const audioPlayer =
+  document.getElementById("audioPlayer");
+
+const playerFixo =
+  document.getElementById("playerFixo");
+
+const playerTitulo =
+  document.getElementById("playerTitulo");
+
+const playerArtista =
+  document.getElementById("playerArtista");
+
+const mensagemPartilha =
+  document.getElementById("mensagemPartilha");
 
 
+let usuarioAtual = null;
 let dadosArtista = null;
-let primeiraMusica = null;
+let musicasArtista = [];
 
 
 /* CARREGAR PERFIL */
 
-async function carregarPerfil(){
+onAuthStateChanged(
+  auth,
+  async (user) => {
 
-  try{
+    if (!user) {
 
-
-    const perfilRef =
-      doc(db,"artistas",artistaId);
-
-
-    const perfilDoc =
-      await getDoc(perfilRef);
-
-
-    if(!perfilDoc.exists()){
-
-      document.getElementById("carregando").textContent =
-        "Este perfil não existe.";
+      window.location.href =
+        "area-do-artista.html";
 
       return;
 
     }
 
+    usuarioAtual = user;
 
-    dadosArtista =
-      perfilDoc.data();
+    try {
 
+      const perfilRef =
+        doc(
+          db,
+          "artistas",
+          user.uid
+        );
 
-    /* FOTO */
-
-    const foto =
-      document.getElementById("foto");
-
-
-    foto.src =
-      dadosArtista.foto ||
-      "";
-
-
-    foto.onerror = () => {
-
-      foto.style.display = "none";
-
-    };
+      const perfilDoc =
+        await getDoc(perfilRef);
 
 
-    /* CAPA */
+      if (!perfilDoc.exists()) {
 
-    const capa =
-      document.getElementById("capaBg");
+        window.location.href =
+          "criar-perfil.html";
 
+        return;
 
-    capa.src =
-      dadosArtista.foto ||
-      "";
-
-
-    /* NOME */
-
-    document.getElementById("nome").textContent =
-      dadosArtista.nome ||
-      "Artista";
+      }
 
 
-    /* PROVÍNCIA */
+      dadosArtista =
+        perfilDoc.data();
 
-    document.getElementById("provincia").textContent =
+
+      carregarDadosPerfil();
+
+      await carregarMusicas();
+
+
+      carregando.style.display =
+        "none";
+
+      perfil.style.display =
+        "block";
+
+
+    } catch (erro) {
+
+      console.error(erro);
+
+      carregando.textContent =
+        "Erro ao carregar o perfil: " +
+        erro.message;
+
+    }
+
+  }
+);
+
+
+/* DADOS DO PERFIL */
+
+function carregarDadosPerfil() {
+
+
+  const nome =
+    dadosArtista.nome ||
+    "Artista";
+
+
+  const foto =
+    dadosArtista.foto ||
+    "";
+
+
+  document
+    .getElementById("nome")
+    .textContent =
+      nome;
+
+
+  document
+    .getElementById("bio")
+    .textContent =
+      dadosArtista.bio ||
+      "Este artista ainda não adicionou uma biografia.";
+
+
+  document
+    .getElementById("provincia")
+    .textContent =
       "📍 " +
       (
         dadosArtista.provincia ||
@@ -965,156 +1001,154 @@ async function carregarPerfil(){
       );
 
 
-    /* BIO */
-
-    document.getElementById("bio").textContent =
-      dadosArtista.bio ||
-      "Este artista ainda não escreveu uma biografia.";
+  const fotoElemento =
+    document.getElementById("foto");
 
 
-    /* LINK */
-
-    document.getElementById("linkPerfil").value =
-      window.location.href;
+  fotoElemento.src =
+    foto;
 
 
-    /* REDES */
-
-    carregarRedes();
-
-
-    /* MÚSICAS */
-
-    await carregarMusicas();
-
-
-    document.getElementById("carregando").style.display =
-      "none";
+  document
+    .getElementById("perfilCapa")
+    .style
+    .setProperty(
+      "--capa",
+      foto
+        ? `url("${foto}")`
+        : "none"
+    );
 
 
-    document.getElementById("paginaPerfil").style.display =
-      "block";
-
-
-  }
-
-  catch(erro){
-
-    console.error(erro);
-
-    document.getElementById("carregando").textContent =
-      "Erro ao carregar o perfil.";
-
-  }
+  carregarRedes();
 
 }
 
 
 /* REDES SOCIAIS */
 
-function carregarRedes(){
+function carregarRedes() {
+
 
   const redes =
     document.getElementById("redes");
 
 
-  redes.innerHTML = "";
+  redes.innerHTML =
+    "";
 
 
-  let quantidade = 0;
+  /* WHATSAPP */
 
-
-  if(dadosArtista.whatsapp){
+  if (
+    dadosArtista.whatsapp
+  ) {
 
     const numero =
-      dadosArtista.whatsapp.replace(/\D/g,"");
+      dadosArtista.whatsapp
+      .replace(/\D/g, "");
 
 
-    redes.innerHTML += `
-
-      <a
-        class="rede"
-        target="_blank"
-        href="https://wa.me/${numero}"
-      >
-        💬 WHATSAPP
-      </a>
-
-    `;
-
-    quantidade++;
-
-  }
+    const whatsapp =
+      document.createElement("a");
 
 
-  if(dadosArtista.instagram){
-
-    let link =
-      dadosArtista.instagram.trim();
+    whatsapp.className =
+      "rede";
 
 
-    if(!link.startsWith("http")){
-
-      link =
-        "https://instagram.com/" +
-        link.replace("@","");
-
-    }
+    whatsapp.href =
+      "https://wa.me/" +
+      numero;
 
 
-    redes.innerHTML += `
+    whatsapp.target =
+      "_blank";
 
-      <a
-        class="rede"
-        target="_blank"
-        href="${link}"
-      >
-        📸 INSTAGRAM
-      </a>
 
-    `;
+    whatsapp.textContent =
+      "💬 WHATSAPP";
 
-    quantidade++;
+
+    redes.appendChild(
+      whatsapp
+    );
 
   }
 
 
-  if(dadosArtista.tiktok){
+  /* INSTAGRAM */
 
-    let link =
-      dadosArtista.tiktok.trim();
+  if (
+    dadosArtista.instagram
+  ) {
 
-
-    if(!link.startsWith("http")){
-
-      link =
-        "https://tiktok.com/@" +
-        link.replace("@","");
-
-    }
+    const instagram =
+      document.createElement("a");
 
 
-    redes.innerHTML += `
+    instagram.className =
+      "rede";
 
-      <a
-        class="rede"
-        target="_blank"
-        href="${link}"
-      >
-        🎵 TIKTOK
-      </a>
 
-    `;
+    instagram.href =
+      dadosArtista.instagram;
 
-    quantidade++;
+
+    instagram.target =
+      "_blank";
+
+
+    instagram.textContent =
+      "📸 INSTAGRAM";
+
+
+    redes.appendChild(
+      instagram
+    );
 
   }
 
 
-  if(quantidade === 0){
+  /* TIKTOK */
 
-    document.getElementById("redesCard").style.display =
-      "none";
+  if (
+    dadosArtista.tiktok
+  ) {
+
+    const tiktok =
+      document.createElement("a");
+
+
+    tiktok.className =
+      "rede";
+
+
+    tiktok.href =
+      dadosArtista.tiktok;
+
+
+    tiktok.target =
+      "_blank";
+
+
+    tiktok.textContent =
+      "🎵 TIKTOK";
+
+
+    redes.appendChild(
+      tiktok
+    );
+
+  }
+
+
+  if (
+    redes.children.length === 0
+  ) {
+
+    redes.innerHTML =
+      "<span style='color:#888'>O artista ainda não adicionou redes sociais.</span>";
 
   }
 
@@ -1123,77 +1157,99 @@ function carregarRedes(){
 
 /* CARREGAR MÚSICAS */
 
-async function carregarMusicas(){
+async function carregarMusicas() {
 
-  const lista =
-    document.getElementById("listaMusicas");
+  const consulta =
+    query(
+      collection(
+        db,
+        "musicas"
+      ),
+
+      where(
+        "artistaId",
+        "==",
+        usuarioAtual.uid
+      ),
+
+      orderBy(
+        "criadoEm",
+        "desc"
+      )
+    );
 
 
-  try{
+  const resultado =
+    await getDocs(
+      consulta
+    );
 
 
-    const consulta =
-      query(
+  musicasArtista =
+    [];
 
-        collection(db,"musicas"),
 
-        where(
-          "artistaId",
-          "==",
-          artistaId
-        ),
+  resultado.forEach(
+    (documento) => {
 
-        orderBy(
-          "criadoEm",
-          "desc"
-        )
+      musicasArtista.push({
+        id:
+          documento.id,
 
+        ...documento.data()
+      });
+
+    }
+  );
+
+
+  document
+    .getElementById("infoMusicas")
+    .textContent =
+      musicasArtista.length +
+      (
+        musicasArtista.length === 1
+          ? " música publicada"
+          : " músicas publicadas"
       );
 
 
-    const resultado =
-      await getDocs(consulta);
+  mostrarMusicas();
+
+}
 
 
-    document.getElementById("totalMusicas").textContent =
-      resultado.size;
+/* MOSTRAR MÚSICAS */
+
+function mostrarMusicas() {
 
 
-    if(resultado.empty){
+  listaMusicas.innerHTML =
+    "";
 
-      lista.innerHTML = `
 
-        <p style="color:#999;">
-          Este artista ainda não publicou músicas.
-        </p>
+  if (
+    musicasArtista.length === 0
+  ) {
 
+    listaMusicas.innerHTML =
+      `
+      <div class="sem-musicas">
+        🎵 Ainda não existem músicas publicadas.
+      </div>
       `;
 
-      return;
+    return;
 
-    }
-
-
-    let contador = 1;
+  }
 
 
-    resultado.forEach((documento)=>{
-
-
-      const musica =
-        documento.data();
-
-
-      if(!primeiraMusica){
-
-        primeiraMusica =
-          musica;
-
-      }
+  musicasArtista.forEach(
+    (musica, index) => {
 
 
       const item =
-        document.createElement("div");
+        document.createElement("article");
 
 
       item.className =
@@ -1201,258 +1257,443 @@ async function carregarMusicas(){
 
 
       const numero =
-        String(contador).padStart(2,"0");
+        document.createElement("div");
 
 
-      item.innerHTML = `
-
-        <div class="numero">
-          ${numero}
-        </div>
+      numero.className =
+        "numero-musica";
 
 
-        <div class="capa-musica">
-          🎵
-        </div>
+      numero.textContent =
+        index + 1;
 
 
-        <div class="musica-info">
-
-          <div class="musica-titulo">
-            ${musica.titulo || "Sem título"}
-          </div>
-
-          <div class="musica-artista">
-            ${musica.artistaNome || dadosArtista.nome}
-          </div>
-
-        </div>
+      const capa =
+        document.createElement("div");
 
 
-        <audio controls>
-
-          <source
-            src="${musica.audioURL}"
-          >
-
-        </audio>
-
-      `;
+      capa.className =
+        "capa-musica";
 
 
-      lista.appendChild(item);
+      capa.textContent =
+        "♫";
 
 
-      contador++;
+      const dados =
+        document.createElement("div");
 
 
-    });
+      dados.className =
+        "dados-musica";
 
 
-    carregarDestaque();
+      const titulo =
+        document.createElement("div");
 
 
-  }
-
-  catch(erro){
-
-    console.error(erro);
+      titulo.className =
+        "titulo-musica";
 
 
-    lista.innerHTML = `
-
-      <p style="color:#ff7777;">
-        Erro ao carregar as músicas.
-      </p>
-
-    `;
-
-  }
-
-}
+      titulo.textContent =
+        musica.titulo ||
+        "Sem título";
 
 
-/* MÚSICA EM DESTAQUE */
-
-function carregarDestaque(){
-
-  if(!primeiraMusica) return;
+      const artista =
+        document.createElement("div");
 
 
-  document.getElementById("destaqueSecao").style.display =
-    "block";
+      artista.className =
+        "nome-musica-artista";
 
 
-  document.getElementById("destaqueTitulo").textContent =
-    primeiraMusica.titulo ||
-    "Música";
+      let textoArtista =
+        musica.artistaNome ||
+        dadosArtista.nome ||
+        "Artista";
 
 
-  document.getElementById("destaqueArtista").textContent =
-    primeiraMusica.artistaNome ||
-    dadosArtista.nome;
+      const feats =
+        [
+          musica.feat1,
+          musica.feat2,
+          musica.feat3
+        ]
+        .filter(
+          feat =>
+            feat &&
+            feat.trim() !== ""
+        );
 
 
-  const audio =
-    document.getElementById("audioDestaque");
+      if (
+        feats.length > 0
+      ) {
+
+        textoArtista +=
+          " feat. " +
+          feats.join(", ");
+
+      }
 
 
-  audio.src =
-    primeiraMusica.audioURL;
+      artista.textContent =
+        textoArtista;
 
 
-  const play =
-    document.getElementById("playDestaque");
+      dados.appendChild(
+        titulo
+      );
 
 
-  play.addEventListener("click",()=>{
+      dados.appendChild(
+        artista
+      );
 
-    if(audio.paused){
 
-      audio.play();
+      const acoes =
+        document.createElement("div");
 
-      play.textContent =
-        "❚❚";
 
-    }
+      acoes.className =
+        "acoes-musica";
 
-    else{
 
-      audio.pause();
+      const partilhar =
+        document.createElement("button");
+
+
+      partilhar.className =
+        "botao-partilhar-musica";
+
+
+      partilhar.textContent =
+        "↗";
+
+
+      partilhar.title =
+        "Partilhar música";
+
+
+      partilhar.addEventListener(
+        "click",
+        () => {
+
+          partilharMusica(
+            musica,
+            textoArtista
+          );
+
+        }
+      );
+
+
+      const play =
+        document.createElement("button");
+
+
+      play.className =
+        "botao-play-musica";
+
 
       play.textContent =
         "▶";
 
+
+      play.addEventListener(
+        "click",
+        () => {
+
+          tocarMusica(
+            musica,
+            textoArtista
+          );
+
+        }
+      );
+
+
+      acoes.appendChild(
+        partilhar
+      );
+
+
+      acoes.appendChild(
+        play
+      );
+
+
+      item.appendChild(
+        numero
+      );
+
+
+      item.appendChild(
+        capa
+      );
+
+
+      item.appendChild(
+        dados
+      );
+
+
+      item.appendChild(
+        acoes
+      );
+
+
+      listaMusicas.appendChild(
+        item
+      );
+
+
     }
-
-  });
-
-
-  audio.addEventListener("ended",()=>{
-
-    play.textContent =
-      "▶";
-
-  });
+  );
 
 }
 
 
-/* COPIAR LINK */
+/* TOCAR MÚSICA */
 
-window.copiarLink = async function(){
+function tocarMusica(
+  musica,
+  nomeArtista
+) {
+
+
+  if (
+    !musica.audioURL
+  ) {
+
+    alert(
+      "Esta música não tem áudio disponível."
+    );
+
+    return;
+
+  }
+
+
+  audioPlayer.src =
+    musica.audioURL;
+
+
+  playerTitulo.textContent =
+    musica.titulo ||
+    "Sem título";
+
+
+  playerArtista.textContent =
+    nomeArtista;
+
+
+  playerFixo.style.display =
+    "block";
+
+
+  audioPlayer.play();
+
+
+}
+
+
+/* BOTÃO OUVIR */
+
+document
+  .getElementById("ouvirPrimeira")
+  .addEventListener(
+    "click",
+    () => {
+
+      if (
+        musicasArtista.length === 0
+      ) {
+
+        alert(
+          "Este artista ainda não publicou músicas."
+        );
+
+        return;
+
+      }
+
+
+      const primeira =
+        musicasArtista[0];
+
+
+      tocarMusica(
+        primeira,
+        primeira.artistaNome ||
+        dadosArtista.nome ||
+        "Artista"
+      );
+
+
+    }
+  );
+
+
+/* PARTILHAR PERFIL */
+
+document
+  .getElementById("partilharPerfil")
+  .addEventListener(
+    "click",
+    async () => {
+
+
+      const nome =
+        dadosArtista?.nome ||
+        "Artista";
+
+
+      const texto =
+        "Conhece o perfil de " +
+        nome +
+        " no KUDURO PRIME 👑";
+
+
+      try {
+
+        if (
+          navigator.share
+        ) {
+
+          await navigator.share({
+
+            title:
+              nome +
+              " | KUDURO PRIME",
+
+            text:
+              texto,
+
+            url:
+              window.location.href
+
+          });
+
+        } else {
+
+          await navigator.clipboard.writeText(
+            window.location.href
+          );
+
+          mostrarMensagem(
+            "🔗 Link do perfil copiado!"
+          );
+
+        }
+
+      } catch (erro) {
+
+        console.log(
+          "Partilha cancelada ou indisponível."
+        );
+
+      }
+
+
+    }
+  );
+
+
+/* PARTILHAR MÚSICA */
+
+async function partilharMusica(
+  musica,
+  nomeArtista
+) {
+
 
   const link =
-    window.location.href;
+    musica.audioURL;
 
 
-  try{
-
-    await navigator.clipboard.writeText(link);
-
-    alert(
-      "Link do perfil copiado! 👑"
-    );
-
-  }
-
-  catch(erro){
-
-    prompt(
-      "Copia este link:",
-      link
-    );
-
-  }
-
-};
+  const texto =
+    "🎵 " +
+    (
+      musica.titulo ||
+      "Música"
+    ) +
+    " — " +
+    nomeArtista +
+    " 👑 KUDURO PRIME";
 
 
-/* PARTILHAR */
+  try {
 
-window.partilharPerfil =
-async function(){
+    if (
+      navigator.share
+    ) {
 
-  const dadosPartilha = {
+      await navigator.share({
 
-    title:
-      dadosArtista.nome +
-      " | KUDURO PRIME",
+        title:
+          musica.titulo ||
+          "Música",
 
-    text:
-      "Conhece o perfil de " +
-      dadosArtista.nome +
-      " no KUDURO PRIME 👑",
+        text:
+          texto,
 
-    url:
-      window.location.href
+        url:
+          link
 
-  };
+      });
 
+    } else {
 
-  if(navigator.share){
+      await navigator.clipboard.writeText(
+        link
+      );
 
-    try{
-
-      await navigator.share(
-        dadosPartilha
+      mostrarMensagem(
+        "🔗 Link da música copiado!"
       );
 
     }
 
-    catch(erro){
+  } catch (erro) {
 
-      console.log(
-        "Partilha cancelada"
-      );
-
-    }
-
-  }
-
-  else{
-
-    await navigator.clipboard.writeText(
-      window.location.href
-    );
-
-    alert(
-      "Link copiado para partilhar! 👑"
+    console.log(
+      "Partilha cancelada."
     );
 
   }
 
-};
+}
 
 
-/* SEGUIR */
+/* MENSAGEM */
 
-const seguirBtn =
-  document.getElementById("seguirBtn");
-
-
-seguirBtn.addEventListener("click",()=>{
-
-  if(seguirBtn.textContent.includes("SEGUIR")){
-
-    seguirBtn.textContent =
-      "✓ A SEGUIR";
-
-  }
-
-  else{
-
-    seguirBtn.textContent =
-      "♡ SEGUIR";
-
-  }
-
-});
+function mostrarMensagem(
+  texto
+) {
 
 
-/* INICIAR */
+  mensagemPartilha.textContent =
+    texto;
 
-carregarPerfil();
+
+  mensagemPartilha.style.display =
+    "block";
+
+
+  setTimeout(
+    () => {
+
+      mensagemPartilha.style.display =
+        "none";
+
+    },
+    2500
+  );
+
+}
 
 </script>
 
