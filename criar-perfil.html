@@ -139,8 +139,14 @@ Preenche as tuas informações para criar o teu perfil público.
 <label>NOME ARTÍSTICO</label>
 <input type="text" id="nome" required>
 
-<label>FOTO DO ARTISTA (LINK DA IMAGEM)</label>
-<input type="url" id="foto" placeholder="https://...">
+<label>FOTO DO ARTISTA</label>
+
+<input
+  type="file"
+  id="foto"
+  accept="image/*"
+  required
+>
 
 <label>BIOGRAFIA</label>
 <textarea id="bio" required></textarea>
