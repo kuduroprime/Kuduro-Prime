@@ -7,7 +7,9 @@
 <title>Minhas Músicas | KUDURO PRIME</title>
 
 <style>
-* { box-sizing: border-box; }
+* {
+  box-sizing: border-box;
+}
 
 body {
   margin: 0;
@@ -127,7 +129,12 @@ input {
 
 .musica h3 {
   color: #d4af37;
-  margin-top: 0;
+  margin: 0 0 5px;
+}
+
+.nome-artista {
+  color: #aaa;
+  margin: 0 0 12px;
 }
 
 audio {
@@ -182,7 +189,7 @@ audio {
 <h1>🎵 MINHAS MÚSICAS</h1>
 
 <p class="subtitulo">
-Envia diretamente as tuas músicas.
+Publica as tuas músicas. O teu nome artístico será adicionado automaticamente.
 </p>
 
 <div class="contador">
@@ -191,14 +198,40 @@ Envia diretamente as tuas músicas.
 
 <form id="musicaForm" class="formulario">
 
-  <label for="titulo">NOME DA MÚSICA</label>
-  <input type="text" id="titulo" required>
+  <label for="titulo">🎵 TÍTULO DA MÚSICA</label>
+  <input
+    type="text"
+    id="titulo"
+    placeholder="Escreve o título da música"
+    required
+  >
 
-  <label for="audio">FICHEIRO DA MÚSICA</label>
+  <label for="feat1">🤝 FEAT 1 (OPCIONAL)</label>
+  <input
+    type="text"
+    id="feat1"
+    placeholder="Nome do artista convidado"
+  >
+
+  <label for="feat2">🤝 FEAT 2 (OPCIONAL)</label>
+  <input
+    type="text"
+    id="feat2"
+    placeholder="Nome do segundo artista convidado"
+  >
+
+  <label for="feat3">🤝 FEAT 3 (OPCIONAL)</label>
+  <input
+    type="text"
+    id="feat3"
+    placeholder="Nome do terceiro artista convidado"
+  >
+
+  <label for="audio">🎧 FICHEIRO DA MÚSICA</label>
   <input
     type="file"
     id="audio"
-    accept="audio/mpeg,audio/wav,audio/x-wav,audio/mp4,.mp3,.wav,.m4a"
+    accept=".mp3,.wav,.m4a,audio/*"
     required
   >
 
@@ -330,43 +363,89 @@ async function carregarMusicas() {
       item.className = "musica";
 
       const tituloSeguro = document.createElement("h3");
+      tituloSeguro.textContent =
+        "🎵 " +
+        (musica.titulo || "Sem título");
 
-tituloSeguro.textContent =
-  "🎵 " +
-  (musica.titulo || "Sem título");
+      const nomeDoArtista =
+        document.createElement("p");
 
-const nomeDoArtista =
-  document.createElement("p");
+      nomeDoArtista.className =
+        "nome-artista";
 
-nomeDoArtista.textContent =
-  "👤 " +
-  (musica.artistaNome || "Artista");
+      let linhaArtistas =
+        "👤 " +
+        (musica.artistaNome || "Artista");
 
-item.appendChild(tituloSeguro);
-item.appendChild(nomeDoArtista);
+      const feats = [
+        musica.feat1,
+        musica.feat2,
+        musica.feat3
+      ].filter(feat => feat);
 
-      const player = document.createElement("audio");
+      if (feats.length > 0) {
+        linhaArtistas +=
+          " feat. " +
+          feats.join(", ");
+      }
+
+      nomeDoArtista.textContent =
+        linhaArtistas;
+
+      const player =
+        document.createElement("audio");
+
       player.controls = true;
       player.src = musica.audioURL;
 
-      const botaoApagar = document.createElement("button");
-      botaoApagar.className = "apagar";
-      botaoApagar.textContent = "🗑️ APAGAR";
+      const botaoApagar =
+        document.createElement("button");
 
-      botaoApagar.addEventListener("click", async () => {
+      botaoApagar.className =
+        "apagar";
 
-        if (!confirm("Queres apagar esta música?")) return;
+      botaoApagar.textContent =
+        "🗑️ APAGAR";
 
-        try {
-          await deleteDoc(doc(db, "musicas", documento.id));
-          await carregarMusicas();
-        } catch (erro) {
-          alert("Erro ao apagar a música.");
+      botaoApagar.addEventListener(
+        "click",
+        async () => {
+
+          if (
+            !confirm(
+              "Queres apagar esta música?"
+            )
+          ) {
+            return;
+          }
+
+          try {
+
+            await deleteDoc(
+              doc(
+                db,
+                "musicas",
+                documento.id
+              )
+            );
+
+            await carregarMusicas();
+
+          } catch (erro) {
+
+            console.error(erro);
+
+            alert(
+              "Erro ao apagar a música."
+            );
+
+          }
+
         }
-
-      });
+      );
 
       item.appendChild(tituloSeguro);
+      item.appendChild(nomeDoArtista);
       item.appendChild(player);
       item.appendChild(botaoApagar);
 
@@ -378,11 +457,21 @@ item.appendChild(nomeDoArtista);
       quantidadeMusicas >= 3 &&
       !musicasExtrasDesbloqueadas
     ) {
-      bloqueado.style.display = "block";
-      form.style.display = "none";
+
+      bloqueado.style.display =
+        "block";
+
+      form.style.display =
+        "none";
+
     } else {
-      bloqueado.style.display = "none";
-      form.style.display = "block";
+
+      bloqueado.style.display =
+        "none";
+
+      form.style.display =
+        "block";
+
     }
 
   } catch (erro) {
@@ -390,7 +479,8 @@ item.appendChild(nomeDoArtista);
     console.error(erro);
 
     mensagem.textContent =
-      "Erro ao carregar as músicas: " + erro.message;
+      "Erro ao carregar as músicas: " +
+      erro.message;
 
   }
 
@@ -398,154 +488,228 @@ item.appendChild(nomeDoArtista);
 
 async function enviarMusica(ficheiro) {
 
-  const formData = new FormData();
+  const formData =
+    new FormData();
 
-  formData.append("file", ficheiro);
-  formData.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
-  formData.append("resource_type", "video");
-
-  const resposta = await fetch(
-    `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/video/upload`,
-    {
-      method: "POST",
-      body: formData
-    }
+  formData.append(
+    "file",
+    ficheiro
   );
 
-  const dados = await resposta.json();
+  formData.append(
+    "upload_preset",
+    CLOUDINARY_UPLOAD_PRESET
+  );
+
+  const resposta =
+    await fetch(
+      `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/video/upload`,
+      {
+        method: "POST",
+        body: formData
+      }
+    );
+
+  const dados =
+    await resposta.json();
 
   if (!resposta.ok) {
+
     throw new Error(
       dados.error?.message ||
       "Erro ao enviar a música."
     );
+
   }
 
   return dados.secure_url;
 
 }
 
-form.addEventListener("submit", async (event) => {
+form.addEventListener(
+  "submit",
+  async (event) => {
 
-  event.preventDefault();
+    event.preventDefault();
 
-  if (!usuarioAtual) return;
+    if (!usuarioAtual) {
+      return;
+    }
 
-  if (
-    quantidadeMusicas >= 3 &&
-    !musicasExtrasDesbloqueadas
-  ) {
-    window.location.href = "pagamento-musicas.html";
-    return;
+    if (
+      quantidadeMusicas >= 3 &&
+      !musicasExtrasDesbloqueadas
+    ) {
+
+      window.location.href =
+        "pagamento-musicas.html";
+
+      return;
+
+    }
+
+    const titulo =
+      document.getElementById(
+        "titulo"
+      ).value.trim();
+
+    const feat1 =
+      document.getElementById(
+        "feat1"
+      ).value.trim();
+
+    const feat2 =
+      document.getElementById(
+        "feat2"
+      ).value.trim();
+
+    const feat3 =
+      document.getElementById(
+        "feat3"
+      ).value.trim();
+
+    const ficheiro =
+      document.getElementById(
+        "audio"
+      ).files[0];
+
+    if (!titulo) {
+
+      mensagem.textContent =
+        "Escreve o título da música.";
+
+      return;
+
+    }
+
+    if (!ficheiro) {
+
+      mensagem.textContent =
+        "Seleciona o ficheiro da música.";
+
+      return;
+
+    }
+
+    const extensoesPermitidas =
+      [".mp3", ".wav", ".m4a"];
+
+    const nomeFicheiro =
+      ficheiro.name.toLowerCase();
+
+    const extensaoValida =
+      extensoesPermitidas.some(
+        extensao =>
+          nomeFicheiro.endsWith(
+            extensao
+          )
+      );
+
+    if (!extensaoValida) {
+
+      mensagem.textContent =
+        "Usa um ficheiro MP3, WAV ou M4A.";
+
+      return;
+
+    }
+
+    try {
+
+      enviarBtn.disabled = true;
+
+      mensagem.textContent =
+        "⬆️ A enviar a música... Aguarda.";
+
+      const audioURL =
+        await enviarMusica(
+          ficheiro
+        );
+
+      mensagem.textContent =
+        "💾 A guardar a música...";
+
+      const perfilDoc =
+        await getDoc(
+          doc(
+            db,
+            "artistas",
+            usuarioAtual.uid
+          )
+        );
+
+      if (!perfilDoc.exists()) {
+
+        throw new Error(
+          "Cria primeiro o teu perfil antes de publicar músicas."
+        );
+
+      }
+
+      const dadosPerfil =
+        perfilDoc.data();
+
+      const nomeArtista =
+        dadosPerfil.nome ||
+        "Artista";
+
+      await addDoc(
+        collection(
+          db,
+          "musicas"
+        ),
+        {
+
+          artistaId:
+            usuarioAtual.uid,
+
+          artistaNome:
+            nomeArtista,
+
+          titulo:
+            titulo,
+
+          feat1:
+            feat1 || null,
+
+          feat2:
+            feat2 || null,
+
+          feat3:
+            feat3 || null,
+
+          audioURL:
+            audioURL,
+
+          criadoEm:
+            serverTimestamp()
+
+        }
+      );
+
+      mensagem.textContent =
+        "🎵 Música publicada com sucesso! 👑";
+
+      form.reset();
+
+      await carregarMusicas();
+
+    } catch (erro) {
+
+      console.error(erro);
+
+      mensagem.textContent =
+        "Erro: " +
+        erro.message;
+
+    } finally {
+
+      enviarBtn.disabled = false;
+
+    }
+
   }
-
-  const titulo =
-    document.getElementById("titulo").value.trim();
-
-  const ficheiro =
-    document.getElementById("audio").files[0];
-
-  if (!ficheiro) {
-    mensagem.textContent =
-      "Seleciona o ficheiro da música.";
-    return;
-  }
-
-  const tiposPermitidos = [
-    "audio/mpeg",
-    "audio/wav",
-    "audio/x-wav",
-    "audio/mp4"
-  ];
-
-  const extensoesPermitidas =
-    [".mp3", ".wav", ".m4a"];
-
-  const nomeFicheiro =
-    ficheiro.name.toLowerCase();
-
-  const extensaoValida =
-    extensoesPermitidas.some(
-      extensao =>
-        nomeFicheiro.endsWith(extensao)
-    );
-
-  if (
-    !tiposPermitidos.includes(ficheiro.type) &&
-    !extensaoValida
-  ) {
-    mensagem.textContent =
-      "Usa um ficheiro MP3, WAV ou M4A.";
-    return;
-  }
-
-  try {
-
-    enviarBtn.disabled = true;
-
-    mensagem.textContent =
-      "⬆️ A enviar a música... Isto pode demorar alguns minutos.";
-
-    const audioURL =
-      await enviarMusica(ficheiro);
-
-    mensagem.textContent =
-      "💾 A guardar a música...";
-
-    const perfilDoc = await getDoc(
-  doc(db, "artistas", usuarioAtual.uid)
 );
-
-if (!perfilDoc.exists()) {
-  throw new Error(
-    "Cria primeiro o teu perfil antes de publicar músicas."
-  );
-}
-
-const dadosPerfil = perfilDoc.data();
-
-const nomeArtista =
-  dadosPerfil.nome || "Artista";
-
-await addDoc(
-  collection(db, "musicas"),
-  {
-    artistaId: usuarioAtual.uid,
-
-    /* NOME AUTOMÁTICO DO PERFIL */
-    artistaNome: nomeArtista,
-
-    /* TÍTULO DA MÚSICA */
-    titulo: titulo,
-
-    /* FICHEIRO DE ÁUDIO */
-    audioURL: audioURL,
-
-    criadoEm: serverTimestamp()
-  }
-);
-
-    mensagem.textContent =
-      "🎵 Música publicada com sucesso! 👑";
-
-    form.reset();
-
-    await carregarMusicas();
-
-  } catch (erro) {
-
-    console.error(erro);
-
-    mensagem.textContent =
-      "Erro: " + erro.message;
-
-  } finally {
-
-    enviarBtn.disabled = false;
-
-  }
-
-});
 
 </script>
 
