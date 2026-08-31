@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Ranking | KUDURO PRIME</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #080808;
+  color: white;
+  font-family: Arial, sans-serif;
+}
+
+header {
+  background: #111;
+  padding: 20px;
+  text-align: center;
+  border-bottom: 2px solid #d4af37;
+}
+
+.logo {
+  color: #d4af37;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+nav {
+  margin-top: 15px;
+}
+
+nav a {
+  color: white;
+  margin: 10px;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+nav a:hover {
+  color: #d4af37;
+}
+
+.titulo {
+  text-align: center;
+  margin: 50px 20px 20px;
+}
+
+.titulo h1 {
+  color: #d4af37;
+  font-size: 42px;
+  margin-bottom: 10px;
+}
+
+.titulo p {
+  color: #aaa;
+}
+
+.ranking {
+  max-width: 850px;
+  margin: 40px auto;
+  padding: 20px;
+}
+
+.musica {
+  display: flex;
+  align-items: center;
+  background: #151515;
+  margin-bottom: 12px;
+  padding: 15px;
+  border: 1px solid #333;
+  border-radius: 12px;
+  transition: 0.3s;
+}
+
+.musica:hover {
+  border-color: #d4af37;
+  transform: scale(1.02);
+}
+
+.posicao {
+  width: 55px;
+  font-size: 28px;
+  font-weight: bold;
+  color: #d4af37;
+  text-align: center;
+}
+
+.capa {
+  width: 65px;
+  height: 65px;
+  background: #25200d;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  margin: 0 15px;
+}
+
+.info {
+  flex: 1;
+}
+
+.info h2 {
+  margin: 0 0 8px;
+  font-size: 18px;
+}
+
+.info p {
+  margin: 0;
+  color: #aaa;
+}
+
+.subida {
+  color: #32cd32;
+  font-weight: bold;
+}
+
+.destaque {
+  background: linear-gradient(90deg, #382b08, #151515);
+  border-color: #d4af37;
+}
+
+footer {
+  background: #111;
+  text-align: center;
+  padding: 30px;
+  color: #777;
+  margin-top: 50px;
+}
+
+@media (max-width: 600px) {
+  .titulo h1 {
+    font-size: 30px;
+  }
+
+  .musica {
+    padding: 10px;
+  }
+
+  .posicao {
+    width: 40px;
+    font-size: 22px;
+  }
+
+  .capa {
+    width: 50px;
+    height: 50px;
+    margin: 0 10px;
+  }
+
+  .info h2 {
+    font-size: 15px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">👑 KUDURO PRIME</div>
+
+  <nav>
+    <a href="index.html">INÍCIO</a>
+    <a href="artistas.html">ARTISTAS</a>
+    <a href="musicas.html">MÚSICAS</a>
+    <a href="ranking.html">RANKING</a>
+    <a href="#">EVENTOS</a>
+  </nav>
+</header>
+
+<section class="titulo">
+  <h1>🏆 PRIME CHARTS</h1>
+  <p>As músicas que estão a dominar o movimento Kuduro.</p>
+</section>
+
+<section class="ranking">
+
+  <div class="musica destaque">
+    <div class="posicao">🥇</div>
+    <div class="capa">🔥</div>
+    <div class="info">
+      <h2>Mim Faz Só Broxe</h2>
+      <p>Figura do Adoço</p>
+    </div>
+    <div class="subida">▲ #1</div>
+  </div>
+
+  <div class="musica">
+    <div class="posicao">02</div>
+    <div class="capa">🎵</div>
+    <div class="info">
+      <h2>Nome da Música</h2>
+      <p>Artista Prime</p>
+    </div>
+    <div class="subida">▲ 2</div>
+  </div>
+
+  <div class="musica">
+    <div class="posicao">03</div>
+    <div class="capa">👑</div>
+    <div class="info">
+      <h2>Nome da Música</h2>
+      <p>Artista Prime</p>
+    </div>
+    <div class="subida">▲ 1</div>
+  </div>
+
+  <div class="musica">
+    <div class="posicao">04</div>
+    <div class="capa">🔥</div>
+    <div class="info">
+      <h2>Nome da Música</h2>
+      <p>Artista Prime</p>
+    </div>
+    <div class="subida">▲ 4</div>
+  </div>
+
+  <div class="musica">
+    <div class="posicao">05</div>
+    <div class="capa">🎧</div>
+    <div class="info">
+      <h2>Nome da Música</h2>
+      <p>Artista Prime</p>
+    </div>
+    <div class="subida">▲ 1</div>
+  </div>
+
+</section>
+
+<footer>
+  © 2026 KUDURO PRIME — O KUDURO VIVE AQUI 👑
+</footer>
+
+</body>
+</html>
