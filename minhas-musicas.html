@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Minhas Músicas | KUDURO PRIME</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #080808;
+  color: white;
+  font-family: Arial, sans-serif;
+}
+
+header {
+  background: #111;
+  padding: 20px;
+  border-bottom: 2px solid #d4af37;
+  text-align: center;
+}
+
+.logo {
+  color: #d4af37;
+  text-decoration: none;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+main {
+  max-width: 900px;
+  margin: auto;
+  padding: 40px 20px;
+}
+
+.voltar {
+  display: inline-block;
+  margin-bottom: 25px;
+  color: #d4af37;
+  text-decoration: none;
+}
+
+h1 {
+  color: #d4af37;
+  text-align: center;
+}
+
+.subtitulo {
+  color: #aaa;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.contador {
+  background: #151515;
+  border: 1px solid #d4af37;
+  border-radius: 12px;
+  padding: 18px;
+  text-align: center;
+  margin-bottom: 25px;
+  font-size: 18px;
+}
+
+.formulario {
+  background: #151515;
+  border: 1px solid #333;
+  border-radius: 15px;
+  padding: 25px;
+}
+
+label {
+  display: block;
+  color: #d4af37;
+  font-weight: bold;
+  margin: 18px 0 8px;
+}
+
+input {
+  width: 100%;
+  padding: 14px;
+  background: #080808;
+  color: white;
+  border: 1px solid #444;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+.botao {
+  width: 100%;
+  padding: 15px;
+  margin-top: 25px;
+  border: none;
+  border-radius: 8px;
+  background: #d4af37;
+  color: black;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.botao:hover {
+  background: #f5c842;
+}
+
+#mensagem {
+  text-align: center;
+  color: #d4af37;
+  min-height: 25px;
+  margin-top: 15px;
+}
+
+#listaMusicas {
+  margin-top: 35px;
+}
+
+.musica {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  background: #151515;
+  border: 1px solid #333;
+  border-radius: 12px;
+  padding: 18px;
+  margin-bottom: 12px;
+}
+
+.musica-info {
+  flex: 1;
+}
+
+.musica h3 {
+  color: #d4af37;
+  margin: 0 0 8px;
+}
+
+.musica a {
+  color: #aaa;
+  word-break: break-all;
+}
+
+.apagar {
+  background: transparent;
+  border: 1px solid #d9534f;
+  color: #d9534f;
+  padding: 10px 15px;
+  border-radius: 7px;
+  cursor: pointer;
+}
+
+.apagar:hover {
+  background: #d9534f;
+  color: white;
+}
+
+.bloqueado {
+  display: none;
+  background: #151515;
+  border: 1px solid #d4af37;
+  border-radius: 15px;
+  padding: 30px;
+  margin-top: 25px;
+  text-align: center;
+}
+
+.bloqueado h2 {
+  color: #d4af37;
+}
+
+.pagar {
+  display: inline-block;
+  margin-top: 15px;
+  background: #d4af37;
+  color: black;
+  padding: 15px 25px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+@media (max-width: 600px) {
+  .musica {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <a href="index.html" class="logo">👑 KUDURO PRIME</a>
+</header>
+
+<main>
+
+<a href="painel-do-artista.html" class="voltar">
+← VOLTAR AO PAINEL
+</a>
+
+<h1>🎵 MINHAS MÚSICAS</h1>
+
+<p class="subtitulo">
+Adiciona as tuas músicas e partilha o teu talento com o mundo.
+</p>
+
+<div class="contador">
+  🎵 <strong id="totalMusicas">0</strong> / 3 MÚSICAS GRATUITAS
+</div>
+
+<form id="musicaForm" class="formulario">
+
+  <label for="titulo">NOME DA MÚSICA</label>
+  <input type="text" id="titulo" required>
+
+  <label for="link">LINK DA MÚSICA</label>
+  <input
+    type="url"
+    id="link"
+    placeholder="https://..."
+    required
+  >
+
+  <button type="submit" class="botao">
+    ➕ ADICIONAR MÚSICA
+  </button>
+
+  <p id="mensagem"></p>
+
+</form>
+
+<div id="bloqueado" class="bloqueado">
+
+  <h2>🔒 LIMITE GRATUITO ATINGIDO</h2>
+
+  <p>
+    Já adicionaste as tuas 3 músicas gratuitas.
+  </p>
+
+  <p>
+    Para adicionar mais músicas, paga uma taxa de
+    <strong>2.000 Kz</strong>.
+  </p>
+
+  <a href="pagamento-musicas.html" class="pagar">
+    💰 PAGAR 2.000 KZ
+  </a>
+
+</div>
+
+<div id="listaMusicas"></div>
+
+</main>
+
+<script type="module">
+
+import { initializeApp } from
+"https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+
+import {
+  getAuth,
+  onAuthStateChanged
+} from
+"https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  getDocs,
+  query,
+  where,
+  orderBy,
+  serverTimestamp,
+  deleteDoc,
+  doc
+} from
+"https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDoitCcLeLDNBNPCP6fG1s_xbHr4UmohSo",
+  authDomain: "kuduro-prime.firebaseapp.com",
+  projectId: "kuduro-prime",
+  storageBucket: "kuduro-prime.firebasestorage.app",
+  messagingSenderId: "299776559545",
+  appId: "1:299776559545:web:04aced1ba25391eb3fce68"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+let usuarioAtual = null;
+let quantidadeMusicas = 0;
+
+const form = document.getElementById("musicaForm");
+const mensagem = document.getElementById("mensagem");
+const listaMusicas = document.getElementById("listaMusicas");
+const bloqueado = document.getElementById("bloqueado");
+const totalMusicas = document.getElementById("totalMusicas");
+
+
+onAuthStateChanged(auth, (user) => {
+
+  if (!user) {
+    window.location.href = "area-do-artista.html";
+    return;
+  }
+
+  usuarioAtual = user;
+
+  carregarMusicas();
+
+});
+
+
+async function carregarMusicas() {
+
+  try {
+
+    const musicasRef = collection(db, "musicas");
+
+    const consulta = query(
+      musicasRef,
+      where("artistaId", "==", usuarioAtual.uid),
+      orderBy("criadoEm", "desc")
+    );
+
+    const resultado = await getDocs(consulta);
+
+    quantidadeMusicas = resultado.size;
+
+    totalMusicas.textContent = quantidadeMusicas;
+
+    listaMusicas.innerHTML = "";
+
+    resultado.forEach((documento) => {
+
+      const musica = documento.data();
+
+      const item = document.createElement("div");
+
+      item.className = "musica";
+
+      item.innerHTML = `
+        <div class="musica-info">
+          <h3>${musica.titulo}</h3>
+          <a href="${musica.link}" target="_blank">
+            ▶ OUVIR MÚSICA
+          </a>
+        </div>
+
+        <button
+          class="apagar"
+          data-id="${documento.id}"
+        >
+          🗑️ APAGAR
+        </button>
+      `;
+
+      listaMusicas.appendChild(item);
+
+    });
+
+    document.querySelectorAll(".apagar").forEach((botao) => {
+
+      botao.addEventListener("click", async () => {
+
+        const confirmar = confirm(
+          "Queres apagar esta música?"
+        );
+
+        if (!confirmar) return;
+
+        try {
+
+          await deleteDoc(
+            doc(db, "musicas", botao.dataset.id)
+          );
+
+          await carregarMusicas();
+
+        } catch (erro) {
+
+          console.error(erro);
+
+          alert(
+            "Erro ao apagar a música."
+          );
+
+        }
+
+      });
+
+    });
+
+    if (quantidadeMusicas >= 3) {
+
+      bloqueado.style.display = "block";
+
+      form.style.display = "none";
+
+    } else {
+
+      bloqueado.style.display = "none";
+
+      form.style.display = "block";
+
+    }
+
+  } catch (erro) {
+
+    console.error(erro);
+
+    mensagem.textContent =
+      "Erro ao carregar as músicas.";
+
+  }
+
+}
+
+
+form.addEventListener("submit", async (event) => {
+
+  event.preventDefault();
+
+  if (!usuarioAtual) return;
+
+  if (quantidadeMusicas >= 3) {
+    return;
+  }
+
+  const titulo =
+    document.getElementById("titulo").value.trim();
+
+  const link =
+    document.getElementById("link").value.trim();
+
+  try {
+
+    mensagem.textContent =
+      "A adicionar música...";
+
+    await addDoc(
+      collection(db, "musicas"),
+      {
+        artistaId: usuarioAtual.uid,
+        titulo: titulo,
+        link: link,
+        criadoEm: serverTimestamp()
+      }
+    );
+
+    mensagem.textContent =
+      "Música adicionada com sucesso! 👑";
+
+    form.reset();
+
+    await carregarMusicas();
+
+  } catch (erro) {
+
+    console.error(erro);
+
+    mensagem.textContent =
+      "Erro ao adicionar a música.";
+
+  }
+
+});
+
+</script>
+
+</body>
+</html>
