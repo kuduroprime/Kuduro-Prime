@@ -20,8 +20,8 @@ body {
 
 header {
   background: #111;
-  padding: 20px;
   border-bottom: 2px solid #d4af37;
+  padding: 16px 25px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -31,41 +31,59 @@ header {
   color: #d4af37;
   font-size: 24px;
   font-weight: bold;
+  text-decoration: none;
 }
 
 .sair {
   background: transparent;
-  border: 1px solid #d4af37;
-  color: #d4af37;
-  padding: 10px 16px;
-  border-radius: 8px;
+  border: 1px solid #ff563f;
+  color: #ff563f;
+  padding: 10px 15px;
+  border-radius: 7px;
   cursor: pointer;
-  font-weight: bold;
 }
 
 main {
-  max-width: 1200px;
+  max-width: 1000px;
   margin: auto;
-  padding: 40px 20px;
+  padding: 35px 20px 60px;
 }
 
 .boas-vindas {
+  background: linear-gradient(135deg, #211a07, #151515);
+  border: 1px solid #d4af37;
+  border-radius: 18px;
+  padding: 30px;
   margin-bottom: 30px;
 }
 
-.boas-vindas h1 {
-  color: #d4af37;
-  margin-bottom: 8px;
+.perfil-resumo {
+  display: flex;
+  align-items: center;
+  gap: 20px;
 }
 
-.boas-vindas p {
+.foto {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #d4af37;
+}
+
+h1 {
+  margin: 0;
+  color: #d4af37;
+}
+
+p {
   color: #aaa;
 }
 
-.menu {
+.grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
 }
 
 .card {
@@ -73,46 +91,55 @@ main {
   border: 1px solid #333;
   border-radius: 15px;
   padding: 25px;
-  text-decoration: none;
-  color: white;
-  transition: 0.3s;
+  transition: .2s;
 }
 
 .card:hover {
   border-color: #d4af37;
-  transform: translateY(-5px);
-}
-
-.icone {
-  font-size: 40px;
+  transform: translateY(-3px);
 }
 
 .card h2 {
   color: #d4af37;
-  font-size: 20px;
+  margin-top: 0;
 }
 
-.card p {
-  color: #aaa;
-  line-height: 1.5;
+.botao {
+  display: inline-block;
+  margin-top: 15px;
+  background: #d4af37;
+  color: black;
+  padding: 12px 18px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
 }
 
-footer {
+.botao-secundario {
+  background: transparent;
+  color: #d4af37;
+  border: 1px solid #d4af37;
+}
+
+#carregando {
   text-align: center;
-  padding: 30px;
-  color: #777;
-  background: #111;
-  margin-top: 50px;
+  color: #d4af37;
+  padding: 60px;
 }
 
-@media (max-width: 600px) {
+@media(max-width: 650px) {
+
   header {
-    flex-direction: column;
-    gap: 15px;
+    padding: 15px;
   }
 
-  .logo {
-    font-size: 20px;
+  .perfil-resumo {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
   }
 }
 </style>
@@ -121,75 +148,144 @@ footer {
 <body>
 
 <header>
-  <div class="logo">👑 KUDURO PRIME</div>
 
-  <button class="sair" id="logoutBtn">
-    SAIR 🚪
+  <a href="index.html" class="logo">
+    👑 KUDURO PRIME
+  </a>
+
+  <button class="sair" id="sairBtn">
+    SAIR
   </button>
+
 </header>
 
 <main>
 
-<section class="boas-vindas">
-  <h1>Olá, <span id="artistName">Artista</span>! 👑</h1>
+<div id="carregando">
+  A carregar o painel... 👑
+</div>
 
-  <p>
-    Bem-vindo à tua Área do Artista. Aqui podes gerir o teu perfil
-    e os teus conteúdos no KUDURO PRIME.
-  </p>
-</section>
+<div id="conteudo" style="display:none;">
 
-<section class="menu">
+  <section class="boas-vindas">
 
-  <a href="perfil.html" class="card">
-  <div class="icone">👤</div>
-  <h2>MEU PERFIL</h2>
-  <p>Cria e edita as informações do teu perfil público.</p>
-</a>
+    <div class="perfil-resumo">
 
-  <a href="editar-perfil.html" class="card">
-    <div class="icone">✏️</div>
-    <h2>EDITAR PERFIL</h2>
-    <p>Atualiza a tua biografia, localização e informações.</p>
-  </a>
+      <img
+        id="foto"
+        class="foto"
+        alt="Foto do artista"
+      >
 
-  <a href="minhas-musicas.html" class="card">
-  <div class="icone">🎵</div>
-  <h2>MINHAS MÚSICAS</h2>
-  <p>Adiciona e gere as tuas músicas.</p>
-</a>
+      <div>
 
-  <a href="#" class="card">
-    <div class="icone">🎬</div>
-    <h2>MEUS VÍDEOS</h2>
-    <p>Adiciona os links dos teus vídeos e videoclipes.</p>
-  </a>
+        <h1 id="nome"></h1>
 
-  <a href="#" class="card">
-    <div class="icone">📊</div>
-    <h2>ESTATÍSTICAS</h2>
-    <p>Acompanha a evolução do teu perfil.</p>
-  </a>
+        <p id="provincia"></p>
 
-</section>
+      </div>
+
+    </div>
+
+  </section>
+
+  <div class="grid">
+
+    <article class="card">
+
+      <h2>👤 MEU PERFIL</h2>
+
+      <p>
+        Vê e gere as informações
+        do teu perfil.
+      </p>
+
+      <a
+        href="meu-perfil.html"
+        class="botao"
+      >
+        VER MEU PERFIL
+      </a>
+
+    </article>
+
+    <article class="card">
+
+      <h2>🎵 MINHAS MÚSICAS</h2>
+
+      <p>
+        Publica e gere as tuas músicas.
+      </p>
+
+      <a
+        href="minhas-musicas.html"
+        class="botao"
+      >
+        GERIR MÚSICAS
+      </a>
+
+    </article>
+
+    <article class="card">
+
+      <h2>✏️ EDITAR PERFIL</h2>
+
+      <p>
+        Altera a tua foto, biografia
+        e redes sociais.
+      </p>
+
+      <a
+        href="editar-perfil.html"
+        class="botao botao-secundario"
+      >
+        EDITAR
+      </a>
+
+    </article>
+
+    <article class="card">
+
+      <h2>🌐 PERFIL PÚBLICO</h2>
+
+      <p>
+        Vê o teu perfil como
+        o público vê.
+      </p>
+
+      <a
+        href="#"
+        id="perfilPublico"
+        class="botao botao-secundario"
+      >
+        ABRIR PERFIL
+      </a>
+
+    </article>
+
+  </div>
+
+</div>
 
 </main>
 
-<footer>
-  © 2026 KUDURO PRIME — ÁREA DO ARTISTA 👑
-</footer>
-
 <script type="module">
 
-import { initializeApp } from
-"https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+import {
+  initializeApp
+} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
 
 import {
   getAuth,
   onAuthStateChanged,
   signOut
-} from
-"https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+
+import {
+  getFirestore,
+  doc,
+  getDoc
+} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDoitCcLeLDNBNPCP6fG1s_xbHr4UmohSo",
@@ -202,26 +298,79 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+const db = getFirestore(app);
 
-onAuthStateChanged(auth, (user) => {
+onAuthStateChanged(auth, async user => {
 
   if (!user) {
-    window.location.href = "area-do-artista.html";
+
+    window.location.href =
+      "area-do-artista.html";
+
     return;
   }
 
-  const nome = user.email.split("@")[0];
-  document.getElementById("artistName").textContent = nome;
+  try {
+
+    const perfilDoc =
+      await getDoc(
+        doc(db, "artistas", user.uid)
+      );
+
+    if (!perfilDoc.exists()) {
+
+      window.location.href =
+        "criar-perfil.html";
+
+      return;
+
+    }
+
+    const dados = perfilDoc.data();
+
+    document.getElementById("foto").src =
+      dados.foto;
+
+    document.getElementById("nome").textContent =
+      dados.nome || "Artista";
+
+    document.getElementById("provincia").textContent =
+      "📍 " + (dados.provincia || "");
+
+    document
+      .getElementById("perfilPublico")
+      .href =
+        "perfil.html?id=" + user.uid;
+
+    document
+      .getElementById("carregando")
+      .style.display = "none";
+
+    document
+      .getElementById("conteudo")
+      .style.display = "block";
+
+  } catch (erro) {
+
+    document
+      .getElementById("carregando")
+      .textContent =
+        "Erro ao carregar o painel.";
+
+  }
 
 });
 
-document.getElementById("logoutBtn").addEventListener("click", async () => {
+document
+  .getElementById("sairBtn")
+  .addEventListener("click", async () => {
 
-  await signOut(auth);
+    await signOut(auth);
 
-  window.location.href = "index.html";
+    window.location.href =
+      "index.html";
 
-});
+  });
 
 </script>
 
