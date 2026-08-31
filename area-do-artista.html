@@ -117,7 +117,29 @@ footer {
     font-size: 26px;
   }
 }
-</style>
+input {
+  width: 100%;
+  padding: 14px;
+  margin: 8px 0 18px;
+  background: #080808;
+  color: white;
+  border: 1px solid #444;
+  border-radius: 8px;
+}
+
+label {
+  display: block;
+  text-align: left;
+  color: #d4af37;
+  font-weight: bold;
+}
+
+form .botao {
+  width: 100%;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+}</style>
 </head>
 
 <body>
@@ -137,26 +159,47 @@ footer {
 <main>
   <section class="painel">
 
-    <div class="icone">🔒👤</div>
+  <div class="icone">🔒👤</div>
 
-    <h1>ÁREA DO ARTISTA</h1>
+  <h1>ÁREA DO ARTISTA</h1>
 
-    <p>
-      Esta área é exclusiva para artistas oficialmente
-      aprovados pelo KUDURO PRIME.
-    </p>
+  <p>Entra com os dados de acesso enviados pela equipa do KUDURO PRIME.</p>
 
-    <div class="aviso">
-      🔐 <strong>Acesso reservado</strong><br><br>
-      Se a tua candidatura foi aprovada, em breve receberás
-      os teus dados de acesso para criar e gerir o teu perfil.
-    </div>
+  <div class="aviso">
+    <form id="loginForm">
 
-    <a href="juntar-se.html" class="botao">
-      AINDA NÃO ÉS MEMBRO? CANDIDATA-TE 👑
-    </a>
+      <label>E-MAIL</label>
+      <input
+        type="email"
+        id="email"
+        placeholder="O teu e-mail"
+        required
+      >
 
-  </section>
+      <label>PALAVRA-PASSE</label>
+      <input
+        type="password"
+        id="password"
+        placeholder="A tua palavra-passe"
+        required
+      >
+
+      <button type="submit" class="botao">
+        ENTRAR 👑
+      </button>
+
+      <p id="mensagem"></p>
+
+    </form>
+  </div>
+
+  <br>
+
+  <a href="juntar-se.html" class="botao">
+    AINDA NÃO ÉS MEMBRO? CANDIDATA-TE 👑
+  </a>
+
+</section>
 </main>
 
 <footer>
