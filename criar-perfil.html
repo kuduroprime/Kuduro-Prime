@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Criar Perfil | KUDURO PRIME</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #080808;
+  color: white;
+  font-family: Arial, sans-serif;
+}
+
+header {
+  background: #111;
+  padding: 20px;
+  text-align: center;
+  border-bottom: 2px solid #d4af37;
+}
+
+.logo {
+  color: #d4af37;
+  font-size: 28px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+main {
+  max-width: 750px;
+  margin: auto;
+  padding: 40px 20px;
+}
+
+h1 {
+  color: #d4af37;
+  text-align: center;
+}
+
+.subtitulo {
+  text-align: center;
+  color: #aaa;
+  margin-bottom: 30px;
+}
+
+.formulario {
+  background: #151515;
+  border: 1px solid #333;
+  border-radius: 15px;
+  padding: 30px;
+}
+
+label {
+  display: block;
+  margin: 18px 0 8px;
+  color: #d4af37;
+  font-weight: bold;
+}
+
+input, select, textarea {
+  width: 100%;
+  background: #080808;
+  color: white;
+  border: 1px solid #444;
+  border-radius: 8px;
+  padding: 14px;
+  font-size: 16px;
+}
+
+textarea {
+  min-height: 130px;
+  resize: vertical;
+}
+
+.botao {
+  width: 100%;
+  margin-top: 25px;
+  padding: 16px;
+  background: #d4af37;
+  color: black;
+  border: none;
+  border-radius: 8px;
+  font-size: 17px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.botao:hover {
+  background: #f5c842;
+}
+
+#mensagem {
+  text-align: center;
+  margin-top: 20px;
+  color: #d4af37;
+}
+
+.voltar {
+  display: inline-block;
+  margin-bottom: 20px;
+  color: #d4af37;
+  text-decoration: none;
+}
+
+@media (max-width: 600px) {
+  .formulario {
+    padding: 20px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <a href="index.html" class="logo">👑 KUDURO PRIME</a>
+</header>
+
+<main>
+
+<a href="painel-do-artista.html" class="voltar">
+← VOLTAR AO PAINEL
+</a>
+
+<h1>👤 CRIAR O MEU PERFIL</h1>
+
+<p class="subtitulo">
+Preenche as tuas informações para criar o teu perfil público.
+</p>
+
+<form id="perfilForm" class="formulario">
+
+<label>NOME ARTÍSTICO</label>
+<input type="text" id="nome" required>
+
+<label>FOTO DO ARTISTA (LINK DA IMAGEM)</label>
+<input type="url" id="foto" placeholder="https://...">
+
+<label>BIOGRAFIA</label>
+<textarea id="bio" required></textarea>
+
+<label>PROVÍNCIA</label>
+<input type="text" id="provincia" placeholder="Ex: Luanda" required>
+
+<label>WHATSAPP</label>
+<input type="tel" id="whatsapp" placeholder="+244">
+
+<label>INSTAGRAM</label>
+<input type="url" id="instagram" placeholder="https://instagram.com/...">
+
+<label>TIKTOK</label>
+<input type="url" id="tiktok" placeholder="https://tiktok.com/...">
+
+<label>MÚSICA EM DESTAQUE</label>
+<input type="url" id="musica" placeholder="Link da música">
+
+<button type="submit" class="botao">
+GUARDAR PERFIL 👑
+</button>
+
+<p id="mensagem"></p>
+
+</form>
+
+</main>
+
+<script type="module">
+
+import { initializeApp } from
+"https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+
+import {
+  getAuth,
+  onAuthStateChanged
+} from
+"https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+
+import {
+  getFirestore,
+  doc,
+  setDoc
+} from
+"https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDoitCcLeLDNBNPCP6fG1s_xbHr4UmohSo",
+  authDomain: "kuduro-prime.firebaseapp.com",
+  projectId: "kuduro-prime",
+  storageBucket: "kuduro-prime.firebasestorage.app",
+  messagingSenderId: "299776559545",
+  appId: "1:299776559545:web:04aced1ba25391eb3fce68"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+let usuarioAtual = null;
+
+onAuthStateChanged(auth, (user) => {
+  if (!user) {
+    window.location.href = "area-do-artista.html";
+  } else {
+    usuarioAtual = user;
+  }
+});
+
+const form = document.getElementById("perfilForm");
+const mensagem = document.getElementById("mensagem");
+
+form.addEventListener("submit", async (event) => {
+  event.preventDefault();
+
+  if (!usuarioAtual) return;
+
+  mensagem.textContent = "A guardar perfil...";
+
+  try {
+
+    await setDoc(doc(db, "artistas", usuarioAtual.uid), {
+
+      uid: usuarioAtual.uid,
+      email: usuarioAtual.email,
+
+      nome: document.getElementById("nome").value,
+      foto: document.getElementById("foto").value,
+      bio: document.getElementById("bio").value,
+      provincia: document.getElementById("provincia").value,
+      whatsapp: document.getElementById("whatsapp").value,
+      instagram: document.getElementById("instagram").value,
+      tiktok: document.getElementById("tiktok").value,
+      musica: document.getElementById("musica").value,
+
+      criadoEm: new Date().toISOString()
+
+    });
+
+    mensagem.textContent = "Perfil guardado com sucesso! 👑";
+
+    setTimeout(() => {
+      window.location.href = "painel-do-artista.html";
+    }, 1500);
+
+  } catch (erro) {
+
+    console.error(erro);
+
+    mensagem.textContent =
+      "Erro ao guardar o perfil. Tenta novamente.";
+
+  }
+
+});
+
+</script>
+
+</body>
+</html>
