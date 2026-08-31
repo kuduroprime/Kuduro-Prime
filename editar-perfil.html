@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Editar Perfil | KUDURO PRIME</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #080808;
+  color: white;
+  font-family: Arial, sans-serif;
+}
+
+header {
+  background: #111;
+  padding: 20px;
+  text-align: center;
+  border-bottom: 2px solid #d4af37;
+}
+
+.logo {
+  color: #d4af37;
+  font-size: 28px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+main {
+  max-width: 750px;
+  margin: auto;
+  padding: 40px 20px;
+}
+
+h1 {
+  color: #d4af37;
+  text-align: center;
+}
+
+.subtitulo {
+  text-align: center;
+  color: #aaa;
+  margin-bottom: 30px;
+}
+
+.formulario {
+  background: #151515;
+  border: 1px solid #333;
+  border-radius: 15px;
+  padding: 30px;
+}
+
+label {
+  display: block;
+  margin: 18px 0 8px;
+  color: #d4af37;
+  font-weight: bold;
+}
+
+input,
+textarea {
+  width: 100%;
+  background: #080808;
+  color: white;
+  border: 1px solid #444;
+  border-radius: 8px;
+  padding: 14px;
+  font-size: 16px;
+}
+
+textarea {
+  min-height: 130px;
+  resize: vertical;
+}
+
+.preview-container {
+  margin-top: 15px;
+  text-align: center;
+}
+
+#previewFoto {
+  display: none;
+  width: 160px;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 3px solid #d4af37;
+}
+
+.botao {
+  width: 100%;
+  margin-top: 25px;
+  padding: 16px;
+  background: #d4af37;
+  color: black;
+  border: none;
+  border-radius: 8px;
+  font-size: 17px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.botao:hover {
+  background: #f5c842;
+}
+
+.botao:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+#mensagem {
+  text-align: center;
+  margin-top: 20px;
+  color: #d4af37;
+  min-height: 25px;
+}
+
+.voltar {
+  display: inline-block;
+  margin-bottom: 20px;
+  color: #d4af37;
+  text-decoration: none;
+}
+
+@media (max-width: 600px) {
+  .formulario {
+    padding: 20px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <a href="index.html" class="logo">👑 KUDURO PRIME</a>
+</header>
+
+<main>
+
+<a href="painel-do-artista.html" class="voltar">
+← VOLTAR AO PAINEL
+</a>
+
+<h1>✏️ EDITAR O MEU PERFIL</h1>
+
+<p class="subtitulo">
+Atualiza as tuas informações. A foto só é alterada se escolheres uma nova.
+</p>
+
+<form id="perfilForm" class="formulario">
+
+<label for="nome">NOME ARTÍSTICO</label>
+<input type="text" id="nome" required>
+
+<label for="foto">FOTO DO ARTISTA</label>
+<input
+  type="file"
+  id="foto"
+  accept="image/*"
+>
+
+<div class="preview-container">
+  <img id="previewFoto" alt="Foto do artista">
+</div>
+
+<label for="bio">BIOGRAFIA</label>
+<textarea id="bio" required></textarea>
+
+<label for="provincia">PROVÍNCIA</label>
+<input type="text" id="provincia" required>
+
+<label for="whatsapp">WHATSAPP</label>
+<input type="tel" id="whatsapp" placeholder="+244">
+
+<label for="instagram">INSTAGRAM</label>
+<input type="url" id="instagram">
+
+<label for="tiktok">TIKTOK</label>
+<input type="url" id="tiktok">
+
+<label for="musica">MÚSICA EM DESTAQUE</label>
+<input type="url" id="musica">
+
+<button type="submit" class="botao" id="guardarBtn">
+GUARDAR ALTERAÇÕES 👑
+</button>
+
+<p id="mensagem"></p>
+
+</form>
+
+</main>
+
+<script type="module">
+
+import { initializeApp } from
+"https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+
+import {
+  getAuth,
+  onAuthStateChanged
+} from
+"https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+
+import {
+  getFirestore,
+  doc,
+  getDoc,
+  updateDoc
+} from
+"https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDoitCcLeLDNBNPCP6fG1s_xbHr4UmohSo",
+  authDomain: "kuduro-prime.firebaseapp.com",
+  projectId: "kuduro-prime",
+  storageBucket: "kuduro-prime.firebasestorage.app",
+  messagingSenderId: "299776559545",
+  appId: "1:299776559545:web:04aced1ba25391eb3fce68"
+};
+
+const CLOUDINARY_CLOUD_NAME = "ge1ntqqc";
+const CLOUDINARY_UPLOAD_PRESET = "Kudu_";
+
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+let usuarioAtual = null;
+let fotoAtualURL = "";
+
+const form = document.getElementById("perfilForm");
+const fotoInput = document.getElementById("foto");
+const previewFoto = document.getElementById("previewFoto");
+const mensagem = document.getElementById("mensagem");
+const guardarBtn = document.getElementById("guardarBtn");
+
+
+/* CARREGAR PERFIL */
+onAuthStateChanged(auth, async (user) => {
+
+  if (!user) {
+    window.location.href = "area-do-artista.html";
+    return;
+  }
+
+  usuarioAtual = user;
+
+  try {
+
+    const perfilRef = doc(db, "artistas", user.uid);
+    const perfilDoc = await getDoc(perfilRef);
+
+    if (!perfilDoc.exists()) {
+      window.location.href = "criar-perfil.html";
+      return;
+    }
+
+    const dados = perfilDoc.data();
+
+    document.getElementById("nome").value = dados.nome || "";
+    document.getElementById("bio").value = dados.bio || "";
+    document.getElementById("provincia").value = dados.provincia || "";
+    document.getElementById("whatsapp").value = dados.whatsapp || "";
+    document.getElementById("instagram").value = dados.instagram || "";
+    document.getElementById("tiktok").value = dados.tiktok || "";
+    document.getElementById("musica").value = dados.musica || "";
+
+    fotoAtualURL = dados.foto || "";
+
+    if (fotoAtualURL) {
+      previewFoto.src = fotoAtualURL;
+      previewFoto.style.display = "inline-block";
+    }
+
+  } catch (erro) {
+
+    console.error(erro);
+
+    mensagem.textContent =
+      "Erro ao carregar o perfil.";
+
+  }
+
+});
+
+
+/* PRÉ-VISUALIZAR NOVA FOTO */
+fotoInput.addEventListener("change", () => {
+
+  const ficheiro = fotoInput.files[0];
+
+  if (!ficheiro) return;
+
+  if (!ficheiro.type.startsWith("image/")) {
+    mensagem.textContent =
+      "Seleciona apenas uma imagem.";
+    fotoInput.value = "";
+    return;
+  }
+
+  const leitor = new FileReader();
+
+  leitor.onload = (evento) => {
+    previewFoto.src = evento.target.result;
+    previewFoto.style.display = "inline-block";
+  };
+
+  leitor.readAsDataURL(ficheiro);
+
+});
+
+
+/* ENVIAR NOVA FOTO PARA CLOUDINARY */
+async function enviarFotoCloudinary(ficheiro) {
+
+  const formData = new FormData();
+
+  formData.append("file", ficheiro);
+  formData.append(
+    "upload_preset",
+    CLOUDINARY_UPLOAD_PRESET
+  );
+
+  const resposta = await fetch(
+    `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`,
+    {
+      method: "POST",
+      body: formData
+    }
+  );
+
+  const dados = await resposta.json();
+
+  if (!resposta.ok) {
+    throw new Error(
+      dados.error?.message ||
+      "Erro ao enviar a foto."
+    );
+  }
+
+  return dados.secure_url;
+}
+
+
+/* GUARDAR ALTERAÇÕES */
+form.addEventListener("submit", async (event) => {
+
+  event.preventDefault();
+
+  if (!usuarioAtual) {
+    mensagem.textContent =
+      "A verificar o login...";
+    return;
+  }
+
+  try {
+
+    guardarBtn.disabled = true;
+
+    let fotoURL = fotoAtualURL;
+
+    const novaFoto = fotoInput.files[0];
+
+    if (novaFoto) {
+
+      mensagem.textContent =
+        "📷 A enviar a nova foto...";
+
+      fotoURL =
+        await enviarFotoCloudinary(novaFoto);
+    }
+
+    mensagem.textContent =
+      "💾 A guardar alterações...";
+
+    await updateDoc(
+      doc(db, "artistas", usuarioAtual.uid),
+      {
+        nome:
+          document.getElementById("nome").value.trim(),
+
+        foto: fotoURL,
+
+        bio:
+          document.getElementById("bio").value.trim(),
+
+        provincia:
+          document.getElementById("provincia").value.trim(),
+
+        whatsapp:
+          document.getElementById("whatsapp").value.trim(),
+
+        instagram:
+          document.getElementById("instagram").value.trim(),
+
+        tiktok:
+          document.getElementById("tiktok").value.trim(),
+
+        musica:
+          document.getElementById("musica").value.trim(),
+
+        atualizadoEm:
+          new Date().toISOString()
+      }
+    );
+
+    mensagem.textContent =
+      "Perfil atualizado com sucesso! 👑";
+
+    setTimeout(() => {
+      window.location.href = "perfil.html";
+    }, 1200);
+
+  } catch (erro) {
+
+    console.error(erro);
+
+    mensagem.textContent =
+      "Erro: " + erro.message;
+
+    guardarBtn.disabled = false;
+
+  }
+
+});
+
+</script>
+
+</body>
+</html>
