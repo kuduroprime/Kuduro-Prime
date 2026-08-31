@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Eventos | KUDURO PRIME</title>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: #080808;
+  color: white;
+  font-family: Arial, sans-serif;
+}
+
+header {
+  background: #111;
+  padding: 20px;
+  text-align: center;
+  border-bottom: 2px solid #d4af37;
+}
+
+.logo {
+  color: #d4af37;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+nav {
+  margin-top: 15px;
+}
+
+nav a {
+  color: white;
+  margin: 10px;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+nav a:hover {
+  color: #d4af37;
+}
+
+.titulo {
+  text-align: center;
+  margin: 50px 20px 20px;
+}
+
+.titulo h1 {
+  color: #d4af37;
+  font-size: 42px;
+  margin-bottom: 10px;
+}
+
+.titulo p {
+  color: #aaa;
+}
+
+.eventos {
+  max-width: 1100px;
+  margin: 45px auto;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  gap: 22px;
+}
+
+.evento {
+  background: #151515;
+  border: 1px solid #333;
+  border-radius: 14px;
+  overflow: hidden;
+  transition: 0.3s;
+}
+
+.evento:hover {
+  transform: translateY(-6px);
+  border-color: #d4af37;
+}
+
+.imagem {
+  height: 180px;
+  background: linear-gradient(135deg, #5b4100, #111);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 65px;
+}
+
+.conteudo {
+  padding: 20px;
+}
+
+.data {
+  display: inline-block;
+  background: #d4af37;
+  color: black;
+  padding: 7px 10px;
+  border-radius: 6px;
+  font-weight: bold;
+  margin-bottom: 12px;
+}
+
+.conteudo h2 {
+  margin: 5px 0 12px;
+}
+
+.conteudo p {
+  color: #aaa;
+  line-height: 1.5;
+}
+
+.botao {
+  display: inline-block;
+  margin-top: 10px;
+  background: #d4af37;
+  color: black;
+  padding: 10px 15px;
+  border-radius: 6px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+footer {
+  background: #111;
+  text-align: center;
+  padding: 30px;
+  color: #777;
+  margin-top: 50px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">👑 KUDURO PRIME</div>
+
+  <nav>
+    <a href="index.html">INÍCIO</a>
+    <a href="artistas.html">ARTISTAS</a>
+    <a href="musicas.html">MÚSICAS</a>
+    <a href="ranking.html">RANKING</a>
+    <a href="eventos.html">EVENTOS</a>
+  </nav>
+</header>
+
+<section class="titulo">
+  <h1>📅 PRIME EVENTS</h1>
+  <p>Descobre onde o movimento Kuduro vai acontecer.</p>
+</section>
+
+<section class="eventos">
+
+  <article class="evento">
+    <div class="imagem">🔥</div>
+    <div class="conteudo">
+      <span class="data">EM BREVE</span>
+      <h2>KUDURO PRIME SHOW</h2>
+      <p>📍 Luanda, Angola</p>
+      <p>Uma grande noite dedicada aos artistas e ao movimento Kuduro.</p>
+      <a class="botao" href="#">VER DETALHES</a>
+    </div>
+  </article>
+
+  <article class="evento">
+    <div class="imagem">🎤</div>
+    <div class="conteudo">
+      <span class="data">EM BREVE</span>
+      <h2>NOITE DO KUDURO</h2>
+      <p>📍 Viana, Luanda</p>
+      <p>Os artistas, DJs e dançarinos reunidos numa única grande festa.</p>
+      <a class="botao" href="#">VER DETALHES</a>
+    </div>
+  </article>
+
+  <article class="evento">
+    <div class="imagem">👑</div>
+    <div class="conteudo">
+      <span class="data">EM BREVE</span>
+      <h2>PRIME BATTLE</h2>
+      <p>📍 Local a anunciar</p>
+      <p>Uma batalha especial entre talentos do Kuduro.</p>
+      <a class="botao" href="#">VER DETALHES</a>
+    </div>
+  </article>
+
+</section>
+
+<footer>
+  © 2026 KUDURO PRIME — O KUDURO VIVE AQUI 👑
+</footer>
+
+</body>
+</html>
