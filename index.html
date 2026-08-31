@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KUDURO PRIME — O Palco dos Grandes</title>
+  <meta name="description" content="A plataforma dedicada ao Kuduro: artistas, músicas, ranking, batalhas e eventos." />
+  <style>
+    :root{
+      --bg:#070707;--panel:#101010;--panel2:#151515;--gold:#f4bf31;--gold2:#ffdc6b;
+      --text:#f7f4ed;--muted:#aaa59a;--line:#2a271f;--red:#ff563f;
+    }
+    *{box-sizing:border-box} html{scroll-behavior:smooth}
+    body{margin:0;background:radial-gradient(circle at 80% 0,#2a1c07 0,transparent 30%),var(--bg);color:var(--text);font-family:Arial,Helvetica,sans-serif}
+    a{text-decoration:none;color:inherit}.container{width:min(1180px,92%);margin:auto}
+    .nav{height:82px;border-bottom:1px solid var(--line);display:flex;align-items:center;position:sticky;top:0;background:rgba(7,7,7,.92);backdrop-filter:blur(12px);z-index:20}
+    .nav-in{display:flex;align-items:center;justify-content:space-between;width:min(1180px,92%);margin:auto;gap:20px}
+    .brand{font-size:23px;font-weight:900;line-height:.78;color:#fff;letter-spacing:-1px;position:relative}.brand b{display:block;color:var(--gold)}.crown{color:var(--gold);font-size:23px;display:block;text-align:center;line-height:.6}
+    .links{display:flex;gap:22px;font-size:12px;font-weight:800;letter-spacing:.4px}.links a:hover,.links a.active{color:var(--gold)}
+    .nav-actions{display:flex;gap:10px}.btn{border:1px solid var(--gold);padding:12px 17px;border-radius:8px;font-weight:800;font-size:12px;display:inline-flex;align-items:center;justify-content:center;gap:7px;cursor:pointer}
+    .btn.gold{background:linear-gradient(135deg,var(--gold2),var(--gold));color:#17120a;border:0}.btn.dark{background:transparent;color:white}.menu{display:none;background:none;border:0;color:white;font-size:24px}
+    .hero{min-height:610px;border-bottom:1px solid var(--line);display:flex;align-items:center;position:relative;overflow:hidden;background:linear-gradient(90deg,#090909 10%,rgba(9,9,9,.4) 52%,rgba(0,0,0,.08)),url('https://images.unsplash.com/photo-1524368535928-5b5e00ddc76b?auto=format&fit=crop&w=1800&q=85') center/cover}
+    .hero:after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 75% 30%,rgba(244,191,49,.3),transparent 25%)}
+    .hero-content{position:relative;z-index:1;max-width:620px;padding:80px 0}.eyebrow{color:var(--gold);font-size:12px;font-weight:900;letter-spacing:3px}
+    h1{font-size:clamp(60px,9vw,116px);line-height:.82;margin:18px 0 22px;font-weight:950;letter-spacing:-6px;text-transform:uppercase}.gold-text{color:var(--gold)}
+    .hero p{font-size:19px;line-height:1.55;max-width:500px;color:#dedbd4}.hero-buttons{display:flex;gap:12px;margin-top:28px;flex-wrap:wrap}
+    .stats{display:flex;gap:0;margin-top:50px}.stat{padding:0 25px;border-right:1px solid #60563c}.stat:first-child{padding-left:0}.stat:last-child{border:0}.stat strong{display:block;font-size:25px}.stat span{font-size:10px;color:var(--muted);letter-spacing:1px}
+    section{padding:60px 0}.section-head{display:flex;justify-content:space-between;align-items:end;margin-bottom:24px;gap:20px}.title{font-size:29px;margin:0;font-weight:900}.subtitle{color:var(--muted);font-size:13px;margin:6px 0 0}
+    .artists{display:grid;grid-template-columns:repeat(5,1fr);gap:15px}.card{background:linear-gradient(180deg,#181818,#0d0d0d);border:1px solid var(--line);border-radius:14px;overflow:hidden;transition:.25s}.card:hover{transform:translateY(-5px);border-color:#7c6327}
+    .artist-img{height:230px;background:linear-gradient(0deg,#090909 0%,transparent 55%),var(--img) center/cover}.artist-info{padding:14px}.tag{font-size:10px;color:var(--gold);font-weight:900}.verified{color:#4eb8ff}
+    .grid-3{display:grid;grid-template-columns:1.15fr 1fr .9fr;gap:18px}.panel{background:linear-gradient(145deg,#151515,#0b0b0b);border:1px solid var(--line);border-radius:15px;padding:20px}
+    .release{display:flex;gap:12px;padding:11px 0;border-bottom:1px solid var(--line);align-items:center}.release:last-child{border:0}.cover{width:52px;height:52px;border-radius:8px;background:var(--img) center/cover;flex:0 0 auto}.song{font-weight:800;font-size:14px}.artist{font-size:12px;color:var(--muted);margin-top:5px}.play{margin-left:auto;width:38px;height:38px;border:1px solid var(--gold);border-radius:50%;display:grid;place-items:center;color:var(--gold);font-size:12px}
+    .rank-title{text-align:center;font-size:43px;color:var(--gold);font-weight:950;margin:5px 0 18px}.rank{display:grid;grid-template-columns:42px 45px 1fr 28px;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--line)}.rank-num{font-size:20px;font-weight:900;color:#ddd}.mini{width:43px;height:43px;border-radius:6px;background:var(--img) center/cover}
+    .battle{min-height:320px;position:relative;background:linear-gradient(120deg,rgba(0,0,0,.1),#3a0e06),url('https://images.unsplash.com/photo-1506157786151-b8491531f063?auto=format&fit=crop&w=900&q=80') center/cover;overflow:hidden}.battle:before{content:"ARTISTA A     VS     ARTISTA B";position:absolute;left:0;right:0;bottom:80px;text-align:center;font-size:22px;font-weight:900;letter-spacing:1px}.battle .btn{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);white-space:nowrap}
+    .events{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.event{height:220px;padding:18px;display:flex;flex-direction:column;justify-content:end;border-radius:14px;border:1px solid var(--line);background:linear-gradient(0deg,rgba(0,0,0,.9),transparent),var(--img) center/cover}.date{background:var(--gold);color:#111;padding:8px;border-radius:7px;font-weight:900;width:max-content;margin-bottom:auto}.event h3{margin:0;font-size:24px}.event p{margin:6px 0 0;color:#ccc;font-size:13px}
+    .cta{padding:42px;background:linear-gradient(90deg,#221903,#111);border-top:1px solid #705719;border-bottom:1px solid #705719}.cta-in{display:flex;align-items:center;justify-content:space-between;gap:30px}.cta h2{font-size:36px;margin:0}.cta p{color:#ccc}
+    footer{padding:55px 0 30px;background:#050505}.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1.4fr;gap:40px}.footer-grid h4{color:var(--gold);margin:0 0 16px}.footer-grid a,.footer-grid p{display:block;color:var(--muted);font-size:13px;margin:10px 0;line-height:1.5}.copy{border-top:1px solid var(--line);margin-top:35px;padding-top:20px;color:#777;font-size:12px}
+    @media(max-width:950px){.links{display:none}.menu{display:block}.artists{grid-template-columns:repeat(3,1fr)}.grid-3{grid-template-columns:1fr 1fr}.battle{grid-column:1/-1}.footer-grid{grid-template-columns:1fr 1fr}.nav-actions .dark{display:none}}
+    @media(max-width:620px){.nav{height:70px}.brand{font-size:18px}.nav-actions .btn{padding:10px}.hero{min-height:680px}.hero-content{padding:70px 0 40px}h1{letter-spacing:-3px}.stats{gap:0}.stat{padding:0 11px}.stat strong{font-size:17px}.artists{grid-template-columns:repeat(2,1fr)}.artist-img{height:190px}.grid-3{grid-template-columns:1fr}.events{grid-template-columns:1fr}.cta-in{flex-direction:column;align-items:flex-start}.footer-grid{grid-template-columns:1fr}.section-head{align-items:start;flex-direction:column}.hero p{font-size:16px}}
+  </style>
+</head>
+<body>
+  <nav class="nav"><div class="nav-in">
+    <a class="brand" href="#"><span class="crown">♕</span>KUDURO <b>PRIME</b></a>
+    <div class="links"><a class="active" href="#inicio">INÍCIO</a><a href="#artistas">ARTISTAS</a><a href="#musicas">MÚSICAS</a><a href="#ranking">RANKING</a><a href="#batalhas">BATALHAS</a><a href="#eventos">EVENTOS</a></div>
+    <div class="nav-actions"><a class="btn dark" href="#">ENTRAR</a><a class="btn gold" href="#perfil">👤 CRIAR PERFIL</a><button class="menu" onclick="document.querySelector('.links').style.display='flex'">☰</button></div>
+  </div></nav>
+
+  <main id="inicio">
+    <section class="hero"><div class="container hero-content">
+      <div class="eyebrow">♕ O PALCO DOS GRANDES</div>
+      <h1>O KUDURO<br><span class="gold-text">NÃO PARA.</span></h1>
+      <p>A maior plataforma dedicada aos artistas, à música, à dança e ao movimento Kuduro.</p>
+      <div class="hero-buttons"><a href="#artistas" class="btn gold">♕ ENTRAR NO MOVIMENTO</a><a href="#musicas" class="btn dark">▶ VER LANÇAMENTOS</a></div>
+      <div class="stats"><div class="stat"><strong>2.8M</strong><span>VISITAS MENSAIS</span></div><div class="stat"><strong>1.5K</strong><span>ARTISTAS CADASTRADOS</span></div><div class="stat"><strong>10K+</strong><span>MÚSICAS PUBLICADAS</span></div></div>
+    </div></section>
+
+    <section id="artistas"><div class="container">
+      <div class="section-head"><div><h2 class="title">👑 ARTISTAS PRIME</h2><p class="subtitle">Os grandes nomes e as novas revelações do Kuduro.</p></div><a class="btn dark" href="#">VER TODOS ›</a></div>
+      <div class="artists" id="artistGrid"></div>
+    </div></section>
+
+    <section id="musicas" style="padding-top:0"><div class="container grid-3">
+      <div class="panel"><h2 class="title">🎵 LANÇAMENTOS</h2><p class="subtitle">O que está a tocar no movimento.</p><div id="releases"></div></div>
+      <div class="panel" id="ranking"><div class="rank-title">TOP 10 <span style="color:#fff">PRIME</span></div><p class="subtitle" style="text-align:center;margin-bottom:12px">As músicas mais ouvidas da semana.</p><div id="rankings"></div><a class="btn dark" style="width:100%;margin-top:15px" href="#">VER RANKING COMPLETO ›</a></div>
+      <div class="panel battle" id="batalhas"><h2 class="title">🔥 PRIME BATTLES</h2><p class="subtitle">O público escolhe o melhor!</p><a class="btn gold" href="#">VOTAR AGORA ›</a></div>
+    </section>
+
+    <section id="eventos" style="padding-top:0"><div class="container">
+      <div class="section-head"><div><h2 class="title">📅 PRIME EVENTS</h2><p class="subtitle">Os próximos eventos do Kuduro.</p></div><a class="btn dark" href="#">VER TODOS ›</a></div>
+      <div class="events" id="eventGrid"></div>
+    </div></section>
+
+    <section class="cta" id="perfil"><div class="container cta-in"><div><h2>O TEU TALENTO MERECE SER VISTO.</h2><p>Cria o teu perfil no <b style="color:var(--gold)">KUDURO PRIME</b> e entra no movimento.</p></div><a href="#" class="btn gold" style="font-size:14px;padding:17px 28px">👤 CRIAR PERFIL DE ARTISTA</a></div></section>
+  </main>
+
+  <footer><div class="container"><div class="footer-grid">
+    <div><a class="brand" href="#"><span class="crown">♕</span>KUDURO <b>PRIME</b></a><p>A plataforma oficial dedicada à música, aos artistas, à dança e à cultura do Kuduro.</p></div>
+    <div><h4>NAVEGAÇÃO</h4><a href="#inicio">Início</a><a href="#artistas">Artistas</a><a href="#musicas">Músicas</a><a href="#ranking">Ranking</a><a href="#eventos">Eventos</a></div>
+    <div><h4>SOBRE</h4><a href="#">Quem Somos</a><a href="#">Termos de Uso</a><a href="#">Privacidade</a><a href="#">Ajuda</a></div>
+    <div><h4>RECEBE AS NOVIDADES PRIME</h4><p>Fica por dentro dos lançamentos e eventos.</p><div style="display:flex;gap:8px"><input placeholder="O teu e-mail" style="min-width:0;width:100%;padding:13px;background:#111;border:1px solid var(--line);border-radius:7px;color:white"><button class="btn gold">RECEBER</button></div></div>
+  </div><div class="copy">© 2026 KUDURO PRIME. Todos os direitos reservados. — O KUDURO VIVE AQUI. 👑</div></div></footer>
+
+  <script>
+    const artists=[
+      ["Figura do Adoço","Artista Prime","https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&w=500&q=80"],
+      ["Dj Jeff Afrozila","Novo Lançamento","https://images.unsplash.com/photo-1501386761578-eac5c94b800a?auto=format&fit=crop&w=500&q=80"],
+      ["MCK","No Top do Ranking","https://images.unsplash.com/photo-1517230878791-4d28214057c2?auto=format&fit=crop&w=500&q=80"],
+      ["Ready Neutro","Artista Prime","https://images.unsplash.com/photo-1524650359799-842906ca9b00?auto=format&fit=crop&w=500&q=80"],
+      ["Nagrelha","Artista Prime","https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=500&q=80"]
+    ];
+    document.querySelector('#artistGrid').innerHTML=artists.map(a=>`<article class="card"><div class="artist-img" style="--img:url('${a[2]}')"></div><div class="artist-info"><b>${a[0]} <span class="verified">●</span></b><div class="tag">${a[1]}</div></div></article>`).join('');
+    const songs=[["Mim Faz Só Broxe","Figura do Adoço"],["Vida de Artista","Ready Neutro"],["Zona Quente","DJ Tafinha"],["Kuduro é Vida","Yuri da Cunha"]];
+    const pics=artists.map(a=>a[2]);
+    document.querySelector('#releases').innerHTML=songs.map((s,i)=>`<div class="release"><div class="cover" style="--img:url('${pics[i%pics.length]}')"></div><div><div class="song">${s[0]}</div><div class="artist">${s[1]}</div></div><div class="play">▶</div></div>`).join('');
+    document.querySelector('#rankings').innerHTML=songs.concat([["Balança","Nagrelha"]]).map((s,i)=>`<div class="rank"><div class="rank-num">0${i+1}</div><div class="mini" style="--img:url('${pics[i]}')"></div><div><div class="song">${s[0]}</div><div class="artist">${s[1]}</div></div><div class="tag">▲</div></div>`).join('');
+    const events=[["04","KUDURO FEST","Luanda • Baía de Luanda","https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?auto=format&fit=crop&w=700&q=80"],["12","KUDURO NIGHT","Viana • Arena Prime","https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=700&q=80"],["25","PRIME SHOW","Belas • Shopping","https://images.unsplash.com/photo-1524368535928-5b5e00ddc76b?auto=format&fit=crop&w=700&q=80"]];
+    document.querySelector('#eventGrid').innerHTML=events.map(e=>`<article class="event" style="--img:url('${e[3]}')"><span class="date">${e[0]} JUN</span><h3>${e[1]}</h3><p>📍 ${e[2]}</p></article>`).join('');
+  </script>
+</body>
+</html>
