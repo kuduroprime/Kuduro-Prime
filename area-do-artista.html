@@ -10,52 +10,7 @@
 * {
   box-sizing: border-box;
 }
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
 
-  import {
-    getAuth,
-    signInWithEmailAndPassword
-  } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
-
-  const firebaseConfig = {
-    apiKey: "AIzaSyDoitCcLeLDNBNPCP6fG1s_xbHr4UmohSo",
-    authDomain: "kuduro-prime.firebaseapp.com",
-    projectId: "kuduro-prime",
-    storageBucket: "kuduro-prime.firebasestorage.app",
-    messagingSenderId: "299776559545",
-    appId: "1:299776559545:web:04aced1ba25391eb3fce68"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-
-  const loginForm = document.getElementById("loginForm");
-  const mensagem = document.getElementById("mensagem");
-
-  loginForm.addEventListener("submit", async (event) => {
-    event.preventDefault();
-
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
-
-    mensagem.textContent = "A entrar...";
-
-    try {
-      await signInWithEmailAndPassword(auth, email, password);
-
-      mensagem.textContent = "Login realizado com sucesso! 👑";
-
-      setTimeout(() => {
-        window.location.href = "painel-do-artista.html";
-      }, 1000);
-
-    } catch (error) {
-      mensagem.textContent =
-        "E-mail ou palavra-passe incorretos.";
-    }
-  });
-</script>
 body {
   margin: 0;
   min-height: 100vh;
@@ -132,18 +87,48 @@ p {
   margin: 25px 0;
 }
 
+label {
+  display: block;
+  text-align: left;
+  color: #d4af37;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+input {
+  width: 100%;
+  padding: 14px;
+  margin: 8px 0 18px;
+  background: #080808;
+  color: white;
+  border: 1px solid #444;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
 .botao {
   display: inline-block;
+  width: 100%;
   padding: 14px 25px;
   background: #d4af37;
   color: black;
   text-decoration: none;
   font-weight: bold;
   border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
 }
 
 .botao:hover {
   background: #f5c842;
+}
+
+#mensagem {
+  text-align: center;
+  margin-top: 15px;
+  min-height: 25px;
+  color: #d4af37;
 }
 
 footer {
@@ -162,29 +147,7 @@ footer {
     font-size: 26px;
   }
 }
-input {
-  width: 100%;
-  padding: 14px;
-  margin: 8px 0 18px;
-  background: #080808;
-  color: white;
-  border: 1px solid #444;
-  border-radius: 8px;
-}
-
-label {
-  display: block;
-  text-align: left;
-  color: #d4af37;
-  font-weight: bold;
-}
-
-form .botao {
-  width: 100%;
-  border: none;
-  cursor: pointer;
-  font-size: 16px;
-}</style>
+</style>
 </head>
 
 <body>
@@ -204,52 +167,104 @@ form .botao {
 <main>
   <section class="painel">
 
-  <div class="icone">🔒👤</div>
+    <div class="icone">🔒👤</div>
 
-  <h1>ÁREA DO ARTISTA</h1>
+    <h1>ÁREA DO ARTISTA</h1>
 
-  <p>Entra com os dados de acesso enviados pela equipa do KUDURO PRIME.</p>
+    <p>
+      Entra com os dados de acesso enviados pela equipa do
+      KUDURO PRIME.
+    </p>
 
-  <div class="aviso">
-    <form id="loginForm">
+    <div class="aviso">
 
-      <label>E-MAIL</label>
-      <input
-        type="email"
-        id="email"
-        placeholder="O teu e-mail"
-        required
-      >
+      <form id="loginForm">
 
-      <label>PALAVRA-PASSE</label>
-      <input
-        type="password"
-        id="password"
-        placeholder="A tua palavra-passe"
-        required
-      >
+        <label for="email">E-MAIL</label>
+        <input
+          type="email"
+          id="email"
+          placeholder="O teu e-mail"
+          required
+        >
 
-      <button type="submit" class="botao">
-        ENTRAR 👑
-      </button>
+        <label for="password">PALAVRA-PASSE</label>
+        <input
+          type="password"
+          id="password"
+          placeholder="A tua palavra-passe"
+          required
+        >
 
-      <p id="mensagem"></p>
+        <button type="submit" class="botao">
+          ENTRAR 👑
+        </button>
 
-    </form>
-  </div>
+        <p id="mensagem"></p>
 
-  <br>
+      </form>
 
-  <a href="juntar-se.html" class="botao">
-    AINDA NÃO ÉS MEMBRO? CANDIDATA-TE 👑
-  </a>
+    </div>
 
-</section>
+    <a href="juntar-se.html" class="botao">
+      AINDA NÃO ÉS MEMBRO? CANDIDATA-TE 👑
+    </a>
+
+  </section>
 </main>
 
 <footer>
   © 2026 KUDURO PRIME — O KUDURO VIVE AQUI 👑
 </footer>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+
+import {
+  getAuth,
+  signInWithEmailAndPassword
+} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDoitCcLeLDNBNPCP6fG1s_xbHr4UmohSo",
+  authDomain: "kuduro-prime.firebaseapp.com",
+  projectId: "kuduro-prime",
+  storageBucket: "kuduro-prime.firebasestorage.app",
+  messagingSenderId: "299776559545",
+  appId: "1:299776559545:web:04aced1ba25391eb3fce68"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+const loginForm = document.getElementById("loginForm");
+const mensagem = document.getElementById("mensagem");
+
+loginForm.addEventListener("submit", async (event) => {
+  event.preventDefault();
+
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value;
+
+  mensagem.textContent = "A entrar...";
+
+  try {
+    await signInWithEmailAndPassword(auth, email, password);
+
+    mensagem.textContent = "Login realizado com sucesso! 👑";
+
+    setTimeout(() => {
+      window.location.href = "painel-do-artista.html";
+    }, 500);
+
+  } catch (error) {
+    console.error(error);
+
+    mensagem.textContent =
+      "Erro no login: " + error.code;
+  }
+});
+</script>
 
 </body>
 </html>
