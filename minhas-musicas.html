@@ -330,7 +330,20 @@ async function carregarMusicas() {
       item.className = "musica";
 
       const tituloSeguro = document.createElement("h3");
-      tituloSeguro.textContent = "🎵 " + (musica.titulo || "Sem título");
+
+tituloSeguro.textContent =
+  "🎵 " +
+  (musica.titulo || "Sem título");
+
+const nomeDoArtista =
+  document.createElement("p");
+
+nomeDoArtista.textContent =
+  "👤 " +
+  (musica.artistaNome || "Artista");
+
+item.appendChild(tituloSeguro);
+item.appendChild(nomeDoArtista);
 
       const player = document.createElement("audio");
       player.controls = true;
@@ -479,15 +492,38 @@ form.addEventListener("submit", async (event) => {
     mensagem.textContent =
       "💾 A guardar a música...";
 
-    await addDoc(
-      collection(db, "musicas"),
-      {
-        artistaId: usuarioAtual.uid,
-        titulo: titulo,
-        audioURL: audioURL,
-        criadoEm: serverTimestamp()
-      }
-    );
+    const perfilDoc = await getDoc(
+  doc(db, "artistas", usuarioAtual.uid)
+);
+
+if (!perfilDoc.exists()) {
+  throw new Error(
+    "Cria primeiro o teu perfil antes de publicar músicas."
+  );
+}
+
+const dadosPerfil = perfilDoc.data();
+
+const nomeArtista =
+  dadosPerfil.nome || "Artista";
+
+await addDoc(
+  collection(db, "musicas"),
+  {
+    artistaId: usuarioAtual.uid,
+
+    /* NOME AUTOMÁTICO DO PERFIL */
+    artistaNome: nomeArtista,
+
+    /* TÍTULO DA MÚSICA */
+    titulo: titulo,
+
+    /* FICHEIRO DE ÁUDIO */
+    audioURL: audioURL,
+
+    criadoEm: serverTimestamp()
+  }
+);
 
     mensagem.textContent =
       "🎵 Música publicada com sucesso! 👑";
