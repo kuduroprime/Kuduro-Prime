@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Administração | KUDURO PRIME</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #080808;
+  color: white;
+  font-family: Arial, sans-serif;
+}
+
+header {
+  background: #111;
+  padding: 20px;
+  border-bottom: 2px solid #d4af37;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  color: #d4af37;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+main {
+  max-width: 1000px;
+  margin: auto;
+  padding: 40px 20px;
+}
+
+h1 {
+  color: #d4af37;
+}
+
+.subtitulo {
+  color: #aaa;
+  margin-bottom: 30px;
+}
+
+#mensagem {
+  color: #d4af37;
+  text-align: center;
+  margin: 20px 0;
+}
+
+.pagamento {
+  background: #151515;
+  border: 1px solid #333;
+  border-radius: 15px;
+  padding: 25px;
+  margin-bottom: 20px;
+}
+
+.pagamento h2 {
+  color: #d4af37;
+  margin-top: 0;
+}
+
+.info {
+  color: #ccc;
+  line-height: 1.8;
+}
+
+.comprovativo {
+  display: inline-block;
+  margin: 15px 0;
+  padding: 12px 18px;
+  background: #222;
+  color: #d4af37;
+  border: 1px solid #d4af37;
+  border-radius: 8px;
+  text-decoration: none;
+}
+
+.botoes {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.aprovar,
+.rejeitar {
+  padding: 13px 20px;
+  border-radius: 8px;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.aprovar {
+  background: #d4af37;
+  color: black;
+}
+
+.rejeitar {
+  background: transparent;
+  border: 1px solid #d9534f;
+  color: #d9534f;
+}
+
+.aprovar:disabled,
+.rejeitar:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.vazio {
+  text-align: center;
+  color: #aaa;
+  padding: 50px 20px;
+  border: 1px solid #333;
+  border-radius: 15px;
+}
+
+.sair {
+  background: transparent;
+  border: 1px solid #d4af37;
+  color: #d4af37;
+  padding: 10px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">👑 KUDURO PRIME — ADMIN</div>
+  <button class="sair" id="logoutBtn">SAIR 🚪</button>
+</header>
+
+<main>
+
+<h1>💰 PAGAMENTOS</h1>
+
+<p class="subtitulo">
+Aprova ou rejeita os pagamentos enviados pelos artistas.
+</p>
+
+<p id="mensagem">A carregar...</p>
+
+<div id="listaPagamentos"></div>
+
+</main>
+
+<script type="module">
+
+import { initializeApp } from
+"https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+
+import {
+  getAuth,
+  onAuthStateChanged,
+  signOut
+} from
+"https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+
+import {
+  getFirestore,
+  collection,
+  getDocs,
+  query,
+  where,
+  doc,
+  updateDoc,
+  serverTimestamp
+} from
+"https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDoitCcLeLDNBNPCP6fG1s_xbHr4UmohSo",
+  authDomain: "kuduro-prime.firebaseapp.com",
+  projectId: "kuduro-prime",
+  storageBucket: "kuduro-prime.firebasestorage.app",
+  messagingSenderId: "299776559545",
+  appId: "1:299776559545:web:04aced1ba25391eb3fce68"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+
+/* ⚠️ COLOCA AQUI O TEU E-MAIL DE ADMIN */
+const ADMIN_EMAIL = "COLOCA_AQUI_O_TEU_EMAIL";
+
+
+let usuarioAtual = null;
+
+const mensagem =
+  document.getElementById("mensagem");
+
+const listaPagamentos =
+  document.getElementById("listaPagamentos");
+
+
+onAuthStateChanged(auth, async (user) => {
+
+  if (!user) {
+
+    window.location.href =
+      "area-do-artista.html";
+
+    return;
+
+  }
+
+
+  /* VERIFICAR SE É ADMIN */
+
+  if (
+    user.email.toLowerCase() !==
+    ADMIN_EMAIL.toLowerCase()
+  ) {
+
+    document.body.innerHTML = `
+      <div style="
+        background:#080808;
+        color:#d4af37;
+        min-height:100vh;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        font-family:Arial;
+        text-align:center;
+        padding:20px;
+      ">
+        <div>
+          <h1>🚫 ACESSO NEGADO</h1>
+          <p>Esta área é apenas para administradores.</p>
+        </div>
+      </div>
+    `;
+
+    return;
+
+  }
+
+
+  usuarioAtual = user;
+
+  carregarPagamentos();
+
+});
+
+
+async function carregarPagamentos() {
+
+  mensagem.textContent =
+    "A carregar pagamentos...";
+
+  try {
+
+    const pagamentosRef =
+      collection(db, "pagamentos");
+
+
+    const consulta = query(
+      pagamentosRef,
+      where("status", "==", "pendente")
+    );
+
+
+    const resultado =
+      await getDocs(consulta);
+
+
+    listaPagamentos.innerHTML = "";
+
+
+    if (resultado.empty) {
+
+      mensagem.textContent = "";
+
+      listaPagamentos.innerHTML = `
+        <div class="vazio">
+          👑 Não existem pagamentos pendentes.
+        </div>
+      `;
+
+      return;
+
+    }
+
+
+    mensagem.textContent =
+      resultado.size +
+      " pagamento(s) pendente(s).";
+
+
+    resultado.forEach((documento) => {
+
+      const pagamento =
+        documento.data();
+
+
+      const item =
+        document.createElement("div");
+
+
+      item.className =
+        "pagamento";
+
+
+      item.innerHTML = `
+
+        <h2>💰 2.000 Kz</h2>
+
+        <div class="info">
+
+          <strong>📧 ARTISTA:</strong>
+          ${pagamento.email || "Sem e-mail"}
+
+          <br>
+
+          <strong>🆔 ID:</strong>
+          ${pagamento.artistaId}
+
+          <br>
+
+          <strong>📌 ESTADO:</strong>
+          PENDENTE
+
+        </div>
+
+
+        <a
+          class="comprovativo"
+          href="${pagamento.comprovativo}"
+          target="_blank"
+        >
+          📸 VER COMPROVATIVO
+        </a>
+
+
+        <div class="botoes">
+
+          <button
+            class="aprovar"
+            data-pagamento="${documento.id}"
+            data-artista="${pagamento.artistaId}"
+          >
+            ✅ APROVAR
+          </button>
+
+
+          <button
+            class="rejeitar"
+            data-pagamento="${documento.id}"
+          >
+            ❌ REJEITAR
+          </button>
+
+        </div>
+
+      `;
+
+
+      listaPagamentos.appendChild(item);
+
+    });
+
+
+    document
+      .querySelectorAll(".aprovar")
+      .forEach((botao) => {
+
+        botao.addEventListener(
+          "click",
+          aprovarPagamento
+        );
+
+      });
+
+
+    document
+      .querySelectorAll(".rejeitar")
+      .forEach((botao) => {
+
+        botao.addEventListener(
+          "click",
+          rejeitarPagamento
+        );
+
+      });
+
+
+  } catch (erro) {
+
+    console.error(erro);
+
+    mensagem.textContent =
+      "Erro ao carregar pagamentos: " +
+      erro.message;
+
+  }
+
+}
+
+
+async function aprovarPagamento(event) {
+
+  const botao =
+    event.target;
+
+
+  const confirmar =
+    confirm(
+      "Confirmas que este pagamento foi recebido?"
+    );
+
+
+  if (!confirmar) return;
+
+
+  botao.disabled = true;
+
+
+  try {
+
+
+    const pagamentoId =
+      botao.dataset.pagamento;
+
+
+    const artistaId =
+      botao.dataset.artista;
+
+
+    /* APROVAR PAGAMENTO */
+
+    await updateDoc(
+      doc(
+        db,
+        "pagamentos",
+        pagamentoId
+      ),
+      {
+
+        status: "aprovado",
+
+        aprovadoEm:
+          serverTimestamp()
+
+      }
+    );
+
+
+    /* DESBLOQUEAR MÚSICAS DO ARTISTA */
+
+    await updateDoc(
+      doc(
+        db,
+        "artistas",
+        artistaId
+      ),
+      {
+
+        musicasExtrasDesbloqueadas:
+          true,
+
+        pagamentoMusicas:
+          "aprovado"
+
+      }
+    );
+
+
+    alert(
+      "Pagamento aprovado! 👑 Músicas extras desbloqueadas."
+    );
+
+
+    carregarPagamentos();
+
+
+  } catch (erro) {
+
+    console.error(erro);
+
+    alert(
+      "Erro ao aprovar: " +
+      erro.message
+    );
+
+    botao.disabled = false;
+
+  }
+
+}
+
+
+async function rejeitarPagamento(event) {
+
+  const botao =
+    event.target;
+
+
+  const confirmar =
+    confirm(
+      "Tens a certeza que queres rejeitar este pagamento?"
+    );
+
+
+  if (!confirmar) return;
+
+
+  botao.disabled = true;
+
+
+  try {
+
+
+    await updateDoc(
+      doc(
+        db,
+        "pagamentos",
+        botao.dataset.pagamento
+      ),
+      {
+
+        status: "rejeitado",
+
+        rejeitadoEm:
+          serverTimestamp()
+
+      }
+    );
+
+
+    alert(
+      "Pagamento rejeitado."
+    );
+
+
+    carregarPagamentos();
+
+
+  } catch (erro) {
+
+    console.error(erro);
+
+    alert(
+      "Erro ao rejeitar: " +
+      erro.message
+    );
+
+    botao.disabled = false;
+
+  }
+
+}
+
+
+document
+  .getElementById("logoutBtn")
+  .addEventListener(
+    "click",
+    async () => {
+
+      await signOut(auth);
+
+      window.location.href =
+        "index.html";
+
+    }
+  );
+
+</script>
+
+</body>
+</html>
