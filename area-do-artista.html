@@ -10,7 +10,52 @@
 * {
   box-sizing: border-box;
 }
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
 
+  import {
+    getAuth,
+    signInWithEmailAndPassword
+  } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyDoitCcLeLDNBNPCP6fG1s_xbHr4UmohSo",
+    authDomain: "kuduro-prime.firebaseapp.com",
+    projectId: "kuduro-prime",
+    storageBucket: "kuduro-prime.firebasestorage.app",
+    messagingSenderId: "299776559545",
+    appId: "1:299776559545:web:04aced1ba25391eb3fce68"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  const loginForm = document.getElementById("loginForm");
+  const mensagem = document.getElementById("mensagem");
+
+  loginForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    mensagem.textContent = "A entrar...";
+
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+
+      mensagem.textContent = "Login realizado com sucesso! 👑";
+
+      setTimeout(() => {
+        window.location.href = "painel-do-artista.html";
+      }, 1000);
+
+    } catch (error) {
+      mensagem.textContent =
+        "E-mail ou palavra-passe incorretos.";
+    }
+  });
+</script>
 body {
   margin: 0;
   min-height: 100vh;
