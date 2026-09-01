@@ -818,15 +818,50 @@
           login com Firebase.
         */
 
-        localStorage.setItem(
-          "kpLoggedIn",
-          "true"
-        );
+        event.preventDefault();
 
-        localStorage.setItem(
-          "kpArtistName",
-          email
-        );
+const email =
+  document
+  .querySelector("#email")
+  .value
+  .trim();
+
+const pass =
+  document
+  .querySelector("#password")
+  .value;
+
+
+/* GUARDA A SESSÃO */
+
+localStorage.setItem(
+  "kpArtistLoggedIn",
+  "true"
+);
+
+localStorage.setItem(
+  "kpArtistName",
+  email
+);
+
+
+/* MOSTRA A MENSAGEM */
+
+showMessage(
+  "Login efetuado. A entrar no teu painel...",
+  "success"
+);
+
+
+setTimeout(
+  () => {
+
+    window.location.href =
+      "painel-do-artista.html";
+
+  },
+  900
+);
 
 
         showMessage(
