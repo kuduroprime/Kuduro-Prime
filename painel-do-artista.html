@@ -1,20 +1,14 @@
 <!DOCTYPE html>
-
 <html lang="pt">
-
 <head>
-
   <meta charset="UTF-8">
 
-<meta
-name="viewport"
-content="width=device-width, initial-scale=1.0"
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
 
->
-
-  <title>
-    Painel do Artista — KUDURO PRIME
-  </title>
+  <title>Painel do Artista — KUDURO PRIME</title>
 
   <style>
 
@@ -52,8 +46,6 @@ content="width=device-width, initial-scale=1.0"
       text-decoration:none;
     }
 
-    /* LOADING */
-
     .loading{
       position:fixed;
       inset:0;
@@ -83,15 +75,11 @@ content="width=device-width, initial-scale=1.0"
       font-size:12px;
     }
 
-    /* LAYOUT */
-
     .app{
       min-height:100vh;
       display:grid;
       grid-template-columns:260px 1fr;
     }
-
-    /* SIDEBAR */
 
     .sidebar{
       min-height:100vh;
@@ -135,8 +123,6 @@ content="width=device-width, initial-scale=1.0"
       line-height:.6;
     }
 
-    /* ARTISTA MINI */
-
     .artist-mini{
       display:flex;
       align-items:center;
@@ -148,8 +134,9 @@ content="width=device-width, initial-scale=1.0"
       border-radius:10px;
       background:#121212;
 
-      border:
-        1px solid var(--line);
+      border:1px solid var(--line);
+
+      cursor:pointer;
     }
 
     .mini-photo{
@@ -201,8 +188,6 @@ content="width=device-width, initial-scale=1.0"
       font-weight:900;
     }
 
-    /* MENU */
-
     .nav-title{
       padding:0 12px;
       margin:15px 0 7px;
@@ -243,8 +228,7 @@ content="width=device-width, initial-scale=1.0"
 
       padding-top:20px;
 
-      border-top:
-        1px solid var(--line);
+      border-top:1px solid var(--line);
     }
 
     .logout{
@@ -264,8 +248,6 @@ content="width=device-width, initial-scale=1.0"
       cursor:pointer;
     }
 
-    /* MAIN */
-
     .main{
       min-width:0;
     }
@@ -274,8 +256,7 @@ content="width=device-width, initial-scale=1.0"
       height:82px;
       padding:0 4%;
 
-      border-bottom:
-        1px solid var(--line);
+      border-bottom:1px solid var(--line);
 
       display:flex;
       align-items:center;
@@ -288,11 +269,9 @@ content="width=device-width, initial-scale=1.0"
 
       z-index:30;
 
-      background:
-        rgba(7,7,7,.92);
+      background:rgba(7,7,7,.92);
 
-      backdrop-filter:
-        blur(12px);
+      backdrop-filter:blur(12px);
     }
 
     .topbar h2{
@@ -319,8 +298,7 @@ content="width=device-width, initial-scale=1.0"
 
       border-radius:8px;
 
-      border:
-        1px solid var(--gold);
+      border:1px solid var(--gold);
 
       display:inline-flex;
       align-items:center;
@@ -350,21 +328,16 @@ content="width=device-width, initial-scale=1.0"
         );
     }
 
-    /* CONTENT */
-
     .content{
       width:min(1250px,94%);
       margin:35px auto 60px;
     }
 
-    /* BEM-VINDO */
-
     .welcome{
       padding:28px;
       border-radius:16px;
 
-      border:
-        1px solid #4d3d15;
+      border:1px solid #4d3d15;
 
       background:
         linear-gradient(
@@ -387,8 +360,7 @@ content="width=device-width, initial-scale=1.0"
       right:30px;
       top:-15px;
 
-      color:
-        rgba(244,191,49,.08);
+      color:rgba(244,191,49,.08);
 
       font-size:150px;
     }
@@ -419,8 +391,6 @@ content="width=device-width, initial-scale=1.0"
       line-height:1.6;
     }
 
-    /* ESTATÍSTICAS */
-
     .stats{
       display:grid;
       grid-template-columns:repeat(4,1fr);
@@ -432,8 +402,7 @@ content="width=device-width, initial-scale=1.0"
     .stat{
       padding:20px;
 
-      border:
-        1px solid var(--line);
+      border:1px solid var(--line);
 
       border-radius:14px;
 
@@ -484,8 +453,6 @@ content="width=device-width, initial-scale=1.0"
       font-weight:800;
     }
 
-    /* GRID */
-
     .dashboard-grid{
       display:grid;
 
@@ -497,8 +464,7 @@ content="width=device-width, initial-scale=1.0"
     }
 
     .panel{
-      border:
-        1px solid var(--line);
+      border:1px solid var(--line);
 
       border-radius:15px;
       overflow:hidden;
@@ -514,8 +480,7 @@ content="width=device-width, initial-scale=1.0"
     .panel-head{
       padding:19px 20px;
 
-      border-bottom:
-        1px solid var(--line);
+      border-bottom:1px solid var(--line);
 
       display:flex;
       justify-content:space-between;
@@ -536,8 +501,6 @@ content="width=device-width, initial-scale=1.0"
       font-weight:900;
     }
 
-    /* MÚSICAS */
-
     .song-list{
       padding:5px 20px;
     }
@@ -549,8 +512,7 @@ content="width=device-width, initial-scale=1.0"
       gap:12px;
       padding:13px 0;
 
-      border-bottom:
-        1px solid var(--line);
+      border-bottom:1px solid var(--line);
     }
 
     .song:last-child{
@@ -565,9 +527,7 @@ content="width=device-width, initial-scale=1.0"
 
       flex:0 0 auto;
 
-      background:
-        var(--img)
-        center/cover;
+      background:#1a1609 center/cover no-repeat;
     }
 
     .song-info{
@@ -620,8 +580,6 @@ content="width=device-width, initial-scale=1.0"
       margin-bottom:10px;
     }
 
-    /* ATALHOS */
-
     .quick-actions{
       padding:15px;
 
@@ -636,8 +594,7 @@ content="width=device-width, initial-scale=1.0"
       gap:12px;
       padding:14px;
 
-      border:
-        1px solid var(--line);
+      border:1px solid var(--line);
 
       border-radius:10px;
       background:#0d0d0d;
@@ -648,8 +605,7 @@ content="width=device-width, initial-scale=1.0"
     .quick:hover{
       border-color:#6e5720;
 
-      transform:
-        translateX(3px);
+      transform:translateX(3px);
     }
 
     .quick-icon{
@@ -681,8 +637,6 @@ content="width=device-width, initial-scale=1.0"
       color:var(--muted);
       font-size:9px;
     }
-
-    /* PROGRESSO */
 
     .progress{
       padding:20px;
@@ -724,8 +678,6 @@ content="width=device-width, initial-scale=1.0"
       font-weight:900;
     }
 
-    /* ATIVIDADE */
-
     .activity{
       padding:5px 20px;
     }
@@ -736,8 +688,7 @@ content="width=device-width, initial-scale=1.0"
       gap:12px;
       padding:15px 0;
 
-      border-bottom:
-        1px solid var(--line);
+      border-bottom:1px solid var(--line);
     }
 
     .activity-item:last-child{
@@ -775,8 +726,6 @@ content="width=device-width, initial-scale=1.0"
       color:var(--muted);
       font-size:9px;
     }
-
-    /* MOBILE */
 
     .mobile-menu{
       display:none;
@@ -888,624 +837,556 @@ content="width=device-width, initial-scale=1.0"
     }
 
   </style>
-
 </head>
 
 <body>
 
-  <!-- CARREGAMENTO -->
+  <div class="loading" id="loading">
 
-  <div
-    class="loading"
-    id="loading"
-  >
+    <div class="loading-logo">
+      👑 KUDURO PRIME
+    </div>
 
-```
-<div class="loading-logo">
-  👑 KUDURO PRIME
-</div>
-
-<div class="loading-text">
-  A verificar a tua sessão...
-</div>
-```
+    <div class="loading-text">
+      A verificar a tua sessão...
+    </div>
 
   </div>
+
 
   <div class="app">
 
-```
-<!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
 
-<aside
-  class="sidebar"
-  id="sidebar"
->
+      <a href="index.html" class="brand">
 
-  <a
-    href="index.html"
-    class="brand"
-  >
+        <span class="crown">♕</span>
 
-    <span class="crown">
-      ♕
-    </span>
+        KUDURO
 
-    KUDURO
+        <b>PRIME</b>
 
-    <b>
-      PRIME
-    </b>
-
-  </a>
-
-
-  <a
-    href="meu-perfil.html"
-    class="artist-mini"
-  >
-
-    <div
-      class="mini-photo"
-      id="miniPhoto"
-    >
-      👤
-    </div>
-
-    <div class="mini-name">
-
-      <strong id="miniName">
-        Artista Prime
-      </strong>
-
-      <span>
-        VER PERFIL
-      </span>
-
-    </div>
-
-  </a>
-
-
-  <div class="nav-title">
-    MENU PRINCIPAL
-  </div>
-
-
-  <a
-    href="painel-do-artista.html"
-    class="side-link active"
-  >
-    📊 Painel do Artista
-  </a>
-
-
-  <a
-    href="meu-perfil.html"
-    class="side-link"
-  >
-    👤 Meu Perfil
-  </a>
-
-
-  <a
-    href="editar-perfil.html"
-    class="side-link"
-  >
-    ✏ Editar Perfil
-  </a>
-
-
-  <div class="nav-title">
-    CONTEÚDO
-  </div>
-
-
-  <a
-    href="minhas-musicas.html"
-    class="side-link"
-  >
-    🎵 Minhas Músicas
-  </a>
-
-
-  <a
-    href="pagamento-musicas.html"
-    class="side-link"
-  >
-    💳 Pagamentos
-  </a>
-
-
-  <div class="nav-title">
-    PLATAFORMA
-  </div>
-
-
-  <a
-    href="ranking.html"
-    class="side-link"
-  >
-    🏆 Ranking Prime
-  </a>
-
-
-  <a
-    href="index.html"
-    class="side-link"
-  >
-    🌐 Ver Site Público
-  </a>
-
-
-  <div class="side-bottom">
-
-    <button
-      class="logout"
-      id="logoutBtn"
-      type="button"
-    >
-      ↪ TERMINAR SESSÃO
-    </button>
-
-  </div>
-
-</aside>
-
-
-<!-- CONTEÚDO -->
-
-<main class="main">
-
-
-  <header class="topbar">
-
-    <button
-      class="mobile-menu"
-      id="menuBtn"
-      type="button"
-    >
-      ☰
-    </button>
-
-
-    <div>
-
-      <h2>
-        PAINEL DO ARTISTA
-      </h2>
-
-      <p>
-        Controla o teu perfil e conteúdo.
-      </p>
-
-    </div>
-
-
-    <div class="top-actions">
-
-      <a
-        href="meu-perfil.html"
-        class="btn"
-      >
-        👁 MEU PERFIL
       </a>
 
 
-      <a
-        href="minhas-musicas.html"
-        class="btn gold"
-      >
-        + PUBLICAR MÚSICA
+      <a href="meu-perfil.html" class="artist-mini">
+
+        <div class="mini-photo" id="miniPhoto">
+          👤
+        </div>
+
+        <div class="mini-name">
+
+          <strong id="miniName">
+            Artista Prime
+          </strong>
+
+          <span>
+            VER PERFIL
+          </span>
+
+        </div>
+
       </a>
 
-    </div>
 
-  </header>
-
-
-  <div class="content">
-
-
-    <section class="welcome">
-
-      <div class="welcome-content">
-
-        <small>
-          👑 KUDURO PRIME ARTIST
-        </small>
-
-
-        <h1 id="welcomeName">
-          Bem-vindo, Artista!
-        </h1>
-
-
-        <p>
-          Aqui podes gerir o teu perfil,
-          publicar músicas e acompanhar
-          a tua presença no movimento Kuduro.
-        </p>
-
-      </div>
-
-    </section>
-
-
-    <!-- ESTATÍSTICAS -->
-
-    <section class="stats">
-
-
-      <article class="stat">
-
-        <div class="stat-top">
-          <span>🎵</span>
-        </div>
-
-        <div
-          class="stat-number"
-          id="totalSongs"
-        >
-          0
-        </div>
-
-        <div class="stat-label">
-          MÚSICAS PUBLICADAS
-        </div>
-
-        <div class="stat-change">
-          + Publica mais música
-        </div>
-
-      </article>
-
-
-      <article class="stat">
-
-        <div class="stat-top">
-          <span>👁</span>
-        </div>
-
-        <div
-          class="stat-number"
-          id="totalViews"
-        >
-          0
-        </div>
-
-        <div class="stat-label">
-          VISUALIZAÇÕES
-        </div>
-
-        <div class="stat-change">
-          ✓ Atualizado
-        </div>
-
-      </article>
-
-
-      <article class="stat">
-
-        <div class="stat-top">
-          <span>👥</span>
-        </div>
-
-        <div
-          class="stat-number"
-          id="totalFollowers"
-        >
-          0
-        </div>
-
-        <div class="stat-label">
-          SEGUIDORES
-        </div>
-
-        <div class="stat-change">
-          ↑ Cresce o teu público
-        </div>
-
-      </article>
-
-
-      <article class="stat">
-
-        <div class="stat-top">
-          <span>🏆</span>
-        </div>
-
-        <div
-          class="stat-number"
-          id="rankingPosition"
-        >
-          —
-        </div>
-
-        <div class="stat-label">
-          RANKING PRIME
-        </div>
-
-        <div class="stat-change">
-          Publica e entra no ranking
-        </div>
-
-      </article>
-
-    </section>
-
-
-    <div class="dashboard-grid">
-
-
-      <!-- ESQUERDA -->
-
-      <div>
-
-
-        <section class="panel">
-
-          <div class="panel-head">
-
-            <h3>
-              🎵 MÚSICAS RECENTES
-            </h3>
-
-            <a href="minhas-musicas.html">
-              VER TODAS ›
-            </a>
-
-          </div>
-
-
-          <div
-            class="song-list"
-            id="recentSongs"
-          >
-
-            <div class="empty">
-
-              <div class="empty-icon">
-                🎵
-              </div>
-
-              Ainda não publicaste nenhuma música.
-
-              <br><br>
-
-              <a
-                href="minhas-musicas.html"
-                style="color:var(--gold);font-weight:900"
-              >
-                PUBLICAR PRIMEIRA MÚSICA ›
-              </a>
-
-            </div>
-
-          </div>
-
-        </section>
-
-
-        <section
-          class="panel"
-          style="margin-top:20px"
-        >
-
-          <div class="panel-head">
-
-            <h3>
-              🔔 ATIVIDADE RECENTE
-            </h3>
-
-          </div>
-
-
-          <div
-            class="activity"
-            id="activityList"
-          >
-
-            <div class="activity-item">
-
-              <div class="activity-icon">
-                👤
-              </div>
-
-              <div class="activity-text">
-
-                A tua conta está ativa no
-                KUDURO PRIME.
-
-                <small>
-                  Agora
-                </small>
-
-              </div>
-
-            </div>
-
-          </div>
-
-        </section>
-
+      <div class="nav-title">
+        MENU PRINCIPAL
       </div>
 
 
-      <!-- DIREITA -->
-
-      <aside>
-
-
-        <section class="panel">
-
-          <div class="panel-head">
-
-            <h3>
-              ⚡ AÇÕES RÁPIDAS
-            </h3>
-
-          </div>
+      <a href="painel-do-artista.html" class="side-link active">
+        📊 Painel do Artista
+      </a>
 
 
-          <div class="quick-actions">
+      <a href="meu-perfil.html" class="side-link">
+        👤 Meu Perfil
+      </a>
 
 
-            <a
-              href="minhas-musicas.html"
-              class="quick"
-            >
-
-              <div class="quick-icon">
-                🎵
-              </div>
-
-              <div>
-
-                <strong>
-                  Publicar Música
-                </strong>
-
-                <small>
-                  Adiciona um novo lançamento
-                </small>
-
-              </div>
-
-            </a>
+      <a href="editar-perfil.html" class="side-link">
+        ✏ Editar Perfil
+      </a>
 
 
-            <a
-              href="editar-perfil.html"
-              class="quick"
-            >
-
-              <div class="quick-icon">
-                ✏
-              </div>
-
-              <div>
-
-                <strong>
-                  Editar Perfil
-                </strong>
-
-                <small>
-                  Atualiza os teus dados
-                </small>
-
-              </div>
-
-            </a>
+      <div class="nav-title">
+        CONTEÚDO
+      </div>
 
 
-            <a
-              href="meu-perfil.html"
-              class="quick"
-            >
-
-              <div class="quick-icon">
-                👁
-              </div>
-
-              <div>
-
-                <strong>
-                  Ver Meu Perfil
-                </strong>
-
-                <small>
-                  Vê como o público te vê
-                </small>
-
-              </div>
-
-            </a>
+      <a href="minhas-musicas.html" class="side-link">
+        🎵 Minhas Músicas
+      </a>
 
 
-            <a
-              href="pagamento-musicas.html"
-              class="quick"
-            >
+      <a href="pagamento-musicas.html" class="side-link">
+        💳 Pagamentos
+      </a>
 
-              <div class="quick-icon">
-                💳
-              </div>
 
-              <div>
+      <div class="nav-title">
+        PLATAFORMA
+      </div>
 
-                <strong>
-                  Pagamentos
-                </strong>
 
-                <small>
-                  Gere os teus pagamentos
-                </small>
+      <a href="ranking.html" class="side-link">
+        🏆 Ranking Prime
+      </a>
 
-              </div>
 
-            </a>
+      <a href="index.html" class="side-link">
+        🌐 Ver Site Público
+      </a>
+
+
+      <div class="side-bottom">
+
+        <button
+          class="logout"
+          id="logoutBtn"
+          type="button"
+        >
+          ↪ TERMINAR SESSÃO
+        </button>
+
+      </div>
+
+    </aside>
+
+
+    <main class="main">
+
+      <header class="topbar">
+
+        <button
+          class="mobile-menu"
+          id="menuBtn"
+          type="button"
+        >
+          ☰
+        </button>
+
+
+        <div>
+
+          <h2>
+            PAINEL DO ARTISTA
+          </h2>
+
+          <p>
+            Controla o teu perfil e conteúdo.
+          </p>
+
+        </div>
+
+
+        <div class="top-actions">
+
+          <a href="meu-perfil.html" class="btn">
+            👁 MEU PERFIL
+          </a>
+
+
+          <a href="minhas-musicas.html" class="btn gold">
+            + PUBLICAR MÚSICA
+          </a>
+
+        </div>
+
+      </header>
+
+
+      <div class="content">
+
+        <section class="welcome">
+
+          <div class="welcome-content">
+
+            <small>
+              👑 KUDURO PRIME ARTIST
+            </small>
+
+
+            <h1 id="welcomeName">
+              Bem-vindo, Artista!
+            </h1>
+
+
+            <p>
+              Aqui podes gerir o teu perfil,
+              publicar músicas e acompanhar
+              a tua presença no movimento Kuduro.
+            </p>
 
           </div>
 
         </section>
 
 
-        <section
-          class="panel"
-          style="margin-top:20px"
-        >
+        <section class="stats">
 
-          <div class="panel-head">
+          <article class="stat">
 
-            <h3>
-              👑 PERFIL PRIME
-            </h3>
-
-          </div>
-
-
-          <div class="progress">
-
-            <div class="progress-text">
-
-              Completa o teu perfil para
-              teres mais destaque na plataforma.
-
+            <div class="stat-top">
+              <span>🎵</span>
             </div>
-
-
-            <div class="progress-bar">
-
-              <div
-                class="progress-fill"
-                id="profileProgress"
-              ></div>
-
-            </div>
-
 
             <div
-              class="progress-number"
-              id="progressNumber"
+              class="stat-number"
+              id="totalSongs"
             >
-              0% COMPLETO
+              0
             </div>
 
-          </div>
+            <div class="stat-label">
+              MÚSICAS PUBLICADAS
+            </div>
+
+            <div class="stat-change">
+              + Publica mais música
+            </div>
+
+          </article>
+
+
+          <article class="stat">
+
+            <div class="stat-top">
+              <span>👁</span>
+            </div>
+
+            <div
+              class="stat-number"
+              id="totalViews"
+            >
+              0
+            </div>
+
+            <div class="stat-label">
+              VISUALIZAÇÕES
+            </div>
+
+            <div class="stat-change">
+              ✓ Atualizado
+            </div>
+
+          </article>
+
+
+          <article class="stat">
+
+            <div class="stat-top">
+              <span>👥</span>
+            </div>
+
+            <div
+              class="stat-number"
+              id="totalFollowers"
+            >
+              0
+            </div>
+
+            <div class="stat-label">
+              SEGUIDORES
+            </div>
+
+            <div class="stat-change">
+              ↑ Cresce o teu público
+            </div>
+
+          </article>
+
+
+          <article class="stat">
+
+            <div class="stat-top">
+              <span>🏆</span>
+            </div>
+
+            <div
+              class="stat-number"
+              id="rankingPosition"
+            >
+              —
+            </div>
+
+            <div class="stat-label">
+              RANKING PRIME
+            </div>
+
+            <div class="stat-change">
+              Publica e entra no ranking
+            </div>
+
+          </article>
 
         </section>
 
-      </aside>
 
-    </div>
+        <div class="dashboard-grid">
+
+          <div>
+
+            <section class="panel">
+
+              <div class="panel-head">
+
+                <h3>
+                  🎵 MÚSICAS RECENTES
+                </h3>
+
+                <a href="minhas-musicas.html">
+                  VER TODAS ›
+                </a>
+
+              </div>
+
+
+              <div
+                class="song-list"
+                id="recentSongs"
+              >
+
+                <div class="empty">
+
+                  <div class="empty-icon">
+                    🎵
+                  </div>
+
+                  Ainda não publicaste nenhuma música.
+
+                  <br><br>
+
+                  <a
+                    href="minhas-musicas.html"
+                    style="color:var(--gold);font-weight:900"
+                  >
+                    PUBLICAR PRIMEIRA MÚSICA ›
+                  </a>
+
+                </div>
+
+              </div>
+
+            </section>
+
+
+            <section
+              class="panel"
+              style="margin-top:20px"
+            >
+
+              <div class="panel-head">
+
+                <h3>
+                  🔔 ATIVIDADE RECENTE
+                </h3>
+
+              </div>
+
+
+              <div
+                class="activity"
+                id="activityList"
+              >
+
+                <div class="activity-item">
+
+                  <div class="activity-icon">
+                    👤
+                  </div>
+
+                  <div class="activity-text">
+
+                    A tua conta está ativa no
+                    KUDURO PRIME.
+
+                    <small>
+                      Agora
+                    </small>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+            </section>
+
+          </div>
+
+
+          <aside>
+
+            <section class="panel">
+
+              <div class="panel-head">
+
+                <h3>
+                  ⚡ AÇÕES RÁPIDAS
+                </h3>
+
+              </div>
+
+
+              <div class="quick-actions">
+
+                <a
+                  href="minhas-musicas.html"
+                  class="quick"
+                >
+
+                  <div class="quick-icon">
+                    🎵
+                  </div>
+
+                  <div>
+
+                    <strong>
+                      Publicar Música
+                    </strong>
+
+                    <small>
+                      Adiciona um novo lançamento
+                    </small>
+
+                  </div>
+
+                </a>
+
+
+                <a
+                  href="editar-perfil.html"
+                  class="quick"
+                >
+
+                  <div class="quick-icon">
+                    ✏
+                  </div>
+
+                  <div>
+
+                    <strong>
+                      Editar Perfil
+                    </strong>
+
+                    <small>
+                      Atualiza os teus dados
+                    </small>
+
+                  </div>
+
+                </a>
+
+
+                <a
+                  href="meu-perfil.html"
+                  class="quick"
+                >
+
+                  <div class="quick-icon">
+                    👁
+                  </div>
+
+                  <div>
+
+                    <strong>
+                      Ver Meu Perfil
+                    </strong>
+
+                    <small>
+                      Vê como o público te vê
+                    </small>
+
+                  </div>
+
+                </a>
+
+
+                <a
+                  href="pagamento-musicas.html"
+                  class="quick"
+                >
+
+                  <div class="quick-icon">
+                    💳
+                  </div>
+
+                  <div>
+
+                    <strong>
+                      Pagamentos
+                    </strong>
+
+                    <small>
+                      Gere os teus pagamentos
+                    </small>
+
+                  </div>
+
+                </a>
+
+              </div>
+
+            </section>
+
+
+            <section
+              class="panel"
+              style="margin-top:20px"
+            >
+
+              <div class="panel-head">
+
+                <h3>
+                  👑 PERFIL PRIME
+                </h3>
+
+              </div>
+
+
+              <div class="progress">
+
+                <div class="progress-text">
+
+                  Completa o teu perfil para
+                  teres mais destaque na plataforma.
+
+                </div>
+
+
+                <div class="progress-bar">
+
+                  <div
+                    class="progress-fill"
+                    id="profileProgress"
+                  ></div>
+
+                </div>
+
+
+                <div
+                  class="progress-number"
+                  id="progressNumber"
+                >
+                  0% COMPLETO
+                </div>
+
+              </div>
+
+            </section>
+
+          </aside>
+
+        </div>
+
+      </div>
+
+    </main>
 
   </div>
 
-</main>
-```
-
-  </div>
 
   <script type="module">
 
@@ -1522,8 +1403,6 @@ content="width=device-width, initial-scale=1.0"
     } from
     "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
 
-
-    /* CONFIGURAÇÃO FIREBASE */
 
     const firebaseConfig = {
 
@@ -1548,8 +1427,6 @@ content="width=device-width, initial-scale=1.0"
     };
 
 
-    /* INICIAR FIREBASE */
-
     const app =
       initializeApp(firebaseConfig);
 
@@ -1558,13 +1435,13 @@ content="width=device-width, initial-scale=1.0"
       getAuth(app);
 
 
-    /*
-      MENU MOBILE
-    */
+    const menuBtn =
+      document.querySelector("#menuBtn");
 
-    document
-      .querySelector("#menuBtn")
-      .addEventListener(
+
+    if(menuBtn){
+
+      menuBtn.addEventListener(
         "click",
         () => {
 
@@ -1575,10 +1452,8 @@ content="width=device-width, initial-scale=1.0"
         }
       );
 
+    }
 
-    /*
-      TERMINAR SESSÃO
-    */
 
     document
       .querySelector("#logoutBtn")
@@ -1597,9 +1472,7 @@ content="width=device-width, initial-scale=1.0"
           }
           catch(error){
 
-            console.error(
-              error
-            );
+            console.error(error);
 
             alert(
               "Não foi possível terminar a sessão."
@@ -1611,18 +1484,9 @@ content="width=device-width, initial-scale=1.0"
       );
 
 
-    /*
-      VERIFICAR SESSÃO DO FIREBASE
-    */
-
     onAuthStateChanged(
       auth,
       user => {
-
-
-        /*
-          NÃO ESTÁ LOGADO
-        */
 
         if(!user){
 
@@ -1634,10 +1498,6 @@ content="width=device-width, initial-scale=1.0"
 
         }
 
-
-        /*
-          UTILIZADOR AUTENTICADO
-        */
 
         const artistName =
 
@@ -1707,9 +1567,7 @@ content="width=device-width, initial-scale=1.0"
 
 
           const image =
-            document.createElement(
-              "img"
-            );
+            document.createElement("img");
 
 
           image.src =
@@ -1720,16 +1578,21 @@ content="width=device-width, initial-scale=1.0"
             artistName;
 
 
+          image.onerror =
+            () => {
+
+              photo.innerHTML =
+                "👤";
+
+            };
+
+
           photo.appendChild(
             image
           );
 
         }
 
-
-        /*
-          MÚSICAS
-        */
 
         let songs = [];
 
@@ -1750,9 +1613,7 @@ content="width=device-width, initial-scale=1.0"
             [];
 
 
-          if(
-            !Array.isArray(songs)
-          ){
+          if(!Array.isArray(songs)){
 
             songs = [];
 
@@ -1780,20 +1641,14 @@ content="width=device-width, initial-scale=1.0"
 
         const totalSongViews =
           songs.reduce(
-            (
-              total,
-              song
-            ) => {
+            (total,song) => {
 
-              const views =
-                Number(
-                  song.views
-                )
-                ||
-                0;
-
-
-              return total + views;
+              return total +
+                (
+                  Number(song.views)
+                  ||
+                  0
+                );
 
             },
             0
@@ -1806,19 +1661,13 @@ content="width=device-width, initial-scale=1.0"
             totalSongViews;
 
 
-        /*
-          MÚSICAS RECENTES
-        */
-
         const recentSongs =
           document.querySelector(
             "#recentSongs"
           );
 
 
-        if(
-          songs.length > 0
-        ){
+        if(songs.length > 0){
 
           recentSongs.innerHTML = "";
 
@@ -1898,14 +1747,8 @@ content="width=device-width, initial-scale=1.0"
                   "Novo lançamento";
 
 
-                info.appendChild(
-                  title
-                );
-
-
-                info.appendChild(
-                  date
-                );
+                info.appendChild(title);
+                info.appendChild(date);
 
 
                 const views =
@@ -1952,10 +1795,6 @@ content="width=device-width, initial-scale=1.0"
         }
 
 
-        /*
-          SEGUIDORES
-        */
-
         const totalFollowers =
           localStorage.getItem(
             "kpArtistFollowers"
@@ -1969,10 +1808,6 @@ content="width=device-width, initial-scale=1.0"
           .textContent =
             totalFollowers;
 
-
-        /*
-          PROGRESSO DO PERFIL
-        */
 
         const profileFields = [
 
@@ -2045,13 +1880,7 @@ content="width=device-width, initial-scale=1.0"
             "% COMPLETO";
 
 
-        /*
-          ATIVIDADE
-        */
-
-        if(
-          songs.length > 0
-        ){
+        if(songs.length > 0){
 
           const firstSong =
             songs[0];
@@ -2150,16 +1979,11 @@ content="width=device-width, initial-scale=1.0"
         }
 
 
-        /*
-          MOSTRAR PAINEL
-        */
-
         document
           .querySelector("#loading")
           .classList.add(
             "hidden"
           );
-
 
       }
     );
@@ -2167,5 +1991,4 @@ content="width=device-width, initial-scale=1.0"
   </script>
 
 </body>
-
 </html>
