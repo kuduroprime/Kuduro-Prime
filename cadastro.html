@@ -1,14 +1,16 @@
 <!DOCTYPE html>
+
 <html lang="pt">
 
 <head>
 
   <meta charset="UTF-8">
 
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0"
+
+>
 
   <title>Cadastro de Artista — KUDURO PRIME</title>
 
@@ -269,122 +271,123 @@
 
   <main class="box">
 
-    <div class="logo">
-      👑 KUDURO PRIME
-    </div>
+```
+<div class="logo">
+  👑 KUDURO PRIME
+</div>
 
-    <h1>
-      CRIAR CONTA DE ARTISTA
-    </h1>
+<h1>
+  CRIAR CONTA DE ARTISTA
+</h1>
 
-    <p class="sub">
-      Junta-te ao movimento.
-      Cria a tua conta e começa
-      a construir o teu espaço no KUDURO PRIME.
-    </p>
-
-
-    <form id="registerForm">
-
-      <label for="artistName">
-        NOME ARTÍSTICO
-      </label>
-
-      <input
-        type="text"
-        id="artistName"
-        placeholder="Ex: Dabay o Mestria"
-        required
-      >
-
-      <div class="password-note">
-        Este será o nome do teu perfil e o nome mostrado nas músicas que publicares.
-      </div>
+<p class="sub">
+  Junta-te ao movimento.
+  Cria a tua conta e começa
+  a construir o teu espaço no KUDURO PRIME.
+</p>
 
 
-      <label for="username">
-        NOME DE UTILIZADOR
-      </label>
+<form id="registerForm">
 
-      <input
-        type="text"
-        id="username"
-        placeholder="Ex: dabay"
-        required
-      >
+  <label for="artistName">
+    NOME ARTÍSTICO
+  </label>
 
+  <input
+    type="text"
+    id="artistName"
+    placeholder="Ex: Dabay o Mestria"
+    required
+  >
 
-      <label for="email">
-        EMAIL
-      </label>
-
-      <input
-        type="email"
-        id="email"
-        placeholder="teuemail@email.com"
-        required
-      >
+  <div class="password-note">
+    Este será o nome do teu perfil e o nome mostrado nas músicas que publicares.
+  </div>
 
 
-      <label for="password">
-        PALAVRA-PASSE
-      </label>
+  <label for="username">
+    NOME DE UTILIZADOR
+  </label>
 
-      <input
-        type="password"
-        id="password"
-        placeholder="Mínimo 6 caracteres"
-        required
-        minlength="6"
-      >
-
-      <div class="password-note">
-        A palavra-passe deve ter pelo menos 6 caracteres.
-      </div>
+  <input
+    type="text"
+    id="username"
+    placeholder="Ex: dabay"
+    required
+  >
 
 
-      <label for="confirmPassword">
-        CONFIRMAR PALAVRA-PASSE
-      </label>
+  <label for="email">
+    EMAIL
+  </label>
 
-      <input
-        type="password"
-        id="confirmPassword"
-        placeholder="Repete a palavra-passe"
-        required
-      >
-
-
-      <button
-        type="submit"
-        id="registerBtn"
-      >
-        👑 CRIAR CONTA
-      </button>
+  <input
+    type="email"
+    id="email"
+    placeholder="teuemail@email.com"
+    required
+  >
 
 
-      <div
-        class="mensagem"
-        id="mensagem"
-      ></div>
+  <label for="password">
+    PALAVRA-PASSE
+  </label>
 
-    </form>
+  <input
+    type="password"
+    id="password"
+    placeholder="Mínimo 6 caracteres"
+    required
+    minlength="6"
+  >
+
+  <div class="password-note">
+    A palavra-passe deve ter pelo menos 6 caracteres.
+  </div>
 
 
-    <div class="login-link">
+  <label for="confirmPassword">
+    CONFIRMAR PALAVRA-PASSE
+  </label>
 
-      Já tens uma conta?
+  <input
+    type="password"
+    id="confirmPassword"
+    placeholder="Repete a palavra-passe"
+    required
+  >
 
-      <br><br>
 
-      <a href="area-do-artista.html">
-        🔐 ENTRAR NA ÁREA DO ARTISTA
-      </a>
+  <button
+    type="submit"
+    id="registerBtn"
+  >
+    👑 CRIAR CONTA
+  </button>
 
-    </div>
+
+  <div
+    class="mensagem"
+    id="mensagem"
+  ></div>
+
+</form>
+
+
+<div class="login-link">
+
+  Já tens uma conta?
+
+  <br><br>
+
+  <a href="area-do-artista.html">
+    🔐 ENTRAR NA ÁREA DO ARTISTA
+  </a>
+
+</div>
+```
 
   </main>
-
 
   <script type="module">
 
@@ -404,7 +407,19 @@
     "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
 
 
-    /* CONFIGURAÇÃO FIREBASE */
+    import {
+      getFirestore,
+      doc,
+      setDoc,
+      serverTimestamp
+    }
+    from
+    "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+
+
+    /*
+      CONFIGURAÇÃO FIREBASE
+    */
 
     const firebaseConfig = {
 
@@ -429,7 +444,9 @@
     };
 
 
-    /* INICIAR FIREBASE */
+    /*
+      INICIAR FIREBASE
+    */
 
     const app =
       initializeApp(
@@ -441,7 +458,13 @@
       getAuth(app);
 
 
-    /* ELEMENTOS */
+    const db =
+      getFirestore(app);
+
+
+    /*
+      ELEMENTOS
+    */
 
     const registerForm =
       document.getElementById(
@@ -461,7 +484,9 @@
       );
 
 
-    /* MOSTRAR MENSAGEM */
+    /*
+      MOSTRAR MENSAGEM
+    */
 
     function showMessage(
       texto,
@@ -478,7 +503,9 @@
     }
 
 
-    /* CADASTRO */
+    /*
+      CADASTRO
+    */
 
     registerForm.addEventListener(
 
@@ -504,7 +531,8 @@
               "username"
             )
             .value
-            .trim();
+            .trim()
+            .toLowerCase();
 
 
         const email =
@@ -532,7 +560,9 @@
             .value;
 
 
-        /* VALIDAR */
+        /*
+          VALIDAR
+        */
 
         if(
           !artistName ||
@@ -581,6 +611,10 @@
         }
 
 
+        /*
+          DESATIVAR BOTÃO
+        */
+
         registerBtn.disabled =
           true;
 
@@ -592,7 +626,10 @@
         try{
 
 
-          /* CRIAR CONTA NO FIREBASE */
+          /*
+            CRIAR CONTA NO
+            FIREBASE AUTH
+          */
 
           const resultado =
 
@@ -612,8 +649,8 @@
 
 
           /*
-            GUARDAR O NOME ARTÍSTICO
-            NO PERFIL FIREBASE
+            ATUALIZAR NOME
+            DO PERFIL FIREBASE
           */
 
           await updateProfile(
@@ -629,14 +666,75 @@
 
 
           /*
-            ATUALIZAR O UTILIZADOR
+            CRIAR PERFIL
+            NO FIRESTORE
+
+            artists
+              └── UID
           */
 
-          await user.reload();
+          await setDoc(
+
+            doc(
+              db,
+              "artists",
+              user.uid
+            ),
+
+            {
+
+              uid:
+                user.uid,
+
+              artistName:
+                artistName,
+
+              username:
+                username,
+
+              email:
+                email,
+
+              photo:
+                "",
+
+              bio:
+                "",
+
+              genre:
+                "",
+
+              city:
+                "",
+
+              instagram:
+                "",
+
+              tiktok:
+                "",
+
+              followers:
+                0,
+
+              verified:
+                false,
+
+              createdAt:
+                serverTimestamp(),
+
+              updatedAt:
+                serverTimestamp()
+
+            }
+
+          );
 
 
           /*
-            GUARDAR DADOS LOCALMENTE
+            GUARDAR DADOS LOCAIS
+
+            Isto mantém as páginas
+            antigas compatíveis.
           */
 
           localStorage.setItem(
@@ -685,17 +783,8 @@
 
 
           /*
-            SESSÃO
+            MENSAGEM DE SUCESSO
           */
-
-          localStorage.setItem(
-
-            "kpArtistLoggedIn",
-
-            "true"
-
-          );
-
 
           showMessage(
 
@@ -705,6 +794,10 @@
 
           );
 
+
+          /*
+            IR PARA O PAINEL
+          */
 
           setTimeout(
 
@@ -752,7 +845,7 @@
           }
 
 
-          if(
+          else if(
 
             erro.code ===
             "auth/invalid-email"
@@ -765,7 +858,7 @@
           }
 
 
-          if(
+          else if(
 
             erro.code ===
             "auth/weak-password"
@@ -778,7 +871,7 @@
           }
 
 
-          if(
+          else if(
 
             erro.code ===
             "auth/operation-not-allowed"
@@ -786,7 +879,20 @@
           ){
 
             textoErro =
-              "O cadastro por email ainda não está ativado no Firebase.";
+              "O login por email ainda não está ativado no Firebase.";
+
+          }
+
+
+          else if(
+
+            erro.code ===
+            "permission-denied"
+
+          ){
+
+            textoErro =
+              "O Firestore não permite criar o perfil. Verifica as regras do Firestore.";
 
           }
 
