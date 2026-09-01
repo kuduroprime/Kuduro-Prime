@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <title>Nova Publicação — KUDURO PRIME</title>
 
@@ -16,9 +16,12 @@
       --muted:#a7a7a7;
       --line:#292929;
       --red:#ff563f;
+      --green:#48d597;
     }
 
-    *{box-sizing:border-box}
+    *{
+      box-sizing:border-box;
+    }
 
     body{
       margin:0;
@@ -40,6 +43,7 @@
       position:sticky;
       top:0;
       background:rgba(7,7,7,.95);
+      backdrop-filter:blur(15px);
       z-index:20;
     }
 
@@ -54,6 +58,7 @@
     .brand{
       font-size:19px;
       font-weight:900;
+      letter-spacing:-1px;
     }
 
     .brand span{
@@ -105,6 +110,7 @@
       text-align:center;
       cursor:pointer;
       font-weight:800;
+      transition:.2s;
     }
 
     .type:hover{
@@ -112,7 +118,11 @@
     }
 
     .type.active{
-      background:rgba(244,191,49,.12);
+      background:linear-gradient(
+        145deg,
+        rgba(244,191,49,.2),
+        rgba(244,191,49,.04)
+      );
       border-color:var(--gold);
       color:var(--gold);
     }
@@ -158,6 +168,7 @@
       text-align:center;
       padding:20px;
       cursor:pointer;
+      transition:.2s;
       background:#0b0b0b;
     }
 
@@ -205,14 +216,6 @@
       border-radius:12px;
     }
 
-    .audio-name{
-      margin-top:10px;
-      color:var(--gold);
-      font-size:13px;
-      font-weight:bold;
-      word-break:break-word;
-    }
-
     .audio-preview audio{
       width:100%;
       margin-top:12px;
@@ -241,7 +244,12 @@
     .progress div{
       height:100%;
       width:0%;
-      background:linear-gradient(90deg,var(--gold),var(--gold2));
+      background:linear-gradient(
+        90deg,
+        var(--gold),
+        var(--gold2)
+      );
+      transition:.2s;
     }
 
     .publish{
@@ -250,7 +258,11 @@
       padding:16px;
       border:0;
       border-radius:11px;
-      background:linear-gradient(135deg,var(--gold2),var(--gold));
+      background:linear-gradient(
+        135deg,
+        var(--gold2),
+        var(--gold)
+      );
       color:#17120a;
       font-weight:900;
       font-size:14px;
@@ -271,15 +283,17 @@
     }
 
     .message.error{
+      display:block;
       background:rgba(255,86,63,.12);
       border:1px solid rgba(255,86,63,.35);
       color:#ff8d7c;
     }
 
     .message.success{
-      background:rgba(244,191,49,.1);
-      border:1px solid rgba(244,191,49,.35);
-      color:var(--gold2);
+      display:block;
+      background:rgba(72,213,151,.12);
+      border:1px solid rgba(72,213,151,.35);
+      color:var(--green);
     }
 
     .info{
@@ -290,31 +304,7 @@
       border:1px solid var(--line);
       color:var(--muted);
       font-size:12px;
-      line-height:1.7;
-    }
-
-    .payment-box{
-      display:none;
-      margin-top:16px;
-      padding:16px;
-      border-radius:12px;
-      background:rgba(244,191,49,.08);
-      border:1px solid var(--gold);
-    }
-
-    .payment-box strong{
-      color:var(--gold);
-    }
-
-    .payment-btn{
-      display:block;
-      margin-top:12px;
-      padding:13px;
-      background:var(--gold);
-      color:#111;
-      text-align:center;
-      border-radius:8px;
-      font-weight:bold;
+      line-height:1.6;
     }
 
     @media(max-width:600px){
@@ -332,983 +322,857 @@
 
 <body>
 
-<header class="top">
-  <div class="top-in">
+  <header class="top">
+    <div class="top-in">
 
-    <a href="feed.html" class="brand">
-      👑 KUDURO <span>PRIME</span>
-    </a>
+      <a href="feed.html" class="brand">
+        👑 KUDURO <span>PRIME</span>
+      </a>
 
-    <a href="feed.html" class="back">
-      ← VOLTAR
-    </a>
-
-  </div>
-</header>
-
-<main>
-
-  <h1>NOVA PUBLICAÇÃO</h1>
-
-  <p class="subtitle">
-    Partilha a tua música, foto ou vídeo com o movimento.
-  </p>
-
-  <div class="card">
-
-    <div class="types">
-
-      <div class="type active" data-type="foto">
-        🖼️<br>FOTO
-      </div>
-
-      <div class="type" data-type="video">
-        🎬<br>VÍDEO
-      </div>
-
-      <div class="type" data-type="musica">
-        🎵<br>MÚSICA
-      </div>
-
-    </div>
-
-    <label id="fileLabel">ESCOLHE A FOTO</label>
-
-    <label class="upload" for="file">
-
-      <strong id="uploadTitle">
-        🖼️ Escolher foto
-      </strong>
-
-      <small id="uploadInfo">
-        JPG, PNG ou WEBP
-      </small>
-
-    </label>
-
-    <input
-      type="file"
-      id="file"
-      accept="image/*"
-    >
-
-    <div class="preview" id="preview"></div>
-
-    <div class="audio-preview" id="audioPreview">
-
-      <strong>🎵 MÚSICA SELECIONADA</strong>
-
-      <div class="audio-name" id="audioName"></div>
-
-      <audio
-        id="audioPlayer"
-        controls
-      ></audio>
-
-    </div>
-
-    <div class="payment-box" id="paymentBox">
-
-      <strong>
-        💰 ESTE VÍDEO PRECISA DE PAGAMENTO
-      </strong>
-
-      <p>
-        Vídeos até 10 minutos são gratuitos.
-        Este vídeo ultrapassa 10 minutos.
-      </p>
-
-      <p>
-        Para publicar, é necessário pagar
-        <strong>500 Kz</strong>.
-      </p>
-
-      <a
-        href="pagamento-video.html"
-        class="payment-btn"
-      >
-        💳 PAGAR 500 KZ
+      <a href="feed.html" class="back">
+        ← VOLTAR
       </a>
 
     </div>
+  </header>
 
-    <label>TÍTULO DA PUBLICAÇÃO</label>
+  <main>
 
-    <input
-      type="text"
-      id="title"
-      placeholder="Ex: Mim Faz Só Broxe 🔥"
-    >
+    <h1>NOVA PUBLICAÇÃO</h1>
 
-    <label>LEGENDA</label>
+    <p class="subtitle">
+      Partilha a tua música, foto ou vídeo com o movimento.
+    </p>
 
-    <textarea
-      id="caption"
-      placeholder="Escreve algo sobre esta publicação..."
-    ></textarea>
+    <div class="card">
 
-    <div class="progress-box" id="progressBox">
+      <div class="types">
 
-      <div class="progress-text">
+        <div class="type active" data-type="foto">
+          🖼️<br>
+          FOTO
+        </div>
 
-        <span id="progressStatus">
-          A enviar...
-        </span>
+        <div class="type" data-type="video">
+          🎬<br>
+          VÍDEO
+        </div>
 
-        <span id="progressPercent">
-          0%
-        </span>
+        <div class="type" data-type="musica">
+          🎵<br>
+          MÚSICA
+        </div>
 
       </div>
 
-      <div class="progress">
-        <div id="progressBar"></div>
+      <label id="fileLabel">
+        ESCOLHE A FOTO
+      </label>
+
+      <label class="upload" for="file">
+
+        <strong id="uploadTitle">
+          🖼️ Escolher foto
+        </strong>
+
+        <small id="uploadInfo">
+          JPG, PNG ou WEBP
+        </small>
+
+      </label>
+
+      <input
+        type="file"
+        id="file"
+        accept="image/*"
+      />
+
+      <div class="preview" id="preview"></div>
+
+      <div class="audio-preview" id="audioPreview">
+
+        <strong>
+          🎵 Pré-visualização da música
+        </strong>
+
+        <audio
+          id="audioPlayer"
+          controls
+        ></audio>
+
+      </div>
+
+      <label>
+        TÍTULO DA PUBLICAÇÃO
+      </label>
+
+      <input
+        type="text"
+        id="title"
+        placeholder="Ex: Mim Faz Só Broxe 🔥"
+      />
+
+      <label>
+        LEGENDA
+      </label>
+
+      <textarea
+        id="caption"
+        placeholder="Escreve algo sobre esta publicação..."
+      ></textarea>
+
+      <div class="progress-box" id="progressBox">
+
+        <div class="progress-text">
+
+          <span id="progressStatus">
+            A enviar...
+          </span>
+
+          <span id="progressPercent">
+            0%
+          </span>
+
+        </div>
+
+        <div class="progress">
+          <div id="progressBar"></div>
+        </div>
+
+      </div>
+
+      <button class="publish" id="publishBtn">
+        🚀 PUBLICAR AGORA
+      </button>
+
+      <div class="message" id="message"></div>
+
+      <div class="info">
+        👑 <b>Regras KUDURO PRIME:</b><br>
+        🖼️ Podes publicar fotos.<br>
+        🎵 Podes publicar músicas.<br>
+        🎬 Os vídeos podem ter no máximo <b>5 minutos</b>.
       </div>
 
     </div>
 
-    <button
-      class="publish"
-      id="publishBtn"
-      type="button"
-    >
-      🚀 PUBLICAR AGORA
-    </button>
+  </main>
 
-    <div
-      class="message"
-      id="message"
-    ></div>
+  <script type="module">
 
-    <div class="info">
-      👑 <b>Regras KUDURO PRIME:</b><br>
-      🖼️ Podes publicar fotos gratuitamente.<br>
-      🎵 Podes publicar músicas diretamente do teu computador.<br>
-      🎬 Vídeos até <b>10 minutos são gratuitos</b>.<br>
-      💰 Vídeos com mais de <b>10 minutos pagam 500 Kz</b>.
-    </div>
+    import {
+      initializeApp
+    } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
 
-  </div>
+    import {
+      getAuth,
+      onAuthStateChanged
+    } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
 
-</main>
+    import {
+      getFirestore,
+      doc,
+      getDoc,
+      collection,
+      addDoc,
+      serverTimestamp
+    } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 
-<script type="module">
+    import {
+      getStorage,
+      ref,
+      uploadBytesResumable,
+      getDownloadURL
+    } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-storage.js";
 
-import {
-  initializeApp
-} from
-"https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
 
-import {
-  getAuth,
-  onAuthStateChanged
-} from
-"https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+    const firebaseConfig = {
 
-import {
-  getFirestore,
-  doc,
-  getDoc,
-  collection,
-  addDoc,
-  serverTimestamp
-} from
-"https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+      apiKey:
+        "AIzaSyDoitCcLeLDNBNPCP6fG1s_xbHr4UmohSo",
 
-import {
-  getStorage,
-  ref,
-  uploadBytesResumable,
-  getDownloadURL
-} from
-"https://www.gstatic.com/firebasejs/12.18.0/firebase-storage.js";
+      authDomain:
+        "kuduro-prime.firebaseapp.com",
 
+      projectId:
+        "kuduro-prime",
 
-const firebaseConfig = {
+      storageBucket:
+        "kuduro-prime.firebasestorage.app",
 
-  apiKey:
-    "AIzaSyDoitCcLeLDNBNPCP6fG1s_xbHr4UmohSo",
+      messagingSenderId:
+        "299776559545",
 
-  authDomain:
-    "kuduro-prime.firebaseapp.com",
+      appId:
+        "1:299776559545:web:04aced1ba25391eb3fce68"
 
-  projectId:
-    "kuduro-prime",
+    };
 
-  storageBucket:
-    "kuduro-prime.firebasestorage.app",
 
-  messagingSenderId:
-    "299776559545",
+    const app =
+      initializeApp(firebaseConfig);
 
-  appId:
-    "1:299776559545:web:04aced1ba25391eb3fce68"
+    const auth =
+      getAuth(app);
 
-};
+    const db =
+      getFirestore(app);
 
+    const storage =
+      getStorage(app);
 
-const app = initializeApp(firebaseConfig);
 
-const auth = getAuth(app);
+    const types =
+      document.querySelectorAll(".type");
 
-const db = getFirestore(app);
+    const fileInput =
+      document.getElementById("file");
 
-const storage = getStorage(app);
+    const preview =
+      document.getElementById("preview");
 
+    const audioPreview =
+      document.getElementById("audioPreview");
 
-const types = document.querySelectorAll(".type");
+    const audioPlayer =
+      document.getElementById("audioPlayer");
 
-const fileInput = document.getElementById("file");
+    const title =
+      document.getElementById("title");
 
-const preview = document.getElementById("preview");
+    const caption =
+      document.getElementById("caption");
 
-const audioPreview = document.getElementById("audioPreview");
+    const publishBtn =
+      document.getElementById("publishBtn");
 
-const audioPlayer = document.getElementById("audioPlayer");
+    const message =
+      document.getElementById("message");
 
-const audioName = document.getElementById("audioName");
+    const progressBox =
+      document.getElementById("progressBox");
 
-const title = document.getElementById("title");
+    const progressBar =
+      document.getElementById("progressBar");
 
-const caption = document.getElementById("caption");
+    const progressPercent =
+      document.getElementById("progressPercent");
 
-const publishBtn = document.getElementById("publishBtn");
+    const progressStatus =
+      document.getElementById("progressStatus");
 
-const message = document.getElementById("message");
 
-const progressBox = document.getElementById("progressBox");
+    let selectedType = "foto";
+    let currentUser = null;
+    let artistData = null;
+    let selectedFile = null;
+    let previewUrl = null;
 
-const progressBar = document.getElementById("progressBar");
 
-const progressPercent = document.getElementById("progressPercent");
+    onAuthStateChanged(
+      auth,
+      async (user) => {
 
-const progressStatus = document.getElementById("progressStatus");
+        if(!user){
 
-const paymentBox = document.getElementById("paymentBox");
+          window.location.href =
+            "area-do-artista.html";
 
+          return;
 
-let selectedType = "foto";
+        }
 
-let currentUser = null;
+        currentUser = user;
 
-let artistData = null;
+        try{
 
-let selectedFile = null;
-
-let previewUrl = null;
-
-let videoRequiresPayment = false;
-
-let videoDuration = 0;
-
-
-/* VERIFICAR LOGIN */
-
-onAuthStateChanged(
-  auth,
-  async(user) => {
-
-    if(!user){
-
-      window.location.href =
-        "area-do-artista.html";
-
-      return;
-
-    }
-
-    currentUser = user;
-
-    try{
-
-      const artistRef =
-        doc(
-          db,
-          "artistas",
-          user.uid
-        );
-
-      const artistSnap =
-        await getDoc(artistRef);
-
-      if(!artistSnap.exists()){
-
-        window.location.href =
-          "criar-perfil.html";
-
-        return;
-
-      }
-
-      artistData =
-        artistSnap.data();
-
-    }catch(error){
-
-      console.error(error);
-
-      showMessage(
-        "Erro ao carregar o teu perfil.",
-        "error"
-      );
-
-    }
-
-  }
-);
-
-
-/* ESCOLHER FOTO / VÍDEO / MÚSICA */
-
-types.forEach(type => {
-
-  type.addEventListener(
-    "click",
-    () => {
-
-      selectedType =
-        type.dataset.type;
-
-      types.forEach(t =>
-        t.classList.remove("active")
-      );
-
-      type.classList.add("active");
-
-      selectedFile = null;
-
-      videoRequiresPayment = false;
-
-      videoDuration = 0;
-
-      paymentBox.style.display =
-        "none";
-
-      fileInput.value = "";
-
-      clearPreview();
-
-      updateFileType();
-
-    }
-  );
-
-});
-
-
-function updateFileType(){
-
-  const fileLabel =
-    document.getElementById("fileLabel");
-
-  const uploadTitle =
-    document.getElementById("uploadTitle");
-
-  const uploadInfo =
-    document.getElementById("uploadInfo");
-
-
-  if(selectedType === "foto"){
-
-    fileLabel.textContent =
-      "ESCOLHE A FOTO";
-
-    uploadTitle.textContent =
-      "🖼️ Escolher foto";
-
-    uploadInfo.textContent =
-      "JPG, PNG ou WEBP";
-
-    fileInput.accept =
-      "image/*";
-
-  }
-
-
-  if(selectedType === "video"){
-
-    fileLabel.textContent =
-      "ESCOLHE O VÍDEO";
-
-    uploadTitle.textContent =
-      "🎬 Escolher vídeo";
-
-    uploadInfo.textContent =
-      "Até 10 minutos grátis. Mais de 10 min: 500 Kz";
-
-    fileInput.accept =
-      "video/*";
-
-  }
-
-
-  if(selectedType === "musica"){
-
-    fileLabel.textContent =
-      "ESCOLHE A MÚSICA DA TUA PASTA";
-
-    uploadTitle.textContent =
-      "🎵 CLIQUE PARA ESCOLHER UMA MÚSICA";
-
-    uploadInfo.textContent =
-      "MP3, WAV, M4A, AAC, OGG ou FLAC — SEM LINK";
-
-    fileInput.accept =
-      ".mp3,.wav,.m4a,.aac,.ogg,.flac,audio/*";
-
-  }
-
-}
-
-
-/* ESCOLHER ARQUIVO DO COMPUTADOR */
-
-fileInput.addEventListener(
-  "change",
-  () => {
-
-    const file =
-      fileInput.files[0];
-
-    if(!file){
-      return;
-    }
-
-
-    if(
-      selectedType === "foto"
-      &&
-      !file.type.startsWith("image/")
-    ){
-
-      showMessage(
-        "Escolhe uma imagem válida.",
-        "error"
-      );
-
-      fileInput.value = "";
-
-      return;
-
-    }
-
-
-    if(
-      selectedType === "video"
-      &&
-      !file.type.startsWith("video/")
-    ){
-
-      showMessage(
-        "Escolhe um vídeo válido.",
-        "error"
-      );
-
-      fileInput.value = "";
-
-      return;
-
-    }
-
-
-    if(selectedType === "musica"){
-
-      const extensoes =
-        [
-          ".mp3",
-          ".wav",
-          ".m4a",
-          ".aac",
-          ".ogg",
-          ".flac"
-        ];
-
-      const nome =
-        file.name.toLowerCase();
-
-      const musicaValida =
-        file.type.startsWith("audio/")
-        ||
-        extensoes.some(
-          extensao =>
-            nome.endsWith(extensao)
-        );
-
-
-      if(!musicaValida){
-
-        showMessage(
-          "Escolhe um ficheiro de música válido.",
-          "error"
-        );
-
-        fileInput.value = "";
-
-        return;
-
-      }
-
-    }
-
-
-    selectedFile = file;
-
-    clearPreview();
-
-    previewUrl =
-      URL.createObjectURL(file);
-
-
-    if(selectedType === "foto"){
-
-      preview.innerHTML =
-        `<img src="${previewUrl}" alt="Pré-visualização">`;
-
-      preview.style.display =
-        "block";
-
-    }
-
-
-    if(selectedType === "video"){
-
-      const video =
-        document.createElement("video");
-
-      video.src =
-        previewUrl;
-
-      video.controls =
-        true;
-
-      video.preload =
-        "metadata";
-
-
-      video.onloadedmetadata =
-        () => {
-
-          videoDuration =
-            video.duration;
-
-
-          if(video.duration > 600){
-
-            videoRequiresPayment =
-              true;
-
-            paymentBox.style.display =
-              "block";
-
-          }else{
-
-            videoRequiresPayment =
-              false;
-
-            paymentBox.style.display =
-              "none";
-
-          }
-
-        };
-
-
-      preview.appendChild(video);
-
-      preview.style.display =
-        "block";
-
-    }
-
-
-    if(selectedType === "musica"){
-
-      audioPlayer.src =
-        previewUrl;
-
-      audioName.textContent =
-        "🎧 " + file.name;
-
-      audioPreview.style.display =
-        "block";
-
-      showMessage(
-        "✓ Música selecionada da tua pasta: " + file.name,
-        "success"
-      );
-
-    }
-
-  }
-);
-
-
-function clearPreview(){
-
-  if(previewUrl){
-
-    URL.revokeObjectURL(
-      previewUrl
-    );
-
-  }
-
-  previewUrl = null;
-
-  preview.innerHTML = "";
-
-  preview.style.display =
-    "none";
-
-  audioPlayer.pause();
-
-  audioPlayer.removeAttribute("src");
-
-  audioPlayer.load();
-
-  audioName.textContent = "";
-
-  audioPreview.style.display =
-    "none";
-
-}
-
-
-/* PUBLICAR */
-
-publishBtn.addEventListener(
-  "click",
-  async() => {
-
-    hideMessage();
-
-
-    if(!currentUser){
-
-      showMessage(
-        "Tens de iniciar sessão.",
-        "error"
-      );
-
-      return;
-
-    }
-
-
-    if(!artistData){
-
-      showMessage(
-        "O teu perfil ainda não foi carregado.",
-        "error"
-      );
-
-      return;
-
-    }
-
-
-    if(!selectedFile){
-
-      showMessage(
-        selectedType === "musica"
-          ? "Escolhe uma música da tua pasta antes de publicar."
-          : "Escolhe um arquivo antes de publicar.",
-        "error"
-      );
-
-      return;
-
-    }
-
-
-    if(!title.value.trim()){
-
-      showMessage(
-        "Escreve um título.",
-        "error"
-      );
-
-      return;
-
-    }
-
-
-    if(
-      selectedType === "video"
-      &&
-      videoRequiresPayment
-    ){
-
-      window.location.href =
-        "pagamento-video.html";
-
-      return;
-
-    }
-
-
-    publishBtn.disabled =
-      true;
-
-    publishBtn.textContent =
-      selectedType === "musica"
-        ? "A ENVIAR MÚSICA..."
-        : "A PUBLICAR...";
-
-    progressBox.style.display =
-      "block";
-
-    progressBar.style.width =
-      "0%";
-
-    progressPercent.textContent =
-      "0%";
-
-
-    try{
-
-      const safeName =
-        selectedFile.name.replace(
-          /[^a-zA-Z0-9.\-_]/g,
-          "_"
-        );
-
-
-      const fileName =
-        Date.now()
-        + "_"
-        + safeName;
-
-
-      const storagePath =
-        `publicacoes/${currentUser.uid}/${fileName}`;
-
-
-      const storageRef =
-        ref(
-          storage,
-          storagePath
-        );
-
-
-      const uploadTask =
-        uploadBytesResumable(
-          storageRef,
-          selectedFile,
-          {
-            contentType:
-              selectedFile.type
-          }
-        );
-
-
-      const fileUrl =
-        await new Promise(
-          (resolve,reject) => {
-
-            uploadTask.on(
-
-              "state_changed",
-
-              snapshot => {
-
-                const percent =
-                  Math.round(
-                    (
-                      snapshot.bytesTransferred
-                      /
-                      snapshot.totalBytes
-                    )
-                    * 100
-                  );
-
-
-                progressBar.style.width =
-                  percent + "%";
-
-                progressPercent.textContent =
-                  percent + "%";
-
-                progressStatus.textContent =
-                  selectedType === "musica"
-                    ? "A enviar a música..."
-                    : "A enviar publicação...";
-
-              },
-
-
-              error =>
-                reject(error),
-
-
-              async() => {
-
-                try{
-
-                  const url =
-                    await getDownloadURL(
-                      uploadTask.snapshot.ref
-                    );
-
-                  resolve(url);
-
-                }catch(error){
-
-                  reject(error);
-
-                }
-
-              }
-
+          const artistRef =
+            doc(
+              db,
+              "artists",
+              user.uid
             );
 
+          const artistSnap =
+            await getDoc(artistRef);
+
+          if(!artistSnap.exists()){
+
+            showMessage(
+              "Perfil de artista não encontrado.",
+              "error"
+            );
+
+            return;
+
           }
-        );
+
+          artistData =
+            artistSnap.data();
+
+        }
+        catch(error){
+
+          console.error(error);
+
+          showMessage(
+            "Erro ao carregar o teu perfil: "
+            + error.message,
+            "error"
+          );
+
+        }
+
+      }
+    );
 
 
-      progressStatus.textContent =
-        "A guardar publicação...";
+    types.forEach(type => {
 
+      type.addEventListener(
+        "click",
+        () => {
 
-      await addDoc(
-        collection(
-          db,
-          "publicacoes"
-        ),
-        {
+          selectedType =
+            type.dataset.type;
 
-          uid:
-            currentUser.uid,
+          types.forEach(t =>
+            t.classList.remove("active")
+          );
 
-          tipo:
-            selectedType,
+          type.classList.add("active");
 
-          titulo:
-            title.value.trim(),
+          selectedFile = null;
 
-          legenda:
-            caption.value.trim(),
+          fileInput.value = "";
 
-          arquivoUrl:
-            fileUrl,
+          clearPreview();
 
-          arquivoNome:
-            selectedFile.name,
-
-          arquivoTipo:
-            selectedFile.type,
-
-          arquivoTamanho:
-            selectedFile.size,
-
-          duracao:
-            selectedType === "video"
-              ? videoDuration
-              : null,
-
-          nomeArtista:
-            artistData.nome
-            || "Artista",
-
-          fotoArtista:
-            artistData.foto
-            || "",
-
-          localizacao:
-            artistData.provincia
-            || artistData.localizacao
-            || "",
-
-          createdAt:
-            serverTimestamp()
+          updateFileType();
 
         }
       );
 
-
-      progressBar.style.width =
-        "100%";
-
-      progressPercent.textContent =
-        "100%";
-
-      progressStatus.textContent =
-        "Publicado com sucesso!";
+    });
 
 
-      showMessage(
-        selectedType === "musica"
-          ? "🎵 A tua música foi publicada com sucesso!"
-          : "👑 A tua publicação foi publicada com sucesso!",
-        "success"
-      );
+    function updateFileType(){
+
+      const fileLabel =
+        document.getElementById("fileLabel");
+
+      const uploadTitle =
+        document.getElementById("uploadTitle");
+
+      const uploadInfo =
+        document.getElementById("uploadInfo");
 
 
-      publishBtn.textContent =
-        "✓ PUBLICADO";
+      if(selectedType === "foto"){
+
+        fileLabel.textContent =
+          "ESCOLHE A FOTO";
+
+        uploadTitle.textContent =
+          "🖼️ Escolher foto";
+
+        uploadInfo.textContent =
+          "JPG, PNG ou WEBP";
+
+        fileInput.accept =
+          "image/*";
+
+      }
 
 
-      setTimeout(
-        () => {
+      if(selectedType === "video"){
 
-          window.location.href =
-            "feed.html";
+        fileLabel.textContent =
+          "ESCOLHE O VÍDEO";
 
-        },
-        1500
-      );
+        uploadTitle.textContent =
+          "🎬 Escolher vídeo";
+
+        uploadInfo.textContent =
+          "Máximo de 5 minutos";
+
+        fileInput.accept =
+          "video/*";
+
+      }
 
 
-    }catch(error){
+      if(selectedType === "musica"){
 
-      console.error(error);
+        fileLabel.textContent =
+          "ESCOLHE A MÚSICA";
 
-      showMessage(
-        "❌ Erro ao publicar: "
-        + error.message,
-        "error"
-      );
+        uploadTitle.textContent =
+          "🎵 Escolher música";
 
-      progressBox.style.display =
-        "none";
+        uploadInfo.textContent =
+          "MP3, WAV ou áudio compatível";
 
-      publishBtn.disabled =
-        false;
+        fileInput.accept =
+          "audio/*";
 
-      publishBtn.textContent =
-        "🚀 PUBLICAR AGORA";
+      }
 
     }
 
-  }
-);
+
+    fileInput.addEventListener(
+      "change",
+      () => {
+
+        const file =
+          fileInput.files[0];
+
+        if(!file)
+          return;
+
+        selectedFile = file;
+
+        clearPreview();
+
+        selectedFile = file;
+
+        previewUrl =
+          URL.createObjectURL(file);
 
 
-function showMessage(text,type){
+        if(selectedType === "foto"){
 
-  message.textContent =
-    text;
+          preview.innerHTML =
+            `<img src="${previewUrl}" alt="Pré-visualização">`;
 
-  message.className =
-    "message " + type;
+          preview.style.display =
+            "block";
 
-  message.style.display =
-    "block";
-
-}
+        }
 
 
-function hideMessage(){
+        if(selectedType === "video"){
 
-  message.style.display =
-    "none";
+          const video =
+            document.createElement("video");
 
-}
+          video.src =
+            previewUrl;
+
+          video.controls =
+            true;
+
+          video.preload =
+            "metadata";
 
 
-updateFileType();
+          video.onloadedmetadata =
+            () => {
 
-</script>
+              if(video.duration > 300){
+
+                showMessage(
+                  "❌ O vídeo não pode ter mais de 5 minutos.",
+                  "error"
+                );
+
+                selectedFile = null;
+
+                fileInput.value = "";
+
+                clearPreview();
+
+                return;
+
+              }
+
+            };
+
+
+          preview.appendChild(video);
+
+          preview.style.display =
+            "block";
+
+        }
+
+
+        if(selectedType === "musica"){
+
+          audioPlayer.src =
+            previewUrl;
+
+          audioPreview.style.display =
+            "block";
+
+        }
+
+      }
+    );
+
+
+    function clearPreview(){
+
+      if(previewUrl){
+
+        URL.revokeObjectURL(
+          previewUrl
+        );
+
+      }
+
+      previewUrl = null;
+
+      preview.innerHTML = "";
+
+      preview.style.display =
+        "none";
+
+      audioPlayer.src = "";
+
+      audioPreview.style.display =
+        "none";
+
+    }
+
+
+    publishBtn.addEventListener(
+      "click",
+      async () => {
+
+        hideMessage();
+
+
+        if(!currentUser){
+
+          showMessage(
+            "Tens de iniciar sessão.",
+            "error"
+          );
+
+          return;
+
+        }
+
+
+        if(!artistData){
+
+          showMessage(
+            "O teu perfil ainda não foi carregado.",
+            "error"
+          );
+
+          return;
+
+        }
+
+
+        if(!selectedFile){
+
+          showMessage(
+            "Escolhe um arquivo para publicar.",
+            "error"
+          );
+
+          return;
+
+        }
+
+
+        if(!title.value.trim()){
+
+          showMessage(
+            "Escreve um título.",
+            "error"
+          );
+
+          return;
+
+        }
+
+
+        publishBtn.disabled = true;
+
+        publishBtn.textContent =
+          "A PUBLICAR...";
+
+        progressBox.style.display =
+          "block";
+
+        progressBar.style.width =
+          "0%";
+
+        progressPercent.textContent =
+          "0%";
+
+
+        try{
+
+          const safeName =
+            selectedFile.name.replace(
+              /[^a-zA-Z0-9.\-_]/g,
+              "_"
+            );
+
+          const fileName =
+            Date.now()
+            + "_"
+            + safeName;
+
+          const storagePath =
+            `publicacoes/${currentUser.uid}/${fileName}`;
+
+          const storageRef =
+            ref(
+              storage,
+              storagePath
+            );
+
+          const uploadTask =
+            uploadBytesResumable(
+              storageRef,
+              selectedFile
+            );
+
+
+          const fileUrl =
+            await new Promise(
+              (resolve, reject) => {
+
+                uploadTask.on(
+
+                  "state_changed",
+
+                  snapshot => {
+
+                    const percent =
+                      Math.round(
+                        (
+                          snapshot.bytesTransferred
+                          /
+                          snapshot.totalBytes
+                        )
+                        * 100
+                      );
+
+                    progressBar.style.width =
+                      percent + "%";
+
+                    progressPercent.textContent =
+                      percent + "%";
+
+                    progressStatus.textContent =
+                      "A enviar publicação...";
+
+                  },
+
+
+                  error => {
+
+                    reject(error);
+
+                  },
+
+
+                  async () => {
+
+                    try{
+
+                      const url =
+                        await getDownloadURL(
+                          uploadTask.snapshot.ref
+                        );
+
+                      resolve(url);
+
+                    }
+                    catch(error){
+
+                      reject(error);
+
+                    }
+
+                  }
+
+                );
+
+              }
+            );
+
+
+          progressStatus.textContent =
+            "A guardar publicação...";
+
+
+          await addDoc(
+            collection(
+              db,
+              "publicacoes"
+            ),
+
+            {
+
+              uid:
+                currentUser.uid,
+
+              tipo:
+                selectedType,
+
+              titulo:
+                title.value.trim(),
+
+              legenda:
+                caption.value.trim(),
+
+              arquivoUrl:
+                fileUrl,
+
+              arquivoNome:
+                selectedFile.name,
+
+              nomeArtista:
+                artistData.artistName
+                ||
+                artistData.nome
+                ||
+                "Artista",
+
+              username:
+                artistData.username
+                || "",
+
+              fotoArtista:
+                artistData.photo
+                ||
+                artistData.foto
+                ||
+                "",
+
+              createdAt:
+                serverTimestamp()
+
+            }
+
+          );
+
+
+          progressStatus.textContent =
+            "Publicado com sucesso!";
+
+          progressBar.style.width =
+            "100%";
+
+          progressPercent.textContent =
+            "100%";
+
+
+          showMessage(
+            "👑 A tua publicação foi publicada no KUDURO PRIME!",
+            "success"
+          );
+
+
+          publishBtn.textContent =
+            "✓ PUBLICADO";
+
+
+          setTimeout(
+            () => {
+
+              window.location.href =
+                "feed.html";
+
+            },
+            1500
+          );
+
+
+        }
+        catch(error){
+
+          console.error(
+            "ERRO AO PUBLICAR:",
+            error
+          );
+
+
+          let erroTexto =
+            "❌ Erro ao publicar: "
+            + error.message;
+
+
+          if(
+            error.code ===
+            "storage/unauthorized"
+          ){
+
+            erroTexto =
+              "❌ O Firebase Storage não permite enviar o arquivo.";
+
+          }
+
+
+          if(
+            error.code ===
+            "permission-denied"
+          ){
+
+            erroTexto =
+              "❌ O Firestore não permite guardar a publicação.";
+
+          }
+
+
+          showMessage(
+            erroTexto,
+            "error"
+          );
+
+
+          progressBox.style.display =
+            "none";
+
+
+          publishBtn.disabled =
+            false;
+
+
+          publishBtn.textContent =
+            "🚀 PUBLICAR AGORA";
+
+        }
+
+      }
+    );
+
+
+    function showMessage(
+      text,
+      type
+    ){
+
+      message.textContent =
+        text;
+
+      message.className =
+        "message "
+        + type;
+
+    }
+
+
+    function hideMessage(){
+
+      message.style.display =
+        "none";
+
+      message.className =
+        "message";
+
+    }
+
+  </script>
 
 </body>
 </html>
