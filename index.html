@@ -12,7 +12,6 @@
   />
 
   <style>
-
     :root{
       --bg:#070707;
       --panel:#101010;
@@ -45,10 +44,17 @@
       color:inherit;
     }
 
+    button,
+    input{
+      font:inherit;
+    }
+
     .container{
       width:min(1180px,92%);
       margin:auto;
     }
+
+    /* NAV */
 
     .nav{
       height:82px;
@@ -59,7 +65,7 @@
       top:0;
       background:rgba(7,7,7,.92);
       backdrop-filter:blur(12px);
-      z-index:20;
+      z-index:100;
     }
 
     .nav-in{
@@ -78,6 +84,7 @@
       color:#fff;
       letter-spacing:-1px;
       position:relative;
+      z-index:102;
     }
 
     .brand b{
@@ -101,6 +108,10 @@
       letter-spacing:.4px;
     }
 
+    .links a{
+      transition:.25s;
+    }
+
     .links a:hover,
     .links a.active{
       color:var(--gold);
@@ -110,6 +121,8 @@
       display:flex;
       gap:10px;
       align-items:center;
+      position:relative;
+      z-index:102;
     }
 
     .area-artista-btn{
@@ -137,8 +150,8 @@
       background:#d4af37;
       color:black;
       font-weight:bold;
-      text-decoration:none;
       border-radius:8px;
+      transition:.25s;
     }
 
     .join-btn:hover{
@@ -156,6 +169,11 @@
       justify-content:center;
       gap:7px;
       cursor:pointer;
+      transition:.25s;
+    }
+
+    .btn:hover{
+      transform:translateY(-2px);
     }
 
     .btn.gold{
@@ -167,6 +185,10 @@
     .btn.dark{
       background:transparent;
       color:white;
+    }
+
+    .btn.dark:hover{
+      background:rgba(244,191,49,.08);
     }
 
     .menu{
@@ -187,7 +209,6 @@
       align-items:center;
       position:relative;
       overflow:hidden;
-
       background:
         linear-gradient(
           90deg,
@@ -195,15 +216,14 @@
           rgba(9,9,9,.4) 52%,
           rgba(0,0,0,.08)
         ),
-        url('images/artista-1.jpg')
-        center/cover;
+        url('images/artista-1.jpg') center/cover;
     }
 
     .hero:after{
       content:"";
       position:absolute;
       inset:0;
-
+      pointer-events:none;
       background:
         radial-gradient(
           circle at 75% 30%,
@@ -323,6 +343,7 @@
       border-radius:14px;
       overflow:hidden;
       transition:.25s;
+      cursor:pointer;
     }
 
     .card:hover{
@@ -332,15 +353,9 @@
 
     .artist-img{
       height:230px;
-
       background:
-        linear-gradient(
-          0deg,
-          #090909 0%,
-          transparent 55%
-        ),
-        var(--img)
-        center/cover;
+        linear-gradient(0deg,#090909 0%,transparent 55%),
+        var(--img) center/cover;
     }
 
     .artist-info{
@@ -378,10 +393,15 @@
       padding:11px 0;
       border-bottom:1px solid var(--line);
       align-items:center;
+      transition:.25s;
     }
 
     .release:last-child{
       border:0;
+    }
+
+    .release:hover{
+      background:rgba(255,255,255,.02);
     }
 
     .cover{
@@ -413,6 +433,12 @@
       place-items:center;
       color:var(--gold);
       font-size:12px;
+      transition:.25s;
+    }
+
+    .release:hover .play{
+      background:var(--gold);
+      color:#111;
     }
 
     /* RANKING */
@@ -452,16 +478,9 @@
     .battle{
       min-height:320px;
       position:relative;
-
       background:
-        linear-gradient(
-          120deg,
-          rgba(0,0,0,.1),
-          #3a0e06
-        ),
-        url('images/artista-6.jpg')
-        center/cover;
-
+        linear-gradient(120deg,rgba(0,0,0,.1),#3a0e06),
+        url('images/artista-6.jpg') center/cover;
       overflow:hidden;
     }
 
@@ -501,15 +520,15 @@
       justify-content:end;
       border-radius:14px;
       border:1px solid var(--line);
-
+      transition:.25s;
       background:
-        linear-gradient(
-          0deg,
-          rgba(0,0,0,.9),
-          transparent
-        ),
-        var(--img)
-        center/cover;
+        linear-gradient(0deg,rgba(0,0,0,.9),transparent),
+        var(--img) center/cover;
+    }
+
+    .event:hover{
+      transform:translateY(-5px);
+      border-color:#7c6327;
     }
 
     .date{
@@ -593,20 +612,38 @@
       font-size:12px;
     }
 
-    /* TABLET */
+    /* MENU MOBILE */
 
     @media(max-width:950px){
 
       .links{
         display:none;
+        position:absolute;
+        top:81px;
+        left:0;
+        width:100%;
+        background:rgba(7,7,7,.98);
+        border-bottom:1px solid var(--line);
+        flex-direction:column;
+        padding:20px 4%;
+        gap:0;
+      }
+
+      .links.open{
+        display:flex;
+      }
+
+      .links a{
+        padding:15px 0;
+        border-bottom:1px solid var(--line);
+      }
+
+      .links a:last-child{
+        border-bottom:0;
       }
 
       .menu{
         display:block;
-      }
-
-      .artists{
-        grid-template-columns:repeat(3,1fr);
       }
 
       .grid-3{
@@ -620,11 +657,6 @@
       .footer-grid{
         grid-template-columns:1fr 1fr;
       }
-
-      .nav-actions .dark{
-        display:none;
-      }
-
     }
 
     /* TELEMÓVEL */
@@ -635,10 +667,6 @@
         height:70px;
       }
 
-      .nav-in{
-        gap:10px;
-      }
-
       .brand{
         font-size:18px;
       }
@@ -647,9 +675,26 @@
         font-size:18px;
       }
 
+      .links{
+        top:69px;
+      }
+
+      .nav-in{
+        gap:7px;
+      }
+
+      .nav-actions{
+        gap:5px;
+      }
+
       .area-artista-btn{
-        padding:9px 10px;
-        font-size:10px;
+        padding:9px 8px;
+        font-size:0;
+      }
+
+      .area-artista-btn::before{
+        content:"👤";
+        font-size:17px;
       }
 
       .join-btn{
@@ -671,6 +716,10 @@
 
       h1{
         letter-spacing:-3px;
+      }
+
+      .hero p{
+        font-size:16px;
       }
 
       .stats{
@@ -705,94 +754,78 @@
         height:500px;
       }
 
+      .cta{
+        padding:35px 0;
+      }
+
       .cta-in{
         flex-direction:column;
         align-items:flex-start;
       }
 
+      .cta h2{
+        font-size:28px;
+      }
+
       .footer-grid{
         grid-template-columns:1fr;
+        gap:25px;
       }
 
       .section-head{
         align-items:start;
         flex-direction:column;
       }
-
-      .hero p{
-        font-size:16px;
-      }
-
     }
-
   </style>
-
 </head>
 
 <body>
 
   <nav class="nav">
-
     <div class="nav-in">
 
-      <a class="brand" href="index.html">
+      <a class="brand" href="index.html" aria-label="Kuduro Prime">
         <span class="crown">♕</span>
         KUDURO
         <b>PRIME</b>
       </a>
 
-      <div class="links">
-
+      <div class="links" id="mobileLinks">
         <a class="active" href="index.html">INÍCIO</a>
         <a href="artistas.html">ARTISTAS</a>
         <a href="musicas.html">MÚSICAS</a>
         <a href="ranking.html">RANKING</a>
         <a href="#batalhas">BATALHAS</a>
         <a href="eventos.html">EVENTOS</a>
-
       </div>
 
       <div class="nav-actions">
 
-        <a
-          href="area-do-artista.html"
-          class="area-artista-btn"
-        >
+        <a href="area-do-artista.html" class="area-artista-btn">
           👤 ÁREA DO ARTISTA
         </a>
 
-        <a
-          href="juntar-se.html"
-          class="join-btn"
-        >
+        <a href="juntar-se.html" class="join-btn">
           JUNTA-TE 👑
         </a>
 
-        <button
-          class="menu"
-          onclick="abrirMenu()"
-        >
+        <button class="menu" id="menuBtn" aria-label="Abrir menu">
           ☰
         </button>
 
       </div>
 
     </div>
-
   </nav>
 
-
   <main id="inicio">
-
-    <!-- HERO -->
 
     <section class="hero">
 
       <div class="container hero-content">
 
-        <div class="eyebrow">
-          ♕ O PALCO DOS GRANDES
-        </div>
+        <div class="eyebrow">♕ O PALCO DOS GRANDES</div>
 
         <h1>
           O KUDURO<br>
@@ -806,17 +839,11 @@
 
         <div class="hero-buttons">
 
-          <a
-            href="#artistas"
-            class="btn gold"
-          >
+          <a href="#artistas" class="btn gold">
             ♕ ENTRAR NO MOVIMENTO
           </a>
 
-          <a
-            href="#musicas"
-            class="btn dark"
-          >
+          <a href="#musicas" class="btn dark">
             ▶ VER LANÇAMENTOS
           </a>
 
@@ -842,66 +869,37 @@
         </div>
 
       </div>
-
     </section>
-
-
-    <!-- ARTISTAS -->
 
     <section id="artistas">
 
       <div class="container">
 
         <div class="section-head">
-
           <div>
-
-            <h2 class="title">
-              👑 ARTISTAS PRIME
-            </h2>
-
+            <h2 class="title">👑 ARTISTAS PRIME</h2>
             <p class="subtitle">
               Os grandes nomes e as novas revelações do Kuduro.
             </p>
-
           </div>
 
-          <a
-            class="btn dark"
-            href="artistas.html"
-          >
+          <a class="btn dark" href="artistas.html">
             VER TODOS ›
           </a>
-
         </div>
 
-        <div
-          class="artists"
-          id="artistGrid"
-        ></div>
+        <div class="artists" id="artistGrid"></div>
 
       </div>
-
     </section>
 
-
-    <!-- MÚSICAS -->
-
-    <section
-      id="musicas"
-      style="padding-top:0"
-    >
+    <section id="musicas" style="padding-top:0">
 
       <div class="container grid-3">
 
-
-        <!-- LANÇAMENTOS -->
-
         <div class="panel">
 
-          <h2 class="title">
-            🎵 LANÇAMENTOS
-          </h2>
+          <h2 class="title">🎵 LANÇAMENTOS</h2>
 
           <p class="subtitle">
             O que está a tocar no movimento.
@@ -911,142 +909,87 @@
 
         </div>
 
-
-        <!-- RANKING -->
-
-        <div
-          class="panel"
-          id="ranking"
-        >
+        <div class="panel">
 
           <div class="rank-title">
-            TOP 10
-            <span style="color:#fff">
-              PRIME
-            </span>
+            TOP 10 <span style="color:#fff">PRIME</span>
           </div>
 
-          <p
-            class="subtitle"
-            style="text-align:center;margin-bottom:12px"
-          >
+          <p class="subtitle" style="text-align:center;margin-bottom:12px">
             As músicas mais ouvidas da semana.
           </p>
 
           <div id="rankings"></div>
 
-          <a
-            class="btn dark"
-            style="width:100%;margin-top:15px"
-            href="ranking.html"
-          >
+          <a class="btn dark"
+             style="width:100%;margin-top:15px"
+             href="ranking.html">
             VER RANKING COMPLETO ›
           </a>
 
         </div>
 
+        <div class="panel battle" id="batalhas">
 
-        <!-- BATALHAS -->
-
-        <div
-          class="panel battle"
-          id="batalhas"
-        >
-
-          <h2 class="title">
-            🔥 PRIME BATTLES
-          </h2>
+          <h2 class="title">🔥 PRIME BATTLES</h2>
 
           <p class="subtitle">
             O público escolhe o melhor!
           </p>
 
-          <a
-            class="btn gold"
-            href="#"
-          >
+          <a class="btn gold" href="feed.html">
             VOTAR AGORA ›
           </a>
 
         </div>
 
       </div>
-
     </section>
 
-
-    <!-- EVENTOS -->
-
-    <section
-      id="eventos"
-      style="padding-top:0"
-    >
+    <section id="eventos" style="padding-top:0">
 
       <div class="container">
 
         <div class="section-head">
 
           <div>
-
-            <h2 class="title">
-              📅 PRIME EVENTS
-            </h2>
+            <h2 class="title">📅 PRIME EVENTS</h2>
 
             <p class="subtitle">
               Os próximos eventos do Kuduro.
             </p>
-
           </div>
 
-          <a
-            class="btn dark"
-            href="eventos.html"
-          >
+          <a class="btn dark" href="eventos.html">
             VER TODOS ›
           </a>
 
         </div>
 
-        <div
-          class="events"
-          id="eventGrid"
-        ></div>
+        <div class="events" id="eventGrid"></div>
 
       </div>
-
     </section>
 
-
-    <!-- CTA -->
-
-    <section
-      class="cta"
-      id="perfil"
-    >
+    <section class="cta" id="perfil">
 
       <div class="container cta-in">
 
         <div>
 
-          <h2>
-            O TEU TALENTO MERECE SER VISTO.
-          </h2>
+          <h2>O TEU TALENTO MERECE SER VISTO.</h2>
 
           <p>
             Cria o teu perfil no
-            <b style="color:var(--gold)">
-              KUDURO PRIME
-            </b>
+            <b style="color:var(--gold)">KUDURO PRIME</b>
             e entra no movimento.
           </p>
 
         </div>
 
-        <a
-          href="criar-perfil.html"
-          class="btn gold"
-          style="font-size:14px;padding:17px 28px"
-        >
+        <a href="criar-perfil.html"
+           class="btn gold"
+           style="font-size:14px;padding:17px 28px">
           👤 CRIAR PERFIL DE ARTISTA
         </a>
 
@@ -1056,9 +999,6 @@
 
   </main>
 
-
-  <!-- FOOTER -->
-
   <footer>
 
     <div class="container">
@@ -1067,10 +1007,7 @@
 
         <div>
 
-          <a
-            class="brand"
-            href="index.html"
-          >
+          <a class="brand" href="index.html">
             <span class="crown">♕</span>
             KUDURO
             <b>PRIME</b>
@@ -1082,7 +1019,6 @@
           </p>
 
         </div>
-
 
         <div>
 
@@ -1096,7 +1032,6 @@
 
         </div>
 
-
         <div>
 
           <h4>SOBRE</h4>
@@ -1108,23 +1043,20 @@
 
         </div>
 
-
         <div>
 
-          <h4>
-            RECEBE AS NOVIDADES PRIME
-          </h4>
+          <h4>RECEBE AS NOVIDADES PRIME</h4>
 
           <p>
             Fica por dentro dos lançamentos e eventos.
           </p>
 
-          <div
-            style="display:flex;gap:8px"
-          >
+          <div style="display:flex;gap:8px">
 
             <input
+              type="email"
               placeholder="O teu e-mail"
+              aria-label="O teu e-mail"
               style="
                 min-width:0;
                 width:100%;
@@ -1136,7 +1068,7 @@
               "
             >
 
-            <button class="btn gold">
+            <button class="btn gold" type="button">
               RECEBER
             </button>
 
@@ -1146,69 +1078,30 @@
 
       </div>
 
-
       <div class="copy">
-
         © 2026 KUDURO PRIME.
         Todos os direitos reservados.
         — O KUDURO VIVE AQUI. 👑
-
       </div>
 
     </div>
 
   </footer>
 
-
   <script>
 
-    /* ARTISTAS */
-
     const artists = [
-
-      [
-        "Figura do Adoço",
-        "Artista Prime",
-        "images/artista-1.jpg"
-      ],
-
-      [
-        "Dj Jeff Afrozila",
-        "Novo Lançamento",
-        "images/artista-2.jpg"
-      ],
-
-      [
-        "MCK",
-        "No Top do Ranking",
-        "images/artista-3.jpg"
-      ],
-
-      [
-        "Ready Neutro",
-        "Artista Prime",
-        "images/artista-4.jpg"
-      ],
-
-      [
-        "Nagrelha",
-        "Artista Prime",
-        "images/artista-5.jpg"
-      ],
-
-      [
-        "Artista Prime",
-        "Nova Geração",
-        "images/artista-6.jpg"
-      ]
-
+      ["Figura do Adoço", "Artista Prime", "images/artista-1.jpg"],
+      ["Dj Jeff Afrozila", "Novo Lançamento", "images/artista-2.jpg"],
+      ["MCK", "No Top do Ranking", "images/artista-3.jpg"],
+      ["Ready Neutro", "Artista Prime", "images/artista-4.jpg"],
+      ["Nagrelha", "Artista Prime", "images/artista-5.jpg"],
+      ["Artista Prime", "Nova Geração", "images/artista-6.jpg"]
     ];
-
 
     document.querySelector("#artistGrid").innerHTML =
       artists.map(a => `
-
-        <article class="card">
+        <a class="card" href="perfil.html?artista=${encodeURIComponent(a[0])}">
 
           <div
             class="artist-img"
@@ -1222,52 +1115,27 @@
               <span class="verified">●</span>
             </b>
 
-            <div class="tag">
-              ${a[1]}
-            </div>
+            <div class="tag">${a[1]}</div>
 
           </div>
 
-        </article>
-
+        </a>
       `).join("");
 
 
-    /* LANÇAMENTOS */
-
     const songs = [
-
-      [
-        "Mim Faz Só Broxe",
-        "Figura do Adoço"
-      ],
-
-      [
-        "Vida de Artista",
-        "Ready Neutro"
-      ],
-
-      [
-        "Zona Quente",
-        "DJ Tafinha"
-      ],
-
-      [
-        "Kuduro é Vida",
-        "Yuri da Cunha"
-      ]
-
+      ["Mim Faz Só Broxe", "Figura do Adoço"],
+      ["Vida de Artista", "Ready Neutro"],
+      ["Zona Quente", "DJ Tafinha"],
+      ["Kuduro é Vida", "Yuri da Cunha"]
     ];
 
-
-    const pics =
-      artists.map(a => a[2]);
+    const pics = artists.map(a => a[2]);
 
 
     document.querySelector("#releases").innerHTML =
-      songs.map((s,i) => `
-
-        <div class="release">
+      songs.map((s, i) => `
+        <a class="release" href="musicas.html">
 
           <div
             class="cover"
@@ -1276,41 +1144,29 @@
 
           <div>
 
-            <div class="song">
-              ${s[0]}
-            </div>
+            <div class="song">${s[0]}</div>
 
-            <div class="artist">
-              ${s[1]}
-            </div>
+            <div class="artist">${s[1]}</div>
 
           </div>
 
-          <div class="play">
-            ▶
-          </div>
+          <div class="play">▶</div>
 
-        </div>
-
+        </a>
       `).join("");
 
 
-    /* RANKING */
+    const rankingSongs = songs.concat([
+      ["Balança", "Nagrelha"]
+    ]);
+
 
     document.querySelector("#rankings").innerHTML =
-      songs
-      .concat([
-        [
-          "Balança",
-          "Nagrelha"
-        ]
-      ])
-      .map((s,i) => `
-
+      rankingSongs.map((s, i) => `
         <div class="rank">
 
           <div class="rank-num">
-            0${i + 1}
+            ${String(i + 1).padStart(2, "0")}
           </div>
 
           <div
@@ -1320,51 +1176,39 @@
 
           <div>
 
-            <div class="song">
-              ${s[0]}
-            </div>
+            <div class="song">${s[0]}</div>
 
-            <div class="artist">
-              ${s[1]}
-            </div>
+            <div class="artist">${s[1]}</div>
 
           </div>
 
-          <div class="tag">
-            ▲
-          </div>
+          <div class="tag">▲</div>
 
         </div>
-
       `).join("");
 
 
-    /* EVENTOS */
-
     const events = [
-
       [
         "26",
         "SHOW SOLIDÁRIO — DALO-PY",
         "Angola",
         "images/evento-1.jpg"
       ],
-
       [
         "11",
         "I LOVE RAPPERS — BLACK ON BLACK",
         "8.º Aniversário",
         "images/evento-2.jpg"
       ]
-
     ];
 
 
     document.querySelector("#eventGrid").innerHTML =
-      events.map(e => `
-
-        <article
+      events.map((e, i) => `
+        <a
           class="event"
+          href="evento.html?id=${i + 1}"
           style="--img:url('${e[3]}')"
         >
 
@@ -1372,41 +1216,40 @@
             ${e[0]} SET
           </span>
 
-          <h3>
-            ${e[1]}
-          </h3>
+          <h3>${e[1]}</h3>
 
-          <p>
-            📍 ${e[2]}
-          </p>
+          <p>📍 ${e[2]}</p>
 
-        </article>
-
+        </a>
       `).join("");
 
 
-    /* MENU TELEMÓVEL */
+    const menuBtn = document.querySelector("#menuBtn");
+    const mobileLinks = document.querySelector("#mobileLinks");
 
-    function abrirMenu(){
 
-      const links =
-        document.querySelector(".links");
+    menuBtn.addEventListener("click", () => {
 
-      if(
-        links.style.display === "flex"
-      ){
+      mobileLinks.classList.toggle("open");
 
-        links.style.display =
-          "none";
+      menuBtn.textContent =
+        mobileLinks.classList.contains("open")
+          ? "✕"
+          : "☰";
 
-      } else {
+    });
 
-        links.style.display =
-          "flex";
 
-      }
+    mobileLinks.querySelectorAll("a").forEach(link => {
 
-    }
+      link.addEventListener("click", () => {
+
+        mobileLinks.classList.remove("open");
+        menuBtn.textContent = "☰";
+
+      });
+
+    });
 
   </script>
 
