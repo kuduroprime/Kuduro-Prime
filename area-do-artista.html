@@ -88,8 +88,7 @@ content="width=device-width, initial-scale=1.0"
     }
 
     .sub{
-      margin:
-        0 0 25px;
+      margin:0 0 25px;
 
       text-align:center;
 
@@ -103,8 +102,7 @@ content="width=device-width, initial-scale=1.0"
     label{
       display:block;
 
-      margin:
-        15px 0 7px;
+      margin:15px 0 7px;
 
       color:#f4bf31;
 
@@ -118,8 +116,7 @@ content="width=device-width, initial-scale=1.0"
 
       padding:14px;
 
-      border:
-        1px solid #2a271f;
+      border:1px solid #2a271f;
 
       border-radius:9px;
 
@@ -311,6 +308,8 @@ content="width=device-width, initial-scale=1.0"
   <script type="module">
 
 
+    /* FIREBASE APP */
+
     import {
 
       initializeApp
@@ -321,6 +320,8 @@ content="width=device-width, initial-scale=1.0"
 
     "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
 
+
+    /* FIREBASE AUTH */
 
     import {
 
@@ -334,6 +335,8 @@ content="width=device-width, initial-scale=1.0"
 
     "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
 
+
+    /* CONFIGURAÇÃO FIREBASE */
 
     const firebaseConfig = {
 
@@ -358,6 +361,8 @@ content="width=device-width, initial-scale=1.0"
     };
 
 
+    /* INICIAR FIREBASE */
+
     const app =
       initializeApp(
         firebaseConfig
@@ -367,6 +372,8 @@ content="width=device-width, initial-scale=1.0"
     const auth =
       getAuth(app);
 
+
+    /* ELEMENTOS */
 
     const loginForm =
       document.getElementById(
@@ -386,6 +393,8 @@ content="width=device-width, initial-scale=1.0"
       );
 
 
+    /* MOSTRAR MENSAGEM */
+
     function showMessage(
       texto,
       tipo
@@ -402,6 +411,8 @@ content="width=device-width, initial-scale=1.0"
     }
 
 
+    /* SE JÁ EXISTE SESSÃO */
+
     onAuthStateChanged(
 
       auth,
@@ -412,9 +423,58 @@ content="width=device-width, initial-scale=1.0"
           user
         ){
 
-          window.location.replace(
-            "painel-do-artista.html"
+          /*
+            GUARDAR SESSÃO
+          */
+
+          localStorage.setItem(
+
+            "kpArtistLoggedIn",
+
+            "true"
+
           );
+
+
+          /*
+            GUARDAR ID DO ARTISTA
+          */
+
+          localStorage.setItem(
+
+            "kpArtistUid",
+
+            user.uid
+
+          );
+
+
+          /*
+            GUARDAR EMAIL
+          */
+
+          localStorage.setItem(
+
+            "kpArtistEmail",
+
+            user.email
+
+          );
+
+
+          /*
+            IMPORTANTE:
+
+            NÃO ALTERAR O NOME ARTÍSTICO
+            AQUI.
+
+            O cadastro já guarda:
+
+            kpArtistStageName
+
+            Por isso o nome artístico
+            continua a ser o mesmo.
+          */
 
         }
 
@@ -422,6 +482,8 @@ content="width=device-width, initial-scale=1.0"
 
     );
 
+
+    /* LOGIN */
 
     loginForm.addEventListener(
 
@@ -450,13 +512,18 @@ content="width=device-width, initial-scale=1.0"
 
 
         if(
+
           !email ||
           !password
+
         ){
 
           showMessage(
+
             "Preenche todos os campos.",
+
             "error"
+
           );
 
           return;
@@ -475,6 +542,8 @@ content="width=device-width, initial-scale=1.0"
         try{
 
 
+          /* LOGIN FIREBASE */
+
           const resultado =
 
             await signInWithEmailAndPassword(
@@ -492,15 +561,80 @@ content="width=device-width, initial-scale=1.0"
             resultado.user;
 
 
+          /*
+            GUARDAR SESSÃO
+          */
+
           localStorage.setItem(
 
-            "kpArtistName",
+            "kpArtistLoggedIn",
 
-            user.email
-              .split("@")[0]
+            "true"
 
           );
 
+
+          /*
+            GUARDAR UID
+          */
+
+          localStorage.setItem(
+
+            "kpArtistUid",
+
+            user.uid
+
+          );
+
+
+          /*
+            GUARDAR EMAIL
+          */
+
+          localStorage.setItem(
+
+            "kpArtistEmail",
+
+            user.email
+
+          );
+
+
+          /*
+            RECUPERAR NOME ARTÍSTICO
+
+            NÃO substituímos pelo email.
+          */
+
+          if(
+
+            user.displayName
+
+          ){
+
+            localStorage.setItem(
+
+              "kpArtistStageName",
+
+              user.displayName
+
+            );
+
+
+            localStorage.setItem(
+
+              "kpArtistName",
+
+              user.displayName
+
+            );
+
+          }
+
+
+          /*
+            MENSAGEM
+          */
 
           showMessage(
 
@@ -510,6 +644,10 @@ content="width=device-width, initial-scale=1.0"
 
           );
 
+
+          /*
+            ENTRAR NO PAINEL
+          */
 
           setTimeout(
 
@@ -535,6 +673,7 @@ content="width=device-width, initial-scale=1.0"
 
 
           console.error(
+            "ERRO NO LOGIN:",
             erro
           );
 
@@ -565,6 +704,19 @@ content="width=device-width, initial-scale=1.0"
 
             textoErro =
               "O email não é válido.";
+
+          }
+
+
+          if(
+
+            erro.code ===
+            "auth/user-disabled"
+
+          ){
+
+            textoErro =
+              "Esta conta foi desativada.";
 
           }
 
