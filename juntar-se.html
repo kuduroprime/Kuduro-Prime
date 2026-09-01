@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="pt">
 <head>
   <meta charset="UTF-8">
@@ -312,6 +313,9 @@
       color:var(--gold);
       cursor:pointer;
       font-size:16px;
+      width:auto;
+      height:auto;
+      padding:5px;
     }
 
     .terms{
@@ -354,12 +358,19 @@
       box-shadow:0 10px 30px rgba(244,191,49,.16);
     }
 
+    .join-btn:disabled{
+      opacity:.65;
+      cursor:not-allowed;
+      transform:none;
+    }
+
     .message{
       display:none;
       padding:12px;
       margin-bottom:15px;
       border-radius:8px;
       font-size:12px;
+      line-height:1.5;
     }
 
     .message.error{
@@ -387,8 +398,6 @@
       color:var(--gold);
       font-weight:900;
     }
-
-    /* RESPONSIVO */
 
     @media(max-width:850px){
 
@@ -466,344 +475,447 @@
     }
 
   </style>
+
 </head>
 
 <body>
 
-  <!-- NAVEGAÇÃO -->
-
   <nav class="nav">
 
-    <div class="nav-in">
+```
+<div class="nav-in">
 
-      <a
-        class="brand"
-        href="index.html"
-      >
-        <span class="crown">♕</span>
-        KUDURO
-        <b>PRIME</b>
-      </a>
+  <a class="brand" href="index.html">
 
-      <a
-        href="index.html"
-        class="back-btn"
-      >
-        ← VOLTAR AO INÍCIO
-      </a>
+    <span class="crown">♕</span>
 
-    </div>
+    KUDURO
+
+    <b>PRIME</b>
+
+  </a>
+
+  <a href="index.html" class="back-btn">
+
+    ← VOLTAR AO INÍCIO
+
+  </a>
+
+</div>
+```
 
   </nav>
 
-
-  <!-- CONTEÚDO -->
-
   <main class="page">
 
-    <div class="register-wrap">
+```
+<div class="register-wrap">
 
 
-      <!-- LADO ESQUERDO -->
+  <section class="join-info">
 
-      <section class="join-info">
+    <div class="join-content">
 
-        <div class="join-content">
+      <div class="eyebrow">
+        ♕ JUNTA-TE AO MOVIMENTO
+      </div>
 
-          <div class="eyebrow">
-            ♕ JUNTA-TE AO MOVIMENTO
-          </div>
+      <h1>
+        O TEU<br>
+        TALENTO É<br>
+        <span>PRIME.</span>
+      </h1>
 
-          <h1>
-            O TEU<br>
-            TALENTO É<br>
-            <span>PRIME.</span>
-          </h1>
+      <p>
+        Cria a tua conta e começa a construir
+        o teu espaço dentro do KUDURO PRIME.
+      </p>
 
-          <p>
-            Cria a tua conta e começa a construir
-            o teu espaço dentro do KUDURO PRIME.
-          </p>
+      <div class="steps">
 
-          <div class="steps">
+        <div class="step">
 
-            <div class="step">
+          <div class="step-number">01</div>
 
-              <div class="step-number">
-                01
-              </div>
+          <div>
 
-              <div>
-                <strong>
-                  Cria a tua conta
-                </strong>
+            <strong>
+              Cria a tua conta
+            </strong>
 
-                <span>
-                  Regista os teus dados básicos.
-                </span>
-              </div>
-
-            </div>
-
-
-            <div class="step">
-
-              <div class="step-number">
-                02
-              </div>
-
-              <div>
-                <strong>
-                  Cria o teu perfil
-                </strong>
-
-                <span>
-                  Mostra ao público quem és.
-                </span>
-              </div>
-
-            </div>
-
-
-            <div class="step">
-
-              <div class="step-number">
-                03
-              </div>
-
-              <div>
-                <strong>
-                  Entra no movimento
-                </strong>
-
-                <span>
-                  Publica e faz crescer a tua carreira.
-                </span>
-              </div>
-
-            </div>
+            <span>
+              Regista os teus dados.
+            </span>
 
           </div>
 
         </div>
 
-      </section>
 
+        <div class="step">
 
-      <!-- FORMULÁRIO -->
+          <div class="step-number">02</div>
 
-      <section class="register-panel">
+          <div>
 
-        <div class="form-box">
+            <strong>
+              Cria o teu perfil
+            </strong>
 
-          <div class="form-top">
-
-            <div class="small-title">
-              NOVA CONTA
-            </div>
-
-            <h2>
-              JUNTA-TE AO PRIME 👑
-            </h2>
-
-            <p>
-              Preenche os teus dados para criar
-              a tua conta de artista.
-            </p>
-
-          </div>
-
-
-          <div
-            id="message"
-            class="message"
-          ></div>
-
-
-          <form id="registerForm">
-
-
-            <div class="form-grid">
-
-              <div class="field">
-
-                <label for="firstName">
-                  PRIMEIRO NOME
-                </label>
-
-                <input
-                  id="firstName"
-                  type="text"
-                  placeholder="Ex: Dabay"
-                  required
-                >
-
-              </div>
-
-
-              <div class="field">
-
-                <label for="lastName">
-                  ÚLTIMO NOME
-                </label>
-
-                <input
-                  id="lastName"
-                  type="text"
-                  placeholder="Ex: Mestria"
-                  required
-                >
-
-              </div>
-
-            </div>
-
-
-            <div class="field">
-
-              <label for="email">
-                E-MAIL
-              </label>
-
-              <input
-                id="email"
-                type="email"
-                placeholder="teuemail@email.com"
-                required
-              >
-
-            </div>
-
-
-            <div class="field">
-
-              <label for="phone">
-                TELEFONE
-              </label>
-
-              <input
-                id="phone"
-                type="tel"
-                placeholder="+244 9XX XXX XXX"
-                required
-              >
-
-            </div>
-
-
-            <div class="field">
-
-              <label for="password">
-                CRIA UMA PALAVRA-PASSE
-              </label>
-
-              <div class="password-wrap">
-
-                <input
-                  id="password"
-                  type="password"
-                  placeholder="Mínimo 6 caracteres"
-                  minlength="6"
-                  required
-                >
-
-                <button
-                  type="button"
-                  class="toggle-password"
-                  id="togglePassword"
-                >
-                  👁
-                </button>
-
-              </div>
-
-            </div>
-
-
-            <div class="field">
-
-              <label for="confirmPassword">
-                CONFIRMA A PALAVRA-PASSE
-              </label>
-
-              <input
-                id="confirmPassword"
-                type="password"
-                placeholder="Repete a palavra-passe"
-                required
-              >
-
-            </div>
-
-
-            <label class="terms">
-
-              <input
-                id="terms"
-                type="checkbox"
-                required
-              >
-
-              <span>
-
-                Aceito os
-
-                <a href="#">
-                  Termos de Uso
-                </a>
-
-                e a
-
-                <a href="#">
-                  Política de Privacidade
-                </a>
-
-                do KUDURO PRIME.
-
-              </span>
-
-            </label>
-
-
-            <button
-              type="submit"
-              class="join-btn"
-            >
-              CRIAR A MINHA CONTA 👑
-            </button>
-
-          </form>
-
-
-          <div class="login-link">
-
-            Já tens uma conta?
-
-            <a href="area-do-artista.html">
-              ENTRAR
-            </a>
+            <span>
+              Mostra ao público quem és.
+            </span>
 
           </div>
 
         </div>
 
-      </section>
+
+        <div class="step">
+
+          <div class="step-number">03</div>
+
+          <div>
+
+            <strong>
+              Entra no movimento
+            </strong>
+
+            <span>
+              Publica e faz crescer a tua carreira.
+            </span>
+
+          </div>
+
+        </div>
+
+      </div>
 
     </div>
 
+  </section>
+
+
+  <section class="register-panel">
+
+    <div class="form-box">
+
+      <div class="form-top">
+
+        <div class="small-title">
+          NOVA CONTA
+        </div>
+
+        <h2>
+          JUNTA-TE AO PRIME 👑
+        </h2>
+
+        <p>
+          Cria a tua conta de artista
+          e começa a construir o teu perfil.
+        </p>
+
+      </div>
+
+
+      <div
+        id="message"
+        class="message"
+      ></div>
+
+
+      <form id="registerForm">
+
+
+        <div class="form-grid">
+
+          <div class="field">
+
+            <label for="firstName">
+              PRIMEIRO NOME
+            </label>
+
+            <input
+              id="firstName"
+              type="text"
+              placeholder="Ex: Dabay"
+              required
+            >
+
+          </div>
+
+
+          <div class="field">
+
+            <label for="lastName">
+              ÚLTIMO NOME
+            </label>
+
+            <input
+              id="lastName"
+              type="text"
+              placeholder="Ex: Mestria"
+              required
+            >
+
+          </div>
+
+        </div>
+
+
+        <div class="field">
+
+          <label for="artistName">
+            NOME ARTÍSTICO
+          </label>
+
+          <input
+            id="artistName"
+            type="text"
+            placeholder="Ex: Dabay o Mestria"
+            required
+          >
+
+        </div>
+
+
+        <div class="field">
+
+          <label for="username">
+            NOME DE UTILIZADOR
+          </label>
+
+          <input
+            id="username"
+            type="text"
+            placeholder="Ex: dabayomestria"
+            required
+          >
+
+        </div>
+
+
+        <div class="field">
+
+          <label for="email">
+            E-MAIL
+          </label>
+
+          <input
+            id="email"
+            type="email"
+            placeholder="teuemail@email.com"
+            required
+          >
+
+        </div>
+
+
+        <div class="field">
+
+          <label for="phone">
+            TELEFONE
+          </label>
+
+          <input
+            id="phone"
+            type="tel"
+            placeholder="+244 9XX XXX XXX"
+            required
+          >
+
+        </div>
+
+
+        <div class="field">
+
+          <label for="password">
+            CRIA UMA PALAVRA-PASSE
+          </label>
+
+          <div class="password-wrap">
+
+            <input
+              id="password"
+              type="password"
+              placeholder="Mínimo 6 caracteres"
+              minlength="6"
+              required
+            >
+
+            <button
+              type="button"
+              class="toggle-password"
+              id="togglePassword"
+              aria-label="Mostrar palavra-passe"
+            >
+              👁
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <div class="field">
+
+          <label for="confirmPassword">
+            CONFIRMA A PALAVRA-PASSE
+          </label>
+
+          <input
+            id="confirmPassword"
+            type="password"
+            placeholder="Repete a palavra-passe"
+            required
+          >
+
+        </div>
+
+
+        <label class="terms">
+
+          <input
+            id="terms"
+            type="checkbox"
+            required
+          >
+
+          <span>
+
+            Aceito os
+
+            <a href="#">
+              Termos de Uso
+            </a>
+
+            e a
+
+            <a href="#">
+              Política de Privacidade
+            </a>
+
+            do KUDURO PRIME.
+
+          </span>
+
+        </label>
+
+
+        <button
+          type="submit"
+          class="join-btn"
+          id="registerBtn"
+        >
+          CRIAR A MINHA CONTA 👑
+        </button>
+
+      </form>
+
+
+      <div class="login-link">
+
+        Já tens uma conta?
+
+        <a href="area-do-artista.html">
+          ENTRAR
+        </a>
+
+      </div>
+
+    </div>
+
+  </section>
+
+</div>
+```
+
   </main>
 
+  <script type="module">
 
-  <script>
+    import {
 
-    /* MOSTRAR PASSWORD */
+      initializeApp
+
+    }
+
+    from
+
+    "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+
+
+    import {
+
+      getAuth,
+      createUserWithEmailAndPassword,
+      updateProfile
+
+    }
+
+    from
+
+    "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+
+
+    /* CONFIGURAÇÃO FIREBASE */
+
+    const firebaseConfig = {
+
+      apiKey:
+        "AIzaSyDoitCcLeLDNBNPCP6fG1s_xbHr4UmohSo",
+
+      authDomain:
+        "kuduro-prime.firebaseapp.com",
+
+      projectId:
+        "kuduro-prime",
+
+      storageBucket:
+        "kuduro-prime.firebasestorage.app",
+
+      messagingSenderId:
+        "299776559545",
+
+      appId:
+        "1:299776559545:web:04aced1ba25391eb3fce68"
+
+    };
+
+
+    /* INICIAR FIREBASE */
+
+    const app =
+      initializeApp(firebaseConfig);
+
+
+    const auth =
+      getAuth(app);
+
+
+    /* ELEMENTOS */
+
+    const form =
+      document.querySelector("#registerForm");
+
+
+    const message =
+      document.querySelector("#message");
+
+
+    const registerBtn =
+      document.querySelector("#registerBtn");
+
 
     const password =
       document.querySelector("#password");
 
+
     const togglePassword =
       document.querySelector("#togglePassword");
 
+
+    /* MOSTRAR / ESCONDER PASSWORD */
 
     togglePassword.addEventListener(
       "click",
@@ -816,7 +928,8 @@
           togglePassword.textContent =
             "🙈";
 
-        } else {
+        }
+        else{
 
           password.type = "password";
 
@@ -829,55 +942,84 @@
     );
 
 
+    /* MENSAGEM */
+
+    function showMessage(
+      text,
+      type
+    ){
+
+      message.textContent =
+        text;
+
+      message.className =
+        "message " + type;
+
+    }
+
+
     /* CRIAR CONTA */
-
-    const form =
-      document.querySelector("#registerForm");
-
-    const message =
-      document.querySelector("#message");
-
 
     form.addEventListener(
       "submit",
-      event => {
+      async event => {
 
         event.preventDefault();
 
 
         const firstName =
           document
-          .querySelector("#firstName")
-          .value
-          .trim();
+            .querySelector("#firstName")
+            .value
+            .trim();
+
 
         const lastName =
           document
-          .querySelector("#lastName")
-          .value
-          .trim();
+            .querySelector("#lastName")
+            .value
+            .trim();
+
+
+        const artistName =
+          document
+            .querySelector("#artistName")
+            .value
+            .trim();
+
+
+        const username =
+          document
+            .querySelector("#username")
+            .value
+            .trim()
+            .toLowerCase();
+
 
         const email =
           document
-          .querySelector("#email")
-          .value
-          .trim();
+            .querySelector("#email")
+            .value
+            .trim();
+
 
         const phone =
           document
-          .querySelector("#phone")
-          .value
-          .trim();
+            .querySelector("#phone")
+            .value
+            .trim();
+
 
         const pass =
           document
-          .querySelector("#password")
-          .value;
+            .querySelector("#password")
+            .value;
+
 
         const confirmPass =
           document
-          .querySelector("#confirmPassword")
-          .value;
+            .querySelector("#confirmPassword")
+            .value;
 
 
         if(
@@ -894,71 +1036,223 @@
         }
 
 
-        /* GUARDA TEMPORARIAMENTE */
+        if(
+          pass.length < 6
+        ){
 
-        localStorage.setItem(
-          "kpArtistFirstName",
-          firstName
-        );
+          showMessage(
+            "A palavra-passe deve ter pelo menos 6 caracteres.",
+            "error"
+          );
 
-        localStorage.setItem(
-          "kpArtistLastName",
-          lastName
-        );
+          return;
 
-        localStorage.setItem(
-          "kpArtistName",
-          firstName + " " + lastName
-        );
-
-        localStorage.setItem(
-          "kpArtistEmail",
-          email
-        );
-
-        localStorage.setItem(
-          "kpArtistPhone",
-          phone
-        );
-
-        localStorage.setItem(
-          "kpLoggedIn",
-          "true"
-        );
+        }
 
 
-        showMessage(
-          "Conta criada com sucesso! Agora vamos criar o teu perfil.",
-          "success"
-        );
+        registerBtn.disabled =
+          true;
 
 
-        setTimeout(
-          () => {
+        registerBtn.textContent =
+          "A CRIAR CONTA...";
 
-            window.location.href =
-              "criar-perfil.html";
 
-          },
-          1000
-        );
+        try{
+
+
+          /* CRIAR CONTA NO FIREBASE */
+
+          const resultado =
+
+            await createUserWithEmailAndPassword(
+              auth,
+              email,
+              pass
+            );
+
+
+          const user =
+            resultado.user;
+
+
+          /* GUARDAR NOME ARTÍSTICO NO PERFIL FIREBASE */
+
+          await updateProfile(
+            user,
+            {
+              displayName:
+                artistName
+            }
+          );
+
+
+          /*
+            GUARDAR DADOS PARA AS OUTRAS PÁGINAS
+          */
+
+          localStorage.setItem(
+            "kpArtistFirstName",
+            firstName
+          );
+
+
+          localStorage.setItem(
+            "kpArtistLastName",
+            lastName
+          );
+
+
+          /*
+            ESTE É O NOME OFICIAL
+            DO ARTISTA
+          */
+
+          localStorage.setItem(
+            "kpArtistStageName",
+            artistName
+          );
+
+
+          localStorage.setItem(
+            "kpArtistName",
+            artistName
+          );
+
+
+          localStorage.setItem(
+            "kpArtistUsername",
+            username
+          );
+
+
+          localStorage.setItem(
+            "kpArtistEmail",
+            email
+          );
+
+
+          localStorage.setItem(
+            "kpArtistPhone",
+            phone
+          );
+
+
+          localStorage.setItem(
+            "kpArtistLoggedIn",
+            "true"
+          );
+
+
+          localStorage.setItem(
+            "kpArtistUID",
+            user.uid
+          );
+
+
+          showMessage(
+            "Conta criada com sucesso! 👑 Agora cria o teu perfil.",
+            "success"
+          );
+
+
+          setTimeout(
+            () => {
+
+              window.location.href =
+                "criar-perfil.html";
+
+            },
+            1000
+          );
+
+
+        }
+        catch(erro){
+
+
+          console.error(
+            "ERRO NO CADASTRO:",
+            erro
+          );
+
+
+          let textoErro =
+            "Não foi possível criar a conta.";
+
+
+          if(
+            erro.code ===
+            "auth/email-already-in-use"
+          ){
+
+            textoErro =
+              "Este email já possui uma conta.";
+
+          }
+
+
+          if(
+            erro.code ===
+            "auth/invalid-email"
+          ){
+
+            textoErro =
+              "O email introduzido não é válido.";
+
+          }
+
+
+          if(
+            erro.code ===
+            "auth/weak-password"
+          ){
+
+            textoErro =
+              "A palavra-passe é muito fraca.";
+
+          }
+
+
+          if(
+            erro.code ===
+            "auth/network-request-failed"
+          ){
+
+            textoErro =
+              "Sem ligação à internet. Verifica a tua conexão.";
+
+          }
+
+
+          if(
+            erro.code ===
+            "auth/operation-not-allowed"
+          ){
+
+            textoErro =
+              "O cadastro por email não está ativado no Firebase.";
+
+          }
+
+
+          showMessage(
+            textoErro,
+            "error"
+          );
+
+
+          registerBtn.disabled =
+            false;
+
+
+          registerBtn.textContent =
+            "CRIAR A MINHA CONTA 👑";
+
+        }
 
       }
     );
-
-
-    function showMessage(
-      text,
-      type
-    ){
-
-      message.textContent =
-        text;
-
-      message.className =
-        "message " + type;
-
-    }
 
   </script>
 
