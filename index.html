@@ -112,9 +112,23 @@
       align-items:center;
     }
 
-    .login-btn{
+    .area-artista-btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:11px 16px;
+      border:1px solid #d4af37;
+      border-radius:8px;
+      color:#d4af37;
       font-size:12px;
-      font-weight:800;
+      font-weight:900;
+      white-space:nowrap;
+      transition:.25s;
+    }
+
+    .area-artista-btn:hover{
+      background:#d4af37;
+      color:#111;
     }
 
     .join-btn{
@@ -161,6 +175,7 @@
       border:0;
       color:white;
       font-size:24px;
+      cursor:pointer;
     }
 
     /* HERO */
@@ -620,12 +635,30 @@
         height:70px;
       }
 
+      .nav-in{
+        gap:10px;
+      }
+
       .brand{
         font-size:18px;
       }
 
-      .nav-actions .btn{
-        padding:10px;
+      .crown{
+        font-size:18px;
+      }
+
+      .area-artista-btn{
+        padding:9px 10px;
+        font-size:10px;
+      }
+
+      .join-btn{
+        padding:9px 10px;
+        font-size:10px;
+      }
+
+      .menu{
+        font-size:22px;
       }
 
       .hero{
@@ -717,30 +750,32 @@
         <a href="#batalhas">BATALHAS</a>
         <a href="eventos.html">EVENTOS</a>
 
+      </div>
+
       <div class="nav-actions">
 
-  <a
-    href="area-do-artista.html"
-    class="area-artista-btn"
-  >
-    👤 ÁREA DO ARTISTA
-  </a>
+        <a
+          href="area-do-artista.html"
+          class="area-artista-btn"
+        >
+          👤 ÁREA DO ARTISTA
+        </a>
 
-  <a
-    href="juntar-se.html"
-    class="join-btn"
-  >
-    JUNTA-TE 👑
-  </a>
+        <a
+          href="juntar-se.html"
+          class="join-btn"
+        >
+          JUNTA-TE 👑
+        </a>
 
-  <button
-    class="menu"
-    onclick="abrirMenu()"
-  >
-    ☰
-  </button>
+        <button
+          class="menu"
+          onclick="abrirMenu()"
+        >
+          ☰
+        </button>
 
-</div>
+      </div>
 
     </div>
 
@@ -748,7 +783,6 @@
 
 
   <main id="inicio">
-
 
     <!-- HERO -->
 
@@ -936,7 +970,6 @@
 
         </div>
 
-
       </div>
 
     </section>
@@ -1020,7 +1053,6 @@
       </div>
 
     </section>
-
 
   </main>
 
@@ -1112,7 +1144,6 @@
 
         </div>
 
-
       </div>
 
 
@@ -1124,14 +1155,12 @@
 
       </div>
 
-
     </div>
 
   </footer>
 
 
   <script>
-
 
     /* ARTISTAS */
 
@@ -1356,8 +1385,30 @@
       `).join("");
 
 
-  </script>
+    /* MENU TELEMÓVEL */
 
+    function abrirMenu(){
+
+      const links =
+        document.querySelector(".links");
+
+      if(
+        links.style.display === "flex"
+      ){
+
+        links.style.display =
+          "none";
+
+      } else {
+
+        links.style.display =
+          "flex";
+
+      }
+
+    }
+
+  </script>
 
 </body>
 </html>
