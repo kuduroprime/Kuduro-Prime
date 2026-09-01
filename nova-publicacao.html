@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="pt">
 <head>
   <meta charset="UTF-8" />
@@ -318,6 +319,7 @@
       }
     }
   </style>
+
 </head>
 
 <body>
@@ -325,136 +327,141 @@
   <header class="top">
     <div class="top-in">
 
-      <a href="feed.html" class="brand">
-        👑 KUDURO <span>PRIME</span>
-      </a>
+```
+  <a href="feed.html" class="brand">
+    👑 KUDURO <span>PRIME</span>
+  </a>
 
-      <a href="feed.html" class="back">
-        ← VOLTAR
-      </a>
+  <a href="feed.html" class="back">
+    ← VOLTAR
+  </a>
 
-    </div>
+</div>
+```
+
   </header>
 
   <main>
 
-    <h1>NOVA PUBLICAÇÃO</h1>
+```
+<h1>NOVA PUBLICAÇÃO</h1>
 
-    <p class="subtitle">
-      Partilha a tua música, foto ou vídeo com o movimento.
-    </p>
+<p class="subtitle">
+  Partilha a tua música, foto ou vídeo com o movimento.
+</p>
 
-    <div class="card">
+<div class="card">
 
-      <div class="types">
+  <div class="types">
 
-        <div class="type active" data-type="foto">
-          🖼️<br>
-          FOTO
-        </div>
+    <div class="type active" data-type="foto">
+      🖼️<br>
+      FOTO
+    </div>
 
-        <div class="type" data-type="video">
-          🎬<br>
-          VÍDEO
-        </div>
+    <div class="type" data-type="video">
+      🎬<br>
+      VÍDEO
+    </div>
 
-        <div class="type" data-type="musica">
-          🎵<br>
-          MÚSICA
-        </div>
+    <div class="type" data-type="musica">
+      🎵<br>
+      MÚSICA
+    </div>
 
-      </div>
+  </div>
 
-      <label id="fileLabel">
-        ESCOLHE A FOTO
-      </label>
+  <label id="fileLabel">
+    ESCOLHE A FOTO
+  </label>
 
-      <label class="upload" for="file">
+  <label class="upload" for="file">
 
-        <strong id="uploadTitle">
-          🖼️ Escolher foto
-        </strong>
+    <strong id="uploadTitle">
+      🖼️ Escolher foto
+    </strong>
 
-        <small id="uploadInfo">
-          JPG, PNG ou WEBP
-        </small>
+    <small id="uploadInfo">
+      JPG, PNG ou WEBP
+    </small>
 
-      </label>
+  </label>
 
-      <input
-        type="file"
-        id="file"
-        accept="image/*"
-      />
+  <input
+    type="file"
+    id="file"
+    accept="image/*"
+  />
 
-      <div class="preview" id="preview"></div>
+  <div class="preview" id="preview"></div>
 
-      <div class="audio-preview" id="audioPreview">
+  <div class="audio-preview" id="audioPreview">
 
-        <strong>
-          🎵 Pré-visualização da música
-        </strong>
+    <strong>
+      🎵 Pré-visualização da música
+    </strong>
 
-        <audio
-          id="audioPlayer"
-          controls
-        ></audio>
+    <audio
+      id="audioPlayer"
+      controls
+    ></audio>
 
-      </div>
+  </div>
 
-      <label>
-        TÍTULO DA PUBLICAÇÃO
-      </label>
+  <label>
+    TÍTULO DA PUBLICAÇÃO
+  </label>
 
-      <input
-        type="text"
-        id="title"
-        placeholder="Ex: Mim Faz Só Broxe 🔥"
-      />
+  <input
+    type="text"
+    id="title"
+    placeholder="Ex: Mim Faz Só Broxe 🔥"
+  />
 
-      <label>
-        LEGENDA
-      </label>
+  <label>
+    LEGENDA
+  </label>
 
-      <textarea
-        id="caption"
-        placeholder="Escreve algo sobre esta publicação..."
-      ></textarea>
+  <textarea
+    id="caption"
+    placeholder="Escreve algo sobre esta publicação..."
+  ></textarea>
 
-      <div class="progress-box" id="progressBox">
+  <div class="progress-box" id="progressBox">
 
-        <div class="progress-text">
+    <div class="progress-text">
 
-          <span id="progressStatus">
-            A enviar...
-          </span>
+      <span id="progressStatus">
+        A enviar...
+      </span>
 
-          <span id="progressPercent">
-            0%
-          </span>
-
-        </div>
-
-        <div class="progress">
-          <div id="progressBar"></div>
-        </div>
-
-      </div>
-
-      <button class="publish" id="publishBtn">
-        🚀 PUBLICAR AGORA
-      </button>
-
-      <div class="message" id="message"></div>
-
-      <div class="info">
-        👑 <b>Regras KUDURO PRIME:</b><br>
-        🖼️ Podes publicar fotos.<br>
-        🎵 Podes publicar músicas.<br>
-        🎬 Os vídeos podem ter no máximo <b>5 minutos</b>.
-      </div>
+      <span id="progressPercent">
+        0%
+      </span>
 
     </div>
+
+    <div class="progress">
+      <div id="progressBar"></div>
+    </div>
+
+  </div>
+
+  <button class="publish" id="publishBtn">
+    🚀 PUBLICAR AGORA
+  </button>
+
+  <div class="message" id="message"></div>
+
+  <div class="info">
+    👑 <b>Regras KUDURO PRIME:</b><br>
+    🖼️ Podes publicar fotos.<br>
+    🎵 Podes publicar músicas.<br>
+    🎬 Os vídeos podem ter no máximo <b>5 minutos</b>.
+  </div>
+
+</div>
+```
 
   </main>
 
@@ -478,13 +485,10 @@
       serverTimestamp
     } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 
-    import {
-      getStorage,
-      ref,
-      uploadBytesResumable,
-      getDownloadURL
-    } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-storage.js";
 
+    /* =========================
+       CONFIGURAÇÃO FIREBASE
+    ========================= */
 
     const firebaseConfig = {
 
@@ -509,6 +513,17 @@
     };
 
 
+    /* =========================
+       CONFIGURAÇÃO CLOUDINARY
+    ========================= */
+
+    const CLOUDINARY_CLOUD_NAME =
+      "ge1ntqqc";
+
+    const CLOUDINARY_UPLOAD_PRESET =
+      "kuduro_prime";
+
+
     const app =
       initializeApp(firebaseConfig);
 
@@ -517,9 +532,6 @@
 
     const db =
       getFirestore(app);
-
-    const storage =
-      getStorage(app);
 
 
     const types =
@@ -562,12 +574,25 @@
       document.getElementById("progressStatus");
 
 
-    let selectedType = "foto";
-    let currentUser = null;
-    let artistData = null;
-    let selectedFile = null;
-    let previewUrl = null;
+    let selectedType =
+      "foto";
 
+    let currentUser =
+      null;
+
+    let artistData =
+      null;
+
+    let selectedFile =
+      null;
+
+    let previewUrl =
+      null;
+
+
+    /* =========================
+       AUTENTICAÇÃO
+    ========================= */
 
     onAuthStateChanged(
       auth,
@@ -582,7 +607,8 @@
 
         }
 
-        currentUser = user;
+        currentUser =
+          user;
 
         try{
 
@@ -596,36 +622,112 @@
           const artistSnap =
             await getDoc(artistRef);
 
-          if(!artistSnap.exists()){
+          if(artistSnap.exists()){
 
-            showMessage(
-              "Perfil de artista não encontrado.",
-              "error"
-            );
+            artistData =
+              artistSnap.data();
 
-            return;
+          }else{
+
+            /*
+              CONTINUA A USAR
+              OS DADOS LOCAIS
+            */
+
+            artistData = {
+
+              artistName:
+                localStorage.getItem(
+                  "kpArtistStageName"
+                )
+                ||
+                localStorage.getItem(
+                  "kpArtistName"
+                )
+                ||
+                user.displayName
+                ||
+                user.email
+                  ?.split("@")[0]
+                ||
+                "Artista",
+
+              username:
+                localStorage.getItem(
+                  "kpArtistUsername"
+                )
+                ||
+                user.email
+                  ?.split("@")[0]
+                ||
+                "",
+
+              photo:
+                localStorage.getItem(
+                  "kpArtistPhoto"
+                )
+                ||
+                user.photoURL
+                ||
+                ""
+
+            };
 
           }
-
-          artistData =
-            artistSnap.data();
 
         }
         catch(error){
 
           console.error(error);
 
-          showMessage(
-            "Erro ao carregar o teu perfil: "
-            + error.message,
-            "error"
-          );
+          artistData = {
+
+            artistName:
+              localStorage.getItem(
+                "kpArtistStageName"
+              )
+              ||
+              localStorage.getItem(
+                "kpArtistName"
+              )
+              ||
+              user.displayName
+              ||
+              user.email
+                ?.split("@")[0]
+              ||
+              "Artista",
+
+            username:
+              localStorage.getItem(
+                "kpArtistUsername"
+              )
+              ||
+              user.email
+                ?.split("@")[0]
+              ||
+              "",
+
+            photo:
+              localStorage.getItem(
+                "kpArtistPhoto"
+              )
+              ||
+              user.photoURL
+              ||
+              ""
+
+          };
 
         }
 
       }
     );
 
+
+    /* =========================
+       ESCOLHER TIPO
+    ========================= */
 
     types.forEach(type => {
 
@@ -642,9 +744,11 @@
 
           type.classList.add("active");
 
-          selectedFile = null;
+          selectedFile =
+            null;
 
-          fileInput.value = "";
+          fileInput.value =
+            "";
 
           clearPreview();
 
@@ -721,6 +825,10 @@
     }
 
 
+    /* =========================
+       PRÉ-VISUALIZAÇÃO
+    ========================= */
+
     fileInput.addEventListener(
       "change",
       () => {
@@ -731,11 +839,13 @@
         if(!file)
           return;
 
-        selectedFile = file;
+        selectedFile =
+          file;
 
         clearPreview();
 
-        selectedFile = file;
+        selectedFile =
+          file;
 
         previewUrl =
           URL.createObjectURL(file);
@@ -777,9 +887,11 @@
                   "error"
                 );
 
-                selectedFile = null;
+                selectedFile =
+                  null;
 
-                fileInput.value = "";
+                fileInput.value =
+                  "";
 
                 clearPreview();
 
@@ -822,20 +934,219 @@
 
       }
 
-      previewUrl = null;
+      previewUrl =
+        null;
 
-      preview.innerHTML = "";
+      preview.innerHTML =
+        "";
 
       preview.style.display =
         "none";
 
-      audioPlayer.src = "";
+      audioPlayer.src =
+        "";
 
       audioPreview.style.display =
         "none";
 
     }
 
+
+    /* =========================
+       ENVIAR PARA CLOUDINARY
+    ========================= */
+
+    function uploadToCloudinary(){
+
+      return new Promise(
+        (resolve, reject) => {
+
+          const xhr =
+            new XMLHttpRequest();
+
+
+          let resourceType =
+            "auto";
+
+
+          if(selectedType === "video"){
+
+            resourceType =
+              "video";
+
+          }
+
+
+          /*
+            Para música usamos "auto".
+            Cloudinary identifica
+            o tipo de arquivo.
+          */
+
+          const uploadUrl =
+            "https://api.cloudinary.com/v1_1/"
+            +
+            CLOUDINARY_CLOUD_NAME
+            +
+            "/"
+            +
+            resourceType
+            +
+            "/upload";
+
+
+          xhr.open(
+            "POST",
+            uploadUrl
+          );
+
+
+          xhr.upload.addEventListener(
+            "progress",
+            event => {
+
+              if(!event.lengthComputable)
+                return;
+
+
+              const percent =
+                Math.round(
+                  (
+                    event.loaded
+                    /
+                    event.total
+                  )
+                  *
+                  100
+                );
+
+
+              progressBar.style.width =
+                percent + "%";
+
+              progressPercent.textContent =
+                percent + "%";
+
+              progressStatus.textContent =
+                "A enviar para o Cloudinary...";
+
+            }
+          );
+
+
+          xhr.addEventListener(
+            "load",
+            () => {
+
+              if(
+                xhr.status >= 200
+                &&
+                xhr.status < 300
+              ){
+
+                try{
+
+                  const result =
+                    JSON.parse(
+                      xhr.responseText
+                    );
+
+
+                  resolve(
+                    result.secure_url
+                  );
+
+                }
+                catch(error){
+
+                  reject(error);
+
+                }
+
+              }else{
+
+                let errorMessage =
+                  "Erro ao enviar o arquivo.";
+
+                try{
+
+                  const result =
+                    JSON.parse(
+                      xhr.responseText
+                    );
+
+                  errorMessage =
+                    result.error?.message
+                    ||
+                    errorMessage;
+
+                }
+                catch(error){}
+
+
+                reject(
+                  new Error(
+                    errorMessage
+                  )
+                );
+
+              }
+
+            }
+          );
+
+
+          xhr.addEventListener(
+            "error",
+            () => {
+
+              reject(
+                new Error(
+                  "Erro de ligação com o Cloudinary."
+                )
+              );
+
+            }
+          );
+
+
+          const formData =
+            new FormData();
+
+
+          formData.append(
+            "file",
+            selectedFile
+          );
+
+
+          formData.append(
+            "upload_preset",
+            CLOUDINARY_UPLOAD_PRESET
+          );
+
+
+          formData.append(
+            "folder",
+            "kuduro-prime/"
+            +
+            selectedType
+          );
+
+
+          xhr.send(
+            formData
+          );
+
+        }
+      );
+
+    }
+
+
+    /* =========================
+       PUBLICAR
+    ========================= */
 
     publishBtn.addEventListener(
       "click",
@@ -848,18 +1159,6 @@
 
           showMessage(
             "Tens de iniciar sessão.",
-            "error"
-          );
-
-          return;
-
-        }
-
-
-        if(!artistData){
-
-          showMessage(
-            "O teu perfil ainda não foi carregado.",
             "error"
           );
 
@@ -892,7 +1191,8 @@
         }
 
 
-        publishBtn.disabled = true;
+        publishBtn.disabled =
+          true;
 
         publishBtn.textContent =
           "A PUBLICAR...";
@@ -909,100 +1209,73 @@
 
         try{
 
-          const safeName =
-            selectedFile.name.replace(
-              /[^a-zA-Z0-9.\-_]/g,
-              "_"
-            );
-
-          const fileName =
-            Date.now()
-            + "_"
-            + safeName;
-
-          const storagePath =
-            `publicacoes/${currentUser.uid}/${fileName}`;
-
-          const storageRef =
-            ref(
-              storage,
-              storagePath
-            );
-
-          const uploadTask =
-            uploadBytesResumable(
-              storageRef,
-              selectedFile
-            );
-
+          /*
+            1. ENVIAR ARQUIVO
+            PARA CLOUDINARY
+          */
 
           const fileUrl =
-            await new Promise(
-              (resolve, reject) => {
-
-                uploadTask.on(
-
-                  "state_changed",
-
-                  snapshot => {
-
-                    const percent =
-                      Math.round(
-                        (
-                          snapshot.bytesTransferred
-                          /
-                          snapshot.totalBytes
-                        )
-                        * 100
-                      );
-
-                    progressBar.style.width =
-                      percent + "%";
-
-                    progressPercent.textContent =
-                      percent + "%";
-
-                    progressStatus.textContent =
-                      "A enviar publicação...";
-
-                  },
+            await uploadToCloudinary();
 
 
-                  error => {
-
-                    reject(error);
-
-                  },
-
-
-                  async () => {
-
-                    try{
-
-                      const url =
-                        await getDownloadURL(
-                          uploadTask.snapshot.ref
-                        );
-
-                      resolve(url);
-
-                    }
-                    catch(error){
-
-                      reject(error);
-
-                    }
-
-                  }
-
-                );
-
-              }
-            );
-
+          /*
+            2. GUARDAR
+            PUBLICAÇÃO NO FIRESTORE
+          */
 
           progressStatus.textContent =
             "A guardar publicação...";
+
+
+          const artistName =
+
+            artistData?.artistName
+            ||
+            artistData?.nome
+            ||
+            localStorage.getItem(
+              "kpArtistStageName"
+            )
+            ||
+            localStorage.getItem(
+              "kpArtistName"
+            )
+            ||
+            currentUser.displayName
+            ||
+            currentUser.email
+              ?.split("@")[0]
+            ||
+            "Artista";
+
+
+          const artistUsername =
+
+            artistData?.username
+            ||
+            localStorage.getItem(
+              "kpArtistUsername"
+            )
+            ||
+            currentUser.email
+              ?.split("@")[0]
+            ||
+            "";
+
+
+          const artistPhoto =
+
+            artistData?.photo
+            ||
+            artistData?.foto
+            ||
+            localStorage.getItem(
+              "kpArtistPhoto"
+            )
+            ||
+            currentUser.photoURL
+            ||
+            "";
 
 
           await addDoc(
@@ -1032,22 +1305,13 @@
                 selectedFile.name,
 
               nomeArtista:
-                artistData.artistName
-                ||
-                artistData.nome
-                ||
-                "Artista",
+                artistName,
 
               username:
-                artistData.username
-                || "",
+                artistUsername,
 
               fotoArtista:
-                artistData.photo
-                ||
-                artistData.foto
-                ||
-                "",
+                artistPhoto,
 
               createdAt:
                 serverTimestamp()
@@ -1055,6 +1319,112 @@
             }
 
           );
+
+
+          /*
+            3. GUARDAR TAMBÉM
+            A MÚSICA NO PERFIL
+          */
+
+          if(
+            selectedType === "musica"
+          ){
+
+            const savedSongs =
+              localStorage.getItem(
+                "kpArtistSongs"
+              );
+
+
+            let songs =
+              [];
+
+
+            try{
+
+              songs =
+                savedSongs
+                ?
+                JSON.parse(
+                  savedSongs
+                )
+                :
+                [];
+
+            }
+            catch(error){
+
+              songs =
+                [];
+
+            }
+
+
+            if(
+              !Array.isArray(
+                songs
+              )
+            ){
+
+              songs =
+                [];
+
+            }
+
+
+            const cover =
+              artistPhoto;
+
+
+            songs.unshift({
+
+              id:
+                Date.now(),
+
+              title:
+                title.value.trim(),
+
+              artist:
+                artistName,
+
+              artistUsername:
+                artistUsername,
+
+              audioUrl:
+                fileUrl,
+
+              arquivoUrl:
+                fileUrl,
+
+              cover:
+                cover,
+
+              caption:
+                caption.value.trim(),
+
+              createdAt:
+                new Date()
+                  .toLocaleDateString(
+                    "pt-PT"
+                  ),
+
+              timestamp:
+                Date.now(),
+
+              views:
+                0
+
+            });
+
+
+            localStorage.setItem(
+              "kpArtistSongs",
+              JSON.stringify(
+                songs
+              )
+            );
+
+          }
 
 
           progressStatus.textContent =
@@ -1068,7 +1438,7 @@
 
 
           showMessage(
-            "👑 A tua publicação foi publicada no KUDURO PRIME!",
+            "👑 Publicação publicada com sucesso!",
             "success"
           );
 
@@ -1080,8 +1450,19 @@
           setTimeout(
             () => {
 
-              window.location.href =
-                "feed.html";
+              if(
+                selectedType === "musica"
+              ){
+
+                window.location.href =
+                  "meu-perfil.html";
+
+              }else{
+
+                window.location.href =
+                  "feed.html";
+
+              }
 
             },
             1500
@@ -1099,27 +1480,20 @@
 
           let erroTexto =
             "❌ Erro ao publicar: "
-            + error.message;
+            +
+            error.message;
 
 
           if(
-            error.code ===
-            "storage/unauthorized"
+            error.message
+              .toLowerCase()
+              .includes(
+                "preset"
+              )
           ){
 
             erroTexto =
-              "❌ O Firebase Storage não permite enviar o arquivo.";
-
-          }
-
-
-          if(
-            error.code ===
-            "permission-denied"
-          ){
-
-            erroTexto =
-              "❌ O Firestore não permite guardar a publicação.";
+              "❌ Verifica se o Upload Preset 'kuduro_prime' está como Unsigned.";
 
           }
 
@@ -1157,7 +1531,8 @@
 
       message.className =
         "message "
-        + type;
+        +
+        type;
 
     }
 
