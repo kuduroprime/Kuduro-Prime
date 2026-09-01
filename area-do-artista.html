@@ -1,8 +1,477 @@
+<!DOCTYPE html>
+
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Área do Artista | KUDURO PRIME</title>
+
+<style>
+
+:root{
+  --bg:#080808;
+  --panel:#121212;
+  --line:#292929;
+  --gold:#d4af37;
+  --text:#ffffff;
+  --muted:#999999;
+  --danger:#ff4b5c;
+  --success:#4caf50;
+}
+
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  min-height:100vh;
+  background:
+    radial-gradient(
+      circle at top,
+      rgba(212,175,55,.15),
+      transparent 35%
+    ),
+    var(--bg);
+  color:var(--text);
+  font-family:Arial, Helvetica, sans-serif;
+  display:flex;
+  flex-direction:column;
+}
+
+/* TOPO */
+
+.topo{
+  height:70px;
+  border-bottom:1px solid var(--line);
+  background:rgba(8,8,8,.95);
+}
+
+.topo-in{
+  max-width:1100px;
+  height:100%;
+  margin:auto;
+  padding:0 20px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.logo{
+  color:var(--gold);
+  font-size:22px;
+  font-weight:900;
+  text-decoration:none;
+}
+
+.voltar{
+  background:#1b1b1b;
+  color:white;
+  border:1px solid #333;
+  padding:10px 15px;
+  border-radius:8px;
+  text-decoration:none;
+  font-size:12px;
+  font-weight:bold;
+}
+
+.voltar:hover{
+  border-color:var(--gold);
+  color:var(--gold);
+}
+
+/* CONTEÚDO */
+
+main{
+  width:100%;
+  max-width:450px;
+  margin:auto;
+  padding:40px 20px;
+}
+
+.card{
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:20px;
+  padding:30px;
+  box-shadow:0 20px 60px rgba(0,0,0,.4);
+}
+
+.icone{
+  width:70px;
+  height:70px;
+  margin:0 auto 20px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:50%;
+  background:rgba(212,175,55,.12);
+  border:1px solid var(--gold);
+  font-size:32px;
+}
+
+h1{
+  text-align:center;
+  margin:0 0 10px;
+  color:var(--gold);
+  font-size:26px;
+}
+
+.subtitulo{
+  text-align:center;
+  color:var(--muted);
+  font-size:14px;
+  line-height:1.5;
+  margin-bottom:30px;
+}
+
+.campo{
+  margin-bottom:18px;
+}
+
+.campo label{
+  display:block;
+  margin-bottom:8px;
+  color:#ddd;
+  font-size:12px;
+  font-weight:bold;
+}
+
+.campo input{
+  width:100%;
+  background:#181818;
+  border:1px solid #333;
+  border-radius:10px;
+  padding:14px;
+  color:white;
+  outline:none;
+  font-size:14px;
+}
+
+.campo input:focus{
+  border-color:var(--gold);
+}
+
+.login-btn{
+  width:100%;
+  border:0;
+  border-radius:10px;
+  padding:15px;
+  background:var(--gold);
+  color:#111;
+  font-weight:bold;
+  font-size:14px;
+  cursor:pointer;
+}
+
+.login-btn:hover{
+  background:#f4c842;
+}
+
+.login-btn:disabled{
+  opacity:.6;
+  cursor:not-allowed;
+}
+
+.mensagem{
+  display:none;
+  margin-bottom:18px;
+  padding:12px;
+  border-radius:9px;
+  text-align:center;
+  font-size:13px;
+}
+
+.mensagem.error{
+  display:block;
+  color:#ff9ba5;
+  background:rgba(255,75,92,.1);
+  border:1px solid rgba(255,75,92,.4);
+}
+
+.mensagem.success{
+  display:block;
+  color:#83e8a9;
+  background:rgba(76,175,80,.1);
+  border:1px solid rgba(76,175,80,.4);
+}
+
+.divisor{
+  height:1px;
+  background:var(--line);
+  margin:25px 0;
+}
+
+.registo{
+  text-align:center;
+  color:var(--muted);
+  font-size:13px;
+}
+
+.registo a{
+  color:var(--gold);
+  font-weight:bold;
+  text-decoration:none;
+}
+
+@media(max-width:500px){
+
+  .topo{
+    height:auto;
+  }
+
+  .topo-in{
+    padding:15px;
+  }
+
+  main{
+    padding:25px 15px;
+  }
+
+  .card{
+    padding:25px 20px;
+  }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header class="topo">
+
+  <div class="topo-in">
+
+```
+<a
+  href="index.html"
+  class="logo"
+>
+  👑 KUDURO PRIME
+</a>
+
+<a
+  href="index.html"
+  class="voltar"
+>
+  ← VOLTAR
+</a>
+```
+
+  </div>
+
+</header>
+
+<main>
+
+  <div class="card">
+
+```
+<div class="icone">
+  👤
+</div>
+
+<h1>
+  Área do Artista
+</h1>
+
+<p class="subtitulo">
+  Entra na tua conta para gerir o teu perfil e publicar no KUDURO PRIME.
+</p>
+
+
+<div
+  id="mensagem"
+  class="mensagem"
+></div>
+
+
+<form id="loginForm">
+
+
+  <div class="campo">
+
+    <label>
+      EMAIL
+    </label>
+
+    <input
+      type="email"
+      id="email"
+      placeholder="teuemail@gmail.com"
+      autocomplete="email"
+      required
+    >
+
+  </div>
+
+
+  <div class="campo">
+
+    <label>
+      PALAVRA-PASSE
+    </label>
+
+    <input
+      type="password"
+      id="password"
+      placeholder="A tua palavra-passe"
+      autocomplete="current-password"
+      required
+    >
+
+  </div>
+
+
+  <button
+    id="loginBtn"
+    type="submit"
+    class="login-btn"
+  >
+    🔐 ENTRAR NO PAINEL
+  </button>
+
+
+</form>
+
+
+<div class="divisor"></div>
+
+
+<div class="registo">
+
+  Ainda não tens uma conta?
+
+  <br><br>
+
+  <a href="cadastro.html">
+    👑 CRIAR CONTA DE ARTISTA
+  </a>
+
+</div>
+```
+
+  </div>
+
+</main>
+
+<script type="module">
+
+
+/* FIREBASE APP */
+
+import {
+  initializeApp
+} from
+"https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+
+
+/* FIREBASE AUTH */
+
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  onAuthStateChanged
+} from
+"https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+
+
+/* CONFIGURAÇÃO FIREBASE */
+
+const firebaseConfig = {
+
+  apiKey:
+  "AIzaSyDoitCcLeLDNBNPCP6fG1s_xbHr4UmohSo",
+
+  authDomain:
+  "kuduro-prime.firebaseapp.com",
+
+  projectId:
+  "kuduro-prime",
+
+  storageBucket:
+  "kuduro-prime.firebasestorage.app",
+
+  messagingSenderId:
+  "299776559545",
+
+  appId:
+  "1:299776559545:web:04aced1ba25391eb3fce68"
+
+};
+
+
+/* INICIALIZAR */
+
+const app =
+  initializeApp(firebaseConfig);
+
+
+const auth =
+  getAuth(app);
+
+
+/* ELEMENTOS */
+
+const loginForm =
+  document.getElementById("loginForm");
+
+
+const loginBtn =
+  document.getElementById("loginBtn");
+
+
+const mensagem =
+  document.getElementById("mensagem");
+
+
+/* MOSTRAR MENSAGEM */
+
+function showMessage(
+  texto,
+  tipo
+){
+
+  mensagem.textContent =
+    texto;
+
+
+  mensagem.className =
+    "mensagem " +
+    tipo;
+
+}
+
+
+/* VERIFICAR SESSÃO */
+
+onAuthStateChanged(
+  auth,
+  user => {
+
+    if(user){
+
+      window.location.href =
+        "painel-do-artista.html";
+
+    }
+
+  }
+);
+
+
+/* LOGIN */
+
 loginForm.addEventListener(
   "submit",
-  event => {
+  async(event) => {
+
 
     event.preventDefault();
+
 
     const email =
       document
@@ -10,13 +479,17 @@ loginForm.addEventListener(
         .value
         .trim();
 
+
     const pass =
       document
         .querySelector("#password")
         .value;
 
 
-    if(!email || !pass){
+    if(
+      !email ||
+      !pass
+    ){
 
       showMessage(
         "Preenche todos os campos.",
@@ -28,38 +501,132 @@ loginForm.addEventListener(
     }
 
 
-    /* GUARDA A SESSÃO */
-
-    localStorage.setItem(
-      "kpArtistLoggedIn",
-      "true"
-    );
-
-    localStorage.setItem(
-      "kpArtistName",
-      email
-    );
+    loginBtn.disabled =
+      true;
 
 
-    /* MOSTRA A MENSAGEM */
-
-    showMessage(
-      "Login efetuado. A entrar no teu painel...",
-      "success"
-    );
+    loginBtn.textContent =
+      "A ENTRAR...";
 
 
-    /* ENTRA NO PAINEL */
+    try{
 
-    setTimeout(
-      () => {
 
-        window.location.href =
-          "painel-do-artista.html";
+      await signInWithEmailAndPassword(
+        auth,
+        email,
+        pass
+      );
 
-      },
-      900
-    );
+
+      showMessage(
+        "Login efetuado! A entrar no teu painel... 👑",
+        "success"
+      );
+
+
+      setTimeout(
+        () => {
+
+          window.location.href =
+            "painel-do-artista.html";
+
+        },
+        700
+      );
+
+
+    }
+    catch(erro){
+
+
+      console.error(
+        "ERRO NO LOGIN:",
+        erro
+      );
+
+
+      let textoErro =
+        "Erro ao iniciar sessão.";
+
+
+      if(
+        erro.code ===
+        "auth/invalid-credential"
+      ){
+
+        textoErro =
+          "Email ou palavra-passe incorretos.";
+
+      }
+
+
+      if(
+        erro.code ===
+        "auth/user-not-found"
+      ){
+
+        textoErro =
+          "Esta conta não existe.";
+
+      }
+
+
+      if(
+        erro.code ===
+        "auth/wrong-password"
+      ){
+
+        textoErro =
+          "Palavra-passe incorreta.";
+
+      }
+
+
+      if(
+        erro.code ===
+        "auth/invalid-email"
+      ){
+
+        textoErro =
+          "O email introduzido não é válido.";
+
+      }
+
+
+      if(
+        erro.code ===
+        "auth/too-many-requests"
+      ){
+
+        textoErro =
+          "Muitas tentativas. Tenta novamente mais tarde.";
+
+      }
+
+
+      showMessage(
+        textoErro,
+        "error"
+      );
+
+
+      loginBtn.disabled =
+        false;
+
+
+      loginBtn.textContent =
+        "🔐 ENTRAR NO PAINEL";
+
+
+    }
+
 
   }
 );
+
+
+</script>
+
+</body>
+</html>
