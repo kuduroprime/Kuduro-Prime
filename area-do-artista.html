@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 
 <html lang="pt">
-
 <head>
 
   <meta charset="UTF-8">
@@ -12,7 +11,7 @@ content="width=device-width, initial-scale=1.0"
 
 >
 
-  <title>Cadastro de Artista — KUDURO PRIME</title>
+  <title>Área do Artista — KUDURO PRIME</title>
 
   <style>
 
@@ -45,16 +44,28 @@ content="width=device-width, initial-scale=1.0"
           rgba(244,191,49,.15),
           transparent 35%
         ),
+        radial-gradient(
+          circle at 0% 100%,
+          rgba(244,191,49,.08),
+          transparent 35%
+        ),
         var(--bg);
 
       color:var(--text);
-      font-family:Arial,Helvetica,sans-serif;
+
+      font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
     }
 
     .box{
-      width:min(100%,520px);
-      padding:35px;
+      width:min(100%,480px);
+
+      padding:38px;
+
       border:1px solid #3b2f12;
+
       border-radius:20px;
 
       background:
@@ -71,61 +82,89 @@ content="width=device-width, initial-scale=1.0"
 
     .logo{
       text-align:center;
+
       color:var(--gold);
+
       font-size:28px;
+
       font-weight:900;
-      margin-bottom:8px;
+
+      margin-bottom:10px;
+
+      letter-spacing:-.5px;
     }
 
     h1{
-      margin:12px 0 8px;
+      margin:15px 0 8px;
+
       text-align:center;
-      font-size:25px;
+
+      font-size:24px;
     }
 
     .sub{
-      margin:0 0 25px;
+      margin:0 0 28px;
+
       text-align:center;
+
       color:var(--muted);
+
       font-size:13px;
+
       line-height:1.6;
     }
 
     label{
       display:block;
-      margin:15px 0 7px;
+
+      margin:16px 0 7px;
+
       color:var(--gold);
+
       font-size:10px;
+
       font-weight:900;
+
       letter-spacing:.5px;
     }
 
     input{
       width:100%;
-      padding:14px;
+
+      padding:15px;
+
       border:1px solid var(--line);
+
       border-radius:9px;
+
       outline:none;
+
       background:#0b0b0b;
+
       color:white;
+
       font-size:14px;
+
+      font-family:inherit;
     }
 
     input:focus{
       border-color:var(--gold);
-    }
 
-    .password-note{
-      margin-top:7px;
-      color:#777;
-      font-size:10px;
+      box-shadow:
+        0 0 0 3px
+        rgba(244,191,49,.07);
     }
 
     button{
       width:100%;
+
       margin-top:25px;
+
       padding:15px;
+
       border:0;
+
       border-radius:9px;
 
       background:
@@ -136,51 +175,130 @@ content="width=device-width, initial-scale=1.0"
         );
 
       color:#17120a;
+
       font-size:12px;
+
       font-weight:900;
+
       cursor:pointer;
+    }
+
+    button:hover{
+      transform:translateY(-1px);
     }
 
     button:disabled{
       opacity:.6;
+
       cursor:not-allowed;
+
+      transform:none;
     }
 
     .mensagem{
       display:none;
+
       margin-top:15px;
+
       padding:12px;
+
       border-radius:8px;
+
       text-align:center;
+
       font-size:12px;
+
       line-height:1.5;
     }
 
     .mensagem.error{
       display:block;
-      background:rgba(255,86,63,.12);
+
+      background:
+        rgba(255,86,63,.12);
+
       color:#ff8f7b;
-      border:1px solid rgba(255,86,63,.3);
+
+      border:
+        1px solid
+        rgba(255,86,63,.3);
     }
 
     .mensagem.success{
       display:block;
-      background:rgba(72,213,151,.12);
+
+      background:
+        rgba(72,213,151,.12);
+
       color:var(--green);
-      border:1px solid rgba(72,213,151,.3);
+
+      border:
+        1px solid
+        rgba(72,213,151,.3);
     }
 
-    .login-link{
-      margin-top:25px;
+    .divider{
+      height:1px;
+
+      margin:28px 0;
+
+      background:var(--line);
+    }
+
+    .register-area{
       text-align:center;
+    }
+
+    .register-area p{
+      margin:0 0 14px;
+
       color:var(--muted);
+
       font-size:12px;
     }
 
-    .login-link a{
+    .register-link{
+      display:block;
+
+      width:100%;
+
+      padding:14px;
+
+      border:1px solid var(--gold);
+
+      border-radius:9px;
+
       color:var(--gold);
-      font-weight:900;
+
+      background:transparent;
+
       text-decoration:none;
+
+      font-size:11px;
+
+      font-weight:900;
+    }
+
+    .register-link:hover{
+      background:#18140a;
+    }
+
+    .back-home{
+      display:block;
+
+      margin-top:25px;
+
+      text-align:center;
+
+      color:#777;
+
+      text-decoration:none;
+
+      font-size:11px;
+    }
+
+    .back-home:hover{
+      color:var(--gold);
     }
 
     @media(max-width:500px){
@@ -190,7 +308,15 @@ content="width=device-width, initial-scale=1.0"
       }
 
       .box{
-        padding:28px 20px;
+        padding:30px 20px;
+      }
+
+      .logo{
+        font-size:24px;
+      }
+
+      h1{
+        font-size:21px;
       }
 
     }
@@ -209,54 +335,29 @@ content="width=device-width, initial-scale=1.0"
 </div>
 
 <h1>
-  CRIAR CONTA DE ARTISTA
+  ENTRAR NA ÁREA DO ARTISTA
 </h1>
 
 <p class="sub">
-  Junta-te ao movimento.
-  Cria a tua conta e começa
-  a construir o teu espaço no KUDURO PRIME.
+  Entra com a tua conta e gere
+  o teu perfil, músicas e lançamentos.
 </p>
 
-<form id="registerForm">
 
-  <label for="artistName">
-    NOME ARTÍSTICO
-  </label>
-
-  <input
-    type="text"
-    id="artistName"
-    placeholder="Ex: Dabay o Mestria"
-    required
-  >
-
-  <div class="password-note">
-    Este será o nome mostrado no teu perfil
-    e em todas as músicas que publicares.
-  </div>
-
-  <label for="username">
-    NOME DE UTILIZADOR
-  </label>
-
-  <input
-    type="text"
-    id="username"
-    placeholder="Ex: dabay"
-    required
-  >
+<form id="loginForm">
 
   <label for="email">
-    EMAIL
+    GMAIL
   </label>
 
   <input
     type="email"
     id="email"
-    placeholder="teuemail@email.com"
+    placeholder="teuemail@gmail.com"
+    autocomplete="email"
     required
   >
+
 
   <label for="password">
     PALAVRA-PASSE
@@ -265,32 +366,19 @@ content="width=device-width, initial-scale=1.0"
   <input
     type="password"
     id="password"
-    placeholder="Mínimo 6 caracteres"
-    required
-    minlength="6"
-  >
-
-  <div class="password-note">
-    A palavra-passe deve ter pelo menos 6 caracteres.
-  </div>
-
-  <label for="confirmPassword">
-    CONFIRMAR PALAVRA-PASSE
-  </label>
-
-  <input
-    type="password"
-    id="confirmPassword"
-    placeholder="Repete a palavra-passe"
+    placeholder="A tua palavra-passe"
+    autocomplete="current-password"
     required
   >
+
 
   <button
     type="submit"
-    id="registerBtn"
+    id="loginBtn"
   >
-    👑 CRIAR CONTA
+    🔐 ENTRAR
   </button>
+
 
   <div
     class="mensagem"
@@ -299,17 +387,32 @@ content="width=device-width, initial-scale=1.0"
 
 </form>
 
-<div class="login-link">
 
-  Já tens uma conta?
+<div class="divider"></div>
 
-  <br><br>
 
-  <a href="area-do-artista.html">
-    🔐 ENTRAR NA ÁREA DO ARTISTA
+<div class="register-area">
+
+  <p>
+    Ainda não tens uma conta de artista?
+  </p>
+
+  <a
+    href="cadastro.html"
+    class="register-link"
+  >
+    👑 CRIAR CONTA DE ARTISTA
   </a>
 
 </div>
+
+
+<a
+  href="index.html"
+  class="back-home"
+>
+  ← VOLTAR PARA O KUDURO PRIME
+</a>
 ```
 
   </main>
@@ -325,12 +428,16 @@ content="width=device-width, initial-scale=1.0"
 
     import {
       getAuth,
-      createUserWithEmailAndPassword,
-      updateProfile
+      signInWithEmailAndPassword,
+      onAuthStateChanged
     }
     from
     "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
 
+
+    /*
+      CONFIGURAÇÃO FIREBASE
+    */
 
     const firebaseConfig = {
 
@@ -363,17 +470,44 @@ content="width=device-width, initial-scale=1.0"
       getAuth(app);
 
 
-    const registerForm =
-      document.getElementById("registerForm");
+    const loginForm =
+      document.getElementById("loginForm");
 
 
-    const registerBtn =
-      document.getElementById("registerBtn");
+    const loginBtn =
+      document.getElementById("loginBtn");
 
 
     const mensagem =
       document.getElementById("mensagem");
 
+
+    /*
+      SE JÁ ESTIVER COM LOGIN,
+      ENTRA DIRETAMENTE NO PAINEL
+    */
+
+    onAuthStateChanged(
+      auth,
+
+      user => {
+
+        if(user){
+
+          window.location.replace(
+            "painel-do-artista.html"
+          );
+
+        }
+
+      }
+
+    );
+
+
+    /*
+      MOSTRAR MENSAGEM
+    */
 
     function showMessage(
       texto,
@@ -390,7 +524,11 @@ content="width=device-width, initial-scale=1.0"
     }
 
 
-    registerForm.addEventListener(
+    /*
+      LOGIN
+    */
+
+    loginForm.addEventListener(
 
       "submit",
 
@@ -399,49 +537,26 @@ content="width=device-width, initial-scale=1.0"
         event.preventDefault();
 
 
-        const artistName =
-          document
-            .getElementById("artistName")
-            .value
-            .trim();
-
-
-        const username =
-          document
-            .getElementById("username")
-            .value
-            .trim();
-
-
         const email =
           document
-            .getElementById("email")
-            .value
-            .trim();
+          .getElementById("email")
+          .value
+          .trim();
 
 
         const password =
           document
-            .getElementById("password")
-            .value;
-
-
-        const confirmPassword =
-          document
-            .getElementById("confirmPassword")
-            .value;
+          .getElementById("password")
+          .value;
 
 
         if(
-          !artistName ||
-          !username ||
           !email ||
-          !password ||
-          !confirmPassword
+          !password
         ){
 
           showMessage(
-            "Preenche todos os campos.",
+            "Preenche o Gmail e a palavra-passe.",
             "error"
           );
 
@@ -450,48 +565,19 @@ content="width=device-width, initial-scale=1.0"
         }
 
 
-        if(
-          password.length < 6
-        ){
-
-          showMessage(
-            "A palavra-passe deve ter pelo menos 6 caracteres.",
-            "error"
-          );
-
-          return;
-
-        }
-
-
-        if(
-          password !== confirmPassword
-        ){
-
-          showMessage(
-            "As palavras-passe não são iguais.",
-            "error"
-          );
-
-          return;
-
-        }
-
-
-        registerBtn.disabled =
+        loginBtn.disabled =
           true;
 
 
-        registerBtn.textContent =
-          "A CRIAR CONTA...";
+        loginBtn.textContent =
+          "A ENTRAR...";
 
 
         try{
 
-
           const resultado =
 
-            await createUserWithEmailAndPassword(
+            await signInWithEmailAndPassword(
 
               auth,
 
@@ -506,45 +592,39 @@ content="width=device-width, initial-scale=1.0"
             resultado.user;
 
 
-          await updateProfile(
+          const artistName =
 
-            user,
+            localStorage.getItem(
+              "kpArtistStageName"
+            )
 
-            {
+            ||
 
-              displayName:
-                artistName
+            user.displayName
 
-            }
+            ||
 
-          );
+            user.email
+            .split("@")[0]
+
+            ||
+
+            "Artista Prime";
 
 
           /*
-            GUARDA O NOME ARTÍSTICO
+            GUARDA A SESSÃO
           */
 
           localStorage.setItem(
-            "kpArtistStageName",
-            artistName
-          );
-
-
-          localStorage.setItem(
-            "kpArtistName",
-            artistName
-          );
-
-
-          localStorage.setItem(
-            "kpArtistUsername",
-            username
+            "kpArtistLoggedIn",
+            "true"
           );
 
 
           localStorage.setItem(
             "kpArtistEmail",
-            email
+            user.email
           );
 
 
@@ -554,42 +634,47 @@ content="width=device-width, initial-scale=1.0"
           );
 
 
-          localStorage.setItem(
-            "kpArtistLoggedIn",
-            "true"
-          );
-
-
-          /*
-            CRIAR LISTA DE MÚSICAS
-            DESTE ARTISTA
-          */
-
           if(
             !localStorage.getItem(
-              "kpArtistSongs_" +
-              user.uid
+              "kpArtistStageName"
             )
           ){
 
             localStorage.setItem(
+              "kpArtistStageName",
+              artistName
+            );
 
-              "kpArtistSongs_" +
-              user.uid,
+          }
 
+
+          /*
+            CRIA A LISTA DE MÚSICAS
+            SE AINDA NÃO EXISTIR
+          */
+
+          const songsKey =
+            "kpArtistSongs_" +
+            user.uid;
+
+
+          if(
+            !localStorage.getItem(
+              songsKey
+            )
+          ){
+
+            localStorage.setItem(
+              songsKey,
               "[]"
-
             );
 
           }
 
 
           showMessage(
-
-            "Conta criada com sucesso! 👑 A entrar no teu painel...",
-
+            "Login feito com sucesso! 👑 A entrar no teu painel...",
             "success"
-
           );
 
 
@@ -598,41 +683,64 @@ content="width=device-width, initial-scale=1.0"
             () => {
 
               window.location.replace(
-
                 "painel-do-artista.html"
-
               );
 
             },
 
-            1000
+            700
 
           );
 
-
         }
+
         catch(erro){
 
-
           console.error(
-            "ERRO NO CADASTRO:",
+            "ERRO NO LOGIN:",
             erro
           );
 
 
           let textoErro =
-            "Não foi possível criar a conta.";
+            "Não foi possível entrar. Tenta novamente.";
 
 
           if(
 
             erro.code ===
-            "auth/email-already-in-use"
+            "auth/invalid-credential"
 
           ){
 
             textoErro =
-              "Este email já possui uma conta.";
+              "Gmail ou palavra-passe incorretos.";
+
+          }
+
+
+          if(
+
+            erro.code ===
+            "auth/user-not-found"
+
+          ){
+
+            textoErro =
+              "Não existe nenhuma conta com este Gmail.";
+
+          }
+
+
+          if(
+
+            erro.code ===
+            "auth/wrong-password"
+
+          ){
+
+            textoErro =
+              "A palavra-passe está incorreta.";
 
           }
 
@@ -645,7 +753,7 @@ content="width=device-width, initial-scale=1.0"
           ){
 
             textoErro =
-              "O email introduzido não é válido.";
+              "Introduz um Gmail válido.";
 
           }
 
@@ -653,44 +761,28 @@ content="width=device-width, initial-scale=1.0"
           if(
 
             erro.code ===
-            "auth/weak-password"
+            "auth/too-many-requests"
 
           ){
 
             textoErro =
-              "A palavra-passe é muito fraca.";
-
-          }
-
-
-          if(
-
-            erro.code ===
-            "auth/operation-not-allowed"
-
-          ){
-
-            textoErro =
-              "O cadastro por email ainda não está ativado no Firebase.";
+              "Muitas tentativas. Aguarda um pouco antes de tentar novamente.";
 
           }
 
 
           showMessage(
-
             textoErro,
-
             "error"
-
           );
 
 
-          registerBtn.disabled =
+          loginBtn.disabled =
             false;
 
 
-          registerBtn.textContent =
-            "👑 CRIAR CONTA";
+          loginBtn.textContent =
+            "🔐 ENTRAR";
 
         }
 
@@ -701,5 +793,4 @@ content="width=device-width, initial-scale=1.0"
   </script>
 
 </body>
-
 </html>
