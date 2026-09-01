@@ -1,9 +1,16 @@
 <!DOCTYPE html>
 
 <html lang="pt">
+
 <head>
+
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0"
+
+>
 
   <title>Minhas Músicas — KUDURO PRIME</title>
 
@@ -28,10 +35,19 @@
     body{
       margin:0;
       background:
-        radial-gradient(circle at 90% 0,rgba(244,191,49,.12),transparent 30%),
+        radial-gradient(
+          circle at 90% 0,
+          rgba(244,191,49,.12),
+          transparent 30%
+        ),
         var(--bg);
+
       color:var(--text);
-      font-family:Arial,Helvetica,sans-serif;
+
+      font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
     }
 
     a{
@@ -232,7 +248,12 @@
     .btn.gold{
       border:0;
       color:#17120a;
-      background:linear-gradient(135deg,var(--gold2),var(--gold));
+      background:
+        linear-gradient(
+          135deg,
+          var(--gold2),
+          var(--gold)
+        );
     }
 
     .content{
@@ -269,7 +290,12 @@
       padding:25px;
       border:1px solid #6e5720;
       border-radius:15px;
-      background:linear-gradient(145deg,#17130a,#0d0d0d);
+      background:
+        linear-gradient(
+          145deg,
+          #17130a,
+          #0d0d0d
+        );
     }
 
     .upload-box.show{
@@ -340,7 +366,12 @@
       border:1px solid var(--line);
       border-radius:15px;
       overflow:hidden;
-      background:linear-gradient(145deg,#141414,#0b0b0b);
+      background:
+        linear-gradient(
+          145deg,
+          #141414,
+          #0b0b0b
+        );
     }
 
     .songs-head{
@@ -399,6 +430,12 @@
       margin:6px 0 0;
       color:var(--muted);
       font-size:10px;
+    }
+
+    .artist-song-name{
+      color:var(--gold) !important;
+      font-size:11px !important;
+      font-weight:900;
     }
 
     .song-meta{
@@ -586,20 +623,33 @@
 ```
 <!-- SIDEBAR -->
 
-<aside class="sidebar" id="sidebar">
+<aside
+  class="sidebar"
+  id="sidebar"
+>
 
-  <a href="index.html" class="brand">
+  <a
+    href="index.html"
+    class="brand"
+  >
     <span class="crown">♕</span>
     KUDURO
     <b>PRIME</b>
   </a>
 
 
-  <a href="meu-perfil.html" class="artist-mini">
+  <a
+    href="meu-perfil.html"
+    class="artist-mini"
+  >
 
-    <div class="mini-photo" id="miniPhoto">
+    <div
+      class="mini-photo"
+      id="miniPhoto"
+    >
       👤
     </div>
+
 
     <div class="mini-name">
 
@@ -620,15 +670,27 @@
     MENU PRINCIPAL
   </div>
 
-  <a href="painel-do-artista.html" class="side-link">
+
+  <a
+    href="painel-do-artista.html"
+    class="side-link"
+  >
     📊 Painel do Artista
   </a>
 
-  <a href="meu-perfil.html" class="side-link">
+
+  <a
+    href="meu-perfil.html"
+    class="side-link"
+  >
     👤 Meu Perfil
   </a>
 
-  <a href="editar-perfil.html" class="side-link">
+
+  <a
+    href="editar-perfil.html"
+    class="side-link"
+  >
     ✏ Editar Perfil
   </a>
 
@@ -637,11 +699,19 @@
     CONTEÚDO
   </div>
 
-  <a href="minhas-musicas.html" class="side-link active">
+
+  <a
+    href="minhas-musicas.html"
+    class="side-link active"
+  >
     🎵 Minhas Músicas
   </a>
 
-  <a href="pagamento-musicas.html" class="side-link">
+
+  <a
+    href="pagamento-musicas.html"
+    class="side-link"
+  >
     💳 Pagamentos
   </a>
 
@@ -650,18 +720,29 @@
     PLATAFORMA
   </div>
 
-  <a href="ranking.html" class="side-link">
+
+  <a
+    href="ranking.html"
+    class="side-link"
+  >
     🏆 Ranking Prime
   </a>
 
-  <a href="index.html" class="side-link">
+
+  <a
+    href="index.html"
+    class="side-link"
+  >
     🌐 Ver Site Público
   </a>
 
 
   <div class="side-bottom">
 
-    <button class="logout" onclick="logout()">
+    <button
+      class="logout"
+      onclick="logout()"
+    >
       ↪ TERMINAR SESSÃO
     </button>
 
@@ -677,7 +758,10 @@
 
   <header class="topbar">
 
-    <button class="mobile-menu" onclick="toggleMenu()">
+    <button
+      class="mobile-menu"
+      onclick="toggleMenu()"
+    >
       ☰
     </button>
 
@@ -697,11 +781,18 @@
 
     <div class="top-actions">
 
-      <a href="painel-do-artista.html" class="btn">
+      <a
+        href="painel-do-artista.html"
+        class="btn"
+      >
         ← PAINEL
       </a>
 
-      <button class="btn gold" onclick="openUpload()">
+
+      <button
+        class="btn gold"
+        onclick="openUpload()"
+      >
         + PUBLICAR MÚSICA
       </button>
 
@@ -728,7 +819,11 @@
 
       </div>
 
-      <button class="btn gold" onclick="openUpload()">
+
+      <button
+        class="btn gold"
+        onclick="openUpload()"
+      >
         + NOVA MÚSICA
       </button>
 
@@ -737,7 +832,10 @@
 
     <!-- FORMULÁRIO -->
 
-    <section class="upload-box" id="uploadBox">
+    <section
+      class="upload-box"
+      id="uploadBox"
+    >
 
       <div style="margin-bottom:20px">
 
@@ -745,7 +843,12 @@
           🎵 Publicar Nova Música
         </h2>
 
-        <p style="color:var(--muted);font-size:11px">
+        <p
+          style="
+            color:var(--muted);
+            font-size:11px
+          "
+        >
           Preenche as informações do teu lançamento.
         </p>
 
@@ -753,6 +856,7 @@
 
 
       <form id="songForm">
+
 
         <div class="form-grid">
 
@@ -781,21 +885,10 @@
 
             <select id="songType">
 
-              <option>
-                Single
-              </option>
-
-              <option>
-                EP
-              </option>
-
-              <option>
-                Álbum
-              </option>
-
-              <option>
-                Freestyle
-              </option>
+              <option>Single</option>
+              <option>EP</option>
+              <option>Álbum</option>
+              <option>Freestyle</option>
 
             </select>
 
@@ -810,25 +903,11 @@
 
             <select id="songGenre">
 
-              <option>
-                Kuduro
-              </option>
-
-              <option>
-                Afro House
-              </option>
-
-              <option>
-                Semba
-              </option>
-
-              <option>
-                Afrobeat
-              </option>
-
-              <option>
-                Outro
-              </option>
+              <option>Kuduro</option>
+              <option>Afro House</option>
+              <option>Semba</option>
+              <option>Afrobeat</option>
+              <option>Outro</option>
 
             </select>
 
@@ -906,6 +985,7 @@
             CANCELAR
           </button>
 
+
           <button
             type="submit"
             class="btn gold"
@@ -915,6 +995,7 @@
 
         </div>
 
+
       </form>
 
     </section>
@@ -923,6 +1004,7 @@
     <!-- LISTA -->
 
     <section class="songs-panel">
+
 
       <div class="songs-head">
 
@@ -945,35 +1027,14 @@
         id="songsList"
       >
 
-        <div class="empty">
-
-          <div class="empty-icon">
-            🎵
-          </div>
-
-          <h3>
-            Ainda não tens músicas
-          </h3>
-
-          <p>
-            Publica o teu primeiro lançamento
-            e mostra o teu talento ao movimento.
-          </p>
-
-          <button
-            class="btn gold"
-            onclick="openUpload()"
-          >
-            + PUBLICAR PRIMEIRA MÚSICA
-          </button>
-
-        </div>
-
       </div>
+
 
     </section>
 
+
   </div>
+
 
 </main>
 ```
@@ -981,6 +1042,7 @@
   </div>
 
   <script>
+
 
     /*
       PROTEGER PÁGINA
@@ -1001,7 +1063,7 @@
 
 
     /*
-      ARTISTA
+      DADOS DO ARTISTA
     */
 
     const artistName =
@@ -1046,7 +1108,7 @@
 
 
     /*
-      MÚSICAS
+      CARREGAR MÚSICAS
     */
 
     let songs =
@@ -1059,6 +1121,10 @@
       );
 
 
+    /*
+      GUARDAR MÚSICAS
+    */
+
     function saveSongs(){
 
       localStorage.setItem(
@@ -1068,6 +1134,10 @@
 
     }
 
+
+    /*
+      MOSTRAR MÚSICAS
+    */
 
     function renderSongs(){
 
@@ -1096,7 +1166,6 @@
 
         list.innerHTML =
           `
-
             <div class="empty">
 
               <div class="empty-icon">
@@ -1120,7 +1189,6 @@
               </button>
 
             </div>
-
           `;
 
         return;
@@ -1132,103 +1200,137 @@
         songs
         .map(
           (song,index) =>
-            `
+          {
 
-              <article class="song-card">
-
-
-                <div
-                  class="cover"
-                  style="
-                    --img:
-                    url('${
-                      song.cover
-                      ||
-                      artistPhoto
-                      ||
-                      "images/artista-1.jpg"
-                    }')
-                  "
-                >
-                  ${
-                    !song.cover
-                    ?
-                    "🎵"
-                    :
-                    ""
-                  }
-                </div>
+            const songArtist =
+              song.artistName
+              ||
+              artistName;
 
 
-                <div class="song-info">
+            const songCover =
+              song.cover
+              ||
+              artistPhoto
+              ||
+              "images/artista-1.jpg";
 
-                  <strong>
-                    ${song.title}
-                  </strong>
+
+            return
+              `
+                <article class="song-card">
 
 
-                  <p>
+                  <div
+                    class="cover"
+                    style="
+                      --img:url('${songCover}')
+                    "
+                  >
                     ${
-                      song.description
-                      ||
-                      "Lançamento KUDURO PRIME"
+                      !song.cover
+                      ?
+                      "🎵"
+                      :
+                      ""
                     }
-                  </p>
+                  </div>
 
 
-                  <div class="song-meta">
+                  <div class="song-info">
 
-                    <span class="badge active">
-                      ● PUBLICADA
-                    </span>
 
-                    <span class="badge">
-                      🎧 ${song.type || "Single"}
-                    </span>
+                    <strong>
+                      ${song.title}
+                    </strong>
 
-                    <span class="badge">
-                      👁 ${song.views || 0}
-                    </span>
+
+                    <p class="artist-song-name">
+                      👤 ${songArtist}
+                    </p>
+
+
+                    <p>
+                      ${
+                        song.description
+                        ||
+                        "Lançamento KUDURO PRIME"
+                      }
+                    </p>
+
+
+                    <div class="song-meta">
+
+
+                      <span class="badge active">
+                        ● PUBLICADA
+                      </span>
+
+
+                      <span class="badge">
+                        🎧
+                        ${song.type || "Single"}
+                      </span>
+
+
+                      <span class="badge">
+                        🎵
+                        ${song.genre || "Kuduro"}
+                      </span>
+
+
+                      <span class="badge">
+                        👁
+                        ${song.views || 0}
+                      </span>
+
+
+                    </div>
+
 
                   </div>
 
-                </div>
+
+                  <div class="song-actions">
 
 
-                <div class="song-actions">
-
-                  <button
-                    class="icon-btn"
-                    onclick="playSong(${index})"
-                    title="Ouvir"
-                  >
-                    ▶
-                  </button>
+                    <button
+                      class="icon-btn"
+                      onclick="playSong(${index})"
+                      title="Ouvir"
+                    >
+                      ▶
+                    </button>
 
 
-                  <button
-                    class="icon-btn"
-                    onclick="editSong(${index})"
-                    title="Editar"
-                  >
-                    ✏
-                  </button>
+                    <button
+                      class="icon-btn"
+                      onclick="editSong(${index})"
+                      title="Editar"
+                    >
+                      ✏
+                    </button>
 
 
-                  <button
-                    class="icon-btn delete-btn"
-                    onclick="deleteSong(${index})"
-                    title="Eliminar"
-                  >
-                    🗑
-                  </button>
+                    <button
+                      class="
+                        icon-btn
+                        delete-btn
+                      "
+                      onclick="deleteSong(${index})"
+                      title="Eliminar"
+                    >
+                      🗑
+                    </button>
 
-                </div>
+
+                  </div>
 
 
-              </article>
+                </article>
+              `;
 
-            `
+          }
         )
         .join("");
 
@@ -1249,12 +1351,19 @@
 
 
       window.scrollTo({
+
         top:0,
+
         behavior:"smooth"
+
       });
 
     }
 
+
+    /*
+      FECHAR FORMULÁRIO
+    */
 
     function closeUpload(){
 
@@ -1279,7 +1388,9 @@
     document
       .querySelector("#songForm")
       .addEventListener(
+
         "submit",
+
         function(event){
 
           event.preventDefault();
@@ -1315,57 +1426,74 @@
             cover = ""
           ){
 
+            /*
+              CADA MÚSICA GUARDA
+              O NOME DO ARTISTA
+            */
+
             const song = {
 
               id:
                 Date.now(),
 
-              title:
 
+              artistName:
+                artistName,
+
+
+              artistPhoto:
+                artistPhoto
+                ||
+                "",
+
+
+              title:
                 title,
 
-              type:
 
+              type:
                 document
                 .querySelector("#songType")
                 .value,
 
-              genre:
 
+              genre:
                 document
                 .querySelector("#songGenre")
                 .value,
 
-              date:
 
+              date:
                 document
                 .querySelector("#songDate")
                 .value,
 
-              description:
 
+              description:
                 document
-                .querySelector("#songDescription")
+                .querySelector(
+                  "#songDescription"
+                )
                 .value
                 .trim(),
 
-              link:
 
+              link:
                 document
                 .querySelector("#songLink")
                 .value
                 .trim(),
 
-              cover:
 
+              cover:
                 cover,
 
-              views:
 
+              views:
                 0,
 
-              createdAt:
 
+              createdAt:
                 new Date()
                 .toLocaleDateString(
                   "pt-PT"
@@ -1381,7 +1509,9 @@
 
             saveSongs();
 
+
             renderSongs();
+
 
             closeUpload();
 
@@ -1423,11 +1553,12 @@
           }
 
         }
+
       );
 
 
     /*
-      ELIMINAR
+      ELIMINAR MÚSICA
     */
 
     function deleteSong(index){
@@ -1455,13 +1586,14 @@
 
       saveSongs();
 
+
       renderSongs();
 
     }
 
 
     /*
-      EDITAR
+      EDITAR MÚSICA
     */
 
     function editSong(index){
@@ -1489,6 +1621,7 @@
 
         saveSongs();
 
+
         renderSongs();
 
       }
@@ -1497,7 +1630,7 @@
 
 
     /*
-      OUVIR
+      OUVIR MÚSICA
     */
 
     function playSong(index){
@@ -1565,7 +1698,9 @@
 
     renderSongs();
 
+
   </script>
 
 </body>
+
 </html>
