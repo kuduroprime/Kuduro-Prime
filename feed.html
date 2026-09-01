@@ -4,19 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>KUDURO PRIME — Feed</title>
+<title>Feed | KUDURO PRIME</title>
 
 <style>
-
-:root{
-  --bg:#080808;
-  --panel:#121212;
-  --panel2:#181818;
-  --gold:#f4bf31;
-  --text:#ffffff;
-  --muted:#a8a8a8;
-  --line:#292929;
-}
 
 *{
   box-sizing:border-box;
@@ -24,30 +14,24 @@
 
 body{
   margin:0;
-  background:var(--bg);
-  color:var(--text);
-  font-family:Arial,Helvetica,sans-serif;
-}
-
-a{
-  color:inherit;
-  text-decoration:none;
+  background:#080808;
+  color:#fff;
+  font-family:Arial, Helvetica, sans-serif;
 }
 
 /* TOPO */
 
 .topo{
+  height:70px;
+  background:#111;
+  border-bottom:1px solid #292929;
   position:sticky;
   top:0;
   z-index:100;
-  height:72px;
-  background:rgba(8,8,8,.96);
-  backdrop-filter:blur(15px);
-  border-bottom:1px solid var(--line);
 }
 
 .topo-in{
-  max-width:1000px;
+  max-width:1100px;
   height:100%;
   margin:auto;
   padding:0 20px;
@@ -58,308 +42,189 @@ a{
 }
 
 .logo{
-  font-size:19px;
-  font-weight:900;
-  line-height:.9;
-  color:white;
+  color:#d4af37;
+  font-size:22px;
+  font-weight:bold;
+  text-decoration:none;
 }
-
-.logo span{
-  display:block;
-  color:var(--gold);
-}
-
-.logo small{
-  display:block;
-  text-align:center;
-  color:var(--gold);
-  font-size:18px;
-}
-
-/* PESQUISA */
-
-.pesquisa{
-  flex:1;
-  max-width:350px;
-}
-
-.pesquisa input{
-  width:100%;
-  padding:12px 15px;
-  border-radius:9px;
-  border:1px solid var(--line);
-  background:#151515;
-  color:white;
-  outline:none;
-}
-
-.pesquisa input:focus{
-  border-color:var(--gold);
-}
-
-/* AÇÕES */
 
 .acoes{
   display:flex;
   align-items:center;
-  gap:14px;
+  gap:10px;
 }
 
-.icon-btn{
-  background:none;
-  border:0;
+.botao{
+  background:#222;
+  border:1px solid #444;
   color:white;
-  font-size:20px;
+  padding:10px 14px;
+  border-radius:8px;
+  text-decoration:none;
+  font-size:12px;
+  font-weight:bold;
   cursor:pointer;
 }
 
-.perfil-btn{
-  background:var(--gold);
-  color:#15100a;
-  padding:10px 15px;
-  border-radius:8px;
-  font-weight:bold;
-  font-size:12px;
+.botao:hover{
+  border-color:#d4af37;
+  color:#d4af37;
+}
+
+.botao-dourado{
+  background:#d4af37;
+  border-color:#d4af37;
+  color:#111;
+}
+
+.botao-dourado:hover{
+  color:#111;
+  background:#f4c842;
 }
 
 /* CONTEÚDO */
 
-.app{
-  max-width:1000px;
+main{
+  max-width:1100px;
   margin:auto;
-  padding:30px 20px;
-  display:grid;
-  grid-template-columns:620px 1fr;
-  gap:35px;
+  padding:40px 20px 70px;
 }
 
-/* STORIES */
-
-.stories{
-  display:flex;
-  gap:15px;
-  overflow-x:auto;
-  padding-bottom:18px;
+.cabecalho{
+  margin-bottom:30px;
 }
 
-.story{
-  min-width:72px;
+.cabecalho h1{
+  margin:0;
+  font-size:32px;
+  color:#d4af37;
+}
+
+.cabecalho p{
+  color:#999;
+  margin-top:8px;
+}
+
+/* CARREGAMENTO */
+
+#carregando{
   text-align:center;
-  cursor:pointer;
-}
-
-.story-foto{
-  width:64px;
-  height:64px;
-  border-radius:50%;
-  padding:3px;
-  background:linear-gradient(135deg,var(--gold),#ffffff,#d18b15);
-  margin:auto;
-}
-
-.story-foto img{
-  width:100%;
-  height:100%;
-  border-radius:50%;
-  object-fit:cover;
-  border:3px solid var(--bg);
-}
-
-.story-nome{
-  margin-top:7px;
-  font-size:11px;
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
+  color:#d4af37;
+  padding:60px 20px;
+  font-size:18px;
 }
 
 /* FEED */
 
 .feed{
-  display:flex;
-  flex-direction:column;
-  gap:22px;
-}
-
-.publicacao{
-  background:var(--panel);
-  border:1px solid var(--line);
-  border-radius:14px;
-  overflow:hidden;
-}
-
-.publicacao-topo{
-  padding:14px;
-  display:flex;
-  align-items:center;
-  gap:11px;
-}
-
-.publicacao-foto{
-  width:42px;
-  height:42px;
-  border-radius:50%;
-  object-fit:cover;
-  border:2px solid var(--gold);
-}
-
-.publicacao-info{
-  flex:1;
-}
-
-.publicacao-nome{
-  font-size:14px;
-  font-weight:800;
-}
-
-.publicacao-local{
-  margin-top:3px;
-  color:var(--muted);
-  font-size:11px;
-}
-
-.publicacao-img{
-  width:100%;
-  height:430px;
-  display:block;
-  object-fit:cover;
-  background:#111;
-}
-
-.publicacao-acoes{
-  display:flex;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
   gap:20px;
-  padding:14px 16px 8px;
 }
 
-.acao{
-  background:none;
-  border:0;
-  color:white;
-  font-size:22px;
-  cursor:pointer;
+/* CARD */
+
+.artista-card{
+  background:#121212;
+  border:1px solid #292929;
+  border-radius:15px;
+  overflow:hidden;
+  transition:.25s;
 }
 
-.acao:hover{
-  color:var(--gold);
+.artista-card:hover{
+  transform:translateY(-5px);
+  border-color:#d4af37;
 }
 
-.publicacao-texto{
-  padding:0 16px 18px;
-  font-size:14px;
-  line-height:1.5;
+.capa{
+  height:260px;
+  position:relative;
+  overflow:hidden;
+  background:#1a1a1a;
 }
 
-.publicacao-texto b{
-  margin-right:5px;
-}
-
-/* LATERAL */
-
-.lateral{
-  position:sticky;
-  top:100px;
-  height:max-content;
-}
-
-.meu-perfil{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  padding-bottom:25px;
-  border-bottom:1px solid var(--line);
-}
-
-.meu-perfil img{
-  width:50px;
-  height:50px;
-  border-radius:50%;
+.capa img{
+  width:100%;
+  height:100%;
   object-fit:cover;
-  border:2px solid var(--gold);
+  display:block;
 }
 
-.meu-nome{
-  font-size:14px;
+.capa::after{
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:0;
+  height:90px;
+  background:linear-gradient(
+    transparent,
+    rgba(0,0,0,.8)
+  );
+}
+
+/* INFORMAÇÃO */
+
+.info{
+  padding:16px;
+}
+
+.nome{
+  font-size:18px;
   font-weight:bold;
+  margin-bottom:7px;
 }
 
-.meu-info{
-  color:var(--muted);
-  font-size:12px;
-  margin-top:4px;
+.provincia{
+  color:#aaa;
+  font-size:13px;
+  margin-bottom:16px;
 }
 
 .ver-perfil{
-  margin-left:auto;
-  color:var(--gold);
-  font-size:11px;
-  font-weight:bold;
-}
-
-.sugestoes{
-  margin-top:28px;
-}
-
-.sugestoes h3{
-  font-size:12px;
-  color:var(--muted);
-  letter-spacing:1px;
-}
-
-.sugestao{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  margin:18px 0;
-}
-
-.sugestao img{
-  width:40px;
-  height:40px;
-  border-radius:50%;
-  object-fit:cover;
-}
-
-.sugestao-info{
-  flex:1;
-}
-
-.sugestao-nome{
-  font-size:13px;
-  font-weight:bold;
-}
-
-.sugestao-provincia{
-  color:var(--muted);
-  font-size:11px;
-  margin-top:3px;
-}
-
-.ver{
-  color:var(--gold);
-  font-size:11px;
-  font-weight:bold;
-}
-
-/* CARREGAMENTO */
-
-.carregando{
+  display:block;
   text-align:center;
-  padding:50px 20px;
-  color:var(--gold);
+  padding:11px;
+  border:1px solid #d4af37;
+  color:#d4af37;
+  border-radius:8px;
+  text-decoration:none;
+  font-size:12px;
+  font-weight:bold;
 }
 
-/* MOBILE */
+.ver-perfil:hover{
+  background:#d4af37;
+  color:#111;
+}
+
+/* SEM ARTISTAS */
+
+.vazio{
+  grid-column:1/-1;
+  background:#111;
+  border:1px solid #292929;
+  border-radius:15px;
+  padding:50px 20px;
+  text-align:center;
+}
+
+.vazio h2{
+  color:#d4af37;
+  margin-top:0;
+}
+
+.vazio p{
+  color:#999;
+}
+
+/* RESPONSIVO */
 
 @media(max-width:850px){
 
-  .app{
-    grid-template-columns:1fr;
-    max-width:650px;
-  }
-
-  .lateral{
-    display:none;
+  .feed{
+    grid-template-columns:repeat(2,1fr);
   }
 
 }
@@ -367,42 +232,39 @@ a{
 @media(max-width:600px){
 
   .topo{
-    height:65px;
+    height:auto;
   }
 
   .topo-in{
-    padding:0 12px;
-    gap:10px;
+    padding:15px;
+    flex-wrap:wrap;
   }
 
   .logo{
-    font-size:15px;
+    width:100%;
+    text-align:center;
   }
 
-  .pesquisa{
-    display:none;
+  .acoes{
+    width:100%;
+    justify-content:center;
+    flex-wrap:wrap;
   }
 
-  .publicacao-img{
-    height:420px;
+  main{
+    padding:30px 15px 60px;
   }
 
-  .app{
-    padding:18px 0;
+  .cabecalho h1{
+    font-size:26px;
   }
 
-  .stories{
-    padding-left:14px;
+  .feed{
+    grid-template-columns:1fr;
   }
 
-  .publicacao{
-    border-radius:0;
-    border-left:0;
-    border-right:0;
-  }
-
-  .perfil-btn{
-    padding:9px 10px;
+  .capa{
+    height:330px;
   }
 
 }
@@ -413,39 +275,39 @@ a{
 
 <body>
 
+
 <header class="topo">
 
   <div class="topo-in">
 
-    <a href="feed.html" class="logo">
-      <small>♕</small>
-      KUDURO
-      <span>PRIME</span>
+    <a href="index.html" class="logo">
+      👑 KUDURO PRIME
     </a>
 
-    <div class="pesquisa">
-      <input
-        type="search"
-        id="pesquisa"
-        placeholder="🔍 Pesquisar artistas..."
-      >
-    </div>
 
     <div class="acoes">
 
       <a
         href="meu-perfil.html"
-        class="perfil-btn"
+        class="botao botao-dourado"
       >
         👤 MEU PERFIL
       </a>
 
-      <button
-        class="icon-btn"
-        id="sair"
-        title="Sair"
+
+      <a
+        href="painel-do-artista.html"
+        class="botao"
       >
-        ↪
+        ⚙️ PAINEL
+      </a>
+
+
+      <button
+        id="sair"
+        class="botao"
+      >
+        SAIR
       </button>
 
     </div>
@@ -455,63 +317,43 @@ a{
 </header>
 
 
-<main class="app">
+<main>
 
-  <div>
 
-    <div
-      class="stories"
-      id="stories"
-    >
-      <div class="carregando">
-        A carregar artistas...
-      </div>
-    </div>
+  <div class="cabecalho">
 
-    <div
-      class="feed"
-      id="feed"
-    >
-      <div class="carregando">
-        A carregar o feed...
-      </div>
-    </div>
+    <h1>
+      👑 ARTISTAS KUDURO PRIME
+    </h1>
+
+    <p>
+      Descobre os artistas que fazem parte do movimento.
+    </p>
 
   </div>
 
 
-  <aside class="lateral">
+  <div id="carregando">
 
-    <div
-      class="meu-perfil"
-      id="meuPerfil"
-    >
-      A carregar...
-    </div>
+    A carregar artistas... 👑
 
-    <div class="sugestoes">
+  </div>
 
-      <h3>
-        ARTISTAS SUGERIDOS
-      </h3>
 
-      <div
-        id="sugestoes"
-      ></div>
+  <div
+    id="feed"
+    class="feed"
+  ></div>
 
-    </div>
-
-  </aside>
 
 </main>
 
 
 <script type="module">
 
-import {
-  initializeApp
-} from
+import { initializeApp } from
 "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+
 
 import {
   getAuth,
@@ -520,12 +362,11 @@ import {
 } from
 "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
 
+
 import {
   getFirestore,
   collection,
-  getDocs,
-  doc,
-  getDoc
+  getDocs
 } from
 "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 
@@ -534,9 +375,11 @@ const firebaseConfig = {
 
   apiKey: "AIzaSyDoitCcLeLDNBNPCP6fG1s_xbHr4UmohSo",
 
-  authDomain: "kuduro-prime.firebaseapp.com",
+  authDomain:
+  "kuduro-prime.firebaseapp.com",
 
-  projectId: "kuduro-prime",
+  projectId:
+  "kuduro-prime",
 
   storageBucket:
   "kuduro-prime.firebasestorage.app",
@@ -553,252 +396,28 @@ const firebaseConfig = {
 const app =
   initializeApp(firebaseConfig);
 
+
 const auth =
   getAuth(app);
+
 
 const db =
   getFirestore(app);
 
 
-/* ELEMENTOS */
-
-const stories =
-  document.getElementById("stories");
-
 const feed =
   document.getElementById("feed");
 
-const sugestoes =
-  document.getElementById("sugestoes");
 
-const meuPerfil =
-  document.getElementById("meuPerfil");
+const carregando =
+  document.getElementById("carregando");
 
-const pesquisa =
-  document.getElementById("pesquisa");
 
-
-/* PESQUISA */
-
-let todosArtistas = [];
-
-
-pesquisa.addEventListener(
-  "input",
-  () => {
-
-    const texto =
-      pesquisa.value.toLowerCase();
-
-    const filtrados =
-      todosArtistas.filter(artista =>
-
-        (artista.nome || "")
-        .toLowerCase()
-        .includes(texto)
-
-    );
-
-    mostrarFeed(filtrados);
-
-  }
-);
-
-
-/* MOSTRAR ARTISTAS */
-
-function mostrarFeed(artistas){
-
-  if(!artistas.length){
-
-    feed.innerHTML = `
-      <div class="carregando">
-        Nenhum artista encontrado.
-      </div>
-    `;
-
-    return;
-
-  }
-
-
-  feed.innerHTML =
-    artistas.map(artista => `
-
-      <article class="publicacao">
-
-        <a
-          href="perfil.html?id=${artista.id}"
-          class="publicacao-topo"
-        >
-
-          <img
-            class="publicacao-foto"
-            src="${artista.foto || ''}"
-            alt="${artista.nome || 'Artista'}"
-          >
-
-          <div class="publicacao-info">
-
-            <div class="publicacao-nome">
-              ${artista.nome || 'Artista'}
-            </div>
-
-            <div class="publicacao-local">
-              📍 ${artista.provincia || 'Angola'}
-            </div>
-
-          </div>
-
-          <span style="font-size:22px;color:#aaa">
-            •••
-          </span>
-
-        </a>
-
-
-        <a
-          href="perfil.html?id=${artista.id}"
-        >
-
-          <img
-            class="publicacao-img"
-            src="${artista.foto || ''}"
-            alt="Publicação de ${artista.nome || 'artista'}"
-          >
-
-        </a>
-
-
-        <div class="publicacao-acoes">
-
-          <button class="acao">
-            ♡
-          </button>
-
-          <button class="acao">
-            💬
-          </button>
-
-          <button class="acao">
-            ↗
-          </button>
-
-        </div>
-
-
-        <div class="publicacao-texto">
-
-          <b>
-            ${artista.nome || 'Artista'}
-          </b>
-
-          ${artista.bio || 'Artista do movimento Kuduro.'}
-
-        </div>
-
-      </article>
-
-    `).join("");
-
-}
-
-
-/* STORIES */
-
-function mostrarStories(artistas){
-
-  stories.innerHTML =
-    artistas.map(artista => `
-
-      <a
-        href="perfil.html?id=${artista.id}"
-        class="story"
-      >
-
-        <div class="story-foto">
-
-          <img
-            src="${artista.foto || ''}"
-            alt="${artista.nome || 'Artista'}"
-          >
-
-        </div>
-
-        <div class="story-nome">
-
-          ${(artista.nome || 'Artista')
-          .split(" ")[0]}
-
-        </div>
-
-      </a>
-
-    `).join("");
-
-}
-
-
-/* SUGESTÕES */
-
-function mostrarSugestoes(artistas){
-
-  sugestoes.innerHTML =
-    artistas
-    .slice(0,5)
-    .map(artista => `
-
-      <div class="sugestao">
-
-        <a
-          href="perfil.html?id=${artista.id}"
-        >
-
-          <img
-            src="${artista.foto || ''}"
-            alt="${artista.nome || 'Artista'}"
-          >
-
-        </a>
-
-
-        <div class="sugestao-info">
-
-          <a
-            href="perfil.html?id=${artista.id}"
-            class="sugestao-nome"
-          >
-            ${artista.nome || 'Artista'}
-          </a>
-
-          <div class="sugestao-provincia">
-
-            ${artista.provincia || 'Angola'}
-
-          </div>
-
-        </div>
-
-
-        <a
-          class="ver"
-          href="perfil.html?id=${artista.id}"
-        >
-          VER
-        </a>
-
-      </div>
-
-    `).join("");
-
-}
-
-
-/* LOGIN */
+/* VERIFICA LOGIN */
 
 onAuthStateChanged(
   auth,
-  async user => {
+  async (user) => {
 
     if(!user){
 
@@ -812,137 +431,179 @@ onAuthStateChanged(
 
     try{
 
-      /* PERFIL DO UTILIZADOR */
 
-      const meuDoc =
-        await getDoc(
-          doc(
-            db,
-            "artistas",
-            user.uid
-          )
+      const artistasRef =
+        collection(
+          db,
+          "artistas"
         );
 
 
+      const artistasSnapshot =
+        await getDocs(
+          artistasRef
+        );
+
+
+      carregando.style.display =
+        "none";
+
+
       if(
-        meuDoc.exists()
+        artistasSnapshot.empty
       ){
 
-        const dados =
-          meuDoc.data();
+        feed.innerHTML = `
 
+          <div class="vazio">
 
-        meuPerfil.innerHTML = `
+            <h2>
+              Ainda não existem artistas.
+            </h2>
 
-          <img
-            src="${dados.foto || ''}"
-            alt="${dados.nome || 'Meu perfil'}"
-          >
-
-          <div>
-
-            <div class="meu-nome">
-              ${dados.nome || 'Artista'}
-            </div>
-
-            <div class="meu-info">
-              ${dados.provincia || 'Angola'}
-            </div>
+            <p>
+              Sê o primeiro artista a criar um perfil
+              no KUDURO PRIME.
+            </p>
 
           </div>
 
-          <a
-            href="meu-perfil.html"
-            class="ver-perfil"
-          >
-            VER
-          </a>
-
         `;
-
-      }else{
-
-        window.location.href =
-          "criar-perfil.html";
 
         return;
 
       }
 
 
-      /* TODOS OS ARTISTAS */
-
-      const resultado =
-        await getDocs(
-          collection(
-            db,
-            "artistas"
-          )
-        );
+      artistasSnapshot.forEach(
+        (docArtista) => {
 
 
-      todosArtistas =
-        resultado.docs
-        .map(documento => ({
-
-          id:documento.id,
-
-          ...documento.data()
-
-        }))
-        .filter(
-          artista =>
-            artista.id !== user.uid
-        );
+          const artista =
+            docArtista.data();
 
 
-      mostrarStories(
-        todosArtistas
+          const uid =
+            docArtista.id;
+
+
+          const foto =
+            artista.foto || "";
+
+
+          const nome =
+            artista.nome ||
+            "Artista KUDURO PRIME";
+
+
+          const provincia =
+            artista.provincia ||
+            "Angola";
+
+
+          feed.innerHTML += `
+
+            <article
+              class="artista-card"
+            >
+
+
+              <div class="capa">
+
+                <img
+                  src="${foto}"
+                  alt="${nome}"
+                  onerror="
+                    this.style.display='none'
+                  "
+                >
+
+              </div>
+
+
+              <div class="info">
+
+
+                <div class="nome">
+
+                  ${nome}
+
+                </div>
+
+
+                <div class="provincia">
+
+                  📍 ${provincia}
+
+                </div>
+
+
+                <a
+                  href="perfil.html?id=${uid}"
+                  class="ver-perfil"
+                >
+
+                  VER PERFIL
+
+                </a>
+
+
+              </div>
+
+
+            </article>
+
+          `;
+
+
+        }
+
       );
 
-      mostrarFeed(
-        todosArtistas
+
+    }
+    catch(erro){
+
+
+      console.error(
+        erro
       );
 
-      mostrarSugestoes(
-        todosArtistas
-      );
 
+      carregando.textContent =
+        "Erro ao carregar os artistas.";
 
-    }catch(erro){
-
-      console.error(erro);
-
-      feed.innerHTML = `
-        <div class="carregando">
-          Erro ao carregar o feed.
-        </div>
-      `;
 
     }
 
+
   }
+
 );
 
 
 /* SAIR */
 
 document
-.getElementById("sair")
-.addEventListener(
-  "click",
-  async () => {
+  .getElementById("sair")
+  .addEventListener(
+    "click",
+    async () => {
 
-    await signOut(auth);
 
-    window.location.href =
-      "index.html";
+      await signOut(auth);
 
-  }
-);
+
+      window.location.href =
+        "index.html";
+
+
+    }
+  );
 
 
 </script>
+
 
 </body>
 </html>
