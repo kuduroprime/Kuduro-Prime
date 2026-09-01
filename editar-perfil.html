@@ -18,37 +18,21 @@
       --green:#48d597;
     }
 
-    *{
-      box-sizing:border-box;
-    }
+    *{box-sizing:border-box}
 
     body{
       margin:0;
       min-height:100vh;
       background:
-        radial-gradient(
-          circle at 80% 0,
-          rgba(244,191,49,.12),
-          transparent 30%
-        ),
+        radial-gradient(circle at 80% 0,rgba(244,191,49,.12),transparent 30%),
         var(--bg);
       color:var(--text);
       font-family:Arial,Helvetica,sans-serif;
     }
 
-    a{
-      text-decoration:none;
-      color:inherit;
-    }
+    a{text-decoration:none;color:inherit}
 
-    button,
-    input,
-    textarea,
-    select{
-      font:inherit;
-    }
-
-    /* NAV */
+    button,input,textarea,select{font:inherit}
 
     .nav{
       height:82px;
@@ -97,16 +81,12 @@
       font-weight:900;
     }
 
-    /* CONTAINER */
-
     .container{
       width:min(1100px,92%);
       margin:45px auto 70px;
     }
 
-    .page-head{
-      margin-bottom:28px;
-    }
+    .page-head{margin-bottom:28px}
 
     .eyebrow{
       color:var(--gold);
@@ -128,8 +108,6 @@
       line-height:1.6;
     }
 
-    /* FORM */
-
     .form-grid{
       display:grid;
       grid-template-columns:320px minmax(0,1fr);
@@ -138,11 +116,7 @@
     }
 
     .panel{
-      background:linear-gradient(
-        145deg,
-        #151515,
-        #0b0b0b
-      );
+      background:linear-gradient(145deg,#151515,#0b0b0b);
       border:1px solid var(--line);
       border-radius:15px;
       overflow:hidden;
@@ -164,15 +138,9 @@
       font-size:11px;
     }
 
-    .panel-body{
-      padding:20px;
-    }
+    .panel-body{padding:20px}
 
-    /* FOTO */
-
-    .photo-box{
-      text-align:center;
-    }
+    .photo-box{text-align:center}
 
     .photo-preview{
       width:190px;
@@ -207,9 +175,7 @@
       cursor:pointer;
     }
 
-    .upload-btn input{
-      display:none;
-    }
+    .upload-btn input{display:none}
 
     .remove-photo{
       display:block;
@@ -232,8 +198,6 @@
       line-height:1.5;
     }
 
-    /* CAMPOS */
-
     .fields{
       display:grid;
       grid-template-columns:1fr 1fr;
@@ -246,9 +210,7 @@
       gap:7px;
     }
 
-    .field.full{
-      grid-column:1/-1;
-    }
+    .field.full{grid-column:1/-1}
 
     label{
       color:#ddd;
@@ -256,9 +218,7 @@
       font-weight:900;
     }
 
-    input,
-    textarea,
-    select{
+    input,textarea,select{
       width:100%;
       padding:13px 14px;
       border:1px solid var(--line);
@@ -273,9 +233,7 @@
     textarea:focus,
     select:focus{
       border-color:var(--gold);
-      box-shadow:
-        0 0 0 3px
-        rgba(244,191,49,.08);
+      box-shadow:0 0 0 3px rgba(244,191,49,.08);
     }
 
     textarea{
@@ -289,11 +247,7 @@
       font-size:10px;
     }
 
-    /* REDES */
-
-    .socials{
-      margin-top:20px;
-    }
+    .socials{margin-top:20px}
 
     .socials-title{
       padding-bottom:12px;
@@ -303,8 +257,6 @@
       font-size:12px;
       font-weight:900;
     }
-
-    /* BOTÕES */
 
     .form-actions{
       margin-top:25px;
@@ -333,15 +285,9 @@
 
     .btn.gold{
       border:0;
-      background:linear-gradient(
-        135deg,
-        var(--gold2),
-        var(--gold)
-      );
+      background:linear-gradient(135deg,var(--gold2),var(--gold));
       color:#17120a;
     }
-
-    /* ALERTA */
 
     .message{
       display:none;
@@ -355,11 +301,7 @@
       font-weight:800;
     }
 
-    .message.show{
-      display:block;
-    }
-
-    /* FOOTER */
+    .message.show{display:block}
 
     footer{
       padding:28px;
@@ -369,50 +311,20 @@
       font-size:11px;
     }
 
-    /* RESPONSIVO */
-
     @media(max-width:850px){
-      .form-grid{
-        grid-template-columns:1fr;
-      }
+      .form-grid{grid-template-columns:1fr}
     }
 
     @media(max-width:620px){
-      .nav{
-        height:70px;
-      }
-
-      .brand{
-        font-size:18px;
-      }
-
-      .crown{
-        font-size:18px;
-      }
-
-      .container{
-        margin-top:30px;
-      }
-
-      h1{
-        font-size:32px;
-      }
-
-      .fields{
-        grid-template-columns:1fr;
-      }
-
-      .field.full{
-        grid-column:auto;
-      }
-
-      .form-actions{
-        flex-direction:column-reverse;
-      }
-
-      .form-actions .btn{
-        width:100%;
-      }
+      .nav{height:70px}
+      .brand{font-size:18px}
+      .crown{font-size:18px}
+      .container{margin-top:30px}
+      h1{font-size:32px}
+      .fields{grid-template-columns:1fr}
+      .field.full{grid-column:auto}
+      .form-actions{flex-direction:column-reverse}
+      .form-actions .btn{width:100%}
     }
   </style>
 
@@ -422,18 +334,16 @@
 
   <nav class="nav">
     <div class="nav-in">
+      <a href="index.html" class="brand">
+        <span class="crown">♕</span>
+        KUDURO
+        <b>PRIME</b>
+      </a>
 
 ```
-  <a href="index.html" class="brand">
-    <span class="crown">♕</span>
-    KUDURO
-    <b>PRIME</b>
-  </a>
-
   <a href="meu-perfil.html" class="back">
     ← VOLTAR AO MEU PERFIL
   </a>
-
 </div>
 ```
 
@@ -443,17 +353,13 @@
 
 ```
 <div class="page-head">
-
-  <div class="eyebrow">
-    👤 ÁREA DO ARTISTA
-  </div>
+  <div class="eyebrow">👤 ÁREA DO ARTISTA</div>
 
   <h1>EDITAR PERFIL</h1>
 
   <p class="subtitle">
     Atualiza as tuas informações e mantém o teu perfil KUDURO PRIME completo.
   </p>
-
 </div>
 
 <div class="message" id="message">
@@ -464,16 +370,12 @@
 
   <div class="form-grid">
 
-    <!-- FOTO -->
-
     <aside class="panel">
 
       <div class="panel-head">
         <h2>📸 FOTO DO PERFIL</h2>
 
-        <p>
-          Escolhe a imagem principal do teu perfil.
-        </p>
+        <p>Escolhe a imagem principal do teu perfil.</p>
       </div>
 
       <div class="panel-body photo-box">
@@ -483,7 +385,6 @@
         </div>
 
         <label class="upload-btn">
-
           📷 ALTERAR FOTO
 
           <input
@@ -491,7 +392,6 @@
             id="photoInput"
             accept="image/jpeg,image/png,image/webp"
           >
-
         </label>
 
         <button
@@ -508,21 +408,14 @@
         </div>
 
       </div>
-
     </aside>
-
-    <!-- INFORMAÇÕES -->
 
     <section class="panel">
 
       <div class="panel-head">
-
         <h2>✏ INFORMAÇÕES DO ARTISTA</h2>
 
-        <p>
-          Estes dados serão mostrados no teu perfil público.
-        </p>
-
+        <p>Estes dados serão mostrados no teu perfil público.</p>
       </div>
 
       <div class="panel-body">
@@ -530,10 +423,7 @@
         <div class="fields">
 
           <div class="field">
-
-            <label for="stageName">
-              NOME ARTÍSTICO *
-            </label>
+            <label for="stageName">NOME ARTÍSTICO *</label>
 
             <input
               type="text"
@@ -541,14 +431,10 @@
               required
               placeholder="Ex.: Figura do Adoço"
             >
-
           </div>
 
           <div class="field">
-
-            <label for="username">
-              NOME DE UTILIZADOR *
-            </label>
+            <label for="username">NOME DE UTILIZADOR *</label>
 
             <input
               type="text"
@@ -560,14 +446,10 @@
             <span class="hint">
               Não uses espaços.
             </span>
-
           </div>
 
           <div class="field full">
-
-            <label for="bio">
-              BIOGRAFIA
-            </label>
+            <label for="bio">BIOGRAFIA</label>
 
             <textarea
               id="bio"
@@ -578,14 +460,10 @@
             <span class="hint" id="bioCount">
               0 / 500 caracteres
             </span>
-
           </div>
 
           <div class="field">
-
-            <label for="genre">
-              ESTILO MUSICAL
-            </label>
+            <label for="genre">ESTILO MUSICAL</label>
 
             <select id="genre">
               <option value="Kuduro">Kuduro</option>
@@ -595,14 +473,10 @@
               <option value="Rap">Rap</option>
               <option value="Outro">Outro</option>
             </select>
-
           </div>
 
           <div class="field">
-
-            <label for="year">
-              CARREIRA DESDE
-            </label>
+            <label for="year">CARREIRA DESDE</label>
 
             <input
               type="number"
@@ -611,40 +485,29 @@
               max="2026"
               placeholder="Ex.: 2015"
             >
-
           </div>
 
           <div class="field">
-
-            <label for="city">
-              CIDADE / PROVÍNCIA
-            </label>
+            <label for="city">CIDADE / PROVÍNCIA</label>
 
             <input
               type="text"
               id="city"
               placeholder="Ex.: Luanda"
             >
-
           </div>
 
           <div class="field">
-
-            <label for="country">
-              PAÍS
-            </label>
+            <label for="country">PAÍS</label>
 
             <input
               type="text"
               id="country"
               placeholder="Ex.: Angola"
             >
-
           </div>
 
         </div>
-
-        <!-- REDES -->
 
         <div class="socials">
 
@@ -655,66 +518,47 @@
           <div class="fields">
 
             <div class="field">
-
-              <label for="instagram">
-                INSTAGRAM
-              </label>
+              <label for="instagram">INSTAGRAM</label>
 
               <input
                 type="text"
                 id="instagram"
                 placeholder="@teuinstagram"
               >
-
             </div>
 
             <div class="field">
-
-              <label for="facebook">
-                FACEBOOK
-              </label>
+              <label for="facebook">FACEBOOK</label>
 
               <input
                 type="text"
                 id="facebook"
                 placeholder="Nome ou link"
               >
-
             </div>
 
             <div class="field">
-
-              <label for="tiktok">
-                TIKTOK
-              </label>
+              <label for="tiktok">TIKTOK</label>
 
               <input
                 type="text"
                 id="tiktok"
                 placeholder="@teutiktok"
               >
-
             </div>
 
             <div class="field">
-
-              <label for="youtube">
-                YOUTUBE
-              </label>
+              <label for="youtube">YOUTUBE</label>
 
               <input
                 type="text"
                 id="youtube"
                 placeholder="Nome do canal ou link"
               >
-
             </div>
 
           </div>
-
         </div>
-
-        <!-- AÇÕES -->
 
         <div class="form-actions">
 
@@ -735,11 +579,9 @@
         </div>
 
       </div>
-
     </section>
 
   </div>
-
 </form>
 ```
 
@@ -753,20 +595,12 @@
   <script>
 
     /*
-      PROTEGER A PÁGINA
+      NÃO REDIRECIONAR PARA O LOGIN
+
+      A página de edição fica acessível
+      diretamente a partir do Meu Perfil.
     */
 
-    const loggedIn =
-      localStorage.getItem("kpArtistLoggedIn");
-
-    if(loggedIn !== "true"){
-      window.location.href =
-        "area-do-artista.html";
-    }
-
-    /*
-      ELEMENTOS
-    */
 
     const form =
       document.querySelector("#profileForm");
@@ -786,8 +620,10 @@
     const bioCount =
       document.querySelector("#bioCount");
 
+
     let currentPhoto =
       localStorage.getItem("kpArtistPhoto") || "";
+
 
     /*
       CARREGAR DADOS
@@ -799,31 +635,40 @@
       "";
 
     document.querySelector("#username").value =
-      localStorage.getItem("kpArtistUsername") || "";
+      localStorage.getItem("kpArtistUsername") ||
+      "";
 
     bio.value =
-      localStorage.getItem("kpArtistBio") || "";
+      localStorage.getItem("kpArtistBio") ||
+      "";
 
     document.querySelector("#year").value =
-      localStorage.getItem("kpArtistYear") || "";
+      localStorage.getItem("kpArtistYear") ||
+      "";
 
     document.querySelector("#city").value =
-      localStorage.getItem("kpArtistCity") || "";
+      localStorage.getItem("kpArtistCity") ||
+      "";
 
     document.querySelector("#country").value =
-      localStorage.getItem("kpArtistCountry") || "Angola";
+      localStorage.getItem("kpArtistCountry") ||
+      "Angola";
 
     document.querySelector("#instagram").value =
-      localStorage.getItem("kpArtistInstagram") || "";
+      localStorage.getItem("kpArtistInstagram") ||
+      "";
 
     document.querySelector("#facebook").value =
-      localStorage.getItem("kpArtistFacebook") || "";
+      localStorage.getItem("kpArtistFacebook") ||
+      "";
 
     document.querySelector("#tiktok").value =
-      localStorage.getItem("kpArtistTiktok") || "";
+      localStorage.getItem("kpArtistTiktok") ||
+      "";
 
     document.querySelector("#youtube").value =
-      localStorage.getItem("kpArtistYoutube") || "";
+      localStorage.getItem("kpArtistYoutube") ||
+      "";
 
     const savedGenre =
       localStorage.getItem("kpArtistGenre");
@@ -832,6 +677,7 @@
       document.querySelector("#genre").value =
         savedGenre;
     }
+
 
     /*
       FOTO ATUAL
@@ -855,6 +701,7 @@
 
     showPhoto();
 
+
     /*
       ALTERAR FOTO
     */
@@ -876,6 +723,7 @@
             "image/webp"
           ].includes(file.type)
         ){
+
           alert(
             "Escolhe uma imagem JPG, PNG ou WEBP."
           );
@@ -903,6 +751,7 @@
       }
     );
 
+
     /*
       REMOVER FOTO
     */
@@ -922,6 +771,7 @@
         }
       );
 
+
     /*
       CONTADOR DA BIO
     */
@@ -940,6 +790,7 @@
     );
 
     updateBioCount();
+
 
     /*
       GUARDAR PERFIL
@@ -965,20 +816,19 @@
             .replace(/\s+/g, "");
 
         username =
-          username
-            .replace(/^@+/, "");
+          username.replace(/^@+/, "");
+
 
         if(!stageName || !username){
+
           alert(
             "Preenche o nome artístico e o nome de utilizador."
           );
 
           return;
+
         }
 
-        /*
-          GUARDAR DADOS
-        */
 
         localStorage.setItem(
           "kpArtistStageName",
@@ -1002,69 +852,44 @@
 
         localStorage.setItem(
           "kpArtistGenre",
-          document
-            .querySelector("#genre")
-            .value
+          document.querySelector("#genre").value
         );
 
         localStorage.setItem(
           "kpArtistYear",
-          document
-            .querySelector("#year")
-            .value
+          document.querySelector("#year").value
         );
 
         localStorage.setItem(
           "kpArtistCity",
-          document
-            .querySelector("#city")
-            .value
-            .trim()
+          document.querySelector("#city").value.trim()
         );
 
         localStorage.setItem(
           "kpArtistCountry",
-          document
-            .querySelector("#country")
-            .value
-            .trim()
+          document.querySelector("#country").value.trim()
         );
 
         localStorage.setItem(
           "kpArtistInstagram",
-          document
-            .querySelector("#instagram")
-            .value
-            .trim()
+          document.querySelector("#instagram").value.trim()
         );
 
         localStorage.setItem(
           "kpArtistFacebook",
-          document
-            .querySelector("#facebook")
-            .value
-            .trim()
+          document.querySelector("#facebook").value.trim()
         );
 
         localStorage.setItem(
           "kpArtistTiktok",
-          document
-            .querySelector("#tiktok")
-            .value
-            .trim()
+          document.querySelector("#tiktok").value.trim()
         );
 
         localStorage.setItem(
           "kpArtistYoutube",
-          document
-            .querySelector("#youtube")
-            .value
-            .trim()
+          document.querySelector("#youtube").value.trim()
         );
 
-        /*
-          GUARDAR FOTO
-        */
 
         if(currentPhoto){
 
@@ -1093,9 +918,6 @@
 
         }
 
-        /*
-          MOSTRAR SUCESSO
-        */
 
         message.classList.add("show");
 
@@ -1104,9 +926,6 @@
           behavior:"smooth"
         });
 
-        /*
-          REDIRECIONAR
-        */
 
         setTimeout(
           function(){
