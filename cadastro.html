@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+
+<html lang="pt">
+
+<head>
+
+  <meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0"
+
+>
+
+  <title>
+    Cadastro de Artista — KUDURO PRIME
+  </title>
+
+  <style>
+
+    :root{
+      --bg:#070707;
+      --gold:#f4bf31;
+      --gold2:#ffdc6b;
+      --text:#f7f4ed;
+      --muted:#aaa59a;
+      --line:#2a271f;
+      --green:#48d597;
+      --red:#ff563f;
+    }
+
+    *{
+      box-sizing:border-box;
+    }
+
+    body{
+      margin:0;
+      min-height:100vh;
+
+      display:flex;
+      align-items:center;
+      justify-content:center;
+
+      padding:25px;
+
+      background:
+        radial-gradient(
+          circle at 90% 0,
+          rgba(244,191,49,.15),
+          transparent 35%
+        ),
+        var(--bg);
+
+      color:var(--text);
+
+      font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+    }
+
+
+    .box{
+      width:min(100%,520px);
+
+      padding:35px;
+
+      border:
+        1px solid #3b2f12;
+
+      border-radius:20px;
+
+      background:
+        linear-gradient(
+          145deg,
+          #151515,
+          #0b0b0b
+        );
+
+      box-shadow:
+        0 25px 70px
+        rgba(0,0,0,.5);
+    }
+
+
+    .logo{
+      text-align:center;
+
+      color:var(--gold);
+
+      font-size:28px;
+
+      font-weight:900;
+
+      margin-bottom:8px;
+    }
+
+
+    h1{
+      margin:12px 0 8px;
+
+      text-align:center;
+
+      font-size:25px;
+    }
+
+
+    .sub{
+      margin:
+        0 0 25px;
+
+      text-align:center;
+
+      color:var(--muted);
+
+      font-size:13px;
+
+      line-height:1.6;
+    }
+
+
+    .row{
+      display:grid;
+
+      grid-template-columns:
+        1fr 1fr;
+
+      gap:12px;
+    }
+
+
+    label{
+      display:block;
+
+      margin:
+        15px 0 7px;
+
+      color:var(--gold);
+
+      font-size:10px;
+
+      font-weight:900;
+
+      letter-spacing:.5px;
+    }
+
+
+    input{
+      width:100%;
+
+      padding:14px;
+
+      border:
+        1px solid var(--line);
+
+      border-radius:9px;
+
+      outline:none;
+
+      background:#0b0b0b;
+
+      color:white;
+
+      font-size:14px;
+    }
+
+
+    input:focus{
+      border-color:
+        var(--gold);
+    }
+
+
+    .password-note{
+      margin-top:7px;
+
+      color:#777;
+
+      font-size:10px;
+    }
+
+
+    button{
+      width:100%;
+
+      margin-top:25px;
+
+      padding:15px;
+
+      border:0;
+
+      border-radius:9px;
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--gold2),
+          var(--gold)
+        );
+
+      color:#17120a;
+
+      font-size:12px;
+
+      font-weight:900;
+
+      cursor:pointer;
+    }
+
+
+    button:disabled{
+      opacity:.6;
+      cursor:not-allowed;
+    }
+
+
+    .mensagem{
+      display:none;
+
+      margin-top:15px;
+
+      padding:12px;
+
+      border-radius:8px;
+
+      text-align:center;
+
+      font-size:12px;
+
+      line-height:1.5;
+    }
+
+
+    .mensagem.error{
+      display:block;
+
+      background:
+        rgba(255,86,63,.12);
+
+      color:#ff8f7b;
+
+      border:
+        1px solid
+        rgba(255,86,63,.3);
+    }
+
+
+    .mensagem.success{
+      display:block;
+
+      background:
+        rgba(72,213,151,.12);
+
+      color:var(--green);
+
+      border:
+        1px solid
+        rgba(72,213,151,.3);
+    }
+
+
+    .login-link{
+      margin-top:25px;
+
+      text-align:center;
+
+      color:var(--muted);
+
+      font-size:12px;
+    }
+
+
+    .login-link a{
+      color:var(--gold);
+
+      font-weight:900;
+
+      text-decoration:none;
+    }
+
+
+    @media(max-width:500px){
+
+      body{
+        padding:15px;
+      }
+
+      .box{
+        padding:28px 20px;
+      }
+
+      .row{
+        grid-template-columns:
+          1fr;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <main class="box">
+
+```
+<div class="logo">
+  👑 KUDURO PRIME
+</div>
+
+
+<h1>
+  CRIAR CONTA DE ARTISTA
+</h1>
+
+
+<p class="sub">
+  Junta-te ao movimento.
+  Cria a tua conta e começa
+  a construir o teu espaço no KUDURO PRIME.
+</p>
+
+
+<form
+  id="registerForm"
+>
+
+
+  <div class="row">
+
+
+    <div>
+
+      <label
+        for="artistName"
+      >
+        NOME DO ARTISTA
+      </label>
+
+
+      <input
+        type="text"
+        id="artistName"
+        placeholder="Ex: Dabay o Mestria"
+        required
+      >
+
+    </div>
+
+
+    <div>
+
+      <label
+        for="username"
+      >
+        NOME DE UTILIZADOR
+      </label>
+
+
+      <input
+        type="text"
+        id="username"
+        placeholder="Ex: dabay"
+        required
+      >
+
+    </div>
+
+  </div>
+
+
+  <label
+    for="email"
+  >
+    EMAIL
+  </label>
+
+
+  <input
+    type="email"
+    id="email"
+    placeholder="teuemail@email.com"
+    required
+  >
+
+
+  <label
+    for="password"
+  >
+    PALAVRA-PASSE
+  </label>
+
+
+  <input
+    type="password"
+    id="password"
+    placeholder="Mínimo 6 caracteres"
+    required
+    minlength="6"
+  >
+
+
+  <div class="password-note">
+    A palavra-passe deve ter
+    pelo menos 6 caracteres.
+  </div>
+
+
+  <label
+    for="confirmPassword"
+  >
+    CONFIRMAR PALAVRA-PASSE
+  </label>
+
+
+  <input
+    type="password"
+    id="confirmPassword"
+    placeholder="Repete a palavra-passe"
+    required
+  >
+
+
+  <button
+    type="submit"
+    id="registerBtn"
+  >
+    👑 CRIAR CONTA
+  </button>
+
+
+  <div
+    class="mensagem"
+    id="mensagem"
+  ></div>
+
+
+</form>
+
+
+<div class="login-link">
+
+  Já tens uma conta?
+
+  <br><br>
+
+  <a
+    href="area-do-artista.html"
+  >
+    🔐 ENTRAR NA ÁREA DO ARTISTA
+  </a>
+
+</div>
+```
+
+  </main>
+
+  <script type="module">
+
+
+    /* FIREBASE APP */
+
+    import {
+
+      initializeApp
+
+    }
+
+    from
+
+    "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+
+
+    /* FIREBASE AUTH */
+
+    import {
+
+      getAuth,
+      createUserWithEmailAndPassword,
+      updateProfile
+
+    }
+
+    from
+
+    "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+
+
+    /* CONFIGURAÇÃO FIREBASE */
+
+    const firebaseConfig = {
+
+      apiKey:
+        "AIzaSyDoitCcLeLDNBNPCP6fG1s_xbHr4UmohSo",
+
+      authDomain:
+        "kuduro-prime.firebaseapp.com",
+
+      projectId:
+        "kuduro-prime",
+
+      storageBucket:
+        "kuduro-prime.firebasestorage.app",
+
+      messagingSenderId:
+        "299776559545",
+
+      appId:
+        "1:299776559545:web:04aced1ba25391eb3fce68"
+
+    };
+
+
+    /* INICIAR FIREBASE */
+
+    const app =
+      initializeApp(
+        firebaseConfig
+      );
+
+
+    const auth =
+      getAuth(app);
+
+
+    /* ELEMENTOS */
+
+    const registerForm =
+      document.getElementById(
+        "registerForm"
+      );
+
+
+    const registerBtn =
+      document.getElementById(
+        "registerBtn"
+      );
+
+
+    const mensagem =
+      document.getElementById(
+        "mensagem"
+      );
+
+
+    /* MENSAGEM */
+
+    function showMessage(
+      texto,
+      tipo
+    ){
+
+      mensagem.textContent =
+        texto;
+
+
+      mensagem.className =
+        "mensagem " +
+        tipo;
+
+    }
+
+
+    /* CADASTRO */
+
+    registerForm.addEventListener(
+
+      "submit",
+
+      async event => {
+
+        event.preventDefault();
+
+
+        const artistName =
+          document
+            .getElementById(
+              "artistName"
+            )
+            .value
+            .trim();
+
+
+        const username =
+          document
+            .getElementById(
+              "username"
+            )
+            .value
+            .trim();
+
+
+        const email =
+          document
+            .getElementById(
+              "email"
+            )
+            .value
+            .trim();
+
+
+        const password =
+          document
+            .getElementById(
+              "password"
+            )
+            .value;
+
+
+        const confirmPassword =
+          document
+            .getElementById(
+              "confirmPassword"
+            )
+            .value;
+
+
+        /* VALIDAR CAMPOS */
+
+        if(
+
+          !artistName ||
+          !username ||
+          !email ||
+          !password ||
+          !confirmPassword
+
+        ){
+
+          showMessage(
+
+            "Preenche todos os campos.",
+
+            "error"
+
+          );
+
+          return;
+
+        }
+
+
+        /* VALIDAR PASSWORD */
+
+        if(
+
+          password.length < 6
+
+        ){
+
+          showMessage(
+
+            "A palavra-passe deve ter pelo menos 6 caracteres.",
+
+            "error"
+
+          );
+
+          return;
+
+        }
+
+
+        /* CONFIRMAR PASSWORD */
+
+        if(
+
+          password !== confirmPassword
+
+        ){
+
+          showMessage(
+
+            "As palavras-passe não são iguais.",
+
+            "error"
+
+          );
+
+          return;
+
+        }
+
+
+        registerBtn.disabled =
+          true;
+
+
+        registerBtn.textContent =
+          "A CRIAR CONTA...";
+
+
+        try{
+
+
+          /* CRIAR CONTA FIREBASE */
+
+          const resultado =
+
+            await createUserWithEmailAndPassword(
+
+              auth,
+
+              email,
+
+              password
+
+            );
+
+
+          const user =
+            resultado.user;
+
+
+          /* ATUALIZAR PERFIL FIREBASE */
+
+          await updateProfile(
+
+            user,
+
+            {
+
+              displayName:
+                artistName
+
+            }
+
+          );
+
+
+          /* GUARDAR DADOS LOCAIS */
+
+          localStorage.setItem(
+
+            "kpArtistStageName",
+
+            artistName
+
+          );
+
+
+          localStorage.setItem(
+
+            "kpArtistName",
+
+            artistName
+
+          );
+
+
+          localStorage.setItem(
+
+            "kpArtistUsername",
+
+            username
+
+          );
+
+
+          localStorage.setItem(
+
+            "kpArtistEmail",
+
+            email
+
+          );
+
+
+          /* MENSAGEM */
+
+          showMessage(
+
+            "Conta criada com sucesso! 👑 A entrar no teu painel...",
+
+            "success"
+
+          );
+
+
+          /* ENTRAR NO PAINEL */
+
+          setTimeout(
+
+            () => {
+
+              window.location.replace(
+
+                "painel-do-artista.html"
+
+              );
+
+            },
+
+            1000
+
+          );
+
+
+        }
+        catch(
+          erro
+        ){
+
+
+          console.error(
+            "ERRO NO CADASTRO:",
+            erro
+          );
+
+
+          let textoErro =
+            "Não foi possível criar a conta.";
+
+
+          if(
+
+            erro.code ===
+            "auth/email-already-in-use"
+
+          ){
+
+            textoErro =
+              "Este email já possui uma conta.";
+
+          }
+
+
+          if(
+
+            erro.code ===
+            "auth/invalid-email"
+
+          ){
+
+            textoErro =
+              "O email introduzido não é válido.";
+
+          }
+
+
+          if(
+
+            erro.code ===
+            "auth/weak-password"
+
+          ){
+
+            textoErro =
+              "A palavra-passe é muito fraca.";
+
+          }
+
+
+          if(
+
+            erro.code ===
+            "auth/operation-not-allowed"
+
+          ){
+
+            textoErro =
+              "O login por email ainda não está ativado no Firebase.";
+
+          }
+
+
+          showMessage(
+
+            textoErro,
+
+            "error"
+
+          );
+
+
+          registerBtn.disabled =
+            false;
+
+
+          registerBtn.textContent =
+            "👑 CRIAR CONTA";
+
+        }
+
+      }
+
+    );
+
+
+  </script>
+
+</body>
+
+</html>
