@@ -660,14 +660,15 @@ async function carregarPerfil() {
       .getElementById("pagina")
       .style.display = "block";
 
-  } catch (erro) {
+  } catch(erro){
 
-    console.error(erro);
+  console.error("ERRO AO CARREGAR PERFIL:", erro);
 
-    mostrarErro(
-      "Erro ao carregar o perfil."
-    );
+  carregando.textContent =
+    "Erro: " +
+    (erro.code || erro.message || "Desconhecido");
 
+}
   }
 
 }
