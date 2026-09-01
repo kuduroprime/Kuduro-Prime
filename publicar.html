@@ -10,13 +10,13 @@
     :root{
       --bg:#070707;
       --panel:#111;
-      --panel2:#171717;
       --gold:#f4bf31;
       --gold2:#ffdc6b;
       --text:#fff;
       --muted:#a7a7a7;
       --line:#292929;
       --red:#ff563f;
+      --green:#48d597;
     }
 
     *{
@@ -283,15 +283,17 @@
     }
 
     .message.error{
+      display:block;
       background:rgba(255,86,63,.12);
       border:1px solid rgba(255,86,63,.35);
       color:#ff8d7c;
     }
 
     .message.success{
-      background:rgba(244,191,49,.1);
-      border:1px solid rgba(244,191,49,.35);
-      color:var(--gold2);
+      display:block;
+      background:rgba(72,213,151,.12);
+      border:1px solid rgba(72,213,151,.35);
+      color:var(--green);
     }
 
     .info{
@@ -334,7 +336,6 @@
     </div>
   </header>
 
-
   <main>
 
     <h1>NOVA PUBLICAÇÃO</h1>
@@ -343,46 +344,32 @@
       Partilha a tua música, foto ou vídeo com o movimento.
     </p>
 
-
     <div class="card">
 
       <div class="types">
 
-        <div
-          class="type active"
-          data-type="foto"
-        >
+        <div class="type active" data-type="foto">
           🖼️<br>
           FOTO
         </div>
 
-        <div
-          class="type"
-          data-type="video"
-        >
+        <div class="type" data-type="video">
           🎬<br>
           VÍDEO
         </div>
 
-        <div
-          class="type"
-          data-type="musica"
-        >
+        <div class="type" data-type="musica">
           🎵<br>
           MÚSICA
         </div>
 
       </div>
 
-
       <label id="fileLabel">
         ESCOLHE A FOTO
       </label>
 
-      <label
-        class="upload"
-        for="file"
-      >
+      <label class="upload" for="file">
 
         <strong id="uploadTitle">
           🖼️ Escolher foto
@@ -394,34 +381,28 @@
 
       </label>
 
-
       <input
         type="file"
         id="file"
         accept="image/*"
       />
 
+      <div class="preview" id="preview"></div>
 
-      <div
-        class="preview"
-        id="preview"
-      ></div>
+      <div class="audio-preview" id="audioPreview">
 
-
-      <div
-        class="audio-preview"
-        id="audioPreview"
-      >
-        <strong>🎵 Pré-visualização da música</strong>
+        <strong>
+          🎵 Pré-visualização da música
+        </strong>
 
         <audio
           id="audioPlayer"
           controls
         ></audio>
+
       </div>
 
-
-      <label id="titleLabel">
+      <label>
         TÍTULO DA PUBLICAÇÃO
       </label>
 
@@ -430,7 +411,6 @@
         id="title"
         placeholder="Ex: Mim Faz Só Broxe 🔥"
       />
-
 
       <label>
         LEGENDA
@@ -441,13 +421,10 @@
         placeholder="Escreve algo sobre esta publicação..."
       ></textarea>
 
-
-      <div
-        class="progress-box"
-        id="progressBox"
-      >
+      <div class="progress-box" id="progressBox">
 
         <div class="progress-text">
+
           <span id="progressStatus">
             A enviar...
           </span>
@@ -455,6 +432,7 @@
           <span id="progressPercent">
             0%
           </span>
+
         </div>
 
         <div class="progress">
@@ -463,20 +441,11 @@
 
       </div>
 
-
-      <button
-        class="publish"
-        id="publishBtn"
-      >
+      <button class="publish" id="publishBtn">
         🚀 PUBLICAR AGORA
       </button>
 
-
-      <div
-        class="message"
-        id="message"
-      ></div>
-
+      <div class="message" id="message"></div>
 
       <div class="info">
         👑 <b>Regras KUDURO PRIME:</b><br>
@@ -489,21 +458,16 @@
 
   </main>
 
-
   <script type="module">
 
     import {
       initializeApp
-    } from
-    "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-
+    } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
 
     import {
       getAuth,
       onAuthStateChanged
-    } from
-    "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-
+    } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
 
     import {
       getFirestore,
@@ -512,42 +476,35 @@
       collection,
       addDoc,
       serverTimestamp
-    } from
-    "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
+    } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 
     import {
       getStorage,
       ref,
       uploadBytesResumable,
       getDownloadURL
-    } from
-    "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
+    } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-storage.js";
 
-
-    /* ========================================
-       COLOCA AQUI A MESMA CONFIGURAÇÃO
-       FIREBASE QUE JÁ USAS NO TEU SITE
-    ======================================== */
 
     const firebaseConfig = {
 
-      apiKey: "COLOCA_A_TUA_API_KEY",
+      apiKey:
+        "AIzaSyDoitCcLeLDNBNPCP6fG1s_xbHr4UmohSo",
 
       authDomain:
-        "COLOCA_O_TEU_AUTH_DOMAIN",
+        "kuduro-prime.firebaseapp.com",
 
       projectId:
-        "COLOCA_O_TEU_PROJECT_ID",
+        "kuduro-prime",
 
       storageBucket:
-        "COLOCA_O_TEU_STORAGE_BUCKET",
+        "kuduro-prime.firebasestorage.app",
 
       messagingSenderId:
-        "COLOCA_O_TEU_MESSAGING_SENDER_ID",
+        "299776559545",
 
       appId:
-        "COLOCA_O_TEU_APP_ID"
+        "1:299776559545:web:04aced1ba25391eb3fce68"
 
     };
 
@@ -555,104 +512,66 @@
     const app =
       initializeApp(firebaseConfig);
 
-
     const auth =
       getAuth(app);
 
-
     const db =
       getFirestore(app);
-
 
     const storage =
       getStorage(app);
 
 
-
-    /* ========================================
-       ELEMENTOS
-    ======================================== */
-
     const types =
       document.querySelectorAll(".type");
-
 
     const fileInput =
       document.getElementById("file");
 
-
     const preview =
       document.getElementById("preview");
-
 
     const audioPreview =
       document.getElementById("audioPreview");
 
-
     const audioPlayer =
       document.getElementById("audioPlayer");
-
 
     const title =
       document.getElementById("title");
 
-
     const caption =
       document.getElementById("caption");
-
 
     const publishBtn =
       document.getElementById("publishBtn");
 
-
     const message =
       document.getElementById("message");
-
 
     const progressBox =
       document.getElementById("progressBox");
 
-
     const progressBar =
       document.getElementById("progressBar");
 
-
     const progressPercent =
       document.getElementById("progressPercent");
-
 
     const progressStatus =
       document.getElementById("progressStatus");
 
 
-    let selectedType =
-      "foto";
+    let selectedType = "foto";
+    let currentUser = null;
+    let artistData = null;
+    let selectedFile = null;
+    let previewUrl = null;
 
-
-    let currentUser =
-      null;
-
-
-    let artistData =
-      null;
-
-
-    let selectedFile =
-      null;
-
-
-    let previewUrl =
-      null;
-
-
-
-    /* ========================================
-       VERIFICAR LOGIN
-    ======================================== */
 
     onAuthStateChanged(
       auth,
-      async(user) => {
+      async (user) => {
 
         if(!user){
 
@@ -663,49 +582,42 @@
 
         }
 
-
-        currentUser =
-          user;
-
+        currentUser = user;
 
         try{
 
           const artistRef =
             doc(
               db,
-              "artistas",
+              "artists",
               user.uid
             );
 
-
           const artistSnap =
-            await getDoc(
-              artistRef
-            );
-
+            await getDoc(artistRef);
 
           if(!artistSnap.exists()){
 
-            window.location.href =
-              "criar-perfil.html";
+            showMessage(
+              "Perfil de artista não encontrado.",
+              "error"
+            );
 
             return;
 
           }
 
-
           artistData =
             artistSnap.data();
 
-
         }
-
         catch(error){
 
           console.error(error);
 
           showMessage(
-            "Erro ao carregar o teu perfil.",
+            "Erro ao carregar o teu perfil: "
+            + error.message,
             "error"
           );
 
@@ -714,11 +626,6 @@
       }
     );
 
-
-
-    /* ========================================
-       ESCOLHER TIPO
-    ======================================== */
 
     types.forEach(type => {
 
@@ -729,25 +636,17 @@
           selectedType =
             type.dataset.type;
 
-
           types.forEach(t =>
             t.classList.remove("active")
           );
 
-
           type.classList.add("active");
 
+          selectedFile = null;
 
-          selectedFile =
-            null;
-
-
-          fileInput.value =
-            "";
-
+          fileInput.value = "";
 
           clearPreview();
-
 
           updateFileType();
 
@@ -757,29 +656,16 @@
     });
 
 
-
-    /* ========================================
-       ALTERAR INPUT
-    ======================================== */
-
     function updateFileType(){
 
       const fileLabel =
-        document.getElementById(
-          "fileLabel"
-        );
-
+        document.getElementById("fileLabel");
 
       const uploadTitle =
-        document.getElementById(
-          "uploadTitle"
-        );
-
+        document.getElementById("uploadTitle");
 
       const uploadInfo =
-        document.getElementById(
-          "uploadInfo"
-        );
+        document.getElementById("uploadInfo");
 
 
       if(selectedType === "foto"){
@@ -835,11 +721,6 @@
     }
 
 
-
-    /* ========================================
-       PREVIEW DO ARQUIVO
-    ======================================== */
-
     fileInput.addEventListener(
       "change",
       () => {
@@ -847,17 +728,14 @@
         const file =
           fileInput.files[0];
 
-
         if(!file)
           return;
 
-
-        selectedFile =
-          file;
-
+        selectedFile = file;
 
         clearPreview();
 
+        selectedFile = file;
 
         previewUrl =
           URL.createObjectURL(file);
@@ -866,7 +744,7 @@
         if(selectedType === "foto"){
 
           preview.innerHTML =
-            `<img src="${previewUrl}">`;
+            `<img src="${previewUrl}" alt="Pré-visualização">`;
 
           preview.style.display =
             "block";
@@ -877,18 +755,13 @@
         if(selectedType === "video"){
 
           const video =
-            document.createElement(
-              "video"
-            );
-
+            document.createElement("video");
 
           video.src =
             previewUrl;
 
-
           video.controls =
             true;
-
 
           video.preload =
             "metadata";
@@ -904,14 +777,9 @@
                   "error"
                 );
 
+                selectedFile = null;
 
-                selectedFile =
-                  null;
-
-
-                fileInput.value =
-                  "";
-
+                fileInput.value = "";
 
                 clearPreview();
 
@@ -924,7 +792,6 @@
 
           preview.appendChild(video);
 
-
           preview.style.display =
             "block";
 
@@ -936,7 +803,6 @@
           audioPlayer.src =
             previewUrl;
 
-
           audioPreview.style.display =
             "block";
 
@@ -944,7 +810,6 @@
 
       }
     );
-
 
 
     function clearPreview(){
@@ -957,22 +822,14 @@
 
       }
 
+      previewUrl = null;
 
-      previewUrl =
-        null;
-
-
-      preview.innerHTML =
-        "";
-
+      preview.innerHTML = "";
 
       preview.style.display =
         "none";
 
-
-      audioPlayer.src =
-        "";
-
+      audioPlayer.src = "";
 
       audioPreview.style.display =
         "none";
@@ -980,14 +837,9 @@
     }
 
 
-
-    /* ========================================
-       PUBLICAR
-    ======================================== */
-
     publishBtn.addEventListener(
       "click",
-      async() => {
+      async () => {
 
         hideMessage();
 
@@ -1040,44 +892,42 @@
         }
 
 
-        publishBtn.disabled =
-          true;
-
+        publishBtn.disabled = true;
 
         publishBtn.textContent =
           "A PUBLICAR...";
 
-
         progressBox.style.display =
           "block";
+
+        progressBar.style.width =
+          "0%";
+
+        progressPercent.textContent =
+          "0%";
 
 
         try{
 
           const safeName =
-            selectedFile.name
-            .replace(
+            selectedFile.name.replace(
               /[^a-zA-Z0-9.\-_]/g,
               "_"
             );
-
 
           const fileName =
             Date.now()
             + "_"
             + safeName;
 
-
           const storagePath =
             `publicacoes/${currentUser.uid}/${fileName}`;
-
 
           const storageRef =
             ref(
               storage,
               storagePath
             );
-
 
           const uploadTask =
             uploadBytesResumable(
@@ -1086,175 +936,196 @@
             );
 
 
-          await new Promise(
-            (resolve,reject) => {
+          const fileUrl =
+            await new Promise(
+              (resolve, reject) => {
 
-              uploadTask.on(
+                uploadTask.on(
 
-                "state_changed",
+                  "state_changed",
 
-                snapshot => {
+                  snapshot => {
 
-                  const percent =
-                    Math.round(
-                      (
-                        snapshot.bytesTransferred
-                        /
-                        snapshot.totalBytes
-                      )
-                      * 100
-                    );
-
-
-                  progressBar.style.width =
-                    percent + "%";
-
-
-                  progressPercent.textContent =
-                    percent + "%";
-
-
-                  progressStatus.textContent =
-                    "A enviar publicação...";
-
-                },
-
-
-                error => {
-
-                  reject(error);
-
-                },
-
-
-                async() => {
-
-                  try{
-
-                    const fileUrl =
-                      await getDownloadURL(
-                        uploadTask.snapshot.ref
+                    const percent =
+                      Math.round(
+                        (
+                          snapshot.bytesTransferred
+                          /
+                          snapshot.totalBytes
+                        )
+                        * 100
                       );
 
+                    progressBar.style.width =
+                      percent + "%";
 
-                    resolve(fileUrl);
+                    progressPercent.textContent =
+                      percent + "%";
 
-                  }
+                    progressStatus.textContent =
+                      "A enviar publicação...";
 
-                  catch(error){
+                  },
+
+
+                  error => {
 
                     reject(error);
 
+                  },
+
+
+                  async () => {
+
+                    try{
+
+                      const url =
+                        await getDownloadURL(
+                          uploadTask.snapshot.ref
+                        );
+
+                      resolve(url);
+
+                    }
+                    catch(error){
+
+                      reject(error);
+
+                    }
+
                   }
 
-                }
-
-              );
-
-            }
-          )
-          .then(async fileUrl => {
-
-
-            progressStatus.textContent =
-              "A guardar publicação...";
-
-
-            await addDoc(
-              collection(
-                db,
-                "publicacoes"
-              ),
-              {
-
-                uid:
-                  currentUser.uid,
-
-
-                tipo:
-                  selectedType,
-
-
-                titulo:
-                  title.value.trim(),
-
-
-                legenda:
-                  caption.value.trim(),
-
-
-                arquivoUrl:
-                  fileUrl,
-
-
-                arquivoNome:
-                  selectedFile.name,
-
-
-                nomeArtista:
-                  artistData.nome
-                  || "Artista",
-
-
-                fotoArtista:
-                  artistData.foto
-                  || "",
-
-
-                localizacao:
-                  artistData.provincia
-                  || artistData.localizacao
-                  || "",
-
-
-                createdAt:
-                  serverTimestamp()
+                );
 
               }
-
             );
 
 
-            progressStatus.textContent =
-              "Publicado com sucesso!";
+          progressStatus.textContent =
+            "A guardar publicação...";
 
 
-            showMessage(
-              "👑 A tua publicação foi publicada no KUDURO PRIME!",
-              "success"
-            );
+          await addDoc(
+            collection(
+              db,
+              "publicacoes"
+            ),
+
+            {
+
+              uid:
+                currentUser.uid,
+
+              tipo:
+                selectedType,
+
+              titulo:
+                title.value.trim(),
+
+              legenda:
+                caption.value.trim(),
+
+              arquivoUrl:
+                fileUrl,
+
+              arquivoNome:
+                selectedFile.name,
+
+              nomeArtista:
+                artistData.artistName
+                ||
+                artistData.nome
+                ||
+                "Artista",
+
+              username:
+                artistData.username
+                || "",
+
+              fotoArtista:
+                artistData.photo
+                ||
+                artistData.foto
+                ||
+                "",
+
+              createdAt:
+                serverTimestamp()
+
+            }
+
+          );
 
 
-            publishBtn.textContent =
-              "✓ PUBLICADO";
+          progressStatus.textContent =
+            "Publicado com sucesso!";
+
+          progressBar.style.width =
+            "100%";
+
+          progressPercent.textContent =
+            "100%";
 
 
-            setTimeout(
-              () => {
+          showMessage(
+            "👑 A tua publicação foi publicada no KUDURO PRIME!",
+            "success"
+          );
 
-                window.location.href =
-                  "feed.html";
 
-              },
-              1500
-            );
+          publishBtn.textContent =
+            "✓ PUBLICADO";
 
-          });
+
+          setTimeout(
+            () => {
+
+              window.location.href =
+                "feed.html";
+
+            },
+            1500
+          );
+
 
         }
-
-
         catch(error){
 
           console.error(
-            "Erro:",
+            "ERRO AO PUBLICAR:",
             error
           );
 
 
-          showMessage(
+          let erroTexto =
             "❌ Erro ao publicar: "
-            + error.message,
+            + error.message;
+
+
+          if(
+            error.code ===
+            "storage/unauthorized"
+          ){
+
+            erroTexto =
+              "❌ O Firebase Storage não permite enviar o arquivo.";
+
+          }
+
+
+          if(
+            error.code ===
+            "permission-denied"
+          ){
+
+            erroTexto =
+              "❌ O Firestore não permite guardar a publicação.";
+
+          }
+
+
+          showMessage(
+            erroTexto,
             "error"
           );
 
@@ -1276,11 +1147,6 @@
     );
 
 
-
-    /* ========================================
-       MENSAGENS
-    ======================================== */
-
     function showMessage(
       text,
       type
@@ -1289,14 +1155,9 @@
       message.textContent =
         text;
 
-
       message.className =
         "message "
         + type;
-
-
-      message.style.display =
-        "block";
 
     }
 
@@ -1305,6 +1166,9 @@
 
       message.style.display =
         "none";
+
+      message.className =
+        "message";
 
     }
 
