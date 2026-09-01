@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 
 <html lang="pt">
-
 <head>
 
   <meta charset="UTF-8">
@@ -60,8 +59,6 @@ content="width=device-width, initial-scale=1.0"
       display:grid;
       grid-template-columns:260px 1fr;
     }
-
-    /* SIDEBAR */
 
     .sidebar{
       min-height:100vh;
@@ -164,7 +161,6 @@ content="width=device-width, initial-scale=1.0"
       color:#aaa;
       font-size:11px;
       font-weight:800;
-      transition:.2s;
     }
 
     .side-link:hover,
@@ -190,8 +186,6 @@ content="width=device-width, initial-scale=1.0"
       font-weight:900;
       cursor:pointer;
     }
-
-    /* MAIN */
 
     .main{
       min-width:0;
@@ -261,8 +255,6 @@ content="width=device-width, initial-scale=1.0"
       margin:35px auto 60px;
     }
 
-    /* INFO */
-
     .intro{
       display:flex;
       align-items:end;
@@ -281,8 +273,6 @@ content="width=device-width, initial-scale=1.0"
       color:var(--muted);
       font-size:13px;
     }
-
-    /* UPLOAD */
 
     .upload-box{
       display:none;
@@ -359,8 +349,6 @@ content="width=device-width, initial-scale=1.0"
       gap:10px;
       margin-top:10px;
     }
-
-    /* MÚSICAS */
 
     .songs-panel{
       border:1px solid var(--line);
@@ -486,8 +474,6 @@ content="width=device-width, initial-scale=1.0"
       color:var(--red);
     }
 
-    /* EMPTY */
-
     .empty{
       padding:70px 20px;
       text-align:center;
@@ -515,8 +501,6 @@ content="width=device-width, initial-scale=1.0"
       font-size:12px;
       margin:9px 0 20px;
     }
-
-    /* MOBILE */
 
     .mobile-menu{
       display:none;
@@ -621,35 +605,19 @@ content="width=device-width, initial-scale=1.0"
   <div class="app">
 
 ```
-<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
 
-<aside
-  class="sidebar"
-  id="sidebar"
->
-
-  <a
-    href="index.html"
-    class="brand"
-  >
+  <a href="index.html" class="brand">
     <span class="crown">♕</span>
     KUDURO
     <b>PRIME</b>
   </a>
 
+  <a href="meu-perfil.html" class="artist-mini">
 
-  <a
-    href="meu-perfil.html"
-    class="artist-mini"
-  >
-
-    <div
-      class="mini-photo"
-      id="miniPhoto"
-    >
+    <div class="mini-photo" id="miniPhoto">
       👤
     </div>
-
 
     <div class="mini-name">
 
@@ -665,84 +633,49 @@ content="width=device-width, initial-scale=1.0"
 
   </a>
 
-
   <div class="nav-title">
     MENU PRINCIPAL
   </div>
 
-
-  <a
-    href="painel-do-artista.html"
-    class="side-link"
-  >
+  <a href="painel-do-artista.html" class="side-link">
     📊 Painel do Artista
   </a>
 
-
-  <a
-    href="meu-perfil.html"
-    class="side-link"
-  >
+  <a href="meu-perfil.html" class="side-link">
     👤 Meu Perfil
   </a>
 
-
-  <a
-    href="editar-perfil.html"
-    class="side-link"
-  >
+  <a href="editar-perfil.html" class="side-link">
     ✏ Editar Perfil
   </a>
-
 
   <div class="nav-title">
     CONTEÚDO
   </div>
 
-
-  <a
-    href="minhas-musicas.html"
-    class="side-link active"
-  >
+  <a href="minhas-musicas.html" class="side-link active">
     🎵 Minhas Músicas
   </a>
 
-
-  <a
-    href="pagamento-musicas.html"
-    class="side-link"
-  >
+  <a href="pagamento-musicas.html" class="side-link">
     💳 Pagamentos
   </a>
-
 
   <div class="nav-title">
     PLATAFORMA
   </div>
 
-
-  <a
-    href="ranking.html"
-    class="side-link"
-  >
+  <a href="ranking.html" class="side-link">
     🏆 Ranking Prime
   </a>
 
-
-  <a
-    href="index.html"
-    class="side-link"
-  >
+  <a href="index.html" class="side-link">
     🌐 Ver Site Público
   </a>
 
-
   <div class="side-bottom">
 
-    <button
-      class="logout"
-      onclick="logout()"
-    >
+    <button class="logout" onclick="logout()">
       ↪ TERMINAR SESSÃO
     </button>
 
@@ -750,11 +683,7 @@ content="width=device-width, initial-scale=1.0"
 
 </aside>
 
-
-<!-- MAIN -->
-
 <main class="main">
-
 
   <header class="topbar">
 
@@ -764,7 +693,6 @@ content="width=device-width, initial-scale=1.0"
     >
       ☰
     </button>
-
 
     <div>
 
@@ -778,7 +706,6 @@ content="width=device-width, initial-scale=1.0"
 
     </div>
 
-
     <div class="top-actions">
 
       <a
@@ -787,7 +714,6 @@ content="width=device-width, initial-scale=1.0"
       >
         ← PAINEL
       </a>
-
 
       <button
         class="btn gold"
@@ -800,9 +726,7 @@ content="width=device-width, initial-scale=1.0"
 
   </header>
 
-
   <div class="content">
-
 
     <section class="intro">
 
@@ -819,7 +743,6 @@ content="width=device-width, initial-scale=1.0"
 
       </div>
 
-
       <button
         class="btn gold"
         onclick="openUpload()"
@@ -828,9 +751,6 @@ content="width=device-width, initial-scale=1.0"
       </button>
 
     </section>
-
-
-    <!-- FORMULÁRIO -->
 
     <section
       class="upload-box"
@@ -854,12 +774,9 @@ content="width=device-width, initial-scale=1.0"
 
       </div>
 
-
       <form id="songForm">
 
-
         <div class="form-grid">
-
 
           <div class="field">
 
@@ -876,7 +793,6 @@ content="width=device-width, initial-scale=1.0"
 
           </div>
 
-
           <div class="field">
 
             <label>
@@ -884,16 +800,13 @@ content="width=device-width, initial-scale=1.0"
             </label>
 
             <select id="songType">
-
               <option>Single</option>
               <option>EP</option>
               <option>Álbum</option>
               <option>Freestyle</option>
-
             </select>
 
           </div>
-
 
           <div class="field">
 
@@ -902,17 +815,14 @@ content="width=device-width, initial-scale=1.0"
             </label>
 
             <select id="songGenre">
-
               <option>Kuduro</option>
               <option>Afro House</option>
               <option>Semba</option>
               <option>Afrobeat</option>
               <option>Outro</option>
-
             </select>
 
           </div>
-
 
           <div class="field">
 
@@ -926,7 +836,6 @@ content="width=device-width, initial-scale=1.0"
             >
 
           </div>
-
 
           <div class="field full">
 
@@ -942,7 +851,6 @@ content="width=device-width, initial-scale=1.0"
 
           </div>
 
-
           <div class="field full">
 
             <label>
@@ -957,7 +865,6 @@ content="width=device-width, initial-scale=1.0"
 
           </div>
 
-
           <div class="field full">
 
             <label>
@@ -971,9 +878,7 @@ content="width=device-width, initial-scale=1.0"
 
           </div>
 
-
         </div>
-
 
         <div class="form-actions">
 
@@ -985,7 +890,6 @@ content="width=device-width, initial-scale=1.0"
             CANCELAR
           </button>
 
-
           <button
             type="submit"
             class="btn gold"
@@ -995,16 +899,11 @@ content="width=device-width, initial-scale=1.0"
 
         </div>
 
-
       </form>
 
     </section>
 
-
-    <!-- LISTA -->
-
     <section class="songs-panel">
-
 
       <div class="songs-head">
 
@@ -1021,116 +920,227 @@ content="width=device-width, initial-scale=1.0"
 
       </div>
 
-
       <div
         class="song-list"
         id="songsList"
-      >
-
-      </div>
-
+      ></div>
 
     </section>
 
-
   </div>
-
 
 </main>
 ```
 
   </div>
 
-  <script>
+  <script type="module">
+
+    import {
+      initializeApp
+    } from
+    "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+
+    import {
+      getAuth,
+      onAuthStateChanged,
+      signOut
+    } from
+    "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
 
 
-    /*
-      PROTEGER PÁGINA
-    */
+    /* CONFIGURAÇÃO FIREBASE */
 
-    if(
-      localStorage.getItem(
-        "kpArtistLoggedIn"
-      )
-      !==
-      "true"
-    ){
+    const firebaseConfig = {
 
-      window.location.href =
-        "area-do-artista.html";
+      apiKey:
+        "AIzaSyDoitCcLeLDNBNPCP6fG1s_xbHr4UmohSo",
 
-    }
+      authDomain:
+        "kuduro-prime.firebaseapp.com",
+
+      projectId:
+        "kuduro-prime",
+
+      storageBucket:
+        "kuduro-prime.firebasestorage.app",
+
+      messagingSenderId:
+        "299776559545",
+
+      appId:
+        "1:299776559545:web:04aced1ba25391eb3fce68"
+
+    };
 
 
-    /*
-      DADOS DO ARTISTA
-    */
+    const app =
+      initializeApp(firebaseConfig);
 
-    const artistName =
-      localStorage.getItem(
-        "kpArtistStageName"
-      )
-      ||
-      localStorage.getItem(
-        "kpArtistName"
-      )
-      ||
+    const auth =
+      getAuth(app);
+
+
+    let currentUser = null;
+
+    let artistName =
       "Artista Prime";
 
+    let artistPhoto =
+      "";
 
-    const artistPhoto =
-      localStorage.getItem(
-        "kpArtistPhoto"
+
+    let songs =
+      [];
+
+
+    /*
+      ESPERAR LOGIN DO FIREBASE
+    */
+
+    onAuthStateChanged(
+      auth,
+
+      user => {
+
+        if(!user){
+
+          window.location.replace(
+            "area-do-artista.html"
+          );
+
+          return;
+
+        }
+
+
+        currentUser =
+          user;
+
+
+        artistName =
+          localStorage.getItem(
+            "kpArtistStageName"
+          )
+          ||
+          user.displayName
+          ||
+          user.email.split("@")[0]
+          ||
+          "Artista Prime";
+
+
+        artistPhoto =
+          localStorage.getItem(
+            "kpArtistPhoto"
+          )
+          ||
+          "";
+
+
+        document
+          .querySelector("#miniName")
+          .textContent =
+            artistName;
+
+
+        if(artistPhoto){
+
+          document
+            .querySelector("#miniPhoto")
+            .innerHTML =
+              `<img src="${artistPhoto}" alt="${artistName}">`;
+
+        }
+
+
+        /*
+          CADA ARTISTA TEM
+          AS SUAS PRÓPRIAS MÚSICAS
+        */
+
+        const songsKey =
+          "kpArtistSongs_" +
+          user.uid;
+
+
+        try{
+
+          songs =
+            JSON.parse(
+              localStorage.getItem(
+                songsKey
+              )
+              ||
+              "[]"
+            );
+
+        }
+        catch{
+
+          songs = [];
+
+        }
+
+
+        renderSongs();
+
+      }
+
+    );
+
+
+    function getSongsKey(){
+
+      if(!currentUser){
+
+        return null;
+
+      }
+
+      return (
+        "kpArtistSongs_" +
+        currentUser.uid
       );
-
-
-    document
-      .querySelector("#miniName")
-      .textContent =
-        artistName;
-
-
-    if(
-      artistPhoto
-    ){
-
-      document
-        .querySelector("#miniPhoto")
-        .innerHTML =
-          `
-            <img
-              src="${artistPhoto}"
-              alt="${artistName}"
-            >
-          `;
 
     }
 
-
-    /*
-      CARREGAR MÚSICAS
-    */
-
-    let songs =
-      JSON.parse(
-        localStorage.getItem(
-          "kpArtistSongs"
-        )
-        ||
-        "[]"
-      );
-
-
-    /*
-      GUARDAR MÚSICAS
-    */
 
     function saveSongs(){
 
+      const songsKey =
+        getSongsKey();
+
+
+      if(!songsKey){
+
+        return;
+
+      }
+
+
       localStorage.setItem(
-        "kpArtistSongs",
+        songsKey,
         JSON.stringify(songs)
       );
+
+    }
+
+
+    function escapeHTML(text){
+
+      const div =
+        document.createElement(
+          "div"
+        );
+
+
+      div.textContent =
+        text ||
+        "";
+
+
+      return div.innerHTML;
 
     }
 
@@ -1160,9 +1170,7 @@ content="width=device-width, initial-scale=1.0"
           );
 
 
-      if(
-        songs.length === 0
-      ){
+      if(songs.length === 0){
 
         list.innerHTML =
           `
@@ -1199,8 +1207,7 @@ content="width=device-width, initial-scale=1.0"
       list.innerHTML =
         songs
         .map(
-          (song,index) =>
-          {
+          (song,index) => {
 
             const songArtist =
               song.artistName
@@ -1211,124 +1218,115 @@ content="width=device-width, initial-scale=1.0"
             const songCover =
               song.cover
               ||
-              artistPhoto
-              ||
-              "images/artista-1.jpg";
+              artistPhoto;
 
 
-            return
+            const safeTitle =
+              escapeHTML(song.title);
+
+
+            const safeArtist =
+              escapeHTML(songArtist);
+
+
+            const safeDescription =
+              escapeHTML(
+                song.description
+                ||
+                "Lançamento KUDURO PRIME"
+              );
+
+
+            const coverHTML =
+              songCover
+              ?
               `
-                <article class="song-card">
-
-
-                  <div
-                    class="cover"
-                    style="
-                      --img:url('${songCover}')
-                    "
-                  >
-                    ${
-                      !song.cover
-                      ?
-                      "🎵"
-                      :
-                      ""
-                    }
-                  </div>
-
-
-                  <div class="song-info">
-
-
-                    <strong>
-                      ${song.title}
-                    </strong>
-
-
-                    <p class="artist-song-name">
-                      👤 ${songArtist}
-                    </p>
-
-
-                    <p>
-                      ${
-                        song.description
-                        ||
-                        "Lançamento KUDURO PRIME"
-                      }
-                    </p>
-
-
-                    <div class="song-meta">
-
-
-                      <span class="badge active">
-                        ● PUBLICADA
-                      </span>
-
-
-                      <span class="badge">
-                        🎧
-                        ${song.type || "Single"}
-                      </span>
-
-
-                      <span class="badge">
-                        🎵
-                        ${song.genre || "Kuduro"}
-                      </span>
-
-
-                      <span class="badge">
-                        👁
-                        ${song.views || 0}
-                      </span>
-
-
-                    </div>
-
-
-                  </div>
-
-
-                  <div class="song-actions">
-
-
-                    <button
-                      class="icon-btn"
-                      onclick="playSong(${index})"
-                      title="Ouvir"
-                    >
-                      ▶
-                    </button>
-
-
-                    <button
-                      class="icon-btn"
-                      onclick="editSong(${index})"
-                      title="Editar"
-                    >
-                      ✏
-                    </button>
-
-
-                    <button
-                      class="
-                        icon-btn
-                        delete-btn
-                      "
-                      onclick="deleteSong(${index})"
-                      title="Eliminar"
-                    >
-                      🗑
-                    </button>
-
-
-                  </div>
-
-
-                </article>
+                <div
+                  class="cover"
+                  style="
+                    background-image:url('${songCover}');
+                  "
+                ></div>
+              `
+              :
+              `
+                <div class="cover">
+                  🎵
+                </div>
               `;
+
+
+            return `
+              <article class="song-card">
+
+                ${coverHTML}
+
+                <div class="song-info">
+
+                  <strong>
+                    ${safeTitle}
+                  </strong>
+
+                  <p class="artist-song-name">
+                    👤 ${safeArtist}
+                  </p>
+
+                  <p>
+                    ${safeDescription}
+                  </p>
+
+                  <div class="song-meta">
+
+                    <span class="badge active">
+                      ● PUBLICADA
+                    </span>
+
+                    <span class="badge">
+                      🎧 ${escapeHTML(song.type || "Single")}
+                    </span>
+
+                    <span class="badge">
+                      🎵 ${escapeHTML(song.genre || "Kuduro")}
+                    </span>
+
+                    <span class="badge">
+                      👁 ${song.views || 0}
+                    </span>
+
+                  </div>
+
+                </div>
+
+                <div class="song-actions">
+
+                  <button
+                    class="icon-btn"
+                    onclick="playSong(${index})"
+                    title="Ouvir"
+                  >
+                    ▶
+                  </button>
+
+                  <button
+                    class="icon-btn"
+                    onclick="editSong(${index})"
+                    title="Editar"
+                  >
+                    ✏
+                  </button>
+
+                  <button
+                    class="icon-btn delete-btn"
+                    onclick="deleteSong(${index})"
+                    title="Eliminar"
+                  >
+                    🗑
+                  </button>
+
+                </div>
+
+              </article>
+            `;
 
           }
         )
@@ -1341,44 +1339,39 @@ content="width=device-width, initial-scale=1.0"
       ABRIR FORMULÁRIO
     */
 
-    function openUpload(){
+    window.openUpload =
+      function(){
 
-      document
-        .querySelector("#uploadBox")
-        .classList.add(
-          "show"
-        );
+        document
+          .querySelector("#uploadBox")
+          .classList.add("show");
 
 
-      window.scrollTo({
+        window.scrollTo({
+          top:0,
+          behavior:"smooth"
+        });
 
-        top:0,
-
-        behavior:"smooth"
-
-      });
-
-    }
+      };
 
 
     /*
       FECHAR FORMULÁRIO
     */
 
-    function closeUpload(){
+    window.closeUpload =
+      function(){
 
-      document
-        .querySelector("#uploadBox")
-        .classList.remove(
-          "show"
-        );
+        document
+          .querySelector("#uploadBox")
+          .classList.remove("show");
 
 
-      document
-        .querySelector("#songForm")
-        .reset();
+        document
+          .querySelector("#songForm")
+          .reset();
 
-    }
+      };
 
 
     /*
@@ -1396,6 +1389,17 @@ content="width=device-width, initial-scale=1.0"
           event.preventDefault();
 
 
+          if(!currentUser){
+
+            alert(
+              "A tua sessão ainda não foi carregada."
+            );
+
+            return;
+
+          }
+
+
           const title =
             document
             .querySelector("#songTitle")
@@ -1403,9 +1407,7 @@ content="width=device-width, initial-scale=1.0"
             .trim();
 
 
-          if(
-            !title
-          ){
+          if(!title){
 
             alert(
               "Escreve o título da música."
@@ -1426,11 +1428,6 @@ content="width=device-width, initial-scale=1.0"
             cover = ""
           ){
 
-            /*
-              CADA MÚSICA GUARDA
-              O NOME DO ARTISTA
-            */
-
             const song = {
 
               id:
@@ -1442,9 +1439,7 @@ content="width=device-width, initial-scale=1.0"
 
 
               artistPhoto:
-                artistPhoto
-                ||
-                "",
+                artistPhoto,
 
 
               title:
@@ -1471,9 +1466,7 @@ content="width=device-width, initial-scale=1.0"
 
               description:
                 document
-                .querySelector(
-                  "#songDescription"
-                )
+                .querySelector("#songDescription")
                 .value
                 .trim(),
 
@@ -1523,9 +1516,7 @@ content="width=device-width, initial-scale=1.0"
           }
 
 
-          if(
-            file
-          ){
+          if(file){
 
             const reader =
               new FileReader();
@@ -1561,62 +1552,26 @@ content="width=device-width, initial-scale=1.0"
       ELIMINAR MÚSICA
     */
 
-    function deleteSong(index){
+    window.deleteSong =
+      function(index){
 
-      const confirmed =
-        confirm(
-          "Tens a certeza que queres eliminar esta música?"
+        const confirmed =
+          confirm(
+            "Tens a certeza que queres eliminar esta música?"
+          );
+
+
+        if(!confirmed){
+
+          return;
+
+        }
+
+
+        songs.splice(
+          index,
+          1
         );
-
-
-      if(
-        !confirmed
-      ){
-
-        return;
-
-      }
-
-
-      songs.splice(
-        index,
-        1
-      );
-
-
-      saveSongs();
-
-
-      renderSongs();
-
-    }
-
-
-    /*
-      EDITAR MÚSICA
-    */
-
-    function editSong(index){
-
-      const song =
-        songs[index];
-
-
-      const newTitle =
-        prompt(
-          "Novo título da música:",
-          song.title
-        );
-
-
-      if(
-        newTitle
-        &&
-        newTitle.trim()
-      ){
-
-        songs[index].title =
-          newTitle.trim();
 
 
         saveSongs();
@@ -1624,83 +1579,125 @@ content="width=device-width, initial-scale=1.0"
 
         renderSongs();
 
-      }
+      };
 
-    }
+
+    /*
+      EDITAR MÚSICA
+    */
+
+    window.editSong =
+      function(index){
+
+        const song =
+          songs[index];
+
+
+        const newTitle =
+          prompt(
+            "Novo título da música:",
+            song.title
+          );
+
+
+        if(
+          newTitle
+          &&
+          newTitle.trim()
+        ){
+
+          songs[index].title =
+            newTitle.trim();
+
+
+          saveSongs();
+
+
+          renderSongs();
+
+        }
+
+      };
 
 
     /*
       OUVIR MÚSICA
     */
 
-    function playSong(index){
+    window.playSong =
+      function(index){
 
-      const song =
-        songs[index];
+        const song =
+          songs[index];
 
 
-      if(
-        song.link
-      ){
+        if(song.link){
 
-        window.open(
-          song.link,
-          "_blank"
-        );
+          window.open(
+            song.link,
+            "_blank",
+            "noopener,noreferrer"
+          );
 
-      }
-      else{
+        }
+        else{
 
-        alert(
-          "Ainda não existe um link para ouvir esta música."
-        );
+          alert(
+            "Ainda não existe um link para ouvir esta música."
+          );
 
-      }
+        }
 
-    }
+      };
 
 
     /*
       MENU MOBILE
     */
 
-    function toggleMenu(){
+    window.toggleMenu =
+      function(){
 
-      document
-        .querySelector("#sidebar")
-        .classList.toggle(
-          "show"
+        document
+          .querySelector("#sidebar")
+          .classList.toggle(
+            "show"
+          );
+
+      };
+
+
+    /*
+      TERMINAR SESSÃO
+    */
+
+    window.logout =
+      async function(){
+
+        try{
+
+          await signOut(auth);
+
+        }
+        catch(erro){
+
+          console.error(erro);
+
+        }
+
+
+        localStorage.removeItem(
+          "kpArtistLoggedIn"
         );
 
-    }
 
+        window.location.replace(
+          "index.html"
+        );
 
-    /*
-      LOGOUT
-    */
-
-    function logout(){
-
-      localStorage.removeItem(
-        "kpArtistLoggedIn"
-      );
-
-
-      window.location.href =
-        "index.html";
-
-    }
-
-
-    /*
-      INICIAR
-    */
-
-    renderSongs();
-
+      };
 
   </script>
 
 </body>
-
 </html>
