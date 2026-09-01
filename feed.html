@@ -1,1471 +1,1656 @@
 <!DOCTYPE html>
+
 <html lang="pt">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Feed | KUDURO PRIME</title>
-
-<style>
-
-:root{
-  --bg:#080808;
-  --panel:#121212;
-  --line:#292929;
-  --gold:#d4af37;
-  --text:#fff;
-  --muted:#999;
-}
-
-*{
-  box-sizing:border-box;
-}
-
-body{
-  margin:0;
-  background:var(--bg);
-  color:var(--text);
-  font-family:Arial, Helvetica, sans-serif;
-}
-
-/* TOPO */
-
-.topo{
-  height:70px;
-  background:rgba(8,8,8,.96);
-  border-bottom:1px solid var(--line);
-  position:sticky;
-  top:0;
-  z-index:100;
-}
-
-.topo-in{
-  max-width:1100px;
-  height:100%;
-  margin:auto;
-  padding:0 20px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:20px;
-}
-
-.logo{
-  color:var(--gold);
-  font-size:22px;
-  font-weight:900;
-  text-decoration:none;
-}
-
-.acoes{
-  display:flex;
-  align-items:center;
-  gap:10px;
-}
-
-.botao{
-  background:#222;
-  border:1px solid #444;
-  color:white;
-  padding:10px 14px;
-  border-radius:8px;
-  text-decoration:none;
-  font-size:12px;
-  font-weight:bold;
-  cursor:pointer;
-}
-
-.botao:hover{
-  border-color:var(--gold);
-  color:var(--gold);
-}
-
-.botao-dourado{
-  background:var(--gold);
-  border-color:var(--gold);
-  color:#111;
-}
-
-.botao-dourado:hover{
-  background:#f4c842;
-  color:#111;
-}
-
-/* CONTEÚDO */
-
-main{
-  max-width:680px;
-  margin:auto;
-  padding:25px 15px 80px;
-}
-
-/* PESQUISA */
-
-.pesquisa{
-  margin-bottom:25px;
-}
-
-.pesquisa input{
-  width:100%;
-  background:#151515;
-  border:1px solid var(--line);
-  border-radius:12px;
-  padding:15px;
-  color:white;
-  font-size:14px;
-  outline:none;
-}
-
-.pesquisa input:focus{
-  border-color:var(--gold);
-}
-
-/* STORIES */
-
-.stories-box{
-  background:var(--panel);
-  border:1px solid var(--line);
-  border-radius:15px;
-  padding:15px;
-  margin-bottom:25px;
-  overflow:hidden;
-}
-
-.stories{
-  display:flex;
-  gap:14px;
-  overflow-x:auto;
-  padding-bottom:5px;
-}
-
-.stories::-webkit-scrollbar{
-  height:4px;
-}
-
-.story{
-  min-width:70px;
-  text-align:center;
-  cursor:pointer;
-}
-
-.story-img{
-  width:62px;
-  height:62px;
-  border-radius:50%;
-  padding:3px;
-  background:linear-gradient(
-    135deg,
-    var(--gold),
-    #fff,
-    var(--gold)
-  );
-  margin:auto;
-}
-
-.story-img img{
-  width:100%;
-  height:100%;
-  border-radius:50%;
-  object-fit:cover;
-  border:3px solid #111;
-  background:#222;
-}
-
-.story-nome{
-  display:block;
-  margin-top:7px;
-  font-size:10px;
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
-}
-
-/* CARREGAMENTO */
-
-#carregando{
-  text-align:center;
-  color:var(--gold);
-  padding:60px 20px;
-  font-size:16px;
-}
-
-/* FEED */
-
-.feed{
-  display:flex;
-  flex-direction:column;
-  gap:20px;
-}
-
-/* POST */
-
-.post{
-  background:var(--panel);
-  border:1px solid var(--line);
-  border-radius:15px;
-  overflow:hidden;
-}
-
-.post-topo{
-  padding:14px;
-  display:flex;
-  align-items:center;
-  gap:11px;
-}
-
-.avatar{
-  width:45px;
-  height:45px;
-  border-radius:50%;
-  overflow:hidden;
-  background:#222;
-  flex:0 0 auto;
-  cursor:pointer;
-}
-
-.avatar img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-}
-
-.post-autor{
-  flex:1;
-}
-
-.post-nome{
-  font-weight:bold;
-  font-size:14px;
-  cursor:pointer;
-}
-
-.post-local{
-  color:var(--muted);
-  font-size:11px;
-  margin-top:4px;
-}
-
-/* FOTO */
-
-.post-media img{
-  width:100%;
-  display:block;
-  max-height:650px;
-  object-fit:cover;
-  background:#000;
-}
-
-/* VIDEO */
-
-.post-media video{
-  width:100%;
-  display:block;
-  max-height:650px;
-  background:#000;
-}
-
-/* MÚSICA */
-
-.musica-box{
-  min-height:300px;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  padding:30px;
-  text-align:center;
-
-  background:
-    radial-gradient(
-      circle at top,
-      rgba(212,175,55,.22),
-      transparent 45%
-    ),
-    #111;
-}
-
-.musica-capa{
-  width:200px;
-  height:200px;
-  border-radius:15px;
-  overflow:hidden;
-  background:#222;
-  box-shadow:0 15px 50px rgba(0,0,0,.5);
-  margin-bottom:20px;
-}
-
-.musica-capa img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-}
-
-.musica-titulo{
-  font-size:20px;
-  font-weight:bold;
-  margin-bottom:7px;
-}
-
-.musica-artista{
-  color:var(--gold);
-  font-size:13px;
-}
-
-/* AUDIO */
-
-.audio-box{
-  padding:15px;
-  background:#0d0d0d;
-  border-top:1px solid var(--line);
-}
-
-.audio-box audio{
-  width:100%;
-}
-
-/* AÇÕES */
-
-.post-acoes{
-  padding:13px 15px 8px;
-  display:flex;
-  gap:18px;
-}
-
-.acao{
-  background:none;
-  border:0;
-  color:white;
-  font-size:21px;
-  cursor:pointer;
-  padding:0;
-}
-
-.acao:hover{
-  color:var(--gold);
-}
-
-.acao.ativo{
-  color:#ff4b5c;
-}
-
-/* TEXTO */
-
-.post-conteudo{
-  padding:0 15px 16px;
-}
-
-.likes{
-  font-size:13px;
-  font-weight:bold;
-  margin-bottom:9px;
-}
-
-.legenda{
-  font-size:14px;
-  line-height:1.5;
-}
-
-.legenda b{
-  margin-right:5px;
-}
-
-.data-post{
-  margin-top:12px;
-  font-size:10px;
-  color:#777;
-  text-transform:uppercase;
-}
-
-/* COMENTÁRIOS */
-
-.comentarios{
-  border-top:1px solid var(--line);
-  padding:15px;
-  display:none;
-}
-
-.comentarios.aberto{
-  display:block;
-}
-
-.lista-comentarios{
-  margin-bottom:12px;
-}
-
-.comentario{
-  margin-bottom:10px;
-  font-size:13px;
-  line-height:1.4;
-}
-
-.comentar{
-  display:flex;
-  gap:8px;
-}
-
-.comentar input{
-  flex:1;
-  background:#1b1b1b;
-  border:1px solid #333;
-  border-radius:8px;
-  padding:10px;
-  color:white;
-  outline:none;
-}
-
-.comentar button{
-  background:var(--gold);
-  border:0;
-  border-radius:8px;
-  padding:0 13px;
-  font-weight:bold;
-  cursor:pointer;
-}
-
-/* SEM POSTS */
-
-.vazio{
-  background:#111;
-  border:1px solid var(--line);
-  border-radius:15px;
-  padding:50px 20px;
-  text-align:center;
-}
-
-.vazio h2{
-  color:var(--gold);
-  margin-top:0;
-}
-
-.vazio p{
-  color:var(--muted);
-}
-
-/* MOBILE */
-
-@media(max-width:650px){
-
-  .topo{
-    height:auto;
-  }
-
-  .topo-in{
-    padding:12px 15px;
-    flex-wrap:wrap;
-  }
-
-  .logo{
-    width:100%;
-    text-align:center;
-  }
-
-  .acoes{
-    width:100%;
-    justify-content:center;
-    flex-wrap:wrap;
-  }
-
-  .acoes .botao{
-    padding:9px 10px;
-    font-size:10px;
-  }
-
-  main{
-    padding:20px 10px 70px;
-  }
-
-  .post{
-    border-radius:12px;
-  }
-
-}
-
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Feed — KUDURO PRIME</title>
+
+  <style>
+
+    :root{
+      --bg:#070707;
+      --panel:#101010;
+      --panel2:#151515;
+      --gold:#f4bf31;
+      --gold2:#ffdc6b;
+      --text:#f7f4ed;
+      --muted:#aaa59a;
+      --line:#2a271f;
+      --blue:#4eb8ff;
+      --red:#ff563f;
+    }
+
+    *{
+      box-sizing:border-box;
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      margin:0;
+      background:
+        radial-gradient(circle at 90% 0,rgba(244,191,49,.08),transparent 30%),
+        var(--bg);
+      color:var(--text);
+      font-family:Arial,Helvetica,sans-serif;
+    }
+
+    a{
+      text-decoration:none;
+      color:inherit;
+    }
+
+    button,
+    input,
+    textarea{
+      font:inherit;
+    }
+
+    /* NAV */
+
+    .nav{
+      height:82px;
+      border-bottom:1px solid var(--line);
+      display:flex;
+      align-items:center;
+      position:sticky;
+      top:0;
+      background:rgba(7,7,7,.94);
+      backdrop-filter:blur(12px);
+      z-index:50;
+    }
+
+    .nav-in{
+      width:min(1180px,92%);
+      margin:auto;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:20px;
+    }
+
+    .brand{
+      font-size:23px;
+      font-weight:900;
+      line-height:.78;
+      letter-spacing:-1px;
+    }
+
+    .brand b{
+      display:block;
+      color:var(--gold);
+    }
+
+    .crown{
+      display:block;
+      text-align:center;
+      color:var(--gold);
+      font-size:23px;
+      line-height:.6;
+    }
+
+    .links{
+      display:flex;
+      align-items:center;
+      gap:20px;
+      font-size:11px;
+      font-weight:900;
+      letter-spacing:.3px;
+    }
+
+    .links a:hover,
+    .links a.active{
+      color:var(--gold);
+    }
+
+    .nav-actions{
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+
+    .user-btn{
+      display:flex;
+      align-items:center;
+      gap:9px;
+      padding:7px 11px 7px 7px;
+      border:1px solid var(--line);
+      border-radius:30px;
+      font-size:11px;
+      font-weight:800;
+    }
+
+    .nav-avatar{
+      width:30px;
+      height:30px;
+      border-radius:50%;
+      background:#201a0a;
+      border:1px solid var(--gold);
+      overflow:hidden;
+      display:grid;
+      place-items:center;
+      color:var(--gold);
+    }
+
+    .nav-avatar img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
+
+    .menu{
+      display:none;
+      border:0;
+      background:none;
+      color:white;
+      font-size:22px;
+      cursor:pointer;
+    }
+
+    /* LAYOUT */
+
+    .layout{
+      width:min(1180px,92%);
+      margin:30px auto;
+      display:grid;
+      grid-template-columns:230px minmax(0,1fr) 280px;
+      gap:20px;
+      align-items:start;
+    }
+
+    .panel{
+      background:linear-gradient(145deg,#141414,#0b0b0b);
+      border:1px solid var(--line);
+      border-radius:14px;
+    }
+
+    /* ESQUERDA */
+
+    .sidebar{
+      position:sticky;
+      top:105px;
+      padding:15px;
+    }
+
+    .profile-mini{
+      padding:12px 10px 20px;
+      border-bottom:1px solid var(--line);
+      text-align:center;
+    }
+
+    .avatar{
+      width:74px;
+      height:74px;
+      border-radius:50%;
+      border:2px solid var(--gold);
+      overflow:hidden;
+      margin:0 auto 10px;
+      display:grid;
+      place-items:center;
+      color:var(--gold);
+      background:#1c1608;
+      font-size:26px;
+    }
+
+    .avatar img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
+
+    .profile-name{
+      font-size:14px;
+      font-weight:900;
+    }
+
+    .profile-user{
+      font-size:11px;
+      color:var(--muted);
+      margin-top:4px;
+    }
+
+    .verified{
+      color:var(--blue);
+      font-size:10px;
+    }
+
+    .side-menu{
+      padding:10px 0;
+    }
+
+    .side-menu a{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      padding:12px 10px;
+      color:#bbb;
+      font-size:12px;
+      font-weight:700;
+      border-radius:8px;
+    }
+
+    .side-menu a:hover,
+    .side-menu a.active{
+      background:rgba(244,191,49,.08);
+      color:var(--gold);
+    }
+
+    .side-menu .danger{
+      color:#ff887a;
+    }
+
+    /* FEED */
+
+    .feed-head{
+      margin-bottom:20px;
+    }
+
+    .feed-head h1{
+      margin:0;
+      font-size:28px;
+    }
+
+    .feed-head p{
+      margin:6px 0 0;
+      color:var(--muted);
+      font-size:12px;
+    }
+
+    /* CRIAR POST */
+
+    .create-post{
+      padding:18px;
+      margin-bottom:18px;
+    }
+
+    .post-input{
+      display:flex;
+      gap:12px;
+    }
+
+    .small-avatar{
+      width:44px;
+      height:44px;
+      flex:0 0 auto;
+      border-radius:50%;
+      overflow:hidden;
+      display:grid;
+      place-items:center;
+      border:1px solid var(--gold);
+      color:var(--gold);
+      background:#1c1608;
+    }
+
+    .small-avatar img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
+
+    .post-input textarea{
+      width:100%;
+      min-height:80px;
+      padding:12px;
+      resize:vertical;
+      border:1px solid var(--line);
+      border-radius:10px;
+      background:#0b0b0b;
+      color:white;
+      outline:none;
+    }
+
+    .post-input textarea:focus{
+      border-color:var(--gold);
+    }
+
+    .post-actions{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      margin-top:12px;
+      padding-left:56px;
+    }
+
+    .post-tools{
+      display:flex;
+      gap:7px;
+    }
+
+    .tool-btn{
+      border:1px solid var(--line);
+      background:#111;
+      color:#bbb;
+      padding:9px 11px;
+      border-radius:7px;
+      cursor:pointer;
+      font-size:11px;
+    }
+
+    .tool-btn:hover{
+      color:var(--gold);
+      border-color:var(--gold);
+    }
+
+    .publish-btn{
+      border:0;
+      background:var(--gold);
+      color:#17120a;
+      padding:10px 18px;
+      border-radius:7px;
+      font-size:11px;
+      font-weight:900;
+      cursor:pointer;
+    }
+
+    /* POST */
+
+    .post{
+      margin-bottom:18px;
+      overflow:hidden;
+    }
+
+    .post-top{
+      display:flex;
+      gap:11px;
+      align-items:center;
+      padding:16px;
+    }
+
+    .post-author-img{
+      width:46px;
+      height:46px;
+      border-radius:50%;
+      background:var(--img) center/cover;
+      border:1px solid var(--line);
+      flex:0 0 auto;
+    }
+
+    .post-name{
+      font-size:13px;
+      font-weight:900;
+    }
+
+    .post-meta{
+      color:var(--muted);
+      font-size:10px;
+      margin-top:4px;
+    }
+
+    .more{
+      margin-left:auto;
+      color:var(--muted);
+      font-size:20px;
+      cursor:pointer;
+    }
+
+    .post-text{
+      padding:0 16px 16px;
+      font-size:13px;
+      line-height:1.6;
+      color:#ddd;
+      white-space:pre-line;
+    }
+
+    .post-image{
+      width:100%;
+      min-height:320px;
+      background:
+        linear-gradient(0deg,rgba(0,0,0,.2),rgba(0,0,0,.05)),
+        var(--img)
+        center/cover;
+    }
+
+    .music-post{
+      margin:0 16px 16px;
+      display:flex;
+      align-items:center;
+      gap:12px;
+      padding:10px;
+      border:1px solid var(--line);
+      background:#0a0a0a;
+      border-radius:10px;
+    }
+
+    .music-cover{
+      width:55px;
+      height:55px;
+      flex:0 0 auto;
+      border-radius:7px;
+      background:var(--img) center/cover;
+    }
+
+    .music-name{
+      font-size:12px;
+      font-weight:900;
+    }
+
+    .music-artist{
+      color:var(--muted);
+      font-size:10px;
+      margin-top:4px;
+    }
+
+    .play{
+      margin-left:auto;
+      width:36px;
+      height:36px;
+      border-radius:50%;
+      border:1px solid var(--gold);
+      color:var(--gold);
+      background:transparent;
+      cursor:pointer;
+    }
+
+    .post-stats{
+      padding:10px 16px;
+      border-top:1px solid var(--line);
+      color:var(--muted);
+      font-size:10px;
+      display:flex;
+      justify-content:space-between;
+    }
+
+    .post-buttons{
+      display:grid;
+      grid-template-columns:1fr 1fr 1fr;
+      border-top:1px solid var(--line);
+    }
+
+    .post-buttons button{
+      padding:12px;
+      border:0;
+      border-right:1px solid var(--line);
+      background:transparent;
+      color:#aaa;
+      font-size:11px;
+      font-weight:800;
+      cursor:pointer;
+    }
+
+    .post-buttons button:last-child{
+      border-right:0;
+    }
+
+    .post-buttons button:hover,
+    .post-buttons button.liked{
+      color:var(--gold);
+      background:rgba(244,191,49,.04);
+    }
+
+    /* DIREITA */
+
+    .right-panel{
+      padding:16px;
+      margin-bottom:18px;
+    }
+
+    .right-title{
+      margin:0 0 15px;
+      font-size:15px;
+    }
+
+    .trend{
+      display:block;
+      padding:12px 0;
+      border-bottom:1px solid var(--line);
+    }
+
+    .trend:last-child{
+      border:0;
+    }
+
+    .trend small{
+      display:block;
+      color:var(--gold);
+      font-size:9px;
+      margin-bottom:4px;
+    }
+
+    .trend strong{
+      font-size:12px;
+    }
+
+    .trend span{
+      display:block;
+      color:var(--muted);
+      font-size:10px;
+      margin-top:5px;
+    }
+
+    .suggestion{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      padding:10px 0;
+      border-bottom:1px solid var(--line);
+    }
+
+    .suggestion:last-child{
+      border:0;
+    }
+
+    .suggestion-avatar{
+      width:42px;
+      height:42px;
+      border-radius:50%;
+      background:var(--img) center/cover;
+      flex:0 0 auto;
+    }
+
+    .suggestion-name{
+      font-size:11px;
+      font-weight:900;
+    }
+
+    .suggestion-tag{
+      font-size:9px;
+      color:var(--muted);
+      margin-top:4px;
+    }
+
+    .follow-btn{
+      margin-left:auto;
+      padding:7px 9px;
+      border:1px solid var(--gold);
+      border-radius:6px;
+      color:var(--gold);
+      background:transparent;
+      font-size:9px;
+      font-weight:900;
+      cursor:pointer;
+    }
+
+    /* MOBILE */
+
+    @media(max-width:950px){
+
+      .layout{
+        grid-template-columns:200px minmax(0,1fr);
+      }
+
+      .right{
+        display:none;
+      }
+
+      .links{
+        display:none;
+      }
+
+      .menu{
+        display:block;
+      }
+
+    }
+
+    @media(max-width:650px){
+
+      .nav{
+        height:70px;
+      }
+
+      .nav-avatar{
+        width:28px;
+        height:28px;
+      }
+
+      .user-btn span{
+        display:none;
+      }
+
+      .brand{
+        font-size:18px;
+      }
+
+      .crown{
+        font-size:18px;
+      }
+
+      .layout{
+        width:94%;
+        display:block;
+        margin:20px auto;
+      }
+
+      .sidebar{
+        position:static;
+        margin-bottom:20px;
+        padding:8px;
+      }
+
+      .profile-mini{
+        display:none;
+      }
+
+      .side-menu{
+        display:flex;
+        overflow-x:auto;
+        gap:5px;
+      }
+
+      .side-menu a{
+        white-space:nowrap;
+        padding:10px 12px;
+      }
+
+      .post-image{
+        min-height:280px;
+      }
+
+      .post-actions{
+        padding-left:0;
+      }
+
+      .tool-btn{
+        padding:8px;
+      }
+
+    }
+
+  </style>
 
 </head>
 
 <body>
 
-<header class="topo">
+  <!-- NAVEGAÇÃO -->
 
-  <div class="topo-in">
+  <nav class="nav">
 
-    <a href="feed.html" class="logo">
-      👑 KUDURO PRIME
+```
+<div class="nav-in">
+
+  <a
+    href="index.html"
+    class="brand"
+  >
+    <span class="crown">♕</span>
+    KUDURO
+    <b>PRIME</b>
+  </a>
+
+  <div class="links">
+
+    <a
+      href="feed.html"
+      class="active"
+    >
+      INÍCIO
     </a>
 
-    <div class="acoes">
+    <a href="artistas.html">
+      ARTISTAS
+    </a>
 
-      <a
-        href="meu-perfil.html"
-        class="botao botao-dourado"
-      >
-        👤 MEU PERFIL
-      </a>
+    <a href="musicas.html">
+      MÚSICAS
+    </a>
 
-      <a
-        href="painel-do-artista.html"
-        class="botao"
+    <a href="ranking.html">
+      RANKING
+    </a>
+
+    <a href="eventos.html">
+      EVENTOS
+    </a>
+
+  </div>
+
+  <div class="nav-actions">
+
+    <a
+      href="meu-perfil.html"
+      class="user-btn"
+    >
+
+      <div
+        class="nav-avatar"
+        id="navAvatar"
       >
-        ⚙️ PAINEL
-      </a>
+        👤
+      </div>
+
+      <span id="navName">
+        Meu Perfil
+      </span>
+
+    </a>
+
+    <button
+      class="menu"
+      onclick="abrirMenu()"
+    >
+      ☰
+    </button>
+
+  </div>
+
+</div>
+```
+
+  </nav>
+
+  <!-- CONTEÚDO -->
+
+  <main class="layout">
+
+```
+<!-- SIDEBAR -->
+
+<aside
+  class="sidebar panel"
+>
+
+  <div class="profile-mini">
+
+    <div
+      class="avatar"
+      id="sideAvatar"
+    >
+      👤
+    </div>
+
+    <div
+      class="profile-name"
+      id="sideName"
+    >
+      Artista Prime
+    </div>
+
+    <div
+      class="profile-user"
+      id="sideUser"
+    >
+      @artista
+    </div>
+
+  </div>
+
+
+  <nav class="side-menu">
+
+    <a
+      href="feed.html"
+      class="active"
+    >
+      🏠 Feed
+    </a>
+
+    <a href="meu-perfil.html">
+      👤 Meu Perfil
+    </a>
+
+    <a href="painel-do-artista.html">
+      📊 Painel
+    </a>
+
+    <a href="minhas-musicas.html">
+      🎵 Minhas Músicas
+    </a>
+
+    <a href="ranking.html">
+      🏆 Ranking
+    </a>
+
+    <a href="eventos.html">
+      📅 Eventos
+    </a>
+
+    <a
+      href="index.html"
+      class="danger"
+      onclick="sair()"
+    >
+      ↪ Sair
+    </a>
+
+  </nav>
+
+</aside>
+
+
+<!-- FEED -->
+
+<section>
+
+  <div class="feed-head">
+
+    <h1>
+      O QUE HÁ DE NOVO? 👑
+    </h1>
+
+    <p>
+      Tudo o que está a acontecer no movimento Kuduro.
+    </p>
+
+  </div>
+
+
+  <!-- CRIAR POST -->
+
+  <div class="create-post panel">
+
+    <div class="post-input">
+
+      <div
+        class="small-avatar"
+        id="postAvatar"
+      >
+        👤
+      </div>
+
+      <textarea
+        id="postText"
+        placeholder="Partilha algo com o movimento..."
+      ></textarea>
+
+    </div>
+
+    <div class="post-actions">
+
+      <div class="post-tools">
+
+        <button
+          class="tool-btn"
+          onclick="alert('Em breve poderás adicionar fotos!')"
+        >
+          🖼 FOTO
+        </button>
+
+        <button
+          class="tool-btn"
+          onclick="alert('Em breve poderás adicionar vídeos!')"
+        >
+          🎥 VÍDEO
+        </button>
+
+        <button
+          class="tool-btn"
+          onclick="alert('Em breve poderás partilhar músicas!')"
+        >
+          🎵 MÚSICA
+        </button>
+
+      </div>
 
       <button
-        id="sair"
-        class="botao"
+        class="publish-btn"
+        onclick="publicar()"
       >
-        SAIR
+        PUBLICAR
       </button>
 
     </div>
 
   </div>
 
-</header>
 
-<main>
+  <!-- POSTS -->
 
-  <!-- PESQUISA -->
+  <div id="feedPosts">
 
-  <div class="pesquisa">
 
-    <input
-      type="text"
-      id="pesquisa"
-      placeholder="🔍 Pesquisar artistas..."
+    <!-- POST 1 -->
+
+    <article class="post panel">
+
+      <div class="post-top">
+
+        <div
+          class="post-author-img"
+          style="--img:url('images/artista-1.jpg')"
+        ></div>
+
+        <div>
+
+          <div class="post-name">
+            Figura do Adoço
+            <span class="verified">
+              ●
+            </span>
+          </div>
+
+          <div class="post-meta">
+            @figuradoadoco · 2 h
+          </div>
+
+        </div>
+
+        <div class="more">
+          ⋯
+        </div>
+
+      </div>
+
+      <div class="post-text">
+        O movimento não para! 🔥👑
+        Obrigado a todos que estão a apoiar a nossa música.
+      </div>
+
+      <div
+        class="post-image"
+        style="--img:url('images/artista-1.jpg')"
+      ></div>
+
+      <div class="post-stats">
+
+        <span>
+          🔥 1.2K reações
+        </span>
+
+        <span>
+          84 comentários
+        </span>
+
+      </div>
+
+      <div class="post-buttons">
+
+        <button onclick="like(this)">
+          ♡ GOSTAR
+        </button>
+
+        <button onclick="alert('Comentários estarão disponíveis em breve.')">
+          💬 COMENTAR
+        </button>
+
+        <button onclick="partilhar()">
+          ↗ PARTILHAR
+        </button>
+
+      </div>
+
+    </article>
+
+
+    <!-- POST 2 -->
+
+    <article class="post panel">
+
+      <div class="post-top">
+
+        <div
+          class="post-author-img"
+          style="--img:url('images/artista-2.jpg')"
+        ></div>
+
+        <div>
+
+          <div class="post-name">
+            DJ Jeff Afrozila
+            <span class="verified">
+              ●
+            </span>
+          </div>
+
+          <div class="post-meta">
+            @jeffafrozila · 5 h
+          </div>
+
+        </div>
+
+        <div class="more">
+          ⋯
+        </div>
+
+      </div>
+
+      <div class="post-text">
+        Novo som disponível no KUDURO PRIME! 🎵🔥
+      </div>
+
+      <div class="music-post">
+
+        <div
+          class="music-cover"
+          style="--img:url('images/artista-2.jpg')"
+        ></div>
+
+        <div>
+
+          <div class="music-name">
+            ZONA QUENTE
+          </div>
+
+          <div class="music-artist">
+            DJ Jeff Afrozila
+          </div>
+
+        </div>
+
+        <button
+          class="play"
+          onclick="this.textContent=this.textContent==='▶'?'❚❚':'▶'"
+        >
+          ▶
+        </button>
+
+      </div>
+
+      <div class="post-stats">
+
+        <span>
+          🔥 890 reações
+        </span>
+
+        <span>
+          52 comentários
+        </span>
+
+      </div>
+
+      <div class="post-buttons">
+
+        <button onclick="like(this)">
+          ♡ GOSTAR
+        </button>
+
+        <button onclick="alert('Comentários estarão disponíveis em breve.')">
+          💬 COMENTAR
+        </button>
+
+        <button onclick="partilhar()">
+          ↗ PARTILHAR
+        </button>
+
+      </div>
+
+    </article>
+
+
+    <!-- POST 3 -->
+
+    <article class="post panel">
+
+      <div class="post-top">
+
+        <div
+          class="post-author-img"
+          style="--img:url('images/artista-4.jpg')"
+        ></div>
+
+        <div>
+
+          <div class="post-name">
+            Ready Neutro
+            <span class="verified">
+              ●
+            </span>
+          </div>
+
+          <div class="post-meta">
+            @readyneutro · Ontem
+          </div>
+
+        </div>
+
+        <div class="more">
+          ⋯
+        </div>
+
+      </div>
+
+      <div class="post-text">
+        Luanda, estamos juntos! 👊🏾🔥
+        Qual é a tua música favorita neste momento?
+      </div>
+
+      <div
+        class="post-image"
+        style="--img:url('images/artista-4.jpg')"
+      ></div>
+
+      <div class="post-stats">
+
+        <span>
+          🔥 2.4K reações
+        </span>
+
+        <span>
+          137 comentários
+        </span>
+
+      </div>
+
+      <div class="post-buttons">
+
+        <button onclick="like(this)">
+          ♡ GOSTAR
+        </button>
+
+        <button onclick="alert('Comentários estarão disponíveis em breve.')">
+          💬 COMENTAR
+        </button>
+
+        <button onclick="partilhar()">
+          ↗ PARTILHAR
+        </button>
+
+      </div>
+
+    </article>
+
+  </div>
+
+</section>
+
+
+<!-- DIREITA -->
+
+<aside class="right">
+
+
+  <!-- TENDÊNCIAS -->
+
+  <div class="right-panel panel">
+
+    <h3 class="right-title">
+      🔥 EM TENDÊNCIA
+    </h3>
+
+    <a
+      href="ranking.html"
+      class="trend"
     >
 
+      <small>
+        #1 NO RANKING
+      </small>
+
+      <strong>
+        Mim Faz Só Broxe
+      </strong>
+
+      <span>
+        Figura do Adoço
+      </span>
+
+    </a>
+
+    <a
+      href="ranking.html"
+      class="trend"
+    >
+
+      <small>
+        #2 NO RANKING
+      </small>
+
+      <strong>
+        Vida de Artista
+      </strong>
+
+      <span>
+        Ready Neutro
+      </span>
+
+    </a>
+
+    <a
+      href="ranking.html"
+      class="trend"
+    >
+
+      <small>
+        #3 NO RANKING
+      </small>
+
+      <strong>
+        Zona Quente
+      </strong>
+
+      <span>
+        DJ Jeff Afrozila
+      </span>
+
+    </a>
+
   </div>
 
 
-  <!-- STORIES -->
+  <!-- SUGESTÕES -->
 
-  <div class="stories-box">
+  <div class="right-panel panel">
 
-    <div
-      class="stories"
-      id="stories"
-    ></div>
+    <h3 class="right-title">
+      👑 ARTISTAS PRIME
+    </h3>
+
+    <div class="suggestion">
+
+      <div
+        class="suggestion-avatar"
+        style="--img:url('images/artista-3.jpg')"
+      ></div>
+
+      <div>
+
+        <div class="suggestion-name">
+          MCK
+        </div>
+
+        <div class="suggestion-tag">
+          @mckoficial
+        </div>
+
+      </div>
+
+      <button
+        class="follow-btn"
+        onclick="seguir(this)"
+      >
+        SEGUIR
+      </button>
+
+    </div>
+
+
+    <div class="suggestion">
+
+      <div
+        class="suggestion-avatar"
+        style="--img:url('images/artista-5.jpg')"
+      ></div>
+
+      <div>
+
+        <div class="suggestion-name">
+          Nagrelha
+        </div>
+
+        <div class="suggestion-tag">
+          Artista Prime
+        </div>
+
+      </div>
+
+      <button
+        class="follow-btn"
+        onclick="seguir(this)"
+      >
+        SEGUIR
+      </button>
+
+    </div>
+
+
+    <div class="suggestion">
+
+      <div
+        class="suggestion-avatar"
+        style="--img:url('images/artista-6.jpg')"
+      ></div>
+
+      <div>
+
+        <div class="suggestion-name">
+          Nova Geração
+        </div>
+
+        <div class="suggestion-tag">
+          Revelação Prime
+        </div>
+
+      </div>
+
+      <button
+        class="follow-btn"
+        onclick="seguir(this)"
+      >
+        SEGUIR
+      </button>
+
+    </div>
 
   </div>
 
+</aside>
+```
 
-  <!-- CARREGAMENTO -->
+  </main>
 
-  <div id="carregando">
-    A carregar o KUDURO PRIME... 👑
-  </div>
+  <script>
 
+    /* DADOS DO ARTISTA */
 
-  <!-- FEED -->
+    const artistName =
+      localStorage.getItem("kpArtistStageName")
+      ||
+      localStorage.getItem("kpArtistName")
+      ||
+      "Artista Prime";
 
-  <div
-    id="feed"
-    class="feed"
-  ></div>
+    const artistUser =
+      localStorage.getItem("kpArtistUsername")
+      ||
+      "artista";
 
-</main>
-
-
-<script type="module">
-
-import {
-  initializeApp
-} from
-"https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
-
-
-import {
-  getAuth,
-  onAuthStateChanged,
-  signOut
-} from
-"https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+    const artistPhoto =
+      localStorage.getItem("kpArtistPhoto");
 
 
-import {
-  getFirestore,
-  collection,
-  getDocs,
-  doc,
-  getDoc,
-  addDoc,
-  serverTimestamp,
-  query,
-  orderBy
-} from
-"https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+    document
+      .querySelector("#navName")
+      .textContent = artistName;
 
 
-const firebaseConfig = {
-
-  apiKey:
-  "AIzaSyDoitCcLeLDNBNPCP6fG1s_xbHr4UmohSo",
-
-  authDomain:
-  "kuduro-prime.firebaseapp.com",
-
-  projectId:
-  "kuduro-prime",
-
-  storageBucket:
-  "kuduro-prime.firebasestorage.app",
-
-  messagingSenderId:
-  "299776559545",
-
-  appId:
-  "1:299776559545:web:04aced1ba25391eb3fce68"
-
-};
+    document
+      .querySelector("#sideName")
+      .textContent = artistName;
 
 
-const app =
-  initializeApp(firebaseConfig);
+    document
+      .querySelector("#sideUser")
+      .textContent = "@" + artistUser;
 
 
-const auth =
-  getAuth(app);
+    /* FOTO DO UTILIZADOR */
 
+    function colocarFoto(
+      selector
+    ){
 
-const db =
-  getFirestore(app);
+      if(artistPhoto){
 
+        document
+          .querySelector(selector)
+          .innerHTML =
+            `<img src="${artistPhoto}" alt="${artistName}">`;
 
-const feed =
-  document.getElementById("feed");
-
-
-const stories =
-  document.getElementById("stories");
-
-
-const carregando =
-  document.getElementById("carregando");
-
-
-const pesquisa =
-  document.getElementById("pesquisa");
-
-
-let todosArtistas = [];
-let todosPosts = [];
-
-
-/* LOGIN */
-
-onAuthStateChanged(
-  auth,
-  async(user) => {
-
-    if(!user){
-
-      window.location.href =
-        "area-do-artista.html";
-
-      return;
+      }
 
     }
 
-    await carregarFeed();
 
-  }
-);
+    colocarFoto("#navAvatar");
 
+    colocarFoto("#sideAvatar");
 
-/* CARREGAR */
-
-async function carregarFeed(){
-
-  try{
+    colocarFoto("#postAvatar");
 
 
-    const artistasSnapshot =
-      await getDocs(
-        collection(
-          db,
-          "artistas"
-        )
+    /* GOSTAR */
+
+    function like(
+      button
+    ){
+
+      button.classList.toggle(
+        "liked"
       );
 
 
-    todosArtistas = [];
+      if(
+        button.classList.contains(
+          "liked"
+        )
+      ){
 
+        button.innerHTML =
+          "♥ GOSTEI";
 
-    artistasSnapshot.forEach(
-      docArtista => {
+      } else {
 
-        todosArtistas.push({
-
-          uid:
-            docArtista.id,
-
-          ...docArtista.data()
-
-        });
+        button.innerHTML =
+          "♡ GOSTAR";
 
       }
-    );
-
-
-    mostrarStories();
-
-
-    let postsSnapshot;
-
-
-    try{
-
-      postsSnapshot =
-        await getDocs(
-          query(
-            collection(db,"posts"),
-            orderBy(
-              "criadoEm",
-              "desc"
-            )
-          )
-        );
-
-    }
-    catch(erro){
-
-      postsSnapshot =
-        await getDocs(
-          collection(
-            db,
-            "posts"
-          )
-        );
 
     }
 
 
-    todosPosts = [];
+    /* SEGUIR */
 
+    function seguir(
+      button
+    ){
 
-    postsSnapshot.forEach(
-      docPost => {
+      if(
+        button.textContent === "SEGUIR"
+      ){
 
-        todosPosts.push({
+        button.textContent =
+          "✓ A SEGUIR";
 
-          id:
-            docPost.id,
+        button.style.background =
+          "#f4bf31";
 
-          ...docPost.data()
+        button.style.color =
+          "#111";
 
-        });
+      } else {
+
+        button.textContent =
+          "SEGUIR";
+
+        button.style.background =
+          "transparent";
+
+        button.style.color =
+          "#f4bf31";
 
       }
-    );
+
+    }
 
 
-    carregando.style.display =
-      "none";
+    /* PARTILHAR */
+
+    function partilhar(){
+
+      if(
+        navigator.share
+      ){
+
+        navigator.share({
+          title:"KUDURO PRIME",
+          text:"Vê esta publicação no KUDURO PRIME!"
+        });
+
+      } else {
+
+        alert(
+          "Publicação pronta para ser partilhada!"
+        );
+
+      }
+
+    }
 
 
-    mostrarPosts(
-      todosPosts
-    );
+    /* PUBLICAR */
+
+    function publicar(){
+
+      const text =
+        document
+        .querySelector("#postText")
+        .value
+        .trim();
 
 
-  }
-  catch(erro){
+      if(!text){
 
-  console.error("ERRO DO FIRESTORE:", erro);
+        alert(
+          "Escreve alguma coisa antes de publicar."
+        );
 
-  carregando.textContent =
-    "Erro: " +
-    (erro.code || erro.message || "Desconhecido");
+        return;
 
-}
-
-}
+      }
 
 
-/* STORIES */
-
-function mostrarStories(){
-
-  stories.innerHTML = "";
-
-
-  todosArtistas.forEach(
-    artista => {
+      const photoHTML =
+        artistPhoto
+        ?
+        `<img src="${artistPhoto}" alt="${artistName}">`
+        :
+        "👤";
 
 
-      const foto =
-        artista.foto ||
-        "";
+      const newPost = `
 
+        <article class="post panel">
 
-      const nome =
-        artista.nome ||
-        "Artista";
+          <div class="post-top">
 
-
-      stories.innerHTML += `
-
-        <div
-          class="story"
-          onclick="
-            window.location.href=
-            'perfil.html?id=${artista.uid}'
-          "
-        >
-
-          <div class="story-img">
-
-            <img
-              src="${foto}"
-              alt="${nome}"
-              onerror="
-                this.src=
-                'https://via.placeholder.com/100?text=👤'
+            <div
+              class="post-author-img"
+              style="
+                background-image:
+                url('${artistPhoto || ""}')
               "
             >
+            </div>
+
+            <div>
+
+              <div class="post-name">
+
+                ${artistName}
+
+                <span class="verified">
+                  ●
+                </span>
+
+              </div>
+
+              <div class="post-meta">
+
+                @${artistUser} · agora
+
+              </div>
+
+            </div>
+
+            <div class="more">
+              ⋯
+            </div>
 
           </div>
 
-          <span class="story-nome">
+          <div class="post-text">
+            ${text}
+          </div>
 
-            ${nome}
+          <div class="post-stats">
 
-          </span>
+            <span>
+              🔥 0 reações
+            </span>
 
-        </div>
+            <span>
+              0 comentários
+            </span>
+
+          </div>
+
+          <div class="post-buttons">
+
+            <button onclick="like(this)">
+              ♡ GOSTAR
+            </button>
+
+            <button onclick="alert('Comentários estarão disponíveis em breve.')">
+              💬 COMENTAR
+            </button>
+
+            <button onclick="partilhar()">
+              ↗ PARTILHAR
+            </button>
+
+          </div>
+
+        </article>
 
       `;
 
 
-    }
-  );
-
-}
-
-
-/* POSTS */
-
-function mostrarPosts(posts){
-
-  feed.innerHTML = "";
+      document
+        .querySelector("#feedPosts")
+        .insertAdjacentHTML(
+          "afterbegin",
+          newPost
+        );
 
 
-  if(posts.length === 0){
-
-    feed.innerHTML = `
-
-      <div class="vazio">
-
-        <h2>
-          👑 Ainda não existem publicações
-        </h2>
-
-        <p>
-          Os artistas poderão publicar
-          fotos, músicas e vídeos.
-        </p>
-
-      </div>
-
-    `;
-
-    return;
-
-  }
+      document
+        .querySelector("#postText")
+        .value = "";
 
 
-  posts.forEach(
-    post => {
-
-      criarPost(post);
+      window.scrollTo({
+        top:0,
+        behavior:"smooth"
+      });
 
     }
-  );
 
-}
 
+    /* SAIR */
 
-/* CRIAR POST */
+    function sair(){
 
-function criarPost(post){
-
-
-  const tipo =
-    post.tipo || "foto";
-
-
-  const nome =
-    post.nomeArtista ||
-    "Artista KUDURO PRIME";
-
-
-  const fotoPerfil =
-    post.fotoPerfil ||
-    "";
-
-
-  const provincia =
-    post.provincia ||
-    "Angola";
-
-
-  const uid =
-    post.uid || "";
-
-
-  const media =
-    post.mediaUrl ||
-    post.url ||
-    "";
-
-
-  const legenda =
-    post.legenda ||
-    "";
-
-
-  const tituloMusica =
-    post.titulo ||
-    "Nova Música";
-
-
-  const audio =
-    post.audioUrl ||
-    "";
-
-
-  let mediaHTML = "";
-
-
-  if(tipo === "foto"){
-
-    mediaHTML = `
-
-      <div class="post-media">
-
-        <img
-          src="${media}"
-          alt="Publicação de ${nome}"
-        >
-
-      </div>
-
-    `;
-
-  }
-
-
-  if(tipo === "video"){
-
-    mediaHTML = `
-
-      <div class="post-media">
-
-        <video
-          controls
-          preload="metadata"
-        >
-
-          <source
-            src="${media}"
-          >
-
-        </video>
-
-      </div>
-
-    `;
-
-  }
-
-
-  if(tipo === "musica"){
-
-    mediaHTML = `
-
-      <div class="musica-box">
-
-        <div class="musica-capa">
-
-          <img
-            src="${media}"
-            alt="${tituloMusica}"
-          >
-
-        </div>
-
-        <div class="musica-titulo">
-
-          🎵 ${tituloMusica}
-
-        </div>
-
-        <div class="musica-artista">
-
-          ${nome}
-
-        </div>
-
-      </div>
-
-      <div class="audio-box">
-
-        <audio controls>
-
-          <source
-            src="${audio}"
-          >
-
-        </audio>
-
-      </div>
-
-    `;
-
-  }
-
-
-  feed.innerHTML += `
-
-    <article
-      class="post"
-      data-nome="${nome.toLowerCase()}"
-    >
-
-
-      <div class="post-topo">
-
-
-        <div
-          class="avatar"
-          onclick="
-            abrirPerfil('${uid}')
-          "
-        >
-
-          <img
-            src="${fotoPerfil}"
-            alt="${nome}"
-            onerror="
-              this.src=
-              'https://via.placeholder.com/100?text=👤'
-            "
-          >
-
-        </div>
-
-
-        <div class="post-autor">
-
-
-          <div
-            class="post-nome"
-            onclick="
-              abrirPerfil('${uid}')
-            "
-          >
-
-            ${nome}
-
-          </div>
-
-
-          <div class="post-local">
-
-            📍 ${provincia}
-
-          </div>
-
-
-        </div>
-
-
-      </div>
-
-
-      ${mediaHTML}
-
-
-      <div class="post-acoes">
-
-
-        <button
-          class="acao"
-          onclick="
-            gostar(this)
-          "
-        >
-
-          ♡
-
-        </button>
-
-
-        <button
-          class="acao"
-          onclick="
-            abrirComentarios(
-              '${post.id}'
-            )
-          "
-        >
-
-          💬
-
-        </button>
-
-
-        <button
-          class="acao"
-          onclick="
-            partilharPost(
-              '${uid}'
-            )
-          "
-        >
-
-          ↗
-
-        </button>
-
-
-      </div>
-
-
-      <div class="post-conteudo">
-
-
-        <div
-          class="likes"
-        >
-
-          ❤️ 0 gostos
-
-        </div>
-
-
-        <div
-          class="legenda"
-        >
-
-          <b>${nome}</b>
-
-          ${legenda}
-
-        </div>
-
-
-        <div
-          class="data-post"
-        >
-
-          PUBLICADO NO KUDURO PRIME
-
-        </div>
-
-
-      </div>
-
-
-      <div
-        class="comentarios"
-        id="comentarios-${post.id}"
-      >
-
-
-        <div
-          class="lista-comentarios"
-          id="lista-${post.id}"
-        ></div>
-
-
-        <div
-          class="comentar"
-        >
-
-
-          <input
-            type="text"
-            id="input-${post.id}"
-            placeholder="Escreve um comentário..."
-          >
-
-
-          <button
-            onclick="
-              comentar('${post.id}')
-            "
-          >
-
-            ENVIAR
-
-          </button>
-
-
-        </div>
-
-
-      </div>
-
-
-    </article>
-
-  `;
-
-}
-
-
-/* ABRIR PERFIL */
-
-window.abrirPerfil =
-function(uid){
-
-  if(!uid){
-    return;
-  }
-
-  window.location.href =
-    `perfil.html?id=${uid}`;
-
-};
-
-
-/* GOSTAR */
-
-window.gostar =
-function(botao){
-
-  const ativo =
-    botao.classList.contains(
-      "ativo"
-    );
-
-
-  const post =
-    botao.closest(
-      ".post"
-    );
-
-
-  const likes =
-    post.querySelector(
-      ".likes"
-    );
-
-
-  if(ativo){
-
-    botao.classList.remove(
-      "ativo"
-    );
-
-    botao.innerHTML =
-      "♡";
-
-    likes.innerHTML =
-      "❤️ 0 gostos";
-
-  }
-  else{
-
-    botao.classList.add(
-      "ativo"
-    );
-
-    botao.innerHTML =
-      "♥";
-
-    likes.innerHTML =
-      "❤️ 1 gosto";
-
-  }
-
-};
-
-
-/* COMENTÁRIOS */
-
-window.abrirComentarios =
-function(postId){
-
-  const caixa =
-    document.getElementById(
-      `comentarios-${postId}`
-    );
-
-
-  caixa.classList.toggle(
-    "aberto"
-  );
-
-};
-
-
-window.comentar =
-function(postId){
-
-  const input =
-    document.getElementById(
-      `input-${postId}`
-    );
-
-
-  const lista =
-    document.getElementById(
-      `lista-${postId}`
-    );
-
-
-  const texto =
-    input.value.trim();
-
-
-  if(!texto){
-
-    return;
-
-  }
-
-
-  const nome =
-    auth.currentUser?.displayName ||
-    "Artista";
-
-
-  lista.innerHTML += `
-
-    <div class="comentario">
-
-      <b>
-        ${nome}
-      </b>
-
-      ${texto}
-
-    </div>
-
-  `;
-
-
-  input.value = "";
-
-};
-
-
-/* PARTILHAR */
-
-window.partilharPost =
-function(uid){
-
-  const link =
-    `${window.location.origin}${window.location.pathname}?artista=${uid}`;
-
-
-  if(
-    navigator.share
-  ){
-
-    navigator.share({
-
-      title:
-        "KUDURO PRIME",
-
-      text:
-        "Vê este artista no KUDURO PRIME",
-
-      url:
-        link
-
-    });
-
-  }
-  else{
-
-    navigator.clipboard
-      .writeText(link);
-
-
-    alert(
-      "Link copiado!"
-    );
-
-  }
-
-};
-
-
-/* PESQUISA */
-
-pesquisa.addEventListener(
-  "input",
-  () => {
-
-
-    const texto =
-      pesquisa.value
-      .toLowerCase()
-      .trim();
-
-
-    const resultado =
-      todosPosts.filter(
-        post => {
-
-          const nome =
-            (
-              post.nomeArtista ||
-              ""
-            )
-            .toLowerCase();
-
-
-          const titulo =
-            (
-              post.titulo ||
-              ""
-            )
-            .toLowerCase();
-
-
-          return (
-            nome.includes(texto) ||
-            titulo.includes(texto)
-          );
-
-        }
+      localStorage.removeItem(
+        "kpLoggedIn"
       );
 
-
-    mostrarPosts(
-      resultado
-    );
+    }
 
 
-  }
-);
+    /* MENU */
+
+    function abrirMenu(){
+
+      const links =
+        document.querySelector(".links");
 
 
-/* SAIR */
+      if(
+        links.style.display === "flex"
+      ){
 
-document
-  .getElementById("sair")
-  .addEventListener(
-    "click",
-    async() => {
+        links.style.display =
+          "none";
 
+      } else {
 
-      await signOut(auth);
+        links.style.display =
+          "flex";
 
+        links.style.position =
+          "absolute";
 
-      window.location.href =
-        "index.html";
+        links.style.top =
+          "70px";
 
+        links.style.right =
+          "4%";
+
+        links.style.padding =
+          "15px";
+
+        links.style.background =
+          "#101010";
+
+        links.style.border =
+          "1px solid #2a271f";
+
+        links.style.flexDirection =
+          "column";
+
+        links.style.alignItems =
+          "flex-start";
+
+      }
 
     }
-  );
 
-</script>
+  </script>
 
 </body>
 </html>
