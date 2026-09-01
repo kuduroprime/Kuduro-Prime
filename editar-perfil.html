@@ -1,441 +1,1347 @@
 <!DOCTYPE html>
+
 <html lang="pt">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Editar Perfil | KUDURO PRIME</title>
+  <title>Editar Perfil — KUDURO PRIME</title>
 
-<style>
-* {
-  box-sizing: border-box;
-}
+  <style>
 
-body {
-  margin: 0;
-  background: #080808;
-  color: white;
-  font-family: Arial, sans-serif;
-}
+    :root{
+      --bg:#070707;
+      --panel:#101010;
+      --panel2:#151515;
+      --gold:#f4bf31;
+      --gold2:#ffdc6b;
+      --text:#f7f4ed;
+      --muted:#aaa59a;
+      --line:#2a271f;
+      --green:#48d597;
+      --red:#ff563f;
+    }
 
-header {
-  background: #111;
-  padding: 20px;
-  text-align: center;
-  border-bottom: 2px solid #d4af37;
-}
+    *{
+      box-sizing:border-box;
+    }
 
-.logo {
-  color: #d4af37;
-  font-size: 28px;
-  font-weight: bold;
-  text-decoration: none;
-}
+    body{
+      margin:0;
+      min-height:100vh;
+      background:
+        radial-gradient(
+          circle at 80% 0,
+          rgba(244,191,49,.12),
+          transparent 30%
+        ),
+        var(--bg);
+      color:var(--text);
+      font-family:Arial,Helvetica,sans-serif;
+    }
 
-main {
-  max-width: 750px;
-  margin: auto;
-  padding: 40px 20px;
-}
+    a{
+      text-decoration:none;
+      color:inherit;
+    }
 
-h1 {
-  color: #d4af37;
-  text-align: center;
-}
+    button,
+    input,
+    textarea,
+    select{
+      font:inherit;
+    }
 
-.subtitulo {
-  text-align: center;
-  color: #aaa;
-  margin-bottom: 30px;
-}
+    /* NAV */
 
-.formulario {
-  background: #151515;
-  border: 1px solid #333;
-  border-radius: 15px;
-  padding: 30px;
-}
+    .nav{
+      height:82px;
+      border-bottom:1px solid var(--line);
+      display:flex;
+      align-items:center;
+      background:rgba(7,7,7,.94);
+      backdrop-filter:blur(12px);
+      position:sticky;
+      top:0;
+      z-index:50;
+    }
 
-label {
-  display: block;
-  margin: 18px 0 8px;
-  color: #d4af37;
-  font-weight: bold;
-}
+    .nav-in{
+      width:min(1100px,92%);
+      margin:auto;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:20px;
+    }
 
-input,
-textarea {
-  width: 100%;
-  background: #080808;
-  color: white;
-  border: 1px solid #444;
-  border-radius: 8px;
-  padding: 14px;
-  font-size: 16px;
-}
+    .brand{
+      font-size:23px;
+      font-weight:900;
+      line-height:.78;
+      letter-spacing:-1px;
+    }
 
-textarea {
-  min-height: 130px;
-  resize: vertical;
-}
+    .brand b{
+      display:block;
+      color:var(--gold);
+    }
 
-.preview-container {
-  margin-top: 15px;
-  text-align: center;
-}
+    .crown{
+      display:block;
+      text-align:center;
+      color:var(--gold);
+      font-size:23px;
+      line-height:.6;
+    }
 
-#previewFoto {
-  display: none;
-  width: 160px;
-  height: 160px;
-  object-fit: cover;
-  border-radius: 50%;
-  border: 3px solid #d4af37;
-}
+    .back{
+      color:var(--gold);
+      font-size:11px;
+      font-weight:900;
+    }
 
-.botao {
-  width: 100%;
-  margin-top: 25px;
-  padding: 16px;
-  background: #d4af37;
-  color: black;
-  border: none;
-  border-radius: 8px;
-  font-size: 17px;
-  font-weight: bold;
-  cursor: pointer;
-}
+    /* CONTAINER */
 
-.botao:hover {
-  background: #f5c842;
-}
+    .container{
+      width:min(1100px,92%);
+      margin:45px auto 70px;
+    }
 
-.botao:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
+    .page-head{
+      margin-bottom:28px;
+    }
 
-#mensagem {
-  text-align: center;
-  margin-top: 20px;
-  color: #d4af37;
-  min-height: 25px;
-}
+    .eyebrow{
+      color:var(--gold);
+      font-size:11px;
+      font-weight:900;
+      letter-spacing:1.8px;
+    }
 
-.voltar {
-  display: inline-block;
-  margin-bottom: 20px;
-  color: #d4af37;
-  text-decoration: none;
-}
+    h1{
+      margin:10px 0 8px;
+      font-size:42px;
+      letter-spacing:-1.5px;
+    }
 
-@media (max-width: 600px) {
-  .formulario {
-    padding: 20px;
-  }
-}
-</style>
+    .subtitle{
+      margin:0;
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.6;
+    }
+
+    /* FORM */
+
+    .form-grid{
+      display:grid;
+      grid-template-columns:320px minmax(0,1fr);
+      gap:22px;
+      align-items:start;
+    }
+
+    .panel{
+      background:
+        linear-gradient(
+          145deg,
+          #151515,
+          #0b0b0b
+        );
+      border:1px solid var(--line);
+      border-radius:15px;
+      overflow:hidden;
+    }
+
+    .panel-head{
+      padding:19px 20px;
+      border-bottom:1px solid var(--line);
+    }
+
+    .panel-head h2{
+      margin:0;
+      font-size:16px;
+    }
+
+    .panel-head p{
+      margin:6px 0 0;
+      color:var(--muted);
+      font-size:11px;
+    }
+
+    .panel-body{
+      padding:20px;
+    }
+
+    /* FOTO */
+
+    .photo-box{
+      text-align:center;
+    }
+
+    .photo-preview{
+      width:190px;
+      height:190px;
+      margin:0 auto 18px;
+      border-radius:50%;
+      overflow:hidden;
+      border:3px solid var(--gold);
+      background:#17120a;
+      display:grid;
+      place-items:center;
+      color:var(--gold);
+      font-size:70px;
+    }
+
+    .photo-preview img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
+
+    .upload-btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:12px 17px;
+      border-radius:8px;
+      background:var(--gold);
+      color:#15120a;
+      font-size:11px;
+      font-weight:900;
+      cursor:pointer;
+    }
+
+    .upload-btn input{
+      display:none;
+    }
+
+    .remove-photo{
+      display:block;
+      width:100%;
+      margin-top:10px;
+      padding:10px;
+      border:1px solid var(--line);
+      border-radius:8px;
+      background:#0c0c0c;
+      color:var(--muted);
+      font-size:10px;
+      font-weight:900;
+      cursor:pointer;
+    }
+
+    .photo-note{
+      margin-top:14px;
+      color:#777;
+      font-size:10px;
+      line-height:1.5;
+    }
+
+    /* FIELDS */
+
+    .fields{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:15px;
+    }
+
+    .field{
+      display:flex;
+      flex-direction:column;
+      gap:7px;
+    }
+
+    .field.full{
+      grid-column:1/-1;
+    }
+
+    label{
+      color:#ddd;
+      font-size:11px;
+      font-weight:900;
+    }
+
+    input,
+    textarea,
+    select{
+      width:100%;
+      padding:13px 14px;
+      border:1px solid var(--line);
+      border-radius:8px;
+      outline:none;
+      background:#0b0b0b;
+      color:white;
+      transition:.2s;
+    }
+
+    input:focus,
+    textarea:focus,
+    select:focus{
+      border-color:var(--gold);
+      box-shadow:
+        0 0 0 3px
+        rgba(244,191,49,.08);
+    }
+
+    textarea{
+      min-height:125px;
+      resize:vertical;
+      line-height:1.6;
+    }
+
+    .hint{
+      color:#777;
+      font-size:10px;
+    }
+
+    /* REDES */
+
+    .socials{
+      margin-top:20px;
+    }
+
+    .socials-title{
+      padding-bottom:12px;
+      border-bottom:1px solid var(--line);
+      margin-bottom:15px;
+      color:var(--gold);
+      font-size:12px;
+      font-weight:900;
+    }
+
+    /* BOTÕES */
+
+    .form-actions{
+      margin-top:25px;
+      display:flex;
+      justify-content:flex-end;
+      gap:10px;
+      padding-top:20px;
+      border-top:1px solid var(--line);
+    }
+
+    .btn{
+      min-height:46px;
+      padding:0 18px;
+      border-radius:8px;
+      border:1px solid var(--gold);
+      background:transparent;
+      color:var(--gold);
+      font-size:11px;
+      font-weight:900;
+      cursor:pointer;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:7px;
+    }
+
+    .btn.gold{
+      border:0;
+      background:
+        linear-gradient(
+          135deg,
+          var(--gold2),
+          var(--gold)
+        );
+      color:#17120a;
+    }
+
+    /* ALERTA */
+
+    .message{
+      display:none;
+      margin-bottom:20px;
+      padding:14px;
+      border-radius:9px;
+      background:rgba(72,213,151,.1);
+      border:1px solid rgba(72,213,151,.35);
+      color:var(--green);
+      font-size:12px;
+      font-weight:800;
+    }
+
+    .message.show{
+      display:block;
+    }
+
+    /* FOOTER */
+
+    footer{
+      padding:28px;
+      border-top:1px solid var(--line);
+      text-align:center;
+      color:#777;
+      font-size:11px;
+    }
+
+    /* RESPONSIVO */
+
+    @media(max-width:850px){
+
+      .form-grid{
+        grid-template-columns:1fr;
+      }
+
+    }
+
+    @media(max-width:620px){
+
+      .nav{
+        height:70px;
+      }
+
+      .brand{
+        font-size:18px;
+      }
+
+      .crown{
+        font-size:18px;
+      }
+
+      .container{
+        margin-top:30px;
+      }
+
+      h1{
+        font-size:32px;
+      }
+
+      .fields{
+        grid-template-columns:1fr;
+      }
+
+      .field.full{
+        grid-column:auto;
+      }
+
+      .form-actions{
+        flex-direction:column-reverse;
+      }
+
+      .form-actions .btn{
+        width:100%;
+      }
+
+    }
+
+  </style>
+
 </head>
 
 <body>
 
-<header>
-  <a href="index.html" class="logo">👑 KUDURO PRIME</a>
-</header>
+  <!-- NAV -->
 
-<main>
+  <nav class="nav">
 
-<a href="painel-do-artista.html" class="voltar">
-← VOLTAR AO PAINEL
-</a>
+```
+<div class="nav-in">
 
-<h1>✏️ EDITAR O MEU PERFIL</h1>
+  <a
+    href="index.html"
+    class="brand"
+  >
+    <span class="crown">♕</span>
+    KUDURO
+    <b>PRIME</b>
+  </a>
 
-<p class="subtitulo">
-Atualiza as tuas informações. A foto só é alterada se escolheres uma nova.
-</p>
+  <a
+    href="meu-perfil.html"
+    class="back"
+  >
+    ← VOLTAR AO MEU PERFIL
+  </a>
 
-<form id="perfilForm" class="formulario">
+</div>
+```
 
-<label for="nome">NOME ARTÍSTICO</label>
-<input type="text" id="nome" required>
+  </nav>
 
-<label for="foto">FOTO DO ARTISTA</label>
-<input
-  type="file"
-  id="foto"
-  accept="image/*"
->
+  <main class="container">
 
-<div class="preview-container">
-  <img id="previewFoto" alt="Foto do artista">
+```
+<div class="page-head">
+
+  <div class="eyebrow">
+    👤 ÁREA DO ARTISTA
+  </div>
+
+  <h1>
+    EDITAR PERFIL
+  </h1>
+
+  <p class="subtitle">
+    Atualiza as tuas informações e mantém
+    o teu perfil KUDURO PRIME completo.
+  </p>
+
 </div>
 
-<label for="bio">BIOGRAFIA</label>
-<textarea id="bio" required></textarea>
 
-<label for="provincia">PROVÍNCIA</label>
-<input type="text" id="provincia" required>
+<div
+  class="message"
+  id="message"
+>
+  ✓ Perfil guardado com sucesso!
+</div>
 
-<label for="whatsapp">WHATSAPP</label>
-<input type="tel" id="whatsapp" placeholder="+244">
 
-<label for="instagram">INSTAGRAM</label>
-<input type="url" id="instagram">
+<form id="profileForm">
 
-<label for="tiktok">TIKTOK</label>
-<input type="url" id="tiktok">
+  <div class="form-grid">
 
-<label for="musica">MÚSICA EM DESTAQUE</label>
-<input type="url" id="musica">
 
-<button type="submit" class="botao" id="guardarBtn">
-GUARDAR ALTERAÇÕES 👑
-</button>
+    <!-- FOTO -->
 
-<p id="mensagem"></p>
+    <aside class="panel">
+
+      <div class="panel-head">
+
+        <h2>
+          📸 FOTO DO PERFIL
+        </h2>
+
+        <p>
+          Escolhe a imagem principal do teu perfil.
+        </p>
+
+      </div>
+
+
+      <div class="panel-body photo-box">
+
+        <div
+          class="photo-preview"
+          id="photoPreview"
+        >
+          👤
+        </div>
+
+
+        <label class="upload-btn">
+
+          📷 ALTERAR FOTO
+
+          <input
+            type="file"
+            id="photoInput"
+            accept="image/*"
+          >
+
+        </label>
+
+
+        <button
+          type="button"
+          class="remove-photo"
+          id="removePhoto"
+        >
+          REMOVER FOTO
+        </button>
+
+
+        <div class="photo-note">
+
+          Recomendado: imagem quadrada.<br>
+          Formatos JPG, PNG ou WEBP.
+
+        </div>
+
+      </div>
+
+    </aside>
+
+
+    <!-- INFORMAÇÕES -->
+
+    <section class="panel">
+
+      <div class="panel-head">
+
+        <h2>
+          ✏ INFORMAÇÕES DO ARTISTA
+        </h2>
+
+        <p>
+          Estes dados serão mostrados no teu perfil público.
+        </p>
+
+      </div>
+
+
+      <div class="panel-body">
+
+
+        <div class="fields">
+
+
+          <div class="field">
+
+            <label for="stageName">
+              NOME ARTÍSTICO *
+            </label>
+
+            <input
+              type="text"
+              id="stageName"
+              required
+              placeholder="Ex.: Figura do Adoço"
+            >
+
+          </div>
+
+
+          <div class="field">
+
+            <label for="username">
+              NOME DE UTILIZADOR *
+            </label>
+
+            <input
+              type="text"
+              id="username"
+              required
+              placeholder="Ex.: figuradoadoco"
+            >
+
+            <span class="hint">
+              Não uses espaços.
+            </span>
+
+          </div>
+
+
+          <div class="field full">
+
+            <label for="bio">
+              BIOGRAFIA
+            </label>
+
+            <textarea
+              id="bio"
+              maxlength="500"
+              placeholder="Conta um pouco sobre a tua história, carreira e música..."
+            ></textarea>
+
+            <span
+              class="hint"
+              id="bioCount"
+            >
+              0 / 500 caracteres
+            </span>
+
+          </div>
+
+
+          <div class="field">
+
+            <label for="genre">
+              ESTILO MUSICAL
+            </label>
+
+            <select id="genre">
+
+              <option value="Kuduro">
+                Kuduro
+              </option>
+
+              <option value="Afro House">
+                Afro House
+              </option>
+
+              <option value="Afrobeat">
+                Afrobeat
+              </option>
+
+              <option value="Semba">
+                Semba
+              </option>
+
+              <option value="Rap">
+                Rap
+              </option>
+
+              <option value="Outro">
+                Outro
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <div class="field">
+
+            <label for="year">
+              CARREIRA DESDE
+            </label>
+
+            <input
+              type="number"
+              id="year"
+              min="1980"
+              max="2026"
+              placeholder="Ex.: 2015"
+            >
+
+          </div>
+
+
+          <div class="field">
+
+            <label for="city">
+              CIDADE / PROVÍNCIA
+            </label>
+
+            <input
+              type="text"
+              id="city"
+              placeholder="Ex.: Luanda"
+            >
+
+          </div>
+
+
+          <div class="field">
+
+            <label for="country">
+              PAÍS
+            </label>
+
+            <input
+              type="text"
+              id="country"
+              placeholder="Ex.: Angola"
+            >
+
+          </div>
+
+        </div>
+
+
+        <!-- REDES -->
+
+        <div class="socials">
+
+          <div class="socials-title">
+            🌐 REDES SOCIAIS
+          </div>
+
+
+          <div class="fields">
+
+            <div class="field">
+
+              <label for="instagram">
+                INSTAGRAM
+              </label>
+
+              <input
+                type="text"
+                id="instagram"
+                placeholder="@teuinstagram"
+              >
+
+            </div>
+
+
+            <div class="field">
+
+              <label for="facebook">
+                FACEBOOK
+              </label>
+
+              <input
+                type="text"
+                id="facebook"
+                placeholder="Nome ou link"
+              >
+
+            </div>
+
+
+            <div class="field">
+
+              <label for="tiktok">
+                TIKTOK
+              </label>
+
+              <input
+                type="text"
+                id="tiktok"
+                placeholder="@teutiktok"
+              >
+
+            </div>
+
+
+            <div class="field">
+
+              <label for="youtube">
+                YOUTUBE
+              </label>
+
+              <input
+                type="text"
+                id="youtube"
+                placeholder="Nome do canal ou link"
+              >
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- AÇÕES -->
+
+        <div class="form-actions">
+
+          <a
+            href="meu-perfil.html"
+            class="btn"
+          >
+            CANCELAR
+          </a>
+
+          <button
+            type="submit"
+            class="btn gold"
+          >
+            💾 GUARDAR ALTERAÇÕES
+          </button>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </div>
 
 </form>
+```
 
-</main>
+  </main>
 
-<script type="module">
+  <footer>
 
-import { initializeApp } from
-"https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+```
+© 2026 KUDURO PRIME.
+O KUDURO VIVE AQUI. 👑
+```
 
-import {
-  getAuth,
-  onAuthStateChanged
-} from
-"https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+  </footer>
 
-import {
-  getFirestore,
-  doc,
-  getDoc,
-  updateDoc
-} from
-"https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+  <script>
 
+    /*
+      PROTEGER A PÁGINA
+    */
 
-const firebaseConfig = {
-  apiKey: "AIzaSyDoitCcLeLDNBNPCP6fG1s_xbHr4UmohSo",
-  authDomain: "kuduro-prime.firebaseapp.com",
-  projectId: "kuduro-prime",
-  storageBucket: "kuduro-prime.firebasestorage.app",
-  messagingSenderId: "299776559545",
-  appId: "1:299776559545:web:04aced1ba25391eb3fce68"
-};
-
-const CLOUDINARY_CLOUD_NAME = "ge1ntqqc";
-const CLOUDINARY_UPLOAD_PRESET = "Kudu_";
+    const loggedIn =
+      localStorage.getItem(
+        "kpArtistLoggedIn"
+      );
 
 
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
+    if(
+      loggedIn !== "true"
+    ){
 
-let usuarioAtual = null;
-let fotoAtualURL = "";
+      window.location.href =
+        "area-do-artista.html";
 
-const form = document.getElementById("perfilForm");
-const fotoInput = document.getElementById("foto");
-const previewFoto = document.getElementById("previewFoto");
-const mensagem = document.getElementById("mensagem");
-const guardarBtn = document.getElementById("guardarBtn");
-
-
-/* CARREGAR PERFIL */
-onAuthStateChanged(auth, async (user) => {
-
-  if (!user) {
-    window.location.href = "area-do-artista.html";
-    return;
-  }
-
-  usuarioAtual = user;
-
-  try {
-
-    const perfilRef = doc(db, "artistas", user.uid);
-    const perfilDoc = await getDoc(perfilRef);
-
-    if (!perfilDoc.exists()) {
-      window.location.href = "criar-perfil.html";
-      return;
     }
 
-    const dados = perfilDoc.data();
 
-    document.getElementById("nome").value = dados.nome || "";
-    document.getElementById("bio").value = dados.bio || "";
-    document.getElementById("provincia").value = dados.provincia || "";
-    document.getElementById("whatsapp").value = dados.whatsapp || "";
-    document.getElementById("instagram").value = dados.instagram || "";
-    document.getElementById("tiktok").value = dados.tiktok || "";
-    document.getElementById("musica").value = dados.musica || "";
+    /*
+      ELEMENTOS
+    */
 
-    fotoAtualURL = dados.foto || "";
+    const form =
+      document.querySelector(
+        "#profileForm"
+      );
 
-    if (fotoAtualURL) {
-      previewFoto.src = fotoAtualURL;
-      previewFoto.style.display = "inline-block";
+
+    const photoInput =
+      document.querySelector(
+        "#photoInput"
+      );
+
+
+    const photoPreview =
+      document.querySelector(
+        "#photoPreview"
+      );
+
+
+    const message =
+      document.querySelector(
+        "#message"
+      );
+
+
+    let currentPhoto =
+      localStorage.getItem(
+        "kpArtistPhoto"
+      )
+      ||
+      "";
+
+
+    /*
+      CARREGAR DADOS
+    */
+
+    document.querySelector(
+      "#stageName"
+    ).value =
+      localStorage.getItem(
+        "kpArtistStageName"
+      )
+      ||
+      localStorage.getItem(
+        "kpArtistName"
+      )
+      ||
+      "";
+
+
+    document.querySelector(
+      "#username"
+    ).value =
+      localStorage.getItem(
+        "kpArtistUsername"
+      )
+      ||
+      "";
+
+
+    document.querySelector(
+      "#bio"
+    ).value =
+      localStorage.getItem(
+        "kpArtistBio"
+      )
+      ||
+      "";
+
+
+    document.querySelector(
+      "#genre"
+    ).value =
+      localStorage.getItem(
+        "kpArtistGenre"
+      )
+      ||
+      "Kuduro";
+
+
+    document.querySelector(
+      "#year"
+    ).value =
+      localStorage.getItem(
+        "kpArtistYear"
+      )
+      ||
+      "";
+
+
+    document.querySelector(
+      "#city"
+    ).value =
+      localStorage.getItem(
+        "kpArtistCity"
+      )
+      ||
+      "";
+
+
+    document.querySelector(
+      "#country"
+    ).value =
+      localStorage.getItem(
+        "kpArtistCountry"
+      )
+      ||
+      "Angola";
+
+
+    document.querySelector(
+      "#instagram"
+    ).value =
+      localStorage.getItem(
+        "kpArtistInstagram"
+      )
+      ||
+      "";
+
+
+    document.querySelector(
+      "#facebook"
+    ).value =
+      localStorage.getItem(
+        "kpArtistFacebook"
+      )
+      ||
+      "";
+
+
+    document.querySelector(
+      "#tiktok"
+    ).value =
+      localStorage.getItem(
+        "kpArtistTiktok"
+      )
+      ||
+      "";
+
+
+    document.querySelector(
+      "#youtube"
+    ).value =
+      localStorage.getItem(
+        "kpArtistYoutube"
+      )
+      ||
+      "";
+
+
+    /*
+      FOTO ATUAL
+    */
+
+    function showPhoto(){
+
+      if(
+        currentPhoto
+      ){
+
+        photoPreview.innerHTML =
+          `
+            <img
+              src="${currentPhoto}"
+              alt="Foto do artista"
+            >
+          `;
+
+      } else {
+
+        photoPreview.innerHTML =
+          "👤";
+
+      }
+
     }
 
-  } catch (erro) {
 
-    console.error(erro);
-
-    mensagem.textContent =
-      "Erro ao carregar o perfil.";
-
-  }
-
-});
+    showPhoto();
 
 
-/* PRÉ-VISUALIZAR NOVA FOTO */
-fotoInput.addEventListener("change", () => {
+    /*
+      ALTERAR FOTO
+    */
 
-  const ficheiro = fotoInput.files[0];
+    photoInput.addEventListener(
+      "change",
+      function(){
 
-  if (!ficheiro) return;
-
-  if (!ficheiro.type.startsWith("image/")) {
-    mensagem.textContent =
-      "Seleciona apenas uma imagem.";
-    fotoInput.value = "";
-    return;
-  }
-
-  const leitor = new FileReader();
-
-  leitor.onload = (evento) => {
-    previewFoto.src = evento.target.result;
-    previewFoto.style.display = "inline-block";
-  };
-
-  leitor.readAsDataURL(ficheiro);
-
-});
+        const file =
+          this.files[0];
 
 
-/* ENVIAR NOVA FOTO PARA CLOUDINARY */
-async function enviarFotoCloudinary(ficheiro) {
-
-  const formData = new FormData();
-
-  formData.append("file", ficheiro);
-  formData.append(
-    "upload_preset",
-    CLOUDINARY_UPLOAD_PRESET
-  );
-
-  const resposta = await fetch(
-    `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`,
-    {
-      method: "POST",
-      body: formData
-    }
-  );
-
-  const dados = await resposta.json();
-
-  if (!resposta.ok) {
-    throw new Error(
-      dados.error?.message ||
-      "Erro ao enviar a foto."
-    );
-  }
-
-  return dados.secure_url;
-}
+        if(
+          !file
+        ) return;
 
 
-/* GUARDAR ALTERAÇÕES */
-form.addEventListener("submit", async (event) => {
+        const reader =
+          new FileReader();
 
-  event.preventDefault();
 
-  if (!usuarioAtual) {
-    mensagem.textContent =
-      "A verificar o login...";
-    return;
-  }
+        reader.onload =
+          function(event){
 
-  try {
+            currentPhoto =
+              event.target.result;
 
-    guardarBtn.disabled = true;
 
-    let fotoURL = fotoAtualURL;
+            showPhoto();
 
-    const novaFoto = fotoInput.files[0];
+          };
 
-    if (novaFoto) {
 
-      mensagem.textContent =
-        "📷 A enviar a nova foto...";
+        reader.readAsDataURL(
+          file
+        );
 
-      fotoURL =
-        await enviarFotoCloudinary(novaFoto);
-    }
-
-    mensagem.textContent =
-      "💾 A guardar alterações...";
-
-    await updateDoc(
-      doc(db, "artistas", usuarioAtual.uid),
-      {
-        nome:
-          document.getElementById("nome").value.trim(),
-
-        foto: fotoURL,
-
-        bio:
-          document.getElementById("bio").value.trim(),
-
-        provincia:
-          document.getElementById("provincia").value.trim(),
-
-        whatsapp:
-          document.getElementById("whatsapp").value.trim(),
-
-        instagram:
-          document.getElementById("instagram").value.trim(),
-
-        tiktok:
-          document.getElementById("tiktok").value.trim(),
-
-        musica:
-          document.getElementById("musica").value.trim(),
-
-        atualizadoEm:
-          new Date().toISOString()
       }
     );
 
-    mensagem.textContent =
-      "Perfil atualizado com sucesso! 👑";
 
-    setTimeout(() => {
-      window.location.href = "perfil.html";
-    }, 1200);
+    /*
+      REMOVER FOTO
+    */
 
-  } catch (erro) {
+    document.querySelector(
+      "#removePhoto"
+    ).addEventListener(
+      "click",
+      function(){
 
-    console.error(erro);
+        currentPhoto = "";
 
-    mensagem.textContent =
-      "Erro: " + erro.message;
+        photoInput.value = "";
 
-    guardarBtn.disabled = false;
+        showPhoto();
 
-  }
+      }
+    );
 
-});
 
-</script>
+    /*
+      CONTADOR DA BIO
+    */
+
+    const bio =
+      document.querySelector(
+        "#bio"
+      );
+
+
+    const bioCount =
+      document.querySelector(
+        "#bioCount"
+      );
+
+
+    function updateBioCount(){
+
+      bioCount.textContent =
+        bio.value.length +
+        " / 500 caracteres";
+
+    }
+
+
+    bio.addEventListener(
+      "input",
+      updateBioCount
+    );
+
+
+    updateBioCount();
+
+
+    /*
+      GUARDAR PERFIL
+    */
+
+    form.addEventListener(
+      "submit",
+      function(event){
+
+        event.preventDefault();
+
+
+        const stageName =
+          document
+          .querySelector(
+            "#stageName"
+          )
+          .value
+          .trim();
+
+
+        let username =
+          document
+          .querySelector(
+            "#username"
+          )
+          .value
+          .trim()
+          .replace(/\s+/g,"");
+
+
+        username =
+          username
+          .replace("@","");
+
+
+        /*
+          GUARDAR DADOS
+        */
+
+        localStorage.setItem(
+          "kpArtistStageName",
+          stageName
+        );
+
+
+        localStorage.setItem(
+          "kpArtistName",
+          stageName
+        );
+
+
+        localStorage.setItem(
+          "kpArtistUsername",
+          username
+        );
+
+
+        localStorage.setItem(
+          "kpArtistBio",
+          bio.value.trim()
+        );
+
+
+        localStorage.setItem(
+          "kpArtistGenre",
+          document
+          .querySelector(
+            "#genre"
+          )
+          .value
+        );
+
+
+        localStorage.setItem(
+          "kpArtistYear",
+          document
+          .querySelector(
+            "#year"
+          )
+          .value
+        );
+
+
+        localStorage.setItem(
+          "kpArtistCity",
+          document
+          .querySelector(
+            "#city"
+          )
+          .value
+          .trim()
+        );
+
+
+        localStorage.setItem(
+          "kpArtistCountry",
+          document
+          .querySelector(
+            "#country"
+          )
+          .value
+          .trim()
+        );
+
+
+        localStorage.setItem(
+          "kpArtistInstagram",
+          document
+          .querySelector(
+            "#instagram"
+          )
+          .value
+          .trim()
+        );
+
+
+        localStorage.setItem(
+          "kpArtistFacebook",
+          document
+          .querySelector(
+            "#facebook"
+          )
+          .value
+          .trim()
+        );
+
+
+        localStorage.setItem(
+          "kpArtistTiktok",
+          document
+          .querySelector(
+            "#tiktok"
+          )
+          .value
+          .trim()
+        );
+
+
+        localStorage.setItem(
+          "kpArtistYoutube",
+          document
+          .querySelector(
+            "#youtube"
+          )
+          .value
+          .trim()
+        );
+
+
+        /*
+          FOTO
+        */
+
+        if(
+          currentPhoto
+        ){
+
+          localStorage.setItem(
+            "kpArtistPhoto",
+            currentPhoto
+          );
+
+        } else {
+
+          localStorage.removeItem(
+            "kpArtistPhoto"
+          );
+
+        }
+
+
+        /*
+          MOSTRAR SUCESSO
+        */
+
+        message.classList.add(
+          "show"
+        );
+
+
+        window.scrollTo({
+          top:0,
+          behavior:"smooth"
+        });
+
+
+        /*
+          REDIRECIONAR
+        */
+
+        setTimeout(
+          function(){
+
+            window.location.href =
+              "meu-perfil.html";
+
+          },
+          1200
+        );
+
+      }
+    );
+
+  </script>
 
 </body>
 </html>
