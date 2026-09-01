@@ -1,271 +1,889 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Área do Artista | KUDURO PRIME</title>
+  <title>Área do Artista — KUDURO PRIME</title>
 
-<style>
-* {
-  box-sizing: border-box;
-}
+  <style>
 
-body {
-  margin: 0;
-  min-height: 100vh;
-  background: #080808;
-  color: white;
-  font-family: Arial, sans-serif;
-}
+    :root{
+      --bg:#070707;
+      --panel:#101010;
+      --panel2:#151515;
+      --gold:#f4bf31;
+      --gold2:#ffdc6b;
+      --text:#f7f4ed;
+      --muted:#aaa59a;
+      --line:#2a271f;
+      --red:#ff563f;
+      --green:#47d17d;
+    }
 
-header {
-  background: #111;
-  padding: 20px;
-  text-align: center;
-  border-bottom: 2px solid #d4af37;
-}
+    *{
+      box-sizing:border-box;
+    }
 
-.logo {
-  color: #d4af37;
-  font-size: 30px;
-  font-weight: bold;
-}
+    html{
+      scroll-behavior:smooth;
+    }
 
-nav {
-  margin-top: 15px;
-}
+    body{
+      margin:0;
+      min-height:100vh;
+      background:
+        radial-gradient(circle at 15% 20%,rgba(244,191,49,.12),transparent 28%),
+        radial-gradient(circle at 85% 80%,rgba(244,191,49,.08),transparent 25%),
+        var(--bg);
+      color:var(--text);
+      font-family:Arial,Helvetica,sans-serif;
+    }
 
-nav a {
-  color: white;
-  margin: 8px;
-  text-decoration: none;
-  font-size: 14px;
-}
+    a{
+      text-decoration:none;
+      color:inherit;
+    }
 
-nav a:hover {
-  color: #d4af37;
-}
+    button,
+    input{
+      font:inherit;
+    }
 
-main {
-  min-height: 70vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 40px 20px;
-}
+    /* NAV */
 
-.painel {
-  width: 100%;
-  max-width: 550px;
-  background: #151515;
-  border: 1px solid #d4af37;
-  border-radius: 18px;
-  padding: 40px;
-  text-align: center;
-}
+    .nav{
+      height:82px;
+      border-bottom:1px solid var(--line);
+      display:flex;
+      align-items:center;
+      background:rgba(7,7,7,.94);
+      backdrop-filter:blur(12px);
+    }
 
-.icone {
-  font-size: 60px;
-}
+    .nav-in{
+      width:min(1180px,92%);
+      margin:auto;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:20px;
+    }
 
-h1 {
-  color: #d4af37;
-  margin-bottom: 15px;
-}
+    .brand{
+      font-size:23px;
+      font-weight:900;
+      line-height:.78;
+      color:#fff;
+      letter-spacing:-1px;
+    }
 
-p {
-  color: #aaa;
-  line-height: 1.6;
-}
+    .brand b{
+      display:block;
+      color:var(--gold);
+    }
 
-.aviso {
-  background: #0d0d0d;
-  border: 1px solid #333;
-  border-radius: 10px;
-  padding: 18px;
-  margin: 25px 0;
-}
+    .crown{
+      display:block;
+      color:var(--gold);
+      font-size:23px;
+      text-align:center;
+      line-height:.6;
+    }
 
-label {
-  display: block;
-  text-align: left;
-  color: #d4af37;
-  font-weight: bold;
-  margin-bottom: 8px;
-}
+    .back-btn{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      border:1px solid var(--line);
+      padding:11px 16px;
+      border-radius:8px;
+      color:#ddd;
+      font-size:12px;
+      font-weight:800;
+      transition:.25s;
+    }
 
-input {
-  width: 100%;
-  padding: 14px;
-  margin: 8px 0 18px;
-  background: #080808;
-  color: white;
-  border: 1px solid #444;
-  border-radius: 8px;
-  font-size: 16px;
-}
+    .back-btn:hover{
+      border-color:var(--gold);
+      color:var(--gold);
+    }
 
-.botao {
-  display: inline-block;
-  width: 100%;
-  padding: 14px 25px;
-  background: #d4af37;
-  color: black;
-  text-decoration: none;
-  font-weight: bold;
-  border-radius: 8px;
-  border: none;
-  cursor: pointer;
-  font-size: 16px;
-}
+    /* LOGIN */
 
-.botao:hover {
-  background: #f5c842;
-}
+    .page{
+      min-height:calc(100vh - 82px);
+      display:grid;
+      place-items:center;
+      padding:55px 0;
+    }
 
-#mensagem {
-  text-align: center;
-  margin-top: 15px;
-  min-height: 25px;
-  color: #d4af37;
-}
+    .login-wrap{
+      width:min(1080px,92%);
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      min-height:620px;
+      background:linear-gradient(145deg,#121212,#090909);
+      border:1px solid var(--line);
+      border-radius:22px;
+      overflow:hidden;
+      box-shadow:0 30px 80px rgba(0,0,0,.45);
+    }
 
-footer {
-  background: #111;
-  text-align: center;
-  padding: 25px;
-  color: #777;
-}
+    /* LADO ESQUERDO */
 
-@media (max-width: 600px) {
-  .painel {
-    padding: 25px 20px;
-  }
+    .login-info{
+      position:relative;
+      padding:60px;
+      display:flex;
+      flex-direction:column;
+      justify-content:flex-end;
+      overflow:hidden;
 
-  h1 {
-    font-size: 26px;
-  }
-}
-</style>
+      background:
+        linear-gradient(
+          180deg,
+          rgba(0,0,0,.08),
+          rgba(0,0,0,.96)
+        ),
+        url('images/artista-1.jpg')
+        center/cover;
+    }
+
+    .login-info:before{
+      content:"";
+      position:absolute;
+      inset:0;
+
+      background:
+        radial-gradient(
+          circle at 50% 30%,
+          rgba(244,191,49,.25),
+          transparent 35%
+        );
+    }
+
+    .info-content{
+      position:relative;
+      z-index:1;
+    }
+
+    .eyebrow{
+      color:var(--gold);
+      font-size:11px;
+      font-weight:900;
+      letter-spacing:3px;
+      margin-bottom:16px;
+    }
+
+    .login-info h1{
+      margin:0;
+      font-size:clamp(45px,5vw,72px);
+      line-height:.88;
+      letter-spacing:-3px;
+      text-transform:uppercase;
+    }
+
+    .login-info h1 span{
+      color:var(--gold);
+    }
+
+    .login-info p{
+      max-width:400px;
+      color:#d5d0c7;
+      line-height:1.6;
+      font-size:15px;
+      margin:22px 0 0;
+    }
+
+    .features{
+      display:grid;
+      gap:12px;
+      margin-top:30px;
+    }
+
+    .feature{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      font-size:13px;
+      font-weight:700;
+    }
+
+    .feature-icon{
+      width:38px;
+      height:38px;
+      display:grid;
+      place-items:center;
+      border:1px solid rgba(244,191,49,.35);
+      border-radius:9px;
+      color:var(--gold);
+      background:rgba(0,0,0,.25);
+    }
+
+    /* FORMULÁRIO */
+
+    .login-panel{
+      padding:60px;
+      display:flex;
+      align-items:center;
+    }
+
+    .form-box{
+      width:100%;
+      max-width:390px;
+      margin:auto;
+    }
+
+    .form-top{
+      margin-bottom:32px;
+    }
+
+    .form-top .small{
+      color:var(--gold);
+      font-size:11px;
+      font-weight:900;
+      letter-spacing:2px;
+    }
+
+    .form-top h2{
+      margin:10px 0 8px;
+      font-size:34px;
+    }
+
+    .form-top p{
+      margin:0;
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.5;
+    }
+
+    .field{
+      margin-bottom:17px;
+    }
+
+    label{
+      display:block;
+      font-size:12px;
+      font-weight:800;
+      margin-bottom:8px;
+      color:#ddd;
+    }
+
+    .input-wrap{
+      position:relative;
+    }
+
+    input{
+      width:100%;
+      height:52px;
+      border-radius:9px;
+      border:1px solid var(--line);
+      background:#0b0b0b;
+      color:white;
+      padding:0 48px 0 15px;
+      outline:none;
+      transition:.25s;
+    }
+
+    input::placeholder{
+      color:#666;
+    }
+
+    input:focus{
+      border-color:var(--gold);
+      box-shadow:0 0 0 3px rgba(244,191,49,.08);
+    }
+
+    .field-icon{
+      position:absolute;
+      right:15px;
+      top:50%;
+      transform:translateY(-50%);
+      color:var(--gold);
+      opacity:.9;
+    }
+
+    .password-btn{
+      position:absolute;
+      right:12px;
+      top:50%;
+      transform:translateY(-50%);
+      background:transparent;
+      border:0;
+      color:var(--gold);
+      cursor:pointer;
+      font-size:16px;
+      padding:6px;
+    }
+
+    .form-options{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:15px;
+      margin:5px 0 24px;
+      font-size:12px;
+    }
+
+    .remember{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      color:var(--muted);
+      cursor:pointer;
+    }
+
+    .remember input{
+      width:15px;
+      height:15px;
+      accent-color:var(--gold);
+      padding:0;
+    }
+
+    .forgot{
+      color:var(--gold);
+      font-weight:800;
+    }
+
+    .forgot:hover{
+      color:var(--gold2);
+    }
+
+    .login-btn{
+      width:100%;
+      height:54px;
+      border:0;
+      border-radius:9px;
+      cursor:pointer;
+      background:linear-gradient(135deg,var(--gold2),var(--gold));
+      color:#17120a;
+      font-weight:900;
+      letter-spacing:.3px;
+      transition:.25s;
+    }
+
+    .login-btn:hover{
+      transform:translateY(-2px);
+      box-shadow:0 10px 30px rgba(244,191,49,.16);
+    }
+
+    .divider{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      color:#666;
+      font-size:11px;
+      margin:25px 0;
+    }
+
+    .divider:before,
+    .divider:after{
+      content:"";
+      height:1px;
+      background:var(--line);
+      flex:1;
+    }
+
+    .create-account{
+      border:1px solid var(--line);
+      border-radius:9px;
+      padding:16px;
+      text-align:center;
+      font-size:13px;
+      color:var(--muted);
+    }
+
+    .create-account a{
+      color:var(--gold);
+      font-weight:900;
+    }
+
+    .create-account a:hover{
+      color:var(--gold2);
+    }
+
+    .message{
+      display:none;
+      margin-bottom:16px;
+      padding:12px 14px;
+      border-radius:8px;
+      font-size:12px;
+    }
+
+    .message.error{
+      display:block;
+      background:rgba(255,86,63,.08);
+      border:1px solid rgba(255,86,63,.3);
+      color:#ff8a79;
+    }
+
+    .message.success{
+      display:block;
+      background:rgba(71,209,125,.08);
+      border:1px solid rgba(71,209,125,.3);
+      color:var(--green);
+    }
+
+    /* RESPONSIVO */
+
+    @media(max-width:850px){
+
+      .login-wrap{
+        grid-template-columns:1fr;
+        max-width:540px;
+      }
+
+      .login-info{
+        min-height:300px;
+        padding:45px;
+      }
+
+      .login-info h1{
+        font-size:48px;
+      }
+
+      .login-panel{
+        padding:45px;
+      }
+
+    }
+
+    @media(max-width:600px){
+
+      .nav{
+        height:70px;
+      }
+
+      .brand{
+        font-size:18px;
+      }
+
+      .crown{
+        font-size:18px;
+      }
+
+      .back-btn{
+        padding:9px 12px;
+        font-size:10px;
+      }
+
+      .page{
+        min-height:calc(100vh - 70px);
+        padding:20px 0;
+      }
+
+      .login-wrap{
+        width:94%;
+        border-radius:16px;
+      }
+
+      .login-info{
+        min-height:250px;
+        padding:30px 25px;
+      }
+
+      .login-info h1{
+        font-size:40px;
+      }
+
+      .login-info p{
+        font-size:13px;
+      }
+
+      .features{
+        display:none;
+      }
+
+      .login-panel{
+        padding:35px 22px;
+      }
+
+      .form-top h2{
+        font-size:28px;
+      }
+
+      .form-options{
+        align-items:flex-start;
+        flex-direction:column;
+      }
+
+    }
+
+  </style>
 </head>
 
 <body>
 
-<header>
-  <div class="logo">👑 KUDURO PRIME</div>
+  <!-- NAVEGAÇÃO -->
 
-  <nav>
-    <a href="index.html">INÍCIO</a>
-    <a href="artistas.html">ARTISTAS</a>
-    <a href="musicas.html">MÚSICAS</a>
-    <a href="ranking.html">RANKING</a>
-    <a href="eventos.html">EVENTOS</a>
-  </nav>
-</header>
+  <nav class="nav">
 
-<main>
-  <section class="painel">
+    <div class="nav-in">
 
-    <div class="icone">🔒👤</div>
+      <a
+        class="brand"
+        href="index.html"
+      >
+        <span class="crown">♕</span>
+        KUDURO
+        <b>PRIME</b>
+      </a>
 
-    <h1>ÁREA DO ARTISTA</h1>
-
-    <p>
-      Entra com os dados de acesso enviados pela equipa do
-      KUDURO PRIME.
-    </p>
-
-    <div class="aviso">
-
-      <form id="loginForm">
-
-        <label for="email">E-MAIL</label>
-        <input
-          type="email"
-          id="email"
-          placeholder="O teu e-mail"
-          required
-        >
-
-        <label for="password">PALAVRA-PASSE</label>
-        <input
-          type="password"
-          id="password"
-          placeholder="A tua palavra-passe"
-          required
-        >
-
-        <button type="submit" class="botao">
-          ENTRAR 👑
-        </button>
-
-        <p id="mensagem"></p>
-
-      </form>
+      <a
+        class="back-btn"
+        href="index.html"
+      >
+        ← VOLTAR AO INÍCIO
+      </a>
 
     </div>
 
-    <a href="juntar-se.html" class="botao">
-      AINDA NÃO ÉS MEMBRO? CANDIDATA-TE 👑
-    </a>
+  </nav>
 
-  </section>
-</main>
 
-<footer>
-  © 2026 KUDURO PRIME — O KUDURO VIVE AQUI 👑
-</footer>
+  <!-- LOGIN -->
 
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+  <main class="page">
 
-import {
-  getAuth,
-  signInWithEmailAndPassword
-} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+    <div class="login-wrap">
 
-const firebaseConfig = {
-  apiKey: "AIzaSyDoitCcLeLDNBNPCP6fG1s_xbHr4UmohSo",
-  authDomain: "kuduro-prime.firebaseapp.com",
-  projectId: "kuduro-prime",
-  storageBucket: "kuduro-prime.firebasestorage.app",
-  messagingSenderId: "299776559545",
-  appId: "1:299776559545:web:04aced1ba25391eb3fce68"
-};
 
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
+      <!-- LADO VISUAL -->
 
-const loginForm = document.getElementById("loginForm");
-const mensagem = document.getElementById("mensagem");
+      <section class="login-info">
 
-loginForm.addEventListener("submit", async (event) => {
-  event.preventDefault();
+        <div class="info-content">
 
-  const email = document.getElementById("email").value.trim();
-  const password = document.getElementById("password").value;
+          <div class="eyebrow">
+            ♕ ÁREA EXCLUSIVA
+          </div>
 
-  mensagem.textContent = "A entrar...";
+          <h1>
+            O TEU<br>
+            <span>PALCO.</span>
+          </h1>
 
-  try {
-    await signInWithEmailAndPassword(auth, email, password);
+          <p>
+            Entra na tua conta e gere a tua carreira
+            no KUDURO PRIME.
+          </p>
 
-    mensagem.textContent = "Login realizado com sucesso! 👑";
+          <div class="features">
 
-    setTimeout(() => {
-      window.location.href =
-  "feed.html";
-    }, 500);
+            <div class="feature">
+              <div class="feature-icon">🎵</div>
+              Publica e gere as tuas músicas
+            </div>
 
-  } catch (error) {
-    console.error(error);
+            <div class="feature">
+              <div class="feature-icon">👑</div>
+              Acompanha a tua posição no ranking
+            </div>
 
-    mensagem.textContent =
-      "Erro no login: " + error.code;
-  }
-});
-</script>
+            <div class="feature">
+              <div class="feature-icon">📊</div>
+              Consulta os teus dados e atividade
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- FORMULÁRIO -->
+
+      <section class="login-panel">
+
+        <div class="form-box">
+
+          <div class="form-top">
+
+            <div class="small">
+              ÁREA DO ARTISTA
+            </div>
+
+            <h2>
+              BEM-VINDO DE VOLTA 👋
+            </h2>
+
+            <p>
+              Entra com os teus dados para continuar.
+            </p>
+
+          </div>
+
+
+          <div
+            id="message"
+            class="message"
+          ></div>
+
+
+          <form id="loginForm">
+
+            <div class="field">
+
+              <label for="email">
+                E-MAIL OU NOME DE UTILIZADOR
+              </label>
+
+              <div class="input-wrap">
+
+                <input
+                  type="text"
+                  id="email"
+                  placeholder="O teu e-mail"
+                  required
+                >
+
+                <span class="field-icon">
+                  👤
+                </span>
+
+              </div>
+
+            </div>
+
+
+            <div class="field">
+
+              <label for="password">
+                PALAVRA-PASSE
+              </label>
+
+              <div class="input-wrap">
+
+                <input
+                  type="password"
+                  id="password"
+                  placeholder="A tua palavra-passe"
+                  required
+                >
+
+                <button
+                  type="button"
+                  class="password-btn"
+                  id="togglePassword"
+                >
+                  👁
+                </button>
+
+              </div>
+
+            </div>
+
+
+            <div class="form-options">
+
+              <label class="remember">
+
+                <input
+                  type="checkbox"
+                  id="remember"
+                >
+
+                <span>
+                  Lembrar de mim
+                </span>
+
+              </label>
+
+              <a
+                href="#"
+                class="forgot"
+                id="forgotPassword"
+              >
+                Esqueci a palavra-passe
+              </a>
+
+            </div>
+
+
+            <button
+              type="submit"
+              class="login-btn"
+            >
+              ENTRAR NA ÁREA DO ARTISTA 👑
+            </button>
+
+          </form>
+
+
+          <div class="divider">
+            AINDA NÃO TENS CONTA?
+          </div>
+
+
+          <div class="create-account">
+
+            Junta-te ao movimento
+
+            <a href="juntar-se.html">
+              CRIAR CONTA 👑
+            </a>
+
+          </div>
+
+        </div>
+
+      </section>
+
+    </div>
+
+  </main>
+
+
+  <script>
+
+    /* MOSTRAR / ESCONDER PASSWORD */
+
+    const password =
+      document.querySelector("#password");
+
+    const togglePassword =
+      document.querySelector("#togglePassword");
+
+
+    togglePassword.addEventListener(
+      "click",
+      () => {
+
+        if(password.type === "password"){
+
+          password.type = "text";
+
+          togglePassword.textContent = "🙈";
+
+        } else {
+
+          password.type = "password";
+
+          togglePassword.textContent = "👁";
+
+        }
+
+      }
+    );
+
+
+    /* LOGIN */
+
+    const loginForm =
+      document.querySelector("#loginForm");
+
+    const message =
+      document.querySelector("#message");
+
+
+    loginForm.addEventListener(
+      "submit",
+      event => {
+
+        event.preventDefault();
+
+
+        const email =
+          document
+          .querySelector("#email")
+          .value
+          .trim();
+
+        const pass =
+          document
+          .querySelector("#password")
+          .value;
+
+
+        if(!email || !pass){
+
+          showMessage(
+            "Preenche todos os campos.",
+            "error"
+          );
+
+          return;
+
+        }
+
+
+        /*
+          TEMPORÁRIO
+
+          Quando ligarmos o KUDURO PRIME
+          ao sistema de utilizadores real,
+          este código será substituído pelo
+          login com Firebase.
+        */
+
+        localStorage.setItem(
+          "kpLoggedIn",
+          "true"
+        );
+
+        localStorage.setItem(
+          "kpArtistName",
+          email
+        );
+
+
+        showMessage(
+          "Login efetuado. A entrar no teu painel...",
+          "success"
+        );
+
+
+        setTimeout(
+          () => {
+
+            window.location.href =
+              "painel-do-artista.html";
+
+          },
+          900
+        );
+
+      }
+    );
+
+
+    /* MENSAGEM */
+
+    function showMessage(
+      text,
+      type
+    ){
+
+      message.textContent =
+        text;
+
+      message.className =
+        "message " + type;
+
+    }
+
+
+    /* ESQUECI PASSWORD */
+
+    document
+      .querySelector("#forgotPassword")
+      .addEventListener(
+        "click",
+        event => {
+
+          event.preventDefault();
+
+          showMessage(
+            "A recuperação de palavra-passe será adicionada em breve.",
+            "error"
+          );
+
+        }
+      );
+
+  </script>
 
 </body>
 </html>
