@@ -8,14 +8,23 @@
 
 <style>
 
+:root{
+  --bg:#080808;
+  --panel:#121212;
+  --line:#292929;
+  --gold:#d4af37;
+  --text:#fff;
+  --muted:#999;
+}
+
 *{
   box-sizing:border-box;
 }
 
 body{
   margin:0;
-  background:#080808;
-  color:#fff;
+  background:var(--bg);
+  color:var(--text);
   font-family:Arial, Helvetica, sans-serif;
 }
 
@@ -23,8 +32,8 @@ body{
 
 .topo{
   height:70px;
-  background:#111;
-  border-bottom:1px solid #292929;
+  background:rgba(8,8,8,.96);
+  border-bottom:1px solid var(--line);
   position:sticky;
   top:0;
   z-index:100;
@@ -42,9 +51,9 @@ body{
 }
 
 .logo{
-  color:#d4af37;
+  color:var(--gold);
   font-size:22px;
-  font-weight:bold;
+  font-weight:900;
   text-decoration:none;
 }
 
@@ -67,176 +76,381 @@ body{
 }
 
 .botao:hover{
-  border-color:#d4af37;
-  color:#d4af37;
+  border-color:var(--gold);
+  color:var(--gold);
 }
 
 .botao-dourado{
-  background:#d4af37;
-  border-color:#d4af37;
+  background:var(--gold);
+  border-color:var(--gold);
   color:#111;
 }
 
 .botao-dourado:hover{
-  color:#111;
   background:#f4c842;
+  color:#111;
 }
 
 /* CONTEÚDO */
 
 main{
-  max-width:1100px;
+  max-width:680px;
   margin:auto;
-  padding:40px 20px 70px;
+  padding:25px 15px 80px;
 }
 
-.cabecalho{
-  margin-bottom:30px;
+/* PESQUISA */
+
+.pesquisa{
+  margin-bottom:25px;
 }
 
-.cabecalho h1{
-  margin:0;
-  font-size:32px;
-  color:#d4af37;
+.pesquisa input{
+  width:100%;
+  background:#151515;
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:15px;
+  color:white;
+  font-size:14px;
+  outline:none;
 }
 
-.cabecalho p{
-  color:#999;
-  margin-top:8px;
+.pesquisa input:focus{
+  border-color:var(--gold);
+}
+
+/* STORIES */
+
+.stories-box{
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:15px;
+  padding:15px;
+  margin-bottom:25px;
+  overflow:hidden;
+}
+
+.stories{
+  display:flex;
+  gap:14px;
+  overflow-x:auto;
+  padding-bottom:5px;
+}
+
+.stories::-webkit-scrollbar{
+  height:4px;
+}
+
+.story{
+  min-width:70px;
+  text-align:center;
+  cursor:pointer;
+}
+
+.story-img{
+  width:62px;
+  height:62px;
+  border-radius:50%;
+  padding:3px;
+  background:linear-gradient(
+    135deg,
+    var(--gold),
+    #fff,
+    var(--gold)
+  );
+  margin:auto;
+}
+
+.story-img img{
+  width:100%;
+  height:100%;
+  border-radius:50%;
+  object-fit:cover;
+  border:3px solid #111;
+  background:#222;
+}
+
+.story-nome{
+  display:block;
+  margin-top:7px;
+  font-size:10px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
 }
 
 /* CARREGAMENTO */
 
 #carregando{
   text-align:center;
-  color:#d4af37;
+  color:var(--gold);
   padding:60px 20px;
-  font-size:18px;
+  font-size:16px;
 }
 
 /* FEED */
 
 .feed{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
+  display:flex;
+  flex-direction:column;
   gap:20px;
 }
 
-/* CARD */
+/* POST */
 
-.artista-card{
-  background:#121212;
-  border:1px solid #292929;
+.post{
+  background:var(--panel);
+  border:1px solid var(--line);
   border-radius:15px;
   overflow:hidden;
-  transition:.25s;
 }
 
-.artista-card:hover{
-  transform:translateY(-5px);
-  border-color:#d4af37;
+.post-topo{
+  padding:14px;
+  display:flex;
+  align-items:center;
+  gap:11px;
 }
 
-.capa{
-  height:260px;
-  position:relative;
+.avatar{
+  width:45px;
+  height:45px;
+  border-radius:50%;
   overflow:hidden;
-  background:#1a1a1a;
+  background:#222;
+  flex:0 0 auto;
+  cursor:pointer;
 }
 
-.capa img{
+.avatar img{
   width:100%;
   height:100%;
   object-fit:cover;
+}
+
+.post-autor{
+  flex:1;
+}
+
+.post-nome{
+  font-weight:bold;
+  font-size:14px;
+  cursor:pointer;
+}
+
+.post-local{
+  color:var(--muted);
+  font-size:11px;
+  margin-top:4px;
+}
+
+/* FOTO */
+
+.post-media img{
+  width:100%;
   display:block;
+  max-height:650px;
+  object-fit:cover;
+  background:#000;
 }
 
-.capa::after{
-  content:"";
-  position:absolute;
-  left:0;
-  right:0;
-  bottom:0;
-  height:90px;
-  background:linear-gradient(
-    transparent,
-    rgba(0,0,0,.8)
-  );
+/* VIDEO */
+
+.post-media video{
+  width:100%;
+  display:block;
+  max-height:650px;
+  background:#000;
 }
 
-/* INFORMAÇÃO */
+/* MÚSICA */
 
-.info{
-  padding:16px;
+.musica-box{
+  min-height:300px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  padding:30px;
+  text-align:center;
+
+  background:
+    radial-gradient(
+      circle at top,
+      rgba(212,175,55,.22),
+      transparent 45%
+    ),
+    #111;
 }
 
-.nome{
-  font-size:18px;
+.musica-capa{
+  width:200px;
+  height:200px;
+  border-radius:15px;
+  overflow:hidden;
+  background:#222;
+  box-shadow:0 15px 50px rgba(0,0,0,.5);
+  margin-bottom:20px;
+}
+
+.musica-capa img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.musica-titulo{
+  font-size:20px;
   font-weight:bold;
   margin-bottom:7px;
 }
 
-.provincia{
-  color:#aaa;
+.musica-artista{
+  color:var(--gold);
   font-size:13px;
-  margin-bottom:16px;
 }
 
-.ver-perfil{
-  display:block;
-  text-align:center;
-  padding:11px;
-  border:1px solid #d4af37;
-  color:#d4af37;
-  border-radius:8px;
-  text-decoration:none;
-  font-size:12px;
+/* AUDIO */
+
+.audio-box{
+  padding:15px;
+  background:#0d0d0d;
+  border-top:1px solid var(--line);
+}
+
+.audio-box audio{
+  width:100%;
+}
+
+/* AÇÕES */
+
+.post-acoes{
+  padding:13px 15px 8px;
+  display:flex;
+  gap:18px;
+}
+
+.acao{
+  background:none;
+  border:0;
+  color:white;
+  font-size:21px;
+  cursor:pointer;
+  padding:0;
+}
+
+.acao:hover{
+  color:var(--gold);
+}
+
+.acao.ativo{
+  color:#ff4b5c;
+}
+
+/* TEXTO */
+
+.post-conteudo{
+  padding:0 15px 16px;
+}
+
+.likes{
+  font-size:13px;
   font-weight:bold;
+  margin-bottom:9px;
 }
 
-.ver-perfil:hover{
-  background:#d4af37;
-  color:#111;
+.legenda{
+  font-size:14px;
+  line-height:1.5;
 }
 
-/* SEM ARTISTAS */
+.legenda b{
+  margin-right:5px;
+}
+
+.data-post{
+  margin-top:12px;
+  font-size:10px;
+  color:#777;
+  text-transform:uppercase;
+}
+
+/* COMENTÁRIOS */
+
+.comentarios{
+  border-top:1px solid var(--line);
+  padding:15px;
+  display:none;
+}
+
+.comentarios.aberto{
+  display:block;
+}
+
+.lista-comentarios{
+  margin-bottom:12px;
+}
+
+.comentario{
+  margin-bottom:10px;
+  font-size:13px;
+  line-height:1.4;
+}
+
+.comentar{
+  display:flex;
+  gap:8px;
+}
+
+.comentar input{
+  flex:1;
+  background:#1b1b1b;
+  border:1px solid #333;
+  border-radius:8px;
+  padding:10px;
+  color:white;
+  outline:none;
+}
+
+.comentar button{
+  background:var(--gold);
+  border:0;
+  border-radius:8px;
+  padding:0 13px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+/* SEM POSTS */
 
 .vazio{
-  grid-column:1/-1;
   background:#111;
-  border:1px solid #292929;
+  border:1px solid var(--line);
   border-radius:15px;
   padding:50px 20px;
   text-align:center;
 }
 
 .vazio h2{
-  color:#d4af37;
+  color:var(--gold);
   margin-top:0;
 }
 
 .vazio p{
-  color:#999;
+  color:var(--muted);
 }
 
-/* RESPONSIVO */
+/* MOBILE */
 
-@media(max-width:850px){
-
-  .feed{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-}
-
-@media(max-width:600px){
+@media(max-width:650px){
 
   .topo{
     height:auto;
   }
 
   .topo-in{
-    padding:15px;
+    padding:12px 15px;
     flex-wrap:wrap;
   }
 
@@ -251,20 +465,17 @@ main{
     flex-wrap:wrap;
   }
 
+  .acoes .botao{
+    padding:9px 10px;
+    font-size:10px;
+  }
+
   main{
-    padding:30px 15px 60px;
+    padding:20px 10px 70px;
   }
 
-  .cabecalho h1{
-    font-size:26px;
-  }
-
-  .feed{
-    grid-template-columns:1fr;
-  }
-
-  .capa{
-    height:330px;
+  .post{
+    border-radius:12px;
   }
 
 }
@@ -275,15 +486,13 @@ main{
 
 <body>
 
-
 <header class="topo">
 
   <div class="topo-in">
 
-    <a href="index.html" class="logo">
+    <a href="feed.html" class="logo">
       👑 KUDURO PRIME
     </a>
-
 
     <div class="acoes">
 
@@ -294,14 +503,12 @@ main{
         👤 MEU PERFIL
       </a>
 
-
       <a
         href="painel-do-artista.html"
         class="botao"
       >
         ⚙️ PAINEL
       </a>
-
 
       <button
         id="sair"
@@ -316,42 +523,55 @@ main{
 
 </header>
 
-
 <main>
 
+  <!-- PESQUISA -->
 
-  <div class="cabecalho">
+  <div class="pesquisa">
 
-    <h1>
-      👑 ARTISTAS KUDURO PRIME
-    </h1>
-
-    <p>
-      Descobre os artistas que fazem parte do movimento.
-    </p>
+    <input
+      type="text"
+      id="pesquisa"
+      placeholder="🔍 Pesquisar artistas..."
+    >
 
   </div>
 
+
+  <!-- STORIES -->
+
+  <div class="stories-box">
+
+    <div
+      class="stories"
+      id="stories"
+    ></div>
+
+  </div>
+
+
+  <!-- CARREGAMENTO -->
 
   <div id="carregando">
-
-    A carregar artistas... 👑
-
+    A carregar o KUDURO PRIME... 👑
   </div>
 
+
+  <!-- FEED -->
 
   <div
     id="feed"
     class="feed"
   ></div>
 
-
 </main>
 
 
 <script type="module">
 
-import { initializeApp } from
+import {
+  initializeApp
+} from
 "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
 
 
@@ -366,14 +586,21 @@ import {
 import {
   getFirestore,
   collection,
-  getDocs
+  getDocs,
+  doc,
+  getDoc,
+  addDoc,
+  serverTimestamp,
+  query,
+  orderBy
 } from
 "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 
 
 const firebaseConfig = {
 
-  apiKey: "AIzaSyDoitCcLeLDNBNPCP6fG1s_xbHr4UmohSo",
+  apiKey:
+  "AIzaSyDoitCcLeLDNBNPCP6fG1s_xbHr4UmohSo",
 
   authDomain:
   "kuduro-prime.firebaseapp.com",
@@ -409,15 +636,27 @@ const feed =
   document.getElementById("feed");
 
 
+const stories =
+  document.getElementById("stories");
+
+
 const carregando =
   document.getElementById("carregando");
 
 
-/* VERIFICA LOGIN */
+const pesquisa =
+  document.getElementById("pesquisa");
+
+
+let todosArtistas = [];
+let todosPosts = [];
+
+
+/* LOGIN */
 
 onAuthStateChanged(
   auth,
-  async (user) => {
+  async(user) => {
 
     if(!user){
 
@@ -428,157 +667,784 @@ onAuthStateChanged(
 
     }
 
+    await carregarFeed();
 
-    try{
+  }
+);
 
 
-      const artistasRef =
+/* CARREGAR */
+
+async function carregarFeed(){
+
+  try{
+
+
+    const artistasSnapshot =
+      await getDocs(
         collection(
           db,
           "artistas"
-        );
-
-
-      const artistasSnapshot =
-        await getDocs(
-          artistasRef
-        );
-
-
-      carregando.style.display =
-        "none";
-
-
-      if(
-        artistasSnapshot.empty
-      ){
-
-        feed.innerHTML = `
-
-          <div class="vazio">
-
-            <h2>
-              Ainda não existem artistas.
-            </h2>
-
-            <p>
-              Sê o primeiro artista a criar um perfil
-              no KUDURO PRIME.
-            </p>
-
-          </div>
-
-        `;
-
-        return;
-
-      }
-
-
-      artistasSnapshot.forEach(
-        (docArtista) => {
-
-
-          const artista =
-            docArtista.data();
-
-
-          const uid =
-            docArtista.id;
-
-
-          const foto =
-            artista.foto || "";
-
-
-          const nome =
-            artista.nome ||
-            "Artista KUDURO PRIME";
-
-
-          const provincia =
-            artista.provincia ||
-            "Angola";
-
-
-          feed.innerHTML += `
-
-            <article
-              class="artista-card"
-            >
-
-
-              <div class="capa">
-
-                <img
-                  src="${foto}"
-                  alt="${nome}"
-                  onerror="
-                    this.style.display='none'
-                  "
-                >
-
-              </div>
-
-
-              <div class="info">
-
-
-                <div class="nome">
-
-                  ${nome}
-
-                </div>
-
-
-                <div class="provincia">
-
-                  📍 ${provincia}
-
-                </div>
-
-
-                <a
-                  href="perfil.html?id=${uid}"
-                  class="ver-perfil"
-                >
-
-                  VER PERFIL
-
-                </a>
-
-
-              </div>
-
-
-            </article>
-
-          `;
-
-
-        }
-
+        )
       );
 
+
+    todosArtistas = [];
+
+
+    artistasSnapshot.forEach(
+      docArtista => {
+
+        todosArtistas.push({
+
+          uid:
+            docArtista.id,
+
+          ...docArtista.data()
+
+        });
+
+      }
+    );
+
+
+    mostrarStories();
+
+
+    let postsSnapshot;
+
+
+    try{
+
+      postsSnapshot =
+        await getDocs(
+          query(
+            collection(db,"posts"),
+            orderBy(
+              "criadoEm",
+              "desc"
+            )
+          )
+        );
 
     }
     catch(erro){
 
-
-      console.error(
-        erro
-      );
-
-
-      carregando.textContent =
-        "Erro ao carregar os artistas.";
-
+      postsSnapshot =
+        await getDocs(
+          collection(
+            db,
+            "posts"
+          )
+        );
 
     }
 
 
+    todosPosts = [];
+
+
+    postsSnapshot.forEach(
+      docPost => {
+
+        todosPosts.push({
+
+          id:
+            docPost.id,
+
+          ...docPost.data()
+
+        });
+
+      }
+    );
+
+
+    carregando.style.display =
+      "none";
+
+
+    mostrarPosts(
+      todosPosts
+    );
+
+
+  }
+  catch(erro){
+
+
+    console.error(erro);
+
+
+    carregando.textContent =
+      "Erro ao carregar o feed.";
+
+
   }
 
+}
+
+
+/* STORIES */
+
+function mostrarStories(){
+
+  stories.innerHTML = "";
+
+
+  todosArtistas.forEach(
+    artista => {
+
+
+      const foto =
+        artista.foto ||
+        "";
+
+
+      const nome =
+        artista.nome ||
+        "Artista";
+
+
+      stories.innerHTML += `
+
+        <div
+          class="story"
+          onclick="
+            window.location.href=
+            'perfil.html?id=${artista.uid}'
+          "
+        >
+
+          <div class="story-img">
+
+            <img
+              src="${foto}"
+              alt="${nome}"
+              onerror="
+                this.src=
+                'https://via.placeholder.com/100?text=👤'
+              "
+            >
+
+          </div>
+
+          <span class="story-nome">
+
+            ${nome}
+
+          </span>
+
+        </div>
+
+      `;
+
+
+    }
+  );
+
+}
+
+
+/* POSTS */
+
+function mostrarPosts(posts){
+
+  feed.innerHTML = "";
+
+
+  if(posts.length === 0){
+
+    feed.innerHTML = `
+
+      <div class="vazio">
+
+        <h2>
+          👑 Ainda não existem publicações
+        </h2>
+
+        <p>
+          Os artistas poderão publicar
+          fotos, músicas e vídeos.
+        </p>
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  posts.forEach(
+    post => {
+
+      criarPost(post);
+
+    }
+  );
+
+}
+
+
+/* CRIAR POST */
+
+function criarPost(post){
+
+
+  const tipo =
+    post.tipo || "foto";
+
+
+  const nome =
+    post.nomeArtista ||
+    "Artista KUDURO PRIME";
+
+
+  const fotoPerfil =
+    post.fotoPerfil ||
+    "";
+
+
+  const provincia =
+    post.provincia ||
+    "Angola";
+
+
+  const uid =
+    post.uid || "";
+
+
+  const media =
+    post.mediaUrl ||
+    post.url ||
+    "";
+
+
+  const legenda =
+    post.legenda ||
+    "";
+
+
+  const tituloMusica =
+    post.titulo ||
+    "Nova Música";
+
+
+  const audio =
+    post.audioUrl ||
+    "";
+
+
+  let mediaHTML = "";
+
+
+  if(tipo === "foto"){
+
+    mediaHTML = `
+
+      <div class="post-media">
+
+        <img
+          src="${media}"
+          alt="Publicação de ${nome}"
+        >
+
+      </div>
+
+    `;
+
+  }
+
+
+  if(tipo === "video"){
+
+    mediaHTML = `
+
+      <div class="post-media">
+
+        <video
+          controls
+          preload="metadata"
+        >
+
+          <source
+            src="${media}"
+          >
+
+        </video>
+
+      </div>
+
+    `;
+
+  }
+
+
+  if(tipo === "musica"){
+
+    mediaHTML = `
+
+      <div class="musica-box">
+
+        <div class="musica-capa">
+
+          <img
+            src="${media}"
+            alt="${tituloMusica}"
+          >
+
+        </div>
+
+        <div class="musica-titulo">
+
+          🎵 ${tituloMusica}
+
+        </div>
+
+        <div class="musica-artista">
+
+          ${nome}
+
+        </div>
+
+      </div>
+
+      <div class="audio-box">
+
+        <audio controls>
+
+          <source
+            src="${audio}"
+          >
+
+        </audio>
+
+      </div>
+
+    `;
+
+  }
+
+
+  feed.innerHTML += `
+
+    <article
+      class="post"
+      data-nome="${nome.toLowerCase()}"
+    >
+
+
+      <div class="post-topo">
+
+
+        <div
+          class="avatar"
+          onclick="
+            abrirPerfil('${uid}')
+          "
+        >
+
+          <img
+            src="${fotoPerfil}"
+            alt="${nome}"
+            onerror="
+              this.src=
+              'https://via.placeholder.com/100?text=👤'
+            "
+          >
+
+        </div>
+
+
+        <div class="post-autor">
+
+
+          <div
+            class="post-nome"
+            onclick="
+              abrirPerfil('${uid}')
+            "
+          >
+
+            ${nome}
+
+          </div>
+
+
+          <div class="post-local">
+
+            📍 ${provincia}
+
+          </div>
+
+
+        </div>
+
+
+      </div>
+
+
+      ${mediaHTML}
+
+
+      <div class="post-acoes">
+
+
+        <button
+          class="acao"
+          onclick="
+            gostar(this)
+          "
+        >
+
+          ♡
+
+        </button>
+
+
+        <button
+          class="acao"
+          onclick="
+            abrirComentarios(
+              '${post.id}'
+            )
+          "
+        >
+
+          💬
+
+        </button>
+
+
+        <button
+          class="acao"
+          onclick="
+            partilharPost(
+              '${uid}'
+            )
+          "
+        >
+
+          ↗
+
+        </button>
+
+
+      </div>
+
+
+      <div class="post-conteudo">
+
+
+        <div
+          class="likes"
+        >
+
+          ❤️ 0 gostos
+
+        </div>
+
+
+        <div
+          class="legenda"
+        >
+
+          <b>${nome}</b>
+
+          ${legenda}
+
+        </div>
+
+
+        <div
+          class="data-post"
+        >
+
+          PUBLICADO NO KUDURO PRIME
+
+        </div>
+
+
+      </div>
+
+
+      <div
+        class="comentarios"
+        id="comentarios-${post.id}"
+      >
+
+
+        <div
+          class="lista-comentarios"
+          id="lista-${post.id}"
+        ></div>
+
+
+        <div
+          class="comentar"
+        >
+
+
+          <input
+            type="text"
+            id="input-${post.id}"
+            placeholder="Escreve um comentário..."
+          >
+
+
+          <button
+            onclick="
+              comentar('${post.id}')
+            "
+          >
+
+            ENVIAR
+
+          </button>
+
+
+        </div>
+
+
+      </div>
+
+
+    </article>
+
+  `;
+
+}
+
+
+/* ABRIR PERFIL */
+
+window.abrirPerfil =
+function(uid){
+
+  if(!uid){
+    return;
+  }
+
+  window.location.href =
+    `perfil.html?id=${uid}`;
+
+};
+
+
+/* GOSTAR */
+
+window.gostar =
+function(botao){
+
+  const ativo =
+    botao.classList.contains(
+      "ativo"
+    );
+
+
+  const post =
+    botao.closest(
+      ".post"
+    );
+
+
+  const likes =
+    post.querySelector(
+      ".likes"
+    );
+
+
+  if(ativo){
+
+    botao.classList.remove(
+      "ativo"
+    );
+
+    botao.innerHTML =
+      "♡";
+
+    likes.innerHTML =
+      "❤️ 0 gostos";
+
+  }
+  else{
+
+    botao.classList.add(
+      "ativo"
+    );
+
+    botao.innerHTML =
+      "♥";
+
+    likes.innerHTML =
+      "❤️ 1 gosto";
+
+  }
+
+};
+
+
+/* COMENTÁRIOS */
+
+window.abrirComentarios =
+function(postId){
+
+  const caixa =
+    document.getElementById(
+      `comentarios-${postId}`
+    );
+
+
+  caixa.classList.toggle(
+    "aberto"
+  );
+
+};
+
+
+window.comentar =
+function(postId){
+
+  const input =
+    document.getElementById(
+      `input-${postId}`
+    );
+
+
+  const lista =
+    document.getElementById(
+      `lista-${postId}`
+    );
+
+
+  const texto =
+    input.value.trim();
+
+
+  if(!texto){
+
+    return;
+
+  }
+
+
+  const nome =
+    auth.currentUser?.displayName ||
+    "Artista";
+
+
+  lista.innerHTML += `
+
+    <div class="comentario">
+
+      <b>
+        ${nome}
+      </b>
+
+      ${texto}
+
+    </div>
+
+  `;
+
+
+  input.value = "";
+
+};
+
+
+/* PARTILHAR */
+
+window.partilharPost =
+function(uid){
+
+  const link =
+    `${window.location.origin}${window.location.pathname}?artista=${uid}`;
+
+
+  if(
+    navigator.share
+  ){
+
+    navigator.share({
+
+      title:
+        "KUDURO PRIME",
+
+      text:
+        "Vê este artista no KUDURO PRIME",
+
+      url:
+        link
+
+    });
+
+  }
+  else{
+
+    navigator.clipboard
+      .writeText(link);
+
+
+    alert(
+      "Link copiado!"
+    );
+
+  }
+
+};
+
+
+/* PESQUISA */
+
+pesquisa.addEventListener(
+  "input",
+  () => {
+
+
+    const texto =
+      pesquisa.value
+      .toLowerCase()
+      .trim();
+
+
+    const resultado =
+      todosPosts.filter(
+        post => {
+
+          const nome =
+            (
+              post.nomeArtista ||
+              ""
+            )
+            .toLowerCase();
+
+
+          const titulo =
+            (
+              post.titulo ||
+              ""
+            )
+            .toLowerCase();
+
+
+          return (
+            nome.includes(texto) ||
+            titulo.includes(texto)
+          );
+
+        }
+      );
+
+
+    mostrarPosts(
+      resultado
+    );
+
+
+  }
 );
 
 
@@ -588,7 +1454,7 @@ document
   .getElementById("sair")
   .addEventListener(
     "click",
-    async () => {
+    async() => {
 
 
       await signOut(auth);
@@ -601,9 +1467,7 @@ document
     }
   );
 
-
 </script>
-
 
 </body>
 </html>
