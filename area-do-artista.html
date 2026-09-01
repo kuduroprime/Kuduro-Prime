@@ -467,10 +467,65 @@ onAuthStateChanged(
 
 loginForm.addEventListener(
   "submit",
-  async(event) => {
-
+  event => {
 
     event.preventDefault();
+
+    const email =
+      document
+        .querySelector("#email")
+        .value
+        .trim();
+
+    const pass =
+      document
+        .querySelector("#password")
+        .value;
+
+    if(!email || !pass){
+
+      showMessage(
+        "Preenche todos os campos.",
+        "error"
+      );
+
+      return;
+
+    }
+
+    /* GUARDA A SESSÃO */
+
+    localStorage.setItem(
+      "kpArtistLoggedIn",
+      "true"
+    );
+
+    localStorage.setItem(
+      "kpArtistName",
+      email
+    );
+
+    /* MOSTRA A MENSAGEM */
+
+    showMessage(
+      "Login efetuado. A entrar no teu painel...",
+      "success"
+    );
+
+    /* ENTRA NO PAINEL */
+
+    setTimeout(
+      () => {
+
+        window.location.href =
+          "painel-do-artista.html";
+
+      },
+      900
+    );
+
+  }
+);
 
 
     const email =
