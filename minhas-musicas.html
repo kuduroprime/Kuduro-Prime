@@ -52,178 +52,10 @@
       text-decoration:none;
     }
 
-    /* ==================================
-       ECRÃ DE LOGIN
-    ================================== */
-
-    .auth-screen{
-      position:fixed;
-      inset:0;
-      z-index:9999;
-
-      display:flex;
-      align-items:center;
-      justify-content:center;
-
-      padding:20px;
-
-      background:
-        radial-gradient(
-          circle at top,
-          rgba(244,191,49,.14),
-          transparent 40%
-        ),
-        #070707;
-    }
-
-    .auth-screen.hidden{
-      display:none;
-    }
-
-    .login-card{
-      width:min(430px,100%);
-      padding:35px;
-
-      border:1px solid #3a3018;
-      border-radius:20px;
-
-      background:
-        linear-gradient(
-          145deg,
-          #15120b,
-          #0a0a0a
-        );
-
-      box-shadow:
-        0 25px 80px
-        rgba(0,0,0,.6);
-    }
-
-    .login-logo{
-      text-align:center;
-      margin-bottom:30px;
-    }
-
-    .login-crown{
-      display:block;
-      color:var(--gold);
-      font-size:42px;
-      margin-bottom:10px;
-    }
-
-    .login-logo h1{
-      margin:0;
-      font-size:25px;
-    }
-
-    .login-logo h1 span{
-      color:var(--gold);
-    }
-
-    .login-logo p{
-      margin:10px 0 0;
-      color:var(--muted);
-      font-size:12px;
-    }
-
-    .login-field{
-      margin-bottom:15px;
-    }
-
-    .login-field label{
-      display:block;
-      margin-bottom:7px;
-      color:#cfc8ba;
-      font-size:10px;
-      font-weight:900;
-    }
-
-    .login-field input{
-      width:100%;
-      padding:15px;
-      border-radius:9px;
-
-      border:1px solid var(--line);
-
-      outline:none;
-
-      background:#080808;
-      color:white;
-    }
-
-    .login-field input:focus{
-      border-color:var(--gold);
-    }
-
-    .login-btn{
-      width:100%;
-      min-height:48px;
-
-      margin-top:5px;
-
-      border:0;
-      border-radius:9px;
-
-      cursor:pointer;
-
-      font-weight:900;
-
-      color:#17120a;
-
-      background:
-        linear-gradient(
-          135deg,
-          var(--gold2),
-          var(--gold)
-        );
-    }
-
-    .login-message{
-      display:none;
-
-      margin-top:15px;
-      padding:12px;
-
-      border-radius:8px;
-
-      font-size:11px;
-      text-align:center;
-
-      background:#321313;
-      color:#ff9d8e;
-    }
-
-    .login-message.show{
-      display:block;
-    }
-
-    .login-bottom{
-      margin-top:20px;
-
-      text-align:center;
-
-      color:var(--muted);
-
-      font-size:11px;
-    }
-
-    .login-bottom a{
-      color:var(--gold);
-      font-weight:900;
-    }
-
-    /* ==================================
-       SITE
-    ================================== */
-
     .app{
       min-height:100vh;
-      display:none;
-      grid-template-columns:260px 1fr;
-    }
-
-    .app.show{
       display:grid;
+      grid-template-columns:260px 1fr;
     }
 
     .sidebar{
@@ -276,19 +108,15 @@
 
     .artist-mini{
       display:flex;
-
       align-items:center;
-
       gap:10px;
 
       padding:12px;
-
       margin-bottom:20px;
 
       border-radius:10px;
 
       background:#121212;
-
       border:1px solid var(--line);
     }
 
@@ -297,7 +125,6 @@
       height:42px;
 
       border-radius:50%;
-
       overflow:hidden;
 
       background:#1a1609;
@@ -313,7 +140,6 @@
     .mini-photo img{
       width:100%;
       height:100%;
-
       object-fit:cover;
     }
 
@@ -327,9 +153,7 @@
       font-size:11px;
 
       white-space:nowrap;
-
       overflow:hidden;
-
       text-overflow:ellipsis;
     }
 
@@ -341,7 +165,6 @@
       color:var(--gold);
 
       font-size:9px;
-
       font-weight:900;
     }
 
@@ -353,7 +176,6 @@
       color:#777;
 
       font-size:9px;
-
       font-weight:900;
 
       letter-spacing:1px;
@@ -365,22 +187,18 @@
       border-radius:8px;
 
       display:flex;
-
       align-items:center;
-
       gap:10px;
 
       color:#aaa;
 
       font-size:11px;
-
       font-weight:800;
     }
 
     .side-link:hover,
     .side-link.active{
       color:var(--gold);
-
       background:#18140a;
     }
 
@@ -396,7 +214,6 @@
       width:100%;
 
       border:0;
-
       background:transparent;
 
       color:#d27b6e;
@@ -406,7 +223,6 @@
       text-align:left;
 
       font-size:11px;
-
       font-weight:900;
 
       cursor:pointer;
@@ -424,29 +240,23 @@
       border-bottom:1px solid var(--line);
 
       display:flex;
-
       align-items:center;
-
       justify-content:space-between;
 
       gap:20px;
 
       position:sticky;
-
       top:0;
 
       z-index:30;
 
-      background:
-        rgba(7,7,7,.94);
+      background:rgba(7,7,7,.94);
 
-      backdrop-filter:
-        blur(12px);
+      backdrop-filter:blur(12px);
     }
 
     .topbar h2{
       margin:0;
-
       font-size:18px;
     }
 
@@ -460,9 +270,7 @@
 
     .top-actions{
       display:flex;
-
       gap:10px;
-
       align-items:center;
     }
 
@@ -472,9 +280,7 @@
       padding:0 16px;
 
       display:inline-flex;
-
       align-items:center;
-
       justify-content:center;
 
       gap:7px;
@@ -488,7 +294,6 @@
       color:var(--gold);
 
       font-size:10px;
-
       font-weight:900;
 
       cursor:pointer;
@@ -515,9 +320,7 @@
 
     .intro{
       display:flex;
-
       align-items:end;
-
       justify-content:space-between;
 
       gap:20px;
@@ -527,7 +330,6 @@
 
     .intro h1{
       margin:0;
-
       font-size:32px;
     }
 
@@ -587,7 +389,6 @@
       color:#cfc8ba;
 
       font-size:10px;
-
       font-weight:900;
     }
 
@@ -613,7 +414,6 @@
 
     textarea{
       min-height:90px;
-
       resize:vertical;
     }
 
@@ -625,13 +425,21 @@
 
     input[type="file"]{
       padding:11px;
-
       cursor:pointer;
+    }
+
+    .file-note{
+      display:block;
+
+      margin-top:7px;
+
+      color:var(--muted);
+
+      font-size:10px;
     }
 
     .form-actions{
       display:flex;
-
       justify-content:flex-end;
 
       gap:10px;
@@ -658,9 +466,7 @@
       padding:20px;
 
       display:flex;
-
       justify-content:space-between;
-
       align-items:center;
 
       border-bottom:1px solid var(--line);
@@ -668,7 +474,6 @@
 
     .songs-head h3{
       margin:0;
-
       font-size:15px;
     }
 
@@ -676,7 +481,6 @@
       color:var(--gold);
 
       font-size:11px;
-
       font-weight:900;
     }
 
@@ -713,11 +517,9 @@
       background-color:#1a1609;
 
       background-position:center;
-
       background-size:cover;
 
       display:grid;
-
       place-items:center;
 
       font-size:25px;
@@ -727,7 +529,6 @@
 
     .song-info strong{
       display:block;
-
       font-size:14px;
     }
 
@@ -767,13 +568,11 @@
       color:#aaa;
 
       font-size:9px;
-
       font-weight:800;
     }
 
     .badge.active{
       background:#123524;
-
       color:var(--green);
     }
 
@@ -804,19 +603,16 @@
 
     .icon-btn:hover{
       border-color:var(--gold);
-
       color:var(--gold);
     }
 
     .delete-btn:hover{
       border-color:var(--red);
-
       color:var(--red);
     }
 
     .empty{
       padding:70px 20px;
-
       text-align:center;
     }
 
@@ -824,11 +620,9 @@
       width:70px;
       height:70px;
 
-      margin:
-        auto auto 18px;
+      margin:auto auto 18px;
 
       display:grid;
-
       place-items:center;
 
       border-radius:50%;
@@ -842,7 +636,6 @@
 
     .empty h3{
       margin:0;
-
       font-size:17px;
     }
 
@@ -858,28 +651,21 @@
       display:none;
 
       border:0;
-
       background:transparent;
 
       color:white;
 
       font-size:22px;
-
       cursor:pointer;
     }
 
-    @media(max-width:850px){
-
-      .app.show{
-        grid-template-columns:
-          220px 1fr;
-      }
-
+    #audioPlayer{
+      display:none;
     }
 
     @media(max-width:760px){
 
-      .app.show{
+      .app{
         display:block;
       }
 
@@ -887,7 +673,6 @@
         position:fixed;
 
         top:0;
-
         left:-280px;
 
         width:260px;
@@ -920,7 +705,6 @@
 
       .intro{
         align-items:start;
-
         flex-direction:column;
       }
 
@@ -948,7 +732,6 @@
 
       .song-actions{
         grid-column:1/-1;
-
         justify-content:flex-start;
       }
 
@@ -960,10 +743,6 @@
         flex:1;
       }
 
-      .login-card{
-        padding:25px;
-      }
-
     }
 
   </style>
@@ -972,102 +751,7 @@
 
 <body>
 
-  <!-- ==============================
-       LOGIN
-  ============================== -->
-
-  <div
-    class="auth-screen"
-    id="authScreen"
-  >
-
-    <div class="login-card">
-
-      <div class="login-logo">
-
-        <span class="login-crown">
-          ♕
-        </span>
-
-        <h1>
-          KUDURO <span>PRIME</span>
-        </h1>
-
-        <p>
-          Entra na tua conta de artista
-        </p>
-
-      </div>
-
-      <form id="loginForm">
-
-        <div class="login-field">
-
-          <label>
-            EMAIL
-          </label>
-
-          <input
-            type="email"
-            id="loginEmail"
-            placeholder="teuemail@gmail.com"
-            required
-          >
-
-        </div>
-
-        <div class="login-field">
-
-          <label>
-            PALAVRA-PASSE
-          </label>
-
-          <input
-            type="password"
-            id="loginPassword"
-            placeholder="A tua palavra-passe"
-            required
-          >
-
-        </div>
-
-        <button
-          type="submit"
-          class="login-btn"
-        >
-          ENTRAR
-        </button>
-
-        <div
-          class="login-message"
-          id="loginMessage"
-        ></div>
-
-      </form>
-
-      <div class="login-bottom">
-
-        Ainda não tens uma conta?
-
-        <a href="cadastro.html">
-          CRIAR CONTA
-        </a>
-
-      </div>
-
-    </div>
-
-  </div>
-
-
-  <!-- ==============================
-       ÁREA DAS MÚSICAS
-  ============================== -->
-
-  <div
-    class="app"
-    id="app"
-  >
+  <div class="app">
 
     <aside
       class="sidebar"
@@ -1247,8 +931,7 @@
             </h1>
 
             <p>
-              Aqui estão todas as músicas publicadas
-              no teu perfil KUDURO PRIME.
+              Escolhe a música diretamente da pasta do teu computador.
             </p>
 
           </div>
@@ -1274,13 +957,8 @@
               🎵 Publicar Nova Música
             </h2>
 
-            <p
-              style="
-                color:var(--muted);
-                font-size:11px
-              "
-            >
-              Preenche as informações do teu lançamento.
+            <p style="color:var(--muted);font-size:11px">
+              Escolhe a música e a capa diretamente da tua pasta.
             </p>
 
           </div>
@@ -1385,6 +1063,26 @@
               <div class="field full">
 
                 <label>
+                  FICHEIRO DA MÚSICA *
+                </label>
+
+                <input
+                  type="file"
+                  id="songFile"
+                  accept="audio/*"
+                  required
+                >
+
+                <small class="file-note">
+                  Escolhe MP3, WAV ou outro ficheiro de áudio diretamente da tua pasta.
+                </small>
+
+              </div>
+
+
+              <div class="field full">
+
+                <label>
                   CAPA DA MÚSICA
                 </label>
 
@@ -1394,20 +1092,9 @@
                   accept="image/*"
                 >
 
-              </div>
-
-
-              <div class="field full">
-
-                <label>
-                  LINK DA MÚSICA
-                </label>
-
-                <input
-                  type="url"
-                  id="songLink"
-                  placeholder="https://..."
-                >
+                <small class="file-note">
+                  Escolhe a imagem da capa diretamente da tua pasta.
+                </small>
 
               </div>
 
@@ -1441,6 +1128,7 @@
               <button
                 type="submit"
                 class="btn gold"
+                id="publishButton"
               >
                 ♕ PUBLICAR MÚSICA
               </button>
@@ -1483,6 +1171,12 @@
   </div>
 
 
+  <audio
+    id="audioPlayer"
+    controls
+  ></audio>
+
+
   <script type="module">
 
     import {
@@ -1494,8 +1188,7 @@
     import {
       getAuth,
       onAuthStateChanged,
-      signOut,
-      signInWithEmailAndPassword
+      signOut
     } from
     "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
 
@@ -1547,116 +1240,11 @@
       [];
 
 
-    /* ==============================
-       LOGIN
-    ============================== */
-
-    document
-      .querySelector("#loginForm")
-      .addEventListener(
-
-        "submit",
-
-        async function(event){
-
-          event.preventDefault();
-
-
-          const email =
-            document
-            .querySelector("#loginEmail")
-            .value
-            .trim();
-
-
-          const password =
-            document
-            .querySelector("#loginPassword")
-            .value;
-
-
-          const message =
-            document
-            .querySelector("#loginMessage");
-
-
-          message
-            .classList
-            .remove("show");
-
-
-          try{
-
-            await
-            signInWithEmailAndPassword(
-              auth,
-              email,
-              password
-            );
-
-          }
-          catch(error){
-
-            console.error(
-              error
-            );
-
-
-            let text =
-              "Não foi possível entrar. Tenta novamente.";
-
-
-            if(
-              error.code ===
-              "auth/invalid-credential"
-            ){
-
-              text =
-                "Email ou palavra-passe incorretos.";
-
-            }
-
-
-            if(
-              error.code ===
-              "auth/user-not-found"
-            ){
-
-              text =
-                "Esta conta não existe.";
-
-            }
-
-
-            if(
-              error.code ===
-              "auth/wrong-password"
-            ){
-
-              text =
-                "Palavra-passe incorreta.";
-
-            }
-
-
-            message.textContent =
-              text;
-
-
-            message
-              .classList
-              .add("show");
-
-          }
-
-        }
-
+    const audioPlayer =
+      document.querySelector(
+        "#audioPlayer"
       );
 
-
-    /* ==============================
-       ESTADO DO LOGIN
-    ============================== */
 
     onAuthStateChanged(
 
@@ -1664,35 +1252,10 @@
 
       user => {
 
-        const authScreen =
-          document
-          .querySelector(
-            "#authScreen"
-          );
-
-
-        const appElement =
-          document
-          .querySelector(
-            "#app"
-          );
-
-
         if(!user){
 
-          currentUser =
-            null;
-
-
-          appElement
-            .classList
-            .remove("show");
-
-
-          authScreen
-            .classList
-            .remove("hidden");
-
+          window.location.href =
+            "area-do-artista.html";
 
           return;
 
@@ -1701,16 +1264,6 @@
 
         currentUser =
           user;
-
-
-        authScreen
-          .classList
-          .add("hidden");
-
-
-        appElement
-          .classList
-          .add("show");
 
 
         artistName =
@@ -1757,31 +1310,7 @@
         }
 
 
-        const songsKey =
-          "kpArtistSongs_" +
-          user.uid;
-
-
-        try{
-
-          songs =
-            JSON.parse(
-              localStorage.getItem(
-                songsKey
-              )
-              ||
-              "[]"
-            );
-
-        }
-        catch{
-
-          songs = [];
-
-        }
-
-
-        renderSongs();
+        loadSongs();
 
       }
 
@@ -1804,6 +1333,44 @@
     }
 
 
+    function loadSongs(){
+
+      const songsKey =
+        getSongsKey();
+
+
+      if(!songsKey){
+
+        return;
+
+      }
+
+
+      try{
+
+        songs =
+          JSON.parse(
+            localStorage.getItem(
+              songsKey
+            )
+            ||
+            "[]"
+          );
+
+      }
+      catch{
+
+        songs =
+          [];
+
+      }
+
+
+      renderSongs();
+
+    }
+
+
     function saveSongs(){
 
       const songsKey =
@@ -1818,8 +1385,11 @@
 
 
       localStorage.setItem(
+
         songsKey,
+
         JSON.stringify(songs)
+
       );
 
     }
@@ -1835,8 +1405,7 @@
         text || "";
 
 
-      return
-        div.innerHTML;
+      return div.innerHTML;
 
     }
 
@@ -1877,8 +1446,7 @@
               </h3>
 
               <p>
-                Publica o teu primeiro lançamento
-                e mostra o teu talento ao movimento.
+                Publica o teu primeiro lançamento.
               </p>
 
               <button
@@ -1914,26 +1482,6 @@
               artistPhoto;
 
 
-            const safeTitle =
-              escapeHTML(
-                song.title
-              );
-
-
-            const safeArtist =
-              escapeHTML(
-                songArtist
-              );
-
-
-            const safeDescription =
-              escapeHTML(
-                song.description
-                ||
-                "Lançamento KUDURO PRIME"
-              );
-
-
             const coverHTML =
               songCover
               ?
@@ -1960,15 +1508,19 @@
                   <div class="song-info">
 
                     <strong>
-                      ${safeTitle}
+                      ${escapeHTML(song.title)}
                     </strong>
 
                     <p class="artist-song-name">
-                      👤 ${safeArtist}
+                      👤 ${escapeHTML(songArtist)}
                     </p>
 
                     <p>
-                      ${safeDescription}
+                      ${escapeHTML(
+                        song.description
+                        ||
+                        "Lançamento KUDURO PRIME"
+                      )}
                     </p>
 
                     <div class="song-meta">
@@ -1980,14 +1532,18 @@
                       <span class="badge">
                         🎧
                         ${escapeHTML(
-                          song.type || "Single"
+                          song.type
+                          ||
+                          "Single"
                         )}
                       </span>
 
                       <span class="badge">
                         🎵
                         ${escapeHTML(
-                          song.genre || "Kuduro"
+                          song.genre
+                          ||
+                          "Kuduro"
                         )}
                       </span>
 
@@ -2008,14 +1564,6 @@
                       title="Ouvir"
                     >
                       ▶
-                    </button>
-
-                    <button
-                      class="icon-btn"
-                      onclick="editSong(${index})"
-                      title="Editar"
-                    >
-                      ✏
                     </button>
 
                     <button
@@ -2081,7 +1629,7 @@
 
         "submit",
 
-        function(event){
+        async function(event){
 
           event.preventDefault();
 
@@ -2104,6 +1652,18 @@
             .trim();
 
 
+          const musicFile =
+            document
+            .querySelector("#songFile")
+            .files[0];
+
+
+          const coverFile =
+            document
+            .querySelector("#songCover")
+            .files[0];
+
+
           if(!title){
 
             alert(
@@ -2115,13 +1675,56 @@
           }
 
 
-          const file =
-            document
-            .querySelector("#songCover")
-            .files[0];
+          if(!musicFile){
+
+            alert(
+              "Escolhe o ficheiro da música."
+            );
+
+            return;
+
+          }
 
 
-          function addSong(cover = ""){
+          const publishButton =
+            document.querySelector(
+              "#publishButton"
+            );
+
+
+          publishButton.disabled =
+            true;
+
+
+          publishButton.textContent =
+            "A PREPARAR MÚSICA...";
+
+
+          try{
+
+            const musicData =
+              await fileToDataURL(
+                musicFile
+              );
+
+
+            let coverData =
+              "";
+
+
+            if(coverFile){
+
+              publishButton.textContent =
+                "A PREPARAR CAPA...";
+
+
+              coverData =
+                await fileToDataURL(
+                  coverFile
+                );
+
+            }
+
 
             const song = {
 
@@ -2130,9 +1733,6 @@
 
               artistName:
                 artistName,
-
-              artistPhoto:
-                artistPhoto,
 
               title:
                 title,
@@ -2158,14 +1758,14 @@
                 .value
                 .trim(),
 
-              link:
-                document
-                .querySelector("#songLink")
-                .value
-                .trim(),
-
               cover:
-                cover,
+                coverData,
+
+              audio:
+                musicData,
+
+              audioName:
+                musicFile.name,
 
               views:
                 0,
@@ -2179,7 +1779,9 @@
             };
 
 
-            songs.unshift(song);
+            songs.unshift(
+              song
+            );
 
 
             saveSongs();
@@ -2192,42 +1794,135 @@
 
 
             alert(
-              "♕ Música publicada com sucesso!"
+              "👑 Música publicada com sucesso!"
             );
 
           }
+          catch(error){
+
+            console.error(
+              error
+            );
 
 
-          if(file){
-
-            const reader =
-              new FileReader();
-
-
-            reader.onload =
-              function(e){
-
-                addSong(
-                  e.target.result
-                );
-
-              };
-
-
-            reader.readAsDataURL(
-              file
+            alert(
+              "Não foi possível guardar a música. Se o ficheiro for muito grande, tenta um ficheiro menor."
             );
 
           }
-          else{
+          finally{
 
-            addSong();
+            publishButton.disabled =
+              false;
+
+
+            publishButton.textContent =
+              "♕ PUBLICAR MÚSICA";
 
           }
 
         }
 
       );
+
+
+    function fileToDataURL(file){
+
+      return new Promise(
+
+        (resolve,reject) => {
+
+          const reader =
+            new FileReader();
+
+
+          reader.onload =
+            function(event){
+
+              resolve(
+                event.target.result
+              );
+
+            };
+
+
+          reader.onerror =
+            function(){
+
+              reject(
+                new Error(
+                  "Erro ao ler ficheiro."
+                )
+              );
+
+            };
+
+
+          reader.readAsDataURL(
+            file
+          );
+
+        }
+
+      );
+
+    }
+
+
+    window.playSong =
+      function(index){
+
+        const song =
+          songs[index];
+
+
+        if(!song.audio){
+
+          alert(
+            "Ficheiro da música não encontrado."
+          );
+
+          return;
+
+        }
+
+
+        if(
+          audioPlayer.src === song.audio
+          &&
+          !audioPlayer.paused
+        ){
+
+          audioPlayer.pause();
+
+          return;
+
+        }
+
+
+        audioPlayer.src =
+          song.audio;
+
+
+        audioPlayer.play();
+
+
+        songs[index].views =
+          (
+            songs[index].views
+            ||
+            0
+          )
+          +
+          1;
+
+
+        saveSongs();
+
+
+        renderSongs();
+
+    };
 
 
     window.deleteSong =
@@ -2246,6 +1941,21 @@
         }
 
 
+        if(
+          songs[index].audio
+          &&
+          audioPlayer.src === songs[index].audio
+        ){
+
+          audioPlayer.pause();
+
+          audioPlayer.removeAttribute(
+            "src"
+          );
+
+        }
+
+
         songs.splice(
           index,
           1
@@ -2257,82 +1967,7 @@
 
         renderSongs();
 
-      };
-
-
-    window.editSong =
-      function(index){
-
-        const song =
-          songs[index];
-
-
-        const newTitle =
-          prompt(
-            "Novo título da música:",
-            song.title
-          );
-
-
-        if(
-          newTitle
-          &&
-          newTitle.trim()
-        ){
-
-          songs[index].title =
-            newTitle.trim();
-
-
-          saveSongs();
-
-
-          renderSongs();
-
-        }
-
-      };
-
-
-    window.playSong =
-      function(index){
-
-        const song =
-          songs[index];
-
-
-        if(song.link){
-
-          songs[index].views =
-            (
-              songs[index].views || 0
-            )
-            +
-            1;
-
-
-          saveSongs();
-
-
-          renderSongs();
-
-
-          window.open(
-            song.link,
-            "_blank",
-            "noopener,noreferrer"
-          );
-
-        }
-        else{
-
-          alert(
-            "Ainda não existe um link para ouvir esta música."
-          );
-
-        }
-
-      };
+    };
 
 
     window.toggleMenu =
@@ -2351,19 +1986,22 @@
 
         try{
 
-          await signOut(auth);
+          await signOut(
+            auth
+          );
 
         }
         catch(error){
 
-          console.error(error);
+          console.error(
+            error
+          );
 
         }
 
 
-        localStorage.removeItem(
-          "kpArtistLoggedIn"
-        );
+        window.location.href =
+          "area-do-artista.html";
 
       };
 
