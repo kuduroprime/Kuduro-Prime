@@ -1,293 +1,612 @@
-<script type="module">
+<!DOCTYPE html>
 
-/* FIREBASE APP */
+<html lang="pt">
 
-import {
-  initializeApp
-} from
-"https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+<head>
 
+  <meta charset="UTF-8">
 
-/* FIREBASE AUTH */
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0"
 
-import {
-  getAuth,
-  signInWithEmailAndPassword,
-  onAuthStateChanged
-} from
-"https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+>
 
+  <title>
+    Área do Artista — KUDURO PRIME
+  </title>
 
-/* CONFIGURAÇÃO FIREBASE */
+  <style>
 
-const firebaseConfig = {
-
-  apiKey:
-    "AIzaSyDoitCcLeLDNBNPCP6fG1s_xbHr4UmohSo",
-
-  authDomain:
-    "kuduro-prime.firebaseapp.com",
-
-  projectId:
-    "kuduro-prime",
-
-  storageBucket:
-    "kuduro-prime.firebasestorage.app",
-
-  messagingSenderId:
-    "299776559545",
-
-  appId:
-    "1:299776559545:web:04aced1ba25391eb3fce68"
-
-};
-
-
-/* INICIALIZAR FIREBASE */
-
-const app =
-  initializeApp(firebaseConfig);
-
-
-const auth =
-  getAuth(app);
-
-
-/* ELEMENTOS */
-
-const loginForm =
-  document.getElementById("loginForm");
-
-
-const loginBtn =
-  document.getElementById("loginBtn");
-
-
-const mensagem =
-  document.getElementById("mensagem");
-
-
-/* MOSTRAR MENSAGEM */
-
-function showMessage(
-  texto,
-  tipo
-){
-
-  mensagem.textContent =
-    texto;
-
-  mensagem.className =
-    "mensagem " + tipo;
-
-}
-
-
-/* VERIFICAR SE JÁ ESTÁ LOGADO */
-
-onAuthStateChanged(
-  auth,
-  user => {
-
-    if(
-      user &&
-      !loginBtn.disabled
-    ){
-
-      window.location.href =
-        "painel-do-artista.html";
-
+    *{
+      box-sizing:border-box;
     }
 
-  }
-);
+    body{
+      margin:0;
+      min-height:100vh;
 
+      display:flex;
+      align-items:center;
+      justify-content:center;
 
-/* LOGIN */
+      background:
+        radial-gradient(
+          circle at top right,
+          rgba(244,191,49,.15),
+          transparent 35%
+        ),
+        #070707;
 
-loginForm.addEventListener(
-  "submit",
-  async event => {
+      color:#f7f4ed;
 
-    event.preventDefault();
-
-
-    const email =
-      document
-        .getElementById("email")
-        .value
-        .trim();
-
-
-    const pass =
-      document
-        .getElementById("password")
-        .value;
-
-
-    if(
-      !email ||
-      !pass
-    ){
-
-      showMessage(
-        "Preenche todos os campos.",
-        "error"
-      );
-
-      return;
-
+      font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
     }
 
+    .box{
+      width:min(92%,420px);
 
-    loginBtn.disabled =
-      true;
+      padding:35px 30px;
 
+      border:1px solid #3b2f12;
 
-    loginBtn.textContent =
-      "A ENTRAR...";
+      border-radius:18px;
 
-
-    try{
-
-      const resultado =
-        await signInWithEmailAndPassword(
-          auth,
-          email,
-          pass
+      background:
+        linear-gradient(
+          145deg,
+          #151515,
+          #0b0b0b
         );
 
+      box-shadow:
+        0 20px 60px
+        rgba(0,0,0,.5);
+    }
 
-      const user =
-        resultado.user;
+    .logo{
+      text-align:center;
 
+      color:#f4bf31;
 
-      /* GUARDA SESSÃO LOCAL */
+      font-size:28px;
 
-      localStorage.setItem(
-        "kpArtistLoggedIn",
-        "true"
-      );
+      font-weight:900;
 
+      margin-bottom:8px;
+    }
 
-      /* GUARDA EMAIL */
+    h1{
+      margin:10px 0;
 
-      localStorage.setItem(
-        "kpArtistEmail",
-        user.email
-      );
+      text-align:center;
 
+      font-size:24px;
+    }
 
-      /* SÓ GUARDA O NOME SE AINDA NÃO EXISTIR */
+    .sub{
+      margin:
+        0 0 25px;
 
-      if(
-        !localStorage.getItem(
-          "kpArtistName"
-        )
-      ){
+      text-align:center;
 
-        localStorage.setItem(
-          "kpArtistName",
-          user.email
+      color:#aaa59a;
+
+      font-size:13px;
+
+      line-height:1.6;
+    }
+
+    label{
+      display:block;
+
+      margin:
+        15px 0 7px;
+
+      color:#f4bf31;
+
+      font-size:11px;
+
+      font-weight:900;
+    }
+
+    input{
+      width:100%;
+
+      padding:14px;
+
+      border:
+        1px solid #2a271f;
+
+      border-radius:9px;
+
+      outline:none;
+
+      background:#0b0b0b;
+
+      color:white;
+
+      font-size:14px;
+    }
+
+    input:focus{
+      border-color:#f4bf31;
+    }
+
+    button{
+      width:100%;
+
+      margin-top:22px;
+
+      padding:15px;
+
+      border:0;
+
+      border-radius:9px;
+
+      background:
+        linear-gradient(
+          135deg,
+          #ffdc6b,
+          #f4bf31
         );
 
-      }
+      color:#17120a;
 
+      font-weight:900;
 
-      showMessage(
-        "Login efetuado! A entrar no teu painel... 👑",
-        "success"
-      );
-
-
-      setTimeout(
-        () => {
-
-          window.location.href =
-            "painel-do-artista.html";
-
-        },
-        700
-      );
-
-
-    }
-    catch(erro){
-
-
-      console.error(
-        "ERRO NO LOGIN:",
-        erro
-      );
-
-
-      let textoErro =
-        "Erro ao iniciar sessão.";
-
-
-      if(
-        erro.code ===
-        "auth/invalid-credential"
-      ){
-
-        textoErro =
-          "Email ou palavra-passe incorretos.";
-
-      }
-      else if(
-        erro.code ===
-        "auth/user-not-found"
-      ){
-
-        textoErro =
-          "Esta conta não existe.";
-
-      }
-      else if(
-        erro.code ===
-        "auth/wrong-password"
-      ){
-
-        textoErro =
-          "Palavra-passe incorreta.";
-
-      }
-      else if(
-        erro.code ===
-        "auth/invalid-email"
-      ){
-
-        textoErro =
-          "O email introduzido não é válido.";
-
-      }
-      else if(
-        erro.code ===
-        "auth/too-many-requests"
-      ){
-
-        textoErro =
-          "Muitas tentativas. Tenta novamente mais tarde.";
-
-      }
-
-
-      showMessage(
-        textoErro,
-        "error"
-      );
-
-
-      loginBtn.disabled =
-        false;
-
-
-      loginBtn.textContent =
-        "🔐 ENTRAR NO PAINEL";
-
+      cursor:pointer;
     }
 
-  }
-);
+    button:disabled{
+      opacity:.6;
+      cursor:not-allowed;
+    }
 
-</script>
+    .mensagem{
+      display:none;
+
+      margin-top:15px;
+
+      padding:12px;
+
+      border-radius:8px;
+
+      text-align:center;
+
+      font-size:12px;
+    }
+
+    .mensagem.error{
+      display:block;
+
+      background:
+        rgba(255,86,63,.12);
+
+      color:#ff8f7b;
+
+      border:
+        1px solid
+        rgba(255,86,63,.3);
+    }
+
+    .mensagem.success{
+      display:block;
+
+      background:
+        rgba(72,213,151,.12);
+
+      color:#48d597;
+
+      border:
+        1px solid
+        rgba(72,213,151,.3);
+    }
+
+    .register{
+      margin-top:22px;
+
+      text-align:center;
+
+      color:#aaa59a;
+
+      font-size:12px;
+    }
+
+    .register a{
+      color:#f4bf31;
+
+      font-weight:900;
+
+      text-decoration:none;
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <main class="box">
+
+```
+<div class="logo">
+  👑 KUDURO PRIME
+</div>
+
+
+<h1>
+  ÁREA DO ARTISTA
+</h1>
+
+
+<p class="sub">
+  Entra na tua conta para gerir
+  o teu perfil e as tuas músicas.
+</p>
+
+
+<form id="loginForm">
+
+
+  <label for="email">
+    EMAIL
+  </label>
+
+  <input
+    type="email"
+    id="email"
+    placeholder="teuemail@email.com"
+    required
+  >
+
+
+  <label for="password">
+    PALAVRA-PASSE
+  </label>
+
+  <input
+    type="password"
+    id="password"
+    placeholder="••••••••"
+    required
+  >
+
+
+  <button
+    type="submit"
+    id="loginBtn"
+  >
+    🔐 ENTRAR NO PAINEL
+  </button>
+
+
+  <div
+    class="mensagem"
+    id="mensagem"
+  ></div>
+
+
+</form>
+
+
+<div class="register">
+
+  Ainda não tens conta?
+
+  <br><br>
+
+  <a href="cadastro.html">
+    CRIAR CONTA DE ARTISTA
+  </a>
+
+</div>
+```
+
+  </main>
+
+  <script type="module">
+
+
+    import {
+
+      initializeApp
+
+    }
+
+    from
+
+    "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+
+
+    import {
+
+      getAuth,
+      signInWithEmailAndPassword,
+      onAuthStateChanged
+
+    }
+
+    from
+
+    "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+
+
+    const firebaseConfig = {
+
+      apiKey:
+        "AIzaSyDoitCcLeLDNBNPCP6fG1s_xbHr4UmohSo",
+
+      authDomain:
+        "kuduro-prime.firebaseapp.com",
+
+      projectId:
+        "kuduro-prime",
+
+      storageBucket:
+        "kuduro-prime.firebasestorage.app",
+
+      messagingSenderId:
+        "299776559545",
+
+      appId:
+        "1:299776559545:web:04aced1ba25391eb3fce68"
+
+    };
+
+
+    const app =
+      initializeApp(
+        firebaseConfig
+      );
+
+
+    const auth =
+      getAuth(app);
+
+
+    const loginForm =
+      document.getElementById(
+        "loginForm"
+      );
+
+
+    const loginBtn =
+      document.getElementById(
+        "loginBtn"
+      );
+
+
+    const mensagem =
+      document.getElementById(
+        "mensagem"
+      );
+
+
+    function showMessage(
+      texto,
+      tipo
+    ){
+
+      mensagem.textContent =
+        texto;
+
+
+      mensagem.className =
+        "mensagem " +
+        tipo;
+
+    }
+
+
+    onAuthStateChanged(
+
+      auth,
+
+      user => {
+
+        if(
+          user
+        ){
+
+          window.location.replace(
+            "painel-do-artista.html"
+          );
+
+        }
+
+      }
+
+    );
+
+
+    loginForm.addEventListener(
+
+      "submit",
+
+      async event => {
+
+        event.preventDefault();
+
+
+        const email =
+          document
+            .getElementById(
+              "email"
+            )
+            .value
+            .trim();
+
+
+        const password =
+          document
+            .getElementById(
+              "password"
+            )
+            .value;
+
+
+        if(
+          !email ||
+          !password
+        ){
+
+          showMessage(
+            "Preenche todos os campos.",
+            "error"
+          );
+
+          return;
+
+        }
+
+
+        loginBtn.disabled =
+          true;
+
+
+        loginBtn.textContent =
+          "A ENTRAR...";
+
+
+        try{
+
+
+          const resultado =
+
+            await signInWithEmailAndPassword(
+
+              auth,
+
+              email,
+
+              password
+
+            );
+
+
+          const user =
+            resultado.user;
+
+
+          localStorage.setItem(
+
+            "kpArtistName",
+
+            user.email
+              .split("@")[0]
+
+          );
+
+
+          showMessage(
+
+            "Login efetuado! A entrar no painel... 👑",
+
+            "success"
+
+          );
+
+
+          setTimeout(
+
+            () => {
+
+              window.location.replace(
+
+                "painel-do-artista.html"
+
+              );
+
+            },
+
+            700
+
+          );
+
+
+        }
+        catch(
+          erro
+        ){
+
+
+          console.error(
+            erro
+          );
+
+
+          let textoErro =
+            "Erro ao iniciar sessão.";
+
+
+          if(
+
+            erro.code ===
+            "auth/invalid-credential"
+
+          ){
+
+            textoErro =
+              "Email ou palavra-passe incorretos.";
+
+          }
+
+
+          if(
+
+            erro.code ===
+            "auth/invalid-email"
+
+          ){
+
+            textoErro =
+              "O email não é válido.";
+
+          }
+
+
+          if(
+
+            erro.code ===
+            "auth/too-many-requests"
+
+          ){
+
+            textoErro =
+              "Muitas tentativas. Tenta novamente mais tarde.";
+
+          }
+
+
+          showMessage(
+
+            textoErro,
+
+            "error"
+
+          );
+
+
+          loginBtn.disabled =
+            false;
+
+
+          loginBtn.textContent =
+            "🔐 ENTRAR NO PAINEL";
+
+        }
+
+      }
+
+    );
+
+
+  </script>
+
+</body>
+
+</html>
