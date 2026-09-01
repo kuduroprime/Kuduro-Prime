@@ -2,8 +2,14 @@
 
 <html lang="pt">
 <head>
+
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0"
+
+>
 
   <title>Meu Perfil — KUDURO PRIME</title>
 
@@ -12,7 +18,6 @@
     :root{
       --bg:#070707;
       --panel:#101010;
-      --panel2:#151515;
       --gold:#f4bf31;
       --gold2:#ffdc6b;
       --text:#f7f4ed;
@@ -20,7 +25,6 @@
       --line:#2a271f;
       --blue:#4eb8ff;
       --green:#48d597;
-      --red:#ff563f;
     }
 
     *{
@@ -30,11 +34,21 @@
     body{
       margin:0;
       min-height:100vh;
+
       background:
-        radial-gradient(circle at 80% 0,rgba(244,191,49,.12),transparent 30%),
+        radial-gradient(
+          circle at 80% 0,
+          rgba(244,191,49,.12),
+          transparent 30%
+        ),
         var(--bg);
+
       color:var(--text);
-      font-family:Arial,Helvetica,sans-serif;
+
+      font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
     }
 
     a{
@@ -42,38 +56,81 @@
       color:inherit;
     }
 
-    button,
-    input{
-      font:inherit;
+    /* CARREGAMENTO */
+
+    .loading{
+      position:fixed;
+      inset:0;
+
+      z-index:9999;
+
+      display:flex;
+      flex-direction:column;
+
+      align-items:center;
+      justify-content:center;
+
+      gap:15px;
+
+      background:#070707;
+    }
+
+    .loading.hidden{
+      display:none;
+    }
+
+    .loading-logo{
+      color:var(--gold);
+
+      font-size:28px;
+      font-weight:900;
+    }
+
+    .loading-text{
+      color:var(--muted);
+      font-size:12px;
     }
 
     /* NAV */
 
     .nav{
       height:82px;
-      border-bottom:1px solid var(--line);
+
+      border-bottom:
+        1px solid var(--line);
+
       display:flex;
       align-items:center;
+
       position:sticky;
       top:0;
+
       z-index:50;
-      background:rgba(7,7,7,.94);
-      backdrop-filter:blur(12px);
+
+      background:
+        rgba(7,7,7,.94);
+
+      backdrop-filter:
+        blur(12px);
     }
 
     .nav-in{
       width:min(1180px,92%);
       margin:auto;
+
       display:flex;
       align-items:center;
       justify-content:space-between;
+
       gap:20px;
     }
 
     .brand{
       font-size:23px;
       font-weight:900;
+
       line-height:.78;
+
       letter-spacing:-1px;
     }
 
@@ -84,8 +141,11 @@
 
     .crown{
       display:block;
+
       text-align:center;
+
       color:var(--gold);
+
       font-size:23px;
       line-height:.6;
     }
@@ -93,42 +153,63 @@
     .nav-right{
       display:flex;
       align-items:center;
+
       gap:10px;
     }
 
     .btn{
       min-height:42px;
       padding:0 16px;
+
       display:inline-flex;
       align-items:center;
       justify-content:center;
+
       gap:7px;
+
       border-radius:8px;
-      border:1px solid var(--gold);
+
+      border:
+        1px solid var(--gold);
+
       background:transparent;
+
       color:var(--gold);
+
       font-size:11px;
       font-weight:900;
+
       cursor:pointer;
+
       transition:.25s;
     }
 
     .btn:hover{
-      transform:translateY(-1px);
+      transform:
+        translateY(-1px);
     }
 
     .btn.gold{
       border:0;
+
       color:#17120a;
-      background:linear-gradient(135deg,var(--gold2),var(--gold));
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--gold2),
+          var(--gold)
+        );
     }
 
-    /* HERO */
+    /* CAPA */
 
     .cover{
       height:300px;
+
       position:relative;
       overflow:hidden;
+
       background:
         linear-gradient(
           0deg,
@@ -139,10 +220,12 @@
         center/cover;
     }
 
-    .cover:after{
+    .cover::after{
       content:"";
+
       position:absolute;
       inset:0;
+
       background:
         radial-gradient(
           circle at 75% 25%,
@@ -156,32 +239,52 @@
     .profile{
       width:min(1180px,92%);
       margin:auto;
+
       position:relative;
     }
 
     .profile-head{
       min-height:230px;
-      padding:0 0 25px 220px;
+
+      padding:
+        0
+        0
+        25px
+        220px;
+
       display:flex;
       align-items:center;
       justify-content:space-between;
+
       gap:25px;
-      border-bottom:1px solid var(--line);
+
+      border-bottom:
+        1px solid var(--line);
     }
 
     .profile-photo{
       position:absolute;
+
       top:-90px;
       left:0;
+
       width:180px;
       height:180px;
+
       border-radius:50%;
       overflow:hidden;
+
       background:#17120a;
-      border:5px solid var(--bg);
-      outline:2px solid var(--gold);
+
+      border:
+        5px solid var(--bg);
+
+      outline:
+        2px solid var(--gold);
+
       display:grid;
       place-items:center;
+
       color:var(--gold);
       font-size:65px;
     }
@@ -189,21 +292,29 @@
     .profile-photo img{
       width:100%;
       height:100%;
+
       object-fit:cover;
     }
 
     .eyebrow{
       color:var(--gold);
+
       font-size:10px;
       font-weight:900;
+
       letter-spacing:1.5px;
+
       margin-bottom:9px;
     }
 
     .profile-name{
       margin:0;
-      font-size:clamp(32px,5vw,52px);
+
+      font-size:
+        clamp(32px,5vw,52px);
+
       font-weight:950;
+
       letter-spacing:-2px;
     }
 
@@ -214,13 +325,16 @@
 
     .username{
       margin-top:8px;
+
       color:var(--gold);
+
       font-size:13px;
       font-weight:800;
     }
 
     .location{
       margin-top:12px;
+
       color:var(--muted);
       font-size:12px;
     }
@@ -240,34 +354,50 @@
 
     .dashboard-grid{
       display:grid;
-      grid-template-columns:repeat(4,1fr);
+
+      grid-template-columns:
+        repeat(4,1fr);
+
       gap:15px;
+
       margin-bottom:25px;
     }
 
     .stat-card{
       padding:20px;
-      background:linear-gradient(145deg,#151515,#0c0c0c);
-      border:1px solid var(--line);
+
+      background:
+        linear-gradient(
+          145deg,
+          #151515,
+          #0c0c0c
+        );
+
+      border:
+        1px solid var(--line);
+
       border-radius:14px;
     }
 
     .stat-icon{
       font-size:20px;
-      color:var(--gold);
     }
 
     .stat-number{
       margin-top:14px;
+
       font-size:30px;
       font-weight:950;
     }
 
     .stat-label{
       margin-top:4px;
+
       color:var(--muted);
+
       font-size:10px;
       font-weight:900;
+
       letter-spacing:.5px;
     }
 
@@ -275,23 +405,40 @@
 
     .main-grid{
       display:grid;
-      grid-template-columns:minmax(0,1.5fr) minmax(280px,.8fr);
+
+      grid-template-columns:
+        minmax(0,1.5fr)
+        minmax(280px,.8fr);
+
       gap:20px;
+
       align-items:start;
     }
 
     .panel{
-      background:linear-gradient(145deg,#141414,#0b0b0b);
-      border:1px solid var(--line);
+      background:
+        linear-gradient(
+          145deg,
+          #141414,
+          #0b0b0b
+        );
+
+      border:
+        1px solid var(--line);
+
       border-radius:15px;
     }
 
     .panel-head{
       padding:20px;
-      border-bottom:1px solid var(--line);
+
+      border-bottom:
+        1px solid var(--line);
+
       display:flex;
       justify-content:space-between;
       align-items:center;
+
       gap:15px;
     }
 
@@ -302,11 +449,12 @@
 
     .panel-link{
       color:var(--gold);
+
       font-size:11px;
       font-weight:900;
     }
 
-    /* PERFIL RESUMO */
+    /* RESUMO */
 
     .summary{
       padding:20px;
@@ -314,30 +462,43 @@
 
     .bio{
       color:#c9c6bf;
+
       font-size:13px;
       line-height:1.7;
+
       white-space:pre-line;
     }
 
     .info-grid{
       display:grid;
-      grid-template-columns:1fr 1fr;
+
+      grid-template-columns:
+        1fr 1fr;
+
       gap:12px;
+
       margin-top:20px;
     }
 
     .info{
       padding:14px;
-      border:1px solid var(--line);
+
+      border:
+        1px solid var(--line);
+
       border-radius:10px;
+
       background:#0c0c0c;
     }
 
     .info small{
       display:block;
+
       color:var(--muted);
+
       font-size:9px;
       font-weight:900;
+
       margin-bottom:6px;
     }
 
@@ -354,9 +515,13 @@
     .song{
       display:flex;
       align-items:center;
+
       gap:12px;
+
       padding:13px 0;
-      border-bottom:1px solid var(--line);
+
+      border-bottom:
+        1px solid var(--line);
     }
 
     .song:last-child{
@@ -366,73 +531,112 @@
     .song-cover{
       width:54px;
       height:54px;
+
       flex:0 0 auto;
+
       border-radius:8px;
-      background:var(--img) center/cover;
+
+      background:
+        center/cover
+        no-repeat
+        #17120a;
+    }
+
+    .song-info{
+      min-width:0;
     }
 
     .song-title{
       font-size:13px;
       font-weight:900;
+
+      white-space:nowrap;
+      overflow:hidden;
+
+      text-overflow:ellipsis;
     }
 
     .song-meta{
       color:var(--muted);
+
       font-size:10px;
+
       margin-top:5px;
     }
 
     .song-status{
       margin-left:auto;
-      font-size:10px;
+
       color:var(--green);
+
+      font-size:10px;
       font-weight:900;
+
+      white-space:nowrap;
     }
 
     .empty{
       padding:35px 20px;
+
       text-align:center;
+
       color:var(--muted);
       font-size:12px;
     }
 
     .empty-icon{
       font-size:35px;
+
       margin-bottom:10px;
+
       color:var(--gold);
     }
 
-    /* AÇÕES RÁPIDAS */
+    /* AÇÕES */
 
     .quick-actions{
       padding:15px;
+
       display:grid;
       gap:10px;
     }
 
     .quick{
       padding:15px;
-      border:1px solid var(--line);
+
+      border:
+        1px solid var(--line);
+
       border-radius:10px;
+
       background:#0c0c0c;
+
       display:flex;
       align-items:center;
+
       gap:12px;
+
       transition:.25s;
     }
 
     .quick:hover{
       border-color:#735c21;
-      transform:translateX(3px);
+
+      transform:
+        translateX(3px);
     }
 
     .quick-icon{
       width:40px;
       height:40px;
+
       display:grid;
       place-items:center;
+
       border-radius:9px;
+
       background:#1c1608;
+
       color:var(--gold);
     }
 
@@ -443,8 +647,11 @@
 
     .quick small{
       display:block;
+
       margin-top:4px;
+
       color:var(--muted);
+
       font-size:10px;
     }
 
@@ -456,10 +663,14 @@
 
     .status-item{
       display:flex;
-      gap:12px;
-      padding:12px 0;
-      border-bottom:1px solid var(--line);
       align-items:center;
+
+      gap:12px;
+
+      padding:12px 0;
+
+      border-bottom:
+        1px solid var(--line);
     }
 
     .status-item:last-child{
@@ -469,9 +680,14 @@
     .status-dot{
       width:10px;
       height:10px;
+
       border-radius:50%;
+
       background:var(--gold);
-      box-shadow:0 0 10px rgba(244,191,49,.5);
+
+      box-shadow:
+        0 0 10px
+        rgba(244,191,49,.5);
     }
 
     .status-text{
@@ -480,88 +696,24 @@
 
     .status-text small{
       display:block;
+
       color:var(--muted);
+
       margin-top:4px;
+
       font-size:10px;
-    }
-
-    /* MODAL PUBLICAR */
-
-    .modal{
-      position:fixed;
-      inset:0;
-      z-index:100;
-      display:none;
-      align-items:center;
-      justify-content:center;
-      padding:20px;
-      background:rgba(0,0,0,.8);
-      backdrop-filter:blur(6px);
-    }
-
-    .modal.show{
-      display:flex;
-    }
-
-    .modal-box{
-      width:min(500px,100%);
-      max-height:90vh;
-      overflow:auto;
-      padding:25px;
-      border:1px solid var(--line);
-      border-radius:16px;
-      background:#101010;
-    }
-
-    .modal-head{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      margin-bottom:20px;
-    }
-
-    .close{
-      width:36px;
-      height:36px;
-      border:1px solid var(--line);
-      background:#181818;
-      color:white;
-      border-radius:8px;
-      cursor:pointer;
-    }
-
-    .field{
-      margin-bottom:14px;
-    }
-
-    .field label{
-      display:block;
-      margin-bottom:7px;
-      color:#ddd;
-      font-size:11px;
-      font-weight:900;
-    }
-
-    .field input{
-      width:100%;
-      padding:13px;
-      border:1px solid var(--line);
-      border-radius:8px;
-      background:#090909;
-      color:white;
-      outline:none;
-    }
-
-    .field input:focus{
-      border-color:var(--gold);
     }
 
     /* FOOTER */
 
     footer{
       padding:25px 0;
-      border-top:1px solid var(--line);
+
+      border-top:
+        1px solid var(--line);
+
       text-align:center;
+
       color:#777;
       font-size:11px;
     }
@@ -571,11 +723,13 @@
     @media(max-width:950px){
 
       .dashboard-grid{
-        grid-template-columns:repeat(2,1fr);
+        grid-template-columns:
+          repeat(2,1fr);
       }
 
       .main-grid{
-        grid-template-columns:1fr;
+        grid-template-columns:
+          1fr;
       }
 
     }
@@ -603,16 +757,23 @@
       }
 
       .profile-head{
-        padding:85px 0 25px;
+        padding:
+          85px
+          0
+          25px;
+
         display:block;
       }
 
       .profile-photo{
         width:130px;
         height:130px;
+
         left:50%;
         top:-65px;
-        transform:translateX(-50%);
+
+        transform:
+          translateX(-50%);
       }
 
       .actions{
@@ -624,7 +785,8 @@
       }
 
       .dashboard-grid{
-        grid-template-columns:1fr 1fr;
+        grid-template-columns:
+          1fr 1fr;
       }
 
       .stat-card{
@@ -636,7 +798,8 @@
       }
 
       .info-grid{
-        grid-template-columns:1fr;
+        grid-template-columns:
+          1fr;
       }
 
     }
@@ -647,6 +810,27 @@
 
 <body>
 
+  <!-- CARREGAMENTO -->
+
+  <div
+    class="loading"
+    id="loading"
+  >
+
+```
+<div class="loading-logo">
+  👑 KUDURO PRIME
+</div>
+
+<div class="loading-text">
+  A carregar o teu perfil...
+</div>
+```
+
+  </div>
+
+  <!-- NAVEGAÇÃO -->
+
   <nav class="nav">
 
 ```
@@ -656,10 +840,19 @@
     href="index.html"
     class="brand"
   >
-    <span class="crown">♕</span>
+
+    <span class="crown">
+      ♕
+    </span>
+
     KUDURO
-    <b>PRIME</b>
+
+    <b>
+      PRIME
+    </b>
+
   </a>
+
 
   <div class="nav-right">
 
@@ -669,6 +862,7 @@
     >
       ← VER SITE
     </a>
+
 
     <a
       href="painel-do-artista.html"
@@ -684,10 +878,14 @@
 
   </nav>
 
+  <!-- CAPA -->
+
   <section
     class="cover"
     id="cover"
   ></section>
+
+  <!-- PERFIL -->
 
   <section class="profile">
 
@@ -701,19 +899,26 @@
     👤
   </div>
 
+
   <div>
 
     <div class="eyebrow">
       👑 PERFIL OFICIAL PRIME
     </div>
 
-    <h1
-      class="profile-name"
-      id="profileName"
-    >
-      Artista Prime
-      <span class="verified">●</span>
+
+    <h1 class="profile-name">
+
+      <span id="profileName">
+        Artista Prime
+      </span>
+
+      <span class="verified">
+        ●
+      </span>
+
     </h1>
+
 
     <div
       class="username"
@@ -721,6 +926,7 @@
     >
       @artista
     </div>
+
 
     <div
       class="location"
@@ -731,6 +937,7 @@
 
   </div>
 
+
   <div class="actions">
 
     <a
@@ -740,9 +947,11 @@
       ✏ EDITAR PERFIL
     </a>
 
+
     <a
       href="perfil.html"
       class="btn dark"
+      id="publicProfileBtn"
     >
       👁 VER PÚBLICO
     </a>
@@ -760,6 +969,7 @@
 <!-- ESTATÍSTICAS -->
 
 <div class="dashboard-grid">
+
 
   <article class="stat-card">
 
@@ -851,7 +1061,7 @@
   <section>
 
 
-    <!-- RESUMO -->
+    <!-- SOBRE -->
 
     <div class="panel">
 
@@ -870,6 +1080,7 @@
 
       </div>
 
+
       <div class="summary">
 
         <div
@@ -879,7 +1090,9 @@
           Ainda não adicionaste uma biografia.
         </div>
 
+
         <div class="info-grid">
+
 
           <div class="info">
 
@@ -887,13 +1100,12 @@
               ESTILO
             </small>
 
-            <strong
-              id="profileGenre"
-            >
+            <strong id="profileGenre">
               Kuduro
             </strong>
 
           </div>
+
 
           <div class="info">
 
@@ -901,13 +1113,12 @@
               LOCALIZAÇÃO
             </small>
 
-            <strong
-              id="profileCity"
-            >
+            <strong id="profileCity">
               Luanda, Angola
             </strong>
 
           </div>
+
 
           <div class="info">
 
@@ -915,13 +1126,12 @@
               CARREIRA DESDE
             </small>
 
-            <strong
-              id="profileYear"
-            >
+            <strong id="profileYear">
               —
             </strong>
 
           </div>
+
 
           <div class="info">
 
@@ -929,7 +1139,9 @@
               ESTADO DO PERFIL
             </small>
 
-            <strong style="color:var(--green)">
+            <strong
+              style="color:var(--green)"
+            >
               ● ATIVO
             </strong>
 
@@ -963,6 +1175,7 @@
         </a>
 
       </div>
+
 
       <div
         class="song-list"
@@ -1003,7 +1216,9 @@
 
       </div>
 
+
       <div class="quick-actions">
+
 
         <a
           href="minhas-musicas.html"
@@ -1080,6 +1295,7 @@
         <a
           href="perfil.html"
           class="quick"
+          id="publicProfileQuick"
         >
 
           <div class="quick-icon">
@@ -1105,7 +1321,7 @@
     </div>
 
 
-    <!-- STATUS -->
+    <!-- ESTADO -->
 
     <div
       class="panel"
@@ -1120,7 +1336,9 @@
 
       </div>
 
+
       <div class="status">
+
 
         <div class="status-item">
 
@@ -1138,6 +1356,7 @@
 
         </div>
 
+
         <div class="status-item">
 
           <div class="status-dot"></div>
@@ -1153,6 +1372,7 @@
           </div>
 
         </div>
+
 
         <div class="status-item">
 
@@ -1190,325 +1410,679 @@ O KUDURO VIVE AQUI. 👑
 
   </footer>
 
-  <script>
+  <script type="module">
 
-    /*
-      PROTEGER A PÁGINA
-    */
-
-    const loggedIn =
-      localStorage.getItem(
-        "kpArtistLoggedIn"
-      );
-
-
-    if(
-      loggedIn !== "true"
-    ){
-
-      window.location.href =
-        "area-do-artista.html";
-
+    import {
+      initializeApp
     }
+    from
+    "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
 
 
-    /*
-      DADOS DO ARTISTA
-    */
+    import {
+      getAuth,
+      onAuthStateChanged
+    }
+    from
+    "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
 
-    const artist = {
 
-      name:
-        localStorage.getItem(
-          "kpArtistStageName"
-        )
-        ||
-        localStorage.getItem(
-          "kpArtistName"
-        )
-        ||
-        "Artista Prime",
+    /* CONFIGURAÇÃO FIREBASE */
 
-      username:
-        localStorage.getItem(
-          "kpArtistUsername"
-        )
-        ||
-        "artista",
+    const firebaseConfig = {
 
-      photo:
-        localStorage.getItem(
-          "kpArtistPhoto"
-        ),
+      apiKey:
+        "AIzaSyDoitCcLeLDNBNPCP6fG1s_xbHr4UmohSo",
 
-      bio:
-        localStorage.getItem(
-          "kpArtistBio"
-        )
-        ||
-        "Ainda não adicionaste uma biografia.",
+      authDomain:
+        "kuduro-prime.firebaseapp.com",
 
-      city:
-        localStorage.getItem(
-          "kpArtistCity"
-        )
-        ||
-        "Luanda",
+      projectId:
+        "kuduro-prime",
 
-      country:
-        localStorage.getItem(
-          "kpArtistCountry"
-        )
-        ||
-        "Angola",
+      storageBucket:
+        "kuduro-prime.firebasestorage.app",
 
-      genre:
-        localStorage.getItem(
-          "kpArtistGenre"
-        )
-        ||
-        "Kuduro",
+      messagingSenderId:
+        "299776559545",
 
-      year:
-        localStorage.getItem(
-          "kpArtistYear"
-        )
-        ||
-        "—"
+      appId:
+        "1:299776559545:web:04aced1ba25391eb3fce68"
 
     };
 
 
-    /*
-      MOSTRAR DADOS
-    */
+    /* INICIAR FIREBASE */
 
-    document
-      .querySelector("#profileName")
-      .childNodes[0]
-      .textContent =
-        artist.name + " ";
-
-
-    document
-      .querySelector("#profileUser")
-      .textContent =
-        "@" + artist.username;
-
-
-    document
-      .querySelector("#profileLocation")
-      .textContent =
-        "📍 " +
-        artist.city +
-        ", " +
-        artist.country;
-
-
-    document
-      .querySelector("#profileBio")
-      .textContent =
-        artist.bio;
-
-
-    document
-      .querySelector("#profileGenre")
-      .textContent =
-        artist.genre;
-
-
-    document
-      .querySelector("#profileCity")
-      .textContent =
-        artist.city +
-        ", " +
-        artist.country;
-
-
-    document
-      .querySelector("#profileYear")
-      .textContent =
-        artist.year;
-
-
-    /*
-      FOTO
-    */
-
-    if(
-      artist.photo
-    ){
-
-      document
-        .querySelector("#profilePhoto")
-        .innerHTML =
-          `
-            <img
-              src="${artist.photo}"
-              alt="${artist.name}"
-            >
-          `;
-
-
-      document
-        .querySelector("#cover")
-        .style.backgroundImage =
-          `
-            linear-gradient(
-              0deg,
-              #070707,
-              rgba(0,0,0,.2)
-            ),
-            url('${artist.photo}')
-          `;
-
-    }
-
-
-    /*
-      MÚSICAS
-    */
-
-    const songs =
-      JSON.parse(
-        localStorage.getItem(
-          "kpArtistSongs"
-        )
-        ||
-        "[]"
+    const app =
+      initializeApp(
+        firebaseConfig
       );
 
 
-    document
-      .querySelector("#statSongs")
-      .textContent =
-        songs.length;
+    const auth =
+      getAuth(
+        app
+      );
 
 
-    if(
-      songs.length
-    ){
+    /* FORMATAR NÚMEROS */
 
-      const latestSongs =
-        songs
-        .slice(0,5);
+    function formatNumber(number){
+
+      return new Intl.NumberFormat(
+        "pt-PT"
+      ).format(
+        Number(number) || 0
+      );
+
+    }
 
 
-      document
-        .querySelector("#songList")
-        .innerHTML =
-          latestSongs
-          .map(
-            song =>
-              `
+    /* CARREGAR MÚSICAS */
 
-                <div class="song">
+    function getSongs(){
 
-                  <div
-                    class="song-cover"
-                    style="
-                      --img:
-                      url('${
-                        song.cover
-                        ||
-                        artist.photo
-                        ||
-                        "images/artista-1.jpg"
-                      }')
-                    "
-                  ></div>
+      try{
 
-                  <div>
+        const savedSongs =
+          localStorage.getItem(
+            "kpArtistSongs"
+          );
 
-                    <div class="song-title">
-                      ${
-                        song.title
-                        ||
-                        "Música sem título"
-                      }
-                    </div>
 
-                    <div class="song-meta">
-
-                      ${
-                        song.createdAt
-                        ||
-                        "Música publicada"
-                      }
-
-                    </div>
-
-                  </div>
-
-                  <div class="song-status">
-
-                    ● ATIVA
-
-                  </div>
-
-                </div>
-
-              `
+        const songs =
+          savedSongs
+          ?
+          JSON.parse(
+            savedSongs
           )
-          .join("");
+          :
+          [];
+
+
+        return Array.isArray(songs)
+          ?
+          songs
+          :
+          [];
+
+      }
+      catch(error){
+
+        console.error(
+          "Erro ao carregar músicas:",
+          error
+        );
+
+
+        return [];
+
+      }
 
     }
 
 
     /*
-      ESTATÍSTICAS
+      VERIFICAR SESSÃO
     */
 
-    const views =
-      localStorage.getItem(
-        "kpArtistViews"
-      )
-      ||
-      "0";
+    onAuthStateChanged(
+      auth,
+      user => {
 
 
-    const followers =
-      localStorage.getItem(
-        "kpArtistFollowers"
-      )
-      ||
-      "0";
+        /*
+          NÃO ESTÁ LOGADO
+        */
+
+        if(!user){
+
+          window.location.replace(
+            "area-do-artista.html"
+          );
+
+          return;
+
+        }
 
 
-    document
-      .querySelector("#statViews")
-      .textContent =
-        views;
+        /*
+          DADOS DO ARTISTA
+        */
+
+        const artistName =
+
+          localStorage.getItem(
+            "kpArtistStageName"
+          )
+
+          ||
+
+          localStorage.getItem(
+            "kpArtistName"
+          )
+
+          ||
+
+          user.displayName
+
+          ||
+
+          (
+            user.email
+            ?
+            user.email
+              .split("@")[0]
+            :
+            "Artista Prime"
+          );
 
 
-    document
-      .querySelector("#statFollowers")
-      .textContent =
-        followers;
+        const artistUsername =
+
+          localStorage.getItem(
+            "kpArtistUsername"
+          )
+
+          ||
+
+          user.email
+            ?.split("@")[0]
+
+          ||
+
+          "artista";
 
 
-    /*
-      LINK DO PERFIL PÚBLICO
+        const artistPhoto =
 
-      Corrige o botão para abrir
-      diretamente o perfil do artista.
-    */
+          localStorage.getItem(
+            "kpArtistPhoto"
+          )
 
-    document
-      .querySelectorAll(
-        'a[href="perfil.html"]'
-      )
-      .forEach(
-        link => {
+          ||
 
-          link.href =
-            "perfil.html?user=" +
-            encodeURIComponent(
-              artist.username
+          user.photoURL
+
+          ||
+
+          "";
+
+
+        const artistBio =
+
+          localStorage.getItem(
+            "kpArtistBio"
+          )
+
+          ||
+
+          "Ainda não adicionaste uma biografia.";
+
+
+        const artistCity =
+
+          localStorage.getItem(
+            "kpArtistCity"
+          )
+
+          ||
+
+          "Luanda";
+
+
+        const artistCountry =
+
+          localStorage.getItem(
+            "kpArtistCountry"
+          )
+
+          ||
+
+          "Angola";
+
+
+        const artistGenre =
+
+          localStorage.getItem(
+            "kpArtistGenre"
+          )
+
+          ||
+
+          "Kuduro";
+
+
+        const artistYear =
+
+          localStorage.getItem(
+            "kpArtistYear"
+          )
+
+          ||
+
+          "—";
+
+
+        /*
+          MOSTRAR DADOS
+        */
+
+        document
+          .querySelector(
+            "#profileName"
+          )
+          .textContent =
+            artistName;
+
+
+        document
+          .querySelector(
+            "#profileUser"
+          )
+          .textContent =
+            "@" +
+            artistUsername;
+
+
+        document
+          .querySelector(
+            "#profileLocation"
+          )
+          .textContent =
+
+            "📍 " +
+
+            artistCity +
+
+            ", " +
+
+            artistCountry;
+
+
+        document
+          .querySelector(
+            "#profileBio"
+          )
+          .textContent =
+            artistBio;
+
+
+        document
+          .querySelector(
+            "#profileGenre"
+          )
+          .textContent =
+            artistGenre;
+
+
+        document
+          .querySelector(
+            "#profileCity"
+          )
+          .textContent =
+
+            artistCity +
+
+            ", " +
+
+            artistCountry;
+
+
+        document
+          .querySelector(
+            "#profileYear"
+          )
+          .textContent =
+            artistYear;
+
+
+        /*
+          FOTO
+        */
+
+        if(artistPhoto){
+
+          const profilePhoto =
+            document.querySelector(
+              "#profilePhoto"
+            );
+
+
+          profilePhoto.innerHTML =
+            "";
+
+
+          const image =
+            document.createElement(
+              "img"
+            );
+
+
+          image.src =
+            artistPhoto;
+
+
+          image.alt =
+            artistName;
+
+
+          profilePhoto.appendChild(
+            image
+          );
+
+
+          document
+            .querySelector(
+              "#cover"
+            )
+            .style.backgroundImage =
+
+              `linear-gradient(
+                0deg,
+                #070707,
+                rgba(0,0,0,.2)
+              ),
+              url("${artistPhoto}")`;
+
+        }
+
+
+        /*
+          MÚSICAS
+        */
+
+        const songs =
+          getSongs();
+
+
+        document
+          .querySelector(
+            "#statSongs"
+          )
+          .textContent =
+            formatNumber(
+              songs.length
+            );
+
+
+        /*
+          TOTAL DE VISUALIZAÇÕES
+        */
+
+        const songViews =
+          songs.reduce(
+            (
+              total,
+              song
+            ) => {
+
+              return (
+                total +
+
+                (
+                  Number(
+                    song.views
+                  )
+                  ||
+                  0
+                )
+
+              );
+
+            },
+            0
+          );
+
+
+        const savedViews =
+          Number(
+            localStorage.getItem(
+              "kpArtistViews"
+            )
+          )
+          ||
+          0;
+
+
+        const totalViews =
+          songViews > 0
+          ?
+          songViews
+          :
+          savedViews;
+
+
+        document
+          .querySelector(
+            "#statViews"
+          )
+          .textContent =
+            formatNumber(
+              totalViews
+            );
+
+
+        /*
+          LISTA DE MÚSICAS
+        */
+
+        const songList =
+          document.querySelector(
+            "#songList"
+          );
+
+
+        if(songs.length > 0){
+
+          songList.innerHTML =
+            "";
+
+
+          songs
+            .slice(0,5)
+            .forEach(
+              song => {
+
+
+                const songElement =
+                  document.createElement(
+                    "div"
+                  );
+
+
+                songElement.className =
+                  "song";
+
+
+                const cover =
+                  document.createElement(
+                    "div"
+                  );
+
+
+                cover.className =
+                  "song-cover";
+
+
+                const coverUrl =
+                  song.cover
+                  ||
+                  artistPhoto
+                  ||
+                  "";
+
+
+                if(coverUrl){
+
+                  cover.style.backgroundImage =
+                    `url("${coverUrl}")`;
+
+                }
+
+
+                const info =
+                  document.createElement(
+                    "div"
+                  );
+
+
+                info.className =
+                  "song-info";
+
+
+                const title =
+                  document.createElement(
+                    "div"
+                  );
+
+
+                title.className =
+                  "song-title";
+
+
+                title.textContent =
+                  song.title
+                  ||
+                  "Música sem título";
+
+
+                const meta =
+                  document.createElement(
+                    "div"
+                  );
+
+
+                meta.className =
+                  "song-meta";
+
+
+                meta.textContent =
+                  song.createdAt
+                  ||
+                  "Música publicada";
+
+
+                info.appendChild(
+                  title
+                );
+
+
+                info.appendChild(
+                  meta
+                );
+
+
+                const status =
+                  document.createElement(
+                    "div"
+                  );
+
+
+                status.className =
+                  "song-status";
+
+
+                status.textContent =
+                  "● ATIVA";
+
+
+                songElement.appendChild(
+                  cover
+                );
+
+
+                songElement.appendChild(
+                  info
+                );
+
+
+                songElement.appendChild(
+                  status
+                );
+
+
+                songList.appendChild(
+                  songElement
+                );
+
+
+              }
             );
 
         }
-      );
+
+
+        /*
+          SEGUIDORES
+        */
+
+        const followers =
+
+          localStorage.getItem(
+            "kpArtistFollowers"
+          )
+
+          ||
+
+          "0";
+
+
+        document
+          .querySelector(
+            "#statFollowers"
+          )
+          .textContent =
+            formatNumber(
+              followers
+            );
+
+
+        /*
+          LINK DO PERFIL PÚBLICO
+        */
+
+        const publicProfileUrl =
+
+          "perfil.html?user=" +
+
+          encodeURIComponent(
+            artistUsername
+          );
+
+
+        document
+          .querySelector(
+            "#publicProfileBtn"
+          )
+          .href =
+            publicProfileUrl;
+
+
+        document
+          .querySelector(
+            "#publicProfileQuick"
+          )
+          .href =
+            publicProfileUrl;
+
+
+        /*
+          MOSTRAR PÁGINA
+        */
+
+        document
+          .querySelector(
+            "#loading"
+          )
+          .classList.add(
+            "hidden"
+          );
+
+
+      }
+    );
 
   </script>
 
