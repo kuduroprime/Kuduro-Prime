@@ -1,20 +1,12 @@
 <!DOCTYPE html>
-
 <html lang="pt">
 <head>
-
-  <meta charset="UTF-8">
-
-<meta
-name="viewport"
-content="width=device-width, initial-scale=1.0"
-
->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <title>Meu Perfil — KUDURO PRIME</title>
 
   <style>
-
     :root{
       --bg:#070707;
       --panel:#101010;
@@ -34,7 +26,6 @@ content="width=device-width, initial-scale=1.0"
     body{
       margin:0;
       min-height:100vh;
-
       background:
         radial-gradient(
           circle at 80% 0,
@@ -42,13 +33,8 @@ content="width=device-width, initial-scale=1.0"
           transparent 30%
         ),
         var(--bg);
-
       color:var(--text);
-
-      font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
+      font-family:Arial,Helvetica,sans-serif;
     }
 
     a{
@@ -61,17 +47,12 @@ content="width=device-width, initial-scale=1.0"
     .loading{
       position:fixed;
       inset:0;
-
       z-index:9999;
-
       display:flex;
       flex-direction:column;
-
       align-items:center;
       justify-content:center;
-
       gap:15px;
-
       background:#070707;
     }
 
@@ -81,7 +62,6 @@ content="width=device-width, initial-scale=1.0"
 
     .loading-logo{
       color:var(--gold);
-
       font-size:28px;
       font-weight:900;
     }
@@ -95,42 +75,29 @@ content="width=device-width, initial-scale=1.0"
 
     .nav{
       height:82px;
-
-      border-bottom:
-        1px solid var(--line);
-
+      border-bottom:1px solid var(--line);
       display:flex;
       align-items:center;
-
       position:sticky;
       top:0;
-
       z-index:50;
-
-      background:
-        rgba(7,7,7,.94);
-
-      backdrop-filter:
-        blur(12px);
+      background:rgba(7,7,7,.94);
+      backdrop-filter:blur(12px);
     }
 
     .nav-in{
       width:min(1180px,92%);
       margin:auto;
-
       display:flex;
       align-items:center;
       justify-content:space-between;
-
       gap:20px;
     }
 
     .brand{
       font-size:23px;
       font-weight:900;
-
       line-height:.78;
-
       letter-spacing:-1px;
     }
 
@@ -141,11 +108,8 @@ content="width=device-width, initial-scale=1.0"
 
     .crown{
       display:block;
-
       text-align:center;
-
       color:var(--gold);
-
       font-size:23px;
       line-height:.6;
     }
@@ -153,63 +117,46 @@ content="width=device-width, initial-scale=1.0"
     .nav-right{
       display:flex;
       align-items:center;
-
       gap:10px;
     }
 
     .btn{
       min-height:42px;
       padding:0 16px;
-
       display:inline-flex;
       align-items:center;
       justify-content:center;
-
       gap:7px;
-
       border-radius:8px;
-
-      border:
-        1px solid var(--gold);
-
+      border:1px solid var(--gold);
       background:transparent;
-
       color:var(--gold);
-
       font-size:11px;
       font-weight:900;
-
       cursor:pointer;
-
       transition:.25s;
     }
 
     .btn:hover{
-      transform:
-        translateY(-1px);
+      transform:translateY(-1px);
     }
 
     .btn.gold{
       border:0;
-
       color:#17120a;
-
-      background:
-        linear-gradient(
-          135deg,
-          var(--gold2),
-          var(--gold)
-        );
+      background:linear-gradient(
+        135deg,
+        var(--gold2),
+        var(--gold)
+      );
     }
 
     /* CAPA */
 
     .cover{
       height:300px;
-
       position:relative;
       overflow:hidden;
-
       background:
         linear-gradient(
           0deg,
@@ -220,71 +167,37 @@ content="width=device-width, initial-scale=1.0"
         center/cover;
     }
 
-    .cover::after{
-      content:"";
-
-      position:absolute;
-      inset:0;
-
-      background:
-        radial-gradient(
-          circle at 75% 25%,
-          rgba(244,191,49,.25),
-          transparent 35%
-        );
-    }
-
     /* PERFIL */
 
     .profile{
       width:min(1180px,92%);
       margin:auto;
-
       position:relative;
     }
 
     .profile-head{
       min-height:230px;
-
-      padding:
-        0
-        0
-        25px
-        220px;
-
+      padding:0 0 25px 220px;
       display:flex;
       align-items:center;
       justify-content:space-between;
-
       gap:25px;
-
-      border-bottom:
-        1px solid var(--line);
+      border-bottom:1px solid var(--line);
     }
 
     .profile-photo{
       position:absolute;
-
       top:-90px;
       left:0;
-
       width:180px;
       height:180px;
-
       border-radius:50%;
       overflow:hidden;
-
       background:#17120a;
-
-      border:
-        5px solid var(--bg);
-
-      outline:
-        2px solid var(--gold);
-
+      border:5px solid var(--bg);
+      outline:2px solid var(--gold);
       display:grid;
       place-items:center;
-
       color:var(--gold);
       font-size:65px;
     }
@@ -292,29 +205,21 @@ content="width=device-width, initial-scale=1.0"
     .profile-photo img{
       width:100%;
       height:100%;
-
       object-fit:cover;
     }
 
     .eyebrow{
       color:var(--gold);
-
       font-size:10px;
       font-weight:900;
-
       letter-spacing:1.5px;
-
       margin-bottom:9px;
     }
 
     .profile-name{
       margin:0;
-
-      font-size:
-        clamp(32px,5vw,52px);
-
+      font-size:clamp(32px,5vw,52px);
       font-weight:950;
-
       letter-spacing:-2px;
     }
 
@@ -325,16 +230,13 @@ content="width=device-width, initial-scale=1.0"
 
     .username{
       margin-top:8px;
-
       color:var(--gold);
-
       font-size:13px;
       font-weight:800;
     }
 
     .location{
       margin-top:12px;
-
       color:var(--muted);
       font-size:12px;
     }
@@ -354,28 +256,19 @@ content="width=device-width, initial-scale=1.0"
 
     .dashboard-grid{
       display:grid;
-
-      grid-template-columns:
-        repeat(4,1fr);
-
+      grid-template-columns:repeat(4,1fr);
       gap:15px;
-
       margin-bottom:25px;
     }
 
     .stat-card{
       padding:20px;
-
-      background:
-        linear-gradient(
-          145deg,
-          #151515,
-          #0c0c0c
-        );
-
-      border:
-        1px solid var(--line);
-
+      background:linear-gradient(
+        145deg,
+        #151515,
+        #0c0c0c
+      );
+      border:1px solid var(--line);
       border-radius:14px;
     }
 
@@ -385,60 +278,43 @@ content="width=device-width, initial-scale=1.0"
 
     .stat-number{
       margin-top:14px;
-
       font-size:30px;
       font-weight:950;
     }
 
     .stat-label{
       margin-top:4px;
-
       color:var(--muted);
-
       font-size:10px;
       font-weight:900;
-
       letter-spacing:.5px;
     }
 
-    /* GRID */
-
     .main-grid{
       display:grid;
-
       grid-template-columns:
         minmax(0,1.5fr)
         minmax(280px,.8fr);
-
       gap:20px;
-
       align-items:start;
     }
 
     .panel{
-      background:
-        linear-gradient(
-          145deg,
-          #141414,
-          #0b0b0b
-        );
-
-      border:
-        1px solid var(--line);
-
+      background:linear-gradient(
+        145deg,
+        #141414,
+        #0b0b0b
+      );
+      border:1px solid var(--line);
       border-radius:15px;
     }
 
     .panel-head{
       padding:20px;
-
-      border-bottom:
-        1px solid var(--line);
-
+      border-bottom:1px solid var(--line);
       display:flex;
       justify-content:space-between;
       align-items:center;
-
       gap:15px;
     }
 
@@ -449,7 +325,6 @@ content="width=device-width, initial-scale=1.0"
 
     .panel-link{
       color:var(--gold);
-
       font-size:11px;
       font-weight:900;
     }
@@ -462,43 +337,30 @@ content="width=device-width, initial-scale=1.0"
 
     .bio{
       color:#c9c6bf;
-
       font-size:13px;
       line-height:1.7;
-
       white-space:pre-line;
     }
 
     .info-grid{
       display:grid;
-
-      grid-template-columns:
-        1fr 1fr;
-
+      grid-template-columns:1fr 1fr;
       gap:12px;
-
       margin-top:20px;
     }
 
     .info{
       padding:14px;
-
-      border:
-        1px solid var(--line);
-
+      border:1px solid var(--line);
       border-radius:10px;
-
       background:#0c0c0c;
     }
 
     .info small{
       display:block;
-
       color:var(--muted);
-
       font-size:9px;
       font-weight:900;
-
       margin-bottom:6px;
     }
 
@@ -515,13 +377,9 @@ content="width=device-width, initial-scale=1.0"
     .song{
       display:flex;
       align-items:center;
-
       gap:12px;
-
       padding:13px 0;
-
-      border-bottom:
-        1px solid var(--line);
+      border-bottom:1px solid var(--line);
     }
 
     .song:last-child{
@@ -529,114 +387,127 @@ content="width=device-width, initial-scale=1.0"
     }
 
     .song-cover{
-      width:54px;
-      height:54px;
-
+      width:58px;
+      height:58px;
       flex:0 0 auto;
-
       border-radius:8px;
-
-      background:
-        center/cover
-        no-repeat
-        #17120a;
+      background:center/cover no-repeat #17120a;
     }
 
     .song-info{
       min-width:0;
+      flex:1;
     }
 
     .song-title{
       font-size:13px;
       font-weight:900;
-
       white-space:nowrap;
       overflow:hidden;
-
       text-overflow:ellipsis;
     }
 
     .song-meta{
       color:var(--muted);
-
       font-size:10px;
-
       margin-top:5px;
     }
 
     .song-status{
-      margin-left:auto;
-
       color:var(--green);
-
       font-size:10px;
       font-weight:900;
-
       white-space:nowrap;
+    }
+
+    .listen-btn{
+      min-height:38px;
+      padding:0 13px;
+      margin-left:8px;
+      border-radius:8px;
+      border:1px solid var(--gold);
+      background:var(--gold);
+      color:#17120a;
+      font-size:10px;
+      font-weight:900;
+      cursor:pointer;
+    }
+
+    .listen-btn:hover{
+      filter:brightness(1.1);
     }
 
     .empty{
       padding:35px 20px;
-
       text-align:center;
-
       color:var(--muted);
       font-size:12px;
     }
 
     .empty-icon{
       font-size:35px;
-
       margin-bottom:10px;
-
       color:var(--gold);
+    }
+
+    /* PLAYER */
+
+    .player-box{
+      margin:0 20px 20px;
+      padding:14px;
+      border:1px solid var(--line);
+      border-radius:10px;
+      background:#0c0c0c;
+      display:none;
+    }
+
+    .player-box.active{
+      display:block;
+    }
+
+    .now-playing{
+      margin-bottom:10px;
+      color:var(--gold);
+      font-size:11px;
+      font-weight:900;
+    }
+
+    .audio-player{
+      width:100%;
+      height:40px;
     }
 
     /* AÇÕES */
 
     .quick-actions{
       padding:15px;
-
       display:grid;
       gap:10px;
     }
 
     .quick{
       padding:15px;
-
-      border:
-        1px solid var(--line);
-
+      border:1px solid var(--line);
       border-radius:10px;
-
       background:#0c0c0c;
-
       display:flex;
       align-items:center;
-
       gap:12px;
-
       transition:.25s;
     }
 
     .quick:hover{
       border-color:#735c21;
-
-      transform:
-        translateX(3px);
+      transform:translateX(3px);
     }
 
     .quick-icon{
       width:40px;
       height:40px;
-
       display:grid;
       place-items:center;
-
       border-radius:9px;
-
       background:#1c1608;
-
       color:var(--gold);
     }
 
@@ -647,95 +518,24 @@ content="width=device-width, initial-scale=1.0"
 
     .quick small{
       display:block;
-
       margin-top:4px;
-
       color:var(--muted);
-
       font-size:10px;
-    }
-
-    /* STATUS */
-
-    .status{
-      padding:20px;
-    }
-
-    .status-item{
-      display:flex;
-      align-items:center;
-
-      gap:12px;
-
-      padding:12px 0;
-
-      border-bottom:
-        1px solid var(--line);
-    }
-
-    .status-item:last-child{
-      border:0;
-    }
-
-    .status-dot{
-      width:10px;
-      height:10px;
-
-      border-radius:50%;
-
-      background:var(--gold);
-
-      box-shadow:
-        0 0 10px
-        rgba(244,191,49,.5);
-    }
-
-    .status-text{
-      font-size:11px;
-    }
-
-    .status-text small{
-      display:block;
-
-      color:var(--muted);
-
-      margin-top:4px;
-
-      font-size:10px;
-    }
-
-    /* FOOTER */
-
-    footer{
-      padding:25px 0;
-
-      border-top:
-        1px solid var(--line);
-
-      text-align:center;
-
-      color:#777;
-      font-size:11px;
     }
 
     /* RESPONSIVO */
 
     @media(max-width:950px){
-
       .dashboard-grid{
-        grid-template-columns:
-          repeat(2,1fr);
+        grid-template-columns:repeat(2,1fr);
       }
 
       .main-grid{
-        grid-template-columns:
-          1fr;
+        grid-template-columns:1fr;
       }
-
     }
 
     @media(max-width:650px){
-
       .nav{
         height:70px;
       }
@@ -757,23 +557,16 @@ content="width=device-width, initial-scale=1.0"
       }
 
       .profile-head{
-        padding:
-          85px
-          0
-          25px;
-
+        padding:85px 0 25px;
         display:block;
       }
 
       .profile-photo{
         width:130px;
         height:130px;
-
         left:50%;
         top:-65px;
-
-        transform:
-          translateX(-50%);
+        transform:translateX(-50%);
       }
 
       .actions{
@@ -785,8 +578,7 @@ content="width=device-width, initial-scale=1.0"
       }
 
       .dashboard-grid{
-        grid-template-columns:
-          1fr 1fr;
+        grid-template-columns:1fr 1fr;
       }
 
       .stat-card{
@@ -798,616 +590,278 @@ content="width=device-width, initial-scale=1.0"
       }
 
       .info-grid{
-        grid-template-columns:
-          1fr;
+        grid-template-columns:1fr;
       }
 
+      .song{
+        flex-wrap:wrap;
+      }
+
+      .song-info{
+        width:calc(100% - 70px);
+      }
+
+      .listen-btn{
+        width:100%;
+        margin:0;
+      }
     }
-
   </style>
-
 </head>
 
 <body>
 
-  <!-- CARREGAMENTO -->
+  <div class="loading" id="loading">
+    <div class="loading-logo">
+      👑 KUDURO PRIME
+    </div>
 
-  <div
-    class="loading"
-    id="loading"
-  >
-
-```
-<div class="loading-logo">
-  👑 KUDURO PRIME
-</div>
-
-<div class="loading-text">
-  A carregar o teu perfil...
-</div>
-```
-
+    <div class="loading-text">
+      A carregar o teu perfil...
+    </div>
   </div>
-
-  <!-- NAVEGAÇÃO -->
 
   <nav class="nav">
+    <div class="nav-in">
 
-```
-<div class="nav-in">
+      <a href="index.html" class="brand">
+        <span class="crown">♕</span>
+        KUDURO
+        <b>PRIME</b>
+      </a>
 
-  <a
-    href="index.html"
-    class="brand"
-  >
+      <div class="nav-right">
+        <a href="index.html" class="btn dark">
+          ← VER SITE
+        </a>
 
-    <span class="crown">
-      ♕
-    </span>
+        <a href="painel-do-artista.html" class="btn gold">
+          👑 MEU PAINEL
+        </a>
+      </div>
 
-    KUDURO
-
-    <b>
-      PRIME
-    </b>
-
-  </a>
-
-
-  <div class="nav-right">
-
-    <a
-      href="index.html"
-      class="btn dark"
-    >
-      ← VER SITE
-    </a>
-
-
-    <a
-      href="painel-do-artista.html"
-      class="btn gold"
-    >
-      👑 MEU PAINEL
-    </a>
-
-  </div>
-
-</div>
-```
-
+    </div>
   </nav>
 
-  <!-- CAPA -->
-
-  <section
-    class="cover"
-    id="cover"
-  ></section>
-
-  <!-- PERFIL -->
+  <section class="cover" id="cover"></section>
 
   <section class="profile">
+    <div class="profile-head">
 
-```
-<div class="profile-head">
+      <div class="profile-photo" id="profilePhoto">
+        👤
+      </div>
 
-  <div
-    class="profile-photo"
-    id="profilePhoto"
-  >
-    👤
-  </div>
+      <div>
+        <div class="eyebrow">
+          👑 PERFIL OFICIAL PRIME
+        </div>
 
+        <h1 class="profile-name">
+          <span id="profileName">Artista Prime</span>
+          <span class="verified">●</span>
+        </h1>
 
-  <div>
+        <div class="username" id="profileUser">
+          @artista
+        </div>
 
-    <div class="eyebrow">
-      👑 PERFIL OFICIAL PRIME
+        <div class="location" id="profileLocation">
+          📍 Angola
+        </div>
+      </div>
+
+      <div class="actions">
+        <a href="editar-perfil.html" class="btn gold">
+          ✏ EDITAR PERFIL
+        </a>
+
+        <a href="perfil.html" class="btn dark" id="publicProfileBtn">
+          👁 VER PÚBLICO
+        </a>
+      </div>
+
     </div>
-
-
-    <h1 class="profile-name">
-
-      <span id="profileName">
-        Artista Prime
-      </span>
-
-      <span class="verified">
-        ●
-      </span>
-
-    </h1>
-
-
-    <div
-      class="username"
-      id="profileUser"
-    >
-      @artista
-    </div>
-
-
-    <div
-      class="location"
-      id="profileLocation"
-    >
-      📍 Angola
-    </div>
-
-  </div>
-
-
-  <div class="actions">
-
-    <a
-      href="editar-perfil.html"
-      class="btn gold"
-    >
-      ✏ EDITAR PERFIL
-    </a>
-
-
-    <a
-      href="perfil.html"
-      class="btn dark"
-      id="publicProfileBtn"
-    >
-      👁 VER PÚBLICO
-    </a>
-
-  </div>
-
-</div>
-```
-
   </section>
 
   <main class="container">
 
-```
-<!-- ESTATÍSTICAS -->
+    <div class="dashboard-grid">
 
-<div class="dashboard-grid">
+      <article class="stat-card">
+        <div class="stat-icon">🎵</div>
+        <div class="stat-number" id="statSongs">0</div>
+        <div class="stat-label">MINHAS MÚSICAS</div>
+      </article>
 
+      <article class="stat-card">
+        <div class="stat-icon">👁</div>
+        <div class="stat-number" id="statViews">0</div>
+        <div class="stat-label">VISUALIZAÇÕES</div>
+      </article>
 
-  <article class="stat-card">
+      <article class="stat-card">
+        <div class="stat-icon">👥</div>
+        <div class="stat-number" id="statFollowers">0</div>
+        <div class="stat-label">SEGUIDORES</div>
+      </article>
 
-    <div class="stat-icon">
-      🎵
+      <article class="stat-card">
+        <div class="stat-icon">🏆</div>
+        <div class="stat-number" id="statRank">—</div>
+        <div class="stat-label">POSIÇÃO NO RANKING</div>
+      </article>
+
     </div>
 
-    <div
-      class="stat-number"
-      id="statSongs"
-    >
-      0
-    </div>
+    <div class="main-grid">
 
-    <div class="stat-label">
-      MINHAS MÚSICAS
-    </div>
+      <section>
 
-  </article>
+        <div class="panel">
+          <div class="panel-head">
+            <h2 class="panel-title">
+              👤 SOBRE O MEU PERFIL
+            </h2>
 
+            <a href="editar-perfil.html" class="panel-link">
+              EDITAR ›
+            </a>
+          </div>
 
-  <article class="stat-card">
+          <div class="summary">
 
-    <div class="stat-icon">
-      👁
-    </div>
+            <div class="bio" id="profileBio">
+              Ainda não adicionaste uma biografia.
+            </div>
 
-    <div
-      class="stat-number"
-      id="statViews"
-    >
-      0
-    </div>
+            <div class="info-grid">
 
-    <div class="stat-label">
-      VISUALIZAÇÕES
-    </div>
+              <div class="info">
+                <small>ESTILO</small>
+                <strong id="profileGenre">Kuduro</strong>
+              </div>
 
-  </article>
+              <div class="info">
+                <small>LOCALIZAÇÃO</small>
+                <strong id="profileCity">
+                  Luanda, Angola
+                </strong>
+              </div>
 
+              <div class="info">
+                <small>CARREIRA DESDE</small>
+                <strong id="profileYear">—</strong>
+              </div>
 
-  <article class="stat-card">
+              <div class="info">
+                <small>ESTADO DO PERFIL</small>
+                <strong style="color:var(--green)">
+                  ● ATIVO
+                </strong>
+              </div>
 
-    <div class="stat-icon">
-      👥
-    </div>
-
-    <div
-      class="stat-number"
-      id="statFollowers"
-    >
-      0
-    </div>
-
-    <div class="stat-label">
-      SEGUIDORES
-    </div>
-
-  </article>
-
-
-  <article class="stat-card">
-
-    <div class="stat-icon">
-      🏆
-    </div>
-
-    <div
-      class="stat-number"
-      id="statRank"
-    >
-      —
-    </div>
-
-    <div class="stat-label">
-      POSIÇÃO NO RANKING
-    </div>
-
-  </article>
-
-</div>
-
-
-<div class="main-grid">
-
-
-  <!-- COLUNA ESQUERDA -->
-
-  <section>
-
-
-    <!-- SOBRE -->
-
-    <div class="panel">
-
-      <div class="panel-head">
-
-        <h2 class="panel-title">
-          👤 SOBRE O MEU PERFIL
-        </h2>
-
-        <a
-          href="editar-perfil.html"
-          class="panel-link"
-        >
-          EDITAR ›
-        </a>
-
-      </div>
-
-
-      <div class="summary">
-
-        <div
-          class="bio"
-          id="profileBio"
-        >
-          Ainda não adicionaste uma biografia.
+            </div>
+          </div>
         </div>
 
+        <!-- MÚSICAS -->
 
-        <div class="info-grid">
+        <div class="panel" style="margin-top:20px">
 
+          <div class="panel-head">
+            <h2 class="panel-title">
+              🎵 MINHAS MÚSICAS
+            </h2>
 
-          <div class="info">
-
-            <small>
-              ESTILO
-            </small>
-
-            <strong id="profileGenre">
-              Kuduro
-            </strong>
-
+            <a href="minhas-musicas.html" class="panel-link">
+              GERIR TODAS ›
+            </a>
           </div>
 
-
-          <div class="info">
-
-            <small>
-              LOCALIZAÇÃO
-            </small>
-
-            <strong id="profileCity">
-              Luanda, Angola
-            </strong>
-
+          <div class="song-list" id="songList">
+            <div class="empty">
+              <div class="empty-icon">🎵</div>
+              Ainda não tens músicas publicadas.
+            </div>
           </div>
 
+          <!-- PLAYER DE ÁUDIO -->
 
-          <div class="info">
+          <div class="player-box" id="playerBox">
+            <div class="now-playing" id="nowPlaying">
+              🎵 Nenhuma música selecionada
+            </div>
 
-            <small>
-              CARREIRA DESDE
-            </small>
-
-            <strong id="profileYear">
-              —
-            </strong>
-
+            <audio
+              id="audioPlayer"
+              class="audio-player"
+              controls
+            ></audio>
           </div>
 
+        </div>
 
-          <div class="info">
+      </section>
 
-            <small>
-              ESTADO DO PERFIL
-            </small>
+      <aside>
 
-            <strong
-              style="color:var(--green)"
+        <div class="panel">
+          <div class="panel-head">
+            <h2 class="panel-title">
+              ⚡ AÇÕES RÁPIDAS
+            </h2>
+          </div>
+
+          <div class="quick-actions">
+
+            <a href="minhas-musicas.html" class="quick">
+              <div class="quick-icon">🎵</div>
+              <div>
+                <strong>Publicar Música</strong>
+                <small>Adiciona uma nova música</small>
+              </div>
+            </a>
+
+            <a href="editar-perfil.html" class="quick">
+              <div class="quick-icon">✏</div>
+              <div>
+                <strong>Editar Perfil</strong>
+                <small>Atualiza as tuas informações</small>
+              </div>
+            </a>
+
+            <a href="painel-do-artista.html" class="quick">
+              <div class="quick-icon">📊</div>
+              <div>
+                <strong>Painel do Artista</strong>
+                <small>Vê todas as estatísticas</small>
+              </div>
+            </a>
+
+            <a
+              href="perfil.html"
+              class="quick"
+              id="publicProfileQuick"
             >
-              ● ATIVO
-            </strong>
+              <div class="quick-icon">👁</div>
+              <div>
+                <strong>Ver Perfil Público</strong>
+                <small>Vê como o público te vê</small>
+              </div>
+            </a>
 
           </div>
-
         </div>
 
-      </div>
+      </aside>
 
     </div>
-
-
-    <!-- MÚSICAS -->
-
-    <div
-      class="panel"
-      style="margin-top:20px"
-    >
-
-      <div class="panel-head">
-
-        <h2 class="panel-title">
-          🎵 MINHAS MÚSICAS
-        </h2>
-
-        <a
-          href="minhas-musicas.html"
-          class="panel-link"
-        >
-          GERIR TODAS ›
-        </a>
-
-      </div>
-
-
-      <div
-        class="song-list"
-        id="songList"
-      >
-
-        <div class="empty">
-
-          <div class="empty-icon">
-            🎵
-          </div>
-
-          Ainda não tens músicas publicadas.
-
-        </div>
-
-      </div>
-
-    </div>
-
-  </section>
-
-
-  <!-- COLUNA DIREITA -->
-
-  <aside>
-
-
-    <!-- AÇÕES -->
-
-    <div class="panel">
-
-      <div class="panel-head">
-
-        <h2 class="panel-title">
-          ⚡ AÇÕES RÁPIDAS
-        </h2>
-
-      </div>
-
-
-      <div class="quick-actions">
-
-
-        <a
-          href="minhas-musicas.html"
-          class="quick"
-        >
-
-          <div class="quick-icon">
-            🎵
-          </div>
-
-          <div>
-
-            <strong>
-              Publicar Música
-            </strong>
-
-            <small>
-              Adiciona uma nova música
-            </small>
-
-          </div>
-
-        </a>
-
-
-        <a
-          href="editar-perfil.html"
-          class="quick"
-        >
-
-          <div class="quick-icon">
-            ✏
-          </div>
-
-          <div>
-
-            <strong>
-              Editar Perfil
-            </strong>
-
-            <small>
-              Atualiza as tuas informações
-            </small>
-
-          </div>
-
-        </a>
-
-
-        <a
-          href="painel-do-artista.html"
-          class="quick"
-        >
-
-          <div class="quick-icon">
-            📊
-          </div>
-
-          <div>
-
-            <strong>
-              Painel do Artista
-            </strong>
-
-            <small>
-              Vê todas as estatísticas
-            </small>
-
-          </div>
-
-        </a>
-
-
-        <a
-          href="perfil.html"
-          class="quick"
-          id="publicProfileQuick"
-        >
-
-          <div class="quick-icon">
-            👁
-          </div>
-
-          <div>
-
-            <strong>
-              Ver Perfil Público
-            </strong>
-
-            <small>
-              Vê como o público te vê
-            </small>
-
-          </div>
-
-        </a>
-
-      </div>
-
-    </div>
-
-
-    <!-- ESTADO -->
-
-    <div
-      class="panel"
-      style="margin-top:20px"
-    >
-
-      <div class="panel-head">
-
-        <h2 class="panel-title">
-          👑 ESTADO DA CONTA
-        </h2>
-
-      </div>
-
-
-      <div class="status">
-
-
-        <div class="status-item">
-
-          <div class="status-dot"></div>
-
-          <div class="status-text">
-
-            Perfil criado
-
-            <small>
-              O teu perfil está ativo
-            </small>
-
-          </div>
-
-        </div>
-
-
-        <div class="status-item">
-
-          <div class="status-dot"></div>
-
-          <div class="status-text">
-
-            Conta Prime
-
-            <small>
-              Fazes parte do movimento
-            </small>
-
-          </div>
-
-        </div>
-
-
-        <div class="status-item">
-
-          <div class="status-dot"></div>
-
-          <div class="status-text">
-
-            Próximo passo
-
-            <small>
-              Publica a tua primeira música
-            </small>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </div>
-
-  </aside>
-
-</div>
-```
-
   </main>
 
   <footer>
-
-```
-© 2026 KUDURO PRIME.
-O KUDURO VIVE AQUI. 👑
-```
-
+    © 2026 KUDURO PRIME.
+    O KUDURO VIVE AQUI. 👑
   </footer>
 
   <script type="module">
@@ -1418,7 +872,6 @@ O KUDURO VIVE AQUI. 👑
     from
     "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
 
-
     import {
       getAuth,
       onAuthStateChanged
@@ -1426,8 +879,6 @@ O KUDURO VIVE AQUI. 👑
     from
     "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
 
-
-    /* CONFIGURAÇÃO FIREBASE */
 
     const firebaseConfig = {
 
@@ -1452,21 +903,12 @@ O KUDURO VIVE AQUI. 👑
     };
 
 
-    /* INICIAR FIREBASE */
-
     const app =
-      initializeApp(
-        firebaseConfig
-      );
-
+      initializeApp(firebaseConfig);
 
     const auth =
-      getAuth(
-        app
-      );
+      getAuth(app);
 
-
-    /* FORMATAR NÚMEROS */
 
     function formatNumber(number){
 
@@ -1479,7 +921,9 @@ O KUDURO VIVE AQUI. 👑
     }
 
 
-    /* CARREGAR MÚSICAS */
+    /*
+      CARREGAR MÚSICAS
+    */
 
     function getSongs(){
 
@@ -1494,9 +938,7 @@ O KUDURO VIVE AQUI. 👑
         const songs =
           savedSongs
           ?
-          JSON.parse(
-            savedSongs
-          )
+          JSON.parse(savedSongs)
           :
           [];
 
@@ -1515,7 +957,6 @@ O KUDURO VIVE AQUI. 👑
           error
         );
 
-
         return [];
 
       }
@@ -1524,17 +965,117 @@ O KUDURO VIVE AQUI. 👑
 
 
     /*
-      VERIFICAR SESSÃO
+      TOCAR MÚSICA
+    */
+
+    function playSong(song, artistName){
+
+      const audio =
+        document.querySelector(
+          "#audioPlayer"
+        );
+
+
+      const playerBox =
+        document.querySelector(
+          "#playerBox"
+        );
+
+
+      const nowPlaying =
+        document.querySelector(
+          "#nowPlaying"
+        );
+
+
+      const audioUrl =
+
+        song.audio
+        ||
+
+        song.audioUrl
+        ||
+
+        song.url
+        ||
+
+        song.musicUrl
+        ||
+
+        song.file
+        ||
+
+        "";
+
+
+      if(!audioUrl){
+
+        alert(
+          "Esta música ainda não tem um ficheiro de áudio."
+        );
+
+        return;
+
+      }
+
+
+      audio.src =
+        audioUrl;
+
+
+      nowPlaying.textContent =
+
+        "🎵 A tocar: " +
+
+        (
+          song.title
+          ||
+          "Música sem título"
+        )
+
+        +
+
+        " — " +
+
+        (
+          song.artist
+          ||
+          artistName
+        );
+
+
+      playerBox.classList.add(
+        "active"
+      );
+
+
+      audio.play().catch(
+        error => {
+
+          console.error(
+            "Erro ao tocar:",
+            error
+          );
+
+        }
+      );
+
+
+      playerBox.scrollIntoView({
+        behavior:"smooth",
+        block:"nearest"
+      });
+
+    }
+
+
+    /*
+      SESSÃO
     */
 
     onAuthStateChanged(
       auth,
       user => {
-
-
-        /*
-          NÃO ESTÁ LOGADO
-        */
 
         if(!user){
 
@@ -1572,8 +1113,7 @@ O KUDURO VIVE AQUI. 👑
           (
             user.email
             ?
-            user.email
-              .split("@")[0]
+            user.email.split("@")[0]
             :
             "Artista Prime"
           );
@@ -1587,8 +1127,7 @@ O KUDURO VIVE AQUI. 👑
 
           ||
 
-          user.email
-            ?.split("@")[0]
+          user.email?.split("@")[0]
 
           ||
 
@@ -1669,73 +1208,51 @@ O KUDURO VIVE AQUI. 👑
           MOSTRAR DADOS
         */
 
-        document
-          .querySelector(
-            "#profileName"
-          )
-          .textContent =
-            artistName;
+        document.querySelector(
+          "#profileName"
+        ).textContent =
+          artistName;
 
 
-        document
-          .querySelector(
-            "#profileUser"
-          )
-          .textContent =
-            "@" +
-            artistUsername;
+        document.querySelector(
+          "#profileUser"
+        ).textContent =
+          "@" + artistUsername;
 
 
-        document
-          .querySelector(
-            "#profileLocation"
-          )
-          .textContent =
-
-            "📍 " +
-
-            artistCity +
-
-            ", " +
-
-            artistCountry;
+        document.querySelector(
+          "#profileLocation"
+        ).textContent =
+          "📍 " +
+          artistCity +
+          ", " +
+          artistCountry;
 
 
-        document
-          .querySelector(
-            "#profileBio"
-          )
-          .textContent =
-            artistBio;
+        document.querySelector(
+          "#profileBio"
+        ).textContent =
+          artistBio;
 
 
-        document
-          .querySelector(
-            "#profileGenre"
-          )
-          .textContent =
-            artistGenre;
+        document.querySelector(
+          "#profileGenre"
+        ).textContent =
+          artistGenre;
 
 
-        document
-          .querySelector(
-            "#profileCity"
-          )
-          .textContent =
-
-            artistCity +
-
-            ", " +
-
-            artistCountry;
+        document.querySelector(
+          "#profileCity"
+        ).textContent =
+          artistCity +
+          ", " +
+          artistCountry;
 
 
-        document
-          .querySelector(
-            "#profileYear"
-          )
-          .textContent =
-            artistYear;
+        document.querySelector(
+          "#profileYear"
+        ).textContent =
+          artistYear;
 
 
         /*
@@ -1773,18 +1290,16 @@ O KUDURO VIVE AQUI. 👑
           );
 
 
-          document
-            .querySelector(
-              "#cover"
-            )
-            .style.backgroundImage =
+          document.querySelector(
+            "#cover"
+          ).style.backgroundImage =
 
-              `linear-gradient(
-                0deg,
-                #070707,
-                rgba(0,0,0,.2)
-              ),
-              url("${artistPhoto}")`;
+            `linear-gradient(
+              0deg,
+              #070707,
+              rgba(0,0,0,.2)
+            ),
+            url("${artistPhoto}")`;
 
         }
 
@@ -1797,21 +1312,19 @@ O KUDURO VIVE AQUI. 👑
           getSongs();
 
 
-        document
-          .querySelector(
-            "#statSongs"
-          )
-          .textContent =
-            formatNumber(
-              songs.length
-            );
+        document.querySelector(
+          "#statSongs"
+        ).textContent =
+          formatNumber(
+            songs.length
+          );
 
 
         /*
-          TOTAL DE VISUALIZAÇÕES
+          VISUALIZAÇÕES
         */
 
-        const songViews =
+        const totalViews =
           songs.reduce(
             (
               total,
@@ -1822,9 +1335,7 @@ O KUDURO VIVE AQUI. 👑
                 total +
 
                 (
-                  Number(
-                    song.views
-                  )
+                  Number(song.views)
                   ||
                   0
                 )
@@ -1836,32 +1347,12 @@ O KUDURO VIVE AQUI. 👑
           );
 
 
-        const savedViews =
-          Number(
-            localStorage.getItem(
-              "kpArtistViews"
-            )
-          )
-          ||
-          0;
-
-
-        const totalViews =
-          songViews > 0
-          ?
-          songViews
-          :
-          savedViews;
-
-
-        document
-          .querySelector(
-            "#statViews"
-          )
-          .textContent =
-            formatNumber(
-              totalViews
-            );
+        document.querySelector(
+          "#statViews"
+        ).textContent =
+          formatNumber(
+            totalViews
+          );
 
 
         /*
@@ -1882,6 +1373,7 @@ O KUDURO VIVE AQUI. 👑
 
           songs
             .slice(0,5)
+            .reverse()
             .forEach(
               song => {
 
@@ -1896,6 +1388,10 @@ O KUDURO VIVE AQUI. 👑
                   "song";
 
 
+                /*
+                  CAPA
+                */
+
                 const cover =
                   document.createElement(
                     "div"
@@ -1907,10 +1403,22 @@ O KUDURO VIVE AQUI. 👑
 
 
                 const coverUrl =
+
                   song.cover
                   ||
+
+                  song.coverUrl
+                  ||
+
+                  song.image
+                  ||
+
+                  song.imageUrl
+                  ||
+
                   artistPhoto
                   ||
+
                   "";
 
 
@@ -1921,6 +1429,10 @@ O KUDURO VIVE AQUI. 👑
 
                 }
 
+
+                /*
+                  INFORMAÇÃO
+                */
 
                 const info =
                   document.createElement(
@@ -1943,8 +1455,13 @@ O KUDURO VIVE AQUI. 👑
 
 
                 title.textContent =
+
                   song.title
                   ||
+
+                  song.name
+                  ||
+
                   "Música sem título";
 
 
@@ -1958,21 +1475,44 @@ O KUDURO VIVE AQUI. 👑
                   "song-meta";
 
 
-                meta.textContent =
-                  song.createdAt
+                const songArtist =
+
+                  song.artist
                   ||
-                  "Música publicada";
+
+                  song.artistName
+                  ||
+
+                  artistName;
 
 
-                info.appendChild(
-                  title
-                );
+                meta.textContent =
+
+                  songArtist
+
+                  +
+
+                  " • "
+
+                  +
+
+                  (
+                    song.createdAt
+                    ||
+                    song.date
+                    ||
+                    "Música publicada"
+                  );
 
 
-                info.appendChild(
-                  meta
-                );
+                info.appendChild(title);
 
+                info.appendChild(meta);
+
+
+                /*
+                  STATUS
+                */
 
                 const status =
                   document.createElement(
@@ -1988,6 +1528,41 @@ O KUDURO VIVE AQUI. 👑
                   "● ATIVA";
 
 
+                /*
+                  BOTÃO OUVIR
+                */
+
+                const listenButton =
+                  document.createElement(
+                    "button"
+                  );
+
+
+                listenButton.className =
+                  "listen-btn";
+
+
+                listenButton.textContent =
+                  "▶ OUVIR";
+
+
+                listenButton.addEventListener(
+                  "click",
+                  () => {
+
+                    playSong(
+                      song,
+                      artistName
+                    );
+
+                  }
+                );
+
+
+                /*
+                  MONTAR
+                */
+
                 songElement.appendChild(
                   cover
                 );
@@ -2000,6 +1575,11 @@ O KUDURO VIVE AQUI. 👑
 
                 songElement.appendChild(
                   status
+                );
+
+
+                songElement.appendChild(
+                  listenButton
                 );
 
 
@@ -2029,18 +1609,16 @@ O KUDURO VIVE AQUI. 👑
           "0";
 
 
-        document
-          .querySelector(
-            "#statFollowers"
-          )
-          .textContent =
-            formatNumber(
-              followers
-            );
+        document.querySelector(
+          "#statFollowers"
+        ).textContent =
+          formatNumber(
+            followers
+          );
 
 
         /*
-          LINK DO PERFIL PÚBLICO
+          PERFIL PÚBLICO
         */
 
         const publicProfileUrl =
@@ -2052,34 +1630,27 @@ O KUDURO VIVE AQUI. 👑
           );
 
 
-        document
-          .querySelector(
-            "#publicProfileBtn"
-          )
-          .href =
-            publicProfileUrl;
+        document.querySelector(
+          "#publicProfileBtn"
+        ).href =
+          publicProfileUrl;
 
 
-        document
-          .querySelector(
-            "#publicProfileQuick"
-          )
-          .href =
-            publicProfileUrl;
+        document.querySelector(
+          "#publicProfileQuick"
+        ).href =
+          publicProfileUrl;
 
 
         /*
           MOSTRAR PÁGINA
         */
 
-        document
-          .querySelector(
-            "#loading"
-          )
-          .classList.add(
-            "hidden"
-          );
-
+        document.querySelector(
+          "#loading"
+        ).classList.add(
+          "hidden"
+        );
 
       }
     );
