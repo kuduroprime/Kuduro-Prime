@@ -8,18 +8,14 @@
   <title>Editar Perfil — KUDURO PRIME</title>
 
   <style>
-
     :root{
       --bg:#070707;
-      --panel:#101010;
-      --panel2:#151515;
       --gold:#f4bf31;
       --gold2:#ffdc6b;
       --text:#f7f4ed;
       --muted:#aaa59a;
       --line:#2a271f;
       --green:#48d597;
-      --red:#ff563f;
     }
 
     *{
@@ -142,12 +138,11 @@
     }
 
     .panel{
-      background:
-        linear-gradient(
-          145deg,
-          #151515,
-          #0b0b0b
-        );
+      background:linear-gradient(
+        145deg,
+        #151515,
+        #0b0b0b
+      );
       border:1px solid var(--line);
       border-radius:15px;
       overflow:hidden;
@@ -237,7 +232,7 @@
       line-height:1.5;
     }
 
-    /* FIELDS */
+    /* CAMPOS */
 
     .fields{
       display:grid;
@@ -338,12 +333,11 @@
 
     .btn.gold{
       border:0;
-      background:
-        linear-gradient(
-          135deg,
-          var(--gold2),
-          var(--gold)
-        );
+      background:linear-gradient(
+        135deg,
+        var(--gold2),
+        var(--gold)
+      );
       color:#17120a;
     }
 
@@ -378,15 +372,12 @@
     /* RESPONSIVO */
 
     @media(max-width:850px){
-
       .form-grid{
         grid-template-columns:1fr;
       }
-
     }
 
     @media(max-width:620px){
-
       .nav{
         height:70px;
       }
@@ -422,35 +413,24 @@
       .form-actions .btn{
         width:100%;
       }
-
     }
-
   </style>
 
 </head>
 
 <body>
 
-  <!-- NAV -->
-
   <nav class="nav">
+    <div class="nav-in">
 
 ```
-<div class="nav-in">
-
-  <a
-    href="index.html"
-    class="brand"
-  >
+  <a href="index.html" class="brand">
     <span class="crown">♕</span>
     KUDURO
     <b>PRIME</b>
   </a>
 
-  <a
-    href="meu-perfil.html"
-    class="back"
-  >
+  <a href="meu-perfil.html" class="back">
     ← VOLTAR AO MEU PERFIL
   </a>
 
@@ -468,57 +448,39 @@
     👤 ÁREA DO ARTISTA
   </div>
 
-  <h1>
-    EDITAR PERFIL
-  </h1>
+  <h1>EDITAR PERFIL</h1>
 
   <p class="subtitle">
-    Atualiza as tuas informações e mantém
-    o teu perfil KUDURO PRIME completo.
+    Atualiza as tuas informações e mantém o teu perfil KUDURO PRIME completo.
   </p>
 
 </div>
 
-
-<div
-  class="message"
-  id="message"
->
+<div class="message" id="message">
   ✓ Perfil guardado com sucesso!
 </div>
-
 
 <form id="profileForm">
 
   <div class="form-grid">
-
 
     <!-- FOTO -->
 
     <aside class="panel">
 
       <div class="panel-head">
-
-        <h2>
-          📸 FOTO DO PERFIL
-        </h2>
+        <h2>📸 FOTO DO PERFIL</h2>
 
         <p>
           Escolhe a imagem principal do teu perfil.
         </p>
-
       </div>
-
 
       <div class="panel-body photo-box">
 
-        <div
-          class="photo-preview"
-          id="photoPreview"
-        >
+        <div class="photo-preview" id="photoPreview">
           👤
         </div>
-
 
         <label class="upload-btn">
 
@@ -527,11 +489,10 @@
           <input
             type="file"
             id="photoInput"
-            accept="image/*"
+            accept="image/jpeg,image/png,image/webp"
           >
 
         </label>
-
 
         <button
           type="button"
@@ -541,18 +502,14 @@
           REMOVER FOTO
         </button>
 
-
         <div class="photo-note">
-
           Recomendado: imagem quadrada.<br>
           Formatos JPG, PNG ou WEBP.
-
         </div>
 
       </div>
 
     </aside>
-
 
     <!-- INFORMAÇÕES -->
 
@@ -560,9 +517,7 @@
 
       <div class="panel-head">
 
-        <h2>
-          ✏ INFORMAÇÕES DO ARTISTA
-        </h2>
+        <h2>✏ INFORMAÇÕES DO ARTISTA</h2>
 
         <p>
           Estes dados serão mostrados no teu perfil público.
@@ -570,12 +525,9 @@
 
       </div>
 
-
       <div class="panel-body">
 
-
         <div class="fields">
-
 
           <div class="field">
 
@@ -591,7 +543,6 @@
             >
 
           </div>
-
 
           <div class="field">
 
@@ -612,7 +563,6 @@
 
           </div>
 
-
           <div class="field full">
 
             <label for="bio">
@@ -625,15 +575,11 @@
               placeholder="Conta um pouco sobre a tua história, carreira e música..."
             ></textarea>
 
-            <span
-              class="hint"
-              id="bioCount"
-            >
+            <span class="hint" id="bioCount">
               0 / 500 caracteres
             </span>
 
           </div>
-
 
           <div class="field">
 
@@ -642,35 +588,15 @@
             </label>
 
             <select id="genre">
-
-              <option value="Kuduro">
-                Kuduro
-              </option>
-
-              <option value="Afro House">
-                Afro House
-              </option>
-
-              <option value="Afrobeat">
-                Afrobeat
-              </option>
-
-              <option value="Semba">
-                Semba
-              </option>
-
-              <option value="Rap">
-                Rap
-              </option>
-
-              <option value="Outro">
-                Outro
-              </option>
-
+              <option value="Kuduro">Kuduro</option>
+              <option value="Afro House">Afro House</option>
+              <option value="Afrobeat">Afrobeat</option>
+              <option value="Semba">Semba</option>
+              <option value="Rap">Rap</option>
+              <option value="Outro">Outro</option>
             </select>
 
           </div>
-
 
           <div class="field">
 
@@ -688,7 +614,6 @@
 
           </div>
 
-
           <div class="field">
 
             <label for="city">
@@ -702,7 +627,6 @@
             >
 
           </div>
-
 
           <div class="field">
 
@@ -720,7 +644,6 @@
 
         </div>
 
-
         <!-- REDES -->
 
         <div class="socials">
@@ -728,7 +651,6 @@
           <div class="socials-title">
             🌐 REDES SOCIAIS
           </div>
-
 
           <div class="fields">
 
@@ -746,7 +668,6 @@
 
             </div>
 
-
             <div class="field">
 
               <label for="facebook">
@@ -761,7 +682,6 @@
 
             </div>
 
-
             <div class="field">
 
               <label for="tiktok">
@@ -775,7 +695,6 @@
               >
 
             </div>
-
 
             <div class="field">
 
@@ -794,7 +713,6 @@
           </div>
 
         </div>
-
 
         <!-- AÇÕES -->
 
@@ -828,12 +746,8 @@
   </main>
 
   <footer>
-
-```
-© 2026 KUDURO PRIME.
-O KUDURO VIVE AQUI. 👑
-```
-
+    © 2026 KUDURO PRIME.<br>
+    O KUDURO VIVE AQUI. 👑
   </footer>
 
   <script>
@@ -843,174 +757,81 @@ O KUDURO VIVE AQUI. 👑
     */
 
     const loggedIn =
-      localStorage.getItem(
-        "kpArtistLoggedIn"
-      );
+      localStorage.getItem("kpArtistLoggedIn");
 
-
-    if(
-      loggedIn !== "true"
-    ){
-
+    if(loggedIn !== "true"){
       window.location.href =
         "area-do-artista.html";
-
     }
-
 
     /*
       ELEMENTOS
     */
 
     const form =
-      document.querySelector(
-        "#profileForm"
-      );
-
+      document.querySelector("#profileForm");
 
     const photoInput =
-      document.querySelector(
-        "#photoInput"
-      );
-
+      document.querySelector("#photoInput");
 
     const photoPreview =
-      document.querySelector(
-        "#photoPreview"
-      );
-
+      document.querySelector("#photoPreview");
 
     const message =
-      document.querySelector(
-        "#message"
-      );
+      document.querySelector("#message");
 
+    const bio =
+      document.querySelector("#bio");
+
+    const bioCount =
+      document.querySelector("#bioCount");
 
     let currentPhoto =
-      localStorage.getItem(
-        "kpArtistPhoto"
-      )
-      ||
-      "";
-
+      localStorage.getItem("kpArtistPhoto") || "";
 
     /*
       CARREGAR DADOS
     */
 
-    document.querySelector(
-      "#stageName"
-    ).value =
-      localStorage.getItem(
-        "kpArtistStageName"
-      )
-      ||
-      localStorage.getItem(
-        "kpArtistName"
-      )
-      ||
+    document.querySelector("#stageName").value =
+      localStorage.getItem("kpArtistStageName") ||
+      localStorage.getItem("kpArtistName") ||
       "";
 
+    document.querySelector("#username").value =
+      localStorage.getItem("kpArtistUsername") || "";
 
-    document.querySelector(
-      "#username"
-    ).value =
-      localStorage.getItem(
-        "kpArtistUsername"
-      )
-      ||
-      "";
+    bio.value =
+      localStorage.getItem("kpArtistBio") || "";
 
+    document.querySelector("#year").value =
+      localStorage.getItem("kpArtistYear") || "";
 
-    document.querySelector(
-      "#bio"
-    ).value =
-      localStorage.getItem(
-        "kpArtistBio"
-      )
-      ||
-      "";
+    document.querySelector("#city").value =
+      localStorage.getItem("kpArtistCity") || "";
 
+    document.querySelector("#country").value =
+      localStorage.getItem("kpArtistCountry") || "Angola";
 
-    document.querySelector(
-      "#genre"
-    ).value =
-      localStorage.getItem(
-        "kpArtistGenre"
-      )
-      ||
-      "Kuduro";
+    document.querySelector("#instagram").value =
+      localStorage.getItem("kpArtistInstagram") || "";
 
+    document.querySelector("#facebook").value =
+      localStorage.getItem("kpArtistFacebook") || "";
 
-    document.querySelector(
-      "#year"
-    ).value =
-      localStorage.getItem(
-        "kpArtistYear"
-      )
-      ||
-      "";
+    document.querySelector("#tiktok").value =
+      localStorage.getItem("kpArtistTiktok") || "";
 
+    document.querySelector("#youtube").value =
+      localStorage.getItem("kpArtistYoutube") || "";
 
-    document.querySelector(
-      "#city"
-    ).value =
-      localStorage.getItem(
-        "kpArtistCity"
-      )
-      ||
-      "";
+    const savedGenre =
+      localStorage.getItem("kpArtistGenre");
 
-
-    document.querySelector(
-      "#country"
-    ).value =
-      localStorage.getItem(
-        "kpArtistCountry"
-      )
-      ||
-      "Angola";
-
-
-    document.querySelector(
-      "#instagram"
-    ).value =
-      localStorage.getItem(
-        "kpArtistInstagram"
-      )
-      ||
-      "";
-
-
-    document.querySelector(
-      "#facebook"
-    ).value =
-      localStorage.getItem(
-        "kpArtistFacebook"
-      )
-      ||
-      "";
-
-
-    document.querySelector(
-      "#tiktok"
-    ).value =
-      localStorage.getItem(
-        "kpArtistTiktok"
-      )
-      ||
-      "";
-
-
-    document.querySelector(
-      "#youtube"
-    ).value =
-      localStorage.getItem(
-        "kpArtistYoutube"
-      )
-      ||
-      "";
-
+    if(savedGenre){
+      document.querySelector("#genre").value =
+        savedGenre;
+    }
 
     /*
       FOTO ATUAL
@@ -1018,30 +839,21 @@ O KUDURO VIVE AQUI. 👑
 
     function showPhoto(){
 
-      if(
-        currentPhoto
-      ){
+      if(currentPhoto){
 
         photoPreview.innerHTML =
-          `
-            <img
-              src="${currentPhoto}"
-              alt="Foto do artista"
-            >
-          `;
+          `<img src="${currentPhoto}" alt="Foto do artista">`;
 
-      } else {
+      }else{
 
-        photoPreview.innerHTML =
+        photoPreview.textContent =
           "👤";
 
       }
 
     }
 
-
     showPhoto();
-
 
     /*
       ALTERAR FOTO
@@ -1051,18 +863,30 @@ O KUDURO VIVE AQUI. 👑
       "change",
       function(){
 
-        const file =
-          this.files[0];
+        const file = this.files[0];
 
+        if(!file){
+          return;
+        }
 
         if(
-          !file
-        ) return;
+          ![
+            "image/jpeg",
+            "image/png",
+            "image/webp"
+          ].includes(file.type)
+        ){
+          alert(
+            "Escolhe uma imagem JPG, PNG ou WEBP."
+          );
 
+          photoInput.value = "";
+
+          return;
+        }
 
         const reader =
           new FileReader();
-
 
         reader.onload =
           function(event){
@@ -1070,55 +894,37 @@ O KUDURO VIVE AQUI. 👑
             currentPhoto =
               event.target.result;
 
-
             showPhoto();
 
           };
 
-
-        reader.readAsDataURL(
-          file
-        );
+        reader.readAsDataURL(file);
 
       }
     );
-
 
     /*
       REMOVER FOTO
     */
 
-    document.querySelector(
-      "#removePhoto"
-    ).addEventListener(
-      "click",
-      function(){
+    document
+      .querySelector("#removePhoto")
+      .addEventListener(
+        "click",
+        function(){
 
-        currentPhoto = "";
+          currentPhoto = "";
 
-        photoInput.value = "";
+          photoInput.value = "";
 
-        showPhoto();
+          showPhoto();
 
-      }
-    );
-
+        }
+      );
 
     /*
       CONTADOR DA BIO
     */
-
-    const bio =
-      document.querySelector(
-        "#bio"
-      );
-
-
-    const bioCount =
-      document.querySelector(
-        "#bioCount"
-      );
-
 
     function updateBioCount(){
 
@@ -1128,15 +934,12 @@ O KUDURO VIVE AQUI. 👑
 
     }
 
-
     bio.addEventListener(
       "input",
       updateBioCount
     );
 
-
     updateBioCount();
-
 
     /*
       GUARDAR PERFIL
@@ -1148,30 +951,30 @@ O KUDURO VIVE AQUI. 👑
 
         event.preventDefault();
 
-
         const stageName =
           document
-          .querySelector(
-            "#stageName"
-          )
-          .value
-          .trim();
-
+            .querySelector("#stageName")
+            .value
+            .trim();
 
         let username =
           document
-          .querySelector(
-            "#username"
-          )
-          .value
-          .trim()
-          .replace(/\s+/g,"");
-
+            .querySelector("#username")
+            .value
+            .trim()
+            .replace(/\s+/g, "");
 
         username =
           username
-          .replace("@","");
+            .replace(/^@+/, "");
 
+        if(!stageName || !username){
+          alert(
+            "Preenche o nome artístico e o nome de utilizador."
+          );
+
+          return;
+        }
 
         /*
           GUARDAR DADOS
@@ -1182,125 +985,107 @@ O KUDURO VIVE AQUI. 👑
           stageName
         );
 
-
         localStorage.setItem(
           "kpArtistName",
           stageName
         );
-
 
         localStorage.setItem(
           "kpArtistUsername",
           username
         );
 
-
         localStorage.setItem(
           "kpArtistBio",
           bio.value.trim()
         );
 
-
         localStorage.setItem(
           "kpArtistGenre",
           document
-          .querySelector(
-            "#genre"
-          )
-          .value
+            .querySelector("#genre")
+            .value
         );
-
 
         localStorage.setItem(
           "kpArtistYear",
           document
-          .querySelector(
-            "#year"
-          )
-          .value
+            .querySelector("#year")
+            .value
         );
-
 
         localStorage.setItem(
           "kpArtistCity",
           document
-          .querySelector(
-            "#city"
-          )
-          .value
-          .trim()
+            .querySelector("#city")
+            .value
+            .trim()
         );
-
 
         localStorage.setItem(
           "kpArtistCountry",
           document
-          .querySelector(
-            "#country"
-          )
-          .value
-          .trim()
+            .querySelector("#country")
+            .value
+            .trim()
         );
-
 
         localStorage.setItem(
           "kpArtistInstagram",
           document
-          .querySelector(
-            "#instagram"
-          )
-          .value
-          .trim()
+            .querySelector("#instagram")
+            .value
+            .trim()
         );
-
 
         localStorage.setItem(
           "kpArtistFacebook",
           document
-          .querySelector(
-            "#facebook"
-          )
-          .value
-          .trim()
+            .querySelector("#facebook")
+            .value
+            .trim()
         );
-
 
         localStorage.setItem(
           "kpArtistTiktok",
           document
-          .querySelector(
-            "#tiktok"
-          )
-          .value
-          .trim()
+            .querySelector("#tiktok")
+            .value
+            .trim()
         );
-
 
         localStorage.setItem(
           "kpArtistYoutube",
           document
-          .querySelector(
-            "#youtube"
-          )
-          .value
-          .trim()
+            .querySelector("#youtube")
+            .value
+            .trim()
         );
 
-
         /*
-          FOTO
+          GUARDAR FOTO
         */
 
-        if(
-          currentPhoto
-        ){
+        if(currentPhoto){
 
-          localStorage.setItem(
-            "kpArtistPhoto",
-            currentPhoto
-          );
+          try{
 
-        } else {
+            localStorage.setItem(
+              "kpArtistPhoto",
+              currentPhoto
+            );
+
+          }catch(error){
+
+            alert(
+              "A imagem é muito grande. Escolhe uma foto menor."
+            );
+
+            return;
+
+          }
+
+        }else{
 
           localStorage.removeItem(
             "kpArtistPhoto"
@@ -1308,21 +1093,16 @@ O KUDURO VIVE AQUI. 👑
 
         }
 
-
         /*
           MOSTRAR SUCESSO
         */
 
-        message.classList.add(
-          "show"
-        );
-
+        message.classList.add("show");
 
         window.scrollTo({
           top:0,
           behavior:"smooth"
         });
-
 
         /*
           REDIRECIONAR
