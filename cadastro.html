@@ -1,16 +1,14 @@
 <!DOCTYPE html>
-
 <html lang="pt">
 
 <head>
 
   <meta charset="UTF-8">
 
-<meta
-name="viewport"
-content="width=device-width, initial-scale=1.0"
-
->
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
 
   <title>Cadastro de Artista — KUDURO PRIME</title>
 
@@ -110,15 +108,6 @@ content="width=device-width, initial-scale=1.0"
       font-size:13px;
 
       line-height:1.6;
-    }
-
-    .row{
-      display:grid;
-
-      grid-template-columns:
-        1fr 1fr;
-
-      gap:12px;
     }
 
     label{
@@ -270,11 +259,6 @@ content="width=device-width, initial-scale=1.0"
         padding:28px 20px;
       }
 
-      .row{
-        grid-template-columns:
-          1fr;
-      }
-
     }
 
   </style>
@@ -285,121 +269,129 @@ content="width=device-width, initial-scale=1.0"
 
   <main class="box">
 
-```
-<div class="logo">
-  👑 KUDURO PRIME
-</div>
+    <div class="logo">
+      👑 KUDURO PRIME
+    </div>
 
-<h1>
-  CRIAR CONTA DE ARTISTA
-</h1>
+    <h1>
+      CRIAR CONTA DE ARTISTA
+    </h1>
 
-<p class="sub">
-  Junta-te ao movimento.
-  Cria a tua conta e começa
-  a construir o teu espaço no KUDURO PRIME.
-</p>
+    <p class="sub">
+      Junta-te ao movimento.
+      Cria a tua conta e começa
+      a construir o teu espaço no KUDURO PRIME.
+    </p>
 
-<form id="registerForm">
 
-  <label for="artistName">
-    NOME ARTÍSTICO
-  </label>
+    <form id="registerForm">
 
-  <input
-    type="text"
-    id="artistName"
-    placeholder="Ex: Dabay o Mestria"
-    required
-  >
+      <label for="artistName">
+        NOME ARTÍSTICO
+      </label>
 
-  <div class="password-note">
-    Este será o nome do teu perfil e o nome mostrado nas músicas que publicares.
-  </div>
+      <input
+        type="text"
+        id="artistName"
+        placeholder="Ex: Dabay o Mestria"
+        required
+      >
 
-  <label for="username">
-    NOME DE UTILIZADOR
-  </label>
+      <div class="password-note">
+        Este será o nome do teu perfil e o nome mostrado nas músicas que publicares.
+      </div>
 
-  <input
-    type="text"
-    id="username"
-    placeholder="Ex: dabay"
-    required
-  >
 
-  <label for="email">
-    EMAIL
-  </label>
+      <label for="username">
+        NOME DE UTILIZADOR
+      </label>
 
-  <input
-    type="email"
-    id="email"
-    placeholder="teuemail@email.com"
-    required
-  >
+      <input
+        type="text"
+        id="username"
+        placeholder="Ex: dabay"
+        required
+      >
 
-  <label for="password">
-    PALAVRA-PASSE
-  </label>
 
-  <input
-    type="password"
-    id="password"
-    placeholder="Mínimo 6 caracteres"
-    required
-    minlength="6"
-  >
+      <label for="email">
+        EMAIL
+      </label>
 
-  <div class="password-note">
-    A palavra-passe deve ter pelo menos 6 caracteres.
-  </div>
+      <input
+        type="email"
+        id="email"
+        placeholder="teuemail@email.com"
+        required
+      >
 
-  <label for="confirmPassword">
-    CONFIRMAR PALAVRA-PASSE
-  </label>
 
-  <input
-    type="password"
-    id="confirmPassword"
-    placeholder="Repete a palavra-passe"
-    required
-  >
+      <label for="password">
+        PALAVRA-PASSE
+      </label>
 
-  <button
-    type="submit"
-    id="registerBtn"
-  >
-    👑 CRIAR CONTA
-  </button>
+      <input
+        type="password"
+        id="password"
+        placeholder="Mínimo 6 caracteres"
+        required
+        minlength="6"
+      >
 
-  <div
-    class="mensagem"
-    id="mensagem"
-  ></div>
+      <div class="password-note">
+        A palavra-passe deve ter pelo menos 6 caracteres.
+      </div>
 
-</form>
 
-<div class="login-link">
+      <label for="confirmPassword">
+        CONFIRMAR PALAVRA-PASSE
+      </label>
 
-  Já tens uma conta?
+      <input
+        type="password"
+        id="confirmPassword"
+        placeholder="Repete a palavra-passe"
+        required
+      >
 
-  <br><br>
 
-  <a href="area-do-artista.html">
-    🔐 ENTRAR NA ÁREA DO ARTISTA
-  </a>
+      <button
+        type="submit"
+        id="registerBtn"
+      >
+        👑 CRIAR CONTA
+      </button>
 
-</div>
-```
+
+      <div
+        class="mensagem"
+        id="mensagem"
+      ></div>
+
+    </form>
+
+
+    <div class="login-link">
+
+      Já tens uma conta?
+
+      <br><br>
+
+      <a href="area-do-artista.html">
+        🔐 ENTRAR NA ÁREA DO ARTISTA
+      </a>
+
+    </div>
 
   </main>
+
 
   <script type="module">
 
     import {
       initializeApp
-    } from
+    }
+    from
     "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
 
 
@@ -407,7 +399,8 @@ content="width=device-width, initial-scale=1.0"
       getAuth,
       createUserWithEmailAndPassword,
       updateProfile
-    } from
+    }
+    from
     "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
 
 
@@ -439,7 +432,10 @@ content="width=device-width, initial-scale=1.0"
     /* INICIAR FIREBASE */
 
     const app =
-      initializeApp(firebaseConfig);
+      initializeApp(
+        firebaseConfig
+      );
+
 
     const auth =
       getAuth(app);
@@ -448,13 +444,21 @@ content="width=device-width, initial-scale=1.0"
     /* ELEMENTOS */
 
     const registerForm =
-      document.getElementById("registerForm");
+      document.getElementById(
+        "registerForm"
+      );
+
 
     const registerBtn =
-      document.getElementById("registerBtn");
+      document.getElementById(
+        "registerBtn"
+      );
+
 
     const mensagem =
-      document.getElementById("mensagem");
+      document.getElementById(
+        "mensagem"
+      );
 
 
     /* MOSTRAR MENSAGEM */
@@ -467,6 +471,7 @@ content="width=device-width, initial-scale=1.0"
       mensagem.textContent =
         texto;
 
+
       mensagem.className =
         "mensagem " + tipo;
 
@@ -476,7 +481,9 @@ content="width=device-width, initial-scale=1.0"
     /* CADASTRO */
 
     registerForm.addEventListener(
+
       "submit",
+
       async event => {
 
         event.preventDefault();
@@ -484,34 +491,44 @@ content="width=device-width, initial-scale=1.0"
 
         const artistName =
           document
-            .getElementById("artistName")
+            .getElementById(
+              "artistName"
+            )
             .value
             .trim();
 
 
         const username =
           document
-            .getElementById("username")
+            .getElementById(
+              "username"
+            )
             .value
             .trim();
 
 
         const email =
           document
-            .getElementById("email")
+            .getElementById(
+              "email"
+            )
             .value
             .trim();
 
 
         const password =
           document
-            .getElementById("password")
+            .getElementById(
+              "password"
+            )
             .value;
 
 
         const confirmPassword =
           document
-            .getElementById("confirmPassword")
+            .getElementById(
+              "confirmPassword"
+            )
             .value;
 
 
@@ -535,7 +552,9 @@ content="width=device-width, initial-scale=1.0"
         }
 
 
-        if(password.length < 6){
+        if(
+          password.length < 6
+        ){
 
           showMessage(
             "A palavra-passe deve ter pelo menos 6 caracteres.",
@@ -547,7 +566,10 @@ content="width=device-width, initial-scale=1.0"
         }
 
 
-        if(password !== confirmPassword){
+        if(
+          password !==
+          confirmPassword
+        ){
 
           showMessage(
             "As palavras-passe não são iguais.",
@@ -559,7 +581,9 @@ content="width=device-width, initial-scale=1.0"
         }
 
 
-        registerBtn.disabled = true;
+        registerBtn.disabled =
+          true;
+
 
         registerBtn.textContent =
           "A CRIAR CONTA...";
@@ -568,13 +592,18 @@ content="width=device-width, initial-scale=1.0"
         try{
 
 
-          /* CRIAR CONTA */
+          /* CRIAR CONTA NO FIREBASE */
 
           const resultado =
+
             await createUserWithEmailAndPassword(
+
               auth,
+
               email,
+
               password
+
             );
 
 
@@ -582,81 +611,122 @@ content="width=device-width, initial-scale=1.0"
             resultado.user;
 
 
-          /* NOME ARTÍSTICO NO FIREBASE */
+          /*
+            GUARDAR O NOME ARTÍSTICO
+            NO PERFIL FIREBASE
+          */
 
           await updateProfile(
+
             user,
+
             {
               displayName:
                 artistName
             }
+
           );
 
 
           /*
-            GUARDAR DADOS DO ARTISTA
+            ATUALIZAR O UTILIZADOR
+          */
 
-            O nome artístico é o nome
-            principal do perfil.
+          await user.reload();
+
+
+          /*
+            GUARDAR DADOS LOCALMENTE
           */
 
           localStorage.setItem(
+
             "kpArtistStageName",
+
             artistName
+
           );
 
 
           localStorage.setItem(
+
             "kpArtistName",
+
             artistName
+
           );
 
 
           localStorage.setItem(
+
             "kpArtistUsername",
+
             username
+
           );
 
 
           localStorage.setItem(
+
             "kpArtistEmail",
+
             email
+
+          );
+
+
+          localStorage.setItem(
+
+            "kpArtistUid",
+
+            user.uid
+
           );
 
 
           /*
-            SESSÃO LOCAL
-
-            O Firebase também mantém
-            a sessão automaticamente.
+            SESSÃO
           */
 
           localStorage.setItem(
+
             "kpArtistLoggedIn",
+
             "true"
+
           );
 
 
           showMessage(
+
             "Conta criada com sucesso! 👑 A entrar no teu painel...",
+
             "success"
+
           );
 
 
           setTimeout(
+
             () => {
 
               window.location.replace(
+
                 "painel-do-artista.html"
+
               );
 
             },
+
             1000
+
           );
 
 
         }
-        catch(erro){
+        catch(
+          erro
+        ){
 
 
           console.error(
@@ -670,8 +740,10 @@ content="width=device-width, initial-scale=1.0"
 
 
           if(
+
             erro.code ===
             "auth/email-already-in-use"
+
           ){
 
             textoErro =
@@ -681,8 +753,10 @@ content="width=device-width, initial-scale=1.0"
 
 
           if(
+
             erro.code ===
             "auth/invalid-email"
+
           ){
 
             textoErro =
@@ -692,8 +766,10 @@ content="width=device-width, initial-scale=1.0"
 
 
           if(
+
             erro.code ===
             "auth/weak-password"
+
           ){
 
             textoErro =
@@ -703,8 +779,10 @@ content="width=device-width, initial-scale=1.0"
 
 
           if(
+
             erro.code ===
             "auth/operation-not-allowed"
+
           ){
 
             textoErro =
@@ -714,8 +792,11 @@ content="width=device-width, initial-scale=1.0"
 
 
           showMessage(
+
             textoErro,
+
             "error"
+
           );
 
 
@@ -729,6 +810,7 @@ content="width=device-width, initial-scale=1.0"
         }
 
       }
+
     );
 
   </script>
