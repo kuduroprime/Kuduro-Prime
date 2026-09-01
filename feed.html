@@ -772,15 +772,13 @@ async function carregarFeed(){
   }
   catch(erro){
 
+  console.error("ERRO DO FIRESTORE:", erro);
 
-    console.error(erro);
+  carregando.textContent =
+    "Erro: " +
+    (erro.code || erro.message || "Desconhecido");
 
-
-    carregando.textContent =
-      "Erro ao carregar o feed.";
-
-
-  }
+}
 
 }
 
