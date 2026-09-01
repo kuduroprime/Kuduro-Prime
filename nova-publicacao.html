@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="pt">
 <head>
   <meta charset="UTF-8" />
@@ -18,7 +19,7 @@
       --red:#ff563f;
     }
 
-    *{ box-sizing:border-box; }
+    *{box-sizing:border-box;}
 
     body{
       margin:0;
@@ -56,9 +57,7 @@
       font-weight:900;
     }
 
-    .brand span{
-      color:var(--gold);
-    }
+    .brand span{color:var(--gold);}
 
     .back{
       font-size:14px;
@@ -205,6 +204,14 @@
       border-radius:12px;
     }
 
+    .audio-name{
+      margin-top:10px;
+      color:var(--gold);
+      font-size:13px;
+      font-weight:bold;
+      word-break:break-word;
+    }
+
     .audio-preview audio{
       width:100%;
       margin-top:12px;
@@ -310,7 +317,7 @@
     }
 
     @media(max-width:600px){
-      .types{ gap:7px; }
+      .types{gap:7px;}
 
       .type{
         padding:15px 5px;
@@ -318,6 +325,7 @@
       }
     }
   </style>
+
 </head>
 
 <body>
@@ -325,17 +333,18 @@
 <header class="top">
   <div class="top-in">
 
-    <a href="feed.html" class="brand">
-      👑 KUDURO <span>PRIME</span>
-    </a>
+```
+<a href="feed.html" class="brand">
+  👑 KUDURO <span>PRIME</span>
+</a>
 
-    <a href="feed.html" class="back">
-      ← VOLTAR
-    </a>
+<a href="feed.html" class="back">
+  ← VOLTAR
+</a>
+```
 
   </div>
 </header>
-
 
 <main>
 
@@ -345,155 +354,145 @@
     Partilha a tua música, foto ou vídeo com o movimento.
   </p>
 
-
   <div class="card">
 
-    <div class="types">
+```
+<div class="types">
 
-      <div class="type active" data-type="foto">
-        🖼️<br>FOTO
-      </div>
+  <div class="type active" data-type="foto">
+    🖼️<br>FOTO
+  </div>
 
-      <div class="type" data-type="video">
-        🎬<br>VÍDEO
-      </div>
+  <div class="type" data-type="video">
+    🎬<br>VÍDEO
+  </div>
 
-      <div class="type" data-type="musica">
-        🎵<br>MÚSICA
-      </div>
+  <div class="type" data-type="musica">
+    🎵<br>MÚSICA
+  </div>
 
-    </div>
+</div>
 
+<label id="fileLabel">ESCOLHE A FOTO</label>
 
-    <label id="fileLabel">ESCOLHE A FOTO</label>
+<label class="upload" for="file">
 
-    <label class="upload" for="file">
+  <strong id="uploadTitle">
+    🖼️ Escolher foto
+  </strong>
 
-      <strong id="uploadTitle">
-        🖼️ Escolher foto
-      </strong>
+  <small id="uploadInfo">
+    JPG, PNG ou WEBP
+  </small>
 
-      <small id="uploadInfo">
-        JPG, PNG ou WEBP
-      </small>
+</label>
 
-    </label>
+<input
+  type="file"
+  id="file"
+  accept="image/*"
+/>
 
+<div class="preview" id="preview"></div>
 
-    <input
-      type="file"
-      id="file"
-      accept="image/*"
-    />
+<div class="audio-preview" id="audioPreview">
 
+  <strong>🎵 Pré-visualização da música</strong>
 
-    <div class="preview" id="preview"></div>
+  <div class="audio-name" id="audioName"></div>
 
+  <audio
+    id="audioPlayer"
+    controls
+  ></audio>
 
-    <div class="audio-preview" id="audioPreview">
-      <strong>🎵 Pré-visualização da música</strong>
-      <audio id="audioPlayer" controls></audio>
-    </div>
+</div>
 
+<div class="payment-box" id="paymentBox">
 
-    <!-- AVISO DE PAGAMENTO -->
+  <strong>
+    💰 ESTE VÍDEO PRECISA DE PAGAMENTO
+  </strong>
 
-    <div
-      class="payment-box"
-      id="paymentBox"
-    >
-      <strong>
-        💰 ESTE VÍDEO PRECISA DE PAGAMENTO
-      </strong>
+  <p>
+    Vídeos até 10 minutos são gratuitos.
+    Este vídeo ultrapassa 10 minutos.
+  </p>
 
-      <p>
-        Vídeos até 10 minutos são gratuitos.
-        Este vídeo ultrapassa 10 minutos.
-      </p>
+  <p>
+    Para publicar, é necessário pagar
+    <strong>500 Kz</strong>.
+  </p>
 
-      <p>
-        Para publicar, é necessário pagar
-        <strong>500 Kz</strong>.
-      </p>
+  <a
+    href="pagamento-video.html"
+    class="payment-btn"
+    id="paymentLink"
+  >
+    💳 PAGAR 500 KZ
+  </a>
 
-      <a
-        href="pagamento-video.html"
-        class="payment-btn"
-        id="paymentLink"
-      >
-        💳 PAGAR 500 KZ
-      </a>
+</div>
 
-    </div>
+<label>TÍTULO DA PUBLICAÇÃO</label>
 
+<input
+  type="text"
+  id="title"
+  placeholder="Ex: Mim Faz Só Broxe 🔥"
+/>
 
-    <label>TÍTULO DA PUBLICAÇÃO</label>
+<label>LEGENDA</label>
 
-    <input
-      type="text"
-      id="title"
-      placeholder="Ex: Mim Faz Só Broxe 🔥"
-    />
+<textarea
+  id="caption"
+  placeholder="Escreve algo sobre esta publicação..."
+></textarea>
 
+<div class="progress-box" id="progressBox">
 
-    <label>LEGENDA</label>
+  <div class="progress-text">
 
-    <textarea
-      id="caption"
-      placeholder="Escreve algo sobre esta publicação..."
-    ></textarea>
+    <span id="progressStatus">
+      A enviar...
+    </span>
 
+    <span id="progressPercent">
+      0%
+    </span>
 
-    <div
-      class="progress-box"
-      id="progressBox"
-    >
+  </div>
 
-      <div class="progress-text">
+  <div class="progress">
+    <div id="progressBar"></div>
+  </div>
 
-        <span id="progressStatus">
-          A enviar...
-        </span>
+</div>
 
-        <span id="progressPercent">
-          0%
-        </span>
+<button
+  class="publish"
+  id="publishBtn"
+>
+  🚀 PUBLICAR AGORA
+</button>
 
-      </div>
+<div
+  class="message"
+  id="message"
+></div>
 
-      <div class="progress">
-        <div id="progressBar"></div>
-      </div>
-
-    </div>
-
-
-    <button
-      class="publish"
-      id="publishBtn"
-    >
-      🚀 PUBLICAR AGORA
-    </button>
-
-
-    <div
-      class="message"
-      id="message"
-    ></div>
-
-
-    <div class="info">
-      👑 <b>Regras KUDURO PRIME:</b><br>
-      🖼️ Podes publicar fotos gratuitamente.<br>
-      🎵 Podes publicar músicas gratuitamente.<br>
-      🎬 Vídeos até <b>10 minutos são gratuitos</b>.<br>
-      💰 Vídeos com mais de <b>10 minutos pagam 500 Kz</b>.
-    </div>
+<div class="info">
+  👑 <b>Regras KUDURO PRIME:</b><br>
+  🖼️ Podes publicar fotos gratuitamente.<br>
+  🎵 Podes publicar músicas gratuitamente.<br>
+  🎬 Vídeos até <b>10 minutos são gratuitos</b>.<br>
+  💰 Vídeos com mais de <b>10 minutos pagam 500 Kz</b>.
+</div>
+```
 
   </div>
 
 </main>
-
 
 <script type="module">
 
@@ -502,13 +501,11 @@ import {
 } from
 "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
 
-
 import {
   getAuth,
   onAuthStateChanged
 } from
 "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
-
 
 import {
   getFirestore,
@@ -519,7 +516,6 @@ import {
   serverTimestamp
 } from
 "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
-
 
 import {
   getStorage,
@@ -558,14 +554,11 @@ const firebaseConfig = {
 const app =
   initializeApp(firebaseConfig);
 
-
 const auth =
   getAuth(app);
 
-
 const db =
   getFirestore(app);
-
 
 const storage =
   getStorage(app);
@@ -587,6 +580,9 @@ const audioPreview =
 
 const audioPlayer =
   document.getElementById("audioPlayer");
+
+const audioName =
+  document.getElementById("audioName");
 
 const title =
   document.getElementById("title");
@@ -725,7 +721,7 @@ types.forEach(type => {
 });
 
 
-/* ALTERAR TIPO */
+/* ALTERAR TIPO DE ARQUIVO */
 
 function updateFileType(){
 
@@ -776,23 +772,23 @@ function updateFileType(){
   if(selectedType === "musica"){
 
     fileLabel.textContent =
-      "ESCOLHE A MÚSICA";
+      "ESCOLHE A MÚSICA DA TUA PASTA";
 
     uploadTitle.textContent =
-      "🎵 Escolher música";
+      "🎵 Escolher música do computador";
 
     uploadInfo.textContent =
-      "MP3, WAV ou áudio compatível";
+      "MP3, WAV, M4A, AAC, OGG e outros formatos de áudio";
 
     fileInput.accept =
-      "audio/*";
+      ".mp3,.wav,.m4a,.aac,.ogg,.flac,audio/*";
 
   }
 
 }
 
 
-/* PREVIEW */
+/* ESCOLHER ARQUIVO */
 
 fileInput.addEventListener(
   "change",
@@ -801,7 +797,91 @@ fileInput.addEventListener(
     const file =
       fileInput.files[0];
 
-    if(!file) return;
+    if(!file){
+      return;
+    }
+
+
+    /* VALIDAR FOTO */
+
+    if(
+      selectedType === "foto"
+      &&
+      !file.type.startsWith("image/")
+    ){
+
+      showMessage(
+        "Escolhe uma imagem válida.",
+        "error"
+      );
+
+      fileInput.value = "";
+
+      return;
+
+    }
+
+
+    /* VALIDAR VÍDEO */
+
+    if(
+      selectedType === "video"
+      &&
+      !file.type.startsWith("video/")
+    ){
+
+      showMessage(
+        "Escolhe um vídeo válido.",
+        "error"
+      );
+
+      fileInput.value = "";
+
+      return;
+
+    }
+
+
+    /* VALIDAR MÚSICA */
+
+    if(selectedType === "musica"){
+
+      const nome =
+        file.name.toLowerCase();
+
+      const formatos =
+        [
+          ".mp3",
+          ".wav",
+          ".m4a",
+          ".aac",
+          ".ogg",
+          ".flac"
+        ];
+
+      const formatoValido =
+        formatos.some(formato =>
+          nome.endsWith(formato)
+        )
+        ||
+        file.type.startsWith("audio/");
+
+
+      if(!formatoValido){
+
+        showMessage(
+          "Escolhe uma música válida: MP3, WAV, M4A, AAC, OGG ou FLAC.",
+          "error"
+        );
+
+        fileInput.value = "";
+
+        return;
+
+      }
+
+    }
+
 
     selectedFile = file;
 
@@ -811,16 +891,20 @@ fileInput.addEventListener(
       URL.createObjectURL(file);
 
 
+    /* FOTO */
+
     if(selectedType === "foto"){
 
       preview.innerHTML =
-        `<img src="${previewUrl}">`;
+        `<img src="${previewUrl}" alt="Pré-visualização">`;
 
       preview.style.display =
         "block";
 
     }
 
+
+    /* VÍDEO */
 
     if(selectedType === "video"){
 
@@ -844,13 +928,10 @@ fileInput.addEventListener(
             video.duration;
 
 
-          /* MAIS DE 10 MINUTOS */
-
           if(video.duration > 600){
 
             videoRequiresPayment =
               true;
-
 
             paymentBox.style.display =
               "block";
@@ -899,13 +980,23 @@ fileInput.addEventListener(
     }
 
 
+    /* MÚSICA */
+
     if(selectedType === "musica"){
 
       audioPlayer.src =
         previewUrl;
 
+      audioName.textContent =
+        "🎧 " + file.name;
+
       audioPreview.style.display =
         "block";
+
+      showMessage(
+        "✓ Música selecionada: " + file.name,
+        "success"
+      );
 
     }
 
@@ -932,7 +1023,11 @@ function clearPreview(){
   preview.style.display =
     "none";
 
+  audioPlayer.pause();
+
   audioPlayer.src = "";
+
+  audioName.textContent = "";
 
   audioPreview.style.display =
     "none";
@@ -976,7 +1071,7 @@ publishBtn.addEventListener(
     if(!selectedFile){
 
       showMessage(
-        "Escolhe um arquivo.",
+        "Escolhe um arquivo antes de publicar.",
         "error"
       );
 
@@ -997,8 +1092,6 @@ publishBtn.addEventListener(
     }
 
 
-    /* VÍDEO COM MAIS DE 10 MINUTOS */
-
     if(
       selectedType === "video"
       &&
@@ -1012,29 +1105,6 @@ publishBtn.addEventListener(
 
 
       if(confirmar){
-
-        const dadosVideo = {
-
-          titulo:
-            title.value.trim(),
-
-          legenda:
-            caption.value.trim(),
-
-          duracao:
-            videoDuration,
-
-          nomeArquivo:
-            selectedFile.name
-
-        };
-
-
-        sessionStorage.setItem(
-          "videoParaPagamento",
-          JSON.stringify(dadosVideo)
-        );
-
 
         window.location.href =
           "pagamento-video.html";
@@ -1054,6 +1124,12 @@ publishBtn.addEventListener(
 
     progressBox.style.display =
       "block";
+
+    progressBar.style.width =
+      "0%";
+
+    progressPercent.textContent =
+      "0%";
 
 
     try{
@@ -1085,7 +1161,11 @@ publishBtn.addEventListener(
       const uploadTask =
         uploadBytesResumable(
           storageRef,
-          selectedFile
+          selectedFile,
+          {
+            contentType:
+              selectedFile.type
+          }
         );
 
 
@@ -1119,7 +1199,12 @@ publishBtn.addEventListener(
 
 
                 progressStatus.textContent =
-                  "A enviar publicação...";
+                  "A enviar "
+                  + (
+                    selectedType === "musica"
+                      ? "a música..."
+                      : "a publicação..."
+                  );
 
               },
 
@@ -1184,6 +1269,12 @@ publishBtn.addEventListener(
           arquivoNome:
             selectedFile.name,
 
+          arquivoTipo:
+            selectedFile.type,
+
+          arquivoTamanho:
+            selectedFile.size,
+
           duracao:
             selectedType === "video"
               ? videoDuration
@@ -1209,12 +1300,20 @@ publishBtn.addEventListener(
       );
 
 
+      progressBar.style.width =
+        "100%";
+
+      progressPercent.textContent =
+        "100%";
+
       progressStatus.textContent =
         "Publicado com sucesso!";
 
 
       showMessage(
-        "👑 A tua publicação foi publicada no KUDURO PRIME!",
+        selectedType === "musica"
+          ? "🎵 A tua música foi publicada no KUDURO PRIME!"
+          : "👑 A tua publicação foi publicada no KUDURO PRIME!",
         "success"
       );
 
@@ -1239,6 +1338,7 @@ publishBtn.addEventListener(
     catch(error){
 
       console.error(error);
+
 
       showMessage(
         "❌ Erro ao publicar: "
@@ -1287,6 +1387,11 @@ function hideMessage(){
     "none";
 
 }
+
+
+/* INICIAR */
+
+updateFileType();
 
 </script>
 
