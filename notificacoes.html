@@ -1,0 +1,1247 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Notificações — KUDURO PRIME</title>
+
+  <style>
+
+    :root{
+      --bg:#070707;
+      --panel:#101010;
+      --gold:#f4bf31;
+      --gold2:#ffdc6b;
+      --text:#f7f4ed;
+      --muted:#aaa59a;
+      --line:#2a271f;
+      --blue:#4eb8ff;
+      --red:#ff563f;
+    }
+
+    *{
+      box-sizing:border-box;
+    }
+
+    body{
+      margin:0;
+      background:
+        radial-gradient(circle at 80% 0,rgba(244,191,49,.10),transparent 25%),
+        var(--bg);
+      color:var(--text);
+      font-family:Arial,Helvetica,sans-serif;
+    }
+
+    a{
+      color:inherit;
+      text-decoration:none;
+    }
+
+    button{
+      font:inherit;
+    }
+
+    /* CABEÇALHO */
+
+    .top{
+      height:72px;
+      position:sticky;
+      top:0;
+      z-index:100;
+      display:flex;
+      align-items:center;
+      border-bottom:1px solid var(--line);
+      background:rgba(7,7,7,.96);
+      backdrop-filter:blur(15px);
+    }
+
+    .top-in{
+      width:min(760px,94%);
+      margin:auto;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:15px;
+    }
+
+    .brand{
+      font-size:19px;
+      font-weight:900;
+      letter-spacing:-1px;
+    }
+
+    .brand span{
+      color:var(--gold);
+    }
+
+    .back{
+      color:var(--gold);
+      font-size:12px;
+      font-weight:900;
+    }
+
+    /* CONTEÚDO */
+
+    main{
+      width:min(760px,94%);
+      margin:auto;
+      padding:30px 0 100px;
+    }
+
+    .page-head{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:15px;
+      margin-bottom:25px;
+    }
+
+    h1{
+      margin:0;
+      font-size:30px;
+      letter-spacing:-1px;
+    }
+
+    .subtitle{
+      margin:7px 0 0;
+      color:var(--muted);
+      font-size:13px;
+    }
+
+    .clear-btn{
+      border:1px solid var(--line);
+      background:#111;
+      color:var(--gold);
+      padding:10px 14px;
+      border-radius:9px;
+      font-size:11px;
+      font-weight:900;
+      cursor:pointer;
+    }
+
+    /* LOADING */
+
+    .loading{
+      padding:50px 20px;
+      text-align:center;
+      color:var(--muted);
+      font-size:13px;
+    }
+
+    /* NOTIFICAÇÃO */
+
+    .notification{
+      display:flex;
+      align-items:center;
+      gap:14px;
+      padding:16px;
+      margin-bottom:10px;
+      background:var(--panel);
+      border:1px solid var(--line);
+      border-radius:14px;
+      transition:.2s;
+      cursor:pointer;
+    }
+
+    .notification:hover{
+      border-color:var(--gold);
+      transform:translateY(-1px);
+    }
+
+    .notification.unread{
+      border-color:rgba(244,191,49,.55);
+      background:
+        linear-gradient(
+          90deg,
+          rgba(244,191,49,.12),
+          rgba(16,16,16,1)
+        );
+    }
+
+    .avatar{
+      width:52px;
+      height:52px;
+      flex:0 0 auto;
+      border-radius:50%;
+      overflow:hidden;
+      background:#1b1508;
+      border:1px solid var(--gold);
+      display:grid;
+      place-items:center;
+      color:var(--gold);
+      font-size:22px;
+    }
+
+    .avatar img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
+
+    .notification-content{
+      flex:1;
+      min-width:0;
+    }
+
+    .notification-text{
+      font-size:13px;
+      line-height:1.5;
+    }
+
+    .notification-text strong{
+      color:white;
+    }
+
+    .notification-time{
+      margin-top:5px;
+      color:var(--muted);
+      font-size:10px;
+    }
+
+    .notification-icon{
+      width:38px;
+      height:38px;
+      border-radius:50%;
+      display:grid;
+      place-items:center;
+      flex:0 0 auto;
+      font-size:17px;
+      background:#0a0a0a;
+      border:1px solid var(--line);
+    }
+
+    .notification-icon.like{
+      color:var(--red);
+    }
+
+    .notification-icon.comment{
+      color:var(--blue);
+    }
+
+    .notification-icon.follow{
+      color:var(--gold);
+    }
+
+    .notification-icon.music{
+      color:var(--gold);
+    }
+
+    /* VAZIO */
+
+    .empty{
+      display:none;
+      padding:60px 20px;
+      text-align:center;
+      background:var(--panel);
+      border:1px solid var(--line);
+      border-radius:18px;
+    }
+
+    .empty-icon{
+      font-size:50px;
+    }
+
+    .empty h2{
+      margin:15px 0 8px;
+      font-size:20px;
+    }
+
+    .empty p{
+      margin:0;
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.6;
+    }
+
+    /* ERRO */
+
+    .error{
+      display:none;
+      padding:15px;
+      background:rgba(255,86,63,.10);
+      border:1px solid rgba(255,86,63,.35);
+      border-radius:12px;
+      color:#ff9382;
+      font-size:12px;
+      line-height:1.6;
+    }
+
+    /* MENU INFERIOR */
+
+    .bottom-nav{
+      position:fixed;
+      bottom:0;
+      left:0;
+      right:0;
+      z-index:100;
+      display:none;
+      height:70px;
+      border-top:1px solid var(--line);
+      background:rgba(7,7,7,.97);
+      backdrop-filter:blur(15px);
+    }
+
+    .bottom-nav-in{
+      height:100%;
+      display:grid;
+      grid-template-columns:repeat(5,1fr);
+      align-items:center;
+    }
+
+    .bottom-item{
+      text-align:center;
+      font-size:21px;
+      color:#aaa;
+    }
+
+    .bottom-item small{
+      display:block;
+      margin-top:3px;
+      font-size:8px;
+      font-weight:bold;
+    }
+
+    .bottom-item.active{
+      color:var(--gold);
+    }
+
+    @media(max-width:700px){
+
+      .bottom-nav{
+        display:block;
+      }
+
+      main{
+        padding-bottom:100px;
+      }
+
+    }
+
+    @media(max-width:500px){
+
+      .page-head{
+        align-items:flex-start;
+      }
+
+      .clear-btn{
+        padding:9px 10px;
+        font-size:9px;
+      }
+
+      h1{
+        font-size:25px;
+      }
+
+      .notification{
+        padding:13px;
+        gap:10px;
+      }
+
+      .avatar{
+        width:46px;
+        height:46px;
+      }
+
+      .notification-icon{
+        width:34px;
+        height:34px;
+      }
+
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <header class="top">
+
+    <div class="top-in">
+
+      <a href="feed.html" class="brand">
+        👑 KUDURO <span>PRIME</span>
+      </a>
+
+      <a href="feed.html" class="back">
+        ← FEED
+      </a>
+
+    </div>
+
+  </header>
+
+
+  <main>
+
+    <div class="page-head">
+
+      <div>
+
+        <h1>
+          NOTIFICAÇÕES
+        </h1>
+
+        <p class="subtitle">
+          Vê tudo o que está a acontecer no teu perfil.
+        </p>
+
+      </div>
+
+      <button
+        class="clear-btn"
+        id="clearBtn"
+      >
+        MARCAR COMO LIDAS
+      </button>
+
+    </div>
+
+
+    <div
+      class="error"
+      id="error"
+    ></div>
+
+
+    <div
+      class="loading"
+      id="loading"
+    >
+      A carregar notificações...
+    </div>
+
+
+    <section
+      id="notificationList"
+    ></section>
+
+
+    <section
+      class="empty"
+      id="empty"
+    >
+
+      <div class="empty-icon">
+        🔔
+      </div>
+
+      <h2>
+        Ainda não tens notificações
+      </h2>
+
+      <p>
+        Quando alguém gostar, comentar
+        ou começar a seguir-te,
+        as notificações aparecerão aqui.
+      </p>
+
+    </section>
+
+  </main>
+
+
+  <nav class="bottom-nav">
+
+    <div class="bottom-nav-in">
+
+      <a
+        href="feed.html"
+        class="bottom-item"
+      >
+        🏠
+        <small>INÍCIO</small>
+      </a>
+
+      <a
+        href="pesquisa.html"
+        class="bottom-item"
+      >
+        🔍
+        <small>PESQUISAR</small>
+      </a>
+
+      <a
+        href="nova-publicacao.html"
+        class="bottom-item"
+      >
+        ➕
+        <small>PUBLICAR</small>
+      </a>
+
+      <a
+        href="notificacoes.html"
+        class="bottom-item active"
+      >
+        🔔
+        <small>ATIVIDADE</small>
+      </a>
+
+      <a
+        href="meu-perfil.html"
+        class="bottom-item"
+      >
+        👤
+        <small>PERFIL</small>
+      </a>
+
+    </div>
+
+  </nav>
+
+
+  <script type="module">
+
+    import {
+      initializeApp
+    } from
+    "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+
+
+    import {
+      getAuth,
+      onAuthStateChanged
+    } from
+    "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+
+
+    import {
+      getFirestore,
+      collection,
+      query,
+      where,
+      orderBy,
+      onSnapshot,
+      getDocs,
+      writeBatch,
+      doc,
+      updateDoc
+    } from
+    "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+
+
+    const firebaseConfig = {
+
+      apiKey:
+        "AIzaSyDoitCcLeLDNBNPCP6fG1s_xbHr4UmohSo",
+
+      authDomain:
+        "kuduro-prime.firebaseapp.com",
+
+      projectId:
+        "kuduro-prime",
+
+      storageBucket:
+        "kuduro-prime.firebasestorage.app",
+
+      messagingSenderId:
+        "299776559545",
+
+      appId:
+        "1:299776559545:web:04aced1ba25391eb3fce68"
+
+    };
+
+
+    const app =
+      initializeApp(firebaseConfig);
+
+
+    const auth =
+      getAuth(app);
+
+
+    const db =
+      getFirestore(app);
+
+
+    const notificationList =
+      document.getElementById(
+        "notificationList"
+      );
+
+
+    const loading =
+      document.getElementById(
+        "loading"
+      );
+
+
+    const empty =
+      document.getElementById(
+        "empty"
+      );
+
+
+    const errorBox =
+      document.getElementById(
+        "error"
+      );
+
+
+    const clearBtn =
+      document.getElementById(
+        "clearBtn"
+      );
+
+
+    let currentUser = null;
+
+
+    /*
+      AUTENTICAÇÃO
+    */
+
+    onAuthStateChanged(
+      auth,
+      user => {
+
+        if(!user){
+
+          window.location.href =
+            "area-do-artista.html";
+
+          return;
+
+        }
+
+
+        currentUser = user;
+
+
+        carregarNotificacoes();
+
+      }
+    );
+
+
+    /*
+      CARREGAR NOTIFICAÇÕES
+    */
+
+    function carregarNotificacoes(){
+
+      loading.style.display =
+        "block";
+
+
+      const notificationsQuery =
+        query(
+
+          collection(
+            db,
+            "notificacoes"
+          ),
+
+          where(
+            "destinatarioId",
+            "==",
+            currentUser.uid
+          ),
+
+          orderBy(
+            "createdAt",
+            "desc"
+          )
+
+        );
+
+
+      onSnapshot(
+
+        notificationsQuery,
+
+        snapshot => {
+
+          loading.style.display =
+            "none";
+
+
+          notificationList.innerHTML =
+            "";
+
+
+          if(snapshot.empty){
+
+            empty.style.display =
+              "block";
+
+            return;
+
+          }
+
+
+          empty.style.display =
+            "none";
+
+
+          snapshot.forEach(
+            documentSnap => {
+
+              const notification =
+                documentSnap.data();
+
+
+              const item =
+                criarNotificacao(
+                  documentSnap.id,
+                  notification
+                );
+
+
+              notificationList.appendChild(
+                item
+              );
+
+            }
+          );
+
+        },
+
+
+        firebaseError => {
+
+          console.error(
+            firebaseError
+          );
+
+
+          loading.style.display =
+            "none";
+
+
+          errorBox.style.display =
+            "block";
+
+
+          errorBox.textContent =
+            "❌ Erro ao carregar notificações: "
+            +
+            firebaseError.message;
+
+        }
+
+      );
+
+    }
+
+
+    /*
+      CRIAR NOTIFICAÇÃO
+    */
+
+    function criarNotificacao(
+      id,
+      notification
+    ){
+
+      const item =
+        document.createElement(
+          "article"
+        );
+
+
+      item.className =
+        "notification"
+        +
+        (
+          notification.lida
+          ?
+          ""
+          :
+          " unread"
+        );
+
+
+      let icon =
+        "🔔";
+
+
+      let iconClass =
+        "follow";
+
+
+      let text =
+        "Tens uma nova notificação.";
+
+
+      if(
+        notification.tipo ===
+        "gosto"
+      ){
+
+        icon =
+          "❤️";
+
+        iconClass =
+          "like";
+
+        text =
+          `<strong>${escapeHtml(notification.nomeRemetente || "Alguém")}</strong>
+          gostou da tua publicação.`;
+
+      }
+
+
+      if(
+        notification.tipo ===
+        "comentario"
+      ){
+
+        icon =
+          "💬";
+
+        iconClass =
+          "comment";
+
+        text =
+          `<strong>${escapeHtml(notification.nomeRemetente || "Alguém")}</strong>
+          comentou na tua publicação.`;
+
+      }
+
+
+      if(
+        notification.tipo ===
+        "seguir"
+      ){
+
+        icon =
+          "👤";
+
+        iconClass =
+          "follow";
+
+        text =
+          `<strong>${escapeHtml(notification.nomeRemetente || "Alguém")}</strong>
+          começou a seguir-te.`;
+
+      }
+
+
+      if(
+        notification.tipo ===
+        "musica"
+      ){
+
+        icon =
+          "🎵";
+
+        iconClass =
+          "music";
+
+        text =
+          notification.mensagem
+          ||
+          "Tens uma atualização sobre a tua música.";
+
+      }
+
+
+      const photo =
+        notification.fotoRemetente
+        ||
+        "";
+
+
+      const time =
+        formatarData(
+          notification.createdAt
+        );
+
+
+      item.innerHTML =
+        `
+
+          <div class="avatar">
+
+            ${
+              photo
+              ?
+              `<img
+                src="${escapeAttribute(photo)}"
+                alt="Foto"
+              >`
+              :
+              "👤"
+            }
+
+          </div>
+
+
+          <div class="notification-content">
+
+            <div class="notification-text">
+
+              ${text}
+
+            </div>
+
+
+            <div class="notification-time">
+
+              ${time}
+
+            </div>
+
+          </div>
+
+
+          <div
+            class="
+              notification-icon
+              ${iconClass}
+            "
+          >
+
+            ${icon}
+
+          </div>
+
+        `;
+
+
+      item.addEventListener(
+        "click",
+        async () => {
+
+          try{
+
+            if(
+              !notification.lida
+            ){
+
+              await updateDoc(
+
+                doc(
+                  db,
+                  "notificacoes",
+                  id
+                ),
+
+                {
+                  lida:true
+                }
+
+              );
+
+            }
+
+          }
+          catch(error){
+
+            console.error(
+              error
+            );
+
+          }
+
+
+          abrirNotificacao(
+            notification
+          );
+
+        }
+      );
+
+
+      return item;
+
+    }
+
+
+    /*
+      ABRIR NOTIFICAÇÃO
+    */
+
+    function abrirNotificacao(
+      notification
+    ){
+
+      if(
+        notification.tipo ===
+        "seguir"
+      ){
+
+        if(
+          notification.remetenteId
+        ){
+
+          window.location.href =
+            "perfil.html?user="
+            +
+            encodeURIComponent(
+              notification.remetenteId
+            );
+
+        }
+
+        return;
+
+      }
+
+
+      if(
+        notification.publicacaoId
+      ){
+
+        window.location.href =
+          "feed.html?post="
+          +
+          encodeURIComponent(
+            notification.publicacaoId
+          );
+
+      }
+
+    }
+
+
+    /*
+      MARCAR TODAS COMO LIDAS
+    */
+
+    clearBtn.addEventListener(
+      "click",
+      async () => {
+
+        if(!currentUser)
+          return;
+
+
+        clearBtn.disabled =
+          true;
+
+
+        clearBtn.textContent =
+          "A GUARDAR...";
+
+
+        try{
+
+          const notificationsQuery =
+            query(
+
+              collection(
+                db,
+                "notificacoes"
+              ),
+
+              where(
+                "destinatarioId",
+                "==",
+                currentUser.uid
+              )
+
+            );
+
+
+          const snapshot =
+            await getDocs(
+              notificationsQuery
+            );
+
+
+          const batch =
+            writeBatch(db);
+
+
+          snapshot.forEach(
+            documentSnap => {
+
+              if(
+                !documentSnap.data().lida
+              ){
+
+                batch.update(
+                  documentSnap.ref,
+                  {
+                    lida:true
+                  }
+                );
+
+              }
+
+            }
+          );
+
+
+          await batch.commit();
+
+
+          clearBtn.textContent =
+            "✓ TODAS LIDAS";
+
+
+          setTimeout(
+            () => {
+
+              clearBtn.disabled =
+                false;
+
+
+              clearBtn.textContent =
+                "MARCAR COMO LIDAS";
+
+            },
+            1500
+          );
+
+
+        }
+        catch(error){
+
+          console.error(
+            error
+          );
+
+
+          alert(
+            "Erro ao atualizar as notificações."
+          );
+
+
+          clearBtn.disabled =
+            false;
+
+
+          clearBtn.textContent =
+            "MARCAR COMO LIDAS";
+
+        }
+
+      }
+    );
+
+
+    /*
+      FORMATAR DATA
+    */
+
+    function formatarData(
+      timestamp
+    ){
+
+      if(!timestamp){
+
+        return "Agora mesmo";
+
+      }
+
+
+      const date =
+        timestamp.toDate
+        ?
+        timestamp.toDate()
+        :
+        new Date(timestamp);
+
+
+      const seconds =
+        Math.floor(
+          (
+            new Date()
+            -
+            date
+          )
+          /
+          1000
+        );
+
+
+      if(seconds < 60){
+
+        return "Agora mesmo";
+
+      }
+
+
+      const minutes =
+        Math.floor(
+          seconds / 60
+        );
+
+
+      if(minutes < 60){
+
+        return minutes
+          +
+          " min atrás";
+
+      }
+
+
+      const hours =
+        Math.floor(
+          minutes / 60
+        );
+
+
+      if(hours < 24){
+
+        return hours
+          +
+          " h atrás";
+
+      }
+
+
+      const days =
+        Math.floor(
+          hours / 24
+        );
+
+
+      if(days < 7){
+
+        return days
+          +
+          " dias atrás";
+
+      }
+
+
+      return date.toLocaleDateString(
+        "pt-PT"
+      );
+
+    }
+
+
+    /*
+      SEGURANÇA HTML
+    */
+
+    function escapeHtml(
+      value
+    ){
+
+      const div =
+        document.createElement(
+          "div"
+        );
+
+
+      div.textContent =
+        value;
+
+
+      return div.innerHTML;
+
+    }
+
+
+    function escapeAttribute(
+      value
+    ){
+
+      return String(value)
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+
+    }
+
+  </script>
+
+</body>
+</html>
