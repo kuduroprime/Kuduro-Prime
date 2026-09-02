@@ -1,0 +1,2129 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Stories — KUDURO PRIME</title>
+
+  <style>
+
+    :root{
+      --bg:#070707;
+      --panel:#101010;
+      --panel2:#151515;
+      --gold:#f4bf31;
+      --gold2:#ffdc6b;
+      --text:#f7f4ed;
+      --muted:#aaa59a;
+      --line:#2a271f;
+      --red:#ff563f;
+      --green:#48d597;
+    }
+
+    *{
+      box-sizing:border-box;
+    }
+
+    body{
+      margin:0;
+      min-height:100vh;
+      background:
+        radial-gradient(
+          circle at 50% 0,
+          rgba(244,191,49,.12),
+          transparent 35%
+        ),
+        var(--bg);
+      color:var(--text);
+      font-family:Arial,Helvetica,sans-serif;
+    }
+
+    a{
+      color:inherit;
+      text-decoration:none;
+    }
+
+    button,
+    input,
+    textarea{
+      font:inherit;
+    }
+
+    /* NAV */
+
+    .top{
+      height:70px;
+      border-bottom:1px solid var(--line);
+      display:flex;
+      align-items:center;
+      position:sticky;
+      top:0;
+      z-index:100;
+      background:rgba(7,7,7,.96);
+      backdrop-filter:blur(15px);
+    }
+
+    .top-in{
+      width:min(1100px,94%);
+      margin:auto;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:15px;
+    }
+
+    .brand{
+      font-size:19px;
+      font-weight:900;
+      letter-spacing:-1px;
+    }
+
+    .brand span{
+      color:var(--gold);
+    }
+
+    .back{
+      color:var(--gold);
+      font-size:13px;
+      font-weight:900;
+    }
+
+    /* MAIN */
+
+    main{
+      width:min(1100px,94%);
+      margin:auto;
+      padding:30px 0 80px;
+    }
+
+    .page-head{
+      display:flex;
+      align-items:end;
+      justify-content:space-between;
+      gap:20px;
+      margin-bottom:25px;
+    }
+
+    h1{
+      margin:0;
+      font-size:clamp(28px,5vw,42px);
+      letter-spacing:-2px;
+    }
+
+    .subtitle{
+      margin:8px 0 0;
+      color:var(--muted);
+      font-size:14px;
+    }
+
+    /* STORIES */
+
+    .stories-row{
+      display:flex;
+      gap:16px;
+      overflow-x:auto;
+      padding:8px 4px 20px;
+      scrollbar-width:none;
+    }
+
+    .stories-row::-webkit-scrollbar{
+      display:none;
+    }
+
+    .story{
+      flex:0 0 95px;
+      cursor:pointer;
+      text-align:center;
+    }
+
+    .story-ring{
+      width:82px;
+      height:82px;
+      margin:auto;
+      border-radius:50%;
+      padding:3px;
+      background:linear-gradient(
+        135deg,
+        var(--gold2),
+        var(--gold),
+        #9c6812
+      );
+      position:relative;
+    }
+
+    .story.seen .story-ring{
+      background:#3a3a3a;
+    }
+
+    .story-avatar{
+      width:100%;
+      height:100%;
+      border-radius:50%;
+      overflow:hidden;
+      border:3px solid var(--bg);
+      background:#171717;
+      display:grid;
+      place-items:center;
+      font-size:30px;
+    }
+
+    .story-avatar img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
+
+    .add-icon{
+      position:absolute;
+      right:-1px;
+      bottom:-1px;
+      width:27px;
+      height:27px;
+      border-radius:50%;
+      background:var(--gold);
+      color:#17120a;
+      border:3px solid var(--bg);
+      display:grid;
+      place-items:center;
+      font-size:20px;
+      font-weight:900;
+    }
+
+    .story-name{
+      margin-top:8px;
+      font-size:11px;
+      font-weight:800;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+
+    /* CONTENT */
+
+    .section-title{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      margin:20px 0 15px;
+    }
+
+    .section-title h2{
+      margin:0;
+      font-size:17px;
+      color:var(--gold);
+    }
+
+    .section-title span{
+      color:var(--muted);
+      font-size:11px;
+    }
+
+    .empty{
+      padding:45px 20px;
+      border:1px solid var(--line);
+      border-radius:16px;
+      background:linear-gradient(
+        145deg,
+        var(--panel2),
+        var(--panel)
+      );
+      text-align:center;
+    }
+
+    .empty-icon{
+      font-size:50px;
+    }
+
+    .empty h3{
+      margin:15px 0 8px;
+    }
+
+    .empty p{
+      margin:0 auto;
+      max-width:500px;
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.6;
+    }
+
+    .create-btn{
+      margin-top:20px;
+      padding:13px 22px;
+      border:0;
+      border-radius:9px;
+      background:linear-gradient(
+        135deg,
+        var(--gold2),
+        var(--gold)
+      );
+      color:#17120a;
+      font-size:12px;
+      font-weight:900;
+      cursor:pointer;
+    }
+
+    /* MODAL CRIAR */
+
+    .modal{
+      display:none;
+      position:fixed;
+      inset:0;
+      z-index:1000;
+      padding:20px;
+      background:rgba(0,0,0,.85);
+      align-items:center;
+      justify-content:center;
+    }
+
+    .modal.active{
+      display:flex;
+    }
+
+    .modal-box{
+      width:min(600px,100%);
+      max-height:90vh;
+      overflow-y:auto;
+      background:#111;
+      border:1px solid var(--line);
+      border-radius:20px;
+      padding:22px;
+    }
+
+    .modal-head{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:15px;
+      margin-bottom:20px;
+    }
+
+    .modal-head h2{
+      margin:0;
+      font-size:20px;
+    }
+
+    .close{
+      width:40px;
+      height:40px;
+      border-radius:50%;
+      border:1px solid var(--line);
+      background:#191919;
+      color:white;
+      cursor:pointer;
+      font-size:20px;
+    }
+
+    .upload{
+      min-height:220px;
+      border:2px dashed #393939;
+      border-radius:14px;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      cursor:pointer;
+      padding:20px;
+      background:#0a0a0a;
+    }
+
+    .upload:hover{
+      border-color:var(--gold);
+    }
+
+    .upload strong{
+      font-size:16px;
+    }
+
+    .upload small{
+      color:var(--muted);
+      margin-top:8px;
+    }
+
+    #storyFile{
+      display:none;
+    }
+
+    .preview{
+      display:none;
+      margin-top:15px;
+      width:100%;
+      border-radius:14px;
+      overflow:hidden;
+      background:#000;
+    }
+
+    .preview img,
+    .preview video{
+      width:100%;
+      max-height:450px;
+      display:block;
+      object-fit:contain;
+      background:#000;
+    }
+
+    textarea{
+      width:100%;
+      margin-top:15px;
+      padding:14px;
+      resize:vertical;
+      min-height:100px;
+      border:1px solid var(--line);
+      border-radius:10px;
+      outline:none;
+      background:#0a0a0a;
+      color:white;
+    }
+
+    textarea:focus{
+      border-color:var(--gold);
+    }
+
+    .publish{
+      width:100%;
+      margin-top:15px;
+      padding:15px;
+      border:0;
+      border-radius:10px;
+      background:linear-gradient(
+        135deg,
+        var(--gold2),
+        var(--gold)
+      );
+      color:#17120a;
+      font-size:13px;
+      font-weight:900;
+      cursor:pointer;
+    }
+
+    .publish:disabled{
+      opacity:.6;
+      cursor:not-allowed;
+    }
+
+    /* STORY VIEWER */
+
+    .viewer{
+      display:none;
+      position:fixed;
+      inset:0;
+      z-index:2000;
+      background:#000;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .viewer.active{
+      display:flex;
+    }
+
+    .story-view{
+      width:min(480px,100%);
+      height:100%;
+      max-height:850px;
+      position:relative;
+      overflow:hidden;
+      background:#111;
+    }
+
+    .story-media{
+      position:absolute;
+      inset:0;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:#000;
+    }
+
+    .story-media img,
+    .story-media video{
+      width:100%;
+      height:100%;
+      object-fit:contain;
+    }
+
+    .viewer-top{
+      position:absolute;
+      z-index:5;
+      top:0;
+      left:0;
+      right:0;
+      padding:15px;
+      background:linear-gradient(
+        180deg,
+        rgba(0,0,0,.7),
+        transparent
+      );
+    }
+
+    .progress-lines{
+      display:flex;
+      gap:4px;
+      margin-bottom:15px;
+    }
+
+    .line{
+      height:3px;
+      flex:1;
+      border-radius:10px;
+      background:rgba(255,255,255,.3);
+      overflow:hidden;
+    }
+
+    .line.active div{
+      width:0%;
+      height:100%;
+      background:white;
+      animation:storyProgress 6s linear forwards;
+    }
+
+    .line.done{
+      background:white;
+    }
+
+    @keyframes storyProgress{
+
+      from{
+        width:0%;
+      }
+
+      to{
+        width:100%;
+      }
+
+    }
+
+    .viewer-user{
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+
+    .viewer-avatar{
+      width:42px;
+      height:42px;
+      border-radius:50%;
+      overflow:hidden;
+      border:2px solid var(--gold);
+      background:#222;
+      display:grid;
+      place-items:center;
+    }
+
+    .viewer-avatar img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
+
+    .viewer-name{
+      font-size:13px;
+      font-weight:900;
+    }
+
+    .viewer-time{
+      color:#ddd;
+      font-size:10px;
+      margin-top:3px;
+    }
+
+    .viewer-close{
+      position:absolute;
+      top:15px;
+      right:15px;
+      width:40px;
+      height:40px;
+      border:0;
+      border-radius:50%;
+      background:rgba(0,0,0,.35);
+      color:white;
+      font-size:22px;
+      cursor:pointer;
+    }
+
+    .viewer-prev,
+    .viewer-next{
+      position:absolute;
+      top:0;
+      bottom:0;
+      width:35%;
+      border:0;
+      background:transparent;
+      z-index:3;
+      cursor:pointer;
+    }
+
+    .viewer-prev{
+      left:0;
+    }
+
+    .viewer-next{
+      right:0;
+    }
+
+    .story-caption{
+      position:absolute;
+      z-index:5;
+      bottom:0;
+      left:0;
+      right:0;
+      padding:80px 20px 30px;
+      background:linear-gradient(
+        0deg,
+        rgba(0,0,0,.8),
+        transparent
+      );
+      text-align:center;
+      font-size:15px;
+      font-weight:700;
+      line-height:1.5;
+    }
+
+    .viewer-actions{
+      position:absolute;
+      z-index:10;
+      right:15px;
+      bottom:25px;
+      display:grid;
+      gap:15px;
+    }
+
+    .action{
+      width:46px;
+      height:46px;
+      border-radius:50%;
+      border:1px solid rgba(255,255,255,.2);
+      background:rgba(0,0,0,.45);
+      color:white;
+      cursor:pointer;
+      font-size:19px;
+    }
+
+    .action.active{
+      color:var(--gold);
+      border-color:var(--gold);
+    }
+
+    @media(max-width:600px){
+
+      main{
+        width:94%;
+        padding-top:22px;
+      }
+
+      .story{
+        flex-basis:82px;
+      }
+
+      .story-ring{
+        width:70px;
+        height:70px;
+      }
+
+      .story-name{
+        font-size:10px;
+      }
+
+      .story-view{
+        max-width:none;
+      }
+
+      .viewer-prev,
+      .viewer-next{
+        width:50%;
+      }
+
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- NAV -->
+
+  <header class="top">
+
+    <div class="top-in">
+
+      <a href="feed.html" class="brand">
+        👑 KUDURO <span>PRIME</span>
+      </a>
+
+      <a href="feed.html" class="back">
+        ← VOLTAR AO FEED
+      </a>
+
+    </div>
+
+  </header>
+
+
+  <main>
+
+    <div class="page-head">
+
+      <div>
+
+        <h1>STORIES</h1>
+
+        <p class="subtitle">
+          Vê os momentos dos artistas. As stories desaparecem após 24 horas.
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <!-- LISTA DE STORIES -->
+
+    <section>
+
+      <div
+        class="stories-row"
+        id="storiesRow"
+      >
+
+        <!-- ADICIONAR STORY -->
+
+        <div
+          class="story"
+          onclick="openCreateStory()"
+        >
+
+          <div class="story-ring">
+
+            <div
+              class="story-avatar"
+              id="myAvatar"
+            >
+              👤
+            </div>
+
+            <div class="add-icon">
+              +
+            </div>
+
+          </div>
+
+          <div class="story-name">
+            A TUA STORY
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <div class="section-title">
+
+      <h2>👑 MOMENTOS DO MOVIMENTO</h2>
+
+      <span>
+        Stories recentes
+      </span>
+
+    </div>
+
+
+    <!-- SEM STORIES -->
+
+    <div
+      class="empty"
+      id="emptyState"
+    >
+
+      <div class="empty-icon">
+        📸
+      </div>
+
+      <h3>Ainda não existem stories</h3>
+
+      <p>
+        Sê o primeiro artista a partilhar um momento
+        com a comunidade KUDURO PRIME.
+      </p>
+
+      <button
+        class="create-btn"
+        onclick="openCreateStory()"
+      >
+        + CRIAR STORY
+      </button>
+
+    </div>
+
+  </main>
+
+
+  <!-- MODAL CRIAR STORY -->
+
+  <div
+    class="modal"
+    id="createModal"
+  >
+
+    <div class="modal-box">
+
+      <div class="modal-head">
+
+        <h2>
+          📸 NOVA STORY
+        </h2>
+
+        <button
+          class="close"
+          onclick="closeCreateStory()"
+        >
+          ×
+        </button>
+
+      </div>
+
+
+      <label
+        class="upload"
+        for="storyFile"
+      >
+
+        <strong>
+          📷 Escolher foto ou vídeo
+        </strong>
+
+        <small>
+          A tua story ficará disponível durante 24 horas
+        </small>
+
+      </label>
+
+
+      <input
+        type="file"
+        id="storyFile"
+        accept="image/*,video/*"
+      >
+
+
+      <div
+        class="preview"
+        id="preview"
+      ></div>
+
+
+      <textarea
+        id="storyCaption"
+        placeholder="Escreve algo para a tua story..."
+      ></textarea>
+
+
+      <button
+        class="publish"
+        id="publishBtn"
+        onclick="publishStory()"
+      >
+        🚀 PUBLICAR STORY
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <!-- VISUALIZADOR -->
+
+  <div
+    class="viewer"
+    id="viewer"
+  >
+
+    <div class="story-view">
+
+      <div class="story-media" id="viewerMedia"></div>
+
+
+      <div class="viewer-top">
+
+        <div
+          class="progress-lines"
+          id="progressLines"
+        ></div>
+
+
+        <div class="viewer-user">
+
+          <div
+            class="viewer-avatar"
+            id="viewerAvatar"
+          >
+            👤
+          </div>
+
+
+          <div>
+
+            <div
+              class="viewer-name"
+              id="viewerName"
+            >
+              Artista
+            </div>
+
+            <div
+              class="viewer-time"
+              id="viewerTime"
+            >
+              Agora
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <button
+        class="viewer-close"
+        onclick="closeViewer()"
+      >
+        ×
+      </button>
+
+
+      <button
+        class="viewer-prev"
+        onclick="previousStory()"
+      ></button>
+
+
+      <button
+        class="viewer-next"
+        onclick="nextStory()"
+      ></button>
+
+
+      <div
+        class="story-caption"
+        id="viewerCaption"
+      ></div>
+
+
+      <div class="viewer-actions">
+
+        <button
+          class="action"
+          id="likeBtn"
+          onclick="toggleLike()"
+        >
+          ♡
+        </button>
+
+        <button
+          class="action"
+          onclick="shareStory()"
+        >
+          ↗
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <script type="module">
+
+    import {
+      initializeApp
+    } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+
+    import {
+      getAuth,
+      onAuthStateChanged
+    } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+
+    import {
+      getFirestore,
+      collection,
+      addDoc,
+      getDocs,
+      query,
+      orderBy,
+      limit,
+      serverTimestamp,
+      deleteDoc,
+      doc
+    } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+
+    import {
+      getStorage,
+      ref,
+      uploadBytes,
+      getDownloadURL
+    } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-storage.js";
+
+
+    /* FIREBASE */
+
+    const firebaseConfig = {
+
+      apiKey:
+        "AIzaSyDoitCcLeLDNBNPCP6fG1s_xbHr4UmohSo",
+
+      authDomain:
+        "kuduro-prime.firebaseapp.com",
+
+      projectId:
+        "kuduro-prime",
+
+      storageBucket:
+        "kuduro-prime.firebasestorage.app",
+
+      messagingSenderId:
+        "299776559545",
+
+      appId:
+        "1:299776559545:web:04aced1ba25391eb3fce68"
+
+    };
+
+
+    const app =
+      initializeApp(firebaseConfig);
+
+    const auth =
+      getAuth(app);
+
+    const db =
+      getFirestore(app);
+
+    const storage =
+      getStorage(app);
+
+
+    /* ELEMENTOS */
+
+    const storiesRow =
+      document.getElementById(
+        "storiesRow"
+      );
+
+    const emptyState =
+      document.getElementById(
+        "emptyState"
+      );
+
+    const createModal =
+      document.getElementById(
+        "createModal"
+      );
+
+    const storyFile =
+      document.getElementById(
+        "storyFile"
+      );
+
+    const preview =
+      document.getElementById(
+        "preview"
+      );
+
+    const storyCaption =
+      document.getElementById(
+        "storyCaption"
+      );
+
+    const publishBtn =
+      document.getElementById(
+        "publishBtn"
+      );
+
+    const viewer =
+      document.getElementById(
+        "viewer"
+      );
+
+    const viewerMedia =
+      document.getElementById(
+        "viewerMedia"
+      );
+
+    const viewerAvatar =
+      document.getElementById(
+        "viewerAvatar"
+      );
+
+    const viewerName =
+      document.getElementById(
+        "viewerName"
+      );
+
+    const viewerTime =
+      document.getElementById(
+        "viewerTime"
+      );
+
+    const viewerCaption =
+      document.getElementById(
+        "viewerCaption"
+      );
+
+    const progressLines =
+      document.getElementById(
+        "progressLines"
+      );
+
+
+    /* DADOS */
+
+    let currentUser = null;
+
+    let selectedFile = null;
+
+    let previewUrl = null;
+
+    let stories = [];
+
+    let currentStoryIndex = 0;
+
+    let storyTimer = null;
+
+    let liked = false;
+
+
+    /* AUTH */
+
+    onAuthStateChanged(
+      auth,
+      user => {
+
+        currentUser = user;
+
+        loadMyProfile();
+
+        loadStories();
+
+      }
+    );
+
+
+    /* PERFIL DO UTILIZADOR */
+
+    function loadMyProfile(){
+
+      const myAvatar =
+        document.getElementById(
+          "myAvatar"
+        );
+
+
+      const photo =
+        localStorage.getItem(
+          "kpArtistPhoto"
+        );
+
+
+      if(photo){
+
+        myAvatar.innerHTML =
+          `<img src="${photo}">`;
+
+      }
+
+    }
+
+
+    /* ABRIR MODAL */
+
+    window.openCreateStory =
+      function(){
+
+        if(!currentUser){
+
+          alert(
+            "Tens de iniciar sessão para criar uma story."
+          );
+
+          window.location.href =
+            "area-do-artista.html";
+
+          return;
+
+        }
+
+
+        createModal.classList.add(
+          "active"
+        );
+
+      };
+
+
+    /* FECHAR MODAL */
+
+    window.closeCreateStory =
+      function(){
+
+        createModal.classList.remove(
+          "active"
+        );
+
+      };
+
+
+    /* PREVIEW */
+
+    storyFile.addEventListener(
+      "change",
+      () => {
+
+        const file =
+          storyFile.files[0];
+
+
+        if(!file)
+          return;
+
+
+        selectedFile =
+          file;
+
+
+        if(previewUrl){
+
+          URL.revokeObjectURL(
+            previewUrl
+          );
+
+        }
+
+
+        previewUrl =
+          URL.createObjectURL(
+            file
+          );
+
+
+        preview.innerHTML =
+          "";
+
+
+        if(
+          file.type.startsWith(
+            "image/"
+          )
+        ){
+
+          preview.innerHTML =
+            `<img src="${previewUrl}">`;
+
+        }
+
+
+        if(
+          file.type.startsWith(
+            "video/"
+          )
+        ){
+
+          preview.innerHTML =
+            `
+
+              <video
+                src="${previewUrl}"
+                controls
+              ></video>
+
+            `;
+
+        }
+
+
+        preview.style.display =
+          "block";
+
+      }
+    );
+
+
+    /* PUBLICAR */
+
+    window.publishStory =
+      async function(){
+
+        if(!currentUser){
+
+          alert(
+            "Tens de iniciar sessão."
+          );
+
+          return;
+
+        }
+
+
+        if(!selectedFile){
+
+          alert(
+            "Escolhe uma foto ou vídeo."
+          );
+
+          return;
+
+        }
+
+
+        publishBtn.disabled =
+          true;
+
+        publishBtn.textContent =
+          "A PUBLICAR...";
+
+
+        try{
+
+          const safeName =
+            selectedFile.name.replace(
+              /[^a-zA-Z0-9.\-_]/g,
+              "_"
+            );
+
+
+          const fileName =
+            Date.now()
+            +
+            "_"
+            +
+            safeName;
+
+
+          const storageRef =
+            ref(
+              storage,
+              `stories/${currentUser.uid}/${fileName}`
+            );
+
+
+          await uploadBytes(
+            storageRef,
+            selectedFile
+          );
+
+
+          const mediaUrl =
+            await getDownloadURL(
+              storageRef
+            );
+
+
+          const isImage =
+            selectedFile.type.startsWith(
+              "image/"
+            );
+
+
+          const artistName =
+            localStorage.getItem(
+              "kpArtistStageName"
+            )
+            ||
+            localStorage.getItem(
+              "kpArtistName"
+            )
+            ||
+            "Artista Prime";
+
+
+          const artistPhoto =
+            localStorage.getItem(
+              "kpArtistPhoto"
+            )
+            ||
+            "";
+
+
+          await addDoc(
+
+            collection(
+              db,
+              "stories"
+            ),
+
+            {
+
+              uid:
+                currentUser.uid,
+
+              nome:
+                artistName,
+
+              foto:
+                artistPhoto,
+
+              mediaUrl:
+                mediaUrl,
+
+              mediaType:
+                isImage
+                ?
+                "image"
+                :
+                "video",
+
+              legenda:
+                storyCaption.value.trim(),
+
+              createdAt:
+                serverTimestamp(),
+
+              expiresAt:
+                Date.now()
+                +
+                86400000
+
+            }
+
+          );
+
+
+          selectedFile =
+            null;
+
+          storyFile.value =
+            "";
+
+          storyCaption.value =
+            "";
+
+          preview.innerHTML =
+            "";
+
+          preview.style.display =
+            "none";
+
+
+          closeCreateStory();
+
+
+          alert(
+            "👑 Story publicada com sucesso!"
+          );
+
+
+          await loadStories();
+
+
+        }
+        catch(error){
+
+          console.error(
+            error
+          );
+
+
+          alert(
+            "Erro ao publicar a story: "
+            +
+            error.message
+          );
+
+        }
+
+
+        publishBtn.disabled =
+          false;
+
+        publishBtn.textContent =
+          "🚀 PUBLICAR STORY";
+
+      };
+
+
+    /* CARREGAR STORIES */
+
+    async function loadStories(){
+
+      try{
+
+        const q =
+          query(
+            collection(
+              db,
+              "stories"
+            ),
+            orderBy(
+              "createdAt",
+              "desc"
+            ),
+            limit(50)
+          );
+
+
+        const snapshot =
+          await getDocs(q);
+
+
+        const now =
+          Date.now();
+
+
+        stories =
+          [];
+
+
+        snapshot.forEach(
+          async document => {
+
+            const story =
+              {
+
+                id:
+                  document.id,
+
+                ...
+                document.data()
+
+              };
+
+
+            if(
+              story.expiresAt
+              &&
+              story.expiresAt < now
+            ){
+
+              try{
+
+                await deleteDoc(
+                  doc(
+                    db,
+                    "stories",
+                    story.id
+                  )
+                );
+
+              }
+              catch(error){
+
+                console.log(
+                  "Story antiga encontrada."
+                );
+
+              }
+
+              return;
+
+            }
+
+
+            stories.push(
+              story
+            );
+
+          }
+        );
+
+
+        renderStories();
+
+      }
+      catch(error){
+
+        console.error(
+          "Erro ao carregar stories:",
+          error
+        );
+
+
+        stories =
+          [];
+
+        renderStories();
+
+      }
+
+    }
+
+
+    /* MOSTRAR STORIES */
+
+    function renderStories(){
+
+      const myStoryButton =
+        storiesRow.firstElementChild;
+
+
+      storiesRow.innerHTML =
+        "";
+
+
+      storiesRow.appendChild(
+        myStoryButton
+      );
+
+
+      if(
+        !stories.length
+      ){
+
+        emptyState.style.display =
+          "block";
+
+        return;
+
+      }
+
+
+      emptyState.style.display =
+        "none";
+
+
+      const artists =
+        {};
+
+
+      stories.forEach(
+        story => {
+
+          const id =
+            story.uid
+            ||
+            story.id;
+
+
+          if(
+            !artists[id]
+          ){
+
+            artists[id] =
+              story;
+
+          }
+
+        }
+      );
+
+
+      Object.values(
+        artists
+      )
+      .forEach(
+        story => {
+
+          const index =
+            stories.findIndex(
+              item =>
+                item.id === story.id
+            );
+
+
+          const item =
+            document.createElement(
+              "div"
+            );
+
+
+          item.className =
+            "story";
+
+
+          item.innerHTML =
+            `
+
+              <div class="story-ring">
+
+                <div class="story-avatar">
+
+                  ${
+                    story.foto
+                    ?
+                    `<img src="${story.foto}">`
+                    :
+                    "👤"
+                  }
+
+                </div>
+
+              </div>
+
+              <div class="story-name">
+
+                ${story.nome || "Artista"}
+
+              </div>
+
+            `;
+
+
+          item.onclick =
+            () =>
+              openViewer(
+                index
+              );
+
+
+          storiesRow.appendChild(
+            item
+          );
+
+        }
+      );
+
+    }
+
+
+    /* ABRIR STORY */
+
+    function openViewer(index){
+
+      if(
+        !stories.length
+      )
+        return;
+
+
+      currentStoryIndex =
+        index;
+
+
+      liked =
+        false;
+
+
+      document
+        .getElementById(
+          "likeBtn"
+        )
+        .textContent =
+          "♡";
+
+
+      viewer.classList.add(
+        "active"
+      );
+
+
+      showStory();
+
+    }
+
+
+    function showStory(){
+
+      clearTimeout(
+        storyTimer
+      );
+
+
+      const story =
+        stories[
+          currentStoryIndex
+        ];
+
+
+      if(!story){
+
+        closeViewer();
+
+        return;
+
+      }
+
+
+      viewerMedia.innerHTML =
+        "";
+
+
+      if(
+        story.mediaType ===
+        "video"
+      ){
+
+        const video =
+          document.createElement(
+            "video"
+          );
+
+
+        video.src =
+          story.mediaUrl;
+
+        video.autoplay =
+          true;
+
+        video.playsInline =
+          true;
+
+
+        video.onended =
+          () =>
+            nextStory();
+
+
+        viewerMedia.appendChild(
+          video
+        );
+
+
+      }
+      else{
+
+        viewerMedia.innerHTML =
+          `
+
+            <img
+              src="${story.mediaUrl}"
+            >
+
+          `;
+
+      }
+
+
+      viewerAvatar.innerHTML =
+        story.foto
+        ?
+        `<img src="${story.foto}">`
+        :
+        "👤";
+
+
+      viewerName.textContent =
+        story.nome
+        ||
+        "Artista Prime";
+
+
+      viewerTime.textContent =
+        getTimeText(
+          story
+        );
+
+
+      viewerCaption.textContent =
+        story.legenda
+        ||
+        "";
+
+
+      renderProgress();
+
+
+      if(
+        story.mediaType !==
+        "video"
+      ){
+
+        storyTimer =
+          setTimeout(
+            nextStory,
+            6000
+          );
+
+      }
+
+    }
+
+
+    /* PROGRESSO */
+
+    function renderProgress(){
+
+      progressLines.innerHTML =
+        "";
+
+
+      stories.forEach(
+        (story,index) => {
+
+          const line =
+            document.createElement(
+              "div"
+            );
+
+
+          line.className =
+            "line";
+
+
+          if(
+            index <
+            currentStoryIndex
+          ){
+
+            line.classList.add(
+              "done"
+            );
+
+          }
+
+
+          if(
+            index ===
+            currentStoryIndex
+          ){
+
+            line.classList.add(
+              "active"
+            );
+
+            line.innerHTML =
+              "<div></div>";
+
+          }
+
+
+          progressLines.appendChild(
+            line
+          );
+
+        }
+      );
+
+    }
+
+
+    /* STORY ANTERIOR */
+
+    window.previousStory =
+      function(){
+
+        if(
+          currentStoryIndex > 0
+        ){
+
+          currentStoryIndex--;
+
+          showStory();
+
+        }
+
+      };
+
+
+    /* PRÓXIMA STORY */
+
+    window.nextStory =
+      function(){
+
+        if(
+          currentStoryIndex <
+          stories.length - 1
+        ){
+
+          currentStoryIndex++;
+
+          showStory();
+
+        }
+        else{
+
+          closeViewer();
+
+        }
+
+      };
+
+
+    /* FECHAR */
+
+    window.closeViewer =
+      function(){
+
+        clearTimeout(
+          storyTimer
+        );
+
+
+        viewer.classList.remove(
+          "active"
+        );
+
+
+        viewerMedia.innerHTML =
+          "";
+
+      };
+
+
+    /* LIKE */
+
+    window.toggleLike =
+      function(){
+
+        liked =
+          !liked;
+
+
+        const button =
+          document.getElementById(
+            "likeBtn"
+          );
+
+
+        button.textContent =
+          liked
+          ?
+          "♥"
+          :
+          "♡";
+
+
+        if(liked){
+
+          button.classList.add(
+            "active"
+          );
+
+        }
+        else{
+
+          button.classList.remove(
+            "active"
+          );
+
+        }
+
+      };
+
+
+    /* PARTILHAR */
+
+    window.shareStory =
+      function(){
+
+        const story =
+          stories[
+            currentStoryIndex
+          ];
+
+
+        if(
+          navigator.share
+        ){
+
+          navigator.share({
+
+            title:
+              "Story - KUDURO PRIME",
+
+            text:
+              story.nome
+              +
+              " partilhou uma story no KUDURO PRIME 👑",
+
+            url:
+              window.location.href
+
+          });
+
+        }
+        else{
+
+          alert(
+            "Story pronta para ser partilhada!"
+          );
+
+        }
+
+      };
+
+
+    /* TEMPO */
+
+    function getTimeText(story){
+
+      if(
+        !story.createdAt
+        ||
+        !story.createdAt.toDate
+      ){
+
+        return "Agora";
+
+      }
+
+
+      const date =
+        story.createdAt.toDate();
+
+
+      const diff =
+        Date.now()
+        -
+        date.getTime();
+
+
+      const minutes =
+        Math.floor(
+          diff / 60000
+        );
+
+
+      if(minutes < 1)
+        return "Agora";
+
+
+      if(minutes < 60)
+        return minutes + " min";
+
+
+      const hours =
+        Math.floor(
+          minutes / 60
+        );
+
+
+      if(hours < 24)
+        return hours + " h";
+
+
+      return "Ontem";
+
+    }
+
+
+    /* CLIQUE FORA */
+
+    createModal.addEventListener(
+      "click",
+      event => {
+
+        if(
+          event.target ===
+          createModal
+        ){
+
+          closeCreateStory();
+
+        }
+
+      }
+    );
+
+
+    viewer.addEventListener(
+      "click",
+      event => {
+
+        if(
+          event.target ===
+          viewer
+        ){
+
+          closeViewer();
+
+        }
+
+      }
+    );
+
+  </script>
+
+</body>
+</html>
