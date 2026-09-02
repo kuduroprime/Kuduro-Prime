@@ -2,3390 +2,3612 @@
 <html lang="pt">
 <head>
 
-  <meta charset="UTF-8">
-
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
-
-  <title>Feed — KUDURO PRIME</title>
-
-  <style>
-
-    :root{
-      --bg:#070707;
-      --panel:#101010;
-      --gold:#f4bf31;
-      --gold2:#ffdc6b;
-      --text:#f7f4ed;
-      --muted:#aaa59a;
-      --line:#2a271f;
-      --blue:#4eb8ff;
-      --red:#ff563f;
-    }
-
-    *{
-      box-sizing:border-box;
-    }
-
-    html{
-      scroll-behavior:smooth;
-    }
-
-    body{
-      margin:0;
-      background:
-        radial-gradient(
-          circle at 90% 0,
-          rgba(244,191,49,.08),
-          transparent 30%
-        ),
-        var(--bg);
-
-      color:var(--text);
-
-      font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
-    }
+<meta charset="UTF-8">
 
-    a{
-      text-decoration:none;
-      color:inherit;
-    }
-
-    button,
-    input,
-    textarea{
-      font:inherit;
-    }
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    button{
-      cursor:pointer;
-    }
+<title>Feed — KUDURO PRIME</title>
 
-    /* =====================================
-       TELA DE CARREGAMENTO
-    ===================================== */
+<style>
 
-    #loadingScreen{
-      position:fixed;
-      inset:0;
-      z-index:9999;
+:root{
+  --bg:#070707;
+  --panel:#101010;
+  --gold:#f4bf31;
+  --gold2:#ffdc6b;
+  --text:#f7f4ed;
+  --muted:#aaa59a;
+  --line:#2a271f;
+  --blue:#4eb8ff;
+  --red:#ff563f;
+}
 
-      display:flex;
-      align-items:center;
-      justify-content:center;
+*{
+  box-sizing:border-box;
+}
 
-      background:#070707;
-    }
+html{
+  scroll-behavior:smooth;
+}
 
-    .loading-box{
-      text-align:center;
-    }
+body{
+  margin:0;
 
-    .loading-logo{
-      color:var(--gold);
-      font-size:28px;
-      font-weight:900;
-      margin-bottom:15px;
-    }
+  background:
+    radial-gradient(
+      circle at 90% 0,
+      rgba(244,191,49,.08),
+      transparent 30%
+    ),
+    var(--bg);
 
-    .loading-text{
-      color:var(--muted);
-      font-size:12px;
-    }
+  color:var(--text);
 
-    .loader{
-      width:35px;
-      height:35px;
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+}
 
-      margin:20px auto;
+a{
+  text-decoration:none;
+  color:inherit;
+}
 
-      border:3px solid #2a271f;
-      border-top-color:var(--gold);
+button,
+input,
+textarea{
+  font:inherit;
+}
 
-      border-radius:50%;
+button{
+  cursor:pointer;
+}
 
-      animation:
-        girar .8s linear infinite;
-    }
 
-    @keyframes girar{
-      to{
-        transform:rotate(360deg);
-      }
-    }
+/* =====================================
+   CARREGAMENTO
+===================================== */
 
-    /* =====================================
-       NAV
-    ===================================== */
+#loadingScreen{
+  position:fixed;
+  inset:0;
 
-    .nav{
-      height:82px;
+  z-index:99999;
 
-      border-bottom:1px solid var(--line);
+  display:flex;
+  align-items:center;
+  justify-content:center;
 
-      display:flex;
-      align-items:center;
+  background:#070707;
+}
 
-      position:sticky;
-      top:0;
+.loading-box{
+  width:min(90%,400px);
+  text-align:center;
+}
 
-      background:rgba(7,7,7,.96);
+.loading-logo{
+  color:var(--gold);
 
-      backdrop-filter:blur(12px);
+  font-size:28px;
+  font-weight:900;
 
-      z-index:50;
-    }
+  margin-bottom:15px;
+}
 
-    .nav-in{
-      width:min(1180px,92%);
+.loading-text{
+  color:var(--muted);
 
-      margin:auto;
+  font-size:12px;
 
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
+  line-height:1.6;
+}
 
-      gap:20px;
-    }
+.loader{
+  width:38px;
+  height:38px;
 
-    .brand{
-      font-size:23px;
-      font-weight:900;
+  margin:20px auto;
 
-      line-height:.78;
+  border:3px solid #2a271f;
 
-      letter-spacing:-1px;
-    }
+  border-top-color:var(--gold);
 
-    .brand b{
-      display:block;
-      color:var(--gold);
-    }
+  border-radius:50%;
 
-    .crown{
-      display:block;
+  animation:
+    girar .8s linear infinite;
+}
 
-      text-align:center;
+@keyframes girar{
 
-      color:var(--gold);
+  to{
+    transform:rotate(360deg);
+  }
 
-      font-size:23px;
+}
 
-      line-height:.6;
-    }
 
-    .links{
-      display:flex;
-      align-items:center;
+/* =====================================
+   ERRO DE SESSÃO
+===================================== */
 
-      gap:20px;
+#sessionError{
+  display:none;
 
-      font-size:11px;
-      font-weight:900;
+  position:fixed;
 
-      letter-spacing:.3px;
-    }
+  inset:0;
 
-    .links a:hover,
-    .links a.active{
-      color:var(--gold);
-    }
+  z-index:100000;
 
-    .nav-actions{
-      display:flex;
-      align-items:center;
-      gap:10px;
-    }
+  background:#070707;
 
-    .user-btn{
-      display:flex;
-      align-items:center;
+  align-items:center;
+  justify-content:center;
 
-      gap:9px;
+  padding:20px;
+}
 
-      padding:7px 11px 7px 7px;
+.session-error-box{
 
-      border:1px solid var(--line);
+  width:min(100%,450px);
 
-      border-radius:30px;
+  padding:30px;
 
-      font-size:11px;
-      font-weight:800;
+  border:1px solid rgba(255,86,63,.35);
 
-      background:#0d0d0d;
-    }
+  border-radius:15px;
 
-    .user-btn:hover{
-      border-color:var(--gold);
-    }
+  background:#111;
 
-    .nav-avatar{
-      width:30px;
-      height:30px;
+  text-align:center;
 
-      border-radius:50%;
+}
 
-      background:#201a0a;
+.session-error-box h2{
 
-      border:1px solid var(--gold);
+  margin:0 0 10px;
 
-      overflow:hidden;
+  color:#ff887a;
 
-      display:grid;
-      place-items:center;
+}
 
-      color:var(--gold);
-    }
+.session-error-box p{
 
-    .nav-avatar img,
-    .avatar img,
-    .small-avatar img{
-      width:100%;
-      height:100%;
+  color:#aaa;
 
-      object-fit:cover;
-    }
+  font-size:13px;
 
-    .menu{
-      display:none;
+  line-height:1.6;
 
-      border:0;
+}
 
-      background:none;
+.session-error-box button{
 
-      color:white;
+  width:100%;
 
-      font-size:22px;
-    }
+  margin-top:15px;
 
-    /* =====================================
-       LAYOUT
-    ===================================== */
+  padding:13px;
 
-    .layout{
-      width:min(1180px,92%);
+  border:0;
 
-      margin:30px auto;
+  border-radius:8px;
 
-      display:grid;
+  background:var(--gold);
 
-      grid-template-columns:
-        230px
-        minmax(0,1fr)
-        280px;
+  color:#111;
 
-      gap:20px;
+  font-weight:900;
 
-      align-items:start;
-    }
+}
 
-    .panel{
-      background:
-        linear-gradient(
-          145deg,
-          #141414,
-          #0b0b0b
-        );
 
-      border:1px solid var(--line);
+/* =====================================
+   NAV
+===================================== */
 
-      border-radius:14px;
-    }
+.nav{
 
-    /* =====================================
-       SIDEBAR
-    ===================================== */
+  height:82px;
 
-    .sidebar{
-      position:sticky;
+  border-bottom:1px solid var(--line);
 
-      top:105px;
+  display:flex;
 
-      padding:15px;
-    }
+  align-items:center;
 
-    .profile-mini{
-      padding:12px 10px 20px;
+  position:sticky;
 
-      border-bottom:1px solid var(--line);
+  top:0;
 
-      text-align:center;
-    }
+  background:rgba(7,7,7,.96);
 
-    .avatar{
-      width:74px;
-      height:74px;
+  backdrop-filter:blur(12px);
 
-      border-radius:50%;
+  z-index:50;
 
-      border:2px solid var(--gold);
+}
 
-      overflow:hidden;
+.nav-in{
 
-      margin:0 auto 10px;
+  width:min(1180px,92%);
 
-      display:grid;
-      place-items:center;
+  margin:auto;
 
-      color:var(--gold);
+  display:flex;
 
-      background:#1c1608;
+  align-items:center;
 
-      font-size:26px;
-    }
+  justify-content:space-between;
 
-    .profile-name{
-      font-size:14px;
-      font-weight:900;
-    }
+  gap:20px;
 
-    .profile-user{
-      font-size:11px;
+}
 
-      color:var(--muted);
+.brand{
 
-      margin-top:4px;
-    }
+  font-size:23px;
 
-    .side-menu{
-      padding:10px 0;
-    }
+  font-weight:900;
 
-    .side-menu a{
-      display:flex;
-      align-items:center;
+  line-height:.78;
 
-      gap:10px;
+  letter-spacing:-1px;
 
-      padding:12px 10px;
+}
 
-      color:#bbb;
+.brand b{
 
-      font-size:12px;
+  display:block;
 
-      font-weight:700;
+  color:var(--gold);
 
-      border-radius:8px;
+}
 
-      transition:.2s;
-    }
+.crown{
 
-    .side-menu a:hover,
-    .side-menu a.active{
-      background:
-        rgba(244,191,49,.08);
+  display:block;
 
-      color:var(--gold);
-    }
+  text-align:center;
 
-    .artist-area-btn{
-      margin-top:8px;
+  color:var(--gold);
 
-      border:1px solid
-        rgba(244,191,49,.5);
+  font-size:23px;
 
-      background:
-        linear-gradient(
-          135deg,
-          rgba(244,191,49,.14),
-          rgba(244,191,49,.04)
-        );
+  line-height:.6;
 
-      color:var(--gold);
-    }
+}
 
-    .artist-area-btn:hover{
-      background:
-        rgba(244,191,49,.16) !important;
+.links{
 
-      border-color:var(--gold);
+  display:flex;
 
-      color:var(--gold) !important;
-    }
+  align-items:center;
 
-    .side-divider{
-      height:1px;
+  gap:20px;
 
-      background:var(--line);
+  font-size:11px;
 
-      margin:8px 0;
-    }
+  font-weight:900;
 
-    .side-menu .danger{
-      color:#ff887a;
-    }
+  letter-spacing:.3px;
 
-    .side-menu .danger:hover{
-      background:
-        rgba(255,86,63,.08);
+}
 
-      color:#ff887a;
-    }
+.links a:hover,
+.links a.active{
 
-    /* =====================================
-       FEED
-    ===================================== */
+  color:var(--gold);
 
-    .feed-head{
-      margin-bottom:20px;
-    }
+}
 
-    .feed-head h1{
-      margin:0;
+.nav-actions{
 
-      font-size:28px;
-    }
+  display:flex;
 
-    .feed-head p{
-      margin:6px 0 0;
+  align-items:center;
 
-      color:var(--muted);
+  gap:10px;
 
-      font-size:12px;
-    }
+}
 
-    /* =====================================
-       CRIAR POST
-    ===================================== */
+.user-btn{
 
-    .create-post{
-      padding:18px;
+  display:flex;
 
-      margin-bottom:18px;
-    }
+  align-items:center;
 
-    .post-input{
-      display:flex;
+  gap:9px;
 
-      gap:12px;
-    }
+  padding:7px 11px 7px 7px;
 
-    .small-avatar{
-      width:44px;
-      height:44px;
+  border:1px solid var(--line);
 
-      flex:0 0 auto;
+  border-radius:30px;
 
-      border-radius:50%;
+  font-size:11px;
 
-      overflow:hidden;
+  font-weight:800;
 
-      display:grid;
-      place-items:center;
+  background:#0d0d0d;
 
-      border:1px solid var(--gold);
+}
 
-      color:var(--gold);
+.user-btn:hover{
 
-      background:#1c1608;
-    }
+  border-color:var(--gold);
 
-    .post-input textarea{
-      width:100%;
+}
 
-      min-height:80px;
+.nav-avatar{
 
-      padding:12px;
+  width:30px;
+  height:30px;
 
-      resize:vertical;
+  border-radius:50%;
 
-      border:1px solid var(--line);
+  background:#201a0a;
 
-      border-radius:10px;
+  border:1px solid var(--gold);
 
-      background:#0b0b0b;
+  overflow:hidden;
 
-      color:white;
+  display:grid;
 
-      outline:none;
-    }
+  place-items:center;
 
-    .post-input textarea:focus,
-    .music-link-input:focus{
-      border-color:var(--gold);
-    }
+  color:var(--gold);
 
-    .post-actions{
-      display:flex;
+}
 
-      align-items:center;
+.nav-avatar img,
+.avatar img,
+.small-avatar img{
 
-      justify-content:space-between;
+  width:100%;
+  height:100%;
 
-      gap:10px;
+  object-fit:cover;
 
-      margin-top:12px;
+}
 
-      padding-left:56px;
-    }
+.menu{
 
-    .post-tools{
-      display:flex;
+  display:none;
 
-      gap:7px;
+  border:0;
 
-      flex-wrap:wrap;
-    }
+  background:none;
 
-    .tool-btn{
-      border:1px solid var(--line);
+  color:white;
 
-      background:#111;
+  font-size:22px;
 
-      color:#bbb;
+}
 
-      padding:9px 11px;
 
-      border-radius:7px;
+/* =====================================
+   LAYOUT
+===================================== */
 
-      font-size:11px;
-    }
+.layout{
 
-    .tool-btn:hover,
-    .tool-btn.active{
-      color:var(--gold);
+  width:min(1180px,92%);
 
-      border-color:var(--gold);
-    }
+  margin:30px auto;
 
-    .publish-btn{
-      border:0;
+  display:grid;
 
-      background:var(--gold);
+  grid-template-columns:
+    230px
+    minmax(0,1fr)
+    280px;
 
-      color:#17120a;
+  gap:20px;
 
-      padding:10px 18px;
+  align-items:start;
 
-      border-radius:7px;
+}
 
-      font-size:11px;
+.panel{
 
-      font-weight:900;
-    }
+  background:
+    linear-gradient(
+      145deg,
+      #141414,
+      #0b0b0b
+    );
 
-    .publish-btn:hover{
-      background:var(--gold2);
-    }
+  border:1px solid var(--line);
 
-    /* =====================================
-       MEDIA
-    ===================================== */
+  border-radius:14px;
 
-    .media-box{
-      display:none;
+}
 
-      margin:14px 0 0 56px;
 
-      padding:12px;
+/* =====================================
+   SIDEBAR
+===================================== */
 
-      border:1px dashed var(--line);
+.sidebar{
 
-      border-radius:10px;
+  position:sticky;
 
-      background:#0b0b0b;
-    }
+  top:105px;
 
-    .media-box.show{
-      display:block;
-    }
+  padding:15px;
 
-    .media-label{
-      display:block;
+}
 
-      margin-bottom:9px;
+.profile-mini{
 
-      color:var(--gold);
+  padding:12px 10px 20px;
 
-      font-size:11px;
+  border-bottom:1px solid var(--line);
 
-      font-weight:900;
-    }
+  text-align:center;
 
-    .file-input{
-      width:100%;
+}
 
-      color:#bbb;
+.avatar{
 
-      font-size:11px;
-    }
+  width:74px;
+  height:74px;
 
-    .music-link-input{
-      width:100%;
+  border-radius:50%;
 
-      margin-top:10px;
+  border:2px solid var(--gold);
 
-      padding:10px;
+  overflow:hidden;
 
-      background:#111;
+  margin:0 auto 10px;
 
-      color:white;
+  display:grid;
 
-      border:1px solid var(--line);
+  place-items:center;
 
-      border-radius:7px;
+  color:var(--gold);
 
-      outline:none;
-    }
+  background:#1c1608;
 
-    .media-preview{
-      display:none;
+  font-size:26px;
 
-      position:relative;
+}
 
-      margin-top:10px;
-    }
+.profile-name{
 
-    .media-preview.show{
-      display:block;
-    }
+  font-size:14px;
 
-    .media-preview img,
-    .media-preview video{
-      width:100%;
+  font-weight:900;
 
-      max-height:330px;
+}
 
-      object-fit:contain;
+.profile-user{
 
-      border-radius:8px;
+  font-size:11px;
 
-      background:#000;
-    }
+  color:var(--muted);
 
-    .remove-media{
-      margin-top:8px;
+  margin-top:4px;
 
-      border:1px solid var(--red);
+}
 
-      background:transparent;
+.side-menu{
 
-      color:#ff887a;
+  padding:10px 0;
 
-      padding:7px 10px;
+}
 
-      border-radius:6px;
+.side-menu a{
 
-      font-size:10px;
+  display:flex;
 
-      font-weight:900;
-    }
+  align-items:center;
 
-    /* =====================================
-       POSTS
-    ===================================== */
+  gap:10px;
 
-    .post{
-      margin-bottom:18px;
+  padding:12px 10px;
 
-      overflow:hidden;
-    }
+  color:#bbb;
 
-    .post-top{
-      display:flex;
+  font-size:12px;
 
-      gap:11px;
+  font-weight:700;
 
-      align-items:center;
+  border-radius:8px;
 
-      padding:16px;
-    }
+  transition:.2s;
 
-    .post-author-img{
-      width:46px;
-      height:46px;
+}
 
-      border-radius:50%;
+.side-menu a:hover,
+.side-menu a.active{
 
-      background:
-        var(--img)
-        center/cover;
+  background:
+    rgba(244,191,49,.08);
 
-      background-color:#1c1608;
+  color:var(--gold);
 
-      border:1px solid var(--line);
+}
 
-      flex:0 0 auto;
-    }
+.artist-area-btn{
 
-    .post-name{
-      font-size:13px;
+  margin-top:8px;
 
-      font-weight:900;
-    }
+  border:1px solid
+    rgba(244,191,49,.5);
 
-    .post-meta{
-      color:var(--muted);
+  background:
+    linear-gradient(
+      135deg,
+      rgba(244,191,49,.14),
+      rgba(244,191,49,.04)
+    );
 
-      font-size:10px;
+  color:var(--gold);
 
-      margin-top:4px;
-    }
+}
 
-    .verified{
-      color:var(--blue);
+.side-divider{
 
-      font-size:10px;
-    }
+  height:1px;
 
-    .more{
-      margin-left:auto;
+  background:var(--line);
 
-      color:var(--muted);
+  margin:8px 0;
 
-      font-size:20px;
-    }
+}
 
-    .post-text{
-      padding:0 16px 16px;
+.side-menu .danger{
 
-      font-size:13px;
+  color:#ff887a;
 
-      line-height:1.6;
+}
 
-      color:#ddd;
 
-      white-space:pre-line;
+/* =====================================
+   FEED
+===================================== */
 
-      word-break:break-word;
-    }
+.feed-head{
 
-    .post-image{
-      width:100%;
+  margin-bottom:20px;
 
-      min-height:320px;
+}
 
-      background:
-        linear-gradient(
-          0deg,
-          rgba(0,0,0,.2),
-          rgba(0,0,0,.05)
-        ),
-        var(--img)
-        center/cover;
-    }
+.feed-head h1{
 
-    .post-video{
-      width:100%;
+  margin:0;
 
-      max-height:500px;
+  font-size:28px;
 
-      display:block;
+}
 
-      background:#000;
-    }
+.feed-head p{
 
-    .music-post{
-      margin:0 16px 16px;
+  margin:6px 0 0;
 
-      display:flex;
+  color:var(--muted);
 
-      align-items:center;
+  font-size:12px;
 
-      gap:12px;
+}
 
-      padding:10px;
 
-      border:1px solid var(--line);
+/* =====================================
+   CRIAR POST
+===================================== */
 
-      background:#0a0a0a;
+.create-post{
 
-      border-radius:10px;
-    }
+  padding:18px;
 
-    .music-cover{
-      width:55px;
-      height:55px;
+  margin-bottom:18px;
 
-      flex:0 0 auto;
+}
 
-      border-radius:7px;
+.post-input{
 
-      display:grid;
-      place-items:center;
+  display:flex;
 
-      background:#201a0a;
+  gap:12px;
 
-      color:var(--gold);
+}
 
-      font-size:24px;
-    }
+.small-avatar{
 
-    .music-info{
-      min-width:0;
+  width:44px;
+  height:44px;
 
-      flex:1;
-    }
+  flex:0 0 auto;
 
-    .music-name{
-      font-size:12px;
+  border-radius:50%;
 
-      font-weight:900;
+  overflow:hidden;
 
-      overflow:hidden;
+  display:grid;
 
-      text-overflow:ellipsis;
+  place-items:center;
 
-      white-space:nowrap;
-    }
+  border:1px solid var(--gold);
 
-    .music-artist{
-      color:var(--muted);
+  color:var(--gold);
 
-      font-size:10px;
+  background:#1c1608;
 
-      margin-top:4px;
-    }
+}
 
-    .music-player{
-      width:100%;
+.post-input textarea{
 
-      margin-top:8px;
-    }
+  width:100%;
 
-    .post-stats{
-      padding:10px 16px;
+  min-height:80px;
 
-      border-top:1px solid var(--line);
+  padding:12px;
 
-      color:var(--muted);
+  resize:vertical;
 
-      font-size:10px;
+  border:1px solid var(--line);
 
-      display:flex;
+  border-radius:10px;
 
-      justify-content:space-between;
-    }
+  background:#0b0b0b;
 
-    .post-buttons{
-      display:grid;
+  color:white;
 
-      grid-template-columns:
-        1fr 1fr 1fr;
+  outline:none;
 
-      border-top:1px solid var(--line);
-    }
+}
 
-    .post-buttons button{
-      padding:12px;
+.post-input textarea:focus{
 
-      border:0;
+  border-color:var(--gold);
 
-      border-right:1px solid var(--line);
+}
 
-      background:transparent;
+.post-actions{
 
-      color:#aaa;
+  display:flex;
 
-      font-size:11px;
+  align-items:center;
 
-      font-weight:800;
-    }
+  justify-content:space-between;
 
-    .post-buttons button:last-child{
-      border-right:0;
-    }
+  gap:10px;
 
-    .post-buttons button:hover,
-    .post-buttons button.liked{
-      color:var(--gold);
+  margin-top:12px;
 
-      background:
-        rgba(244,191,49,.04);
-    }
+  padding-left:56px;
 
-    /* =====================================
-       DIREITA
-    ===================================== */
+}
 
-    .right-panel{
-      padding:16px;
+.post-tools{
 
-      margin-bottom:18px;
-    }
+  display:flex;
 
-    .right-title{
-      margin:0 0 15px;
+  gap:7px;
 
-      font-size:15px;
-    }
+  flex-wrap:wrap;
 
-    .trend{
-      display:block;
+}
 
-      padding:12px 0;
+.tool-btn{
 
-      border-bottom:1px solid var(--line);
-    }
+  border:1px solid var(--line);
 
-    .trend:last-child{
-      border:0;
-    }
+  background:#111;
 
-    .trend small{
-      display:block;
+  color:#bbb;
 
-      color:var(--gold);
+  padding:9px 11px;
 
-      font-size:9px;
+  border-radius:7px;
 
-      margin-bottom:4px;
-    }
+  font-size:11px;
 
-    .trend strong{
-      font-size:12px;
-    }
+}
 
-    .trend span{
-      display:block;
+.tool-btn:hover,
+.tool-btn.active{
 
-      color:var(--muted);
+  color:var(--gold);
 
-      font-size:10px;
+  border-color:var(--gold);
 
-      margin-top:5px;
-    }
+}
 
-    .suggestion{
-      display:flex;
+.publish-btn{
 
-      gap:10px;
+  border:0;
 
-      align-items:center;
+  background:var(--gold);
 
-      padding:10px 0;
+  color:#17120a;
 
-      border-bottom:1px solid var(--line);
-    }
+  padding:10px 18px;
 
-    .suggestion:last-child{
-      border:0;
-    }
+  border-radius:7px;
 
-    .suggestion-avatar{
-      width:42px;
-      height:42px;
+  font-size:11px;
 
-      border-radius:50%;
+  font-weight:900;
 
-      background:
-        var(--img)
-        center/cover;
+}
 
-      background-color:#1c1608;
 
-      flex:0 0 auto;
-    }
+/* =====================================
+   MEDIA
+===================================== */
 
-    .suggestion-name{
-      font-size:11px;
+.media-box{
 
-      font-weight:900;
-    }
+  display:none;
 
-    .suggestion-tag{
-      font-size:9px;
+  margin:14px 0 0 56px;
 
-      color:var(--muted);
+  padding:12px;
 
-      margin-top:4px;
-    }
+  border:1px dashed var(--line);
 
-    .follow-btn{
-      margin-left:auto;
+  border-radius:10px;
 
-      padding:7px 9px;
+  background:#0b0b0b;
 
-      border:1px solid var(--gold);
+}
 
-      border-radius:6px;
+.media-box.show{
 
-      color:var(--gold);
+  display:block;
 
-      background:transparent;
+}
 
-      font-size:9px;
+.media-label{
 
-      font-weight:900;
-    }
+  display:block;
 
-    /* =====================================
-       MOBILE
-    ===================================== */
+  margin-bottom:9px;
 
-    @media(max-width:950px){
+  color:var(--gold);
 
-      .layout{
-        grid-template-columns:
-          200px
-          minmax(0,1fr);
-      }
+  font-size:11px;
 
-      .right{
-        display:none;
-      }
+  font-weight:900;
 
-      .links{
-        display:none;
-      }
+}
 
-      .menu{
-        display:block;
-      }
+.file-input{
 
-      .links.mobile-open{
-        display:flex;
+  width:100%;
 
-        position:absolute;
+  color:#bbb;
 
-        top:70px;
+  font-size:11px;
 
-        right:4%;
+}
 
-        padding:15px;
+.music-link-input{
 
-        background:#101010;
+  width:100%;
 
-        border:1px solid #2a271f;
+  margin-top:10px;
 
-        flex-direction:column;
+  padding:10px;
 
-        align-items:flex-start;
-      }
+  background:#111;
 
-    }
+  color:white;
 
-    @media(max-width:650px){
+  border:1px solid var(--line);
 
-      .nav{
-        height:70px;
-      }
+  border-radius:7px;
 
-      .nav-avatar{
-        width:28px;
-        height:28px;
-      }
+  outline:none;
 
-      .user-btn span{
-        display:none;
-      }
+}
 
-      .brand{
-        font-size:18px;
-      }
+.media-preview{
 
-      .crown{
-        font-size:18px;
-      }
+  display:none;
 
-      .layout{
-        width:94%;
+  margin-top:10px;
 
-        display:block;
+}
 
-        margin:20px auto;
-      }
+.media-preview.show{
 
-      .sidebar{
-        position:static;
+  display:block;
 
-        margin-bottom:20px;
+}
 
-        padding:8px;
-      }
+.media-preview img,
+.media-preview video{
 
-      .profile-mini{
-        display:none;
-      }
+  width:100%;
 
-      .side-menu{
-        display:flex;
+  max-height:330px;
 
-        overflow-x:auto;
+  object-fit:contain;
 
-        gap:5px;
-      }
+  border-radius:8px;
 
-      .side-menu a{
-        white-space:nowrap;
+  background:#000;
 
-        padding:10px 12px;
-      }
+}
 
-      .post-image{
-        min-height:280px;
-      }
+.remove-media{
 
-      .post-actions{
-        padding-left:0;
+  margin-top:8px;
 
-        align-items:flex-end;
-      }
+  border:1px solid var(--red);
 
-      .media-box{
-        margin-left:0;
-      }
+  background:transparent;
 
-      .tool-btn{
-        padding:8px;
-      }
+  color:#ff887a;
 
-      .publish-btn{
-        padding:10px 13px;
-      }
+  padding:7px 10px;
 
-    }
+  border-radius:6px;
 
-  </style>
+  font-size:10px;
+
+  font-weight:900;
+
+}
+
+
+/* =====================================
+   POSTS
+===================================== */
+
+.post{
+
+  margin-bottom:18px;
+
+  overflow:hidden;
+
+}
+
+.post-top{
+
+  display:flex;
+
+  gap:11px;
+
+  align-items:center;
+
+  padding:16px;
+
+}
+
+.post-author-img{
+
+  width:46px;
+  height:46px;
+
+  border-radius:50%;
+
+  background:
+    var(--img)
+    center/cover;
+
+  background-color:#1c1608;
+
+  border:1px solid var(--line);
+
+  flex:0 0 auto;
+
+}
+
+.post-name{
+
+  font-size:13px;
+
+  font-weight:900;
+
+}
+
+.post-meta{
+
+  color:var(--muted);
+
+  font-size:10px;
+
+  margin-top:4px;
+
+}
+
+.verified{
+
+  color:var(--blue);
+
+  font-size:10px;
+
+}
+
+.more{
+
+  margin-left:auto;
+
+  color:var(--muted);
+
+  font-size:20px;
+
+}
+
+.post-text{
+
+  padding:0 16px 16px;
+
+  font-size:13px;
+
+  line-height:1.6;
+
+  color:#ddd;
+
+  white-space:pre-line;
+
+  word-break:break-word;
+
+}
+
+.post-image{
+
+  width:100%;
+
+  min-height:320px;
+
+  background:
+    linear-gradient(
+      0deg,
+      rgba(0,0,0,.2),
+      rgba(0,0,0,.05)
+    ),
+    var(--img)
+    center/cover;
+
+}
+
+.post-video{
+
+  width:100%;
+
+  max-height:500px;
+
+  display:block;
+
+  background:#000;
+
+}
+
+.music-post{
+
+  margin:0 16px 16px;
+
+  display:flex;
+
+  align-items:center;
+
+  gap:12px;
+
+  padding:10px;
+
+  border:1px solid var(--line);
+
+  background:#0a0a0a;
+
+  border-radius:10px;
+
+}
+
+.music-cover{
+
+  width:55px;
+  height:55px;
+
+  flex:0 0 auto;
+
+  border-radius:7px;
+
+  display:grid;
+
+  place-items:center;
+
+  background:#201a0a;
+
+  color:var(--gold);
+
+  font-size:24px;
+
+}
+
+.music-info{
+
+  min-width:0;
+
+  flex:1;
+
+}
+
+.music-name{
+
+  font-size:12px;
+
+  font-weight:900;
+
+  overflow:hidden;
+
+  text-overflow:ellipsis;
+
+  white-space:nowrap;
+
+}
+
+.music-artist{
+
+  color:var(--muted);
+
+  font-size:10px;
+
+  margin-top:4px;
+
+}
+
+.music-player{
+
+  width:100%;
+
+  margin-top:8px;
+
+}
+
+.post-stats{
+
+  padding:10px 16px;
+
+  border-top:1px solid var(--line);
+
+  color:var(--muted);
+
+  font-size:10px;
+
+  display:flex;
+
+  justify-content:space-between;
+
+}
+
+.post-buttons{
+
+  display:grid;
+
+  grid-template-columns:
+    1fr 1fr 1fr;
+
+  border-top:1px solid var(--line);
+
+}
+
+.post-buttons button{
+
+  padding:12px;
+
+  border:0;
+
+  border-right:1px solid var(--line);
+
+  background:transparent;
+
+  color:#aaa;
+
+  font-size:11px;
+
+  font-weight:800;
+
+}
+
+.post-buttons button:last-child{
+
+  border-right:0;
+
+}
+
+.post-buttons button:hover,
+.post-buttons button.liked{
+
+  color:var(--gold);
+
+  background:
+    rgba(244,191,49,.04);
+
+}
+
+
+/* =====================================
+   DIREITA
+===================================== */
+
+.right-panel{
+
+  padding:16px;
+
+  margin-bottom:18px;
+
+}
+
+.right-title{
+
+  margin:0 0 15px;
+
+  font-size:15px;
+
+}
+
+.trend{
+
+  display:block;
+
+  padding:12px 0;
+
+  border-bottom:1px solid var(--line);
+
+}
+
+.trend:last-child{
+
+  border:0;
+
+}
+
+.trend small{
+
+  display:block;
+
+  color:var(--gold);
+
+  font-size:9px;
+
+  margin-bottom:4px;
+
+}
+
+.trend strong{
+
+  font-size:12px;
+
+}
+
+.trend span{
+
+  display:block;
+
+  color:var(--muted);
+
+  font-size:10px;
+
+  margin-top:5px;
+
+}
+
+.suggestion{
+
+  display:flex;
+
+  gap:10px;
+
+  align-items:center;
+
+  padding:10px 0;
+
+  border-bottom:1px solid var(--line);
+
+}
+
+.suggestion:last-child{
+
+  border:0;
+
+}
+
+.suggestion-avatar{
+
+  width:42px;
+  height:42px;
+
+  border-radius:50%;
+
+  background:
+    var(--img)
+    center/cover;
+
+  background-color:#1c1608;
+
+  flex:0 0 auto;
+
+}
+
+.suggestion-name{
+
+  font-size:11px;
+
+  font-weight:900;
+
+}
+
+.suggestion-tag{
+
+  font-size:9px;
+
+  color:var(--muted);
+
+  margin-top:4px;
+
+}
+
+.follow-btn{
+
+  margin-left:auto;
+
+  padding:7px 9px;
+
+  border:1px solid var(--gold);
+
+  border-radius:6px;
+
+  color:var(--gold);
+
+  background:transparent;
+
+  font-size:9px;
+
+  font-weight:900;
+
+}
+
+
+/* =====================================
+   MOBILE
+===================================== */
+
+@media(max-width:950px){
+
+  .layout{
+
+    grid-template-columns:
+      200px
+      minmax(0,1fr);
+
+  }
+
+  .right{
+
+    display:none;
+
+  }
+
+  .links{
+
+    display:none;
+
+  }
+
+  .menu{
+
+    display:block;
+
+  }
+
+}
+
+@media(max-width:650px){
+
+  .nav{
+
+    height:70px;
+
+  }
+
+  .nav-avatar{
+
+    width:28px;
+    height:28px;
+
+  }
+
+  .user-btn span{
+
+    display:none;
+
+  }
+
+  .brand{
+
+    font-size:18px;
+
+  }
+
+  .crown{
+
+    font-size:18px;
+
+  }
+
+  .layout{
+
+    width:94%;
+
+    display:block;
+
+    margin:20px auto;
+
+  }
+
+  .sidebar{
+
+    position:static;
+
+    margin-bottom:20px;
+
+    padding:8px;
+
+  }
+
+  .profile-mini{
+
+    display:none;
+
+  }
+
+  .side-menu{
+
+    display:flex;
+
+    overflow-x:auto;
+
+    gap:5px;
+
+  }
+
+  .side-menu a{
+
+    white-space:nowrap;
+
+    padding:10px 12px;
+
+  }
+
+  .post-image{
+
+    min-height:280px;
+
+  }
+
+  .post-actions{
+
+    padding-left:0;
+
+    align-items:flex-end;
+
+  }
+
+  .media-box{
+
+    margin-left:0;
+
+  }
+
+}
+
+</style>
 
 </head>
 
 <body>
 
-  <!-- =====================================
-       CARREGAMENTO
-  ===================================== -->
 
-  <div id="loadingScreen">
+<!-- =====================================
+     LOADING
+===================================== -->
 
-    <div class="loading-box">
+<div id="loadingScreen">
 
-      <div class="loading-logo">
-        👑 KUDURO PRIME
+  <div class="loading-box">
+
+    <div class="loading-logo">
+      👑 KUDURO PRIME
+    </div>
+
+    <div class="loader"></div>
+
+    <div
+      class="loading-text"
+      id="loadingText"
+    >
+      A verificar a tua conta...
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- =====================================
+     ERRO
+===================================== -->
+
+<div id="sessionError">
+
+  <div class="session-error-box">
+
+    <h2>
+      ⚠️ Sessão não encontrada
+    </h2>
+
+    <p id="sessionErrorText">
+      Não foi possível confirmar a tua conta.
+    </p>
+
+    <button
+      type="button"
+      onclick="irParaLogin()"
+    >
+      🔐 VOLTAR AO LOGIN
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- =====================================
+     NAV
+===================================== -->
+
+<nav class="nav">
+
+  <div class="nav-in">
+
+    <a
+      href="index.html"
+      class="brand"
+    >
+
+      <span class="crown">
+        ♕
+      </span>
+
+      KUDURO
+
+      <b>
+        PRIME
+      </b>
+
+    </a>
+
+
+    <div class="links">
+
+      <a
+        href="feed.html"
+        class="active"
+      >
+        INÍCIO
+      </a>
+
+      <a href="artistas.html">
+        ARTISTAS
+      </a>
+
+      <a href="musicas.html">
+        MÚSICAS
+      </a>
+
+      <a href="ranking.html">
+        RANKING
+      </a>
+
+      <a href="eventos.html">
+        EVENTOS
+      </a>
+
+    </div>
+
+
+    <div class="nav-actions">
+
+      <a
+        href="meu-perfil.html"
+        class="user-btn"
+      >
+
+        <div
+          class="nav-avatar"
+          id="navAvatar"
+        >
+          👤
+        </div>
+
+        <span id="navName">
+          Meu Perfil
+        </span>
+
+      </a>
+
+      <button
+        class="menu"
+        type="button"
+        onclick="abrirMenu()"
+      >
+        ☰
+      </button>
+
+    </div>
+
+  </div>
+
+</nav>
+
+
+<!-- =====================================
+     CONTEÚDO
+===================================== -->
+
+<main class="layout">
+
+
+<!-- ESQUERDA -->
+
+<aside class="sidebar panel">
+
+  <div class="profile-mini">
+
+    <div
+      class="avatar"
+      id="sideAvatar"
+    >
+      👤
+    </div>
+
+    <div
+      class="profile-name"
+      id="sideName"
+    >
+      Artista Prime
+    </div>
+
+    <div
+      class="profile-user"
+      id="sideUser"
+    >
+      @artista
+    </div>
+
+  </div>
+
+
+  <nav class="side-menu">
+
+    <a
+      href="feed.html"
+      class="active"
+    >
+      🏠 Feed
+    </a>
+
+    <a href="artistas.html">
+      👑 Artistas
+    </a>
+
+    <a href="musicas.html">
+      🎵 Músicas
+    </a>
+
+    <a href="videos.html">
+      🎬 Vídeos
+    </a>
+
+    <a href="ranking.html">
+      🏆 Ranking
+    </a>
+
+    <a href="eventos.html">
+      📅 Eventos
+    </a>
+
+    <div class="side-divider"></div>
+
+    <a
+      href="area-do-artista.html"
+      class="artist-area-btn"
+    >
+      🎤 Área do Artista
+    </a>
+
+    <a href="meu-perfil.html">
+      👤 Meu Perfil
+    </a>
+
+    <a href="painel-do-artista.html">
+      📊 Painel
+    </a>
+
+    <a href="minhas-musicas.html">
+      🎵 Minhas Músicas
+    </a>
+
+    <div class="side-divider"></div>
+
+    <a
+      href="index.html"
+      class="danger"
+      onclick="sair(event)"
+    >
+      ↪ Sair
+    </a>
+
+  </nav>
+
+</aside>
+
+
+<!-- CENTRO -->
+
+<section>
+
+  <div class="feed-head">
+
+    <h1>
+      O QUE HÁ DE NOVO? 👑
+    </h1>
+
+    <p>
+      Tudo o que está a acontecer no movimento Kuduro.
+    </p>
+
+  </div>
+
+
+  <!-- CRIAR POST -->
+
+  <div class="create-post panel">
+
+    <div class="post-input">
+
+      <div
+        class="small-avatar"
+        id="postAvatar"
+      >
+        👤
       </div>
 
-      <div class="loader"></div>
+      <textarea
+        id="postText"
+        placeholder="Partilha algo com o movimento..."
+      ></textarea>
 
-      <div class="loading-text">
-        A verificar a tua conta...
+    </div>
+
+
+    <div
+      class="media-box"
+      id="photoBox"
+    >
+
+      <label class="media-label">
+        🖼 Escolhe uma foto
+      </label>
+
+      <input
+        class="file-input"
+        type="file"
+        id="photoInput"
+        accept="image/*"
+        onchange="previewPhoto(event)"
+      >
+
+      <div
+        class="media-preview"
+        id="photoPreview"
+      ></div>
+
+    </div>
+
+
+    <div
+      class="media-box"
+      id="videoBox"
+    >
+
+      <label class="media-label">
+        🎥 Escolhe um vídeo
+      </label>
+
+      <input
+        class="file-input"
+        type="file"
+        id="videoInput"
+        accept="video/*"
+        onchange="previewVideo(event)"
+      >
+
+      <div
+        class="media-preview"
+        id="videoPreview"
+      ></div>
+
+    </div>
+
+
+    <div
+      class="media-box"
+      id="musicBox"
+    >
+
+      <label class="media-label">
+        🎵 Escolhe uma música ou coloca um link
+      </label>
+
+      <input
+        class="file-input"
+        type="file"
+        id="musicInput"
+        accept="audio/*"
+        onchange="selecionarMusica(event)"
+      >
+
+      <input
+        class="music-link-input"
+        type="url"
+        id="musicLink"
+        placeholder="https://link-da-tua-musica.mp3"
+        oninput="usarLinkMusica()"
+      >
+
+      <div
+        class="media-preview"
+        id="musicPreview"
+      ></div>
+
+    </div>
+
+
+    <div class="post-actions">
+
+      <div class="post-tools">
+
+        <button
+          type="button"
+          class="tool-btn"
+          id="photoBtn"
+          onclick="abrirMidia('photo')"
+        >
+          🖼 FOTO
+        </button>
+
+        <button
+          type="button"
+          class="tool-btn"
+          id="videoBtn"
+          onclick="abrirMidia('video')"
+        >
+          🎥 VÍDEO
+        </button>
+
+        <button
+          type="button"
+          class="tool-btn"
+          id="musicBtn"
+          onclick="abrirMidia('music')"
+        >
+          🎵 MÚSICA
+        </button>
+
       </div>
+
+      <button
+        type="button"
+        class="publish-btn"
+        onclick="publicar()"
+      >
+        PUBLICAR
+      </button>
 
     </div>
 
   </div>
 
 
-  <!-- =====================================
-       TOPO
-  ===================================== -->
+  <!-- POSTS -->
 
-  <nav class="nav">
+  <div id="feedPosts">
 
-    <div class="nav-in">
+    <article class="post panel">
 
-      <a
-        href="index.html"
-        class="brand"
-      >
+      <div class="post-top">
 
-        <span class="crown">
-          ♕
-        </span>
+        <div
+          class="post-author-img"
+          style="--img:url('images/artista-1.jpg')"
+        ></div>
 
-        KUDURO
+        <div>
 
-        <b>
-          PRIME
-        </b>
+          <div class="post-name">
 
-      </a>
+            Figura do Adoço
 
+            <span class="verified">
+              ●
+            </span>
 
-      <div class="links">
+          </div>
 
-        <a
-          href="feed.html"
-          class="active"
-        >
-          INÍCIO
-        </a>
+          <div class="post-meta">
+            @figuradoadoco · 2 h
+          </div>
 
-        <a href="artistas.html">
-          ARTISTAS
-        </a>
+        </div>
 
-        <a href="musicas.html">
-          MÚSICAS
-        </a>
-
-        <a href="ranking.html">
-          RANKING
-        </a>
-
-        <a href="eventos.html">
-          EVENTOS
-        </a>
+        <div class="more">
+          ⋯
+        </div>
 
       </div>
 
 
-      <div class="nav-actions">
-
-        <a
-          href="meu-perfil.html"
-          class="user-btn"
-        >
-
-          <div
-            class="nav-avatar"
-            id="navAvatar"
-          >
-            👤
-          </div>
-
-          <span id="navName">
-            Meu Perfil
-          </span>
-
-        </a>
+      <div class="post-text">
+        O movimento não para! 🔥👑
+        Obrigado a todos que estão a apoiar a nossa música.
+      </div>
 
 
-        <button
-          class="menu"
-          type="button"
-          onclick="abrirMenu()"
-        >
-          ☰
+      <div
+        class="post-image"
+        style="--img:url('images/artista-1.jpg')"
+      ></div>
+
+
+      <div class="post-stats">
+
+        <span>
+          🔥 1.2K reações
+        </span>
+
+        <span>
+          84 comentários
+        </span>
+
+      </div>
+
+
+      <div class="post-buttons">
+
+        <button onclick="like(this)">
+          ♡ GOSTAR
+        </button>
+
+        <button onclick="comentar()">
+          💬 COMENTAR
+        </button>
+
+        <button onclick="partilhar()">
+          ↗ PARTILHAR
         </button>
 
       </div>
 
-    </div>
-
-  </nav>
+    </article>
 
 
-  <!-- =====================================
-       CONTEÚDO
-  ===================================== -->
+    <article class="post panel">
 
-  <main class="layout">
-
-
-    <!-- =================================
-         ESQUERDA
-    ================================== -->
-
-    <aside class="sidebar panel">
-
-      <div class="profile-mini">
+      <div class="post-top">
 
         <div
-          class="avatar"
-          id="sideAvatar"
-        >
-          👤
+          class="post-author-img"
+          style="--img:url('images/artista-2.jpg')"
+        ></div>
+
+        <div>
+
+          <div class="post-name">
+
+            DJ Jeff Afrozila
+
+            <span class="verified">
+              ●
+            </span>
+
+          </div>
+
+          <div class="post-meta">
+            @jeffafrozila · 5 h
+          </div>
+
         </div>
 
+        <div class="more">
+          ⋯
+        </div>
+
+      </div>
+
+
+      <div class="post-text">
+        Novo som disponível no KUDURO PRIME! 🎵🔥
+      </div>
+
+
+      <div class="music-post">
+
+        <div class="music-cover">
+          🎵
+        </div>
+
+        <div class="music-info">
+
+          <div class="music-name">
+            ZONA QUENTE
+          </div>
+
+          <div class="music-artist">
+            DJ Jeff Afrozila
+          </div>
+
+          <audio
+            class="music-player"
+            controls
+          ></audio>
+
+        </div>
+
+      </div>
+
+
+      <div class="post-stats">
+
+        <span>
+          🔥 890 reações
+        </span>
+
+        <span>
+          52 comentários
+        </span>
+
+      </div>
+
+
+      <div class="post-buttons">
+
+        <button onclick="like(this)">
+          ♡ GOSTAR
+        </button>
+
+        <button onclick="comentar()">
+          💬 COMENTAR
+        </button>
+
+        <button onclick="partilhar()">
+          ↗ PARTILHAR
+        </button>
+
+      </div>
+
+    </article>
+
+
+    <article class="post panel">
+
+      <div class="post-top">
+
         <div
-          class="profile-name"
-          id="sideName"
-        >
+          class="post-author-img"
+          style="--img:url('images/artista-4.jpg')"
+        ></div>
+
+        <div>
+
+          <div class="post-name">
+
+            Ready Neutro
+
+            <span class="verified">
+              ●
+            </span>
+
+          </div>
+
+          <div class="post-meta">
+            @readyneutro · Ontem
+          </div>
+
+        </div>
+
+        <div class="more">
+          ⋯
+        </div>
+
+      </div>
+
+
+      <div class="post-text">
+        Luanda, estamos juntos! 👊🏾🔥
+        Qual é a tua música favorita neste momento?
+      </div>
+
+
+      <div
+        class="post-image"
+        style="--img:url('images/artista-4.jpg')"
+      ></div>
+
+
+      <div class="post-stats">
+
+        <span>
+          🔥 2.4K reações
+        </span>
+
+        <span>
+          137 comentários
+        </span>
+
+      </div>
+
+
+      <div class="post-buttons">
+
+        <button onclick="like(this)">
+          ♡ GOSTAR
+        </button>
+
+        <button onclick="comentar()">
+          💬 COMENTAR
+        </button>
+
+        <button onclick="partilhar()">
+          ↗ PARTILHAR
+        </button>
+
+      </div>
+
+    </article>
+
+  </div>
+
+</section>
+
+
+<!-- DIREITA -->
+
+<aside class="right">
+
+  <div class="right-panel panel">
+
+    <h3 class="right-title">
+      🔥 EM TENDÊNCIA
+    </h3>
+
+    <a
+      href="ranking.html"
+      class="trend"
+    >
+
+      <small>
+        #1 NO RANKING
+      </small>
+
+      <strong>
+        Mim Faz Só Broxe
+      </strong>
+
+      <span>
+        Figura do Adoço
+      </span>
+
+    </a>
+
+
+    <a
+      href="ranking.html"
+      class="trend"
+    >
+
+      <small>
+        #2 NO RANKING
+      </small>
+
+      <strong>
+        Vida de Artista
+      </strong>
+
+      <span>
+        Ready Neutro
+      </span>
+
+    </a>
+
+
+    <a
+      href="ranking.html"
+      class="trend"
+    >
+
+      <small>
+        #3 NO RANKING
+      </small>
+
+      <strong>
+        Zona Quente
+      </strong>
+
+      <span>
+        DJ Jeff Afrozila
+      </span>
+
+    </a>
+
+  </div>
+
+
+  <div class="right-panel panel">
+
+    <h3 class="right-title">
+      👑 ARTISTAS PRIME
+    </h3>
+
+
+    <div class="suggestion">
+
+      <div
+        class="suggestion-avatar"
+        style="--img:url('images/artista-3.jpg')"
+      ></div>
+
+      <div>
+
+        <div class="suggestion-name">
+          MCK
+        </div>
+
+        <div class="suggestion-tag">
+          @mckoficial
+        </div>
+
+      </div>
+
+      <button
+        class="follow-btn"
+        onclick="seguir(this)"
+      >
+        SEGUIR
+      </button>
+
+    </div>
+
+
+    <div class="suggestion">
+
+      <div
+        class="suggestion-avatar"
+        style="--img:url('images/artista-5.jpg')"
+      ></div>
+
+      <div>
+
+        <div class="suggestion-name">
+          Nagrelha
+        </div>
+
+        <div class="suggestion-tag">
           Artista Prime
         </div>
 
-        <div
-          class="profile-user"
-          id="sideUser"
-        >
-          @artista
+      </div>
+
+      <button
+        class="follow-btn"
+        onclick="seguir(this)"
+      >
+        SEGUIR
+      </button>
+
+    </div>
+
+
+    <div class="suggestion">
+
+      <div
+        class="suggestion-avatar"
+        style="--img:url('images/artista-6.jpg')"
+      ></div>
+
+      <div>
+
+        <div class="suggestion-name">
+          Nova Geração
+        </div>
+
+        <div class="suggestion-tag">
+          Revelação Prime
         </div>
 
       </div>
 
+      <button
+        class="follow-btn"
+        onclick="seguir(this)"
+      >
+        SEGUIR
+      </button>
 
-      <nav class="side-menu">
+    </div>
 
-        <a
-          href="feed.html"
-          class="active"
-        >
-          🏠 Feed
-        </a>
+  </div>
 
-        <a href="artistas.html">
-          👑 Artistas
-        </a>
+</aside>
 
-        <a href="musicas.html">
-          🎵 Músicas
-        </a>
+</main>
 
-        <a href="videos.html">
-          🎬 Vídeos
-        </a>
 
-        <a href="ranking.html">
-          🏆 Ranking
-        </a>
+<!-- =====================================
+     FIREBASE
+===================================== -->
 
-        <a href="eventos.html">
-          📅 Eventos
-        </a>
+<script type="module">
 
+import {
+  initializeApp
+} from
+"https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
 
-        <div class="side-divider"></div>
 
+import {
+  getAuth,
+  onAuthStateChanged,
+  signOut
+} from
+"https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
 
-        <a
-          href="area-do-artista.html"
-          class="artist-area-btn"
-        >
-          🎤 Área do Artista
-        </a>
 
+/* =====================================
+   FIREBASE CONFIG
+===================================== */
 
-        <a href="meu-perfil.html">
-          👤 Meu Perfil
-        </a>
+const firebaseConfig = {
 
-        <a href="painel-do-artista.html">
-          📊 Painel
-        </a>
+  apiKey:
+    "AIzaSyDoitCcLeLDNBNPCP6fG1s_xbHr4UmohSo",
 
-        <a href="minhas-musicas.html">
-          🎵 Minhas Músicas
-        </a>
+  authDomain:
+    "kuduro-prime.firebaseapp.com",
 
+  projectId:
+    "kuduro-prime",
 
-        <div class="side-divider"></div>
+  storageBucket:
+    "kuduro-prime.firebasestorage.app",
 
+  messagingSenderId:
+    "299776559545",
 
-        <a
-          href="index.html"
-          class="danger"
-          onclick="sair(event)"
-        >
-          ↪ Sair
-        </a>
+  appId:
+    "1:299776559545:web:04aced1ba25391eb3fce68"
 
-      </nav>
+};
 
-    </aside>
 
+const app =
+  initializeApp(firebaseConfig);
 
-    <!-- =================================
-         CENTRO
-    ================================== -->
 
-    <section>
+const auth =
+  getAuth(app);
 
-      <div class="feed-head">
 
-        <h1>
-          O QUE HÁ DE NOVO? 👑
-        </h1>
+/* =====================================
+   VARIÁVEIS
+===================================== */
 
-        <p>
-          Tudo o que está a acontecer no movimento Kuduro.
-        </p>
+let usuarioAtual = null;
 
-      </div>
+let artistName =
+  "Artista Prime";
 
+let artistUser =
+  "artista";
 
-      <!-- =================================
-           CRIAR PUBLICAÇÃO
-      ================================== -->
+let artistPhoto =
+  "";
 
-      <div class="create-post panel">
+let selectedType = "";
 
-        <div class="post-input">
+let photoData = "";
 
-          <div
-            class="small-avatar"
-            id="postAvatar"
-          >
-            👤
-          </div>
+let videoData = "";
 
-          <textarea
-            id="postText"
-            placeholder="Partilha algo com o movimento..."
-          ></textarea>
+let musicData = "";
 
-        </div>
 
+/* =====================================
+   ELEMENTOS
+===================================== */
 
-        <!-- FOTO -->
-
-        <div
-          class="media-box"
-          id="photoBox"
-        >
-
-          <label class="media-label">
-            🖼 Escolhe uma foto
-          </label>
-
-          <input
-            class="file-input"
-            type="file"
-            id="photoInput"
-            accept="image/*"
-            onchange="previewPhoto(event)"
-          >
-
-          <div
-            class="media-preview"
-            id="photoPreview"
-          ></div>
-
-        </div>
-
-
-        <!-- VÍDEO -->
-
-        <div
-          class="media-box"
-          id="videoBox"
-        >
-
-          <label class="media-label">
-            🎥 Escolhe um vídeo
-          </label>
-
-          <input
-            class="file-input"
-            type="file"
-            id="videoInput"
-            accept="video/*"
-            onchange="previewVideo(event)"
-          >
+const loadingScreen =
+  document.getElementById(
+    "loadingScreen"
+  );
 
-          <div
-            class="media-preview"
-            id="videoPreview"
-          ></div>
+const loadingText =
+  document.getElementById(
+    "loadingText"
+  );
 
-        </div>
+const sessionError =
+  document.getElementById(
+    "sessionError"
+  );
 
+const sessionErrorText =
+  document.getElementById(
+    "sessionErrorText"
+  );
 
-        <!-- MÚSICA -->
 
-        <div
-          class="media-box"
-          id="musicBox"
-        >
+/* =====================================
+   VERIFICAR FIREBASE
+===================================== */
 
-          <label class="media-label">
-            🎵 Escolhe uma música ou coloca um link
-          </label>
+let authResolved = false;
 
-          <input
-            class="file-input"
-            type="file"
-            id="musicInput"
-            accept="audio/*"
-            onchange="selecionarMusica(event)"
-          >
 
-          <input
-            class="music-link-input"
-            type="url"
-            id="musicLink"
-            placeholder="https://link-da-tua-musica.mp3"
-            oninput="usarLinkMusica()"
-          >
+onAuthStateChanged(
+  auth,
+  function(user){
 
-          <div
-            class="media-preview"
-            id="musicPreview"
-          ></div>
+    authResolved = true;
 
-        </div>
 
+    console.log(
+      "KUDURO PRIME - Firebase Auth:",
+      user
+    );
 
-        <div class="post-actions">
 
-          <div class="post-tools">
+    if(!user){
 
-            <button
-              type="button"
-              class="tool-btn"
-              id="photoBtn"
-              onclick="abrirMidia('photo')"
-            >
-              🖼 FOTO
-            </button>
+      /*
+      Se o Firebase disser que não há
+      utilizador, mostramos o erro em vez
+      de redirecionar imediatamente.
+      */
 
-            <button
-              type="button"
-              class="tool-btn"
-              id="videoBtn"
-              onclick="abrirMidia('video')"
-            >
-              🎥 VÍDEO
-            </button>
+      loadingScreen.style.display =
+        "none";
 
-            <button
-              type="button"
-              class="tool-btn"
-              id="musicBtn"
-              onclick="abrirMidia('music')"
-            >
-              🎵 MÚSICA
-            </button>
 
-          </div>
+      sessionError.style.display =
+        "flex";
 
 
-          <button
-            type="button"
-            class="publish-btn"
-            onclick="publicar()"
-          >
-            PUBLICAR
-          </button>
+      sessionErrorText.textContent =
+        "O Firebase não encontrou uma sessão ativa nesta página. UID guardado: " +
+        (
+          localStorage.getItem(
+            "kpArtistUID"
+          )
+          ||
+          "nenhum"
+        );
 
-        </div>
 
-      </div>
+      return;
 
-
-      <!-- =================================
-           PUBLICAÇÕES
-      ================================== -->
-
-      <div id="feedPosts">
-
-
-        <article class="post panel">
-
-          <div class="post-top">
-
-            <div
-              class="post-author-img"
-              style="--img:url('images/artista-1.jpg')"
-            ></div>
-
-            <div>
-
-              <div class="post-name">
-
-                Figura do Adoço
-
-                <span class="verified">
-                  ●
-                </span>
-
-              </div>
-
-              <div class="post-meta">
-                @figuradoadoco · 2 h
-              </div>
-
-            </div>
-
-            <div class="more">
-              ⋯
-            </div>
-
-          </div>
-
-
-          <div class="post-text">
-            O movimento não para! 🔥👑
-            Obrigado a todos que estão a apoiar a nossa música.
-          </div>
-
-
-          <div
-            class="post-image"
-            style="--img:url('images/artista-1.jpg')"
-          ></div>
-
-
-          <div class="post-stats">
-
-            <span>
-              🔥 1.2K reações
-            </span>
-
-            <span>
-              84 comentários
-            </span>
-
-          </div>
-
-
-          <div class="post-buttons">
-
-            <button onclick="like(this)">
-              ♡ GOSTAR
-            </button>
-
-            <button onclick="comentar()">
-              💬 COMENTAR
-            </button>
-
-            <button onclick="partilhar()">
-              ↗ PARTILHAR
-            </button>
-
-          </div>
-
-        </article>
-
-
-        <article class="post panel">
-
-          <div class="post-top">
-
-            <div
-              class="post-author-img"
-              style="--img:url('images/artista-2.jpg')"
-            ></div>
-
-            <div>
-
-              <div class="post-name">
-
-                DJ Jeff Afrozila
-
-                <span class="verified">
-                  ●
-                </span>
-
-              </div>
-
-              <div class="post-meta">
-                @jeffafrozila · 5 h
-              </div>
-
-            </div>
-
-            <div class="more">
-              ⋯
-            </div>
-
-          </div>
-
-
-          <div class="post-text">
-            Novo som disponível no KUDURO PRIME! 🎵🔥
-          </div>
-
-
-          <div class="music-post">
-
-            <div class="music-cover">
-              🎵
-            </div>
-
-            <div class="music-info">
-
-              <div class="music-name">
-                ZONA QUENTE
-              </div>
-
-              <div class="music-artist">
-                DJ Jeff Afrozila
-              </div>
-
-              <audio
-                class="music-player"
-                controls
-              ></audio>
-
-            </div>
-
-          </div>
-
-
-          <div class="post-stats">
-
-            <span>
-              🔥 890 reações
-            </span>
-
-            <span>
-              52 comentários
-            </span>
-
-          </div>
-
-
-          <div class="post-buttons">
-
-            <button onclick="like(this)">
-              ♡ GOSTAR
-            </button>
-
-            <button onclick="comentar()">
-              💬 COMENTAR
-            </button>
-
-            <button onclick="partilhar()">
-              ↗ PARTILHAR
-            </button>
-
-          </div>
-
-        </article>
-
-
-        <article class="post panel">
-
-          <div class="post-top">
-
-            <div
-              class="post-author-img"
-              style="--img:url('images/artista-4.jpg')"
-            ></div>
-
-            <div>
-
-              <div class="post-name">
-
-                Ready Neutro
-
-                <span class="verified">
-                  ●
-                </span>
-
-              </div>
-
-              <div class="post-meta">
-                @readyneutro · Ontem
-              </div>
-
-            </div>
-
-            <div class="more">
-              ⋯
-            </div>
-
-          </div>
-
-
-          <div class="post-text">
-            Luanda, estamos juntos! 👊🏾🔥
-            Qual é a tua música favorita neste momento?
-          </div>
-
-
-          <div
-            class="post-image"
-            style="--img:url('images/artista-4.jpg')"
-          ></div>
-
-
-          <div class="post-stats">
-
-            <span>
-              🔥 2.4K reações
-            </span>
-
-            <span>
-              137 comentários
-            </span>
-
-          </div>
-
-
-          <div class="post-buttons">
-
-            <button onclick="like(this)">
-              ♡ GOSTAR
-            </button>
-
-            <button onclick="comentar()">
-              💬 COMENTAR
-            </button>
-
-            <button onclick="partilhar()">
-              ↗ PARTILHAR
-            </button>
-
-          </div>
-
-        </article>
-
-      </div>
-
-    </section>
-
-
-    <!-- =================================
-         DIREITA
-    ================================== -->
-
-    <aside class="right">
-
-
-      <div class="right-panel panel">
-
-        <h3 class="right-title">
-          🔥 EM TENDÊNCIA
-        </h3>
-
-
-        <a
-          href="ranking.html"
-          class="trend"
-        >
-
-          <small>
-            #1 NO RANKING
-          </small>
-
-          <strong>
-            Mim Faz Só Broxe
-          </strong>
-
-          <span>
-            Figura do Adoço
-          </span>
-
-        </a>
-
-
-        <a
-          href="ranking.html"
-          class="trend"
-        >
-
-          <small>
-            #2 NO RANKING
-          </small>
-
-          <strong>
-            Vida de Artista
-          </strong>
-
-          <span>
-            Ready Neutro
-          </span>
-
-        </a>
-
-
-        <a
-          href="ranking.html"
-          class="trend"
-        >
-
-          <small>
-            #3 NO RANKING
-          </small>
-
-          <strong>
-            Zona Quente
-          </strong>
-
-          <span>
-            DJ Jeff Afrozila
-          </span>
-
-        </a>
-
-      </div>
-
-
-      <div class="right-panel panel">
-
-        <h3 class="right-title">
-          👑 ARTISTAS PRIME
-        </h3>
-
-
-        <div class="suggestion">
-
-          <div
-            class="suggestion-avatar"
-            style="--img:url('images/artista-3.jpg')"
-          ></div>
-
-          <div>
-
-            <div class="suggestion-name">
-              MCK
-            </div>
-
-            <div class="suggestion-tag">
-              @mckoficial
-            </div>
-
-          </div>
-
-          <button
-            class="follow-btn"
-            onclick="seguir(this)"
-          >
-            SEGUIR
-          </button>
-
-        </div>
-
-
-        <div class="suggestion">
-
-          <div
-            class="suggestion-avatar"
-            style="--img:url('images/artista-5.jpg')"
-          ></div>
-
-          <div>
-
-            <div class="suggestion-name">
-              Nagrelha
-            </div>
-
-            <div class="suggestion-tag">
-              Artista Prime
-            </div>
-
-          </div>
-
-          <button
-            class="follow-btn"
-            onclick="seguir(this)"
-          >
-            SEGUIR
-          </button>
-
-        </div>
-
-
-        <div class="suggestion">
-
-          <div
-            class="suggestion-avatar"
-            style="--img:url('images/artista-6.jpg')"
-          ></div>
-
-          <div>
-
-            <div class="suggestion-name">
-              Nova Geração
-            </div>
-
-            <div class="suggestion-tag">
-              Revelação Prime
-            </div>
-
-          </div>
-
-          <button
-            class="follow-btn"
-            onclick="seguir(this)"
-          >
-            SEGUIR
-          </button>
-
-        </div>
-
-      </div>
-
-    </aside>
-
-  </main>
-
-
-  <!-- =====================================
-       FIREBASE + FUNCIONALIDADES
-  ===================================== -->
-
-  <script type="module">
-
-    import {
-      initializeApp
-    } from
-      "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
-
-
-    import {
-      getAuth,
-      onAuthStateChanged,
-      signOut
-    } from
-      "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+    }
 
 
     /*
-    =========================================
-    CONFIGURAÇÃO FIREBASE
-    =========================================
+    =====================================
+    UTILIZADOR ENCONTRADO
+    =====================================
     */
 
-    const firebaseConfig = {
-
-      apiKey:
-        "AIzaSyDoitCcLeLDNBNPCP6fG1s_xbHr4UmohSo",
-
-      authDomain:
-        "kuduro-prime.firebaseapp.com",
-
-      projectId:
-        "kuduro-prime",
-
-      storageBucket:
-        "kuduro-prime.firebasestorage.app",
-
-      messagingSenderId:
-        "299776559545",
-
-      appId:
-        "1:299776559545:web:04aced1ba25391eb3fce68"
-
-    };
+    usuarioAtual =
+      user;
 
 
-    const app =
-      initializeApp(firebaseConfig);
-
-
-    const auth =
-      getAuth(app);
+    console.log(
+      "UTILIZADOR AUTENTICADO:",
+      user.uid
+    );
 
 
     /*
-    =========================================
-    DADOS
-    =========================================
+    =====================================
+    GUARDAR SESSÃO
+    =====================================
     */
 
-    let usuarioAtual = null;
+    localStorage.setItem(
+      "kpLoggedIn",
+      "true"
+    );
 
-    let artistName =
-      "Artista Prime";
+    localStorage.setItem(
+      "kpArtistLoggedIn",
+      "true"
+    );
 
-    let artistUser =
+    localStorage.setItem(
+      "kpArtistUID",
+      user.uid
+    );
+
+
+    if(user.email){
+
+      localStorage.setItem(
+        "kpArtistEmail",
+        user.email
+      );
+
+    }
+
+
+    /*
+    =====================================
+    NOME
+    =====================================
+    */
+
+    artistName =
+
+      localStorage.getItem(
+        "kpArtistStageName"
+      )
+
+      ||
+
+      localStorage.getItem(
+        "kpArtistName"
+      )
+
+      ||
+
+      user.displayName
+
+      ||
+
+      (
+        user.email
+        ?
+        user.email.split("@")[0]
+        :
+        "Artista Prime"
+      );
+
+
+    /*
+    =====================================
+    USERNAME
+    =====================================
+    */
+
+    artistUser =
+
+      localStorage.getItem(
+        "kpArtistUsername"
+      )
+
+      ||
+
+      artistName
+        .toLowerCase()
+        .replace(/\s+/g,"")
+        .replace(/[^a-z0-9]/g,"")
+
+      ||
+
       "artista";
 
-    let artistPhoto =
+
+    /*
+    =====================================
+    FOTO
+    =====================================
+    */
+
+    artistPhoto =
+
+      localStorage.getItem(
+        "kpArtistPhoto"
+      )
+
+      ||
+
+      user.photoURL
+
+      ||
+
       "";
 
 
-    let selectedType = "";
+    /*
+    =====================================
+    GUARDAR DADOS
+    =====================================
+    */
 
-    let photoData = "";
+    localStorage.setItem(
+      "kpArtistStageName",
+      artistName
+    );
 
-    let videoData = "";
+    localStorage.setItem(
+      "kpArtistUsername",
+      artistUser
+    );
 
-    let musicData = "";
+
+    if(artistPhoto){
+
+      localStorage.setItem(
+        "kpArtistPhoto",
+        artistPhoto
+      );
+
+    }
 
 
     /*
-    =========================================
-    VERIFICAR LOGIN FIREBASE
-    =========================================
+    =====================================
+    MOSTRAR PERFIL
+    =====================================
     */
 
-    onAuthStateChanged(
-      auth,
-      function(user){
+    document.getElementById(
+      "navName"
+    ).textContent =
+      artistName;
 
-        /*
-        NÃO ESTÁ LOGADO
-        */
 
-        if(!user){
+    document.getElementById(
+      "sideName"
+    ).textContent =
+      artistName;
 
-          localStorage.removeItem(
-            "kpLoggedIn"
-          );
 
-          localStorage.removeItem(
-            "kpArtistLoggedIn"
-          );
+    document.getElementById(
+      "sideUser"
+    ).textContent =
+      "@" + artistUser;
 
-          window.location.replace(
-            "area-do-artista.html"
-          );
 
-          return;
+    colocarFoto(
+      "navAvatar"
+    );
 
-        }
+    colocarFoto(
+      "sideAvatar"
+    );
 
+    colocarFoto(
+      "postAvatar"
+    );
 
-        /*
-        ESTÁ LOGADO
-        */
 
-        usuarioAtual =
-          user;
+    /*
+    =====================================
+    ESCONDER LOADING
+    =====================================
+    */
 
+    loadingScreen.style.display =
+      "none";
 
-        /*
-        GUARDA A SESSÃO
-        */
+  }
+);
 
-        localStorage.setItem(
-          "kpLoggedIn",
-          "true"
-        );
 
-        localStorage.setItem(
-          "kpArtistLoggedIn",
-          "true"
-        );
+/* =====================================
+   FOTO
+===================================== */
 
-        localStorage.setItem(
-          "kpArtistUID",
-          user.uid
-        );
+function colocarFoto(id){
 
+  if(!artistPhoto){
 
-        if(user.email){
+    return;
 
-          localStorage.setItem(
-            "kpArtistEmail",
-            user.email
-          );
+  }
 
-        }
 
+  const elemento =
+    document.getElementById(id);
 
-        /*
-        NOME
-        */
 
-        artistName =
+  if(!elemento){
 
-          localStorage.getItem(
-            "kpArtistStageName"
-          )
+    return;
 
-          ||
+  }
 
-          localStorage.getItem(
-            "kpArtistName"
-          )
 
-          ||
+  const img =
+    document.createElement("img");
 
-          user.displayName
 
-          ||
+  img.src =
+    artistPhoto;
 
-          (
-            user.email
-            ?
-            user.email.split("@")[0]
-            :
-            "Artista Prime"
-          );
 
+  img.alt =
+    "Foto do artista";
 
-        /*
-        USERNAME
-        */
 
-        artistUser =
+  elemento.innerHTML =
+    "";
 
-          localStorage.getItem(
-            "kpArtistUsername"
-          )
 
-          ||
+  elemento.appendChild(
+    img
+  );
 
-          artistName
-            .toLowerCase()
-            .replace(/\s+/g,"")
-            .replace(/[^a-z0-9]/g,"")
+}
 
-          ||
 
-          "artista";
+/* =====================================
+   ESCAPAR HTML
+===================================== */
 
+function escaparHTML(text){
 
-        /*
-        FOTO
-        */
+  const div =
+    document.createElement(
+      "div"
+    );
 
-        artistPhoto =
+  div.textContent =
+    String(text ?? "");
 
-          localStorage.getItem(
-            "kpArtistPhoto"
-          )
 
-          ||
+  return div.innerHTML;
 
-          user.photoURL
+}
 
-          ||
 
-          "";
+/* =====================================
+   ABRIR MEDIA
+===================================== */
 
+window.abrirMidia =
+function(type){
 
-        /*
-        GUARDA DADOS
-        */
+  const boxes = {
 
-        localStorage.setItem(
-          "kpArtistStageName",
-          artistName
-        );
+    photo:
+      document.getElementById(
+        "photoBox"
+      ),
 
+    video:
+      document.getElementById(
+        "videoBox"
+      ),
 
-        localStorage.setItem(
-          "kpArtistUsername",
-          artistUser
-        );
+    music:
+      document.getElementById(
+        "musicBox"
+      )
 
+  };
 
-        if(artistPhoto){
 
-          localStorage.setItem(
-            "kpArtistPhoto",
-            artistPhoto
-          );
+  const buttons = {
 
-        }
+    photo:
+      document.getElementById(
+        "photoBtn"
+      ),
 
+    video:
+      document.getElementById(
+        "videoBtn"
+      ),
 
-        /*
-        MOSTRA PERFIL
-        */
+    music:
+      document.getElementById(
+        "musicBtn"
+      )
 
-        document.querySelector(
-          "#navName"
-        ).textContent =
-          artistName;
+  };
 
 
-        document.querySelector(
-          "#sideName"
-        ).textContent =
-          artistName;
+  Object.keys(boxes)
+    .forEach(
+      function(key){
 
+        boxes[key]
+          .classList
+          .remove("show");
 
-        document.querySelector(
-          "#sideUser"
-        ).textContent =
-          "@" + artistUser;
-
-
-        colocarFoto(
-          "#navAvatar"
-        );
-
-        colocarFoto(
-          "#sideAvatar"
-        );
-
-        colocarFoto(
-          "#postAvatar"
-        );
-
-
-        /*
-        ESCONDE CARREGAMENTO
-        */
-
-        const loading =
-          document.querySelector(
-            "#loadingScreen"
-          );
-
-
-        if(loading){
-
-          loading.style.display =
-            "none";
-
-        }
+        buttons[key]
+          .classList
+          .remove("active");
 
       }
     );
 
 
-    /*
-    =========================================
-    COLOCAR FOTO
-    =========================================
-    */
+  if(selectedType === type){
 
-    function colocarFoto(selector){
+    selectedType = "";
 
-      if(!artistPhoto){
+    return;
 
-        return;
+  }
 
-      }
 
+  selectedType =
+    type;
 
-      const elemento =
-        document.querySelector(selector);
 
+  boxes[type]
+    .classList
+    .add("show");
 
-      if(!elemento){
 
-        return;
+  buttons[type]
+    .classList
+    .add("active");
 
-      }
+};
 
 
-      elemento.innerHTML =
+/* =====================================
+   FOTO
+===================================== */
 
-        `<img
-          src="${escaparAtributo(artistPhoto)}"
-          alt="Foto"
-        >`;
+window.previewPhoto =
+function(event){
 
-    }
+  const file =
+    event.target.files[0];
 
 
-    /*
-    =========================================
-    SEGURANÇA
-    =========================================
-    */
+  if(!file){
 
-    function escaparHTML(text){
+    return;
 
-      const div =
-        document.createElement("div");
+  }
 
-      div.textContent =
-        String(text ?? "");
 
-      return div.innerHTML;
+  const reader =
+    new FileReader();
 
-    }
 
+  reader.onload =
+    function(e){
 
-    function escaparAtributo(text){
+      photoData =
+        e.target.result;
 
-      return String(text ?? "")
-        .replace(/&/g,"&amp;")
-        .replace(/"/g,"&quot;")
-        .replace(/'/g,"&#39;")
-        .replace(/</g,"&lt;")
-        .replace(/>/g,"&gt;");
 
-    }
-
-
-    /*
-    =========================================
-    ABRIR FOTO / VÍDEO / MÚSICA
-    =========================================
-    */
-
-    window.abrirMidia =
-      function(type){
-
-        const boxes = {
-
-          photo:
-            document.querySelector(
-              "#photoBox"
-            ),
-
-          video:
-            document.querySelector(
-              "#videoBox"
-            ),
-
-          music:
-            document.querySelector(
-              "#musicBox"
-            )
-
-        };
-
-
-        const buttons = {
-
-          photo:
-            document.querySelector(
-              "#photoBtn"
-            ),
-
-          video:
-            document.querySelector(
-              "#videoBtn"
-            ),
-
-          music:
-            document.querySelector(
-              "#musicBtn"
-            )
-
-        };
-
-
-        Object.keys(boxes)
-          .forEach(function(key){
-
-            boxes[key]
-              .classList
-              .remove("show");
-
-            buttons[key]
-              .classList
-              .remove("active");
-
-          });
-
-
-        if(selectedType === type){
-
-          selectedType = "";
-
-          return;
-
-        }
-
-
-        selectedType = type;
-
-
-        boxes[type]
-          .classList
-          .add("show");
-
-
-        buttons[type]
-          .classList
-          .add("active");
-
-      };
-
-
-    /*
-    =========================================
-    FOTO
-    =========================================
-    */
-
-    window.previewPhoto =
-      function(event){
-
-        const file =
-          event.target.files[0];
-
-
-        if(!file){
-
-          return;
-
-        }
-
-
-        const reader =
-          new FileReader();
-
-
-        reader.onload =
-          function(e){
-
-            photoData =
-              e.target.result;
-
-
-            document.querySelector(
-              "#photoPreview"
-            ).innerHTML =
-
-              `
-              <img
-                src="${escaparAtributo(photoData)}"
-                alt="Foto selecionada"
-              >
-
-              <button
-                class="remove-media"
-                type="button"
-                onclick="removerFoto()"
-              >
-                REMOVER FOTO
-              </button>
-              `;
-
-
-            document.querySelector(
-              "#photoPreview"
-            )
-            .classList
-            .add("show");
-
-          };
-
-
-        reader.readAsDataURL(file);
-
-      };
-
-
-    /*
-    =========================================
-    VÍDEO
-    =========================================
-    */
-
-    window.previewVideo =
-      function(event){
-
-        const file =
-          event.target.files[0];
-
-
-        if(!file){
-
-          return;
-
-        }
-
-
-        if(videoData){
-
-          try{
-
-            URL.revokeObjectURL(
-              videoData
-            );
-
-          }catch(e){}
-
-        }
-
-
-        videoData =
-          URL.createObjectURL(file);
-
-
-        document.querySelector(
-          "#videoPreview"
-        ).innerHTML =
-
-          `
-          <video controls>
-
-            <source
-              src="${escaparAtributo(videoData)}"
-              type="${escaparAtributo(file.type)}"
-            >
-
-            O teu navegador não suporta vídeo.
-
-          </video>
-
-          <button
-            class="remove-media"
-            type="button"
-            onclick="removerVideo()"
-          >
-            REMOVER VÍDEO
-          </button>
-          `;
-
-
-        document.querySelector(
-          "#videoPreview"
-        )
-        .classList
-        .add("show");
-
-      };
-
-
-    /*
-    =========================================
-    MÚSICA
-    =========================================
-    */
-
-    window.selecionarMusica =
-      function(event){
-
-        const file =
-          event.target.files[0];
-
-
-        if(!file){
-
-          return;
-
-        }
-
-
-        if(
-          musicData &&
-          musicData.startsWith("blob:")
-        ){
-
-          try{
-
-            URL.revokeObjectURL(
-              musicData
-            );
-
-          }catch(e){}
-
-        }
-
-
-        musicData =
-          URL.createObjectURL(file);
-
-
-        document.querySelector(
-          "#musicLink"
-        ).value = "";
-
-
-        mostrarMusica(
-          musicData,
-          file.name
-        );
-
-      };
-
-
-    window.usarLinkMusica =
-      function(){
-
-        const link =
-          document.querySelector(
-            "#musicLink"
-          )
-          .value
-          .trim();
-
-
-        if(!link){
-
-          musicData = "";
-
-          document.querySelector(
-            "#musicPreview"
-          )
-          .classList
-          .remove("show");
-
-          document.querySelector(
-            "#musicPreview"
-          ).innerHTML = "";
-
-          return;
-
-        }
-
-
-        musicData =
-          link;
-
-
-        document.querySelector(
-          "#musicInput"
-        ).value = "";
-
-
-        mostrarMusica(
-          musicData,
-          "Música por link"
-        );
-
-      };
-
-
-    function mostrarMusica(
-      src,
-      name
-    ){
-
-      document.querySelector(
-        "#musicPreview"
+      document.getElementById(
+        "photoPreview"
       ).innerHTML =
 
         `
-        <div class="music-post">
-
-          <div class="music-cover">
-            🎵
-          </div>
-
-          <div class="music-info">
-
-            <div class="music-name">
-              ${escaparHTML(name)}
-            </div>
-
-            <div class="music-artist">
-              ${escaparHTML(artistName)}
-            </div>
-
-            <audio
-              class="music-player"
-              controls
-              src="${escaparAtributo(src)}"
-            ></audio>
-
-          </div>
-
-        </div>
+        <img
+          src="${photoData}"
+          alt="Foto selecionada"
+        >
 
         <button
           class="remove-media"
           type="button"
-          onclick="removerMusica()"
+          onclick="removerFoto()"
         >
-          REMOVER MÚSICA
+          REMOVER FOTO
         </button>
         `;
 
 
-      document.querySelector(
-        "#musicPreview"
+      document.getElementById(
+        "photoPreview"
       )
       .classList
       .add("show");
 
+    };
+
+
+  reader.readAsDataURL(file);
+
+};
+
+
+/* =====================================
+   VÍDEO
+===================================== */
+
+window.previewVideo =
+function(event){
+
+  const file =
+    event.target.files[0];
+
+
+  if(!file){
+
+    return;
+
+  }
+
+
+  if(videoData){
+
+    try{
+
+      URL.revokeObjectURL(
+        videoData
+      );
+
+    }catch(e){}
+
+  }
+
+
+  videoData =
+    URL.createObjectURL(
+      file
+    );
+
+
+  document.getElementById(
+    "videoPreview"
+  ).innerHTML =
+
+    `
+    <video
+      controls
+    >
+
+      <source
+        src="${videoData}"
+        type="${file.type}"
+      >
+
+    </video>
+
+    <button
+      class="remove-media"
+      type="button"
+      onclick="removerVideo()"
+    >
+      REMOVER VÍDEO
+    </button>
+    `;
+
+
+  document.getElementById(
+    "videoPreview"
+  )
+  .classList
+  .add("show");
+
+};
+
+
+/* =====================================
+   MÚSICA
+===================================== */
+
+window.selecionarMusica =
+function(event){
+
+  const file =
+    event.target.files[0];
+
+
+  if(!file){
+
+    return;
+
+  }
+
+
+  musicData =
+    URL.createObjectURL(
+      file
+    );
+
+
+  document.getElementById(
+    "musicLink"
+  ).value = "";
+
+
+  mostrarMusica(
+    musicData,
+    file.name
+  );
+
+};
+
+
+window.usarLinkMusica =
+function(){
+
+  const link =
+    document.getElementById(
+      "musicLink"
+    )
+    .value
+    .trim();
+
+
+  if(!link){
+
+    musicData = "";
+
+    document.getElementById(
+      "musicPreview"
+    ).innerHTML = "";
+
+    document.getElementById(
+      "musicPreview"
+    )
+    .classList
+    .remove("show");
+
+    return;
+
+  }
+
+
+  musicData =
+    link;
+
+
+  document.getElementById(
+    "musicInput"
+  ).value = "";
+
+
+  mostrarMusica(
+    musicData,
+    "Música por link"
+  );
+
+};
+
+
+function mostrarMusica(
+  src,
+  name
+){
+
+  document.getElementById(
+    "musicPreview"
+  ).innerHTML =
+
+    `
+    <div class="music-post">
+
+      <div class="music-cover">
+        🎵
+      </div>
+
+      <div class="music-info">
+
+        <div class="music-name">
+          ${escaparHTML(name)}
+        </div>
+
+        <div class="music-artist">
+          ${escaparHTML(artistName)}
+        </div>
+
+        <audio
+          class="music-player"
+          controls
+          src="${escaparHTML(src)}"
+        ></audio>
+
+      </div>
+
+    </div>
+
+    <button
+      class="remove-media"
+      type="button"
+      onclick="removerMusica()"
+    >
+      REMOVER MÚSICA
+    </button>
+    `;
+
+
+  document.getElementById(
+    "musicPreview"
+  )
+  .classList
+  .add("show");
+
+}
+
+
+/* =====================================
+   REMOVER
+===================================== */
+
+window.removerFoto =
+function(){
+
+  photoData = "";
+
+  document.getElementById(
+    "photoInput"
+  ).value = "";
+
+  document.getElementById(
+    "photoPreview"
+  ).innerHTML = "";
+
+  document.getElementById(
+    "photoPreview"
+  )
+  .classList
+  .remove("show");
+
+};
+
+
+window.removerVideo =
+function(){
+
+  if(videoData){
+
+    try{
+
+      URL.revokeObjectURL(
+        videoData
+      );
+
+    }catch(e){}
+
+  }
+
+
+  videoData = "";
+
+  document.getElementById(
+    "videoInput"
+  ).value = "";
+
+  document.getElementById(
+    "videoPreview"
+  ).innerHTML = "";
+
+  document.getElementById(
+    "videoPreview"
+  )
+  .classList
+  .remove("show");
+
+};
+
+
+window.removerMusica =
+function(){
+
+  if(
+    musicData &&
+    musicData.startsWith("blob:")
+  ){
+
+    try{
+
+      URL.revokeObjectURL(
+        musicData
+      );
+
+    }catch(e){}
+
+  }
+
+
+  musicData = "";
+
+  document.getElementById(
+    "musicInput"
+  ).value = "";
+
+  document.getElementById(
+    "musicLink"
+  ).value = "";
+
+  document.getElementById(
+    "musicPreview"
+  ).innerHTML = "";
+
+  document.getElementById(
+    "musicPreview"
+  )
+  .classList
+  .remove("show");
+
+};
+
+
+/* =====================================
+   LIKE
+===================================== */
+
+window.like =
+function(button){
+
+  button.classList.toggle(
+    "liked"
+  );
+
+
+  if(
+    button.classList.contains(
+      "liked"
+    )
+  ){
+
+    button.innerHTML =
+      "♥ GOSTEI";
+
+  }else{
+
+    button.innerHTML =
+      "♡ GOSTAR";
+
+  }
+
+};
+
+
+/* =====================================
+   SEGUIR
+===================================== */
+
+window.seguir =
+function(button){
+
+  if(
+    button.textContent.trim() ===
+    "SEGUIR"
+  ){
+
+    button.textContent =
+      "✓ A SEGUIR";
+
+    button.style.background =
+      "#f4bf31";
+
+    button.style.color =
+      "#111";
+
+  }else{
+
+    button.textContent =
+      "SEGUIR";
+
+    button.style.background =
+      "transparent";
+
+    button.style.color =
+      "#f4bf31";
+
+  }
+
+};
+
+
+/* =====================================
+   COMENTAR
+===================================== */
+
+window.comentar =
+function(){
+
+  alert(
+    "Os comentários serão ativados em breve no KUDURO PRIME. 👑"
+  );
+
+};
+
+
+/* =====================================
+   PARTILHAR
+===================================== */
+
+window.partilhar =
+function(){
+
+  if(
+    navigator.share
+  ){
+
+    navigator.share({
+
+      title:
+        "KUDURO PRIME",
+
+      text:
+        "Vê esta publicação no KUDURO PRIME!"
+
+    })
+    .catch(
+      function(){}
+    );
+
+  }else{
+
+    alert(
+      "Publicação pronta para ser partilhada!"
+    );
+
+  }
+
+};
+
+
+/* =====================================
+   PUBLICAR
+===================================== */
+
+window.publicar =
+function(){
+
+  if(!usuarioAtual){
+
+    alert(
+      "A tua conta ainda está a carregar."
+    );
+
+    return;
+
+  }
+
+
+  const text =
+    document.getElementById(
+      "postText"
+    )
+    .value
+    .trim();
+
+
+  if(
+    !text &&
+    !photoData &&
+    !videoData &&
+    !musicData
+  ){
+
+    alert(
+      "Escreve algo ou adiciona uma foto, vídeo ou música."
+    );
+
+    return;
+
+  }
+
+
+  let mediaHTML =
+    "";
+
+
+  if(photoData){
+
+    mediaHTML =
+
+      `
+      <div
+        class="post-image"
+        style="--img:url('${photoData}')"
+      ></div>
+      `;
+
+  }
+
+
+  if(videoData){
+
+    mediaHTML =
+
+      `
+      <video
+        class="post-video"
+        controls
+      >
+
+        <source
+          src="${videoData}"
+        >
+
+      </video>
+      `;
+
+  }
+
+
+  if(musicData){
+
+    mediaHTML =
+
+      `
+      <div class="music-post">
+
+        <div class="music-cover">
+          🎵
+        </div>
+
+        <div class="music-info">
+
+          <div class="music-name">
+            Música partilhada
+          </div>
+
+          <div class="music-artist">
+            ${escaparHTML(artistName)}
+          </div>
+
+          <audio
+            class="music-player"
+            controls
+            src="${escaparHTML(musicData)}"
+          ></audio>
+
+        </div>
+
+      </div>
+      `;
+
+  }
+
+
+  const photoStyle =
+    artistPhoto
+    ?
+    `style="--img:url('${artistPhoto}')"`
+    :
+    "";
+
+
+  const newPost =
+
+    `
+    <article class="post panel">
+
+      <div class="post-top">
+
+        <div
+          class="post-author-img"
+          ${photoStyle}
+        ></div>
+
+        <div>
+
+          <div class="post-name">
+
+            ${escaparHTML(artistName)}
+
+            <span class="verified">
+              ●
+            </span>
+
+          </div>
+
+          <div class="post-meta">
+            @${escaparHTML(artistUser)} · agora
+          </div>
+
+        </div>
+
+        <div class="more">
+          ⋯
+        </div>
+
+      </div>
+
+      ${
+        text
+        ?
+        `<div class="post-text">${escaparHTML(text)}</div>`
+        :
+        ""
+      }
+
+      ${mediaHTML}
+
+      <div class="post-stats">
+
+        <span>
+          🔥 0 reações
+        </span>
+
+        <span>
+          0 comentários
+        </span>
+
+      </div>
+
+      <div class="post-buttons">
+
+        <button onclick="like(this)">
+          ♡ GOSTAR
+        </button>
+
+        <button onclick="comentar()">
+          💬 COMENTAR
+        </button>
+
+        <button onclick="partilhar()">
+          ↗ PARTILHAR
+        </button>
+
+      </div>
+
+    </article>
+    `;
+
+
+  document.getElementById(
+    "feedPosts"
+  )
+  .insertAdjacentHTML(
+    "afterbegin",
+    newPost
+  );
+
+
+  document.getElementById(
+    "postText"
+  ).value = "";
+
+
+  removerFoto();
+
+  removerVideo();
+
+  removerMusica();
+
+
+  selectedType = "";
+
+
+  document.querySelectorAll(
+    ".media-box"
+  )
+  .forEach(
+    function(box){
+
+      box.classList.remove(
+        "show"
+      );
+
     }
+  );
 
 
-    /*
-    =========================================
-    REMOVER FOTO
-    =========================================
-    */
+  document.querySelectorAll(
+    ".tool-btn"
+  )
+  .forEach(
+    function(button){
 
-    window.removerFoto =
-      function(){
+      button.classList.remove(
+        "active"
+      );
 
-        photoData = "";
+    }
+  );
 
+};
 
-        document.querySelector(
-          "#photoInput"
-        ).value = "";
 
+/* =====================================
+   SAIR
+===================================== */
 
-        document.querySelector(
-          "#photoPreview"
-        )
-        .classList
-        .remove("show");
+window.sair =
+async function(event){
 
+  if(event){
 
-        document.querySelector(
-          "#photoPreview"
-        ).innerHTML = "";
+    event.preventDefault();
 
-      };
+  }
 
 
-    /*
-    =========================================
-    REMOVER VÍDEO
-    =========================================
-    */
+  try{
 
-    window.removerVideo =
-      function(){
+    await signOut(auth);
 
-        if(videoData){
+  }catch(erro){
 
-          try{
+    console.error(
+      "Erro ao sair:",
+      erro
+    );
 
-            URL.revokeObjectURL(
-              videoData
-            );
+  }
 
-          }catch(e){}
 
-        }
+  localStorage.removeItem(
+    "kpLoggedIn"
+  );
 
+  localStorage.removeItem(
+    "kpArtistLoggedIn"
+  );
 
-        videoData = "";
+  localStorage.removeItem(
+    "kpArtistUID"
+  );
 
+  localStorage.removeItem(
+    "kpArtistEmail"
+  );
 
-        document.querySelector(
-          "#videoInput"
-        ).value = "";
 
+  window.location.replace(
+    "index.html"
+  );
 
-        document.querySelector(
-          "#videoPreview"
-        )
-        .classList
-        .remove("show");
+};
 
 
-        document.querySelector(
-          "#videoPreview"
-        ).innerHTML = "";
+/* =====================================
+   VOLTAR LOGIN
+===================================== */
 
-      };
+window.irParaLogin =
+function(){
 
+  window.location.replace(
+    "area-do-artista.html"
+  );
 
-    /*
-    =========================================
-    REMOVER MÚSICA
-    =========================================
-    */
+};
 
-    window.removerMusica =
-      function(){
 
-        if(
-          musicData &&
-          musicData.startsWith("blob:")
-        ){
+/* =====================================
+   MENU
+===================================== */
 
-          try{
+window.abrirMenu =
+function(){
 
-            URL.revokeObjectURL(
-              musicData
-            );
+  const links =
+    document.querySelector(
+      ".links"
+    );
 
-          }catch(e){}
 
-        }
+  if(!links){
 
+    return;
 
-        musicData = "";
+  }
 
 
-        document.querySelector(
-          "#musicInput"
-        ).value = "";
+  links.classList.toggle(
+    "mobile-open"
+  );
 
+};
 
-        document.querySelector(
-          "#musicLink"
-        ).value = "";
-
-
-        document.querySelector(
-          "#musicPreview"
-        )
-        .classList
-        .remove("show");
-
-
-        document.querySelector(
-          "#musicPreview"
-        ).innerHTML = "";
-
-      };
-
-
-    /*
-    =========================================
-    GOSTAR
-    =========================================
-    */
-
-    window.like =
-      function(button){
-
-        button.classList.toggle(
-          "liked"
-        );
-
-
-        if(
-          button.classList.contains(
-            "liked"
-          )
-        ){
-
-          button.innerHTML =
-            "♥ GOSTEI";
-
-        }else{
-
-          button.innerHTML =
-            "♡ GOSTAR";
-
-        }
-
-      };
-
-
-    /*
-    =========================================
-    SEGUIR
-    =========================================
-    */
-
-    window.seguir =
-      function(button){
-
-        if(
-          button.textContent.trim() ===
-          "SEGUIR"
-        ){
-
-          button.textContent =
-            "✓ A SEGUIR";
-
-          button.style.background =
-            "#f4bf31";
-
-          button.style.color =
-            "#111";
-
-        }else{
-
-          button.textContent =
-            "SEGUIR";
-
-          button.style.background =
-            "transparent";
-
-          button.style.color =
-            "#f4bf31";
-
-        }
-
-      };
-
-
-    /*
-    =========================================
-    COMENTAR
-    =========================================
-    */
-
-    window.comentar =
-      function(){
-
-        alert(
-          "Os comentários serão ativados em breve no KUDURO PRIME. 👑"
-        );
-
-      };
-
-
-    /*
-    =========================================
-    PARTILHAR
-    =========================================
-    */
-
-    window.partilhar =
-      function(){
-
-        if(navigator.share){
-
-          navigator.share({
-
-            title:
-              "KUDURO PRIME",
-
-            text:
-              "Vê esta publicação no KUDURO PRIME!"
-
-          })
-          .catch(
-            function(){}
-          );
-
-        }else{
-
-          alert(
-            "Publicação pronta para ser partilhada!"
-          );
-
-        }
-
-      };
-
-
-    /*
-    =========================================
-    PUBLICAR
-    =========================================
-    */
-
-    window.publicar =
-      function(){
-
-        /*
-        Confirma utilizador
-        */
-
-        if(!usuarioAtual){
-
-          alert(
-            "A tua sessão ainda não foi carregada. Aguarda um momento."
-          );
-
-          return;
-
-        }
-
-
-        const text =
-          document.querySelector(
-            "#postText"
-          )
-          .value
-          .trim();
-
-
-        if(
-          !text &&
-          !photoData &&
-          !videoData &&
-          !musicData
-        ){
-
-          alert(
-            "Escreve algo ou adiciona uma foto, vídeo ou música."
-          );
-
-          return;
-
-        }
-
-
-        const safeText =
-          escaparHTML(text);
-
-
-        const safeName =
-          escaparHTML(artistName);
-
-
-        const safeUser =
-          escaparHTML(artistUser);
-
-
-        let authorStyle = "";
-
-
-        if(artistPhoto){
-
-          authorStyle =
-            `style="--img:url('${escaparAtributo(artistPhoto)}')"`;
-
-        }
-
-
-        let mediaHTML = "";
-
-
-        if(photoData){
-
-          mediaHTML =
-
-            `
-            <div
-              class="post-image"
-              style="--img:url('${escaparAtributo(photoData)}')"
-            ></div>
-            `;
-
-        }
-
-
-        if(videoData){
-
-          mediaHTML =
-
-            `
-            <video
-              class="post-video"
-              controls
-            >
-
-              <source
-                src="${escaparAtributo(videoData)}"
-              >
-
-              O teu navegador não suporta vídeo.
-
-            </video>
-            `;
-
-        }
-
-
-        if(musicData){
-
-          let musicName =
-            "Música partilhada";
-
-
-          const fileInput =
-            document.querySelector(
-              "#musicInput"
-            );
-
-
-          if(
-            fileInput.files &&
-            fileInput.files[0]
-          ){
-
-            musicName =
-              fileInput.files[0].name;
-
-          }
-
-
-          mediaHTML =
-
-            `
-            <div class="music-post">
-
-              <div class="music-cover">
-                🎵
-              </div>
-
-              <div class="music-info">
-
-                <div class="music-name">
-                  ${escaparHTML(musicName)}
-                </div>
-
-                <div class="music-artist">
-                  ${safeName}
-                </div>
-
-                <audio
-                  class="music-player"
-                  controls
-                  src="${escaparAtributo(musicData)}"
-                ></audio>
-
-              </div>
-
-            </div>
-            `;
-
-        }
-
-
-        const newPost =
-
-          `
-          <article class="post panel">
-
-            <div class="post-top">
-
-              <div
-                class="post-author-img"
-                ${authorStyle}
-              ></div>
-
-              <div>
-
-                <div class="post-name">
-
-                  ${safeName}
-
-                  <span class="verified">
-                    ●
-                  </span>
-
-                </div>
-
-                <div class="post-meta">
-                  @${safeUser} · agora
-                </div>
-
-              </div>
-
-              <div class="more">
-                ⋯
-              </div>
-
-            </div>
-
-
-            ${
-              safeText
-              ?
-              `<div class="post-text">${safeText}</div>`
-              :
-              ""
-            }
-
-
-            ${mediaHTML}
-
-
-            <div class="post-stats">
-
-              <span>
-                🔥 0 reações
-              </span>
-
-              <span>
-                0 comentários
-              </span>
-
-            </div>
-
-
-            <div class="post-buttons">
-
-              <button onclick="like(this)">
-                ♡ GOSTAR
-              </button>
-
-              <button onclick="comentar()">
-                💬 COMENTAR
-              </button>
-
-              <button onclick="partilhar()">
-                ↗ PARTILHAR
-              </button>
-
-            </div>
-
-          </article>
-          `;
-
-
-        document.querySelector(
-          "#feedPosts"
-        )
-        .insertAdjacentHTML(
-          "afterbegin",
-          newPost
-        );
-
-
-        document.querySelector(
-          "#postText"
-        ).value = "";
-
-
-        removerFoto();
-
-        removerVideo();
-
-        removerMusica();
-
-
-        selectedType = "";
-
-
-        document.querySelectorAll(
-          ".media-box"
-        )
-        .forEach(
-          function(box){
-
-            box.classList.remove(
-              "show"
-            );
-
-          }
-        );
-
-
-        document.querySelectorAll(
-          ".tool-btn"
-        )
-        .forEach(
-          function(button){
-
-            button.classList.remove(
-              "active"
-            );
-
-          }
-        );
-
-
-        window.scrollTo({
-
-          top:0,
-
-          behavior:"smooth"
-
-        });
-
-      };
-
-
-    /*
-    =========================================
-    SAIR
-    =========================================
-    */
-
-    window.sair =
-      async function(event){
-
-        if(event){
-
-          event.preventDefault();
-
-        }
-
-
-        try{
-
-          await signOut(auth);
-
-        }catch(erro){
-
-          console.error(
-            "Erro ao sair:",
-            erro
-          );
-
-        }
-
-
-        localStorage.removeItem(
-          "kpLoggedIn"
-        );
-
-        localStorage.removeItem(
-          "kpArtistLoggedIn"
-        );
-
-        localStorage.removeItem(
-          "kpArtistUID"
-        );
-
-        localStorage.removeItem(
-          "kpArtistEmail"
-        );
-
-
-        window.location.replace(
-          "index.html"
-        );
-
-      };
-
-
-    /*
-    =========================================
-    MENU MOBILE
-    =========================================
-    */
-
-    window.abrirMenu =
-      function(){
-
-        const links =
-          document.querySelector(
-            ".links"
-          );
-
-
-        if(!links){
-
-          return;
-
-        }
-
-
-        links.classList.toggle(
-          "mobile-open"
-        );
-
-      };
-
-  </script>
+</script>
 
 </body>
 </html>
