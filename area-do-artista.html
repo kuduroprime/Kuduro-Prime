@@ -31,12 +31,12 @@
       padding:25px;
 
       background:
-        radial-gradient(circle at 90% 0, rgba(244,191,49,.15), transparent 35%),
-        radial-gradient(circle at 0 100%, rgba(244,191,49,.08), transparent 35%),
+        radial-gradient(circle at 90% 0,rgba(244,191,49,.15),transparent 35%),
+        radial-gradient(circle at 0 100%,rgba(244,191,49,.08),transparent 35%),
         var(--bg);
 
       color:var(--text);
-      font-family:Arial, Helvetica, sans-serif;
+      font-family:Arial,Helvetica,sans-serif;
     }
 
     .box{
@@ -109,7 +109,8 @@
       border:0;
       border-radius:9px;
 
-      background:linear-gradient(135deg,var(--gold2),var(--gold));
+      background:
+        linear-gradient(135deg,var(--gold2),var(--gold));
 
       color:#17120a;
       font-size:12px;
@@ -308,7 +309,7 @@
 
 
   <!-- =========================================
-       FIREBASE LOGIN
+       FIREBASE
   ========================================== -->
 
   <script type="module">
@@ -329,8 +330,8 @@
 
 
     /* =========================================
-       CONFIGURAÇÃO FIREBASE
-    ========================================= */
+       FIREBASE CONFIG
+    ========================================== */
 
     const firebaseConfig = {
 
@@ -377,9 +378,9 @@
 
     /* =========================================
        MENSAGEM
-    ========================================= */
+    ========================================== */
 
-    function showMessage(texto, tipo){
+    function showMessage(texto,tipo){
 
       mensagem.textContent = texto;
 
@@ -390,33 +391,8 @@
 
 
     /* =========================================
-       GARANTIR QUE A SESSÃO FICA GUARDADA
-    ========================================= */
-
-    setPersistence(
-      auth,
-      browserLocalPersistence
-    )
-    .then(() => {
-
-      console.log(
-        "Firebase: sessão persistente ativada."
-      );
-
-    })
-    .catch((erro) => {
-
-      console.error(
-        "Erro ao ativar persistência:",
-        erro
-      );
-
-    });
-
-
-    /* =========================================
        LOGIN
-    ========================================= */
+    ========================================== */
 
     loginForm.addEventListener(
       "submit",
@@ -458,17 +434,7 @@
 
         try{
 
-          console.log(
-            "A tentar entrar:",
-            email
-          );
-
-
-          /*
-          ======================================
-          LOGIN FIREBASE
-          ======================================
-          */
+          /* LOGIN FIREBASE */
 
           const resultado =
             await signInWithEmailAndPassword(
@@ -483,34 +449,27 @@
 
 
           console.log(
-            "LOGIN FIREBASE OK:",
+            "LOGIN OK:",
             user.uid
           );
 
 
-          /*
-          ======================================
-          GUARDAR DADOS DA SESSÃO
-          ======================================
-          */
+          /* SESSÃO */
 
           localStorage.setItem(
             "kpLoggedIn",
             "true"
           );
 
-
           localStorage.setItem(
             "kpArtistLoggedIn",
             "true"
           );
 
-
           localStorage.setItem(
             "kpArtistUID",
             user.uid
           );
-
 
           localStorage.setItem(
             "kpArtistEmail",
@@ -518,17 +477,9 @@
           );
 
 
-          /*
-          ======================================
-          NOME DO ARTISTA
-          ======================================
-          */
-
           const artistName =
             user.displayName ||
-            localStorage.getItem(
-              "kpArtistStageName"
-            ) ||
+            localStorage.getItem("kpArtistStageName") ||
             email.split("@")[0] ||
             "Artista Prime";
 
@@ -539,19 +490,13 @@
           );
 
 
-          /*
-          ======================================
-          MÚSICAS DO ARTISTA
-          ======================================
-          */
+          /* MÚSICAS */
 
           const songsKey =
             "kpArtistSongs_" + user.uid;
 
 
-          if(
-            !localStorage.getItem(songsKey)
-          ){
+          if(!localStorage.getItem(songsKey)){
 
             localStorage.setItem(
               songsKey,
@@ -561,14 +506,10 @@
           }
 
 
-          /*
-          ======================================
-          SUCESSO
-          ======================================
-          */
+          /* SUCESSO */
 
           showMessage(
-            "Login feito com sucesso! 👑 A entrar no feed...",
+            "Login feito! 👑 A entrar no FEED...",
             "success"
           );
 
@@ -578,42 +519,30 @@
 
 
           /*
-          ======================================
-          IR DIRETAMENTE PARA O FEED
+          =========================================
+          REDIRECIONAMENTO DEFINITIVO
 
-          IMPORTANTE:
-          NÃO existe painel-do-artista aqui.
-          ======================================
+          LOGIN → FEED
+
+          NÃO EXISTE PAINEL AQUI.
+          =========================================
           */
 
-          setTimeout(
-            function(){
-
-              console.log(
-                "A abrir feed.html..."
-              );
-
-              window.location.replace(
-                "./feed.html"
-              );
-
-            },
-            700
-          );
+          window.location.href =
+            "feed.html";
 
         }
-
 
         catch(erro){
 
           console.error(
-            "ERRO COMPLETO NO LOGIN:",
+            "ERRO NO LOGIN:",
             erro
           );
 
 
           let textoErro =
-            "Não foi possível entrar. Tenta novamente.";
+            "Não foi possível entrar.";
 
 
           switch(erro.code){
@@ -677,7 +606,7 @@
             case "auth/operation-not-allowed":
 
               textoErro =
-                "O login por email ainda não está ativado no Firebase.";
+                "O login por email não está ativado no Firebase.";
 
               break;
 
@@ -716,6 +645,31 @@
 
       }
     );
+
+
+    /* =========================================
+       SESSÃO PERSISTENTE
+    ========================================== */
+
+    setPersistence(
+      auth,
+      browserLocalPersistence
+    )
+    .then(() => {
+
+      console.log(
+        "Sessão persistente ativada."
+      );
+
+    })
+    .catch((erro) => {
+
+      console.error(
+        "Erro na persistência:",
+        erro
+      );
+
+    });
 
   </script>
 
