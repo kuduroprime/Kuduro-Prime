@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="pt">
 <head>
   <meta charset="UTF-8">
@@ -154,8 +153,9 @@
           0deg,
           var(--bg),
           rgba(0,0,0,.15)
-        ),
-        center/cover;
+        );
+      background-size:cover;
+      background-position:center;
     }
 
     .cover:after{
@@ -171,12 +171,39 @@
       pointer-events:none;
     }
 
-    /* PERFIL */
+    /* ÁREA DO PERFIL */
 
     .profile-area{
       width:min(1180px,92%);
       margin:auto;
       position:relative;
+    }
+
+    /* BOTÃO VOLTAR */
+
+    .back-area{
+      width:min(1180px,92%);
+      margin:18px auto 0;
+    }
+
+    .back-btn{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:10px 15px;
+      border:1px solid var(--line);
+      border-radius:8px;
+      background:#101010;
+      color:var(--muted);
+      font-size:11px;
+      font-weight:900;
+      transition:.25s;
+    }
+
+    .back-btn:hover{
+      border-color:var(--gold);
+      color:var(--gold);
+      transform:translateX(-3px);
     }
 
     .profile-head{
@@ -372,6 +399,10 @@
       border-radius:8px;
       background:#1b1b1b center/cover;
       overflow:hidden;
+      display:grid;
+      place-items:center;
+      color:var(--gold);
+      font-size:25px;
     }
 
     .song-cover img{
@@ -443,6 +474,7 @@
       border-radius:12px;
       background:#0d0d0d;
       transition:.25s;
+      display:block;
     }
 
     .video-card:hover{
@@ -670,7 +702,6 @@
       .video-grid{
         grid-template-columns:1fr;
       }
-
     }
 
     @media(max-width:600px){
@@ -693,6 +724,10 @@
 
       .cover{
         height:220px;
+      }
+
+      .back-area{
+        margin-top:14px;
       }
 
       .profile-head{
@@ -745,375 +780,371 @@
         width:52px;
         height:52px;
       }
-
     }
   </style>
-
 </head>
 
 <body>
 
   <!-- NAV -->
-
   <nav class="nav">
 
-```
-<div class="nav-in">
+    <div class="nav-in">
 
-  <a href="index.html" class="brand">
-    <span class="crown">♕</span>
-    KUDURO
-    <b>PRIME</b>
-  </a>
+      <a href="index.html" class="brand">
+        <span class="crown">♕</span>
+        KUDURO
+        <b>PRIME</b>
+      </a>
 
-  <div class="links">
+      <div class="links">
 
-    <a href="index.html">INÍCIO</a>
-    <a href="artistas.html">ARTISTAS</a>
-    <a href="musicas.html">MÚSICAS</a>
-    <a href="ranking.html">RANKING</a>
-    <a href="eventos.html">EVENTOS</a>
+        <a href="index.html">INÍCIO</a>
+        <a href="artistas.html">ARTISTAS</a>
+        <a href="musicas.html">MÚSICAS</a>
+        <a href="ranking.html">RANKING</a>
+        <a href="eventos.html">EVENTOS</a>
 
-  </div>
+      </div>
 
-  <div class="nav-actions">
+      <div class="nav-actions">
 
-    <a href="area-do-artista.html" class="btn dark">
-      ÁREA DO ARTISTA
-    </a>
+        <a href="area-do-artista.html" class="btn dark">
+          ÁREA DO ARTISTA
+        </a>
 
-    <a href="juntar-se.html" class="btn gold">
-      JUNTA-TE 👑
-    </a>
+        <a href="juntar-se.html" class="btn gold">
+          JUNTA-TE 👑
+        </a>
 
-    <button class="menu" onclick="abrirMenu()">
-      ☰
-    </button>
+        <button class="menu" onclick="abrirMenu()">
+          ☰
+        </button>
 
-  </div>
+      </div>
 
-</div>
-```
+    </div>
 
   </nav>
 
   <!-- CAPA -->
-
   <section class="cover" id="cover"></section>
 
-  <!-- CABEÇALHO -->
+  <!-- BOTÃO VOLTAR -->
+  <div class="back-area">
 
+    <a href="artistas.html" class="back-btn">
+      ← VOLTAR AOS ARTISTAS
+    </a>
+
+  </div>
+
+  <!-- CABEÇALHO -->
   <section class="profile-area">
 
-```
-<div class="profile-head">
+    <div class="profile-head">
 
-  <div class="profile-photo" id="profilePhoto">
-    👤
-  </div>
+      <div class="profile-photo" id="profilePhoto">
+        👤
+      </div>
 
-  <div>
+      <div>
 
-    <h1 class="profile-name" id="profileName">
-      A carregar...
-    </h1>
+        <h1 class="profile-name" id="profileName">
+          A carregar...
+        </h1>
 
-    <div class="profile-user" id="profileUser">
-      @artista
+        <div class="profile-user" id="profileUser">
+          @artista
+        </div>
+
+        <div class="profile-location" id="profileLocation">
+          📍 Angola
+        </div>
+
+      </div>
+
+      <div class="profile-actions">
+
+        <button class="btn gold" id="followBtn" onclick="seguir()">
+          + SEGUIR
+        </button>
+
+        <button class="btn dark" onclick="partilharPerfil()">
+          ↗ PARTILHAR
+        </button>
+
+      </div>
+
     </div>
-
-    <div class="profile-location" id="profileLocation">
-      📍 Angola
-    </div>
-
-  </div>
-
-  <div class="profile-actions">
-
-    <button class="btn gold" id="followBtn" onclick="seguir()">
-      + SEGUIR
-    </button>
-
-    <button class="btn dark" onclick="partilharPerfil()">
-      ↗ PARTILHAR
-    </button>
-
-  </div>
-
-</div>
-```
 
   </section>
 
   <!-- CONTEÚDO -->
-
   <main class="content">
 
-```
-<!-- COLUNA PRINCIPAL -->
-<section>
+    <!-- COLUNA PRINCIPAL -->
+    <section>
 
-  <!-- ESTATÍSTICAS -->
-  <div class="stats panel">
+      <!-- ESTATÍSTICAS -->
+      <div class="stats panel">
 
-    <div class="stat">
-      <strong id="musicCount">0</strong>
-      <span>MÚSICAS</span>
-    </div>
+        <div class="stat">
+          <strong id="musicCount">0</strong>
+          <span>MÚSICAS</span>
+        </div>
 
-    <div class="stat">
-      <strong id="followers">0</strong>
-      <span>SEGUIDORES</span>
-    </div>
+        <div class="stat">
+          <strong id="followers">0</strong>
+          <span>SEGUIDORES</span>
+        </div>
 
-    <div class="stat">
-      <strong id="views">0</strong>
-      <span>VISUALIZAÇÕES</span>
-    </div>
+        <div class="stat">
+          <strong id="views">0</strong>
+          <span>VISUALIZAÇÕES</span>
+        </div>
 
-  </div>
-
-
-  <!-- TABS -->
-  <div class="tabs">
-
-    <button
-      class="tab active"
-      onclick="abrirTab('sobre',this)"
-    >
-      SOBRE
-    </button>
-
-    <button
-      class="tab"
-      onclick="abrirTab('musicas',this)"
-    >
-      MÚSICAS
-    </button>
-
-    <button
-      class="tab"
-      onclick="abrirTab('videos',this)"
-    >
-      VÍDEOS
-    </button>
-
-    <button
-      class="tab"
-      onclick="abrirTab('posts',this)"
-    >
-      PUBLICAÇÕES
-    </button>
-
-  </div>
-
-
-  <!-- SOBRE -->
-  <div
-    id="sobre"
-    class="tab-content active panel"
-  >
-
-    <div class="about">
-
-      <h2 class="section-title">
-        SOBRE O ARTISTA
-      </h2>
-
-      <p id="profileBio">
-        A carregar biografia...
-      </p>
-
-    </div>
-
-  </div>
-
-
-  <!-- MÚSICAS -->
-  <div
-    id="musicas"
-    class="tab-content panel"
-  >
-
-    <div class="about">
-
-      <h2 class="section-title">
-        🎵 MÚSICAS
-      </h2>
-
-    </div>
-
-    <div class="song-list" id="songList">
-
-      <div class="loading">
-        <div class="loading-icon">♬</div>
-        A carregar músicas...
       </div>
 
-    </div>
+      <!-- TABS -->
+      <div class="tabs">
 
-  </div>
+        <button
+          class="tab active"
+          onclick="abrirTab('sobre',this)"
+        >
+          SOBRE
+        </button>
 
+        <button
+          class="tab"
+          onclick="abrirTab('musicas',this)"
+        >
+          MÚSICAS
+        </button>
 
-  <!-- VÍDEOS -->
-  <div
-    id="videos"
-    class="tab-content panel"
-  >
+        <button
+          class="tab"
+          onclick="abrirTab('videos',this)"
+        >
+          VÍDEOS
+        </button>
 
-    <div class="about">
+        <button
+          class="tab"
+          onclick="abrirTab('posts',this)"
+        >
+          PUBLICAÇÕES
+        </button>
 
-      <h2 class="section-title">
-        🎬 VÍDEOS
-      </h2>
-
-    </div>
-
-    <div class="video-grid" id="videoGrid">
-
-      <div class="loading">
-        <div class="loading-icon">▶</div>
-        A carregar vídeos...
       </div>
 
-    </div>
+      <!-- SOBRE -->
+      <div
+        id="sobre"
+        class="tab-content active panel"
+      >
 
-  </div>
+        <div class="about">
 
+          <h2 class="section-title">
+            SOBRE O ARTISTA
+          </h2>
 
-  <!-- POSTS -->
-  <div
-    id="posts"
-    class="tab-content"
-  >
+          <p id="profileBio">
+            A carregar biografia...
+          </p>
 
-    <article class="post panel">
+        </div>
 
-      <div class="post-head">
+      </div>
+
+      <!-- MÚSICAS -->
+      <div
+        id="musicas"
+        class="tab-content panel"
+      >
+
+        <div class="about">
+
+          <h2 class="section-title">
+            🎵 MÚSICAS
+          </h2>
+
+        </div>
+
+        <div class="song-list" id="songList">
+
+          <div class="loading">
+
+            <div class="loading-icon">
+              ♬
+            </div>
+
+            A carregar músicas...
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- VÍDEOS -->
+      <div
+        id="videos"
+        class="tab-content panel"
+      >
+
+        <div class="about">
+
+          <h2 class="section-title">
+            🎬 VÍDEOS
+          </h2>
+
+        </div>
+
+        <div class="video-grid" id="videoGrid">
+
+          <div class="loading">
+
+            <div class="loading-icon">
+              ▶
+            </div>
+
+            A carregar vídeos...
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- POSTS -->
+      <div
+        id="posts"
+        class="tab-content"
+      >
+
+        <article class="post panel">
+
+          <div class="post-head">
+
+            <div
+              class="mini-avatar"
+              id="postPhoto"
+            >
+              👤
+            </div>
+
+            <div>
+
+              <div
+                class="post-name"
+                id="postName"
+              >
+                Artista Prime
+              </div>
+
+              <div class="post-time">
+                Perfil oficial no KUDURO PRIME 👑
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="post-text" id="postText">
+            Este artista faz parte oficialmente do movimento KUDURO PRIME.
+          </div>
+
+        </article>
+
+      </div>
+
+    </section>
+
+    <!-- LADO DIREITO -->
+    <aside>
+
+      <div class="side-box panel">
+
+        <h3 class="side-title">
+          👑 INFORMAÇÕES PRIME
+        </h3>
+
+        <div class="info">
+
+          <small>ESTILO MUSICAL</small>
+
+          <strong id="profileGenre">
+            Kuduro
+          </strong>
+
+        </div>
+
+        <div class="info">
+
+          <small>LOCALIZAÇÃO</small>
+
+          <strong id="profileCity">
+            Angola
+          </strong>
+
+        </div>
+
+        <div class="info">
+
+          <small>PAÍS</small>
+
+          <strong id="profileCountry">
+            Angola
+          </strong>
+
+        </div>
+
+        <div class="info">
+
+          <small>CARREIRA DESDE</small>
+
+          <strong id="profileYear">
+            —
+          </strong>
+
+        </div>
+
+      </div>
+
+      <!-- REDES -->
+      <div
+        class="side-box panel"
+        id="socialBox"
+      >
+
+        <h3 class="side-title">
+          🔗 REDES SOCIAIS
+        </h3>
 
         <div
-          class="mini-avatar"
-          id="postPhoto"
-        >
-          👤
-        </div>
-
-        <div>
-
-          <div
-            class="post-name"
-            id="postName"
-          >
-            Artista Prime
-          </div>
-
-          <div class="post-time">
-            Perfil oficial no KUDURO PRIME 👑
-          </div>
-
-        </div>
+          class="social"
+          id="socialLinks"
+        ></div>
 
       </div>
 
-      <div class="post-text" id="postText">
-        Este artista faz parte oficialmente do movimento KUDURO PRIME.
-      </div>
-
-    </article>
-
-  </div>
-
-</section>
-
-
-<!-- LADO DIREITO -->
-<aside>
-
-  <div class="side-box panel">
-
-    <h3 class="side-title">
-      👑 INFORMAÇÕES PRIME
-    </h3>
-
-    <div class="info">
-
-      <small>ESTILO MUSICAL</small>
-
-      <strong id="profileGenre">
-        Kuduro
-      </strong>
-
-    </div>
-
-    <div class="info">
-
-      <small>LOCALIZAÇÃO</small>
-
-      <strong id="profileCity">
-        Angola
-      </strong>
-
-    </div>
-
-    <div class="info">
-
-      <small>PAÍS</small>
-
-      <strong id="profileCountry">
-        Angola
-      </strong>
-
-    </div>
-
-    <div class="info">
-
-      <small>CARREIRA DESDE</small>
-
-      <strong id="profileYear">
-        —
-      </strong>
-
-    </div>
-
-  </div>
-
-
-  <!-- REDES -->
-  <div
-    class="side-box panel"
-    id="socialBox"
-  >
-
-    <h3 class="side-title">
-      🔗 REDES SOCIAIS
-    </h3>
-
-    <div
-      class="social"
-      id="socialLinks"
-    ></div>
-
-  </div>
-
-</aside>
-```
+    </aside>
 
   </main>
 
   <!-- FOOTER -->
-
   <footer>
 
-```
-© 2026 KUDURO PRIME.
-Todos os direitos reservados.
-👑 O KUDURO VIVE AQUI.
-```
+    © 2026 KUDURO PRIME.
+    Todos os direitos reservados.
+    👑 O KUDURO VIVE AQUI.
 
   </footer>
 
   <!-- FIREBASE -->
-
   <script type="module">
 
     import { initializeApp }
@@ -1122,10 +1153,16 @@ Todos os direitos reservados.
     import {
       getFirestore,
       collection,
-      getDocs
+      getDocs,
+      getDoc,
+      doc
     }
       from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 
+
+    /* =========================
+       FIREBASE
+    ========================= */
 
     const firebaseConfig = {
 
@@ -1158,7 +1195,7 @@ Todos os direitos reservados.
 
 
     /* =========================
-       PARAMETRO DO PERFIL
+       PARAMETRO
     ========================= */
 
     const params =
@@ -1167,17 +1204,7 @@ Todos os direitos reservados.
       );
 
     const requestedUser =
-      params.get("user");
-
-
-    if(!requestedUser){
-
-      mostrarErro(
-        "Perfil não encontrado",
-        "Nenhum artista foi selecionado."
-      );
-
-    }
+      (params.get("user") || "").trim();
 
 
     /* =========================
@@ -1194,7 +1221,7 @@ Todos os direitos reservados.
 
 
     /* =========================
-       FUNÇÕES DE NORMALIZAÇÃO
+       NORMALIZAÇÃO
     ========================= */
 
     function texto(...valores){
@@ -1225,12 +1252,8 @@ Todos os direitos reservados.
         const n =
           Number(valor);
 
-        if(
-          Number.isFinite(n)
-        ){
-
+        if(Number.isFinite(n)){
           return n;
-
         }
 
       }
@@ -1245,19 +1268,12 @@ Todos os direitos reservados.
       return texto(
 
         data.nome,
-
         data.artistName,
-
         data.artistaNome,
-
         data.stageName,
-
         data.nomeArtistico,
-
         data.nome_artistico,
-
         data.name,
-
         "Artista Prime"
 
       );
@@ -1270,19 +1286,12 @@ Todos os direitos reservados.
       return texto(
 
         data.username,
-
         data.userName,
-
         data.nomeUsuario,
-
         data.artistaUsername,
-
         data.usernameArtistico,
-
         data.usuario,
-
         data.slug,
-
         ""
 
       );
@@ -1295,21 +1304,13 @@ Todos os direitos reservados.
       return texto(
 
         data.foto,
-
         data.photo,
-
         data.photoURL,
-
         data.fotoPerfil,
-
         data.imagem,
-
         data.image,
-
         data.avatar,
-
         data.profilePhoto,
-
         ""
 
       );
@@ -1322,19 +1323,12 @@ Todos os direitos reservados.
       return texto(
 
         data.cover,
-
         data.coverUrl,
-
         data.capa,
-
         data.capaUrl,
-
         data.image,
-
         data.imageUrl,
-
         data.imagem,
-
         ""
 
       );
@@ -1347,17 +1341,11 @@ Todos os direitos reservados.
       return texto(
 
         data.audioUrl,
-
         data.audio,
-
         data.url,
-
         data.musicUrl,
-
         data.file,
-
         data.src,
-
         ""
 
       );
@@ -1370,13 +1358,9 @@ Todos os direitos reservados.
       return texto(
 
         data.titulo,
-
         data.title,
-
         data.nome,
-
         data.nomeMusica,
-
         "Música sem título"
 
       );
@@ -1389,11 +1373,8 @@ Todos os direitos reservados.
       return texto(
 
         data.titulo,
-
         data.title,
-
         data.nome,
-
         "Vídeo sem título"
 
       );
@@ -1406,17 +1387,11 @@ Todos os direitos reservados.
       return texto(
 
         data.capa,
-
         data.cover,
-
         data.coverUrl,
-
         data.thumbnail,
-
         data.thumbnailUrl,
-
         data.image,
-
         ""
 
       );
@@ -1429,11 +1404,8 @@ Todos os direitos reservados.
       return texto(
 
         data.videoUrl,
-
         data.video,
-
         data.url,
-
         ""
 
       );
@@ -1444,16 +1416,17 @@ Todos os direitos reservados.
     function isPublicado(data){
 
       const status =
-        texto(data.status)
-        .toLowerCase();
+        texto(data.status).toLowerCase();
 
       return (
+
         status === "publicado" ||
         status === "publicada" ||
         status === "public" ||
         status === "ativa" ||
         status === "ativo" ||
         status === ""
+
       );
 
     }
@@ -1463,63 +1436,152 @@ Todos os direitos reservados.
        PROCURAR ARTISTA
     ========================= */
 
-    async function carregarArtista(){
+    async function procurarArtista(){
+
+      if(!requestedUser){
+        return null;
+      }
+
+
+      /*
+        PRIMEIRO:
+        tenta encontrar pelo ID
+      */
 
       try{
 
-        const snapshot =
-          await getDocs(
-            collection(db,"artistas")
+        const ref =
+          doc(
+            db,
+            "artistas",
+            requestedUser
           );
 
-
-        let encontrado = null;
-
-
-        snapshot.forEach(docSnap => {
-
-          const data =
-            docSnap.data();
+        const snap =
+          await getDoc(ref);
 
 
-          const username =
-            usernameArtista(data);
+        if(snap.exists()){
+
+          return {
+
+            id:snap.id,
+
+            ...snap.data()
+
+          };
+
+        }
+
+      }
+
+      catch(error){
+
+        console.warn(
+          "Busca direta falhou:",
+          error
+        );
+
+      }
 
 
-          /*
-            Aceita:
-            perfil.html?user=username
-            ou
-            perfil.html?user=UID
-          */
+      /*
+        SEGUNDO:
+        procura pelo username
+      */
 
-          if(
-
-            docSnap.id === requestedUser ||
-
-            username.toLowerCase() ===
-            requestedUser.toLowerCase()
-
-          ){
-
-            encontrado = {
-
-              id:docSnap.id,
-
-              ...data
-
-            };
-
-          }
-
-        });
+      const snapshot =
+        await getDocs(
+          collection(db,"artistas")
+        );
 
 
-        if(!encontrado){
+      let encontrado = null;
+
+
+      snapshot.forEach(docSnap => {
+
+        const data =
+          docSnap.data();
+
+
+        const username =
+          usernameArtista(data)
+            .replace(/^@/,"")
+            .toLowerCase();
+
+
+        const pedido =
+          requestedUser
+            .replace(/^@/,"")
+            .toLowerCase();
+
+
+        if(username === pedido){
+
+          encontrado = {
+
+            id:docSnap.id,
+
+            ...data
+
+          };
+
+        }
+
+      });
+
+
+      return encontrado;
+
+    }
+
+
+    /* =========================
+       CARREGAR ARTISTA
+    ========================= */
+
+    async function carregarArtista(){
+
+      mostrarLoadingPerfil();
+
+
+      try{
+
+        /*
+          Timeout de segurança.
+          Assim nunca fica eternamente
+          em "A carregar..."
+        */
+
+        const resultado =
+          await Promise.race([
+
+            procurarArtista(),
+
+            new Promise((_,reject) =>
+              setTimeout(
+                () =>
+                  reject(
+                    new Error(
+                      "Tempo limite excedido."
+                    )
+                  ),
+                15000
+              )
+            )
+
+          ]);
+
+
+        if(!resultado){
 
           mostrarErro(
+
             "Artista não encontrado",
+
             "Este perfil não existe no KUDURO PRIME."
+
           );
 
           return;
@@ -1528,33 +1590,31 @@ Todos os direitos reservados.
 
 
         artistId =
-          encontrado.id;
+          resultado.id;
 
 
         profileData = {
 
-          id:encontrado.id,
+          id:
+            resultado.id,
 
           name:
-            nomeArtista(encontrado),
+            nomeArtista(resultado),
 
           username:
-            usernameArtista(encontrado) ||
+            usernameArtista(resultado) ||
             "artista",
 
           photo:
-            fotoArtista(encontrado),
+            fotoArtista(resultado),
 
           bio:
             texto(
 
-              encontrado.bio,
-
-              encontrado.biografia,
-
-              encontrado.description,
-
-              encontrado.descricao,
+              resultado.bio,
+              resultado.biografia,
+              resultado.description,
+              resultado.descricao,
 
               "Este artista faz parte do movimento KUDURO PRIME 👑."
 
@@ -1563,13 +1623,10 @@ Todos os direitos reservados.
           city:
             texto(
 
-              encontrado.cidade,
-
-              encontrado.city,
-
-              encontrado.localizacao,
-
-              encontrado.location,
+              resultado.cidade,
+              resultado.city,
+              resultado.localizacao,
+              resultado.location,
 
               "Luanda"
 
@@ -1578,9 +1635,8 @@ Todos os direitos reservados.
           country:
             texto(
 
-              encontrado.pais,
-
-              encontrado.country,
+              resultado.pais,
+              resultado.country,
 
               "Angola"
 
@@ -1589,13 +1645,10 @@ Todos os direitos reservados.
           genre:
             texto(
 
-              encontrado.genero,
-
-              encontrado.genre,
-
-              encontrado.estilo,
-
-              encontrado.tipo,
+              resultado.genero,
+              resultado.genre,
+              resultado.estilo,
+              resultado.tipo,
 
               "Kuduro"
 
@@ -1604,13 +1657,10 @@ Todos os direitos reservados.
           year:
             texto(
 
-              encontrado.ano,
-
-              encontrado.year,
-
-              encontrado.carreiraDesde,
-
-              encontrado.anoInicio,
+              resultado.ano,
+              resultado.year,
+              resultado.carreiraDesde,
+              resultado.anoInicio,
 
               "—"
 
@@ -1618,55 +1668,48 @@ Todos os direitos reservados.
 
           instagram:
             texto(
-
-              encontrado.instagram,
-
-              encontrado.instagramUrl
-
+              resultado.instagram,
+              resultado.instagramUrl
             ),
 
           facebook:
             texto(
-
-              encontrado.facebook,
-
-              encontrado.facebookUrl
-
+              resultado.facebook,
+              resultado.facebookUrl
             ),
 
           youtube:
             texto(
-
-              encontrado.youtube,
-
-              encontrado.youtubeUrl
-
+              resultado.youtube,
+              resultado.youtubeUrl
             ),
 
           tiktok:
             texto(
-
-              encontrado.tiktok,
-
-              encontrado.tiktokUrl
-
+              resultado.tiktok,
+              resultado.tiktokUrl
             ),
 
           followers:
             numero(
-
-              encontrado.followers,
-
-              encontrado.seguidores,
-
-              encontrado.followerCount
-
+              resultado.followers,
+              resultado.seguidores,
+              resultado.followerCount
             )
 
         };
 
 
+        /*
+          MOSTRA O PERFIL IMEDIATAMENTE
+        */
+
         mostrarPerfil();
+
+
+        /*
+          Depois carrega músicas e vídeos.
+        */
 
         await carregarMusicas();
 
@@ -1677,16 +1720,39 @@ Todos os direitos reservados.
       catch(error){
 
         console.error(
-          "Erro ao carregar artista:",
+          "ERRO COMPLETO:",
           error
         );
 
+
         mostrarErro(
+
           "Erro ao carregar perfil",
-          "Não foi possível carregar os dados deste artista."
+
+          "Não foi possível carregar este perfil. Verifica a ligação ao Firebase e tenta novamente."
+
         );
 
       }
+
+    }
+
+
+    /* =========================
+       LOADING DO PERFIL
+    ========================= */
+
+    function mostrarLoadingPerfil(){
+
+      document
+        .querySelector("#profileName")
+        .textContent =
+          "A carregar...";
+
+      document
+        .querySelector("#profileBio")
+        .textContent =
+          "A carregar biografia...";
 
     }
 
@@ -1759,6 +1825,14 @@ Todos os direitos reservados.
         .querySelector("#postText")
         .textContent =
           profileData.bio;
+
+
+      document
+        .querySelector("#followers")
+        .textContent =
+          formatNumber(
+            profileData.followers
+          );
 
 
       /* FOTO */
@@ -1840,11 +1914,8 @@ Todos os direitos reservados.
             texto(
 
               data.artistaId,
-
               data.artistId,
-
               data.userId,
-
               data.uid
 
             );
@@ -1870,10 +1941,6 @@ Todos os direitos reservados.
 
         });
 
-
-        /*
-          Mais recentes primeiro
-        */
 
         artistSongs.sort(
           (a,b) => {
@@ -1935,11 +2002,8 @@ Todos os direitos reservados.
 
             const views =
               numero(
-
                 song.views,
-
                 song.visualizacoes
-
               );
 
 
@@ -1947,9 +2011,7 @@ Todos os direitos reservados.
 
               <div class="song">
 
-                <div
-                  class="song-cover"
-                >
+                <div class="song-cover">
 
                   ${
                     cover
@@ -1969,9 +2031,11 @@ Todos os direitos reservados.
                 <div class="song-info">
 
                   <div class="song-name">
+
                     ${escapeHtml(
                       tituloMusica(song)
                     )}
+
                   </div>
 
                   <div class="song-meta">
@@ -2030,6 +2094,7 @@ Todos os direitos reservados.
           error
         );
 
+
         list.innerHTML =
           `
             <div class="empty">
@@ -2081,19 +2146,12 @@ Todos os direitos reservados.
             texto(
 
               data.artistaId,
-
               data.artistId,
-
               data.userId,
-
               data.uid
 
             );
 
-
-          /*
-            SOMENTE VÍDEOS PUBLICADOS
-          */
 
           if(
 
@@ -2153,7 +2211,9 @@ Todos os direitos reservados.
               </div>
             `;
 
-        } else {
+        }
+
+        else{
 
           grid.innerHTML =
             artistVideos
@@ -2167,7 +2227,6 @@ Todos os direitos reservados.
                 numero(
 
                   video.views,
-
                   video.visualizacoes
 
                 );
@@ -2177,9 +2236,7 @@ Todos os direitos reservados.
                 texto(
 
                   video.duracaoFormatada,
-
                   video.duracao,
-
                   ""
 
                 );
@@ -2206,10 +2263,12 @@ Todos os direitos reservados.
                     ${
                       cover
                       ?
-                      `<img
-                        src="${escapeAttr(cover)}"
-                        alt=""
-                      >`
+                      `
+                        <img
+                          src="${escapeAttr(cover)}"
+                          alt=""
+                        >
+                      `
                       :
                       ""
                     }
@@ -2235,9 +2294,11 @@ Todos os direitos reservados.
                   <div class="video-info">
 
                     <div class="video-title">
+
                       ${escapeHtml(
                         tituloVideo(video)
                       )}
+
                     </div>
 
                     <div class="video-meta">
@@ -2259,29 +2320,37 @@ Todos os direitos reservados.
         }
 
 
-        /* SOMAR VIEWS */
+        /* VIEWS */
 
         const musicViews =
           artistSongs.reduce(
+
             (total,song) =>
+
               total +
               numero(
                 song.views,
                 song.visualizacoes
               ),
+
             0
+
           );
 
 
         const videoViews =
           artistVideos.reduce(
+
             (total,video) =>
+
               total +
               numero(
                 video.views,
                 video.visualizacoes
               ),
+
             0
+
           );
 
 
@@ -2293,14 +2362,6 @@ Todos os direitos reservados.
               videoViews
             );
 
-
-        document
-          .querySelector("#followers")
-          .textContent =
-            formatNumber(
-              profileData.followers
-            );
-
       }
 
       catch(error){
@@ -2309,6 +2370,7 @@ Todos os direitos reservados.
           "Erro nos vídeos:",
           error
         );
+
 
         grid.innerHTML =
           `
@@ -2392,7 +2454,9 @@ Todos os direitos reservados.
         .map(network => {
 
           const url =
-            prepararUrl(network[1]);
+            prepararUrl(
+              network[1]
+            );
 
 
           return `
@@ -2442,10 +2506,6 @@ Todos os direitos reservados.
         if(!audio) return;
 
 
-        /*
-          Pausar todos os outros
-        */
-
         document
           .querySelectorAll(
             ".song audio"
@@ -2456,10 +2516,12 @@ Todos os direitos reservados.
 
               other.pause();
 
+
               const otherButton =
                 other
-                .closest(".song")
-                ?.querySelector(".play");
+                  .closest(".song")
+                  ?.querySelector(".play");
+
 
               if(otherButton){
 
@@ -2489,7 +2551,9 @@ Todos os direitos reservados.
 
             });
 
-        } else {
+        }
+
+        else{
 
           audio.pause();
 
@@ -2532,7 +2596,9 @@ Todos os direitos reservados.
           button.textContent =
             "✓ A SEGUIR";
 
-        } else {
+        }
+
+        else{
 
           button.textContent =
             "+ SEGUIR";
@@ -2548,6 +2614,13 @@ Todos os direitos reservados.
 
     window.partilharPerfil =
       async function(){
+
+        if(!profileData){
+
+          return;
+
+        }
+
 
         const url =
           window.location.href;
@@ -2582,13 +2655,16 @@ Todos os direitos reservados.
 
           }
 
-        } else {
+        }
+
+        else{
 
           try{
 
             await navigator.clipboard.writeText(
               url
             );
+
 
             alert(
               "Link do perfil copiado!"
@@ -2625,9 +2701,11 @@ Todos os direitos reservados.
             ".tab"
           )
           .forEach(tab =>
+
             tab.classList.remove(
               "active"
             )
+
           );
 
 
@@ -2636,9 +2714,11 @@ Todos os direitos reservados.
             ".tab-content"
           )
           .forEach(content =>
+
             content.classList.remove(
               "active"
             )
+
           );
 
 
@@ -2647,13 +2727,19 @@ Todos os direitos reservados.
         );
 
 
-        document
-          .querySelector(
+        const content =
+          document.querySelector(
             "#" + tabId
-          )
-          .classList.add(
+          );
+
+
+        if(content){
+
+          content.classList.add(
             "active"
           );
+
+        }
 
       };
 
@@ -2679,33 +2765,34 @@ Todos os direitos reservados.
           links.style.display =
             "none";
 
-        } else {
-
-          links.style.display =
-            "flex";
-
-          links.style.position =
-            "absolute";
-
-          links.style.top =
-            "70px";
-
-          links.style.right =
-            "4%";
-
-          links.style.padding =
-            "15px";
-
-          links.style.background =
-            "#101010";
-
-          links.style.border =
-            "1px solid #2a271f";
-
-          links.style.flexDirection =
-            "column";
+          return;
 
         }
+
+
+        links.style.display =
+          "flex";
+
+        links.style.position =
+          "absolute";
+
+        links.style.top =
+          "70px";
+
+        links.style.right =
+          "4%";
+
+        links.style.padding =
+          "15px";
+
+        links.style.background =
+          "#101010";
+
+        links.style.border =
+          "1px solid #2a271f";
+
+        links.style.flexDirection =
+          "column";
 
       };
 
@@ -2732,9 +2819,33 @@ Todos os direitos reservados.
 
 
       document
+        .querySelector("#profileLocation")
+        .textContent =
+          "";
+
+
+      document
         .querySelector("#profileBio")
         .textContent =
           mensagem;
+
+
+      document
+        .querySelector("#musicCount")
+        .textContent =
+          "0";
+
+
+      document
+        .querySelector("#followers")
+        .textContent =
+          "0";
+
+
+      document
+        .querySelector("#views")
+        .textContent =
+          "0";
 
 
       document
@@ -2770,7 +2881,13 @@ Todos os direitos reservados.
               class="empty"
               style="grid-column:1/-1"
             >
+
+              <strong>
+                ⚠ Perfil indisponível
+              </strong>
+
               ${escapeHtml(mensagem)}
+
             </div>
           `;
 
@@ -2789,7 +2906,9 @@ Todos os direitos reservados.
           notation:"compact",
           maximumFractionDigits:1
         }
-      ).format(number || 0);
+      ).format(
+        Number(number) || 0
+      );
 
     }
 
@@ -2812,10 +2931,6 @@ Todos os direitos reservados.
         !/^https?:\/\//i.test(url)
       ){
 
-        /*
-          Instagram
-        */
-
         if(
           url.startsWith("@")
         ){
@@ -2826,10 +2941,6 @@ Todos os direitos reservados.
 
         }
 
-
-        /*
-          TikTok
-        */
 
         if(
           !url.includes(" ") &&
@@ -2853,11 +2964,31 @@ Todos os direitos reservados.
     function escapeHtml(value){
 
       return String(value ?? "")
-        .replace(/&/g,"&amp;")
-        .replace(/</g,"&lt;")
-        .replace(/>/g,"&gt;")
-        .replace(/"/g,"&quot;")
-        .replace(/'/g,"&#039;");
+
+        .replace(
+          /&/g,
+          "&amp;"
+        )
+
+        .replace(
+          /</g,
+          "&lt;"
+        )
+
+        .replace(
+          />/g,
+          "&gt;"
+        )
+
+        .replace(
+          /"/g,
+          "&quot;"
+        )
+
+        .replace(
+          /'/g,
+          "&#039;"
+        );
 
     }
 
@@ -2872,8 +3003,17 @@ Todos os direitos reservados.
     function escapeCssUrl(value){
 
       return String(value ?? "")
-        .replace(/\\/g,"\\\\")
-        .replace(/'/g,"\\'");
+
+        .replace(
+          /\\/g,
+          "\\\\"
+        )
+
+        .replace(
+          /'/g,
+          "\\'"
+        );
+
     }
 
 
@@ -2881,7 +3021,19 @@ Todos os direitos reservados.
        INICIAR
     ========================= */
 
-    if(requestedUser){
+    if(!requestedUser){
+
+      mostrarErro(
+
+        "Perfil não encontrado",
+
+        "Nenhum artista foi selecionado."
+
+      );
+
+    }
+
+    else{
 
       carregarArtista();
 
