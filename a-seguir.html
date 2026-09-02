@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>A Seguir — KUDURO PRIME</title>
+
+  <style>
+    :root{
+      --bg:#070707;
+      --panel:#111;
+      --panel2:#171717;
+      --gold:#f4bf31;
+      --gold2:#ffdc6b;
+      --text:#f7f4ed;
+      --muted:#9d9d9d;
+      --line:#292929;
+      --red:#ff5b4a;
+      --green:#45d695;
+    }
+
+    *{
+      box-sizing:border-box;
+    }
+
+    body{
+      margin:0;
+      min-height:100vh;
+      background:
+        radial-gradient(
+          circle at 50% -10%,
+          rgba(244,191,49,.12),
+          transparent 35%
+        ),
+        var(--bg);
+      color:var(--text);
+      font-family:Arial,Helvetica,sans-serif;
+    }
+
+    a{
+      color:inherit;
+      text-decoration:none;
+    }
+
+    .top{
+      height:72px;
+      position:sticky;
+      top:0;
+      z-index:100;
+      display:flex;
+      align-items:center;
+      border-bottom:1px solid var(--line);
+      background:rgba(7,7,7,.96);
+      backdrop-filter:blur(15px);
+    }
+
+    .top-in{
+      width:min(760px,92%);
+      margin:auto;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+    }
+
+    .brand{
+      font-size:18px;
+      font-weight:900;
+      letter-spacing:-1px;
+    }
+
+    .brand span{
+      color:var(--gold);
+    }
+
+    .back{
+      color:var(--gold);
+      font-size:13px;
+      font-weight:900;
+    }
+
+    main{
+      width:min(760px,92%);
+      margin:auto;
+      padding:30px 0 70px;
+    }
+
+    .head{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:20px;
+      margin-bottom:25px;
+    }
+
+    h1{
+      margin:0;
+      font-size:32px;
+      letter-spacing:-1px;
+    }
+
+    .subtitle{
+      margin:7px 0 0;
+      color:var(--muted);
+      font-size:13px;
+    }
+
+    .count{
+      min-width:42px;
+      height:42px;
+      padding:0 12px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      border:1px solid rgba(244,191,49,.35);
+      border-radius:50px;
+      color:var(--gold);
+      font-size:13px;
+      font-weight:900;
+      background:rgba(244,191,49,.06);
+    }
+
+    .list{
+      display:grid;
+      gap:12px;
+    }
+
+    .user-card{
+      display:flex;
+      align-items:center;
+      gap:14px;
+      padding:14px;
+      background:linear-gradient(
+        145deg,
+        var(--panel2),
+        var(--panel)
+      );
+      border:1px solid var(--line);
+      border-radius:16px;
+      transition:.2s;
+    }
+
+    .user-card:hover{
+      border-color:rgba(244,191,49,.55);
+      transform:translateY(-1px);
+    }
+
+    .avatar{
+      width:58px;
+      height:58px;
+      flex:0 0 auto;
+      border-radius:50%;
+      overflow:hidden;
+      display:grid;
+      place-items:center;
+      background:#1c1608;
+      border:1px solid rgba(244,191,49,.35);
+      color:var(--gold);
+      font-size:22px;
+    }
+
+    .avatar img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
+
+    .user-info{
+      min-width:0;
+      flex:1;
+    }
+
+    .name{
+      display:flex;
+      align-items:center;
+      gap:5px;
+      font-size:14px;
+      font-weight:900;
+    }
+
+    .verified{
+      color:#4eb8ff;
+      font-size:12px;
+    }
+
+    .username{
+      margin-top:4px;
+      color:var(--gold);
+      font-size:11px;
+      font-weight:bold;
+    }
+
+    .genre{
+      margin-top:5px;
+      color:var(--muted);
+      font-size:11px;
+    }
+
+    .actions{
+      display:flex;
+      gap:8px;
+      flex-shrink:0;
+    }
+
+    .btn{
+      min-height:38px;
+      padding:0 13px;
+      border-radius:9px;
+      cursor:pointer;
+      font-size:10px;
+      font-weight:900;
+      transition:.2s;
+    }
+
+    .profile-btn{
+      border:1px solid var(--line);
+      background:#0c0c0c;
+      color:#ddd;
+    }
+
+    .unfollow-btn{
+      border:1px solid rgba(244,191,49,.5);
+      background:transparent;
+      color:var(--gold);
+    }
+
+    .unfollow-btn:hover{
+      background:rgba(255,91,74,.1);
+      border-color:var(--red);
+      color:var(--red);
+    }
+
+    .loading{
+      padding:45px 20px;
+      text-align:center;
+      color:var(--muted);
+      background:var(--panel);
+      border:1px solid var(--line);
+      border-radius:16px;
+      font-size:13px;
+    }
+
+    .empty{
+      display:none;
+      padding:60px 20px;
+      text-align:center;
+      background:linear-gradient(
+        145deg,
+        var(--panel2),
+        var(--panel)
+      );
+      border:1px solid var(--line);
+      border-radius:18px;
+    }
+
+    .empty-icon{
+      font-size:55px;
+      margin-bottom:15px;
+    }
+
+    .empty h2{
+      margin:0 0 10px;
+      font-size:21px;
+    }
+
+    .empty p{
+      max-width:380px;
+      margin:0 auto 22px;
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.6;
+    }
+
+    .discover{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:13px 20px;
+      border-radius:10px;
+      background:linear-gradient(
+        135deg,
+        var(--gold2),
+        var(--gold)
+      );
+      color:#17120a;
+      font-size:11px;
+      font-weight:900;
+    }
+
+    .error{
+      display:none;
+      margin-bottom:16px;
+      padding:14px;
+      background:rgba(255,91,74,.1);
+      border:1px solid rgba(255,91,74,.3);
+      border-radius:10px;
+      color:#ff9184;
+      font-size:12px;
+    }
+
+    @media(max-width:600px){
+
+      main{
+        padding-top:24px;
+      }
+
+      h1{
+        font-size:27px;
+      }
+
+      .user-card{
+        gap:10px;
+        padding:12px;
+      }
+
+      .avatar{
+        width:52px;
+        height:52px;
+      }
+
+      .profile-btn{
+        display:none;
+      }
+
+      .unfollow-btn{
+        padding:0 10px;
+      }
+
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="top">
+
+    <div class="top-in">
+
+      <a
+        href="feed.html"
+        class="brand"
+      >
+        👑 KUDURO <span>PRIME</span>
+      </a>
+
+      <a
+        href="meu-perfil.html"
+        class="back"
+      >
+        ← VOLTAR
+      </a>
+
+    </div>
+
+  </header>
+
+
+  <main>
+
+    <div class="head">
+
+      <div>
+
+        <h1>A SEGUIR</h1>
+
+        <p class="subtitle">
+          Artistas e utilizadores que segues.
+        </p>
+
+      </div>
+
+      <div
+        class="count"
+        id="followingCount"
+      >
+        0
+      </div>
+
+    </div>
+
+
+    <div
+      class="error"
+      id="error"
+    ></div>
+
+
+    <div
+      class="list"
+      id="followingList"
+    >
+
+      <div class="loading">
+        A carregar quem segues...
+      </div>
+
+    </div>
+
+
+    <div
+      class="empty"
+      id="empty"
+    >
+
+      <div class="empty-icon">
+        👑
+      </div>
+
+      <h2>Ainda não segues ninguém</h2>
+
+      <p>
+        Descobre artistas do KUDURO PRIME
+        e começa a seguir os teus favoritos.
+      </p>
+
+      <a
+        href="artistas.html"
+        class="discover"
+      >
+        DESCOBRIR ARTISTAS
+      </a>
+
+    </div>
+
+  </main>
+
+
+  <script type="module">
+
+    import {
+      initializeApp
+    } from
+    "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+
+
+    import {
+      getAuth,
+      onAuthStateChanged
+    } from
+    "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+
+
+    import {
+      getFirestore,
+      collection,
+      query,
+      where,
+      getDocs,
+      doc,
+      getDoc,
+      deleteDoc
+    } from
+    "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+
+
+    const firebaseConfig = {
+
+      apiKey:
+        "AIzaSyDoitCcLeLDNBNPCP6fG1s_xbHr4UmohSo",
+
+      authDomain:
+        "kuduro-prime.firebaseapp.com",
+
+      projectId:
+        "kuduro-prime",
+
+      storageBucket:
+        "kuduro-prime.firebasestorage.app",
+
+      messagingSenderId:
+        "299776559545",
+
+      appId:
+        "1:299776559545:web:04aced1ba25391eb3fce68"
+
+    };
+
+
+    const app =
+      initializeApp(firebaseConfig);
+
+
+    const auth =
+      getAuth(app);
+
+
+    const db =
+      getFirestore(app);
+
+
+    const followingList =
+      document.getElementById(
+        "followingList"
+      );
+
+
+    const followingCount =
+      document.getElementById(
+        "followingCount"
+      );
+
+
+    const empty =
+      document.getElementById(
+        "empty"
+      );
+
+
+    const errorBox =
+      document.getElementById(
+        "error"
+      );
+
+
+    let currentUser = null;
+
+
+    onAuthStateChanged(
+      auth,
+      async user => {
+
+        if(!user){
+
+          window.location.href =
+            "area-do-artista.html";
+
+          return;
+
+        }
+
+
+        currentUser = user;
+
+        await loadFollowing();
+
+      }
+    );
+
+
+    async function loadFollowing(){
+
+      try{
+
+        followingList.innerHTML =
+          `
+            <div class="loading">
+              A carregar quem segues...
+            </div>
+          `;
+
+
+        empty.style.display =
+          "none";
+
+
+        const followingQuery =
+          query(
+
+            collection(
+              db,
+              "seguidores"
+            ),
+
+            where(
+              "seguidorId",
+              "==",
+              currentUser.uid
+            )
+
+          );
+
+
+        const snapshot =
+          await getDocs(
+            followingQuery
+          );
+
+
+        followingCount.textContent =
+          snapshot.size;
+
+
+        if(snapshot.empty){
+
+          followingList.innerHTML =
+            "";
+
+          empty.style.display =
+            "block";
+
+          return;
+
+        }
+
+
+        const users =
+          [];
+
+
+        for(
+          const followDoc
+          of
+          snapshot.docs
+        ){
+
+          const followData =
+            followDoc.data();
+
+
+          const followedId =
+            followData.seguidoId;
+
+
+          if(!followedId)
+            continue;
+
+
+          try{
+
+            const artistRef =
+              doc(
+                db,
+                "artists",
+                followedId
+              );
+
+
+            const artistSnap =
+              await getDoc(
+                artistRef
+              );
+
+
+            if(
+              artistSnap.exists()
+            ){
+
+              users.push({
+
+                followId:
+                  followDoc.id,
+
+                uid:
+                  followedId,
+
+                data:
+                  artistSnap.data()
+
+              });
+
+            }
+
+          }
+          catch(error){
+
+            console.error(
+              "Erro ao carregar utilizador:",
+              error
+            );
+
+          }
+
+        }
+
+
+        renderUsers(
+          users
+        );
+
+      }
+      catch(error){
+
+        console.error(
+          "Erro ao carregar a seguir:",
+          error
+        );
+
+
+        followingList.innerHTML =
+          "";
+
+
+        showError(
+          "Erro ao carregar quem segues: "
+          +
+          error.message
+        );
+
+      }
+
+    }
+
+
+    function renderUsers(
+      users
+    ){
+
+      if(!users.length){
+
+        followingList.innerHTML =
+          "";
+
+        empty.style.display =
+          "block";
+
+        followingCount.textContent =
+          "0";
+
+        return;
+
+      }
+
+
+      followingList.innerHTML =
+        users
+        .map(
+          user => {
+
+            const data =
+              user.data;
+
+
+            const name =
+              data.artistName
+              ||
+              data.nome
+              ||
+              data.name
+              ||
+              "Artista Prime";
+
+
+            const username =
+              data.username
+              ||
+              "artista";
+
+
+            const photo =
+              data.photo
+              ||
+              data.foto
+              ||
+              "";
+
+
+            const genre =
+              data.genre
+              ||
+              data.estilo
+              ||
+              "Kuduro";
+
+
+            const verified =
+              data.verified
+              ||
+              data.verificado;
+
+
+            return `
+
+              <article
+                class="user-card"
+                id="follow-${user.followId}"
+              >
+
+                <a
+                  href="perfil.html?user=${user.uid}"
+                  class="avatar"
+                >
+
+                  ${
+                    photo
+                    ?
+                    `
+                      <img
+                        src="${photo}"
+                        alt="${name}"
+                      >
+                    `
+                    :
+                    "👤"
+                  }
+
+                </a>
+
+
+                <a
+                  href="perfil.html?user=${user.uid}"
+                  class="user-info"
+                >
+
+                  <div class="name">
+
+                    ${escapeHtml(name)}
+
+                    ${
+                      verified
+                      ?
+                      `
+                        <span
+                          class="verified"
+                        >
+                          ●
+                        </span>
+                      `
+                      :
+                      ""
+                    }
+
+                  </div>
+
+
+                  <div class="username">
+                    @${escapeHtml(username)}
+                  </div>
+
+
+                  <div class="genre">
+                    🎵 ${escapeHtml(genre)}
+                  </div>
+
+                </a>
+
+
+                <div class="actions">
+
+                  <a
+                    href="perfil.html?user=${user.uid}"
+                  >
+
+                    <button
+                      class="btn profile-btn"
+                    >
+                      PERFIL
+                    </button>
+
+                  </a>
+
+
+                  <button
+                    class="btn unfollow-btn"
+                    onclick="
+                      deixarDeSeguir(
+                        '${user.followId}',
+                        '${escapeForJs(name)}'
+                      )
+                    "
+                  >
+                    A SEGUIR
+                  </button>
+
+                </div>
+
+              </article>
+
+            `;
+
+          }
+        )
+        .join("");
+
+    }
+
+
+    window.deixarDeSeguir =
+      async function(
+        followId,
+        name
+      ){
+
+        const confirmar =
+          confirm(
+            `Deixar de seguir ${name}?`
+          );
+
+
+        if(!confirmar)
+          return;
+
+
+        try{
+
+          await deleteDoc(
+
+            doc(
+              db,
+              "seguidores",
+              followId
+            )
+
+          );
+
+
+          const card =
+            document.getElementById(
+              "follow-" + followId
+            );
+
+
+          if(card){
+
+            card.remove();
+
+          }
+
+
+          const newCount =
+            Math.max(
+
+              0,
+
+              Number(
+                followingCount.textContent
+              )
+              - 1
+
+            );
+
+
+          followingCount.textContent =
+            newCount;
+
+
+          if(newCount === 0){
+
+            empty.style.display =
+              "block";
+
+          }
+
+        }
+        catch(error){
+
+          console.error(
+            "Erro ao deixar de seguir:",
+            error
+          );
+
+
+          alert(
+            "Não foi possível deixar de seguir: "
+            +
+            error.message
+          );
+
+        }
+
+      };
+
+
+    function showError(
+      text
+    ){
+
+      errorBox.textContent =
+        text;
+
+      errorBox.style.display =
+        "block";
+
+    }
+
+
+    function escapeHtml(
+      text
+    ){
+
+      const div =
+        document.createElement(
+          "div"
+        );
+
+
+      div.textContent =
+        text;
+
+
+      return div.innerHTML;
+
+    }
+
+
+    function escapeForJs(
+      text
+    ){
+
+      return String(text)
+        .replace(/\\/g,"\\\\")
+        .replace(/'/g,"\\'");
+
+    }
+
+  </script>
+
+</body>
+</html>
