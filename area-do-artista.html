@@ -202,6 +202,7 @@
     }
 
     @media(max-width:500px){
+
       body{
         padding:15px;
       }
@@ -217,6 +218,7 @@
       h1{
         font-size:21px;
       }
+
     }
   </style>
 </head>
@@ -305,6 +307,10 @@
   </main>
 
 
+  <!-- =========================================
+       FIREBASE LOGIN
+  ========================================== -->
+
   <script type="module">
 
     import {
@@ -315,16 +321,16 @@
 
     import {
       getAuth,
+      setPersistence,
+      browserLocalPersistence,
       signInWithEmailAndPassword
     } from
       "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
 
 
-    /*
-    ==========================================
-    FIREBASE
-    ==========================================
-    */
+    /* =========================================
+       CONFIGURAÇÃO FIREBASE
+    ========================================= */
 
     const firebaseConfig = {
 
@@ -369,11 +375,9 @@
       document.getElementById("mensagem");
 
 
-    /*
-    ==========================================
-    MENSAGEM
-    ==========================================
-    */
+    /* =========================================
+       MENSAGEM
+    ========================================= */
 
     function showMessage(texto, tipo){
 
@@ -385,11 +389,34 @@
     }
 
 
-    /*
-    ==========================================
-    LOGIN
-    ==========================================
-    */
+    /* =========================================
+       GARANTIR QUE A SESSÃO FICA GUARDADA
+    ========================================= */
+
+    setPersistence(
+      auth,
+      browserLocalPersistence
+    )
+    .then(() => {
+
+      console.log(
+        "Firebase: sessão persistente ativada."
+      );
+
+    })
+    .catch((erro) => {
+
+      console.error(
+        "Erro ao ativar persistência:",
+        erro
+      );
+
+    });
+
+
+    /* =========================================
+       LOGIN
+    ========================================= */
 
     loginForm.addEventListener(
       "submit",
@@ -400,15 +427,15 @@
 
         const email =
           document
-          .getElementById("email")
-          .value
-          .trim();
+            .getElementById("email")
+            .value
+            .trim();
 
 
         const password =
           document
-          .getElementById("password")
-          .value;
+            .getElementById("password")
+            .value;
 
 
         if(!email || !password){
@@ -431,8 +458,16 @@
 
         try{
 
+          console.log(
+            "A tentar entrar:",
+            email
+          );
+
+
           /*
-          LOGIN REAL NO FIREBASE
+          ======================================
+          LOGIN FIREBASE
+          ======================================
           */
 
           const resultado =
@@ -455,7 +490,7 @@
 
           /*
           ======================================
-          GUARDAR SESSÃO
+          GUARDAR DADOS DA SESSÃO
           ======================================
           */
 
@@ -506,7 +541,7 @@
 
           /*
           ======================================
-          CHAVE DAS MÚSICAS
+          MÚSICAS DO ARTISTA
           ======================================
           */
 
@@ -528,12 +563,12 @@
 
           /*
           ======================================
-          CONFIRMAÇÃO
+          SUCESSO
           ======================================
           */
 
           showMessage(
-            "Login feito com sucesso! 👑",
+            "Login feito com sucesso! 👑 A entrar no feed...",
             "success"
           );
 
@@ -545,14 +580,22 @@
           /*
           ======================================
           IR DIRETAMENTE PARA O FEED
+
+          IMPORTANTE:
+          NÃO existe painel-do-artista aqui.
           ======================================
           */
 
           setTimeout(
             function(){
 
-              window.location.href =
-                "./feed.html";
+              console.log(
+                "A abrir feed.html..."
+              );
+
+              window.location.replace(
+                "./feed.html"
+              );
 
             },
             700
@@ -560,10 +603,11 @@
 
         }
 
+
         catch(erro){
 
           console.error(
-            "ERRO NO LOGIN:",
+            "ERRO COMPLETO NO LOGIN:",
             erro
           );
 
@@ -620,6 +664,37 @@
                 "Erro de ligação. Verifica a internet.";
 
               break;
+
+
+            case "auth/unauthorized-domain":
+
+              textoErro =
+                "Este domínio não está autorizado no Firebase.";
+
+              break;
+
+
+            case "auth/operation-not-allowed":
+
+              textoErro =
+                "O login por email ainda não está ativado no Firebase.";
+
+              break;
+
+
+            case "auth/user-disabled":
+
+              textoErro =
+                "Esta conta foi desativada.";
+
+              break;
+
+
+            default:
+
+              textoErro =
+                "Erro Firebase: " +
+                (erro.code || "desconhecido");
 
           }
 
