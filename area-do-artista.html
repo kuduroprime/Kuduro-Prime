@@ -1,18 +1,12 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-
   <meta charset="UTF-8">
-
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>Entrar — KUDURO PRIME</title>
 
   <style>
-
     :root{
       --bg:#070707;
       --gold:#f4bf31;
@@ -31,217 +25,133 @@
     body{
       margin:0;
       min-height:100vh;
-
       display:flex;
       align-items:center;
       justify-content:center;
-
       padding:25px;
 
       background:
-        radial-gradient(
-          circle at 90% 0,
-          rgba(244,191,49,.15),
-          transparent 35%
-        ),
-        radial-gradient(
-          circle at 0 100%,
-          rgba(244,191,49,.08),
-          transparent 35%
-        ),
+        radial-gradient(circle at 90% 0, rgba(244,191,49,.15), transparent 35%),
+        radial-gradient(circle at 0 100%, rgba(244,191,49,.08), transparent 35%),
         var(--bg);
 
       color:var(--text);
-
-      font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
+      font-family:Arial, Helvetica, sans-serif;
     }
 
     .box{
       width:min(100%,480px);
-
       padding:38px;
 
       border:1px solid #3b2f12;
-
       border-radius:20px;
 
       background:
-        linear-gradient(
-          145deg,
-          #151515,
-          #0b0b0b
-        );
+        linear-gradient(145deg,#151515,#0b0b0b);
 
-      box-shadow:
-        0 25px 70px
-        rgba(0,0,0,.5);
+      box-shadow:0 25px 70px rgba(0,0,0,.5);
     }
 
     .logo{
       text-align:center;
-
       color:var(--gold);
-
       font-size:28px;
-
       font-weight:900;
-
       margin-bottom:10px;
-
-      letter-spacing:-.5px;
     }
 
     h1{
       margin:15px 0 8px;
-
       text-align:center;
-
       font-size:24px;
     }
 
     .sub{
       margin:0 0 28px;
-
       text-align:center;
-
       color:var(--muted);
-
       font-size:13px;
-
       line-height:1.6;
     }
 
     label{
       display:block;
-
       margin:16px 0 7px;
-
       color:var(--gold);
-
       font-size:10px;
-
       font-weight:900;
-
-      letter-spacing:.5px;
     }
 
     input{
       width:100%;
-
       padding:15px;
 
       border:1px solid var(--line);
-
       border-radius:9px;
-
       outline:none;
 
       background:#0b0b0b;
-
       color:white;
 
       font-size:14px;
-
-      font-family:inherit;
     }
 
     input:focus{
       border-color:var(--gold);
-
-      box-shadow:
-        0 0 0 3px
-        rgba(244,191,49,.07);
+      box-shadow:0 0 0 3px rgba(244,191,49,.07);
     }
 
     button{
       width:100%;
-
       margin-top:25px;
-
       padding:15px;
 
       border:0;
-
       border-radius:9px;
 
-      background:
-        linear-gradient(
-          135deg,
-          var(--gold2),
-          var(--gold)
-        );
+      background:linear-gradient(135deg,var(--gold2),var(--gold));
 
       color:#17120a;
-
       font-size:12px;
-
       font-weight:900;
 
       cursor:pointer;
     }
 
-    button:hover{
-      transform:translateY(-1px);
-    }
-
     button:disabled{
       opacity:.6;
-
       cursor:not-allowed;
-
-      transform:none;
     }
 
     .mensagem{
       display:none;
-
       margin-top:15px;
-
       padding:12px;
 
       border-radius:8px;
-
       text-align:center;
 
       font-size:12px;
-
       line-height:1.5;
     }
 
     .mensagem.error{
       display:block;
-
-      background:
-        rgba(255,86,63,.12);
-
+      background:rgba(255,86,63,.12);
       color:#ff8f7b;
-
-      border:
-        1px solid
-        rgba(255,86,63,.3);
+      border:1px solid rgba(255,86,63,.3);
     }
 
     .mensagem.success{
       display:block;
-
-      background:
-        rgba(72,213,151,.12);
-
+      background:rgba(72,213,151,.12);
       color:var(--green);
-
-      border:
-        1px solid
-        rgba(72,213,151,.3);
+      border:1px solid rgba(72,213,151,.3);
     }
 
     .divider{
       height:1px;
-
       margin:28px 0;
-
       background:var(--line);
     }
 
@@ -251,31 +161,24 @@
 
     .register-area p{
       margin:0 0 14px;
-
       color:var(--muted);
-
       font-size:12px;
     }
 
     .register-link{
       display:block;
-
       width:100%;
-
       padding:14px;
 
       border:1px solid var(--gold);
-
       border-radius:9px;
 
       color:var(--gold);
-
       background:transparent;
 
       text-decoration:none;
 
       font-size:11px;
-
       font-weight:900;
     }
 
@@ -285,15 +188,12 @@
 
     .back-home{
       display:block;
-
       margin-top:25px;
 
       text-align:center;
-
       color:#777;
 
       text-decoration:none;
-
       font-size:11px;
     }
 
@@ -302,7 +202,6 @@
     }
 
     @media(max-width:500px){
-
       body{
         padding:15px;
       }
@@ -318,11 +217,8 @@
       h1{
         font-size:21px;
       }
-
     }
-
   </style>
-
 </head>
 
 <body>
@@ -419,8 +315,7 @@
 
     import {
       getAuth,
-      signInWithEmailAndPassword,
-      onAuthStateChanged
+      signInWithEmailAndPassword
     } from
       "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
 
@@ -492,67 +387,13 @@
 
     /*
     ==========================================
-    SE JÁ ESTIVER LOGADO
-    VAI DIRETO PARA O FEED
-    ==========================================
-    */
-
-    onAuthStateChanged(auth, (user) => {
-
-      if(user){
-
-        /*
-        Mantém as duas chaves para
-        compatibilidade com o feed.
-        */
-
-        localStorage.setItem(
-          "kpLoggedIn",
-          "true"
-        );
-
-        localStorage.setItem(
-          "kpArtistLoggedIn",
-          "true"
-        );
-
-        localStorage.setItem(
-          "kpArtistUID",
-          user.uid
-        );
-
-        if(user.email){
-
-          localStorage.setItem(
-            "kpArtistEmail",
-            user.email
-          );
-
-        }
-
-        /*
-        NÃO VAI MAIS PARA O PAINEL.
-        VAI DIRETAMENTE PARA O FEED.
-        */
-
-        window.location.replace(
-          "feed.html"
-        );
-
-      }
-
-    });
-
-
-    /*
-    ==========================================
     LOGIN
     ==========================================
     */
 
     loginForm.addEventListener(
       "submit",
-      async (event) => {
+      async function(event){
 
         event.preventDefault();
 
@@ -591,7 +432,7 @@
         try{
 
           /*
-          LOGIN FIREBASE
+          LOGIN REAL NO FIREBASE
           */
 
           const resultado =
@@ -606,35 +447,15 @@
             resultado.user;
 
 
-          /*
-          ======================================
-          NOME DO ARTISTA
-          ======================================
-          */
-
-          const artistName =
-
-            localStorage.getItem(
-              "kpArtistStageName"
-            )
-
-            ||
-
-            user.displayName
-
-            ||
-
-            user.email
-              .split("@")[0]
-
-            ||
-
-            "Artista Prime";
+          console.log(
+            "LOGIN FIREBASE OK:",
+            user.uid
+          );
 
 
           /*
           ======================================
-          GUARDA A SESSÃO
+          GUARDAR SESSÃO
           ======================================
           */
 
@@ -651,15 +472,30 @@
 
 
           localStorage.setItem(
-            "kpArtistEmail",
-            user.email
+            "kpArtistUID",
+            user.uid
           );
 
 
           localStorage.setItem(
-            "kpArtistUID",
-            user.uid
+            "kpArtistEmail",
+            user.email || email
           );
+
+
+          /*
+          ======================================
+          NOME DO ARTISTA
+          ======================================
+          */
+
+          const artistName =
+            user.displayName ||
+            localStorage.getItem(
+              "kpArtistStageName"
+            ) ||
+            email.split("@")[0] ||
+            "Artista Prime";
 
 
           localStorage.setItem(
@@ -670,13 +506,12 @@
 
           /*
           ======================================
-          LISTA DE MÚSICAS
+          CHAVE DAS MÚSICAS
           ======================================
           */
 
           const songsKey =
-            "kpArtistSongs_" +
-            user.uid;
+            "kpArtistSongs_" + user.uid;
 
 
           if(
@@ -693,12 +528,12 @@
 
           /*
           ======================================
-          LOGIN CONCLUÍDO
+          CONFIRMAÇÃO
           ======================================
           */
 
           showMessage(
-            "Login feito com sucesso! 👑 A entrar no feed...",
+            "Login feito com sucesso! 👑",
             "success"
           );
 
@@ -709,18 +544,19 @@
 
           /*
           ======================================
-          VAI PARA O FEED
+          IR DIRETAMENTE PARA O FEED
           ======================================
           */
 
-          setTimeout(() => {
+          setTimeout(
+            function(){
 
-            window.location.replace(
-              "feed.html"
-            );
+              window.location.href =
+                "./feed.html";
 
-          }, 500);
-
+            },
+            700
+          );
 
         }
 
@@ -736,68 +572,54 @@
             "Não foi possível entrar. Tenta novamente.";
 
 
-          if(
-            erro.code ===
-            "auth/invalid-credential"
-          ){
+          switch(erro.code){
 
-            textoErro =
-              "Gmail ou palavra-passe incorretos.";
+            case "auth/invalid-credential":
 
-          }
+              textoErro =
+                "Gmail ou palavra-passe incorretos.";
 
-
-          if(
-            erro.code ===
-            "auth/user-not-found"
-          ){
-
-            textoErro =
-              "Não existe nenhuma conta com este Gmail.";
-
-          }
+              break;
 
 
-          if(
-            erro.code ===
-            "auth/wrong-password"
-          ){
+            case "auth/user-not-found":
 
-            textoErro =
-              "A palavra-passe está incorreta.";
+              textoErro =
+                "Não existe nenhuma conta com este Gmail.";
 
-          }
+              break;
 
 
-          if(
-            erro.code ===
-            "auth/invalid-email"
-          ){
+            case "auth/wrong-password":
 
-            textoErro =
-              "Introduz um Gmail válido.";
+              textoErro =
+                "A palavra-passe está incorreta.";
 
-          }
+              break;
 
 
-          if(
-            erro.code ===
-            "auth/too-many-requests"
-          ){
+            case "auth/invalid-email":
 
-            textoErro =
-              "Muitas tentativas. Aguarda um pouco antes de tentar novamente.";
+              textoErro =
+                "Introduz um Gmail válido.";
 
-          }
+              break;
 
 
-          if(
-            erro.code ===
-            "auth/network-request-failed"
-          ){
+            case "auth/too-many-requests":
 
-            textoErro =
-              "Erro de ligação. Verifica a internet e tenta novamente.";
+              textoErro =
+                "Muitas tentativas. Aguarda um pouco.";
+
+              break;
+
+
+            case "auth/network-request-failed":
+
+              textoErro =
+                "Erro de ligação. Verifica a internet.";
+
+              break;
 
           }
 
