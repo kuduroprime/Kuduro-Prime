@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Dashboard do Artista — KUDURO PRIME</title>
+
+  <style>
+    :root{
+      --bg:#070707;
+      --panel:#101010;
+      --panel2:#151515;
+      --gold:#f4bf31;
+      --gold2:#ffdc6b;
+      --text:#f7f4ed;
+      --muted:#aaa59a;
+      --line:#2a271f;
+      --green:#48d597;
+      --red:#ff563f;
+    }
+
+    *{
+      box-sizing:border-box;
+    }
+
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--text);
+      font-family:Arial,Helvetica,sans-serif;
+    }
+
+    a{
+      color:inherit;
+      text-decoration:none;
+    }
+
+    button,
+    input,
+    select,
+    textarea{
+      font:inherit;
+    }
+
+    button{
+      cursor:pointer;
+    }
+
+    .app{
+      min-height:100vh;
+      display:grid;
+      grid-template-columns:260px 1fr;
+    }
+
+    .sidebar{
+      position:sticky;
+      top:0;
+      height:100vh;
+      padding:24px 14px;
+      background:#090909;
+      border-right:1px solid var(--line);
+      display:flex;
+      flex-direction:column;
+    }
+
+    .brand{
+      display:block;
+      margin:0 12px 35px;
+      font-size:22px;
+      line-height:.9;
+      font-weight:900;
+    }
+
+    .crown{
+      display:block;
+      text-align:center;
+      color:var(--gold);
+      font-size:24px;
+    }
+
+    .brand b{
+      display:block;
+      color:var(--gold);
+    }
+
+    .profile-box{
+      padding:14px;
+      display:flex;
+      align-items:center;
+      gap:10px;
+      border:1px solid #5e4b18;
+      border-radius:12px;
+      background:#121212;
+      margin-bottom:18px;
+    }
+
+    .profile-icon{
+      width:42px;
+      height:42px;
+      display:grid;
+      place-items:center;
+      border-radius:50%;
+      background:#211908;
+      color:var(--gold);
+      font-size:20px;
+    }
+
+    .profile-box strong{
+      display:block;
+      font-size:11px;
+    }
+
+    .profile-box span{
+      display:block;
+      margin-top:4px;
+      color:var(--muted);
+      font-size:9px;
+    }
+
+    .nav-title{
+      margin:15px 12px 7px;
+      color:#666;
+      font-size:9px;
+      font-weight:900;
+      letter-spacing:1px;
+    }
+
+    .side-link{
+      width:100%;
+      padding:12px;
+      display:block;
+      border-radius:8px;
+      color:#aaa;
+      font-size:11px;
+      font-weight:800;
+    }
+
+    .side-link:hover,
+    .side-link.active{
+      color:var(--gold);
+      background:#18140a;
+    }
+
+    .side-bottom{
+      margin-top:auto;
+      padding-top:15px;
+      border-top:1px solid var(--line);
+    }
+
+    .logout{
+      width:100%;
+      padding:12px;
+      border:0;
+      background:transparent;
+      color:#d27b6e;
+      text-align:left;
+      font-size:11px;
+      font-weight:900;
+    }
+
+    .main{
+      min-width:0;
+    }
+
+    .topbar{
+      height:82px;
+      padding:0 4%;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      border-bottom:1px solid var(--line);
+      background:#090909;
+    }
+
+    .topbar h2{
+      margin:0;
+      font-size:18px;
+    }
+
+    .topbar p{
+      margin:5px 0 0;
+      color:var(--muted);
+      font-size:10px;
+    }
+
+    .content{
+      width:min(1050px,94%);
+      margin:35px auto 70px;
+    }
+
+    .welcome{
+      margin-bottom:25px;
+    }
+
+    .welcome h1{
+      margin:0;
+      font-size:30px;
+    }
+
+    .welcome p{
+      margin:8px 0 0;
+      color:var(--muted);
+      font-size:12px;
+    }
+
+    .stats{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:15px;
+      margin-bottom:25px;
+    }
+
+    .stat{
+      padding:20px;
+      background:var(--panel);
+      border:1px solid var(--line);
+      border-radius:14px;
+    }
+
+    .stat-number{
+      font-size:28px;
+      font-weight:900;
+      color:var(--gold);
+    }
+
+    .stat-label{
+      margin-top:6px;
+      color:var(--muted);
+      font-size:9px;
+      font-weight:900;
+    }
+
+    .section{
+      padding:25px;
+      margin-bottom:25px;
+      border:1px solid var(--line);
+      border-radius:15px;
+      background:var(--panel);
+    }
+
+    .section-title{
+      margin:0 0 7px;
+      font-size:19px;
+    }
+
+    .section-text{
+      margin:0 0 22px;
+      color:var(--muted);
+      font-size:11px;
+    }
+
+    .form-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:15px;
+    }
+
+    .field{
+      margin-bottom:15px;
+    }
+
+    .field.full{
+      grid-column:1/-1;
+    }
+
+    label{
+      display:block;
+      margin-bottom:7px;
+      color:#ccc;
+      font-size:10px;
+      font-weight:900;
+    }
+
+    input,
+    select,
+    textarea{
+      width:100%;
+      padding:13px;
+      border:1px solid var(--line);
+      border-radius:8px;
+      outline:none;
+      background:#080808;
+      color:white;
+      font-size:11px;
+    }
+
+    textarea{
+      min-height:90px;
+      resize:vertical;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus{
+      border-color:var(--gold);
+    }
+
+    .btn{
+      padding:12px 18px;
+      border:1px solid var(--gold);
+      border-radius:8px;
+      background:var(--gold);
+      color:#17120a;
+      font-size:10px;
+      font-weight:900;
+    }
+
+    .btn:hover{
+      filter:brightness(1.1);
+    }
+
+    .message{
+      display:none;
+      margin-top:15px;
+      padding:12px;
+      border-radius:8px;
+      font-size:11px;
+    }
+
+    .message.success{
+      display:block;
+      color:var(--green);
+      background:#10251b;
+      border:1px solid #1d5c3d;
+    }
+
+    .message.error{
+      display:block;
+      color:#ff9183;
+      background:#2b1110;
+      border:1px solid #6d2924;
+    }
+
+    .songs-list{
+      display:grid;
+      gap:10px;
+    }
+
+    .song{
+      padding:14px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:15px;
+      border:1px solid var(--line);
+      border-radius:10px;
+      background:#0c0c0c;
+    }
+
+    .song-info strong{
+      display:block;
+      font-size:12px;
+    }
+
+    .song-info span{
+      display:block;
+      margin-top:5px;
+      color:var(--muted);
+      font-size:9px;
+    }
+
+    .badge{
+      padding:6px 9px;
+      border-radius:20px;
+      background:#352a0e;
+      color:#ffcf57;
+      font-size:8px;
+      font-weight:900;
+    }
+
+    .empty{
+      padding:35px;
+      text-align:center;
+      color:var(--muted);
+      font-size:11px;
+      border:1px dashed var(--line);
+      border-radius:10px;
+    }
+
+    @media(max-width:760px){
+      .app{
+        display:block;
+      }
+
+      .sidebar{
+        display:none;
+      }
+
+      .stats,
+      .form-grid{
+        grid-template-columns:1fr;
+      }
+
+      .field.full{
+        grid-column:auto;
+      }
+
+      .topbar{
+        height:70px;
+      }
+
+      .content{
+        margin-top:25px;
+      }
+
+      .welcome h1{
+        font-size:24px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="app">
+
+    <aside class="sidebar">
+
+      <a href="index.html" class="brand">
+        <span class="crown">♕</span>
+        KUDURO
+        <b>PRIME</b>
+      </a>
+
+      <div class="profile-box">
+        <div class="profile-icon">👤</div>
+
+        <div>
+          <strong id="sidebarArtistName">ARTISTA</strong>
+          <span>ÁREA DO ARTISTA</span>
+        </div>
+      </div>
+
+      <div class="nav-title">ARTISTA</div>
+
+      <a href="dashboard.html" class="side-link active">
+        📊 Dashboard
+      </a>
+
+      <a href="minhas-musicas.html" class="side-link">
+        🎵 Minhas Músicas
+      </a>
+
+      <a href="meu-perfil.html" class="side-link">
+        👤 Meu Perfil
+      </a>
+
+      <a href="editar-perfil.html" class="side-link">
+        ✏️ Editar Perfil
+      </a>
+
+      <div class="nav-title">PLATAFORMA</div>
+
+      <a href="index.html" class="side-link">
+        🌐 Ver Site
+      </a>
+
+      <div class="side-bottom">
+        <button class="logout" onclick="logout()">
+          ↪ TERMINAR SESSÃO
+        </button>
+      </div>
+
+    </aside>
+
+
+    <main class="main">
+
+      <header class="topbar">
+        <div>
+          <h2>KUDURO PRIME 👑</h2>
+          <p>Painel do Artista</p>
+        </div>
+      </header>
+
+
+      <div class="content">
+
+        <div class="welcome">
+          <h1>Olá, <span id="artistName">Artista</span> 👋</h1>
+
+          <p>
+            Publica as tuas músicas e faz crescer a tua carreira.
+          </p>
+        </div>
+
+
+        <div class="stats">
+
+          <div class="stat">
+            <div class="stat-number" id="totalSongs">0</div>
+            <div class="stat-label">MÚSICAS PUBLICADAS</div>
+          </div>
+
+          <div class="stat">
+            <div class="stat-number" id="pendingSongs">0</div>
+            <div class="stat-label">AGUARDANDO APROVAÇÃO</div>
+          </div>
+
+          <div class="stat">
+            <div class="stat-number" id="approvedSongs">0</div>
+            <div class="stat-label">MÚSICAS APROVADAS</div>
+          </div>
+
+        </div>
+
+
+        <section class="section">
+
+          <h2 class="section-title">🎵 Publicar Nova Música</h2>
+
+          <p class="section-text">
+            A música será enviada para análise do administrador.
+          </p>
+
+          <form id="songForm">
+
+            <div class="form-grid">
+
+              <div class="field">
+                <label>TÍTULO DA MÚSICA</label>
+
+                <input
+                  type="text"
+                  id="songTitle"
+                  placeholder="Ex: Minha Nova Música"
+                  required
+                >
+              </div>
+
+
+              <div class="field">
+                <label>TIPO</label>
+
+                <select id="songType">
+                  <option value="Música">Música</option>
+                  <option value="Instrumental">Instrumental</option>
+                  <option value="Vídeo">Vídeo</option>
+                  <option value="EP">EP</option>
+                  <option value="Álbum">Álbum</option>
+                </select>
+              </div>
+
+
+              <div class="field full">
+                <label>LINK DO ÁUDIO</label>
+
+                <input
+                  type="url"
+                  id="audioUrl"
+                  placeholder="https://..."
+                  required
+                >
+              </div>
+
+
+              <div class="field full">
+                <label>LINK DA CAPA (OPCIONAL)</label>
+
+                <input
+                  type="url"
+                  id="coverUrl"
+                  placeholder="https://..."
+                >
+              </div>
+
+
+              <div class="field full">
+                <label>DESCRIÇÃO (OPCIONAL)</label>
+
+                <textarea
+                  id="songDescription"
+                  placeholder="Informações sobre a música..."
+                ></textarea>
+              </div>
+
+            </div>
+
+            <button type="submit" class="btn">
+              🎵 ENVIAR MÚSICA
+            </button>
+
+            <div class="message" id="message"></div>
+
+          </form>
+
+        </section>
+
+
+        <section class="section">
+
+          <h2 class="section-title">📋 Minhas Últimas Músicas</h2>
+
+          <p class="section-text">
+            Músicas publicadas recentemente.
+          </p>
+
+          <div class="songs-list" id="songsList"></div>
+
+        </section>
+
+      </div>
+
+    </main>
+
+  </div>
+
+
+  <script>
+
+    let artistName = localStorage.getItem("kpArtistName")
+      || localStorage.getItem("artistName")
+      || "Artista";
+
+    document.querySelector("#artistName").textContent = artistName;
+    document.querySelector("#sidebarArtistName").textContent = artistName;
+
+
+    function getSongs(){
+
+      try{
+
+        const songs = JSON.parse(
+          localStorage.getItem("kpSongs") || "[]"
+        );
+
+        return Array.isArray(songs)
+          ? songs
+          : [];
+
+      }
+      catch(error){
+
+        return [];
+
+      }
+
+    }
+
+
+    function saveSongs(songs){
+
+      localStorage.setItem(
+        "kpSongs",
+        JSON.stringify(songs)
+      );
+
+    }
+
+
+    function createSongId(){
+
+      return "kp_" +
+        Date.now() +
+        "_" +
+        Math.random()
+        .toString(36)
+        .substring(2,8);
+
+    }
+
+
+    function getCurrentArtistSongs(){
+
+      const songs = getSongs();
+
+      return songs.filter(song => {
+
+        return song.artist === artistName;
+
+      });
+
+    }
+
+
+    document
+      .querySelector("#songForm")
+      .addEventListener("submit", function(event){
+
+        event.preventDefault();
+
+
+        const title =
+          document.querySelector("#songTitle").value.trim();
+
+        const type =
+          document.querySelector("#songType").value;
+
+        const audio =
+          document.querySelector("#audioUrl").value.trim();
+
+        const cover =
+          document.querySelector("#coverUrl").value.trim();
+
+        const description =
+          document.querySelector("#songDescription").value.trim();
+
+
+        if(!title || !audio){
+
+          showMessage(
+            "Preenche o título e o link do áudio.",
+            "error"
+          );
+
+          return;
+
+        }
+
+
+        const songs = getSongs();
+
+
+        const newSong = {
+
+          id: createSongId(),
+
+          title: title,
+
+          artist: artistName,
+
+          type: type,
+
+          audio: audio,
+
+          cover: cover,
+
+          description: description,
+
+          status: "Pendente",
+
+          date: new Date().toLocaleDateString(
+            "pt-PT"
+          ),
+
+          createdAt: new Date().toISOString()
+
+        };
+
+
+        songs.unshift(newSong);
+
+        saveSongs(songs);
+
+
+        document
+          .querySelector("#songForm")
+          .reset();
+
+
+        showMessage(
+          "Música enviada com sucesso! Aguarda a aprovação do administrador.",
+          "success"
+        );
+
+
+        renderDashboard();
+
+      });
+
+
+    function showMessage(text, type){
+
+      const message =
+        document.querySelector("#message");
+
+      message.textContent = text;
+
+      message.className =
+        "message " + type;
+
+    }
+
+
+    function renderDashboard(){
+
+      const songs =
+        getCurrentArtistSongs();
+
+
+      const total =
+        songs.length;
+
+
+      const pending =
+        songs.filter(song =>
+          song.status === "Pendente"
+        ).length;
+
+
+      const approved =
+        songs.filter(song =>
+          song.status === "Aprovado"
+        ).length;
+
+
+      document
+        .querySelector("#totalSongs")
+        .textContent = total;
+
+
+      document
+        .querySelector("#pendingSongs")
+        .textContent = pending;
+
+
+      document
+        .querySelector("#approvedSongs")
+        .textContent = approved;
+
+
+      renderSongsList(songs);
+
+    }
+
+
+    function renderSongsList(songs){
+
+      const list =
+        document.querySelector("#songsList");
+
+
+      if(songs.length === 0){
+
+        list.innerHTML = `
+          <div class="empty">
+            🎵<br><br>
+            Ainda não publicaste nenhuma música.
+          </div>
+        `;
+
+        return;
+
+      }
+
+
+      const recentSongs =
+        songs.slice(0,5);
+
+
+      list.innerHTML =
+        recentSongs
+        .map(song => {
+
+          const status =
+            song.status || "Pendente";
+
+
+          return `
+
+            <div class="song">
+
+              <div class="song-info">
+
+                <strong>
+                  ${escapeHtml(song.title)}
+                </strong>
+
+                <span>
+                  ${escapeHtml(song.type || "Música")}
+                  •
+                  ${escapeHtml(song.date || "")}
+                </span>
+
+              </div>
+
+              <span class="badge">
+                ${escapeHtml(status)}
+              </span>
+
+            </div>
+
+          `;
+
+        })
+        .join("");
+
+    }
+
+
+    function escapeHtml(value){
+
+      return String(value || "")
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+
+    }
+
+
+    function logout(){
+
+      if(confirm("Deseja terminar a sessão?")){
+
+        localStorage.removeItem("kpArtistName");
+
+        window.location.href =
+          "index.html";
+
+      }
+
+    }
+
+
+    renderDashboard();
+
+  </script>
+
+</body>
+</html>
