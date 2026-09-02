@@ -7,6 +7,20 @@
 
 <title>Vídeos | KUDURO PRIME</title>
 
+<!-- =========================================
+     CLOUDINARY VIDEO PLAYER
+========================================= -->
+
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/cloudinary-video-player/dist/player.min.css"
+/>
+
+<script
+  src="https://cdn.jsdelivr.net/npm/cloudinary-video-player/dist/player.min.js"
+></script>
+
+
 <style>
 
 *{
@@ -101,6 +115,10 @@ h1{
   gap:22px;
 }
 
+/* ==============================
+   CARD
+============================== */
+
 .video-card{
 
   background:
@@ -149,45 +167,71 @@ h1{
   position:relative;
 }
 
-.video-container video{
 
-  width:100%;
+/*
+   PLAYER CLOUDINARY
 
-  height:100%;
+   O vídeo fica dentro
+   do KUDURO PRIME.
+*/
 
-  object-fit:contain;
+.video-container .cld-video-player{
+
+  width:100% !important;
+
+  height:100% !important;
 
   display:block;
 
   background:#000;
-
-  cursor:pointer;
 }
 
-/*
-   IMPORTANTE:
-   O vídeo permanece dentro
-   da página.
-*/
-
-.video-container video::-webkit-media-controls-enclosure{
-  width:100%;
-}
-
-.video-container video::-webkit-media-controls-panel{
-  background:linear-gradient(
-    transparent,
-    rgba(0,0,0,.85)
-  );
-}
 
 /* ==============================
-   CAPA
+   CLOUDINARY PLAYER
 ============================== */
 
-.video-container video[poster]{
-  object-fit:contain;
+.video-js{
+
+  width:100% !important;
+
+  height:100% !important;
+
+  font-family:Arial,Helvetica,sans-serif;
 }
+
+
+/*
+   Cor principal do player
+*/
+
+.video-js .vjs-control-bar{
+
+  background:
+    linear-gradient(
+      transparent,
+      rgba(0,0,0,.95)
+    );
+}
+
+
+.video-js .vjs-play-progress{
+
+  background:#d4af37;
+}
+
+
+.video-js .vjs-volume-level{
+
+  background:#d4af37;
+}
+
+
+.video-js .vjs-slider{
+
+  background:rgba(255,255,255,.25);
+}
+
 
 /* ==============================
    TEXTOS
@@ -437,13 +481,16 @@ footer{
 
 </head>
 
+
 <body>
+
 
 <header>
 
   <div class="logo">
     👑 KUDURO PRIME
   </div>
+
 
   <nav>
 
@@ -515,6 +562,7 @@ footer{
 
 
 <script type="module">
+
 
 /* =========================================
    FIREBASE
@@ -603,6 +651,14 @@ let currentUser = null;
 
 
 /* =========================================
+   CLOUDINARY
+========================================= */
+
+const CLOUDINARY_CLOUD_NAME =
+  "ge1ntqqc";
+
+
+/* =========================================
    SEGURANÇA HTML
 ========================================= */
 
@@ -631,6 +687,7 @@ function formatDate(timestamp){
     return "";
   }
 
+
   if(timestamp.seconds){
 
     const date =
@@ -638,11 +695,13 @@ function formatDate(timestamp){
         timestamp.seconds * 1000
       );
 
+
     return date.toLocaleDateString(
       "pt-PT"
     );
 
   }
+
 
   return "";
 
@@ -657,6 +716,7 @@ function formatNumber(number){
 
   number =
     Number(number) || 0;
+
 
   return number.toLocaleString(
     "pt-PT"
@@ -674,15 +734,18 @@ function formatDuration(seconds){
   seconds =
     Number(seconds) || 0;
 
+
   const hours =
     Math.floor(
       seconds / 3600
     );
 
+
   const minutes =
     Math.floor(
       (seconds % 3600) / 60
     );
+
 
   const remainingSeconds =
     Math.floor(
@@ -721,9 +784,7 @@ function formatDuration(seconds){
     String(minutes)
       .padStart(2,"0")
 
-    +
-
-    ":"
+    + ":"
 
     +
 
@@ -731,6 +792,186 @@ function formatDuration(seconds){
       .padStart(2,"0")
 
   );
+
+}
+
+
+/* =========================================
+   PEGAR PUBLIC ID
+========================================= */
+
+function getPublicId(video){
+
+  /*
+     Primeiro tenta o campo
+     salvo no Firestore.
+  */
+
+  if(
+    video.videoPublicId
+  ){
+
+    return video.videoPublicId;
+
+  }
+
+
+  if(
+    video.publicId
+  ){
+
+    return video.publicId;
+
+  }
+
+
+  /*
+     Para vídeos antigos,
+     tenta descobrir pelo URL.
+  */
+
+  const videoURL =
+    video.videoUrl
+    ||
+    video.video
+    ||
+    video.url
+    ||
+    "";
+
+
+  if(!videoURL){
+
+    return "";
+
+  }
+
+
+  try{
+
+    const url =
+      new URL(
+        videoURL
+      );
+
+
+    const pathname =
+      url.pathname;
+
+
+    const marker =
+      "/video/upload/";
+
+
+    const index =
+      pathname.indexOf(
+        marker
+      );
+
+
+    if(index === -1){
+
+      return "";
+
+    }
+
+
+    let path =
+      pathname.substring(
+        index + marker.length
+      );
+
+
+    /*
+       Remove transformações
+       e versão.
+    */
+
+    const parts =
+      path.split("/");
+
+
+    while(
+      parts.length &&
+      (
+        parts[0].startsWith("v")
+        &&
+        /^v\d+$/.test(parts[0])
+      )
+    ){
+
+      parts.shift();
+
+    }
+
+
+    /*
+       Remove possíveis
+       transformações do Cloudinary.
+    */
+
+    const transformationWords = [
+
+      "q_auto",
+      "f_auto",
+      "vc_auto",
+      "br_auto",
+      "ac_none",
+      "fl_progressive"
+
+    ];
+
+
+    while(
+
+      parts.length &&
+
+      (
+        parts[0].includes(",")
+        ||
+        transformationWords.includes(
+          parts[0]
+        )
+      )
+
+    ){
+
+      parts.shift();
+
+    }
+
+
+    let publicId =
+      parts.join("/");
+
+
+    /*
+       Remove extensão.
+    */
+
+    publicId =
+      publicId.replace(
+        /\.(mp4|mov|webm|m4v)$/i,
+        ""
+      );
+
+
+    return decodeURIComponent(
+      publicId
+    );
+
+  }
+
+  catch(error){
+
+    console.error(
+      "Erro ao obter Public ID:",
+      error
+    );
+
+    return "";
+
+  }
 
 }
 
@@ -850,6 +1091,7 @@ async function loadVideos(){
       <div class="error">
 
         ⚠️
+
         <br><br>
 
         Não foi possível carregar os vídeos.
@@ -857,9 +1099,11 @@ async function loadVideos(){
         <br><br>
 
         <small>
+
           ${escapeHTML(
             error.message
           )}
+
         </small>
 
       </div>
@@ -914,23 +1158,6 @@ function renderVideos(videos){
           video.tipo
           ||
           "Kuduro";
-
-
-        /*
-          URL DO VÍDEO
-
-          O vídeo será reproduzido
-          diretamente neste player.
-        */
-
-        const videoURL =
-          video.videoUrl
-          ||
-          video.video
-          ||
-          video.url
-          ||
-          "";
 
 
         const cover =
@@ -1001,23 +1228,36 @@ function renderVideos(videos){
           "";
 
 
-        /*
-          PLAYER INTERNO
+        const publicId =
+          getPublicId(
+            video
+          );
 
-          IMPORTANTE:
-          não usamos <a href> no vídeo.
-          Não usamos window.open().
-          Não abrimos Cloudinary.
+
+        /*
+           Se não encontramos
+           o Public ID, mostramos
+           erro em vez de criar
+           um link para o MP4.
         */
 
-        const videoHTML =
-          videoURL
+        let playerHTML;
 
-          ?
 
-          `
+        if(publicId){
+
+          const playerId =
+            "cld-player-" +
+            video.id;
+
+
+          playerHTML = `
 
             <video
+
+              id="${escapeHTML(playerId)}"
+
+              class="cld-video-player cld-fluid"
 
               controls
 
@@ -1027,6 +1267,12 @@ function renderVideos(videos){
 
               preload="metadata"
 
+              data-video-id="${escapeHTML(video.id)}"
+
+              data-owner-id="${escapeHTML(artistId)}"
+
+              data-public-id="${escapeHTML(publicId)}"
+
               ${
                 cover
                 ?
@@ -1035,23 +1281,15 @@ function renderVideos(videos){
                 ""
               }
 
-              data-video-id="${escapeHTML(video.id)}"
+            ></video>
 
-              data-owner-id="${escapeHTML(artistId)}"
+          `;
 
-              src="${escapeHTML(videoURL)}"
+        }
 
-            >
+        else{
 
-              Seu navegador não suporta vídeo.
-
-            </video>
-
-          `
-
-          :
-
-          `
+          playerHTML = `
 
             <div
               style="
@@ -1060,16 +1298,30 @@ function renderVideos(videos){
                 display:flex;
                 align-items:center;
                 justify-content:center;
+                flex-direction:column;
                 color:#777;
-                font-size:40px;
+                font-size:15px;
+                text-align:center;
+                padding:20px;
               "
             >
 
-              🎬
+              <div
+                style="
+                  font-size:40px;
+                  margin-bottom:10px;
+                "
+              >
+                🎬
+              </div>
+
+              Vídeo indisponível.
 
             </div>
 
           `;
+
+        }
 
 
         return `
@@ -1081,7 +1333,7 @@ function renderVideos(videos){
 
             <div class="video-container">
 
-              ${videoHTML}
+              ${playerHTML}
 
             </div>
 
@@ -1129,7 +1381,9 @@ function renderVideos(videos){
                   class="view-number"
                   id="views-${escapeHTML(video.id)}"
                 >
+
                   ${formatNumber(views)}
+
                 </span>
 
                 visualizações
@@ -1196,7 +1450,132 @@ function renderVideos(videos){
     .join("");
 
 
-  activateViewTracking();
+  initializeCloudinaryPlayers();
+
+}
+
+
+/* =========================================
+   INICIAR PLAYERS CLOUDINARY
+========================================= */
+
+function initializeCloudinaryPlayers(){
+
+  const playerElements =
+    document.querySelectorAll(
+      ".cld-video-player[data-public-id]"
+    );
+
+
+  playerElements.forEach(
+    element => {
+
+      const publicId =
+        element.dataset.publicId;
+
+
+      if(!publicId){
+
+        return;
+
+      }
+
+
+      try{
+
+        const player =
+          cloudinary.videoPlayer(
+            element.id,
+            {
+
+              cloudName:
+                CLOUDINARY_CLOUD_NAME,
+
+              controls:true,
+
+              fluid:true,
+
+              responsive:true,
+
+              showLogo:false,
+
+              autoplay:false,
+
+              muted:false,
+
+              loop:false,
+
+              seekThumbnails:false
+
+            }
+          );
+
+
+        /*
+           Carrega o vídeo
+           pelo Public ID.
+
+           Não criamos <a href>
+           para o MP4.
+        */
+
+        player.source(
+          publicId,
+          {
+
+            sourceTypes:[
+              "mp4"
+            ]
+
+          }
+        );
+
+
+        /*
+           Detectar PLAY.
+
+           A view só é registrada
+           quando o vídeo realmente
+           começa a reproduzir.
+        */
+
+        player.on(
+          "play",
+          async () => {
+
+            const videoId =
+              element.dataset.videoId;
+
+
+            const ownerId =
+              element.dataset.ownerId;
+
+
+            await registerVideoView(
+
+              videoId,
+
+              ownerId
+
+            );
+
+          }
+        );
+
+
+      }
+
+      catch(error){
+
+        console.error(
+          "Erro ao iniciar player:",
+          error
+        );
+
+      }
+
+    }
+  );
 
 }
 
@@ -1212,18 +1591,14 @@ async function registerVideoView(
 
   if(!currentUser){
 
-    console.log(
-      "Utilizador não autenticado."
-    );
-
     return;
 
   }
 
 
   /*
-    O artista não conta
-    a própria visualização.
+     Artista não conta
+     a própria view.
   */
 
   if(
@@ -1276,9 +1651,7 @@ async function registerVideoView(
 
 
     /*
-      Se este utilizador
-      já contou uma view,
-      não conta novamente.
+       Já contou anteriormente.
     */
 
     if(
@@ -1291,8 +1664,7 @@ async function registerVideoView(
 
 
     /*
-      Guardar utilizador
-      que viu o vídeo.
+       Guardar espectador.
     */
 
     await setDoc(
@@ -1313,7 +1685,7 @@ async function registerVideoView(
 
 
     /*
-      Incrementar visualizações.
+       Incrementar view.
     */
 
     const videoRef =
@@ -1346,8 +1718,8 @@ async function registerVideoView(
 
 
     /*
-      Atualizar número
-      na tela.
+       Atualizar número
+       na tela.
     */
 
     const viewElement =
@@ -1372,7 +1744,6 @@ async function registerVideoView(
             .replace(/\D/g,"")
 
         )
-
         || 0;
 
 
@@ -1388,86 +1759,11 @@ async function registerVideoView(
   catch(error){
 
     console.error(
-      "Erro ao registrar visualização:",
+      "Erro ao registrar view:",
       error
     );
 
   }
-
-}
-
-
-/* =========================================
-   PLAYER + VIEWS
-========================================= */
-
-function activateViewTracking(){
-
-  const videos =
-    document.querySelectorAll(
-      "video[data-video-id]"
-    );
-
-
-  videos.forEach(
-    video => {
-
-      let sessionChecked =
-        false;
-
-
-      video.addEventListener(
-        "play",
-        async () => {
-
-          if(sessionChecked){
-
-            return;
-
-          }
-
-
-          sessionChecked =
-            true;
-
-
-          const videoId =
-            video.dataset.videoId;
-
-
-          const ownerId =
-            video.dataset.ownerId;
-
-
-          await registerVideoView(
-
-            videoId,
-
-            ownerId
-
-          );
-
-        }
-      );
-
-
-      /*
-        Impede que um clique
-        acidental no player
-        navegue para outro site.
-      */
-
-      video.addEventListener(
-        "click",
-        event => {
-
-          event.stopPropagation();
-
-        }
-      );
-
-    }
-  );
 
 }
 
