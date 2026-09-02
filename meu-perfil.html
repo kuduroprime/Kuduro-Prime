@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="pt">
 <head>
   <meta charset="UTF-8" />
@@ -17,6 +18,7 @@
       --line:#2a271f;
       --blue:#4eb8ff;
       --green:#48d597;
+      --red:#ff4d4d;
     }
 
     *{
@@ -42,7 +44,11 @@
       color:inherit;
     }
 
-    /* CARREGAMENTO */
+    button{
+      font-family:inherit;
+    }
+
+    /* LOADING */
 
     .loading{
       position:fixed;
@@ -307,6 +313,7 @@
       );
       border:1px solid var(--line);
       border-radius:15px;
+      overflow:hidden;
     }
 
     .panel-head{
@@ -392,6 +399,7 @@
       flex:0 0 auto;
       border-radius:8px;
       background:center/cover no-repeat #17120a;
+      border:1px solid #2c2618;
     }
 
     .song-info{
@@ -437,19 +445,6 @@
       filter:brightness(1.1);
     }
 
-    .empty{
-      padding:35px 20px;
-      text-align:center;
-      color:var(--muted);
-      font-size:12px;
-    }
-
-    .empty-icon{
-      font-size:35px;
-      margin-bottom:10px;
-      color:var(--gold);
-    }
-
     /* PLAYER */
 
     .player-box{
@@ -475,6 +470,120 @@
     .audio-player{
       width:100%;
       height:40px;
+    }
+
+    /* VÍDEOS */
+
+    .video-list{
+      padding:15px 20px 20px;
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:15px;
+    }
+
+    .video-card{
+      display:block;
+      background:#0c0c0c;
+      border:1px solid var(--line);
+      border-radius:12px;
+      overflow:hidden;
+      transition:.25s;
+    }
+
+    .video-card:hover{
+      border-color:#806721;
+      transform:translateY(-2px);
+    }
+
+    .video-thumb{
+      position:relative;
+      width:100%;
+      aspect-ratio:16/9;
+      overflow:hidden;
+      background:#17120a;
+    }
+
+    .video-thumb img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+
+    .video-placeholder{
+      width:100%;
+      height:100%;
+      display:grid;
+      place-items:center;
+      font-size:42px;
+      color:var(--gold);
+      background:
+        radial-gradient(
+          circle at center,
+          #30260f,
+          #0c0c0c 70%
+        );
+    }
+
+    .video-play{
+      position:absolute;
+      left:50%;
+      top:50%;
+      transform:translate(-50%,-50%);
+      width:48px;
+      height:48px;
+      border-radius:50%;
+      display:grid;
+      place-items:center;
+      background:rgba(0,0,0,.72);
+      border:1px solid rgba(244,191,49,.8);
+      color:var(--gold);
+      font-size:19px;
+    }
+
+    .video-duration{
+      position:absolute;
+      right:8px;
+      bottom:8px;
+      padding:4px 6px;
+      border-radius:5px;
+      background:rgba(0,0,0,.85);
+      color:#fff;
+      font-size:9px;
+      font-weight:900;
+    }
+
+    .video-info{
+      padding:12px;
+    }
+
+    .video-title{
+      font-size:13px;
+      font-weight:900;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+
+    .video-meta{
+      margin-top:6px;
+      color:var(--muted);
+      font-size:10px;
+    }
+
+    /* VAZIO */
+
+    .empty{
+      padding:35px 20px;
+      text-align:center;
+      color:var(--muted);
+      font-size:12px;
+    }
+
+    .empty-icon{
+      font-size:35px;
+      margin-bottom:10px;
+      color:var(--gold);
     }
 
     /* AÇÕES */
@@ -523,9 +632,20 @@
       font-size:10px;
     }
 
+    /* FOOTER */
+
+    footer{
+      padding:30px 20px;
+      border-top:1px solid var(--line);
+      text-align:center;
+      color:var(--muted);
+      font-size:10px;
+    }
+
     /* RESPONSIVO */
 
     @media(max-width:950px){
+
       .dashboard-grid{
         grid-template-columns:repeat(2,1fr);
       }
@@ -533,9 +653,11 @@
       .main-grid{
         grid-template-columns:1fr;
       }
+
     }
 
     @media(max-width:650px){
+
       .nav{
         height:70px;
       }
@@ -601,268 +723,632 @@
         width:calc(100% - 70px);
       }
 
+      .song-status{
+        margin-left:70px;
+      }
+
       .listen-btn{
         width:100%;
         margin:0;
       }
+
+      .video-list{
+        grid-template-columns:1fr;
+      }
+
     }
   </style>
+
 </head>
 
 <body>
 
-  <div class="loading" id="loading">
-    <div class="loading-logo">
-      👑 KUDURO PRIME
-    </div>
+  <!-- LOADING -->
 
-    <div class="loading-text">
-      A carregar o teu perfil...
-    </div>
+  <div class="loading" id="loading">
+
+```
+<div class="loading-logo">
+  👑 KUDURO PRIME
+</div>
+
+<div class="loading-text">
+  A carregar o teu perfil...
+</div>
+```
+
   </div>
 
+  <!-- NAV -->
+
   <nav class="nav">
-    <div class="nav-in">
 
-      <a href="index.html" class="brand">
-        <span class="crown">♕</span>
-        KUDURO
-        <b>PRIME</b>
-      </a>
+```
+<div class="nav-in">
 
-      <div class="nav-right">
-        <a href="index.html" class="btn dark">
-          ← VER SITE
-        </a>
+  <a href="index.html" class="brand">
 
-        <a href="painel-do-artista.html" class="btn gold">
-          👑 MEU PAINEL
-        </a>
-      </div>
+    <span class="crown">♕</span>
 
-    </div>
+    KUDURO
+
+    <b>PRIME</b>
+
+  </a>
+
+
+  <div class="nav-right">
+
+    <a href="index.html" class="btn dark">
+      ← VER SITE
+    </a>
+
+    <a
+      href="painel-do-artista.html"
+      class="btn gold"
+    >
+      👑 MEU PAINEL
+    </a>
+
+  </div>
+
+</div>
+```
+
   </nav>
 
-  <section class="cover" id="cover"></section>
+  <!-- CAPA -->
+
+  <section
+    class="cover"
+    id="cover"
+  ></section>
+
+  <!-- PERFIL -->
 
   <section class="profile">
-    <div class="profile-head">
 
-      <div class="profile-photo" id="profilePhoto">
-        👤
-      </div>
+```
+<div class="profile-head">
 
-      <div>
-        <div class="eyebrow">
-          👑 PERFIL OFICIAL PRIME
-        </div>
+  <div
+    class="profile-photo"
+    id="profilePhoto"
+  >
+    👤
+  </div>
 
-        <h1 class="profile-name">
-          <span id="profileName">Artista Prime</span>
-          <span class="verified">●</span>
-        </h1>
 
-        <div class="username" id="profileUser">
-          @artista
-        </div>
+  <div>
 
-        <div class="location" id="profileLocation">
-          📍 Angola
-        </div>
-      </div>
-
-      <div class="actions">
-        <a href="editar-perfil.html" class="btn gold">
-          ✏ EDITAR PERFIL
-        </a>
-
-        <a href="perfil.html" class="btn dark" id="publicProfileBtn">
-          👁 VER PÚBLICO
-        </a>
-      </div>
-
+    <div class="eyebrow">
+      👑 PERFIL OFICIAL PRIME
     </div>
+
+    <h1 class="profile-name">
+
+      <span id="profileName">
+        Artista Prime
+      </span>
+
+      <span class="verified">
+        ●
+      </span>
+
+    </h1>
+
+
+    <div
+      class="username"
+      id="profileUser"
+    >
+      @artista
+    </div>
+
+
+    <div
+      class="location"
+      id="profileLocation"
+    >
+      📍 Angola
+    </div>
+
+  </div>
+
+
+  <div class="actions">
+
+    <a
+      href="editar-perfil.html"
+      class="btn gold"
+    >
+      ✏ EDITAR PERFIL
+    </a>
+
+    <a
+      href="perfil.html"
+      class="btn dark"
+      id="publicProfileBtn"
+    >
+      👁 VER PÚBLICO
+    </a>
+
+  </div>
+
+</div>
+```
+
   </section>
+
+  <!-- CONTEÚDO -->
 
   <main class="container">
 
-    <div class="dashboard-grid">
+```
+<!-- ESTATÍSTICAS -->
 
-      <article class="stat-card">
-        <div class="stat-icon">🎵</div>
-        <div class="stat-number" id="statSongs">0</div>
-        <div class="stat-label">MINHAS MÚSICAS</div>
-      </article>
+<div class="dashboard-grid">
 
-      <article class="stat-card">
-        <div class="stat-icon">👁</div>
-        <div class="stat-number" id="statViews">0</div>
-        <div class="stat-label">VISUALIZAÇÕES</div>
-      </article>
+  <article class="stat-card">
 
-      <article class="stat-card">
-        <div class="stat-icon">👥</div>
-        <div class="stat-number" id="statFollowers">0</div>
-        <div class="stat-label">SEGUIDORES</div>
-      </article>
+    <div class="stat-icon">
+      🎵
+    </div>
 
-      <article class="stat-card">
-        <div class="stat-icon">🏆</div>
-        <div class="stat-number" id="statRank">—</div>
-        <div class="stat-label">POSIÇÃO NO RANKING</div>
-      </article>
+    <div
+      class="stat-number"
+      id="statSongs"
+    >
+      0
+    </div>
+
+    <div class="stat-label">
+      MÚSICAS PUBLICADAS
+    </div>
+
+  </article>
+
+
+  <article class="stat-card">
+
+    <div class="stat-icon">
+      🎬
+    </div>
+
+    <div
+      class="stat-number"
+      id="statVideos"
+    >
+      0
+    </div>
+
+    <div class="stat-label">
+      VÍDEOS PUBLICADOS
+    </div>
+
+  </article>
+
+
+  <article class="stat-card">
+
+    <div class="stat-icon">
+      👁
+    </div>
+
+    <div
+      class="stat-number"
+      id="statViews"
+    >
+      0
+    </div>
+
+    <div class="stat-label">
+      VISUALIZAÇÕES
+    </div>
+
+  </article>
+
+
+  <article class="stat-card">
+
+    <div class="stat-icon">
+      👥
+    </div>
+
+    <div
+      class="stat-number"
+      id="statFollowers"
+    >
+      0
+    </div>
+
+    <div class="stat-label">
+      SEGUIDORES
+    </div>
+
+  </article>
+
+</div>
+
+
+<!-- GRID PRINCIPAL -->
+
+<div class="main-grid">
+
+
+  <section>
+
+
+    <!-- SOBRE -->
+
+    <div class="panel">
+
+      <div class="panel-head">
+
+        <h2 class="panel-title">
+          👤 SOBRE O MEU PERFIL
+        </h2>
+
+        <a
+          href="editar-perfil.html"
+          class="panel-link"
+        >
+          EDITAR ›
+        </a>
+
+      </div>
+
+
+      <div class="summary">
+
+        <div
+          class="bio"
+          id="profileBio"
+        >
+          Ainda não adicionaste uma biografia.
+        </div>
+
+
+        <div class="info-grid">
+
+
+          <div class="info">
+
+            <small>
+              ESTILO
+            </small>
+
+            <strong id="profileGenre">
+              Kuduro
+            </strong>
+
+          </div>
+
+
+          <div class="info">
+
+            <small>
+              LOCALIZAÇÃO
+            </small>
+
+            <strong id="profileCity">
+              Luanda, Angola
+            </strong>
+
+          </div>
+
+
+          <div class="info">
+
+            <small>
+              CARREIRA DESDE
+            </small>
+
+            <strong id="profileYear">
+              —
+            </strong>
+
+          </div>
+
+
+          <div class="info">
+
+            <small>
+              ESTADO DO PERFIL
+            </small>
+
+            <strong style="color:var(--green)">
+              ● ATIVO
+            </strong>
+
+          </div>
+
+
+        </div>
+
+      </div>
 
     </div>
 
-    <div class="main-grid">
 
-      <section>
+    <!-- MÚSICAS -->
 
-        <div class="panel">
-          <div class="panel-head">
-            <h2 class="panel-title">
-              👤 SOBRE O MEU PERFIL
-            </h2>
+    <div
+      class="panel"
+      style="margin-top:20px"
+    >
 
-            <a href="editar-perfil.html" class="panel-link">
-              EDITAR ›
-            </a>
+      <div class="panel-head">
+
+        <h2 class="panel-title">
+          🎵 MINHAS MÚSICAS
+        </h2>
+
+        <a
+          href="minhas-musicas.html"
+          class="panel-link"
+        >
+          GERIR TODAS ›
+        </a>
+
+      </div>
+
+
+      <div
+        class="song-list"
+        id="songList"
+      >
+
+        <div class="empty">
+
+          <div class="empty-icon">
+            🎵
           </div>
 
-          <div class="summary">
-
-            <div class="bio" id="profileBio">
-              Ainda não adicionaste uma biografia.
-            </div>
-
-            <div class="info-grid">
-
-              <div class="info">
-                <small>ESTILO</small>
-                <strong id="profileGenre">Kuduro</strong>
-              </div>
-
-              <div class="info">
-                <small>LOCALIZAÇÃO</small>
-                <strong id="profileCity">
-                  Luanda, Angola
-                </strong>
-              </div>
-
-              <div class="info">
-                <small>CARREIRA DESDE</small>
-                <strong id="profileYear">—</strong>
-              </div>
-
-              <div class="info">
-                <small>ESTADO DO PERFIL</small>
-                <strong style="color:var(--green)">
-                  ● ATIVO
-                </strong>
-              </div>
-
-            </div>
-          </div>
-        </div>
-
-        <!-- MÚSICAS -->
-
-        <div class="panel" style="margin-top:20px">
-
-          <div class="panel-head">
-            <h2 class="panel-title">
-              🎵 MINHAS MÚSICAS
-            </h2>
-
-            <a href="minhas-musicas.html" class="panel-link">
-              GERIR TODAS ›
-            </a>
-          </div>
-
-          <div class="song-list" id="songList">
-            <div class="empty">
-              <div class="empty-icon">🎵</div>
-              Ainda não tens músicas publicadas.
-            </div>
-          </div>
-
-          <!-- PLAYER DE ÁUDIO -->
-
-          <div class="player-box" id="playerBox">
-            <div class="now-playing" id="nowPlaying">
-              🎵 Nenhuma música selecionada
-            </div>
-
-            <audio
-              id="audioPlayer"
-              class="audio-player"
-              controls
-            ></audio>
-          </div>
+          A carregar músicas...
 
         </div>
 
-      </section>
+      </div>
 
-      <aside>
 
-        <div class="panel">
-          <div class="panel-head">
-            <h2 class="panel-title">
-              ⚡ AÇÕES RÁPIDAS
-            </h2>
-          </div>
+      <!-- PLAYER -->
 
-          <div class="quick-actions">
+      <div
+        class="player-box"
+        id="playerBox"
+      >
 
-            <a href="minhas-musicas.html" class="quick">
-              <div class="quick-icon">🎵</div>
-              <div>
-                <strong>Publicar Música</strong>
-                <small>Adiciona uma nova música</small>
-              </div>
-            </a>
-
-            <a href="editar-perfil.html" class="quick">
-              <div class="quick-icon">✏</div>
-              <div>
-                <strong>Editar Perfil</strong>
-                <small>Atualiza as tuas informações</small>
-              </div>
-            </a>
-
-            <a href="painel-do-artista.html" class="quick">
-              <div class="quick-icon">📊</div>
-              <div>
-                <strong>Painel do Artista</strong>
-                <small>Vê todas as estatísticas</small>
-              </div>
-            </a>
-
-            <a
-              href="perfil.html"
-              class="quick"
-              id="publicProfileQuick"
-            >
-              <div class="quick-icon">👁</div>
-              <div>
-                <strong>Ver Perfil Público</strong>
-                <small>Vê como o público te vê</small>
-              </div>
-            </a>
-
-          </div>
+        <div
+          class="now-playing"
+          id="nowPlaying"
+        >
+          🎵 Nenhuma música selecionada
         </div>
 
-      </aside>
+
+        <audio
+          id="audioPlayer"
+          class="audio-player"
+          controls
+        ></audio>
+
+      </div>
 
     </div>
+
+
+    <!-- VÍDEOS -->
+
+    <div
+      class="panel"
+      style="margin-top:20px"
+    >
+
+      <div class="panel-head">
+
+        <h2 class="panel-title">
+          🎬 MEUS VÍDEOS
+        </h2>
+
+        <a
+          href="meus-videos.html"
+          class="panel-link"
+        >
+          GERIR TODOS ›
+        </a>
+
+      </div>
+
+
+      <div
+        class="video-list"
+        id="videoList"
+      >
+
+        <div
+          class="empty"
+          style="grid-column:1/-1"
+        >
+
+          <div class="empty-icon">
+            🎬
+          </div>
+
+          A carregar vídeos...
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+  </section>
+
+
+  <!-- LADO DIREITO -->
+
+  <aside>
+
+    <div class="panel">
+
+      <div class="panel-head">
+
+        <h2 class="panel-title">
+          ⚡ AÇÕES RÁPIDAS
+        </h2>
+
+      </div>
+
+
+      <div class="quick-actions">
+
+
+        <a
+          href="minhas-musicas.html"
+          class="quick"
+        >
+
+          <div class="quick-icon">
+            🎵
+          </div>
+
+          <div>
+
+            <strong>
+              Publicar Música
+            </strong>
+
+            <small>
+              Adiciona uma nova música
+            </small>
+
+          </div>
+
+        </a>
+
+
+        <a
+          href="publicar-video.html"
+          class="quick"
+        >
+
+          <div class="quick-icon">
+            🎬
+          </div>
+
+          <div>
+
+            <strong>
+              Publicar Vídeo
+            </strong>
+
+            <small>
+              Adiciona um novo vídeo
+            </small>
+
+          </div>
+
+        </a>
+
+
+        <a
+          href="editar-perfil.html"
+          class="quick"
+        >
+
+          <div class="quick-icon">
+            ✏
+          </div>
+
+          <div>
+
+            <strong>
+              Editar Perfil
+            </strong>
+
+            <small>
+              Atualiza as tuas informações
+            </small>
+
+          </div>
+
+        </a>
+
+
+        <a
+          href="painel-do-artista.html"
+          class="quick"
+        >
+
+          <div class="quick-icon">
+            📊
+          </div>
+
+          <div>
+
+            <strong>
+              Painel do Artista
+            </strong>
+
+            <small>
+              Vê todas as estatísticas
+            </small>
+
+          </div>
+
+        </a>
+
+
+        <a
+          href="perfil.html"
+          class="quick"
+          id="publicProfileQuick"
+        >
+
+          <div class="quick-icon">
+            👁
+          </div>
+
+          <div>
+
+            <strong>
+              Ver Perfil Público
+            </strong>
+
+            <small>
+              Vê como o público te vê
+            </small>
+
+          </div>
+
+        </a>
+
+
+      </div>
+
+    </div>
+
+  </aside>
+
+
+</div>
+```
+
   </main>
 
   <footer>
-    © 2026 KUDURO PRIME.
-    O KUDURO VIVE AQUI. 👑
+
+```
+© 2026 KUDURO PRIME.
+
+O KUDURO VIVE AQUI. 👑
+```
+
   </footer>
+
+  <!-- FIREBASE -->
 
   <script type="module">
 
@@ -872,12 +1358,24 @@
     from
     "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
 
+
     import {
       getAuth,
       onAuthStateChanged
     }
     from
     "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+
+
+    import {
+      getFirestore,
+      collection,
+      query,
+      where,
+      getDocs
+    }
+    from
+    "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 
 
     const firebaseConfig = {
@@ -906,9 +1404,18 @@
     const app =
       initializeApp(firebaseConfig);
 
+
     const auth =
       getAuth(app);
 
+
+    const db =
+      getFirestore(app);
+
+
+    /* =========================
+       FORMATAR NÚMEROS
+    ========================= */
 
     function formatNumber(number){
 
@@ -921,54 +1428,58 @@
     }
 
 
-    /*
-      CARREGAR MÚSICAS
-    */
+    /* =========================
+       DATA FORMATADA
+    ========================= */
 
-    function getSongs(){
+    function formatDate(value){
+
+      if(!value){
+        return "Publicado";
+      }
 
       try{
 
-        const savedSongs =
-          localStorage.getItem(
-            "kpArtistSongs"
-          );
+        if(
+          typeof value.toDate === "function"
+        ){
 
+          return value
+            .toDate()
+            .toLocaleDateString(
+              "pt-PT"
+            );
 
-        const songs =
-          savedSongs
-          ?
-          JSON.parse(savedSongs)
-          :
-          [];
+        }
 
+        if(
+          typeof value === "string"
+        ){
 
-        return Array.isArray(songs)
-          ?
-          songs
-          :
-          [];
+          return value;
+
+        }
+
+        return "Publicado";
 
       }
       catch(error){
 
-        console.error(
-          "Erro ao carregar músicas:",
-          error
-        );
-
-        return [];
+        return "Publicado";
 
       }
 
     }
 
 
-    /*
-      TOCAR MÚSICA
-    */
+    /* =========================
+       TOCAR MÚSICA
+    ========================= */
 
-    function playSong(song, artistName){
+    function playSong(
+      song,
+      artistName
+    ){
 
       const audio =
         document.querySelector(
@@ -990,10 +1501,10 @@
 
       const audioUrl =
 
-        song.audio
+        song.audioUrl
         ||
 
-        song.audioUrl
+        song.audio
         ||
 
         song.url
@@ -1011,7 +1522,7 @@
       if(!audioUrl){
 
         alert(
-          "Esta música ainda não tem um ficheiro de áudio."
+          "Esta música não tem um ficheiro de áudio."
         );
 
         return;
@@ -1025,19 +1536,27 @@
 
       nowPlaying.textContent =
 
-        "🎵 A tocar: " +
+        "🎵 A tocar: "
+
+        +
 
         (
           song.title
+          ||
+          song.name
           ||
           "Música sem título"
         )
 
         +
 
-        " — " +
+        " — "
+
+        +
 
         (
+          song.artistName
+          ||
           song.artist
           ||
           artistName
@@ -1052,8 +1571,8 @@
       audio.play().catch(
         error => {
 
-          console.error(
-            "Erro ao tocar:",
+          console.log(
+            "Autoplay bloqueado:",
             error
           );
 
@@ -1062,20 +1581,863 @@
 
 
       playerBox.scrollIntoView({
+
         behavior:"smooth",
+
         block:"nearest"
+
       });
 
     }
 
 
-    /*
-      SESSÃO
-    */
+    /* =========================
+       CARREGAR MÚSICAS DO FIRESTORE
+    ========================= */
+
+    async function loadSongs(
+      uid,
+      artistName
+    ){
+
+      const songList =
+        document.querySelector(
+          "#songList"
+        );
+
+
+      try{
+
+        const songsQuery =
+          query(
+            collection(
+              db,
+              "musicas"
+            ),
+            where(
+              "artistaId",
+              "==",
+              uid
+            )
+          );
+
+
+        const snapshot =
+          await getDocs(
+            songsQuery
+          );
+
+
+        const songs = [];
+
+
+        snapshot.forEach(
+          docSnapshot => {
+
+            const song =
+              {
+                id:docSnapshot.id,
+                ...docSnapshot.data()
+              };
+
+
+            /*
+              SÓ MOSTRAR MÚSICAS PUBLICADAS
+            */
+
+            const status =
+              String(
+                song.status || ""
+              ).toLowerCase();
+
+
+            if(
+              status === "publicado"
+              ||
+              status === "publicada"
+              ||
+              status === "public"
+              ||
+              status === "ativa"
+              ||
+              status === "ativo"
+              ||
+              status === ""
+            ){
+
+              songs.push(
+                song
+              );
+
+            }
+
+          }
+        );
+
+
+        /*
+          MAIS RECENTES PRIMEIRO
+        */
+
+        songs.sort(
+          (
+            a,
+            b
+          ) => {
+
+            const dateA =
+              a.criadoEm?.seconds
+              ||
+              a.createdAt?.seconds
+              ||
+              0;
+
+            const dateB =
+              b.criadoEm?.seconds
+              ||
+              b.createdAt?.seconds
+              ||
+              0;
+
+            return dateB - dateA;
+
+          }
+        );
+
+
+        document.querySelector(
+          "#statSongs"
+        ).textContent =
+          formatNumber(
+            songs.length
+          );
+
+
+        if(
+          songs.length === 0
+        ){
+
+          songList.innerHTML = `
+
+            <div class="empty">
+
+              <div class="empty-icon">
+                🎵
+              </div>
+
+              Ainda não tens músicas publicadas.
+
+            </div>
+
+          `;
+
+          return songs;
+
+        }
+
+
+        songList.innerHTML =
+          "";
+
+
+        songs
+          .slice(0,5)
+          .forEach(
+            song => {
+
+              const songElement =
+                document.createElement(
+                  "div"
+                );
+
+
+              songElement.className =
+                "song";
+
+
+              /* CAPA */
+
+              const cover =
+                document.createElement(
+                  "div"
+                );
+
+
+              cover.className =
+                "song-cover";
+
+
+              const coverUrl =
+
+                song.cover
+                ||
+
+                song.coverUrl
+                ||
+
+                song.image
+                ||
+
+                song.imageUrl
+                ||
+
+                artistPhotoGlobal
+                ||
+
+                "";
+
+
+              if(coverUrl){
+
+                cover.style.backgroundImage =
+                  `url("${coverUrl}")`;
+
+              }
+
+
+              /* INFO */
+
+              const info =
+                document.createElement(
+                  "div"
+                );
+
+
+              info.className =
+                "song-info";
+
+
+              const title =
+                document.createElement(
+                  "div"
+                );
+
+
+              title.className =
+                "song-title";
+
+
+              title.textContent =
+
+                song.title
+                ||
+
+                song.name
+                ||
+
+                "Música sem título";
+
+
+              const meta =
+                document.createElement(
+                  "div"
+                );
+
+
+              meta.className =
+                "song-meta";
+
+
+              const views =
+                Number(
+                  song.views
+                )
+                ||
+                Number(
+                  song.visualizacoes
+                )
+                ||
+                0;
+
+
+              meta.textContent =
+
+                (
+                  song.artistName
+                  ||
+                  song.artist
+                  ||
+                  artistName
+                )
+
+                +
+
+                " • "
+
+                +
+
+                formatNumber(
+                  views
+                )
+
+                +
+
+                " visualizações";
+
+
+              info.appendChild(
+                title
+              );
+
+              info.appendChild(
+                meta
+              );
+
+
+              /* STATUS */
+
+              const status =
+                document.createElement(
+                  "div"
+                );
+
+
+              status.className =
+                "song-status";
+
+
+              status.textContent =
+                "● PUBLICADA";
+
+
+              /* BOTÃO */
+
+              const listenButton =
+                document.createElement(
+                  "button"
+                );
+
+
+              listenButton.className =
+                "listen-btn";
+
+
+              listenButton.textContent =
+                "▶ OUVIR";
+
+
+              listenButton.addEventListener(
+                "click",
+                () => {
+
+                  playSong(
+                    song,
+                    artistName
+                  );
+
+                }
+              );
+
+
+              songElement.appendChild(
+                cover
+              );
+
+
+              songElement.appendChild(
+                info
+              );
+
+
+              songElement.appendChild(
+                status
+              );
+
+
+              songElement.appendChild(
+                listenButton
+              );
+
+
+              songList.appendChild(
+                songElement
+              );
+
+            }
+          );
+
+
+        return songs;
+
+      }
+      catch(error){
+
+        console.error(
+          "Erro ao carregar músicas:",
+          error
+        );
+
+
+        songList.innerHTML = `
+
+          <div class="empty">
+
+            <div class="empty-icon">
+              ⚠
+            </div>
+
+            Não foi possível carregar as músicas.
+
+          </div>
+
+        `;
+
+
+        return [];
+
+      }
+
+    }
+
+
+    /* =========================
+       CARREGAR VÍDEOS DO FIRESTORE
+    ========================= */
+
+    async function loadVideos(
+      uid,
+      artistName
+    ){
+
+      const videoList =
+        document.querySelector(
+          "#videoList"
+        );
+
+
+      try{
+
+        const videosQuery =
+          query(
+            collection(
+              db,
+              "videos"
+            ),
+            where(
+              "artistaId",
+              "==",
+              uid
+            )
+          );
+
+
+        const snapshot =
+          await getDocs(
+            videosQuery
+          );
+
+
+        const videos = [];
+
+
+        snapshot.forEach(
+          docSnapshot => {
+
+            const video =
+              {
+                id:docSnapshot.id,
+                ...docSnapshot.data()
+              };
+
+
+            /*
+              APENAS VÍDEOS PUBLICADOS
+            */
+
+            if(
+              video.status ===
+              "publicado"
+            ){
+
+              videos.push(
+                video
+              );
+
+            }
+
+          }
+        );
+
+
+        /*
+          MAIS RECENTES PRIMEIRO
+        */
+
+        videos.sort(
+          (
+            a,
+            b
+          ) => {
+
+            const dateA =
+              a.criadoEm?.seconds
+              ||
+              a.createdAt?.seconds
+              ||
+              0;
+
+            const dateB =
+              b.criadoEm?.seconds
+              ||
+              b.createdAt?.seconds
+              ||
+              0;
+
+            return dateB - dateA;
+
+          }
+        );
+
+
+        document.querySelector(
+          "#statVideos"
+        ).textContent =
+          formatNumber(
+            videos.length
+          );
+
+
+        if(
+          videos.length === 0
+        ){
+
+          videoList.innerHTML = `
+
+            <div
+              class="empty"
+              style="grid-column:1/-1"
+            >
+
+              <div class="empty-icon">
+                🎬
+              </div>
+
+              Ainda não tens vídeos publicados.
+
+            </div>
+
+          `;
+
+          return videos;
+
+        }
+
+
+        videoList.innerHTML =
+          "";
+
+
+        videos
+          .slice(0,6)
+          .forEach(
+            video => {
+
+              const card =
+                document.createElement(
+                  "a"
+                );
+
+
+              card.className =
+                "video-card";
+
+
+              card.href =
+                "assistir-video.html?id="
+                +
+                encodeURIComponent(
+                  video.id
+                );
+
+
+              /* THUMB */
+
+              const thumb =
+                document.createElement(
+                  "div"
+                );
+
+
+              thumb.className =
+                "video-thumb";
+
+
+              const coverUrl =
+
+                video.capa
+                ||
+
+                video.cover
+                ||
+
+                video.coverUrl
+                ||
+
+                video.thumbnail
+                ||
+
+                video.thumbnailUrl
+                ||
+
+                "";
+
+
+              if(coverUrl){
+
+                const image =
+                  document.createElement(
+                    "img"
+                  );
+
+
+                image.src =
+                  coverUrl;
+
+
+                image.alt =
+                  video.titulo
+                  ||
+                  video.title
+                  ||
+                  "Vídeo";
+
+
+                image.loading =
+                  "lazy";
+
+
+                thumb.appendChild(
+                  image
+                );
+
+              }
+              else{
+
+                const placeholder =
+                  document.createElement(
+                    "div"
+                  );
+
+
+                placeholder.className =
+                  "video-placeholder";
+
+
+                placeholder.textContent =
+                  "🎬";
+
+
+                thumb.appendChild(
+                  placeholder
+                );
+
+              }
+
+
+              /* PLAY */
+
+              const play =
+                document.createElement(
+                  "div"
+                );
+
+
+              play.className =
+                "video-play";
+
+
+              play.textContent =
+                "▶";
+
+
+              thumb.appendChild(
+                play
+              );
+
+
+              /* DURAÇÃO */
+
+              const duration =
+                video.duracaoFormatada
+                ||
+                video.duracao
+                ||
+                "";
+
+
+              if(duration){
+
+                const durationElement =
+                  document.createElement(
+                    "div"
+                  );
+
+
+                durationElement.className =
+                  "video-duration";
+
+
+                durationElement.textContent =
+                  duration;
+
+
+                thumb.appendChild(
+                  durationElement
+                );
+
+              }
+
+
+              /* INFO */
+
+              const info =
+                document.createElement(
+                  "div"
+                );
+
+
+              info.className =
+                "video-info";
+
+
+              const title =
+                document.createElement(
+                  "div"
+                );
+
+
+              title.className =
+                "video-title";
+
+
+              title.textContent =
+
+                video.titulo
+                ||
+
+                video.title
+                ||
+
+                "Vídeo sem título";
+
+
+              const meta =
+                document.createElement(
+                  "div"
+                );
+
+
+              meta.className =
+                "video-meta";
+
+
+              const views =
+                Number(
+                  video.views
+                )
+                ||
+                Number(
+                  video.visualizacoes
+                )
+                ||
+                0;
+
+
+              meta.textContent =
+
+                formatNumber(
+                  views
+                )
+
+                +
+
+                " visualizações"
+
+                +
+
+                " • "
+
+                +
+
+                formatDate(
+                  video.criadoEm
+                  ||
+                  video.createdAt
+                );
+
+
+              info.appendChild(
+                title
+              );
+
+              info.appendChild(
+                meta
+              );
+
+
+              card.appendChild(
+                thumb
+              );
+
+              card.appendChild(
+                info
+              );
+
+
+              videoList.appendChild(
+                card
+              );
+
+            }
+          );
+
+
+        return videos;
+
+      }
+      catch(error){
+
+        console.error(
+          "Erro ao carregar vídeos:",
+          error
+        );
+
+
+        videoList.innerHTML = `
+
+          <div
+            class="empty"
+            style="grid-column:1/-1"
+          >
+
+            <div class="empty-icon">
+              ⚠
+            </div>
+
+            Não foi possível carregar os vídeos.
+
+          </div>
+
+        `;
+
+
+        return [];
+
+      }
+
+    }
+
+
+    /* =========================
+       SESSÃO
+    ========================= */
+
+    let artistPhotoGlobal = "";
+
 
     onAuthStateChanged(
       auth,
-      user => {
+      async user => {
 
         if(!user){
 
@@ -1088,9 +2450,7 @@
         }
 
 
-        /*
-          DADOS DO ARTISTA
-        */
+        /* DADOS */
 
         const artistName =
 
@@ -1149,6 +2509,10 @@
           "";
 
 
+        artistPhotoGlobal =
+          artistPhoto;
+
+
         const artistBio =
 
           localStorage.getItem(
@@ -1204,9 +2568,7 @@
           "—";
 
 
-        /*
-          MOSTRAR DADOS
-        */
+        /* MOSTRAR PERFIL */
 
         document.querySelector(
           "#profileName"
@@ -1223,9 +2585,12 @@
         document.querySelector(
           "#profileLocation"
         ).textContent =
-          "📍 " +
-          artistCity +
-          ", " +
+          "📍 "
+          +
+          artistCity
+          +
+          ", "
+          +
           artistCountry;
 
 
@@ -1244,8 +2609,10 @@
         document.querySelector(
           "#profileCity"
         ).textContent =
-          artistCity +
-          ", " +
+          artistCity
+          +
+          ", "
+          +
           artistCountry;
 
 
@@ -1255,9 +2622,7 @@
           artistYear;
 
 
-        /*
-          FOTO
-        */
+        /* FOTO */
 
         if(artistPhoto){
 
@@ -1304,43 +2669,99 @@
         }
 
 
-        /*
-          MÚSICAS
-        */
+        /* PERFIL PÚBLICO */
 
-        const songs =
-          getSongs();
+        const publicProfileUrl =
+
+          "perfil.html?user="
+
+          +
+
+          encodeURIComponent(
+            artistUsername
+          );
 
 
         document.querySelector(
-          "#statSongs"
-        ).textContent =
-          formatNumber(
-            songs.length
+          "#publicProfileBtn"
+        ).href =
+          publicProfileUrl;
+
+
+        document.querySelector(
+          "#publicProfileQuick"
+        ).href =
+          publicProfileUrl;
+
+
+        /*
+          CARREGAR MÚSICAS E VÍDEOS
+        */
+
+        const songs =
+          await loadSongs(
+            user.uid,
+            artistName
+          );
+
+
+        const videos =
+          await loadVideos(
+            user.uid,
+            artistName
           );
 
 
         /*
-          VISUALIZAÇÕES
+          TOTAL DE VISUALIZAÇÕES
         */
 
-        const totalViews =
+        const songViews =
           songs.reduce(
             (
               total,
               song
             ) => {
 
-              return (
-                total +
+              return total +
 
                 (
-                  Number(song.views)
+                  Number(
+                    song.views
+                  )
+                  ||
+                  Number(
+                    song.visualizacoes
+                  )
                   ||
                   0
-                )
+                );
 
-              );
+            },
+            0
+          );
+
+
+        const videoViews =
+          videos.reduce(
+            (
+              total,
+              video
+            ) => {
+
+              return total +
+
+                (
+                  Number(
+                    video.views
+                  )
+                  ||
+                  Number(
+                    video.visualizacoes
+                  )
+                  ||
+                  0
+                );
 
             },
             0
@@ -1351,247 +2772,8 @@
           "#statViews"
         ).textContent =
           formatNumber(
-            totalViews
+            songViews + videoViews
           );
-
-
-        /*
-          LISTA DE MÚSICAS
-        */
-
-        const songList =
-          document.querySelector(
-            "#songList"
-          );
-
-
-        if(songs.length > 0){
-
-          songList.innerHTML =
-            "";
-
-
-          songs
-            .slice(0,5)
-            .reverse()
-            .forEach(
-              song => {
-
-
-                const songElement =
-                  document.createElement(
-                    "div"
-                  );
-
-
-                songElement.className =
-                  "song";
-
-
-                /*
-                  CAPA
-                */
-
-                const cover =
-                  document.createElement(
-                    "div"
-                  );
-
-
-                cover.className =
-                  "song-cover";
-
-
-                const coverUrl =
-
-                  song.cover
-                  ||
-
-                  song.coverUrl
-                  ||
-
-                  song.image
-                  ||
-
-                  song.imageUrl
-                  ||
-
-                  artistPhoto
-                  ||
-
-                  "";
-
-
-                if(coverUrl){
-
-                  cover.style.backgroundImage =
-                    `url("${coverUrl}")`;
-
-                }
-
-
-                /*
-                  INFORMAÇÃO
-                */
-
-                const info =
-                  document.createElement(
-                    "div"
-                  );
-
-
-                info.className =
-                  "song-info";
-
-
-                const title =
-                  document.createElement(
-                    "div"
-                  );
-
-
-                title.className =
-                  "song-title";
-
-
-                title.textContent =
-
-                  song.title
-                  ||
-
-                  song.name
-                  ||
-
-                  "Música sem título";
-
-
-                const meta =
-                  document.createElement(
-                    "div"
-                  );
-
-
-                meta.className =
-                  "song-meta";
-
-
-                const songArtist =
-
-                  song.artist
-                  ||
-
-                  song.artistName
-                  ||
-
-                  artistName;
-
-
-                meta.textContent =
-
-                  songArtist
-
-                  +
-
-                  " • "
-
-                  +
-
-                  (
-                    song.createdAt
-                    ||
-                    song.date
-                    ||
-                    "Música publicada"
-                  );
-
-
-                info.appendChild(title);
-
-                info.appendChild(meta);
-
-
-                /*
-                  STATUS
-                */
-
-                const status =
-                  document.createElement(
-                    "div"
-                  );
-
-
-                status.className =
-                  "song-status";
-
-
-                status.textContent =
-                  "● ATIVA";
-
-
-                /*
-                  BOTÃO OUVIR
-                */
-
-                const listenButton =
-                  document.createElement(
-                    "button"
-                  );
-
-
-                listenButton.className =
-                  "listen-btn";
-
-
-                listenButton.textContent =
-                  "▶ OUVIR";
-
-
-                listenButton.addEventListener(
-                  "click",
-                  () => {
-
-                    playSong(
-                      song,
-                      artistName
-                    );
-
-                  }
-                );
-
-
-                /*
-                  MONTAR
-                */
-
-                songElement.appendChild(
-                  cover
-                );
-
-
-                songElement.appendChild(
-                  info
-                );
-
-
-                songElement.appendChild(
-                  status
-                );
-
-
-                songElement.appendChild(
-                  listenButton
-                );
-
-
-                songList.appendChild(
-                  songElement
-                );
-
-
-              }
-            );
-
-        }
 
 
         /*
@@ -1615,31 +2797,6 @@
           formatNumber(
             followers
           );
-
-
-        /*
-          PERFIL PÚBLICO
-        */
-
-        const publicProfileUrl =
-
-          "perfil.html?user=" +
-
-          encodeURIComponent(
-            artistUsername
-          );
-
-
-        document.querySelector(
-          "#publicProfileBtn"
-        ).href =
-          publicProfileUrl;
-
-
-        document.querySelector(
-          "#publicProfileQuick"
-        ).href =
-          publicProfileUrl;
 
 
         /*
