@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="pt">
 <head>
 
@@ -156,9 +155,30 @@ h1{
 
   height:100%;
 
-  object-fit:cover;
+  object-fit:contain;
 
   display:block;
+
+  background:#000;
+
+  cursor:pointer;
+}
+
+/*
+   IMPORTANTE:
+   O vídeo permanece dentro
+   da página.
+*/
+
+.video-container video::-webkit-media-controls-enclosure{
+  width:100%;
+}
+
+.video-container video::-webkit-media-controls-panel{
+  background:linear-gradient(
+    transparent,
+    rgba(0,0,0,.85)
+  );
 }
 
 /* ==============================
@@ -166,8 +186,7 @@ h1{
 ============================== */
 
 .video-container video[poster]{
-
-  object-fit:cover;
+  object-fit:contain;
 }
 
 /* ==============================
@@ -408,6 +427,10 @@ footer{
     padding:15px;
   }
 
+  .video-card{
+    padding:14px;
+  }
+
 }
 
 </style>
@@ -424,35 +447,34 @@ footer{
 
   <nav>
 
-```
-<a href="index.html">
-  INÍCIO
-</a>
+    <a href="index.html">
+      INÍCIO
+    </a>
 
-<a href="artistas.html">
-  ARTISTAS
-</a>
+    <a href="artistas.html">
+      ARTISTAS
+    </a>
 
-<a href="musicas.html">
-  MÚSICAS
-</a>
+    <a href="musicas.html">
+      MÚSICAS
+    </a>
 
-<a href="ranking.html">
-  RANKING
-</a>
+    <a href="ranking.html">
+      RANKING
+    </a>
 
-<a href="eventos.html">
-  EVENTOS
-</a>
+    <a href="eventos.html">
+      EVENTOS
+    </a>
 
-<a href="videos.html">
-  VÍDEOS
-</a>
-```
+    <a href="videos.html">
+      VÍDEOS
+    </a>
 
   </nav>
 
 </header>
+
 
 <section class="hero">
 
@@ -466,6 +488,7 @@ footer{
 
 </section>
 
+
 <section
   class="videos"
   id="videosContainer"
@@ -473,23 +496,23 @@ footer{
 
   <div class="loading">
 
-```
-<div class="loading-icon">
-  ⏳
-</div>
+    <div class="loading-icon">
+      ⏳
+    </div>
 
-A carregar vídeos...
-```
+    A carregar vídeos...
 
   </div>
 
 </section>
+
 
 <footer>
 
 © 2026 KUDURO PRIME — O KUDURO VIVE AQUI 👑
 
 </footer>
+
 
 <script type="module">
 
@@ -591,7 +614,7 @@ function escapeHTML(value){
     );
 
   div.textContent =
-    value || "";
+    value ?? "";
 
   return div.innerHTML;
 
@@ -608,7 +631,6 @@ function formatDate(timestamp){
     return "";
   }
 
-
   if(timestamp.seconds){
 
     const date =
@@ -616,13 +638,11 @@ function formatDate(timestamp){
         timestamp.seconds * 1000
       );
 
-
     return date.toLocaleDateString(
       "pt-PT"
     );
 
   }
-
 
   return "";
 
@@ -637,7 +657,6 @@ function formatNumber(number){
 
   number =
     Number(number) || 0;
-
 
   return number.toLocaleString(
     "pt-PT"
@@ -655,17 +674,46 @@ function formatDuration(seconds){
   seconds =
     Number(seconds) || 0;
 
+  const hours =
+    Math.floor(
+      seconds / 3600
+    );
 
   const minutes =
     Math.floor(
-      seconds / 60
+      (seconds % 3600) / 60
     );
-
 
   const remainingSeconds =
     Math.floor(
       seconds % 60
     );
+
+
+  if(hours > 0){
+
+    return (
+
+      String(hours)
+        .padStart(2,"0")
+
+      + ":"
+
+      +
+
+      String(minutes)
+        .padStart(2,"0")
+
+      + ":"
+
+      +
+
+      String(remainingSeconds)
+        .padStart(2,"0")
+
+    );
+
+  }
 
 
   return (
@@ -717,10 +765,6 @@ async function loadVideos(){
       );
 
 
-    /*
-       Só mostramos vídeos publicados.
-    */
-
     const videos =
       snapshot.docs
 
@@ -739,15 +783,19 @@ async function loadVideos(){
           video => {
 
             return (
+
               video.status ===
                 "publicado"
+
               ||
 
               video.status ===
                 "publicada"
+
               ||
 
               !video.status
+
             );
 
           }
@@ -788,6 +836,7 @@ async function loadVideos(){
     );
 
   }
+
   catch(error){
 
     console.error(
@@ -867,10 +916,17 @@ function renderVideos(videos){
           "Kuduro";
 
 
+        /*
+          URL DO VÍDEO
+
+          O vídeo será reproduzido
+          diretamente neste player.
+        */
+
         const videoURL =
-          video.video
-          ||
           video.videoUrl
+          ||
+          video.video
           ||
           video.url
           ||
@@ -918,6 +974,7 @@ function renderVideos(videos){
         const duration =
           video.duracaoFormatada
           ||
+
           formatDuration(
             durationSeconds
           );
@@ -926,6 +983,7 @@ function renderVideos(videos){
         const date =
           video.dataLancamento
           ||
+
           formatDate(
             video.criadoEm
           );
@@ -944,7 +1002,12 @@ function renderVideos(videos){
 
 
         /*
-           Vídeo
+          PLAYER INTERNO
+
+          IMPORTANTE:
+          não usamos <a href> no vídeo.
+          Não usamos window.open().
+          Não abrimos Cloudinary.
         */
 
         const videoHTML =
@@ -958,32 +1021,27 @@ function renderVideos(videos){
 
               controls
 
+              playsinline
+
+              webkit-playsinline
+
               preload="metadata"
 
               ${
-
                 cover
-
                 ?
-
                 `poster="${escapeHTML(cover)}"`
-
                 :
-
                 ""
-
               }
 
               data-video-id="${escapeHTML(video.id)}"
 
               data-owner-id="${escapeHTML(artistId)}"
 
-            >
+              src="${escapeHTML(videoURL)}"
 
-              <source
-                src="${escapeHTML(videoURL)}"
-                type="video/mp4"
-              >
+            >
 
               Seu navegador não suporta vídeo.
 
@@ -1006,7 +1064,9 @@ function renderVideos(videos){
                 font-size:40px;
               "
             >
+
               🎬
+
             </div>
 
           `;
@@ -1019,7 +1079,6 @@ function renderVideos(videos){
             data-id="${escapeHTML(video.id)}"
           >
 
-
             <div class="video-container">
 
               ${videoHTML}
@@ -1028,9 +1087,7 @@ function renderVideos(videos){
 
 
             <h2>
-
               ${escapeHTML(title)}
-
             </h2>
 
 
@@ -1072,9 +1129,7 @@ function renderVideos(videos){
                   class="view-number"
                   id="views-${escapeHTML(video.id)}"
                 >
-
                   ${formatNumber(views)}
-
                 </span>
 
                 visualizações
@@ -1113,11 +1168,8 @@ function renderVideos(videos){
               `
 
                 <a
-
                   class="perfil-btn"
-
                   href="perfil.html?id=${encodeURIComponent(artistId)}"
-
                 >
 
                   VER PERFIL DO ARTISTA →
@@ -1158,12 +1210,6 @@ async function registerVideoView(
   ownerId
 ){
 
-  /*
-     Sem login:
-
-     não contabilizamos.
-  */
-
   if(!currentUser){
 
     console.log(
@@ -1176,19 +1222,14 @@ async function registerVideoView(
 
 
   /*
-     O próprio artista
-     não contabiliza a própria view.
+    O artista não conta
+    a própria visualização.
   */
 
   if(
     ownerId &&
     currentUser.uid === ownerId
   ){
-
-    console.log(
-      "Próprio artista. View não contabilizada."
-    );
-
 
     const status =
       document.querySelector(
@@ -1211,15 +1252,6 @@ async function registerVideoView(
 
 
   try{
-
-    /*
-       Cada utilizador terá apenas
-       um documento por vídeo.
-
-       Estrutura:
-
-       videos/{videoId}/viewers/{userId}
-    */
 
     const viewerRef =
       doc(
@@ -1244,17 +1276,14 @@ async function registerVideoView(
 
 
     /*
-       Se já viu este vídeo,
-       não contamos novamente.
+      Se este utilizador
+      já contou uma view,
+      não conta novamente.
     */
 
     if(
       viewerSnapshot.exists()
     ){
-
-      console.log(
-        "Este utilizador já contou este vídeo."
-      );
 
       return;
 
@@ -1262,7 +1291,8 @@ async function registerVideoView(
 
 
     /*
-       Registra o espectador.
+      Guardar utilizador
+      que viu o vídeo.
     */
 
     await setDoc(
@@ -1283,7 +1313,7 @@ async function registerVideoView(
 
 
     /*
-       Aumenta as visualizações.
+      Incrementar visualizações.
     */
 
     const videoRef =
@@ -1316,7 +1346,8 @@ async function registerVideoView(
 
 
     /*
-       Atualiza a tela.
+      Atualizar número
+      na tela.
     */
 
     const viewElement =
@@ -1342,9 +1373,7 @@ async function registerVideoView(
 
         )
 
-        ||
-
-        0;
+        || 0;
 
 
       viewElement.textContent =
@@ -1354,16 +1383,12 @@ async function registerVideoView(
 
     }
 
-
-    console.log(
-      "Nova visualização de vídeo contabilizada."
-    );
-
   }
+
   catch(error){
 
     console.error(
-      "Erro ao registrar visualização do vídeo:",
+      "Erro ao registrar visualização:",
       error
     );
 
@@ -1373,21 +1398,18 @@ async function registerVideoView(
 
 
 /* =========================================
-   PLAYER DOS VÍDEOS
+   PLAYER + VIEWS
 ========================================= */
 
 function activateViewTracking(){
 
   const videos =
     document.querySelectorAll(
-
       "video[data-video-id]"
-
     );
 
 
   videos.forEach(
-
     video => {
 
       let sessionChecked =
@@ -1395,15 +1417,8 @@ function activateViewTracking(){
 
 
       video.addEventListener(
-
         "play",
-
         async () => {
-
-          /*
-             Evita várias chamadas
-             na mesma página.
-          */
 
           if(sessionChecked){
 
@@ -1433,11 +1448,25 @@ function activateViewTracking(){
           );
 
         }
+      );
 
+
+      /*
+        Impede que um clique
+        acidental no player
+        navegue para outro site.
+      */
+
+      video.addEventListener(
+        "click",
+        event => {
+
+          event.stopPropagation();
+
+        }
       );
 
     }
-
   );
 
 }
@@ -1456,11 +1485,6 @@ onAuthStateChanged(
     currentUser =
       user || null;
 
-
-    /*
-       Só carregamos os vídeos depois
-       de saber quem está autenticado.
-    */
 
     loadVideos();
 
