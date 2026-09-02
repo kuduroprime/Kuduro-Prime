@@ -21,6 +21,8 @@
       --muted:#aaa59a;
       --line:#2a271f;
       --green:#48d597;
+      --red:#ff563f;
+      --blue:#5da9ff;
     }
 
     *{
@@ -44,6 +46,10 @@
     a{
       color:inherit;
       text-decoration:none;
+    }
+
+    button{
+      font-family:inherit;
     }
 
     .loading{
@@ -81,14 +87,18 @@
       grid-template-columns:260px 1fr;
     }
 
+    /* SIDEBAR */
+
     .sidebar{
       min-height:100vh;
       position:sticky;
       top:0;
       height:100vh;
       padding:25px 15px;
+
       background:#090909;
       border-right:1px solid var(--line);
+
       display:flex;
       flex-direction:column;
     }
@@ -96,6 +106,7 @@
     .brand{
       display:block;
       margin:0 12px 35px;
+
       font-size:22px;
       font-weight:900;
       line-height:.78;
@@ -119,24 +130,32 @@
       display:flex;
       align-items:center;
       gap:10px;
+
       padding:12px;
       margin-bottom:20px;
+
       border-radius:10px;
       background:#121212;
       border:1px solid var(--line);
+
       cursor:pointer;
     }
 
     .mini-photo{
       width:42px;
       height:42px;
+
       border-radius:50%;
       overflow:hidden;
+
       background:#1a1609;
+
       display:grid;
       place-items:center;
+
       color:var(--gold);
       font-size:20px;
+
       flex:0 0 auto;
     }
 
@@ -152,7 +171,9 @@
 
     .mini-name strong{
       display:block;
+
       font-size:11px;
+
       white-space:nowrap;
       overflow:hidden;
       text-overflow:ellipsis;
@@ -160,8 +181,11 @@
 
     .mini-name span{
       display:block;
+
       margin-top:4px;
+
       color:var(--gold);
+
       font-size:9px;
       font-weight:900;
     }
@@ -169,21 +193,30 @@
     .nav-title{
       padding:0 12px;
       margin:15px 0 7px;
+
       color:#777;
+
       font-size:9px;
       font-weight:900;
+
       letter-spacing:1px;
     }
 
     .side-link{
       padding:13px 12px;
+
       border-radius:8px;
+
       display:flex;
       align-items:center;
+
       gap:10px;
+
       color:#aaa;
+
       font-size:11px;
       font-weight:800;
+
       transition:.2s;
     }
 
@@ -193,23 +226,41 @@
       background:#18140a;
     }
 
+    .side-link.video-link{
+      border:1px solid transparent;
+    }
+
+    .side-link.video-link:hover{
+      border-color:#5a4618;
+    }
+
     .side-bottom{
       margin-top:auto;
+
       padding-top:20px;
+
       border-top:1px solid var(--line);
     }
 
     .logout{
       width:100%;
+
       border:0;
       background:transparent;
+
       color:#d27b6e;
+
       padding:12px;
+
       text-align:left;
+
       font-size:11px;
       font-weight:900;
+
       cursor:pointer;
     }
+
+    /* MAIN */
 
     .main{
       min-width:0;
@@ -217,16 +268,24 @@
 
     .topbar{
       height:82px;
+
       padding:0 4%;
+
       border-bottom:1px solid var(--line);
+
       display:flex;
       align-items:center;
       justify-content:space-between;
+
       gap:20px;
+
       position:sticky;
       top:0;
+
       z-index:30;
+
       background:rgba(7,7,7,.92);
+
       backdrop-filter:blur(12px);
     }
 
@@ -237,7 +296,9 @@
 
     .topbar p{
       margin:4px 0 0;
+
       color:var(--muted);
+
       font-size:10px;
     }
 
@@ -245,27 +306,40 @@
       display:flex;
       align-items:center;
       gap:10px;
+
+      flex-wrap:wrap;
+      justify-content:flex-end;
     }
 
     .btn{
       min-height:42px;
+
       padding:0 15px;
+
       border-radius:8px;
+
       border:1px solid var(--gold);
+
       display:inline-flex;
       align-items:center;
       justify-content:center;
+
       gap:7px;
+
       background:transparent;
       color:var(--gold);
+
       font-size:10px;
       font-weight:900;
+
       cursor:pointer;
     }
 
     .btn.gold{
       border:0;
+
       color:#17120a;
+
       background:
         linear-gradient(
           135deg,
@@ -274,32 +348,58 @@
         );
     }
 
+    .btn.video{
+      border:0;
+
+      color:#15110a;
+
+      background:
+        linear-gradient(
+          135deg,
+          #fff0ad,
+          var(--gold)
+        );
+    }
+
     .content{
       width:min(1250px,94%);
+
       margin:35px auto 60px;
     }
 
+    /* WELCOME */
+
     .welcome{
       padding:28px;
+
       border-radius:16px;
+
       border:1px solid #4d3d15;
+
       background:
         linear-gradient(
           110deg,
           #211803,
           #101010
         );
+
       margin-bottom:25px;
+
       position:relative;
+
       overflow:hidden;
     }
 
     .welcome:after{
       content:"♕";
+
       position:absolute;
+
       right:30px;
       top:-15px;
+
       color:rgba(244,191,49,.08);
+
       font-size:150px;
     }
 
@@ -310,33 +410,48 @@
 
     .welcome small{
       color:var(--gold);
+
       font-weight:900;
+
       letter-spacing:1.5px;
     }
 
     .welcome h1{
       margin:10px 0;
+
       font-size:34px;
     }
 
     .welcome p{
       margin:0;
+
       color:#c6c0b5;
+
       font-size:13px;
+
       line-height:1.6;
     }
 
+    /* STATS */
+
     .stats{
       display:grid;
-      grid-template-columns:repeat(4,1fr);
+
+      grid-template-columns:
+        repeat(5,1fr);
+
       gap:15px;
+
       margin-bottom:25px;
     }
 
     .stat{
       padding:20px;
+
       border:1px solid var(--line);
+
       border-radius:14px;
+
       background:
         linear-gradient(
           145deg,
@@ -347,8 +462,10 @@
 
     .stat-top{
       display:flex;
+
       justify-content:space-between;
       align-items:center;
+
       color:var(--gold);
     }
 
@@ -358,36 +475,56 @@
 
     .stat-number{
       margin-top:18px;
+
       font-size:30px;
+
       font-weight:950;
     }
 
     .stat-label{
       margin-top:5px;
+
       color:var(--muted);
+
       font-size:9px;
       font-weight:900;
+
       letter-spacing:.5px;
     }
 
     .stat-change{
       margin-top:12px;
+
       color:var(--green);
+
       font-size:10px;
+
       font-weight:800;
     }
 
+    .stat.video-stat .stat-change{
+      color:var(--gold);
+    }
+
+    /* GRID */
+
     .dashboard-grid{
       display:grid;
+
       grid-template-columns:1.3fr .7fr;
+
       gap:20px;
+
       align-items:start;
     }
 
     .panel{
       border:1px solid var(--line);
+
       border-radius:15px;
+
       overflow:hidden;
+
       background:
         linear-gradient(
           145deg,
@@ -398,23 +535,33 @@
 
     .panel-head{
       padding:19px 20px;
+
       border-bottom:1px solid var(--line);
+
       display:flex;
+
       justify-content:space-between;
+
       align-items:center;
+
       gap:15px;
     }
 
     .panel-head h3{
       margin:0;
+
       font-size:15px;
     }
 
     .panel-head a{
       color:var(--gold);
+
       font-size:10px;
+
       font-weight:900;
     }
+
+    /* SONGS */
 
     .song-list{
       padding:5px 20px;
@@ -422,9 +569,13 @@
 
     .song{
       display:flex;
+
       align-items:center;
+
       gap:12px;
+
       padding:13px 0;
+
       border-bottom:1px solid var(--line);
     }
 
@@ -435,12 +586,18 @@
     .song-cover{
       width:48px;
       height:48px;
+
       border-radius:7px;
+
       flex:0 0 auto;
+
       background:#1a1609 center/cover no-repeat;
+
       display:grid;
       place-items:center;
+
       color:var(--gold);
+
       font-size:20px;
     }
 
@@ -450,7 +607,9 @@
 
     .song-info strong{
       display:block;
+
       font-size:12px;
+
       white-space:nowrap;
       overflow:hidden;
       text-overflow:ellipsis;
@@ -458,76 +617,211 @@
 
     .song-info span{
       display:block;
+
       margin-top:5px;
+
       color:var(--muted);
+
       font-size:10px;
     }
 
     .song-views{
       margin-left:auto;
+
       color:var(--gold);
+
       font-size:11px;
+
       font-weight:900;
+
       white-space:nowrap;
     }
 
     .empty{
       padding:45px 20px;
+
       text-align:center;
+
       color:var(--muted);
+
       font-size:12px;
     }
 
     .empty-icon{
       font-size:35px;
+
       color:var(--gold);
+
       margin-bottom:10px;
     }
 
+    /* QUICK */
+
     .quick-actions{
       padding:15px;
+
       display:grid;
+
       gap:10px;
     }
 
     .quick{
       display:flex;
+
       align-items:center;
+
       gap:12px;
+
       padding:14px;
+
       border:1px solid var(--line);
+
       border-radius:10px;
+
       background:#0d0d0d;
+
       transition:.2s;
     }
 
     .quick:hover{
       border-color:#6e5720;
+
       transform:translateX(3px);
     }
 
     .quick-icon{
       width:40px;
       height:40px;
+
       border-radius:8px;
+
       display:grid;
       place-items:center;
+
       background:#1c1608;
+
       color:var(--gold);
+
       flex:0 0 auto;
+
+      font-size:18px;
+    }
+
+    .quick.video-action{
+      border-color:#3c3119;
+
+      background:
+        linear-gradient(
+          145deg,
+          #17140d,
+          #0d0d0d
+        );
+    }
+
+    .quick.video-action .quick-icon{
+      background:#29200b;
     }
 
     .quick strong{
       display:block;
+
       font-size:11px;
     }
 
     .quick small{
       display:block;
+
       margin-top:4px;
+
       color:var(--muted);
+
       font-size:9px;
     }
+
+    /* VIDEO RULE */
+
+    .video-rule{
+      margin-top:20px;
+
+      padding:18px;
+
+      border:1px solid #4d3d15;
+
+      border-radius:14px;
+
+      background:
+        linear-gradient(
+          145deg,
+          #191405,
+          #0d0d0d
+        );
+    }
+
+    .video-rule-title{
+      color:var(--gold);
+
+      font-size:11px;
+
+      font-weight:900;
+
+      letter-spacing:.5px;
+    }
+
+    .video-rule-text{
+      margin-top:8px;
+
+      color:#bdb7ac;
+
+      font-size:10px;
+
+      line-height:1.7;
+    }
+
+    .video-rule-text b{
+      color:#fff;
+    }
+
+    .free-badge{
+      display:inline-block;
+
+      margin-top:10px;
+
+      padding:6px 9px;
+
+      border-radius:6px;
+
+      background:rgba(72,213,151,.10);
+
+      border:1px solid rgba(72,213,151,.25);
+
+      color:var(--green);
+
+      font-size:9px;
+
+      font-weight:900;
+    }
+
+    .paid-badge{
+      display:inline-block;
+
+      margin-left:5px;
+
+      padding:6px 9px;
+
+      border-radius:6px;
+
+      background:rgba(244,191,49,.10);
+
+      border:1px solid rgba(244,191,49,.25);
+
+      color:var(--gold);
+
+      font-size:9px;
+
+      font-weight:900;
+    }
+
+    /* PROGRESS */
 
     .progress{
       padding:20px;
@@ -535,31 +829,45 @@
 
     .progress-text{
       color:var(--muted);
+
       font-size:11px;
+
       line-height:1.6;
     }
 
     .progress-bar{
       height:8px;
+
       margin:15px 0 8px;
+
       overflow:hidden;
+
       border-radius:10px;
+
       background:#252525;
     }
 
     .progress-fill{
       height:100%;
+
       width:0;
+
       background:var(--gold);
+
       border-radius:inherit;
+
       transition:.4s;
     }
 
     .progress-number{
       color:var(--gold);
+
       font-size:10px;
+
       font-weight:900;
     }
+
+    /* ACTIVITY */
 
     .activity{
       padding:5px 20px;
@@ -567,8 +875,11 @@
 
     .activity-item{
       display:flex;
+
       gap:12px;
+
       padding:15px 0;
+
       border-bottom:1px solid var(--line);
     }
 
@@ -579,34 +890,60 @@
     .activity-icon{
       width:32px;
       height:32px;
+
       display:grid;
       place-items:center;
+
       border-radius:50%;
+
       background:#1b170c;
+
       color:var(--gold);
+
       font-size:12px;
+
       flex:0 0 auto;
     }
 
     .activity-text{
       font-size:11px;
+
       line-height:1.5;
     }
 
     .activity-text small{
       display:block;
+
       margin-top:4px;
+
       color:var(--muted);
+
       font-size:9px;
     }
 
+    /* MOBILE */
+
     .mobile-menu{
       display:none;
+
       background:transparent;
+
       border:0;
+
       color:white;
+
       font-size:22px;
+
       cursor:pointer;
+    }
+
+    @media(max-width:1150px){
+
+      .stats{
+        grid-template-columns:
+          repeat(3,1fr);
+      }
+
     }
 
     @media(max-width:1000px){
@@ -616,7 +953,8 @@
       }
 
       .stats{
-        grid-template-columns:repeat(2,1fr);
+        grid-template-columns:
+          repeat(2,1fr);
       }
 
     }
@@ -629,12 +967,18 @@
 
       .sidebar{
         position:fixed;
+
         left:-280px;
         top:0;
+
         width:260px;
+
         z-index:100;
+
         transition:.3s;
-        box-shadow:20px 0 50px rgba(0,0,0,.5);
+
+        box-shadow:
+          20px 0 50px rgba(0,0,0,.5);
       }
 
       .sidebar.show{
@@ -653,12 +997,18 @@
         height:70px;
       }
 
+      .top-actions .btn{
+        min-height:38px;
+        padding:0 10px;
+      }
+
     }
 
     @media(max-width:550px){
 
       .content{
         width:92%;
+
         margin-top:25px;
       }
 
@@ -675,7 +1025,8 @@
       }
 
       .stats{
-        grid-template-columns:1fr 1fr;
+        grid-template-columns:
+          1fr 1fr;
       }
 
       .stat{
@@ -694,6 +1045,15 @@
         font-size:27px;
       }
 
+      .song-list{
+        padding-left:15px;
+        padding-right:15px;
+      }
+
+      .song-views{
+        font-size:10px;
+      }
+
     }
 
   </style>
@@ -701,7 +1061,12 @@
 
 <body>
 
-  <div class="loading" id="loading">
+  <!-- LOADING -->
+
+  <div
+    class="loading"
+    id="loading"
+  >
 
     <div class="loading-logo">
       👑 KUDURO PRIME
@@ -716,22 +1081,40 @@
 
   <div class="app">
 
-    <aside class="sidebar" id="sidebar">
+    <!-- SIDEBAR -->
 
-      <a href="index.html" class="brand">
+    <aside
+      class="sidebar"
+      id="sidebar"
+    >
 
-        <span class="crown">♕</span>
+      <a
+        href="index.html"
+        class="brand"
+      >
+
+        <span class="crown">
+          ♕
+        </span>
 
         KUDURO
 
-        <b>PRIME</b>
+        <b>
+          PRIME
+        </b>
 
       </a>
 
 
-      <a href="meu-perfil.html" class="artist-mini">
+      <a
+        href="meu-perfil.html"
+        class="artist-mini"
+      >
 
-        <div class="mini-photo" id="miniPhoto">
+        <div
+          class="mini-photo"
+          id="miniPhoto"
+        >
           👤
         </div>
 
@@ -754,15 +1137,27 @@
         MENU PRINCIPAL
       </div>
 
-      <a href="painel-do-artista.html" class="side-link active">
+
+      <a
+        href="painel-do-artista.html"
+        class="side-link active"
+      >
         📊 Painel do Artista
       </a>
 
-      <a href="meu-perfil.html" class="side-link">
+
+      <a
+        href="meu-perfil.html"
+        class="side-link"
+      >
         👤 Meu Perfil
       </a>
 
-      <a href="editar-perfil.html" class="side-link">
+
+      <a
+        href="editar-perfil.html"
+        class="side-link"
+      >
         ✏ Editar Perfil
       </a>
 
@@ -771,11 +1166,35 @@
         CONTEÚDO
       </div>
 
-      <a href="minhas-musicas.html" class="side-link">
+
+      <a
+        href="minhas-musicas.html"
+        class="side-link"
+      >
         🎵 Minhas Músicas
       </a>
 
-      <a href="pagamento-musicas.html" class="side-link">
+
+      <a
+        href="publicar-video.html"
+        class="side-link video-link"
+      >
+        🎬 Publicar Vídeo
+      </a>
+
+
+      <a
+        href="meus-videos.html"
+        class="side-link video-link"
+      >
+        🎥 Meus Vídeos
+      </a>
+
+
+      <a
+        href="pagamento-musicas.html"
+        class="side-link"
+      >
         💳 Pagamentos
       </a>
 
@@ -784,11 +1203,19 @@
         PLATAFORMA
       </div>
 
-      <a href="ranking.html" class="side-link">
+
+      <a
+        href="ranking.html"
+        class="side-link"
+      >
         🏆 Ranking Prime
       </a>
 
-      <a href="index.html" class="side-link">
+
+      <a
+        href="index.html"
+        class="side-link"
+      >
         🌐 Ver Site Público
       </a>
 
@@ -807,6 +1234,8 @@
 
     </aside>
 
+
+    <!-- MAIN -->
 
     <main class="main">
 
@@ -836,12 +1265,27 @@
 
         <div class="top-actions">
 
-          <a href="meu-perfil.html" class="btn">
+          <a
+            href="meu-perfil.html"
+            class="btn"
+          >
             👁 MEU PERFIL
           </a>
 
-          <a href="minhas-musicas.html" class="btn gold">
-            + PUBLICAR MÚSICA
+
+          <a
+            href="minhas-musicas.html"
+            class="btn gold"
+          >
+            🎵 PUBLICAR MÚSICA
+          </a>
+
+
+          <a
+            href="publicar-video.html"
+            class="btn video"
+          >
+            🎬 PUBLICAR VÍDEO
           </a>
 
         </div>
@@ -850,6 +1294,8 @@
 
 
       <div class="content">
+
+        <!-- WELCOME -->
 
         <section class="welcome">
 
@@ -865,14 +1311,17 @@
 
             <p>
               Aqui podes gerir o teu perfil,
-              publicar músicas e acompanhar
-              a tua presença no movimento Kuduro.
+              publicar músicas, publicar vídeos
+              e acompanhar a tua presença no
+              movimento Kuduro.
             </p>
 
           </div>
 
         </section>
 
+
+        <!-- STATS -->
 
         <section class="stats">
 
@@ -903,6 +1352,30 @@
           <article class="stat">
 
             <div class="stat-top">
+              <span>🎬</span>
+            </div>
+
+            <div
+              class="stat-number"
+              id="totalVideos"
+            >
+              0
+            </div>
+
+            <div class="stat-label">
+              VÍDEOS PUBLICADOS
+            </div>
+
+            <div class="stat-change">
+              ✓ Conteúdo de vídeo
+            </div>
+
+          </article>
+
+
+          <article class="stat">
+
+            <div class="stat-top">
               <span>👁</span>
             </div>
 
@@ -918,7 +1391,7 @@
             </div>
 
             <div class="stat-change">
-              ✓ Atualizado
+              ✓ Apenas público
             </div>
 
           </article>
@@ -948,7 +1421,7 @@
           </article>
 
 
-          <article class="stat">
+          <article class="stat video-stat">
 
             <div class="stat-top">
               <span>🏆</span>
@@ -976,7 +1449,11 @@
 
         <div class="dashboard-grid">
 
+          <!-- COLUNA PRINCIPAL -->
+
           <div>
+
+            <!-- MUSICAS -->
 
             <section class="panel">
 
@@ -986,7 +1463,9 @@
                   🎵 MÚSICAS RECENTES
                 </h3>
 
-                <a href="minhas-musicas.html">
+                <a
+                  href="minhas-musicas.html"
+                >
                   VER TODAS ›
                 </a>
 
@@ -1012,6 +1491,8 @@
 
             </section>
 
+
+            <!-- ATIVIDADE -->
 
             <section
               class="panel"
@@ -1055,10 +1536,50 @@
 
             </section>
 
+
+            <!-- REGRA DE VIDEOS -->
+
+            <section class="video-rule">
+
+              <div class="video-rule-title">
+                🎬 REGRA DE PUBLICAÇÃO DE VÍDEOS
+              </div>
+
+              <div class="video-rule-text">
+
+                Vídeos com duração de
+                <b>até 1 minuto</b>
+                são publicados gratuitamente.
+
+                <br>
+
+                Vídeos com duração
+                <b>superior a 1 minuto</b>
+                têm uma taxa de
+                <b>500 Kz por vídeo</b>.
+
+              </div>
+
+
+              <span class="free-badge">
+                ✓ ATÉ 1:00 — GRÁTIS
+              </span>
+
+
+              <span class="paid-badge">
+                💳 MAIS DE 1:00 — 500 KZ
+              </span>
+
+            </section>
+
           </div>
 
 
+          <!-- COLUNA LATERAL -->
+
           <aside>
+
+            <!-- AÇÕES -->
 
             <section class="panel">
 
@@ -1090,6 +1611,54 @@
 
                     <small>
                       Adiciona um novo lançamento
+                    </small>
+
+                  </div>
+
+                </a>
+
+
+                <a
+                  href="publicar-video.html"
+                  class="quick video-action"
+                >
+
+                  <div class="quick-icon">
+                    🎬
+                  </div>
+
+                  <div>
+
+                    <strong>
+                      Publicar Vídeo
+                    </strong>
+
+                    <small>
+                      Até 1 min grátis · +1 min 500 Kz
+                    </small>
+
+                  </div>
+
+                </a>
+
+
+                <a
+                  href="meus-videos.html"
+                  class="quick"
+                >
+
+                  <div class="quick-icon">
+                    🎥
+                  </div>
+
+                  <div>
+
+                    <strong>
+                      Meus Vídeos
+                    </strong>
+
+                    <small>
+                      Gere os teus vídeos publicados
                     </small>
 
                   </div>
@@ -1172,6 +1741,8 @@
 
             </section>
 
+
+            <!-- PERFIL -->
 
             <section
               class="panel"
@@ -1257,6 +1828,10 @@
     "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 
 
+    /* ================================
+       FIREBASE
+    ================================ */
+
     const firebaseConfig = {
 
       apiKey:
@@ -1292,24 +1867,21 @@
       getFirestore(app);
 
 
-    let currentUser =
-      null;
+    let currentUser = null;
 
+    let currentSongs = [];
 
-    let currentSongs =
-      [];
+    let currentVideos = [];
 
+    let currentArtist = {};
 
-    let currentArtist =
-      {};
+    let unsubscribeSongs = null;
 
-
-    let unsubscribeSongs =
-      null;
+    let unsubscribeVideos = null;
 
 
     /* ================================
-       SEGURANÇA
+       SEGURANÇA HTML
     ================================ */
 
     function escapeHTML(text){
@@ -1317,10 +1889,8 @@
       const div =
         document.createElement("div");
 
-
       div.textContent =
         text || "";
-
 
       return div.innerHTML;
 
@@ -1328,7 +1898,7 @@
 
 
     /* ================================
-       FORMATAR DATA
+       DATA
     ================================ */
 
     function formatDate(timestamp){
@@ -1364,7 +1934,7 @@
 
 
     /* ================================
-       MENU
+       MENU MOBILE
     ================================ */
 
     const menuBtn =
@@ -1403,9 +1973,11 @@
           try{
 
             if(unsubscribeSongs){
-
               unsubscribeSongs();
+            }
 
+            if(unsubscribeVideos){
+              unsubscribeVideos();
             }
 
 
@@ -1478,6 +2050,8 @@
           "Erro ao carregar perfil:",
           error
         );
+
+        currentArtist = {};
 
       }
 
@@ -1556,14 +2130,11 @@
 
       if(artistPhoto){
 
-        photo.innerHTML =
-          "";
+        photo.innerHTML = "";
 
 
         const image =
-          document.createElement(
-            "img"
-          );
+          document.createElement("img");
 
 
         image.src =
@@ -1583,9 +2154,7 @@
           };
 
 
-        photo.appendChild(
-          image
-        );
+        photo.appendChild(image);
 
       }
       else{
@@ -1602,7 +2171,7 @@
 
 
     /* ================================
-       PROGRESSO DO PERFIL
+       PROGRESSO PERFIL
     ================================ */
 
     function updateProfileProgress(){
@@ -1610,18 +2179,25 @@
       const fields = [
 
         currentArtist.nomeArtistico,
+
         currentArtist.nome,
+
         currentArtist.foto
           ||
           currentArtist.fotoPerfil
           ||
           currentArtist.imagem,
+
         currentArtist.bio,
+
         currentArtist.genero,
+
         currentArtist.cidade
           ||
           currentArtist.city,
+
         currentArtist.instagram,
+
         currentArtist.tiktok
 
       ];
@@ -1717,8 +2293,7 @@
                   id:
                     musicDoc.id,
 
-                  ...
-                  musicDoc.data()
+                  ...musicDoc.data()
 
                 })
 
@@ -1748,11 +2323,7 @@
 
             renderDashboard();
 
-
-            document
-              .querySelector("#loading")
-              .classList
-              .add("hidden");
+            hideLoading();
 
           },
 
@@ -1786,10 +2357,7 @@
               `;
 
 
-            document
-              .querySelector("#loading")
-              .classList
-              .add("hidden");
+            hideLoading();
 
           }
 
@@ -1799,7 +2367,252 @@
 
 
     /* ================================
-       ATUALIZAR PAINEL
+       VÍDEOS
+    ================================ */
+
+    function loadMyVideos(){
+
+      if(!currentUser){
+        return;
+      }
+
+
+      if(unsubscribeVideos){
+
+        unsubscribeVideos();
+
+        unsubscribeVideos =
+          null;
+
+      }
+
+
+      /*
+        Procuramos vídeos pelos vários nomes
+        usados no projeto para evitar problemas
+        com documentos antigos.
+      */
+
+      const videosRef =
+        collection(
+          db,
+          "videos"
+        );
+
+
+      const q1 =
+        query(
+          videosRef,
+          where(
+            "artistaId",
+            "==",
+            currentUser.uid
+          )
+        );
+
+
+      unsubscribeVideos =
+        onSnapshot(
+
+          q1,
+
+          snapshot => {
+
+            currentVideos =
+              snapshot.docs
+              .map(
+                videoDoc => ({
+
+                  id:
+                    videoDoc.id,
+
+                  ...videoDoc.data()
+
+                })
+              )
+              .sort(
+
+                (a,b) => {
+
+                  const timeA =
+                    a.criadoEm?.seconds
+                    ||
+                    0;
+
+                  const timeB =
+                    b.criadoEm?.seconds
+                    ||
+                    0;
+
+                  return timeB - timeA;
+
+                }
+
+              );
+
+
+            document
+              .querySelector("#totalVideos")
+              .textContent =
+                currentVideos.length;
+
+
+            updateTotalViews();
+
+            hideLoading();
+
+          },
+
+          error => {
+
+            console.error(
+              "Erro ao carregar vídeos:",
+              error
+            );
+
+            /*
+              Não bloqueamos o painel caso a
+              coleção de vídeos tenha algum problema.
+            */
+
+            document
+              .querySelector("#totalVideos")
+              .textContent =
+                "0";
+
+            updateTotalViews();
+
+            hideLoading();
+
+          }
+
+        );
+
+    }
+
+
+    /* ================================
+       VISUALIZAÇÕES
+       IMPORTANTE
+    ================================ */
+
+    function getPublicViews(item){
+
+      /*
+        O painel NÃO deve contar uma visualização
+        feita pelo próprio artista.
+
+        Aqui aceitamos somente o contador público
+        já existente no documento.
+
+        A proteção definitiva deve estar também
+        no código que incrementa "views".
+      */
+
+      const ownerId =
+
+        item.artistaId
+
+        ||
+
+        item.artistId
+
+        ||
+
+        item.userId
+
+        ||
+
+        item.uid
+
+        ||
+
+        "";
+
+
+      /*
+        Se o documento pertence ao artista atual,
+        ele continua aparecendo no painel, mas a
+        visualização do próprio artista nunca é
+        adicionada aqui.
+
+        O valor mostrado é o contador público
+        armazenado no Firestore.
+      */
+
+      if(
+        currentUser &&
+        ownerId === currentUser.uid
+      ){
+
+        return Number(
+          item.views
+        ) || 0;
+
+      }
+
+
+      return Number(
+        item.views
+      ) || 0;
+
+    }
+
+
+    function updateTotalViews(){
+
+      /*
+        SOMENTE CONTEÚDO DO ARTISTA.
+
+        Não usamos visualizações do perfil do artista.
+        Não usamos visualizações de outros artistas.
+      */
+
+      const songViews =
+        currentSongs.reduce(
+
+          (total,song) => {
+
+            return total +
+              getPublicViews(song);
+
+          },
+
+          0
+
+        );
+
+
+      const videoViews =
+        currentVideos.reduce(
+
+          (total,video) => {
+
+            return total +
+              getPublicViews(video);
+
+          },
+
+          0
+
+        );
+
+
+      const total =
+        songViews +
+        videoViews;
+
+
+      document
+        .querySelector("#totalViews")
+        .textContent =
+          total;
+
+    }
+
+
+    /* ================================
+       DASHBOARD
     ================================ */
 
     function renderDashboard(){
@@ -1810,36 +2623,10 @@
           currentSongs.length;
 
 
-      const totalViews =
-        currentSongs.reduce(
-
-          (total,song) =>
-
-            total +
-            (
-              Number(
-                song.views
-              )
-
-              ||
-
-              0
-
-            ),
-
-          0
-
-        );
-
-
-      document
-        .querySelector("#totalViews")
-        .textContent =
-          totalViews;
+      updateTotalViews();
 
 
       renderRecentSongs();
-
 
       renderActivity();
 
@@ -1915,11 +2702,7 @@
 
 
             const views =
-              Number(
-                song.views
-              )
-              ||
-              0;
+              getPublicViews(song);
 
 
             const date =
@@ -1933,7 +2716,7 @@
             const coverStyle =
               cover
               ?
-              `style="background-image:url('${cover}')"`
+              `style="background-image:url('${escapeHTML(cover)}')"`
               :
               "";
 
@@ -1979,7 +2762,7 @@
 
 
     /* ================================
-       ATIVIDADE RECENTE
+       ATIVIDADE
     ================================ */
 
     function renderActivity(){
@@ -1990,7 +2773,10 @@
         );
 
 
-      if(currentSongs.length === 0){
+      if(
+        currentSongs.length === 0 &&
+        currentVideos.length === 0
+      ){
 
         activityList.innerHTML =
           `
@@ -2024,20 +2810,106 @@
         currentSongs[0];
 
 
-      const musicName =
-        lastSong.titulo
-        ||
-        lastSong.title
-        ||
-        "Nova música";
+      const lastVideo =
+        currentVideos[0];
 
 
-      const musicDate =
-        lastSong.dataLancamento
-        ||
-        formatDate(
-          lastSong.criadoEm
-        );
+      let activity = null;
+
+
+      if(
+        lastSong &&
+        lastVideo
+      ){
+
+        const songTime =
+          lastSong.criadoEm?.seconds
+          ||
+          0;
+
+
+        const videoTime =
+          lastVideo.criadoEm?.seconds
+          ||
+          0;
+
+
+        activity =
+          videoTime > songTime
+          ?
+          {
+            type:"video",
+            title:
+              lastVideo.titulo
+              ||
+              lastVideo.title
+              ||
+              "Novo vídeo",
+            date:
+              lastVideo.criadoEm
+          }
+          :
+          {
+            type:"music",
+            title:
+              lastSong.titulo
+              ||
+              lastSong.title
+              ||
+              "Nova música",
+            date:
+              lastSong.criadoEm
+          };
+
+      }
+      else if(lastVideo){
+
+        activity =
+          {
+            type:"video",
+            title:
+              lastVideo.titulo
+              ||
+              lastVideo.title
+              ||
+              "Novo vídeo",
+            date:
+              lastVideo.criadoEm
+          };
+
+      }
+      else{
+
+        activity =
+          {
+            type:"music",
+            title:
+              lastSong.titulo
+              ||
+              lastSong.title
+              ||
+              "Nova música",
+            date:
+              lastSong.criadoEm
+          };
+
+      }
+
+
+      const icon =
+        activity.type === "video"
+        ?
+        "🎬"
+        :
+        "🎵";
+
+
+      const text =
+        activity.type === "video"
+        ?
+        "Publicaste o vídeo"
+        :
+        "Publicaste a música";
 
 
       activityList.innerHTML =
@@ -2045,18 +2917,25 @@
           <div class="activity-item">
 
             <div class="activity-icon">
-              🎵
+              ${icon}
             </div>
 
             <div class="activity-text">
 
-              Publicaste a música
+              ${text}
+
               <b>
-                ${escapeHTML(musicName)}
+                ${escapeHTML(
+                  activity.title
+                )}
               </b>.
 
               <small>
-                ${escapeHTML(musicDate)}
+                ${escapeHTML(
+                  formatDate(
+                    activity.date
+                  )
+                )}
               </small>
 
             </div>
@@ -2074,17 +2953,36 @@
     function loadFollowers(){
 
       const followers =
+
         currentArtist.seguidores
+
         ||
+
         currentArtist.followers
+
         ||
+
         0;
 
 
       document
         .querySelector("#totalFollowers")
         .textContent =
-          followers;
+          Number(followers) || 0;
+
+    }
+
+
+    /* ================================
+       ESCONDER LOADING
+    ================================ */
+
+    function hideLoading(){
+
+      document
+        .querySelector("#loading")
+        .classList
+        .add("hidden");
 
     }
 
@@ -2121,6 +3019,8 @@
 
 
         loadMySongs();
+
+        loadMyVideos();
 
       }
 
