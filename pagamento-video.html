@@ -1,576 +1,701 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Pagamento de Vídeo | KUDURO PRIME</title>
+  <title>Pagamento de Vídeo | KUDURO PRIME</title>
 
-<style>
+  <style>
+    :root{
+      --bg:#060606;
+      --panel:#101010;
+      --panel2:#151515;
+      --gold:#f4bf31;
+      --gold2:#ffdc6b;
+      --text:#f7f4ed;
+      --muted:#aaa59a;
+      --line:#29251d;
+      --green:#48d597;
+      --red:#ff563f;
+    }
 
-*{
-  box-sizing:border-box;
-}
+    *{
+      box-sizing:border-box;
+      margin:0;
+      padding:0;
+    }
 
-body{
-  margin:0;
-  background:#080808;
-  color:#fff;
-  font-family:Arial, Helvetica, sans-serif;
-}
+    body{
+      font-family:Arial, Helvetica, sans-serif;
+      background:
+        radial-gradient(circle at top, #1b1608 0%, #060606 45%);
+      color:var(--text);
+      min-height:100vh;
+    }
 
-header{
-  background:#111;
-  padding:20px;
-  text-align:center;
-  border-bottom:2px solid #d4af37;
-}
+    header{
+      height:70px;
+      border-bottom:1px solid var(--line);
+      background:rgba(6,6,6,.95);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:0 30px;
+      position:sticky;
+      top:0;
+      z-index:10;
+    }
 
-.logo{
-  color:#d4af37;
-  font-size:28px;
-  font-weight:bold;
-  text-decoration:none;
-}
+    .logo{
+      color:var(--gold);
+      font-size:22px;
+      font-weight:900;
+      letter-spacing:.5px;
+    }
 
-main{
-  max-width:750px;
-  margin:auto;
-  padding:40px 20px;
-}
+    .back{
+      color:var(--muted);
+      text-decoration:none;
+      font-weight:700;
+      transition:.2s;
+    }
 
-.voltar{
-  display:inline-block;
-  margin-bottom:25px;
-  color:#d4af37;
-  text-decoration:none;
-  font-weight:bold;
-}
+    .back:hover{
+      color:var(--gold);
+    }
 
-h1{
-  color:#d4af37;
-  text-align:center;
-}
+    main{
+      width:min(700px,92%);
+      margin:45px auto 70px;
+    }
 
-.subtitulo{
-  text-align:center;
-  color:#aaa;
-  margin-bottom:30px;
-  line-height:1.6;
-}
+    .title{
+      text-align:center;
+      margin-bottom:28px;
+    }
 
-.cartao{
-  background:#151515;
-  border:1px solid #333;
-  border-radius:15px;
-  padding:25px;
-  margin-bottom:20px;
-}
+    .title .icon{
+      font-size:48px;
+      margin-bottom:10px;
+    }
 
-.aviso{
-  background:#211b08;
-  border:1px solid #d4af37;
-  border-radius:10px;
-  padding:15px;
-  color:#ddd;
-  line-height:1.6;
-}
+    h1{
+      font-size:32px;
+      color:var(--gold);
+      margin-bottom:10px;
+    }
 
-.valor{
-  text-align:center;
-  color:#d4af37;
-  font-size:38px;
-  font-weight:bold;
-  margin-bottom:5px;
-}
+    .subtitle{
+      color:var(--muted);
+      line-height:1.6;
+    }
 
-.dados{
-  background:#0d0d0d;
-  border-radius:10px;
-  padding:20px;
-  margin-top:20px;
-}
+    .card{
+      background:linear-gradient(145deg,var(--panel),var(--panel2));
+      border:1px solid var(--line);
+      border-radius:18px;
+      padding:25px;
+      margin-bottom:20px;
+      box-shadow:0 15px 45px rgba(0,0,0,.35);
+    }
 
-.dados p{
-  color:#ccc;
-  line-height:1.7;
-  margin:8px 0;
-}
+    .video-card{
+      border:1px solid #3a3018;
+      background:
+        linear-gradient(135deg,rgba(244,191,49,.08),rgba(0,0,0,.15));
+    }
 
-.iban{
-  color:#d4af37 !important;
-  font-size:18px;
-  font-weight:bold;
-  word-break:break-word;
-}
+    .video-label{
+      color:var(--muted);
+      font-size:13px;
+      margin-bottom:7px;
+      text-transform:uppercase;
+      letter-spacing:.7px;
+    }
 
-label{
-  display:block;
-  color:#d4af37;
-  font-weight:bold;
-  margin:18px 0 8px;
-}
+    .video-title{
+      font-size:23px;
+      font-weight:900;
+      color:white;
+      word-break:break-word;
+    }
 
-input{
-  width:100%;
-  padding:14px;
-  background:#080808;
-  color:#fff;
-  border:1px solid #444;
-  border-radius:8px;
-}
+    .video-info{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-top:17px;
+    }
 
-.botao{
-  width:100%;
-  margin-top:25px;
-  padding:16px;
-  border:none;
-  border-radius:8px;
-  background:#d4af37;
-  color:#111;
-  font-size:16px;
-  font-weight:bold;
-  cursor:pointer;
-}
+    .info{
+      background:#0a0a0a;
+      border:1px solid var(--line);
+      padding:10px 14px;
+      border-radius:10px;
+      color:#ddd;
+    }
 
-.botao:hover{
-  background:#f5c842;
-}
+    .info strong{
+      color:var(--gold);
+    }
 
-.botao:disabled{
-  opacity:.6;
-  cursor:not-allowed;
-}
+    .price{
+      text-align:center;
+      padding:22px 10px;
+      margin:20px 0;
+      border-top:1px solid var(--line);
+      border-bottom:1px solid var(--line);
+    }
 
-#preview{
-  display:none;
-  width:100%;
-  max-height:350px;
-  object-fit:contain;
-  margin-top:20px;
-  border:1px solid #444;
-  border-radius:10px;
-}
+    .price small{
+      display:block;
+      color:var(--muted);
+      margin-bottom:5px;
+    }
 
-#mensagem{
-  text-align:center;
-  color:#d4af37;
-  margin-top:20px;
-  min-height:25px;
-  line-height:1.5;
-}
+    .price strong{
+      font-size:38px;
+      color:var(--gold);
+    }
 
-</style>
+    .payment-title{
+      font-size:20px;
+      color:var(--gold);
+      margin-bottom:18px;
+    }
+
+    .bank{
+      display:grid;
+      gap:12px;
+    }
+
+    .bank-row{
+      background:#0a0a0a;
+      border:1px solid var(--line);
+      border-radius:10px;
+      padding:14px;
+    }
+
+    .bank-row span{
+      display:block;
+      color:var(--muted);
+      font-size:12px;
+      margin-bottom:5px;
+    }
+
+    .bank-row strong{
+      color:#fff;
+      word-break:break-word;
+    }
+
+    .notice{
+      margin-top:18px;
+      padding:14px;
+      border-radius:10px;
+      background:rgba(244,191,49,.08);
+      border:1px solid rgba(244,191,49,.25);
+      color:#ddd;
+      line-height:1.5;
+      font-size:14px;
+    }
+
+    label{
+      display:block;
+      color:#ddd;
+      font-weight:700;
+      margin-bottom:9px;
+    }
+
+    input[type="file"]{
+      width:100%;
+      padding:14px;
+      border:1px dashed #514724;
+      border-radius:12px;
+      background:#0a0a0a;
+      color:#aaa;
+      cursor:pointer;
+    }
+
+    input[type="file"]::file-selector-button{
+      background:var(--gold);
+      color:#000;
+      border:0;
+      padding:9px 13px;
+      border-radius:8px;
+      font-weight:900;
+      cursor:pointer;
+      margin-right:10px;
+    }
+
+    #preview{
+      display:none;
+      margin-top:15px;
+      width:100%;
+      max-height:300px;
+      object-fit:contain;
+      border-radius:12px;
+      border:1px solid var(--line);
+      background:#000;
+    }
+
+    .file-name{
+      color:var(--muted);
+      font-size:13px;
+      margin-top:10px;
+      word-break:break-word;
+    }
+
+    button{
+      width:100%;
+      border:0;
+      background:linear-gradient(135deg,var(--gold),var(--gold2));
+      color:#050505;
+      padding:16px;
+      border-radius:12px;
+      font-size:16px;
+      font-weight:900;
+      cursor:pointer;
+      margin-top:20px;
+      transition:.2s;
+    }
+
+    button:hover{
+      transform:translateY(-1px);
+      filter:brightness(1.05);
+    }
+
+    button:disabled{
+      opacity:.55;
+      cursor:not-allowed;
+      transform:none;
+    }
+
+    .message{
+      display:none;
+      margin-top:18px;
+      padding:15px;
+      border-radius:11px;
+      line-height:1.5;
+      font-weight:700;
+    }
+
+    .message.success{
+      display:block;
+      background:rgba(72,213,151,.1);
+      border:1px solid rgba(72,213,151,.35);
+      color:var(--green);
+    }
+
+    .message.error{
+      display:block;
+      background:rgba(255,86,63,.1);
+      border:1px solid rgba(255,86,63,.35);
+      color:#ff8c7a;
+    }
+
+    .message.info{
+      display:block;
+      background:rgba(244,191,49,.08);
+      border:1px solid rgba(244,191,49,.3);
+      color:var(--gold2);
+    }
+
+    .loading{
+      text-align:center;
+      color:var(--muted);
+      padding:30px;
+    }
+
+    .free-box{
+      display:none;
+      text-align:center;
+      padding:25px;
+      border:1px solid rgba(72,213,151,.3);
+      background:rgba(72,213,151,.07);
+      border-radius:15px;
+      margin-top:20px;
+    }
+
+    .free-box h2{
+      color:var(--green);
+      margin-bottom:10px;
+    }
+
+    .free-box p{
+      color:#ccc;
+      line-height:1.6;
+    }
+
+    .free-box a{
+      display:inline-block;
+      margin-top:18px;
+      padding:13px 20px;
+      background:var(--green);
+      color:#06150e;
+      border-radius:10px;
+      text-decoration:none;
+      font-weight:900;
+    }
+
+    .hidden{
+      display:none !important;
+    }
+
+    @media(max-width:600px){
+      header{
+        padding:0 16px;
+      }
+
+      .logo{
+        font-size:18px;
+      }
+
+      .back{
+        font-size:13px;
+      }
+
+      main{
+        margin-top:30px;
+      }
+
+      h1{
+        font-size:25px;
+      }
+
+      .card{
+        padding:18px;
+      }
+
+      .price strong{
+        font-size:32px;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
 <header>
+  <div class="logo">👑 KUDURO PRIME</div>
 
-  <a href="index.html" class="logo">
-    👑 KUDURO PRIME
+  <a href="meus-videos.html" class="back">
+    ← Meus vídeos
   </a>
-
 </header>
 
 
 <main>
 
-  <a href="publicar.html" class="voltar">
-    ← VOLTAR À PUBLICAÇÃO
-  </a>
+  <div class="title">
+    <div class="icon">🎬</div>
+
+    <h1>DESBLOQUEAR VÍDEO</h1>
+
+    <p class="subtitle">
+      Vídeos com mais de 1 minuto têm uma taxa única de
+      <strong style="color:var(--gold)">500 Kz</strong>.
+    </p>
+  </div>
 
 
-  <h1>
-    🎬 DESBLOQUEAR VÍDEO LONGO
-  </h1>
+  <!-- LOADING -->
+  <div id="loading" class="card loading">
+    ⏳ A carregar informações do vídeo...
+  </div>
 
 
-  <p class="subtitulo">
-
-    Vídeos com mais de 10 minutos precisam
-    de um pagamento de 500 Kz antes da publicação.
-
-  </p>
+  <!-- CONTEÚDO -->
+  <div id="content" class="hidden">
 
 
-  <div class="cartao">
+    <!-- VÍDEO -->
+    <div class="card video-card">
 
-    <div class="aviso">
+      <div class="video-label">
+        Vídeo selecionado
+      </div>
 
-      ⏱️ Vídeos até 10 minutos são gratuitos.<br><br>
+      <div id="videoTitle" class="video-title">
+        —
+      </div>
 
-      🎬 Para publicar vídeos com mais de 10 minutos,
-      paga a taxa abaixo e envia o comprovativo.<br><br>
+      <div class="video-info">
 
-      👑 O teu vídeo será publicado depois
-      da aprovação do pagamento.
+        <div class="info">
+          ⏱️ Duração:
+          <strong id="videoDuration">—</strong>
+        </div>
+
+        <div class="info">
+          💰 Taxa:
+          <strong>500 Kz</strong>
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- PAGAMENTO -->
+    <div id="paymentArea" class="card">
+
+      <div class="payment-title">
+        💳 Dados para pagamento
+      </div>
+
+      <div class="bank">
+
+        <div class="bank-row">
+          <span>Banco</span>
+          <strong>Banco BFA</strong>
+        </div>
+
+        <div class="bank-row">
+          <span>Titular</span>
+          <strong>AUGUSTO PEDRO MUHONGO DOS SANTOS</strong>
+        </div>
+
+        <div class="bank-row">
+          <span>IBAN</span>
+          <strong>AO06 0006 0000 2264 1391 3011 6</strong>
+        </div>
+
+      </div>
+
+      <div class="price">
+        <small>Valor a pagar</small>
+        <strong>500 Kz</strong>
+      </div>
+
+      <div class="notice">
+        💡 Faz a transferência de <strong>500 Kz</strong> para o IBAN acima.
+        Depois envia o comprovativo nesta página.
+        A equipa KUDURO PRIME irá verificar o pagamento.
+      </div>
+
+    </div>
+
+
+    <!-- COMPROVATIVO -->
+    <div id="proofCard" class="card">
+
+      <div class="payment-title">
+        📎 Enviar comprovativo
+      </div>
+
+      <label for="comprovativo">
+        Seleciona o comprovativo do pagamento
+      </label>
+
+      <input
+        type="file"
+        id="comprovativo"
+        accept="image/*,application/pdf"
+      >
+
+      <div id="fileName" class="file-name"></div>
+
+      <img id="preview" alt="Pré-visualização">
+
+      <button id="submitBtn">
+        🚀 ENVIAR COMPROVATIVO
+      </button>
+
+      <div id="message" class="message"></div>
+
+    </div>
+
+
+    <!-- VÍDEO GRÁTIS -->
+    <div id="freeBox" class="free-box">
+
+      <h2>✅ Este vídeo é grátis!</h2>
+
+      <p>
+        O teu vídeo tem até 1 minuto.
+        Não precisas pagar nenhuma taxa para publicá-lo.
+      </p>
+
+      <a href="meus-videos.html">
+        ← Voltar para meus vídeos
+      </a>
 
     </div>
 
   </div>
-
-
-  <div class="cartao">
-
-    <div class="valor">
-
-      500 Kz
-
-    </div>
-
-
-    <div class="dados">
-
-      <p>
-        <strong>🏦 BANCO:</strong>
-        Banco BFA
-      </p>
-
-
-      <p>
-
-        <strong>👤 TITULAR:</strong><br>
-
-        AUGUSTO PEDRO MUHONGO DOS SANTOS
-
-      </p>
-
-
-      <p>
-
-        <strong>💳 IBAN:</strong>
-
-      </p>
-
-
-      <p class="iban">
-
-        AO06 0006 0000 2264 1391 3011 6
-
-      </p>
-
-    </div>
-
-  </div>
-
-
-  <form
-    id="pagamentoForm"
-    class="cartao"
-  >
-
-
-    <label for="comprovativo">
-
-      📸 ENVIAR COMPROVATIVO DE PAGAMENTO
-
-    </label>
-
-
-    <input
-      type="file"
-      id="comprovativo"
-      accept="image/*,application/pdf"
-      required
-    >
-
-
-    <img
-      id="preview"
-      alt="Pré-visualização do comprovativo"
-    >
-
-
-    <button
-      type="submit"
-      class="botao"
-      id="enviarBtn"
-    >
-
-      📤 ENVIAR PARA VERIFICAÇÃO
-
-    </button>
-
-
-    <p id="mensagem"></p>
-
-
-  </form>
-
 
 </main>
 
 
 <script type="module">
 
+  import {
+    initializeApp
+  } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
 
-import { initializeApp } from
-"https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+  import {
+    getAuth,
+    onAuthStateChanged
+  } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
 
-
-import {
-  getAuth,
-  onAuthStateChanged
-} from
-"https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
-
-
-import {
-  getFirestore,
-  collection,
-  addDoc,
-  serverTimestamp
-} from
-"https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
-
-
-/* FIREBASE */
-
-const firebaseConfig = {
-
-  apiKey:
-  "AIzaSyDoitCcLeLDNBNPCP6fG1s_xbHr4UmohSo",
-
-  authDomain:
-  "kuduro-prime.firebaseapp.com",
-
-  projectId:
-  "kuduro-prime",
-
-  storageBucket:
-  "kuduro-prime.firebasestorage.app",
-
-  messagingSenderId:
-  "299776559545",
-
-  appId:
-  "1:299776559545:web:04aced1ba25391eb3fce68"
-
-};
+  import {
+    getFirestore,
+    doc,
+    getDoc,
+    addDoc,
+    collection,
+    updateDoc,
+    serverTimestamp
+  } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 
 
-/* CLOUDINARY */
+  /* =========================
+     FIREBASE
+  ========================= */
 
-const CLOUDINARY_CLOUD_NAME =
-  "ge1ntqqc";
-
-const CLOUDINARY_UPLOAD_PRESET =
-  "Kudu_";
-
-
-const app =
-  initializeApp(firebaseConfig);
-
-
-const auth =
-  getAuth(app);
+  const firebaseConfig = {
+    apiKey: "AIzaSyDoitCcLeLDNBNPCP6fG1s_xbHr4UmohSo",
+    authDomain: "kuduro-prime.firebaseapp.com",
+    projectId: "kuduro-prime",
+    storageBucket: "kuduro-prime.firebasestorage.app",
+    messagingSenderId: "299776559545",
+    appId: "1:299776559545:web:04aced1ba25391eb3fce68"
+  };
 
 
-const db =
-  getFirestore(app);
+  const app = initializeApp(firebaseConfig);
+
+  const auth = getAuth(app);
+
+  const db = getFirestore(app);
 
 
-let usuarioAtual = null;
+  /* =========================
+     CLOUDINARY
+  ========================= */
+
+  const CLOUDINARY_CLOUD_NAME = "ge1ntqqc";
+
+  const CLOUDINARY_UPLOAD_PRESET = "Kudu_";
 
 
-const form =
-  document.getElementById(
-    "pagamentoForm"
-  );
+  /* =========================
+     ELEMENTOS
+  ========================= */
+
+  const loading =
+    document.getElementById("loading");
+
+  const content =
+    document.getElementById("content");
+
+  const videoTitle =
+    document.getElementById("videoTitle");
+
+  const videoDuration =
+    document.getElementById("videoDuration");
+
+  const paymentArea =
+    document.getElementById("paymentArea");
+
+  const proofCard =
+    document.getElementById("proofCard");
+
+  const freeBox =
+    document.getElementById("freeBox");
+
+  const comprovativo =
+    document.getElementById("comprovativo");
+
+  const preview =
+    document.getElementById("preview");
+
+  const fileName =
+    document.getElementById("fileName");
+
+  const submitBtn =
+    document.getElementById("submitBtn");
+
+  const message =
+    document.getElementById("message");
 
 
-const comprovativoInput =
-  document.getElementById(
-    "comprovativo"
-  );
+  /* =========================
+     VIDEO ID
+  ========================= */
+
+  const params =
+    new URLSearchParams(window.location.search);
+
+  const videoId =
+    params.get("videoId");
 
 
-const preview =
-  document.getElementById(
-    "preview"
-  );
+  let usuarioAtual = null;
+
+  let videoAtual = null;
 
 
-const mensagem =
-  document.getElementById(
-    "mensagem"
-  );
+  /* =========================
+     MENSAGEM
+  ========================= */
 
+  function showMessage(text, type){
 
-const enviarBtn =
-  document.getElementById(
-    "enviarBtn"
-  );
+    message.textContent = text;
 
-
-/* VERIFICAR LOGIN */
-
-onAuthStateChanged(
-  auth,
-  (user) => {
-
-    if(!user){
-
-      window.location.href =
-        "area-do-artista.html";
-
-      return;
-
-    }
-
-    usuarioAtual = user;
+    message.className =
+      "message " + type;
 
   }
-);
 
 
-/* PRÉ-VISUALIZAÇÃO */
+  /* =========================
+     FORMATAÇÃO
+  ========================= */
 
-comprovativoInput.addEventListener(
-  "change",
-  () => {
+  function formatDuration(seconds){
 
-    const ficheiro =
-      comprovativoInput.files[0];
+    seconds = Number(seconds) || 0;
 
+    const minutes =
+      Math.floor(seconds / 60);
 
-    if(!ficheiro){
+    const secs =
+      Math.floor(seconds % 60);
 
-      preview.style.display =
-        "none";
-
-      return;
-
-    }
-
-
-    if(
-      ficheiro.type.startsWith(
-        "image/"
-      )
-    ){
-
-      const leitor =
-        new FileReader();
-
-
-      leitor.onload =
-        (evento) => {
-
-          preview.src =
-            evento.target.result;
-
-
-          preview.style.display =
-            "block";
-
-        };
-
-
-      leitor.readAsDataURL(
-        ficheiro
-      );
-
-    }
-    else{
-
-      preview.style.display =
-        "none";
-
-    }
-
-  }
-);
-
-
-/* ENVIAR COMPROVATIVO */
-
-async function enviarComprovativo(
-  ficheiro
-){
-
-  const formData =
-    new FormData();
-
-
-  formData.append(
-    "file",
-    ficheiro
-  );
-
-
-  formData.append(
-    "upload_preset",
-    CLOUDINARY_UPLOAD_PRESET
-  );
-
-
-  const resposta =
-    await fetch(
-
-      `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/auto/upload`,
-
-      {
-
-        method:"POST",
-
-        body:formData
-
-      }
-
-    );
-
-
-  const dados =
-    await resposta.json();
-
-
-  if(!resposta.ok){
-
-    throw new Error(
-
-      dados.error?.message ||
-
-      "Erro ao enviar o comprovativo."
-
+    return (
+      String(minutes).padStart(2,"0")
+      + ":" +
+      String(secs).padStart(2,"0")
     );
 
   }
 
 
-  return dados.secure_url;
+  /* =========================
+     CARREGAR VÍDEO
+  ========================= */
 
-}
+  async function carregarVideo(){
 
+    if(!videoId){
 
-/* ENVIAR PEDIDO */
+      loading.innerHTML = `
+        ❌ Não foi encontrado nenhum vídeo.<br><br>
 
-form.addEventListener(
-  "submit",
-  async (event) => {
-
-    event.preventDefault();
-
-
-    if(!usuarioAtual){
-
-      mensagem.textContent =
-        "A verificar o login...";
-
-      return;
-
-    }
-
-
-    const ficheiro =
-      comprovativoInput.files[0];
-
-
-    if(!ficheiro){
-
-      mensagem.textContent =
-        "Seleciona o comprovativo.";
+        <a
+          href="meus-videos.html"
+          style="
+            color:var(--gold);
+            font-weight:900;
+            text-decoration:none;
+          "
+        >
+          ← Voltar para meus vídeos
+        </a>
+      `;
 
       return;
 
@@ -579,119 +704,545 @@ form.addEventListener(
 
     try{
 
+      const videoRef =
+        doc(db,"videos",videoId);
 
-      enviarBtn.disabled =
-        true;
-
-
-      mensagem.textContent =
-        "📤 A enviar o comprovativo...";
+      const videoSnap =
+        await getDoc(videoRef);
 
 
-      const comprovativoURL =
-        await enviarComprovativo(
-          ficheiro
-        );
+      if(!videoSnap.exists()){
+
+        loading.innerHTML = `
+          ❌ Este vídeo não existe.<br><br>
+
+          <a
+            href="meus-videos.html"
+            style="
+              color:var(--gold);
+              font-weight:900;
+              text-decoration:none;
+            "
+          >
+            ← Voltar para meus vídeos
+          </a>
+        `;
+
+        return;
+
+      }
 
 
-      mensagem.textContent =
-        "💾 A guardar o pedido...";
+      videoAtual = {
+        id: videoSnap.id,
+        ...videoSnap.data()
+      };
 
 
-      await addDoc(
+      /* =========================
+         VERIFICAR DONO
+      ========================= */
 
-        collection(
-          db,
-          "pagamentos"
-        ),
-
-        {
-
-          /* IDENTIFICAÇÃO */
-
-          artistaId:
-            usuarioAtual.uid,
-
-          email:
-            usuarioAtual.email,
+      const dono =
+        videoAtual.artistaId ||
+        videoAtual.artistId ||
+        videoAtual.userId ||
+        videoAtual.uid;
 
 
-          /* PAGAMENTO */
+      if(dono !== usuarioAtual.uid){
 
-          tipo:
-            "video_longo",
+        loading.innerHTML = `
+          ❌ Este vídeo não pertence à tua conta.
+        `;
 
-          valor:
-            500,
+        return;
 
-          moeda:
-            "AOA",
-
-
-          /* COMPROVATIVO */
-
-          comprovativo:
-            comprovativoURL,
+      }
 
 
-          /* ESTADO */
+      /* =========================
+         DURAÇÃO
+      ========================= */
 
-          status:
-            "pendente",
+      let duracaoSegundos =
+        Number(videoAtual.duracaoSegundos);
 
 
-          criadoEm:
-            serverTimestamp()
+      if(!duracaoSegundos){
+
+        const duracaoTexto =
+          videoAtual.duracao || "";
+
+        const partes =
+          duracaoTexto.split(":");
+
+        if(partes.length === 2){
+
+          duracaoSegundos =
+            Number(partes[0]) * 60 +
+            Number(partes[1]);
 
         }
 
-      );
+      }
 
 
-      mensagem.innerHTML =
-        "👑 Pedido enviado com sucesso!<br>" +
-        "O pagamento está <b>pendente</b> de aprovação.<br>" +
-        "Depois da aprovação poderás publicar o teu vídeo.";
+      videoAtual.duracaoSegundos =
+        duracaoSegundos || 0;
 
 
-      form.reset();
+      /* =========================
+         DADOS NA TELA
+      ========================= */
+
+      videoTitle.textContent =
+        videoAtual.titulo ||
+        videoAtual.title ||
+        "Vídeo sem título";
 
 
-      preview.style.display =
-        "none";
+      videoDuration.textContent =
+        videoAtual.duracaoFormatada ||
+        formatDuration(
+          videoAtual.duracaoSegundos
+        );
 
 
-      /* BLOQUEAR NOVO ENVIO */
+      loading.classList.add("hidden");
 
-      enviarBtn.disabled =
-        true;
-
-
-    }
-    catch(erro){
+      content.classList.remove("hidden");
 
 
-      console.error(
-        erro
-      );
+      /* =========================
+         REGRA:
+         ATÉ 60 SEGUNDOS GRÁTIS
+      ========================= */
+
+      if(videoAtual.duracaoSegundos <= 60){
+
+        paymentArea.classList.add("hidden");
+
+        proofCard.classList.add("hidden");
+
+        freeBox.style.display = "block";
+
+        return;
+
+      }
 
 
-      mensagem.textContent =
-        "Erro: " +
-        erro.message;
+      /* =========================
+         JÁ TEM PAGAMENTO PENDENTE
+      ========================= */
+
+      if(
+        videoAtual.pagamentoPendente === true
+      ){
+
+        proofCard.innerHTML = `
+
+          <div class="message info"
+               style="display:block">
+
+            ⏳ <strong>Pagamento pendente</strong><br><br>
+
+            Já foi enviado um comprovativo
+            para este vídeo.
+
+            <br><br>
+
+            Aguarda a confirmação do administrador
+            do KUDURO PRIME.
+
+          </div>
+
+          <a
+            href="meus-videos.html"
+            style="
+              display:block;
+              margin-top:20px;
+              text-align:center;
+              padding:14px;
+              background:var(--gold);
+              color:#000;
+              border-radius:10px;
+              text-decoration:none;
+              font-weight:900;
+            "
+          >
+            ← VOLTAR PARA MEUS VÍDEOS
+          </a>
+        `;
+
+      }
 
 
-      enviarBtn.disabled =
-        false;
+    }catch(error){
+
+      console.error(error);
+
+      loading.innerHTML = `
+        ❌ Erro ao carregar o vídeo.
+        <br><br>
+        <small>
+          ${error.message}
+        </small>
+      `;
 
     }
 
   }
-);
 
+
+  /* =========================
+     PREVIEW
+  ========================= */
+
+  comprovativo.addEventListener(
+    "change",
+    () => {
+
+      const file =
+        comprovativo.files[0];
+
+      if(!file){
+
+        fileName.textContent = "";
+
+        preview.style.display = "none";
+
+        return;
+
+      }
+
+
+      fileName.textContent =
+        "📎 " + file.name;
+
+
+      if(file.type.startsWith("image/")){
+
+        const url =
+          URL.createObjectURL(file);
+
+        preview.src = url;
+
+        preview.style.display = "block";
+
+      }else{
+
+        preview.style.display = "none";
+
+      }
+
+    }
+  );
+
+
+  /* =========================
+     ENVIAR COMPROVATIVO
+  ========================= */
+
+  submitBtn.addEventListener(
+    "click",
+    async () => {
+
+      if(!videoAtual){
+
+        showMessage(
+          "Vídeo não encontrado.",
+          "error"
+        );
+
+        return;
+
+      }
+
+
+      const file =
+        comprovativo.files[0];
+
+
+      if(!file){
+
+        showMessage(
+          "Seleciona o comprovativo do pagamento.",
+          "error"
+        );
+
+        return;
+
+      }
+
+
+      /* =========================
+         SEGURANÇA
+      ========================= */
+
+      if(videoAtual.duracaoSegundos <= 60){
+
+        showMessage(
+          "Este vídeo tem até 1 minuto e é grátis.",
+          "info"
+        );
+
+        return;
+
+      }
+
+
+      /* =========================
+         LIMITE DO FICHEIRO
+      ========================= */
+
+      const maxSize =
+        10 * 1024 * 1024;
+
+
+      if(file.size > maxSize){
+
+        showMessage(
+          "O comprovativo não pode ter mais de 10 MB.",
+          "error"
+        );
+
+        return;
+
+      }
+
+
+      try{
+
+        submitBtn.disabled = true;
+
+        submitBtn.textContent =
+          "⏳ A enviar...";
+
+
+        /* =========================
+           CLOUDINARY
+        ========================= */
+
+        const formData =
+          new FormData();
+
+        formData.append(
+          "file",
+          file
+        );
+
+        formData.append(
+          "upload_preset",
+          CLOUDINARY_UPLOAD_PRESET
+        );
+
+
+        const cloudinaryResponse =
+          await fetch(
+            `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/auto/upload`,
+            {
+              method:"POST",
+              body:formData
+            }
+          );
+
+
+        const cloudinaryData =
+          await cloudinaryResponse.json();
+
+
+        if(!cloudinaryResponse.ok){
+
+          throw new Error(
+            cloudinaryData.error?.message ||
+            "Erro ao enviar comprovativo."
+          );
+
+        }
+
+
+        const comprovativoURL =
+          cloudinaryData.secure_url;
+
+
+        /* =========================
+           CRIAR PAGAMENTO
+        ========================= */
+
+        const pagamentoRef =
+          await addDoc(
+            collection(db,"pagamentos"),
+            {
+
+              artistaId:
+                usuarioAtual.uid,
+
+              email:
+                usuarioAtual.email || "",
+
+              videoId:
+                videoAtual.id,
+
+              videoTitulo:
+                videoAtual.titulo ||
+                videoAtual.title ||
+                "",
+
+              duracaoSegundos:
+                videoAtual.duracaoSegundos,
+
+              tipo:
+                "video_longo",
+
+              valor:
+                500,
+
+              moeda:
+                "AOA",
+
+              comprovativo:
+                comprovativoURL,
+
+              comprovativoPublicId:
+                cloudinaryData.public_id || "",
+
+              status:
+                "pendente",
+
+              criadoEm:
+                serverTimestamp()
+
+            }
+          );
+
+
+        /* =========================
+           ATUALIZAR VÍDEO
+        ========================= */
+
+        await updateDoc(
+          doc(
+            db,
+            "videos",
+            videoAtual.id
+          ),
+          {
+
+            taxa:
+              500,
+
+            pagamentoNecessario:
+              true,
+
+            pagamentoPendente:
+              true,
+
+            pagamentoConfirmado:
+              false,
+
+            pagamentoId:
+              pagamentoRef.id,
+
+            status:
+              "pendente"
+
+          }
+        );
+
+
+        /* =========================
+           SUCESSO
+        ========================= */
+
+        proofCard.innerHTML = `
+
+          <div
+            class="message success"
+            style="display:block"
+          >
+
+            ✅ <strong>Comprovativo enviado!</strong>
+
+            <br><br>
+
+            O teu pagamento de
+            <strong>500 Kz</strong>
+            foi enviado para análise.
+
+            <br><br>
+
+            Assim que o administrador confirmar
+            o pagamento, o teu vídeo será publicado.
+
+          </div>
+
+          <a
+            href="meus-videos.html"
+            style="
+              display:block;
+              margin-top:20px;
+              text-align:center;
+              padding:15px;
+              background:var(--gold);
+              color:#000;
+              border-radius:10px;
+              text-decoration:none;
+              font-weight:900;
+            "
+          >
+            🎬 VOLTAR PARA MEUS VÍDEOS
+          </a>
+
+        `;
+
+
+      }catch(error){
+
+        console.error(error);
+
+        showMessage(
+          "Erro: " + error.message,
+          "error"
+        );
+
+        submitBtn.disabled = false;
+
+        submitBtn.textContent =
+          "🚀 ENVIAR COMPROVATIVO";
+
+      }
+
+    }
+  );
+
+
+  /* =========================
+     AUTENTICAÇÃO
+  ========================= */
+
+  onAuthStateChanged(
+    auth,
+    async (user) => {
+
+      if(!user){
+
+        window.location.href =
+          "area-do-artista.html";
+
+        return;
+
+      }
+
+
+      usuarioAtual = user;
+
+      await carregarVideo();
+
+    }
+  );
 
 </script>
-
 
 </body>
 </html>
