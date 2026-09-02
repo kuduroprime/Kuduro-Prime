@@ -8,7 +8,6 @@
   <title>Perfil do Artista — KUDURO PRIME</title>
 
   <style>
-
     :root{
       --bg:#070707;
       --panel:#101010;
@@ -19,6 +18,7 @@
       --muted:#aaa59a;
       --line:#2a271f;
       --blue:#4eb8ff;
+      --red:#ff4b4b;
     }
 
     *{
@@ -42,8 +42,6 @@
     button{
       font:inherit;
     }
-
-    /* NAV */
 
     .nav{
       height:82px;
@@ -122,10 +120,18 @@
       color:#17120a;
     }
 
+    .btn.gold:hover{
+      transform:translateY(-2px);
+    }
+
     .btn.dark{
       border:1px solid var(--gold);
       background:transparent;
       color:var(--gold);
+    }
+
+    .btn.dark:hover{
+      background:rgba(244,191,49,.08);
     }
 
     .menu{
@@ -134,6 +140,7 @@
       background:none;
       color:white;
       font-size:23px;
+      cursor:pointer;
     }
 
     /* CAPA */
@@ -148,7 +155,6 @@
           var(--bg),
           rgba(0,0,0,.15)
         ),
-        url('images/artista-1.jpg')
         center/cover;
     }
 
@@ -162,6 +168,7 @@
           rgba(244,191,49,.25),
           transparent 35%
         );
+      pointer-events:none;
     }
 
     /* PERFIL */
@@ -260,6 +267,7 @@
       display:grid;
       grid-template-columns:repeat(3,1fr);
       margin-bottom:20px;
+      overflow:hidden;
     }
 
     .stat{
@@ -362,12 +370,25 @@
       height:60px;
       flex:0 0 auto;
       border-radius:8px;
-      background:var(--img) center/cover;
+      background:#1b1b1b center/cover;
+      overflow:hidden;
+    }
+
+    .song-cover img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
+
+    .song-info{
+      min-width:0;
+      flex:1;
     }
 
     .song-name{
       font-size:13px;
       font-weight:900;
+      word-break:break-word;
     }
 
     .song-meta{
@@ -376,15 +397,114 @@
       margin-top:5px;
     }
 
+    .song-audio{
+      width:100%;
+      margin-top:8px;
+      height:32px;
+    }
+
     .play{
-      margin-left:auto;
       width:38px;
       height:38px;
+      flex:0 0 auto;
       border-radius:50%;
       border:1px solid var(--gold);
       background:transparent;
       color:var(--gold);
       cursor:pointer;
+    }
+
+    .empty{
+      padding:35px 20px;
+      text-align:center;
+      color:var(--muted);
+      font-size:12px;
+    }
+
+    .empty strong{
+      display:block;
+      color:var(--gold);
+      font-size:15px;
+      margin-bottom:8px;
+    }
+
+    /* VÍDEOS */
+
+    .video-grid{
+      padding:0 20px 20px;
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:15px;
+    }
+
+    .video-card{
+      overflow:hidden;
+      border:1px solid var(--line);
+      border-radius:12px;
+      background:#0d0d0d;
+      transition:.25s;
+    }
+
+    .video-card:hover{
+      border-color:var(--gold);
+      transform:translateY(-2px);
+    }
+
+    .video-thumb{
+      height:180px;
+      position:relative;
+      background:#191919 center/cover;
+      overflow:hidden;
+    }
+
+    .video-thumb img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
+
+    .video-play{
+      position:absolute;
+      left:50%;
+      top:50%;
+      transform:translate(-50%,-50%);
+      width:55px;
+      height:55px;
+      border-radius:50%;
+      background:rgba(0,0,0,.72);
+      border:2px solid var(--gold);
+      display:grid;
+      place-items:center;
+      color:var(--gold);
+      font-size:22px;
+    }
+
+    .video-duration{
+      position:absolute;
+      right:8px;
+      bottom:8px;
+      padding:5px 7px;
+      border-radius:5px;
+      background:rgba(0,0,0,.8);
+      color:white;
+      font-size:10px;
+      font-weight:900;
+    }
+
+    .video-info{
+      padding:12px;
+    }
+
+    .video-title{
+      font-size:13px;
+      font-weight:900;
+      line-height:1.4;
+    }
+
+    .video-meta{
+      color:var(--muted);
+      font-size:10px;
+      margin-top:6px;
     }
 
     /* POSTS */
@@ -490,6 +610,27 @@
       color:var(--gold);
     }
 
+    /* LOADING */
+
+    .loading{
+      padding:60px 20px;
+      text-align:center;
+      color:var(--muted);
+    }
+
+    .loading-icon{
+      font-size:35px;
+      color:var(--gold);
+      margin-bottom:12px;
+      animation:pulse 1s infinite;
+    }
+
+    @keyframes pulse{
+      50%{
+        opacity:.35;
+      }
+    }
+
     /* FOOTER */
 
     footer{
@@ -524,6 +665,10 @@
         width:140px;
         height:140px;
         top:-70px;
+      }
+
+      .video-grid{
+        grid-template-columns:1fr;
       }
 
     }
@@ -588,8 +733,20 @@
         font-size:8px;
       }
 
-    }
+      .song{
+        align-items:flex-start;
+      }
 
+      .play{
+        margin-top:10px;
+      }
+
+      .song-cover{
+        width:52px;
+        height:52px;
+      }
+
+    }
   </style>
 
 </head>
@@ -603,10 +760,7 @@
 ```
 <div class="nav-in">
 
-  <a
-    href="index.html"
-    class="brand"
-  >
+  <a href="index.html" class="brand">
     <span class="crown">♕</span>
     KUDURO
     <b>PRIME</b>
@@ -624,24 +778,15 @@
 
   <div class="nav-actions">
 
-    <a
-      href="area-do-artista.html"
-      class="btn dark"
-    >
+    <a href="area-do-artista.html" class="btn dark">
       ÁREA DO ARTISTA
     </a>
 
-    <a
-      href="juntar-se.html"
-      class="btn gold"
-    >
+    <a href="juntar-se.html" class="btn gold">
       JUNTA-TE 👑
     </a>
 
-    <button
-      class="menu"
-      onclick="abrirMenu()"
-    >
+    <button class="menu" onclick="abrirMenu()">
       ☰
     </button>
 
@@ -654,46 +799,30 @@
 
   <!-- CAPA -->
 
-  <section
-    class="cover"
-    id="cover"
-  ></section>
+  <section class="cover" id="cover"></section>
 
-  <!-- CABEÇALHO DO PERFIL -->
+  <!-- CABEÇALHO -->
 
   <section class="profile-area">
 
 ```
 <div class="profile-head">
 
-  <div
-    class="profile-photo"
-    id="profilePhoto"
-  >
+  <div class="profile-photo" id="profilePhoto">
     👤
   </div>
 
   <div>
 
-    <h1
-      class="profile-name"
-      id="profileName"
-    >
-      Artista Prime
-      <span class="verified">●</span>
+    <h1 class="profile-name" id="profileName">
+      A carregar...
     </h1>
 
-    <div
-      class="profile-user"
-      id="profileUser"
-    >
+    <div class="profile-user" id="profileUser">
       @artista
     </div>
 
-    <div
-      class="profile-location"
-      id="profileLocation"
-    >
+    <div class="profile-location" id="profileLocation">
       📍 Angola
     </div>
 
@@ -701,18 +830,11 @@
 
   <div class="profile-actions">
 
-    <button
-      class="btn gold"
-      id="followBtn"
-      onclick="seguir()"
-    >
+    <button class="btn gold" id="followBtn" onclick="seguir()">
       + SEGUIR
     </button>
 
-    <button
-      class="btn dark"
-      onclick="partilharPerfil()"
-    >
+    <button class="btn dark" onclick="partilharPerfil()">
       ↗ PARTILHAR
     </button>
 
@@ -729,54 +851,30 @@
 
 ```
 <!-- COLUNA PRINCIPAL -->
-
 <section>
 
   <!-- ESTATÍSTICAS -->
-
   <div class="stats panel">
 
     <div class="stat">
-
-      <strong id="musicCount">
-        0
-      </strong>
-
-      <span>
-        MÚSICAS
-      </span>
-
+      <strong id="musicCount">0</strong>
+      <span>MÚSICAS</span>
     </div>
 
     <div class="stat">
-
-      <strong id="followers">
-        0
-      </strong>
-
-      <span>
-        SEGUIDORES
-      </span>
-
+      <strong id="followers">0</strong>
+      <span>SEGUIDORES</span>
     </div>
 
     <div class="stat">
-
-      <strong id="views">
-        0
-      </strong>
-
-      <span>
-        VISUALIZAÇÕES
-      </span>
-
+      <strong id="views">0</strong>
+      <span>VISUALIZAÇÕES</span>
     </div>
 
   </div>
 
 
   <!-- TABS -->
-
   <div class="tabs">
 
     <button
@@ -795,6 +893,13 @@
 
     <button
       class="tab"
+      onclick="abrirTab('videos',this)"
+    >
+      VÍDEOS
+    </button>
+
+    <button
+      class="tab"
       onclick="abrirTab('posts',this)"
     >
       PUBLICAÇÕES
@@ -804,7 +909,6 @@
 
 
   <!-- SOBRE -->
-
   <div
     id="sobre"
     class="tab-content active panel"
@@ -817,7 +921,7 @@
       </h2>
 
       <p id="profileBio">
-        Este artista ainda não adicionou uma biografia.
+        A carregar biografia...
       </p>
 
     </div>
@@ -826,7 +930,6 @@
 
 
   <!-- MÚSICAS -->
-
   <div
     id="musicas"
     class="tab-content panel"
@@ -838,33 +941,39 @@
         🎵 MÚSICAS
       </h2>
 
-      <div
-        class="song-list"
-        id="songList"
-      >
+    </div>
 
-        <div class="song">
+    <div class="song-list" id="songList">
 
-          <div
-            class="song-cover"
-            id="defaultCover"
-            style="--img:url('images/artista-1.jpg')"
-          ></div>
+      <div class="loading">
+        <div class="loading-icon">♬</div>
+        A carregar músicas...
+      </div>
 
-          <div>
+    </div>
 
-            <div class="song-name">
-              Nenhuma música publicada
-            </div>
+  </div>
 
-            <div class="song-meta">
-              As músicas aparecerão aqui.
-            </div>
 
-          </div>
+  <!-- VÍDEOS -->
+  <div
+    id="videos"
+    class="tab-content panel"
+  >
 
-        </div>
+    <div class="about">
 
+      <h2 class="section-title">
+        🎬 VÍDEOS
+      </h2>
+
+    </div>
+
+    <div class="video-grid" id="videoGrid">
+
+      <div class="loading">
+        <div class="loading-icon">▶</div>
+        A carregar vídeos...
       </div>
 
     </div>
@@ -873,7 +982,6 @@
 
 
   <!-- POSTS -->
-
   <div
     id="posts"
     class="tab-content"
@@ -900,14 +1008,14 @@
           </div>
 
           <div class="post-time">
-            Bem-vindo ao KUDURO PRIME 👑
+            Perfil oficial no KUDURO PRIME 👑
           </div>
 
         </div>
 
       </div>
 
-      <div class="post-text">
+      <div class="post-text" id="postText">
         Este artista faz parte oficialmente do movimento KUDURO PRIME.
       </div>
 
@@ -919,7 +1027,6 @@
 
 
 <!-- LADO DIREITO -->
-
 <aside>
 
   <div class="side-box panel">
@@ -930,9 +1037,7 @@
 
     <div class="info">
 
-      <small>
-        ESTILO MUSICAL
-      </small>
+      <small>ESTILO MUSICAL</small>
 
       <strong id="profileGenre">
         Kuduro
@@ -942,9 +1047,7 @@
 
     <div class="info">
 
-      <small>
-        LOCALIZAÇÃO
-      </small>
+      <small>LOCALIZAÇÃO</small>
 
       <strong id="profileCity">
         Angola
@@ -954,9 +1057,7 @@
 
     <div class="info">
 
-      <small>
-        PAÍS
-      </small>
+      <small>PAÍS</small>
 
       <strong id="profileCountry">
         Angola
@@ -966,9 +1067,7 @@
 
     <div class="info">
 
-      <small>
-        CARREIRA DESDE
-      </small>
+      <small>CARREIRA DESDE</small>
 
       <strong id="profileYear">
         —
@@ -980,7 +1079,6 @@
 
 
   <!-- REDES -->
-
   <div
     class="side-box panel"
     id="socialBox"
@@ -1014,9 +1112,54 @@ Todos os direitos reservados.
 
   </footer>
 
-  <script>
+  <!-- FIREBASE -->
 
-    /* PARÂMETRO DA URL */
+  <script type="module">
+
+    import { initializeApp }
+      from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+
+    import {
+      getFirestore,
+      collection,
+      getDocs
+    }
+      from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+
+
+    const firebaseConfig = {
+
+      apiKey:
+        "AIzaSyDoitCcLeLDNBNPCP6fG1s_xbHr4UmohSo",
+
+      authDomain:
+        "kuduro-prime.firebaseapp.com",
+
+      projectId:
+        "kuduro-prime",
+
+      storageBucket:
+        "kuduro-prime.firebasestorage.app",
+
+      messagingSenderId:
+        "299776559545",
+
+      appId:
+        "1:299776559545:web:04aced1ba25391eb3fce68"
+
+    };
+
+
+    const app =
+      initializeApp(firebaseConfig);
+
+    const db =
+      getFirestore(app);
+
+
+    /* =========================
+       PARAMETRO DO PERFIL
+    ========================= */
 
     const params =
       new URLSearchParams(
@@ -1027,583 +1170,1720 @@ Todos os direitos reservados.
       params.get("user");
 
 
-    /*
-      PERFIL CRIADO PELO UTILIZADOR
-    */
+    if(!requestedUser){
 
-    const savedUser =
-      localStorage.getItem(
-        "kpArtistUsername"
+      mostrarErro(
+        "Perfil não encontrado",
+        "Nenhum artista foi selecionado."
       );
-
-
-    const isOwnProfile =
-      !requestedUser
-      ||
-      requestedUser === savedUser;
-
-
-    /*
-      DADOS DO PERFIL
-    */
-
-    let profileData;
-
-
-    if(isOwnProfile){
-
-      profileData = {
-
-        name:
-          localStorage.getItem(
-            "kpArtistStageName"
-          )
-          ||
-          localStorage.getItem(
-            "kpArtistName"
-          )
-          ||
-          "Artista Prime",
-
-        username:
-          localStorage.getItem(
-            "kpArtistUsername"
-          )
-          ||
-          "artista",
-
-        photo:
-          localStorage.getItem(
-            "kpArtistPhoto"
-          ),
-
-        bio:
-          localStorage.getItem(
-            "kpArtistBio"
-          )
-          ||
-          "Este artista faz parte do movimento KUDURO PRIME.",
-
-        city:
-          localStorage.getItem(
-            "kpArtistCity"
-          )
-          ||
-          "Luanda",
-
-        country:
-          localStorage.getItem(
-            "kpArtistCountry"
-          )
-          ||
-          "Angola",
-
-        genre:
-          localStorage.getItem(
-            "kpArtistGenre"
-          )
-          ||
-          "Kuduro",
-
-        year:
-          localStorage.getItem(
-            "kpArtistYear"
-          )
-          ||
-          "—",
-
-        instagram:
-          localStorage.getItem(
-            "kpArtistInstagram"
-          ),
-
-        facebook:
-          localStorage.getItem(
-            "kpArtistFacebook"
-          ),
-
-        youtube:
-          localStorage.getItem(
-            "kpArtistYoutube"
-          ),
-
-        tiktok:
-          localStorage.getItem(
-            "kpArtistTiktok"
-          )
-
-      };
-
-    } else {
-
-      /*
-        PERFIL DE EXEMPLO
-      */
-
-      profileData = {
-
-        name:"Figura do Adoço",
-
-        username:"figuradoadoco",
-
-        photo:"images/artista-1.jpg",
-
-        bio:
-          "Artista Prime do movimento Kuduro. " +
-          "Música, energia e cultura fazem parte do seu movimento.",
-
-        city:"Luanda",
-
-        country:"Angola",
-
-        genre:"Kuduro",
-
-        year:"2015",
-
-        instagram:"@figuradoadoco",
-
-        facebook:"Figura do Adoço",
-
-        youtube:"Figura do Adoço",
-
-        tiktok:"@figuradoadoco"
-
-      };
 
     }
 
 
-    /* MOSTRAR DADOS */
+    /* =========================
+       VARIÁVEIS
+    ========================= */
 
-    document
-      .querySelector("#profileName")
-      .childNodes[0]
-      .textContent =
-        profileData.name + " ";
+    let profileData = null;
 
+    let artistId = "";
 
-    document
-      .querySelector("#profileUser")
-      .textContent =
-        "@" + profileData.username;
+    let artistSongs = [];
+
+    let artistVideos = [];
 
 
-    document
-      .querySelector("#profileLocation")
-      .textContent =
-        "📍 " +
-        profileData.city +
-        ", " +
-        profileData.country;
+    /* =========================
+       FUNÇÕES DE NORMALIZAÇÃO
+    ========================= */
+
+    function texto(...valores){
+
+      for(const valor of valores){
+
+        if(
+          valor !== undefined &&
+          valor !== null &&
+          String(valor).trim() !== ""
+        ){
+
+          return String(valor).trim();
+
+        }
+
+      }
+
+      return "";
+
+    }
 
 
-    document
-      .querySelector("#profileBio")
-      .textContent =
-        profileData.bio;
+    function numero(...valores){
+
+      for(const valor of valores){
+
+        const n =
+          Number(valor);
+
+        if(
+          Number.isFinite(n)
+        ){
+
+          return n;
+
+        }
+
+      }
+
+      return 0;
+
+    }
 
 
-    document
-      .querySelector("#profileGenre")
-      .textContent =
-        profileData.genre;
+    function nomeArtista(data){
+
+      return texto(
+
+        data.nome,
+
+        data.artistName,
+
+        data.artistaNome,
+
+        data.stageName,
+
+        data.nomeArtistico,
+
+        data.nome_artistico,
+
+        data.name,
+
+        "Artista Prime"
+
+      );
+
+    }
 
 
-    document
-      .querySelector("#profileCity")
-      .textContent =
-        profileData.city;
+    function usernameArtista(data){
+
+      return texto(
+
+        data.username,
+
+        data.userName,
+
+        data.nomeUsuario,
+
+        data.artistaUsername,
+
+        data.usernameArtistico,
+
+        data.usuario,
+
+        data.slug,
+
+        ""
+
+      );
+
+    }
 
 
-    document
-      .querySelector("#profileCountry")
-      .textContent =
-        profileData.country;
+    function fotoArtista(data){
+
+      return texto(
+
+        data.foto,
+
+        data.photo,
+
+        data.photoURL,
+
+        data.fotoPerfil,
+
+        data.imagem,
+
+        data.image,
+
+        data.avatar,
+
+        data.profilePhoto,
+
+        ""
+
+      );
+
+    }
 
 
-    document
-      .querySelector("#profileYear")
-      .textContent =
-        profileData.year;
+    function capaMusica(data){
+
+      return texto(
+
+        data.cover,
+
+        data.coverUrl,
+
+        data.capa,
+
+        data.capaUrl,
+
+        data.image,
+
+        data.imageUrl,
+
+        data.imagem,
+
+        ""
+
+      );
+
+    }
 
 
-    document
-      .querySelector("#postName")
-      .textContent =
-        profileData.name;
+    function audioMusica(data){
+
+      return texto(
+
+        data.audioUrl,
+
+        data.audio,
+
+        data.url,
+
+        data.musicUrl,
+
+        data.file,
+
+        data.src,
+
+        ""
+
+      );
+
+    }
 
 
-    /* FOTO */
+    function tituloMusica(data){
 
-    if(profileData.photo){
+      return texto(
 
-      document
-        .querySelector("#profilePhoto")
-        .innerHTML =
-          `
-            <img
-              src="${profileData.photo}"
-              alt="${profileData.name}"
-            >
-          `;
+        data.titulo,
 
+        data.title,
 
-      document
-        .querySelector("#postPhoto")
-        .innerHTML =
-          `
-            <img
-              src="${profileData.photo}"
-              alt="${profileData.name}"
-            >
-          `;
+        data.nome,
+
+        data.nomeMusica,
+
+        "Música sem título"
+
+      );
+
+    }
 
 
-      document
-        .querySelector("#cover")
-        .style.backgroundImage =
-          `
-            linear-gradient(
-              0deg,
-              #070707,
-              rgba(0,0,0,.15)
+    function tituloVideo(data){
+
+      return texto(
+
+        data.titulo,
+
+        data.title,
+
+        data.nome,
+
+        "Vídeo sem título"
+
+      );
+
+    }
+
+
+    function capaVideo(data){
+
+      return texto(
+
+        data.capa,
+
+        data.cover,
+
+        data.coverUrl,
+
+        data.thumbnail,
+
+        data.thumbnailUrl,
+
+        data.image,
+
+        ""
+
+      );
+
+    }
+
+
+    function videoUrl(data){
+
+      return texto(
+
+        data.videoUrl,
+
+        data.video,
+
+        data.url,
+
+        ""
+
+      );
+
+    }
+
+
+    function isPublicado(data){
+
+      const status =
+        texto(data.status)
+        .toLowerCase();
+
+      return (
+        status === "publicado" ||
+        status === "publicada" ||
+        status === "public" ||
+        status === "ativa" ||
+        status === "ativo" ||
+        status === ""
+      );
+
+    }
+
+
+    /* =========================
+       PROCURAR ARTISTA
+    ========================= */
+
+    async function carregarArtista(){
+
+      try{
+
+        const snapshot =
+          await getDocs(
+            collection(db,"artistas")
+          );
+
+
+        let encontrado = null;
+
+
+        snapshot.forEach(docSnap => {
+
+          const data =
+            docSnap.data();
+
+
+          const username =
+            usernameArtista(data);
+
+
+          /*
+            Aceita:
+            perfil.html?user=username
+            ou
+            perfil.html?user=UID
+          */
+
+          if(
+
+            docSnap.id === requestedUser ||
+
+            username.toLowerCase() ===
+            requestedUser.toLowerCase()
+
+          ){
+
+            encontrado = {
+
+              id:docSnap.id,
+
+              ...data
+
+            };
+
+          }
+
+        });
+
+
+        if(!encontrado){
+
+          mostrarErro(
+            "Artista não encontrado",
+            "Este perfil não existe no KUDURO PRIME."
+          );
+
+          return;
+
+        }
+
+
+        artistId =
+          encontrado.id;
+
+
+        profileData = {
+
+          id:encontrado.id,
+
+          name:
+            nomeArtista(encontrado),
+
+          username:
+            usernameArtista(encontrado) ||
+            "artista",
+
+          photo:
+            fotoArtista(encontrado),
+
+          bio:
+            texto(
+
+              encontrado.bio,
+
+              encontrado.biografia,
+
+              encontrado.description,
+
+              encontrado.descricao,
+
+              "Este artista faz parte do movimento KUDURO PRIME 👑."
+
             ),
-            url('${profileData.photo}')
+
+          city:
+            texto(
+
+              encontrado.cidade,
+
+              encontrado.city,
+
+              encontrado.localizacao,
+
+              encontrado.location,
+
+              "Luanda"
+
+            ),
+
+          country:
+            texto(
+
+              encontrado.pais,
+
+              encontrado.country,
+
+              "Angola"
+
+            ),
+
+          genre:
+            texto(
+
+              encontrado.genero,
+
+              encontrado.genre,
+
+              encontrado.estilo,
+
+              encontrado.tipo,
+
+              "Kuduro"
+
+            ),
+
+          year:
+            texto(
+
+              encontrado.ano,
+
+              encontrado.year,
+
+              encontrado.carreiraDesde,
+
+              encontrado.anoInicio,
+
+              "—"
+
+            ),
+
+          instagram:
+            texto(
+
+              encontrado.instagram,
+
+              encontrado.instagramUrl
+
+            ),
+
+          facebook:
+            texto(
+
+              encontrado.facebook,
+
+              encontrado.facebookUrl
+
+            ),
+
+          youtube:
+            texto(
+
+              encontrado.youtube,
+
+              encontrado.youtubeUrl
+
+            ),
+
+          tiktok:
+            texto(
+
+              encontrado.tiktok,
+
+              encontrado.tiktokUrl
+
+            ),
+
+          followers:
+            numero(
+
+              encontrado.followers,
+
+              encontrado.seguidores,
+
+              encontrado.followerCount
+
+            )
+
+        };
+
+
+        mostrarPerfil();
+
+        await carregarMusicas();
+
+        await carregarVideos();
+
+      }
+
+      catch(error){
+
+        console.error(
+          "Erro ao carregar artista:",
+          error
+        );
+
+        mostrarErro(
+          "Erro ao carregar perfil",
+          "Não foi possível carregar os dados deste artista."
+        );
+
+      }
+
+    }
+
+
+    /* =========================
+       MOSTRAR PERFIL
+    ========================= */
+
+    function mostrarPerfil(){
+
+      document
+        .querySelector("#profileName")
+        .innerHTML =
+          `${escapeHtml(profileData.name)}
+           <span class="verified">●</span>`;
+
+
+      document
+        .querySelector("#profileUser")
+        .textContent =
+          "@" + profileData.username;
+
+
+      document
+        .querySelector("#profileLocation")
+        .textContent =
+          "📍 " +
+          profileData.city +
+          ", " +
+          profileData.country;
+
+
+      document
+        .querySelector("#profileBio")
+        .textContent =
+          profileData.bio;
+
+
+      document
+        .querySelector("#profileGenre")
+        .textContent =
+          profileData.genre;
+
+
+      document
+        .querySelector("#profileCity")
+        .textContent =
+          profileData.city;
+
+
+      document
+        .querySelector("#profileCountry")
+        .textContent =
+          profileData.country;
+
+
+      document
+        .querySelector("#profileYear")
+        .textContent =
+          profileData.year;
+
+
+      document
+        .querySelector("#postName")
+        .textContent =
+          profileData.name;
+
+
+      document
+        .querySelector("#postText")
+        .textContent =
+          profileData.bio;
+
+
+      /* FOTO */
+
+      if(profileData.photo){
+
+        document
+          .querySelector("#profilePhoto")
+          .innerHTML =
+            `
+              <img
+                src="${escapeAttr(profileData.photo)}"
+                alt="${escapeAttr(profileData.name)}"
+              >
+            `;
+
+
+        document
+          .querySelector("#postPhoto")
+          .innerHTML =
+            `
+              <img
+                src="${escapeAttr(profileData.photo)}"
+                alt="${escapeAttr(profileData.name)}"
+              >
+            `;
+
+
+        document
+          .querySelector("#cover")
+          .style.backgroundImage =
+            `
+              linear-gradient(
+                0deg,
+                #070707,
+                rgba(0,0,0,.15)
+              ),
+              url("${escapeCssUrl(profileData.photo)}")
+            `;
+
+      }
+
+
+      carregarRedes();
+
+    }
+
+
+    /* =========================
+       MÚSICAS
+    ========================= */
+
+    async function carregarMusicas(){
+
+      const list =
+        document.querySelector(
+          "#songList"
+        );
+
+
+      try{
+
+        const snapshot =
+          await getDocs(
+            collection(db,"musicas")
+          );
+
+
+        artistSongs = [];
+
+
+        snapshot.forEach(docSnap => {
+
+          const data =
+            docSnap.data();
+
+
+          const idArtista =
+            texto(
+
+              data.artistaId,
+
+              data.artistId,
+
+              data.userId,
+
+              data.uid
+
+            );
+
+
+          if(
+
+            idArtista === artistId &&
+
+            isPublicado(data)
+
+          ){
+
+            artistSongs.push({
+
+              id:docSnap.id,
+
+              ...data
+
+            });
+
+          }
+
+        });
+
+
+        /*
+          Mais recentes primeiro
+        */
+
+        artistSongs.sort(
+          (a,b) => {
+
+            const ta =
+              a.criadoEm?.seconds ||
+              a.createdAt?.seconds ||
+              0;
+
+            const tb =
+              b.criadoEm?.seconds ||
+              b.createdAt?.seconds ||
+              0;
+
+            return tb - ta;
+
+          }
+        );
+
+
+        document
+          .querySelector("#musicCount")
+          .textContent =
+            artistSongs.length;
+
+
+        if(!artistSongs.length){
+
+          list.innerHTML =
+            `
+              <div class="empty">
+
+                <strong>
+                  🎵 Nenhuma música publicada
+                </strong>
+
+                Este artista ainda não publicou músicas no KUDURO PRIME.
+
+              </div>
+            `;
+
+          return;
+
+        }
+
+
+        list.innerHTML =
+          artistSongs
+          .map(song => {
+
+            const cover =
+              capaMusica(song) ||
+              profileData.photo;
+
+
+            const audio =
+              audioMusica(song);
+
+
+            const views =
+              numero(
+
+                song.views,
+
+                song.visualizacoes
+
+              );
+
+
+            return `
+
+              <div class="song">
+
+                <div
+                  class="song-cover"
+                >
+
+                  ${
+                    cover
+                    ?
+                    `
+                      <img
+                        src="${escapeAttr(cover)}"
+                        alt=""
+                      >
+                    `
+                    :
+                    "🎵"
+                  }
+
+                </div>
+
+                <div class="song-info">
+
+                  <div class="song-name">
+                    ${escapeHtml(
+                      tituloMusica(song)
+                    )}
+                  </div>
+
+                  <div class="song-meta">
+
+                    ${escapeHtml(profileData.name)}
+                    • 👁 ${formatNumber(views)} visualizações
+
+                  </div>
+
+                  ${
+                    audio
+                    ?
+                    `
+                      <audio
+                        class="song-audio"
+                        controls
+                        preload="none"
+                        src="${escapeAttr(audio)}"
+                      ></audio>
+                    `
+                    :
+                    ""
+                  }
+
+                </div>
+
+                ${
+                  audio
+                  ?
+                  `
+                    <button
+                      class="play"
+                      onclick="tocarMusica(this)"
+                      title="Ouvir"
+                    >
+                      ▶
+                    </button>
+                  `
+                  :
+                  ""
+                }
+
+              </div>
+
+            `;
+
+          })
+          .join("");
+
+      }
+
+      catch(error){
+
+        console.error(
+          "Erro nas músicas:",
+          error
+        );
+
+        list.innerHTML =
+          `
+            <div class="empty">
+
+              <strong>
+                ⚠ Erro ao carregar músicas
+              </strong>
+
+              Tenta atualizar a página.
+
+            </div>
           `;
 
+      }
+
     }
 
 
-    /* REDES SOCIAIS */
+    /* =========================
+       VÍDEOS
+    ========================= */
 
-    const socialLinks =
-      document.querySelector(
-        "#socialLinks"
-      );
+    async function carregarVideos(){
 
-
-    const networks = [
-
-      ["📷 Instagram",profileData.instagram],
-
-      ["🔵 Facebook",profileData.facebook],
-
-      ["▶ YouTube",profileData.youtube],
-
-      ["♪ TikTok",profileData.tiktok]
-
-    ];
+      const grid =
+        document.querySelector(
+          "#videoGrid"
+        );
 
 
-    const activeNetworks =
-      networks.filter(
-        network =>
-          network[1]
-      );
+      try{
+
+        const snapshot =
+          await getDocs(
+            collection(db,"videos")
+          );
 
 
-    if(
-      activeNetworks.length
-    ){
+        artistVideos = [];
 
-      socialLinks.innerHTML =
-        activeNetworks
-        .map(
-          network =>
+
+        snapshot.forEach(docSnap => {
+
+          const data =
+            docSnap.data();
+
+
+          const idArtista =
+            texto(
+
+              data.artistaId,
+
+              data.artistId,
+
+              data.userId,
+
+              data.uid
+
+            );
+
+
+          /*
+            SOMENTE VÍDEOS PUBLICADOS
+          */
+
+          if(
+
+            idArtista === artistId &&
+
+            data.status === "publicado"
+
+          ){
+
+            artistVideos.push({
+
+              id:docSnap.id,
+
+              ...data
+
+            });
+
+          }
+
+        });
+
+
+        artistVideos.sort(
+          (a,b) => {
+
+            const ta =
+              a.criadoEm?.seconds ||
+              a.createdAt?.seconds ||
+              0;
+
+            const tb =
+              b.criadoEm?.seconds ||
+              b.createdAt?.seconds ||
+              0;
+
+            return tb - ta;
+
+          }
+        );
+
+
+        if(!artistVideos.length){
+
+          grid.innerHTML =
             `
-              <a
-                href="#"
-                onclick="
-                  alert('Em breve este link abrirá a rede social oficial.');
-                  return false;
-                "
+              <div
+                class="empty"
+                style="grid-column:1/-1"
               >
-                ${network[0]}
-                <br>
-                <small>
-                  ${network[1]}
-                </small>
-              </a>
-            `
-        )
-        .join("");
 
-    } else {
+                <strong>
+                  🎬 Nenhum vídeo publicado
+                </strong>
 
-      document
-        .querySelector("#socialBox")
-        .style.display =
-          "none";
+                Este artista ainda não publicou vídeos.
 
-    }
+              </div>
+            `;
 
+        } else {
 
-    /* CONTADORES */
+          grid.innerHTML =
+            artistVideos
+            .map(video => {
 
-    document
-      .querySelector("#musicCount")
-      .textContent =
-        isOwnProfile
-        ?
-        (
-          JSON.parse(
-            localStorage.getItem(
-              "kpArtistSongs"
-            )
-            ||
-            "[]"
-          ).length
-        )
-        :
-        "12";
+              const cover =
+                capaVideo(video);
 
 
-    document
-      .querySelector("#followers")
-      .textContent =
-        isOwnProfile
-        ?
-        "0"
-        :
-        "25K";
+              const views =
+                numero(
+
+                  video.views,
+
+                  video.visualizacoes
+
+                );
 
 
-    document
-      .querySelector("#views")
-      .textContent =
-        isOwnProfile
-        ?
-        "0"
-        :
-        "1.8M";
+              const duration =
+                texto(
+
+                  video.duracaoFormatada,
+
+                  video.duracao,
+
+                  ""
+
+                );
 
 
-    /* MÚSICAS DO ARTISTA */
+              return `
 
-    const savedSongs =
-      JSON.parse(
-        localStorage.getItem(
-          "kpArtistSongs"
-        )
-        ||
-        "[]"
-      );
-
-
-    if(
-      isOwnProfile
-      &&
-      savedSongs.length
-    ){
-
-      document
-        .querySelector("#songList")
-        .innerHTML =
-          savedSongs
-          .map(
-            song =>
-              `
-
-                <div class="song">
+                <a
+                  class="video-card"
+                  href="assistir-video.html?id=${encodeURIComponent(video.id)}"
+                >
 
                   <div
-                    class="song-cover"
-                    style="
-                      --img:
-                      url('${song.cover || profileData.photo || "images/artista-1.jpg"}')
-                    "
-                  ></div>
+                    class="video-thumb"
+                    ${
+                      cover
+                      ?
+                      `style="background-image:url('${escapeCssUrl(cover)}')"`
+                      :
+                      ""
+                    }
+                  >
 
-                  <div>
+                    ${
+                      cover
+                      ?
+                      `<img
+                        src="${escapeAttr(cover)}"
+                        alt=""
+                      >`
+                      :
+                      ""
+                    }
 
-                    <div class="song-name">
-                      ${song.title}
+                    <div class="video-play">
+                      ▶
                     </div>
 
-                    <div class="song-meta">
-                      ${profileData.name}
+                    ${
+                      duration
+                      ?
+                      `
+                        <div class="video-duration">
+                          ${escapeHtml(duration)}
+                        </div>
+                      `
+                      :
+                      ""
+                    }
+
+                  </div>
+
+                  <div class="video-info">
+
+                    <div class="video-title">
+                      ${escapeHtml(
+                        tituloVideo(video)
+                      )}
+                    </div>
+
+                    <div class="video-meta">
+
+                      ${escapeHtml(profileData.name)}
+                      • 👁 ${formatNumber(views)}
+
                     </div>
 
                   </div>
 
-                  <button
-                    class="play"
-                    onclick="
-                      this.textContent =
-                      this.textContent === '▶'
-                      ?
-                      '❚❚'
-                      :
-                      '▶'
-                    "
-                  >
-                    ▶
-                  </button>
+                </a>
 
-                </div>
+              `;
 
-              `
-          )
-          .join("");
+            })
+            .join("");
+
+        }
+
+
+        /* SOMAR VIEWS */
+
+        const musicViews =
+          artistSongs.reduce(
+            (total,song) =>
+              total +
+              numero(
+                song.views,
+                song.visualizacoes
+              ),
+            0
+          );
+
+
+        const videoViews =
+          artistVideos.reduce(
+            (total,video) =>
+              total +
+              numero(
+                video.views,
+                video.visualizacoes
+              ),
+            0
+          );
+
+
+        document
+          .querySelector("#views")
+          .textContent =
+            formatNumber(
+              musicViews +
+              videoViews
+            );
+
+
+        document
+          .querySelector("#followers")
+          .textContent =
+            formatNumber(
+              profileData.followers
+            );
+
+      }
+
+      catch(error){
+
+        console.error(
+          "Erro nos vídeos:",
+          error
+        );
+
+        grid.innerHTML =
+          `
+            <div
+              class="empty"
+              style="grid-column:1/-1"
+            >
+
+              <strong>
+                ⚠ Erro ao carregar vídeos
+              </strong>
+
+              Tenta atualizar a página.
+
+            </div>
+          `;
+
+      }
 
     }
 
 
-    /* SEGUIR */
+    /* =========================
+       REDES SOCIAIS
+    ========================= */
 
-    function seguir(){
+    function carregarRedes(){
 
-      const button =
+      const socialLinks =
         document.querySelector(
-          "#followBtn"
+          "#socialLinks"
         );
 
 
-      if(
-        button.textContent.includes(
-          "SEGUIR"
-        )
-      ){
+      const networks = [
 
-        button.textContent =
-          "✓ A SEGUIR";
+        [
+          "📷 Instagram",
+          profileData.instagram
+        ],
 
-      } else {
+        [
+          "🔵 Facebook",
+          profileData.facebook
+        ],
 
-        button.textContent =
-          "+ SEGUIR";
+        [
+          "▶ YouTube",
+          profileData.youtube
+        ],
+
+        [
+          "♪ TikTok",
+          profileData.tiktok
+        ]
+
+      ];
+
+
+      const active =
+        networks.filter(
+          network =>
+            network[1]
+        );
+
+
+      if(!active.length){
+
+        document
+          .querySelector("#socialBox")
+          .style.display =
+            "none";
+
+        return;
 
       }
+
+
+      socialLinks.innerHTML =
+        active
+        .map(network => {
+
+          const url =
+            prepararUrl(network[1]);
+
+
+          return `
+
+            <a
+              href="${escapeAttr(url)}"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+
+              ${network[0]}
+
+              <br>
+
+              <small>
+                ${escapeHtml(network[1])}
+              </small>
+
+            </a>
+
+          `;
+
+        })
+        .join("");
 
     }
 
 
-    /* PARTILHAR */
+    /* =========================
+       TOCAR MÚSICA
+    ========================= */
 
-    function partilharPerfil(){
+    window.tocarMusica =
+      function(button){
 
-      if(
-        navigator.share
+        const song =
+          button.closest(".song");
+
+
+        if(!song) return;
+
+
+        const audio =
+          song.querySelector("audio");
+
+
+        if(!audio) return;
+
+
+        /*
+          Pausar todos os outros
+        */
+
+        document
+          .querySelectorAll(
+            ".song audio"
+          )
+          .forEach(other => {
+
+            if(other !== audio){
+
+              other.pause();
+
+              const otherButton =
+                other
+                .closest(".song")
+                ?.querySelector(".play");
+
+              if(otherButton){
+
+                otherButton.textContent =
+                  "▶";
+
+              }
+
+            }
+
+          });
+
+
+        if(audio.paused){
+
+          audio.play()
+            .then(() => {
+
+              button.textContent =
+                "❚❚";
+
+            })
+            .catch(() => {
+
+              button.textContent =
+                "▶";
+
+            });
+
+        } else {
+
+          audio.pause();
+
+          button.textContent =
+            "▶";
+
+        }
+
+
+        audio.onended =
+          function(){
+
+            button.textContent =
+              "▶";
+
+          };
+
+      };
+
+
+    /* =========================
+       SEGUIR
+    ========================= */
+
+    window.seguir =
+      function(){
+
+        const button =
+          document.querySelector(
+            "#followBtn"
+          );
+
+
+        if(
+          button.textContent.includes(
+            "SEGUIR"
+          )
+        ){
+
+          button.textContent =
+            "✓ A SEGUIR";
+
+        } else {
+
+          button.textContent =
+            "+ SEGUIR";
+
+        }
+
+      };
+
+
+    /* =========================
+       PARTILHAR
+    ========================= */
+
+    window.partilharPerfil =
+      async function(){
+
+        const url =
+          window.location.href;
+
+
+        if(navigator.share){
+
+          try{
+
+            await navigator.share({
+
+              title:
+                profileData.name +
+                " — KUDURO PRIME",
+
+              text:
+                "Vê o perfil de " +
+                profileData.name +
+                " no KUDURO PRIME 👑",
+
+              url:url
+
+            });
+
+          }
+
+          catch(error){
+
+            console.log(
+              "Partilha cancelada."
+            );
+
+          }
+
+        } else {
+
+          try{
+
+            await navigator.clipboard.writeText(
+              url
+            );
+
+            alert(
+              "Link do perfil copiado!"
+            );
+
+          }
+
+          catch(error){
+
+            alert(
+              "Link do perfil:\n" +
+              url
+            );
+
+          }
+
+        }
+
+      };
+
+
+    /* =========================
+       TABS
+    ========================= */
+
+    window.abrirTab =
+      function(
+        tabId,
+        button
       ){
 
-        navigator.share({
-
-          title:
-            profileData.name,
-
-          text:
-            "Vê o perfil de " +
-            profileData.name +
-            " no KUDURO PRIME!",
-
-          url:
-            window.location.href
-
-        });
-
-      } else {
-
-        alert(
-          "Link do perfil pronto para ser partilhado!"
-        );
-
-      }
-
-    }
-
-
-    /* TABS */
-
-    function abrirTab(
-      tabId,
-      button
-    ){
-
-      document
-        .querySelectorAll(
-          ".tab"
-        )
-        .forEach(
-          tab =>
+        document
+          .querySelectorAll(
+            ".tab"
+          )
+          .forEach(tab =>
             tab.classList.remove(
               "active"
             )
-        );
+          );
 
 
-      document
-        .querySelectorAll(
-          ".tab-content"
-        )
-        .forEach(
-          content =>
+        document
+          .querySelectorAll(
+            ".tab-content"
+          )
+          .forEach(content =>
             content.classList.remove(
               "active"
             )
+          );
+
+
+        button.classList.add(
+          "active"
         );
 
 
-      button.classList.add(
-        "active"
-      );
+        document
+          .querySelector(
+            "#" + tabId
+          )
+          .classList.add(
+            "active"
+          );
+
+      };
+
+
+    /* =========================
+       MENU
+    ========================= */
+
+    window.abrirMenu =
+      function(){
+
+        const links =
+          document.querySelector(
+            ".links"
+          );
+
+
+        if(
+          links.style.display ===
+          "flex"
+        ){
+
+          links.style.display =
+            "none";
+
+        } else {
+
+          links.style.display =
+            "flex";
+
+          links.style.position =
+            "absolute";
+
+          links.style.top =
+            "70px";
+
+          links.style.right =
+            "4%";
+
+          links.style.padding =
+            "15px";
+
+          links.style.background =
+            "#101010";
+
+          links.style.border =
+            "1px solid #2a271f";
+
+          links.style.flexDirection =
+            "column";
+
+        }
+
+      };
+
+
+    /* =========================
+       ERRO
+    ========================= */
+
+    function mostrarErro(
+      titulo,
+      mensagem
+    ){
+
+      document
+        .querySelector("#profileName")
+        .textContent =
+          titulo;
 
 
       document
-        .querySelector(
-          "#" + tabId
-        )
-        .classList.add(
-          "active"
-        );
+        .querySelector("#profileUser")
+        .textContent =
+          "";
+
+
+      document
+        .querySelector("#profileBio")
+        .textContent =
+          mensagem;
+
+
+      document
+        .querySelector("#songList")
+        .innerHTML =
+          `
+            <div class="empty">
+
+              <strong>
+                ⚠ ${escapeHtml(titulo)}
+              </strong>
+
+              ${escapeHtml(mensagem)}
+
+              <br><br>
+
+              <a
+                href="artistas.html"
+                class="btn gold"
+              >
+                VER ARTISTAS
+              </a>
+
+            </div>
+          `;
+
+
+      document
+        .querySelector("#videoGrid")
+        .innerHTML =
+          `
+            <div
+              class="empty"
+              style="grid-column:1/-1"
+            >
+              ${escapeHtml(mensagem)}
+            </div>
+          `;
 
     }
 
 
-    /* MENU */
+    /* =========================
+       FORMATAÇÃO
+    ========================= */
 
-    function abrirMenu(){
+    function formatNumber(number){
 
-      const links =
-        document.querySelector(
-          ".links"
-        );
+      return new Intl.NumberFormat(
+        "pt-PT",
+        {
+          notation:"compact",
+          maximumFractionDigits:1
+        }
+      ).format(number || 0);
+
+    }
+
+
+    function prepararUrl(value){
+
+      let url =
+        String(value || "")
+          .trim();
+
+
+      if(!url){
+
+        return "#";
+
+      }
 
 
       if(
-        links.style.display ===
-        "flex"
+        !/^https?:\/\//i.test(url)
       ){
 
-        links.style.display =
-          "none";
+        /*
+          Instagram
+        */
 
-      } else {
+        if(
+          url.startsWith("@")
+        ){
 
-        links.style.display =
-          "flex";
+          return
+            "https://instagram.com/" +
+            url.substring(1);
 
-        links.style.position =
-          "absolute";
+        }
 
-        links.style.top =
-          "70px";
 
-        links.style.right =
-          "4%";
+        /*
+          TikTok
+        */
 
-        links.style.padding =
-          "15px";
+        if(
+          !url.includes(" ") &&
+          !url.includes("/")
+        ){
 
-        links.style.background =
-          "#101010";
+          return
+            "https://www.tiktok.com/@" +
+            url.replace("@","");
 
-        links.style.border =
-          "1px solid #2a271f";
-
-        links.style.flexDirection =
-          "column";
+        }
 
       }
+
+
+      return url;
+
+    }
+
+
+    function escapeHtml(value){
+
+      return String(value ?? "")
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+
+    }
+
+
+    function escapeAttr(value){
+
+      return escapeHtml(value);
+
+    }
+
+
+    function escapeCssUrl(value){
+
+      return String(value ?? "")
+        .replace(/\\/g,"\\\\")
+        .replace(/'/g,"\\'");
+    }
+
+
+    /* =========================
+       INICIAR
+    ========================= */
+
+    if(requestedUser){
+
+      carregarArtista();
 
     }
 
