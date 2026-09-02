@@ -1,0 +1,1474 @@
+<!DOCTYPE html>
+
+<html lang="pt">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Vídeos | KUDURO PRIME</title>
+
+<style>
+
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  background:#080808;
+  color:#fff;
+  font-family:Arial,Helvetica,sans-serif;
+}
+
+/* ==============================
+   HEADER
+============================== */
+
+header{
+  background:#0d0d0d;
+  padding:20px;
+  text-align:center;
+  border-bottom:2px solid #d4af37;
+  position:sticky;
+  top:0;
+  z-index:50;
+}
+
+.logo{
+  color:#d4af37;
+  font-size:30px;
+  font-weight:900;
+}
+
+nav{
+  margin-top:15px;
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:8px;
+}
+
+nav a{
+  color:#fff;
+  margin:5px 10px;
+  text-decoration:none;
+  font-size:13px;
+  font-weight:800;
+}
+
+nav a:hover{
+  color:#d4af37;
+}
+
+/* ==============================
+   HERO
+============================== */
+
+.hero{
+  text-align:center;
+  padding:55px 20px 20px;
+}
+
+h1{
+  color:#d4af37;
+  margin:0;
+  font-size:38px;
+}
+
+.subtitulo{
+  color:#aaa;
+  margin-top:12px;
+  font-size:14px;
+}
+
+/* ==============================
+   VÍDEOS
+============================== */
+
+.videos{
+  max-width:1200px;
+  margin:35px auto 70px;
+  padding:20px;
+
+  display:grid;
+
+  grid-template-columns:
+    repeat(
+      auto-fit,
+      minmax(300px,1fr)
+    );
+
+  gap:22px;
+}
+
+.video-card{
+
+  background:
+    linear-gradient(
+      145deg,
+      #171717,
+      #0e0e0e
+    );
+
+  border:1px solid #292929;
+
+  border-radius:15px;
+
+  padding:18px;
+
+  transition:.25s;
+
+  overflow:hidden;
+}
+
+.video-card:hover{
+
+  border-color:#d4af37;
+
+  transform:translateY(-5px);
+}
+
+/* ==============================
+   PLAYER
+============================== */
+
+.video-container{
+
+  width:100%;
+
+  aspect-ratio:16/9;
+
+  background:#000;
+
+  border-radius:11px;
+
+  overflow:hidden;
+
+  margin-bottom:16px;
+
+  position:relative;
+}
+
+.video-container video{
+
+  width:100%;
+
+  height:100%;
+
+  object-fit:cover;
+
+  display:block;
+}
+
+/* ==============================
+   CAPA
+============================== */
+
+.video-container video[poster]{
+
+  object-fit:cover;
+}
+
+/* ==============================
+   TEXTOS
+============================== */
+
+.video-card h2{
+
+  margin:8px 0 5px;
+
+  font-size:20px;
+
+  line-height:1.3;
+}
+
+.artista{
+
+  color:#d4af37;
+
+  font-size:13px;
+
+  font-weight:900;
+}
+
+.categoria{
+
+  display:inline-block;
+
+  margin-top:8px;
+
+  padding:5px 9px;
+
+  background:#211b0a;
+
+  border:1px solid #5b4a18;
+
+  border-radius:20px;
+
+  color:#d4af37;
+
+  font-size:10px;
+
+  font-weight:800;
+}
+
+.descricao{
+
+  color:#aaa;
+
+  font-size:12px;
+
+  line-height:1.5;
+
+  margin-bottom:10px;
+}
+
+/* ==============================
+   INFORMAÇÕES
+============================== */
+
+.info{
+
+  display:flex;
+
+  justify-content:space-between;
+
+  gap:10px;
+
+  margin-top:13px;
+
+  padding-top:12px;
+
+  border-top:1px solid #292929;
+
+  color:#888;
+
+  font-size:11px;
+}
+
+.views{
+
+  color:#d4af37;
+
+  font-weight:900;
+}
+
+.duracao{
+
+  color:#aaa;
+}
+
+.perfil-btn{
+
+  display:inline-block;
+
+  margin-top:12px;
+
+  color:#d4af37;
+
+  font-size:11px;
+
+  font-weight:900;
+
+  text-decoration:none;
+}
+
+.perfil-btn:hover{
+
+  text-decoration:underline;
+}
+
+/* ==============================
+   STATUS
+============================== */
+
+.view-status{
+
+  min-height:15px;
+
+  margin-top:8px;
+
+  color:#666;
+
+  font-size:10px;
+}
+
+/* ==============================
+   LOADING
+============================== */
+
+.loading{
+
+  grid-column:1/-1;
+
+  text-align:center;
+
+  padding:60px 20px;
+
+  color:#aaa;
+}
+
+.loading-icon{
+
+  font-size:40px;
+
+  margin-bottom:10px;
+}
+
+/* ==============================
+   EMPTY
+============================== */
+
+.empty{
+
+  grid-column:1/-1;
+
+  text-align:center;
+
+  padding:70px 20px;
+
+  color:#888;
+}
+
+.empty-icon{
+
+  font-size:55px;
+
+  margin-bottom:15px;
+}
+
+/* ==============================
+   ERROR
+============================== */
+
+.error{
+
+  grid-column:1/-1;
+
+  text-align:center;
+
+  padding:50px 20px;
+
+  color:#ff7464;
+
+  background:#170c0a;
+
+  border:1px solid #4a1d17;
+
+  border-radius:12px;
+}
+
+/* ==============================
+   FOOTER
+============================== */
+
+footer{
+
+  margin-top:50px;
+
+  background:#111;
+
+  text-align:center;
+
+  padding:30px;
+
+  color:#777;
+
+  font-size:12px;
+}
+
+/* ==============================
+   MOBILE
+============================== */
+
+@media(max-width:600px){
+
+  .logo{
+    font-size:24px;
+  }
+
+  nav a{
+    font-size:11px;
+    margin:4px;
+  }
+
+  h1{
+    font-size:29px;
+  }
+
+  .hero{
+    padding-top:40px;
+  }
+
+  .videos{
+
+    grid-template-columns:1fr;
+
+    padding:15px;
+  }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+  <div class="logo">
+    👑 KUDURO PRIME
+  </div>
+
+  <nav>
+
+```
+<a href="index.html">
+  INÍCIO
+</a>
+
+<a href="artistas.html">
+  ARTISTAS
+</a>
+
+<a href="musicas.html">
+  MÚSICAS
+</a>
+
+<a href="ranking.html">
+  RANKING
+</a>
+
+<a href="eventos.html">
+  EVENTOS
+</a>
+
+<a href="videos.html">
+  VÍDEOS
+</a>
+```
+
+  </nav>
+
+</header>
+
+<section class="hero">
+
+  <h1>
+    🎬 VÍDEOS PRIME
+  </h1>
+
+  <p class="subtitulo">
+    Os vídeos que estão a movimentar o Kuduro.
+  </p>
+
+</section>
+
+<section
+  class="videos"
+  id="videosContainer"
+>
+
+  <div class="loading">
+
+```
+<div class="loading-icon">
+  ⏳
+</div>
+
+A carregar vídeos...
+```
+
+  </div>
+
+</section>
+
+<footer>
+
+© 2026 KUDURO PRIME — O KUDURO VIVE AQUI 👑
+
+</footer>
+
+<script type="module">
+
+/* =========================================
+   FIREBASE
+========================================= */
+
+import {
+  initializeApp
+}
+from
+"https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+
+
+import {
+  getAuth,
+  onAuthStateChanged
+}
+from
+"https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+
+
+import {
+  getFirestore,
+  collection,
+  getDocs,
+  doc,
+  getDoc,
+  setDoc,
+  updateDoc,
+  increment,
+  query,
+  orderBy,
+  serverTimestamp
+}
+from
+"https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+
+
+const firebaseConfig = {
+
+  apiKey:
+    "AIzaSyDoitCcLeLDNBNPCP6fG1s_xbHr4UmohSo",
+
+  authDomain:
+    "kuduro-prime.firebaseapp.com",
+
+  projectId:
+    "kuduro-prime",
+
+  storageBucket:
+    "kuduro-prime.firebasestorage.app",
+
+  messagingSenderId:
+    "299776559545",
+
+  appId:
+    "1:299776559545:web:04aced1ba25391eb3fce68"
+
+};
+
+
+const app =
+  initializeApp(
+    firebaseConfig
+  );
+
+
+const auth =
+  getAuth(app);
+
+
+const db =
+  getFirestore(app);
+
+
+/* =========================================
+   ELEMENTOS
+========================================= */
+
+const container =
+  document.querySelector(
+    "#videosContainer"
+  );
+
+
+let currentUser = null;
+
+
+/* =========================================
+   SEGURANÇA HTML
+========================================= */
+
+function escapeHTML(value){
+
+  const div =
+    document.createElement(
+      "div"
+    );
+
+  div.textContent =
+    value || "";
+
+  return div.innerHTML;
+
+}
+
+
+/* =========================================
+   DATA
+========================================= */
+
+function formatDate(timestamp){
+
+  if(!timestamp){
+    return "";
+  }
+
+
+  if(timestamp.seconds){
+
+    const date =
+      new Date(
+        timestamp.seconds * 1000
+      );
+
+
+    return date.toLocaleDateString(
+      "pt-PT"
+    );
+
+  }
+
+
+  return "";
+
+}
+
+
+/* =========================================
+   NÚMEROS
+========================================= */
+
+function formatNumber(number){
+
+  number =
+    Number(number) || 0;
+
+
+  return number.toLocaleString(
+    "pt-PT"
+  );
+
+}
+
+
+/* =========================================
+   DURAÇÃO
+========================================= */
+
+function formatDuration(seconds){
+
+  seconds =
+    Number(seconds) || 0;
+
+
+  const minutes =
+    Math.floor(
+      seconds / 60
+    );
+
+
+  const remainingSeconds =
+    Math.floor(
+      seconds % 60
+    );
+
+
+  return (
+
+    String(minutes)
+      .padStart(2,"0")
+
+    +
+
+    ":"
+
+    +
+
+    String(remainingSeconds)
+      .padStart(2,"0")
+
+  );
+
+}
+
+
+/* =========================================
+   CARREGAR VÍDEOS
+========================================= */
+
+async function loadVideos(){
+
+  try{
+
+    const videoQuery =
+      query(
+
+        collection(
+          db,
+          "videos"
+        ),
+
+        orderBy(
+          "criadoEm",
+          "desc"
+        )
+
+      );
+
+
+    const snapshot =
+      await getDocs(
+        videoQuery
+      );
+
+
+    /*
+       Só mostramos vídeos publicados.
+    */
+
+    const videos =
+      snapshot.docs
+
+        .map(
+          videoDoc => ({
+
+            id:
+              videoDoc.id,
+
+            ...videoDoc.data()
+
+          })
+        )
+
+        .filter(
+          video => {
+
+            return (
+              video.status ===
+                "publicado"
+              ||
+
+              video.status ===
+                "publicada"
+              ||
+
+              !video.status
+            );
+
+          }
+        );
+
+
+    if(
+      videos.length === 0
+    ){
+
+      container.innerHTML = `
+
+        <div class="empty">
+
+          <div class="empty-icon">
+            🎬
+          </div>
+
+          <h2>
+            Ainda não existem vídeos.
+          </h2>
+
+          <p>
+            Os próximos vídeos aparecerão aqui.
+          </p>
+
+        </div>
+
+      `;
+
+      return;
+
+    }
+
+
+    renderVideos(
+      videos
+    );
+
+  }
+  catch(error){
+
+    console.error(
+      "Erro ao carregar vídeos:",
+      error
+    );
+
+
+    container.innerHTML = `
+
+      <div class="error">
+
+        ⚠️
+        <br><br>
+
+        Não foi possível carregar os vídeos.
+
+        <br><br>
+
+        <small>
+          ${escapeHTML(
+            error.message
+          )}
+        </small>
+
+      </div>
+
+    `;
+
+  }
+
+}
+
+
+/* =========================================
+   RENDERIZAR VÍDEOS
+========================================= */
+
+function renderVideos(videos){
+
+  container.innerHTML =
+
+    videos.map(
+      video => {
+
+        const title =
+          video.titulo
+          ||
+          video.title
+          ||
+          "Vídeo sem título";
+
+
+        const artist =
+          video.artistaNome
+          ||
+          video.artistName
+          ||
+          video.nomeArtistico
+          ||
+          "Artista Prime";
+
+
+        const description =
+          video.descricao
+          ||
+          video.description
+          ||
+          "Novo vídeo no KUDURO PRIME.";
+
+
+        const category =
+          video.categoria
+          ||
+          video.tipo
+          ||
+          "Kuduro";
+
+
+        const videoURL =
+          video.video
+          ||
+          video.videoUrl
+          ||
+          video.url
+          ||
+          "";
+
+
+        const cover =
+          video.capa
+          ||
+          video.cover
+          ||
+          video.coverUrl
+          ||
+          "";
+
+
+        const views =
+          Number(
+            video.views
+          )
+          ||
+
+          Number(
+            video.visualizacoes
+          )
+          ||
+
+          0;
+
+
+        const durationSeconds =
+          Number(
+            video.duracaoSegundos
+          )
+          ||
+
+          Number(
+            video.duracao
+          )
+          ||
+
+          0;
+
+
+        const duration =
+          video.duracaoFormatada
+          ||
+          formatDuration(
+            durationSeconds
+          );
+
+
+        const date =
+          video.dataLancamento
+          ||
+          formatDate(
+            video.criadoEm
+          );
+
+
+        const artistId =
+          video.artistaId
+          ||
+          video.artistId
+          ||
+          video.userId
+          ||
+          video.uid
+          ||
+          "";
+
+
+        /*
+           Vídeo
+        */
+
+        const videoHTML =
+          videoURL
+
+          ?
+
+          `
+
+            <video
+
+              controls
+
+              preload="metadata"
+
+              ${
+
+                cover
+
+                ?
+
+                `poster="${escapeHTML(cover)}"`
+
+                :
+
+                ""
+
+              }
+
+              data-video-id="${escapeHTML(video.id)}"
+
+              data-owner-id="${escapeHTML(artistId)}"
+
+            >
+
+              <source
+                src="${escapeHTML(videoURL)}"
+                type="video/mp4"
+              >
+
+              Seu navegador não suporta vídeo.
+
+            </video>
+
+          `
+
+          :
+
+          `
+
+            <div
+              style="
+                width:100%;
+                height:100%;
+                display:flex;
+                align-items:center;
+                justify-content:center;
+                color:#777;
+                font-size:40px;
+              "
+            >
+              🎬
+            </div>
+
+          `;
+
+
+        return `
+
+          <article
+            class="video-card"
+            data-id="${escapeHTML(video.id)}"
+          >
+
+
+            <div class="video-container">
+
+              ${videoHTML}
+
+            </div>
+
+
+            <h2>
+
+              ${escapeHTML(title)}
+
+            </h2>
+
+
+            <div class="artista">
+
+              👑
+              ${escapeHTML(artist)}
+
+            </div>
+
+
+            <div class="categoria">
+
+              ${escapeHTML(category)}
+
+            </div>
+
+
+            <p class="descricao">
+
+              ${escapeHTML(description)}
+
+            </p>
+
+
+            <div
+              class="view-status"
+              id="status-${escapeHTML(video.id)}"
+            ></div>
+
+
+            <div class="info">
+
+              <span class="views">
+
+                👁
+
+                <span
+                  class="view-number"
+                  id="views-${escapeHTML(video.id)}"
+                >
+
+                  ${formatNumber(views)}
+
+                </span>
+
+                visualizações
+
+              </span>
+
+
+              <span class="duracao">
+
+                ⏱
+                ${escapeHTML(duration)}
+
+              </span>
+
+            </div>
+
+
+            <div
+              style="
+                margin-top:8px;
+                color:#666;
+                font-size:10px;
+              "
+            >
+
+              ${escapeHTML(date)}
+
+            </div>
+
+
+            ${
+              artistId
+
+              ?
+
+              `
+
+                <a
+
+                  class="perfil-btn"
+
+                  href="perfil.html?id=${encodeURIComponent(artistId)}"
+
+                >
+
+                  VER PERFIL DO ARTISTA →
+
+                </a>
+
+              `
+
+              :
+
+              ""
+
+            }
+
+
+          </article>
+
+        `;
+
+      }
+
+    )
+
+    .join("");
+
+
+  activateViewTracking();
+
+}
+
+
+/* =========================================
+   REGISTRAR VIEW
+========================================= */
+
+async function registerVideoView(
+  videoId,
+  ownerId
+){
+
+  /*
+     Sem login:
+
+     não contabilizamos.
+  */
+
+  if(!currentUser){
+
+    console.log(
+      "Utilizador não autenticado."
+    );
+
+    return;
+
+  }
+
+
+  /*
+     O próprio artista
+     não contabiliza a própria view.
+  */
+
+  if(
+    ownerId &&
+    currentUser.uid === ownerId
+  ){
+
+    console.log(
+      "Próprio artista. View não contabilizada."
+    );
+
+
+    const status =
+      document.querySelector(
+        "#status-" +
+        CSS.escape(videoId)
+      );
+
+
+    if(status){
+
+      status.textContent =
+        "Sua própria reprodução não conta como view.";
+
+    }
+
+
+    return;
+
+  }
+
+
+  try{
+
+    /*
+       Cada utilizador terá apenas
+       um documento por vídeo.
+
+       Estrutura:
+
+       videos/{videoId}/viewers/{userId}
+    */
+
+    const viewerRef =
+      doc(
+
+        db,
+
+        "videos",
+
+        videoId,
+
+        "viewers",
+
+        currentUser.uid
+
+      );
+
+
+    const viewerSnapshot =
+      await getDoc(
+        viewerRef
+      );
+
+
+    /*
+       Se já viu este vídeo,
+       não contamos novamente.
+    */
+
+    if(
+      viewerSnapshot.exists()
+    ){
+
+      console.log(
+        "Este utilizador já contou este vídeo."
+      );
+
+      return;
+
+    }
+
+
+    /*
+       Registra o espectador.
+    */
+
+    await setDoc(
+
+      viewerRef,
+
+      {
+
+        userId:
+          currentUser.uid,
+
+        criadoEm:
+          serverTimestamp()
+
+      }
+
+    );
+
+
+    /*
+       Aumenta as visualizações.
+    */
+
+    const videoRef =
+      doc(
+
+        db,
+
+        "videos",
+
+        videoId
+
+      );
+
+
+    await updateDoc(
+
+      videoRef,
+
+      {
+
+        views:
+          increment(1),
+
+        visualizacoes:
+          increment(1)
+
+      }
+
+    );
+
+
+    /*
+       Atualiza a tela.
+    */
+
+    const viewElement =
+      document.querySelector(
+
+        "#views-" +
+
+        CSS.escape(
+          videoId
+        )
+
+      );
+
+
+    if(viewElement){
+
+      const current =
+        Number(
+
+          viewElement
+            .textContent
+            .replace(/\D/g,"")
+
+        )
+
+        ||
+
+        0;
+
+
+      viewElement.textContent =
+        formatNumber(
+          current + 1
+        );
+
+    }
+
+
+    console.log(
+      "Nova visualização de vídeo contabilizada."
+    );
+
+  }
+  catch(error){
+
+    console.error(
+      "Erro ao registrar visualização do vídeo:",
+      error
+    );
+
+  }
+
+}
+
+
+/* =========================================
+   PLAYER DOS VÍDEOS
+========================================= */
+
+function activateViewTracking(){
+
+  const videos =
+    document.querySelectorAll(
+
+      "video[data-video-id]"
+
+    );
+
+
+  videos.forEach(
+
+    video => {
+
+      let sessionChecked =
+        false;
+
+
+      video.addEventListener(
+
+        "play",
+
+        async () => {
+
+          /*
+             Evita várias chamadas
+             na mesma página.
+          */
+
+          if(sessionChecked){
+
+            return;
+
+          }
+
+
+          sessionChecked =
+            true;
+
+
+          const videoId =
+            video.dataset.videoId;
+
+
+          const ownerId =
+            video.dataset.ownerId;
+
+
+          await registerVideoView(
+
+            videoId,
+
+            ownerId
+
+          );
+
+        }
+
+      );
+
+    }
+
+  );
+
+}
+
+
+/* =========================================
+   AUTENTICAÇÃO
+========================================= */
+
+onAuthStateChanged(
+
+  auth,
+
+  user => {
+
+    currentUser =
+      user || null;
+
+
+    /*
+       Só carregamos os vídeos depois
+       de saber quem está autenticado.
+    */
+
+    loadVideos();
+
+  }
+
+);
+
+</script>
+
+</body>
+</html>
