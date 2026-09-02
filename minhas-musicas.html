@@ -4,7 +4,6 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <title>Minhas Músicas — KUDURO PRIME</title>
 
   <style>
@@ -455,7 +454,6 @@
     }
 
     .audio-player.show{display:block}
-
     .audio-player audio{width:100%}
 
     .audio-error{
@@ -562,1421 +560,1144 @@
 
 <body>
 
-  <div class="app">
+<div class="app">
+
+  <aside class="sidebar" id="sidebar">
 
 ```
-<aside class="sidebar" id="sidebar">
+<a href="index.html" class="brand">
+  <span class="crown">♕</span>
+  KUDURO
+  <b>PRIME</b>
+</a>
 
-  <a href="index.html" class="brand">
-    <span class="crown">♕</span>
-    KUDURO
-    <b>PRIME</b>
-  </a>
+<a href="meu-perfil.html" class="artist-mini">
+  <div class="mini-photo" id="miniPhoto">👤</div>
 
-  <a href="meu-perfil.html" class="artist-mini">
-    <div class="mini-photo" id="miniPhoto">👤</div>
+  <div class="mini-name">
+    <strong id="miniName">Artista Prime</strong>
+    <span>VER PERFIL</span>
+  </div>
+</a>
 
-    <div class="mini-name">
-      <strong id="miniName">Artista Prime</strong>
-      <span>VER PERFIL</span>
-    </div>
-  </a>
+<div class="nav-title">MENU PRINCIPAL</div>
 
-  <div class="nav-title">MENU PRINCIPAL</div>
+<a href="painel-do-artista.html" class="side-link">📊 Painel do Artista</a>
+<a href="meu-perfil.html" class="side-link">👤 Meu Perfil</a>
+<a href="editar-perfil.html" class="side-link">✏ Editar Perfil</a>
 
-  <a href="painel-do-artista.html" class="side-link">📊 Painel do Artista</a>
-  <a href="meu-perfil.html" class="side-link">👤 Meu Perfil</a>
-  <a href="editar-perfil.html" class="side-link">✏ Editar Perfil</a>
+<div class="nav-title">CONTEÚDO</div>
 
-  <div class="nav-title">CONTEÚDO</div>
+<a href="minhas-musicas.html" class="side-link active">🎵 Minhas Músicas</a>
+<a href="pagamento-musicas.html" class="side-link">💳 Pagamentos</a>
 
-  <a href="minhas-musicas.html" class="side-link active">🎵 Minhas Músicas</a>
-  <a href="pagamento-musicas.html" class="side-link">💳 Pagamentos</a>
+<div class="nav-title">PLATAFORMA</div>
 
-  <div class="nav-title">PLATAFORMA</div>
+<a href="ranking.html" class="side-link">🏆 Ranking Prime</a>
+<a href="index.html" class="side-link">🌐 Ver Site Público</a>
 
-  <a href="ranking.html" class="side-link">🏆 Ranking Prime</a>
-  <a href="index.html" class="side-link">🌐 Ver Site Público</a>
+<div class="side-bottom">
+  <button class="logout" onclick="logout()">↪ TERMINAR SESSÃO</button>
+</div>
+```
 
-  <div class="side-bottom">
-    <button class="logout" onclick="logout()">↪ TERMINAR SESSÃO</button>
+  </aside>
+
+  <main class="main">
+
+```
+<header class="topbar">
+
+  <button class="mobile-menu" onclick="toggleMenu()">☰</button>
+
+  <div>
+    <h2>MINHAS MÚSICAS</h2>
+    <p>Publica e gere os teus lançamentos.</p>
   </div>
 
-</aside>
+  <div class="top-actions">
+    <a href="painel-do-artista.html" class="btn">← PAINEL</a>
 
-<main class="main">
+    <button class="btn gold" onclick="openUpload()">
+      + PUBLICAR MÚSICA
+    </button>
+  </div>
 
-  <header class="topbar">
+</header>
 
-    <button class="mobile-menu" onclick="toggleMenu()">☰</button>
+<div class="content">
+
+  <section class="intro">
 
     <div>
-      <h2>MINHAS MÚSICAS</h2>
-      <p>Publica e gere os teus lançamentos.</p>
+      <h1>Os meus lançamentos</h1>
+
+      <p>Escolhe os ficheiros diretamente da pasta do teu computador.</p>
+
+      <div class="free-limit" id="freeLimit">
+        ⏳ A carregar o teu plano...
+      </div>
     </div>
 
-    <div class="top-actions">
+    <button class="btn gold" onclick="openUpload()">
+      + NOVA MÚSICA
+    </button>
 
-      <a href="painel-do-artista.html" class="btn">← PAINEL</a>
+  </section>
 
-      <button class="btn gold" onclick="openUpload()">
-        + PUBLICAR MÚSICA
-      </button>
+  <section class="upload-box" id="uploadBox">
 
+    <div style="margin-bottom:20px">
+      <h2 style="margin:0;font-size:20px">🎵 Publicar Nova Música</h2>
+      <p style="color:var(--muted);font-size:11px">
+        Escolhe a capa e a música diretamente da tua pasta.
+      </p>
     </div>
 
-  </header>
+    <form id="songForm">
 
-  <div class="content">
+      <div class="form-grid">
 
-    <section class="intro">
+        <div class="field">
+          <label>TÍTULO DA MÚSICA *</label>
+          <input type="text" id="songTitle" required>
+        </div>
 
-      <div>
+        <div class="field">
+          <label>TIPO DE LANÇAMENTO</label>
+          <select id="songType">
+            <option>Single</option>
+            <option>EP</option>
+            <option>Álbum</option>
+            <option>Freestyle</option>
+          </select>
+        </div>
 
-        <h1>Os meus lançamentos</h1>
+        <div class="field">
+          <label>GÉNERO</label>
+          <select id="songGenre">
+            <option>Kuduro</option>
+            <option>Afro House</option>
+            <option>Semba</option>
+            <option>Afrobeat</option>
+            <option>Outro</option>
+          </select>
+        </div>
 
-        <p>Escolhe os ficheiros diretamente da pasta do teu computador.</p>
+        <div class="field">
+          <label>DATA DE LANÇAMENTO</label>
+          <input type="date" id="songDate">
+        </div>
 
-        <div class="free-limit" id="freeLimit">
-          ⏳ A carregar o teu plano...
+        <div class="field full">
+          <label>🖼️ CAPA DA MÚSICA</label>
+          <input type="file" id="songCover" accept="image/*">
+        </div>
+
+        <div class="field full">
+          <label>🎵 FICHEIRO DA MÚSICA *</label>
+          <input type="file" id="songFile"
+            accept=".mp3,.wav,.m4a,.aac,.ogg,audio/*"
+            required>
+        </div>
+
+        <div class="field full">
+          <label>DESCRIÇÃO</label>
+          <textarea id="songDescription"></textarea>
         </div>
 
       </div>
 
-      <button class="btn gold" onclick="openUpload()">
-        + NOVA MÚSICA
-      </button>
+      <div class="upload-status" id="uploadStatus"></div>
 
-    </section>
+      <div class="form-actions">
+        <button type="button" class="btn" id="cancelUploadBtn" onclick="closeUpload()">
+          CANCELAR
+        </button>
 
-    <section class="upload-box" id="uploadBox">
-
-      <div style="margin-bottom:20px">
-        <h2 style="margin:0;font-size:20px">🎵 Publicar Nova Música</h2>
-        <p style="color:var(--muted);font-size:11px">
-          Escolhe a capa e a música diretamente da tua pasta.
-        </p>
+        <button type="submit" class="btn gold" id="publishButton">
+          ♕ PUBLICAR MÚSICA
+        </button>
       </div>
 
-      <form id="songForm">
+    </form>
 
-        <div class="form-grid">
+  </section>
 
-          <div class="field">
-            <label>TÍTULO DA MÚSICA *</label>
-            <input type="text" id="songTitle" placeholder="Ex: Mim Faz Só Broxe" required>
-          </div>
+  <section class="songs-panel">
 
-          <div class="field">
-            <label>TIPO DE LANÇAMENTO</label>
-            <select id="songType">
-              <option>Single</option>
-              <option>EP</option>
-              <option>Álbum</option>
-              <option>Freestyle</option>
-            </select>
-          </div>
+    <div class="songs-head">
+      <h3>🎵 TODAS AS MINHAS MÚSICAS</h3>
+      <span class="songs-count" id="songsCount">0 / 3 GRÁTIS</span>
+    </div>
 
-          <div class="field">
-            <label>GÉNERO</label>
-            <select id="songGenre">
-              <option>Kuduro</option>
-              <option>Afro House</option>
-              <option>Semba</option>
-              <option>Afrobeat</option>
-              <option>Outro</option>
-            </select>
-          </div>
+    <div class="song-list" id="songsList">
+      <div class="loading">A carregar músicas...</div>
+    </div>
 
-          <div class="field">
-            <label>DATA DE LANÇAMENTO</label>
-            <input type="date" id="songDate">
-          </div>
+  </section>
 
-          <div class="field full">
-            <label>🖼️ CAPA DA MÚSICA</label>
-            <input type="file" id="songCover" accept="image/*">
-          </div>
-
-          <div class="field full">
-            <label>🎵 FICHEIRO DA MÚSICA *</label>
-            <input
-              type="file"
-              id="songFile"
-              accept="audio/mpeg,audio/mp3,audio/wav,audio/x-wav,audio/mp4,audio/aac,audio/ogg,.mp3,.wav,.m4a,.aac,.ogg"
-              required
-            >
-          </div>
-
-          <div class="field full">
-            <label>DESCRIÇÃO</label>
-            <textarea
-              id="songDescription"
-              placeholder="Fala um pouco sobre esta música..."
-            ></textarea>
-          </div>
-
-        </div>
-
-        <div class="upload-status" id="uploadStatus"></div>
-
-        <div class="form-actions">
-          <button
-            type="button"
-            class="btn"
-            id="cancelUploadBtn"
-            onclick="closeUpload()"
-          >
-            CANCELAR
-          </button>
-
-          <button
-            type="submit"
-            class="btn gold"
-            id="publishButton"
-          >
-            ♕ PUBLICAR MÚSICA
-          </button>
-        </div>
-
-      </form>
-
-    </section>
-
-    <section class="songs-panel">
-
-      <div class="songs-head">
-        <h3>🎵 TODAS AS MINHAS MÚSICAS</h3>
-        <span class="songs-count" id="songsCount">0 / 3 GRÁTIS</span>
-      </div>
-
-      <div class="song-list" id="songsList">
-        <div class="loading">A carregar músicas...</div>
-      </div>
-
-    </section>
-
-  </div>
-
-</main>
+</div>
 ```
 
-  </div>
+  </main>
 
-  <script type="module">
+</div>
 
-    import { initializeApp } from
-    "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+<script type="module">
 
-    import {
-      getAuth,
-      onAuthStateChanged,
-      signOut
-    } from
-    "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
 
-    import {
-      getFirestore,
-      collection,
-      addDoc,
-      getDocs,
-      getDoc,
-      doc,
-      updateDoc,
-      deleteDoc,
-      query,
-      where,
-      serverTimestamp,
-      increment
-    } from
-    "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+import {
+  getAuth,
+  onAuthStateChanged,
+  signOut
+} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
 
-
-    /* ================================
-       CLOUDINARY
-    ================================= */
-
-    const CLOUDINARY_CLOUD_NAME = "ge1ntqqc";
-    const CLOUDINARY_UPLOAD_PRESET = "kuduro_prime";
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  getDocs,
+  getDoc,
+  doc,
+  updateDoc,
+  deleteDoc,
+  query,
+  where,
+  serverTimestamp,
+  increment
+} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 
 
-    /* ================================
-       FIREBASE
-    ================================= */
-
-    const firebaseConfig = {
-
-      apiKey: "AIzaSyDoitCcLeLDNBNPCP6fG1s_xbHr4UmohSo",
-
-      authDomain: "kuduro-prime.firebaseapp.com",
-
-      projectId: "kuduro-prime",
-
-      storageBucket: "kuduro-prime.firebasestorage.app",
-
-      messagingSenderId: "299776559545",
-
-      appId: "1:299776559545:web:04aced1ba25391eb3fce68"
-
-    };
+const CLOUDINARY_CLOUD_NAME = "ge1ntqqc";
+const CLOUDINARY_UPLOAD_PRESET = "kuduro_prime";
 
 
-    const firebaseApp = initializeApp(firebaseConfig);
-    const auth = getAuth(firebaseApp);
-    const db = getFirestore(firebaseApp);
+const firebaseConfig = {
+  apiKey: "AIzaSyDoitCcLeLDNBNPCP6fG1s_xbHr4UmohSo",
+  authDomain: "kuduro-prime.firebaseapp.com",
+  projectId: "kuduro-prime",
+  storageBucket: "kuduro-prime.firebasestorage.app",
+  messagingSenderId: "299776559545",
+  appId: "1:299776559545:web:04aced1ba25391eb3fce68"
+};
 
 
-    let currentUser = null;
-    let artistName = "Artista Prime";
-    let artistPhoto = "";
-    let songs = [];
+const firebaseApp = initializeApp(firebaseConfig);
+const auth = getAuth(firebaseApp);
+const db = getFirestore(firebaseApp);
+
+let currentUser = null;
+let artistName = "Artista Prime";
+let artistPhoto = "";
+let songs = [];
 
 
-    function escapeHTML(text){
+function escapeHTML(text){
+  const div = document.createElement("div");
+  div.textContent = text || "";
+  return div.innerHTML;
+}
 
-      const div = document.createElement("div");
-      div.textContent = text || "";
-      return div.innerHTML;
+
+async function loadArtistProfile(){
+
+  if(!currentUser) return;
+
+  try{
+
+    const artistSnap = await getDoc(
+      doc(db,"artistas",currentUser.uid)
+    );
+
+    if(artistSnap.exists()){
+
+      const data = artistSnap.data();
+
+      artistName =
+        data.nomeArtistico ||
+        data.nome ||
+        data.artistName ||
+        currentUser.displayName ||
+        currentUser.email?.split("@")[0] ||
+        "Artista Prime";
+
+      artistPhoto =
+        data.foto ||
+        data.fotoPerfil ||
+        data.imagem ||
+        data.photoURL ||
+        "";
+
+    }
+    else{
+
+      artistName =
+        currentUser.displayName ||
+        currentUser.email?.split("@")[0] ||
+        "Artista Prime";
+
+      artistPhoto = "";
 
     }
 
+    document.querySelector("#miniName").textContent = artistName;
 
-    function normalizeCloudinaryAudioUrl(url){
+    const miniPhoto = document.querySelector("#miniPhoto");
 
-      if(!url) return "";
-
-      let cleanUrl = String(url).trim();
-
-      /*
-        Garante uma URL HTTPS válida.
-      */
-
-      if(cleanUrl.startsWith("http://")){
-        cleanUrl = cleanUrl.replace("http://","https://");
-      }
-
-      /*
-        URLs antigas com /image/upload/ podem
-        não funcionar como áudio.
-      */
-
-      if(cleanUrl.includes("/image/upload/")){
-        cleanUrl = cleanUrl.replace(
-          "/image/upload/",
-          "/video/upload/"
-        );
-      }
-
-      return cleanUrl;
-
+    if(artistPhoto){
+      miniPhoto.innerHTML =
+        `<img src="${artistPhoto}" alt="Foto do artista">`;
+    }
+    else{
+      miniPhoto.textContent = "👤";
     }
 
+  }
+  catch(error){
+    console.error("Erro ao carregar perfil:",error);
+  }
 
-    async function loadArtistProfile(){
+}
 
-      if(!currentUser) return;
 
-      try{
+/* ==========================================
+   CARREGAR MÚSICAS
 
-        const artistSnap =
-          await getDoc(
-            doc(db,"artistas",currentUser.uid)
-          );
+   Esta função lê todas as músicas e filtra
+   vários formatos antigos e novos de artistaId.
+========================================== */
 
-        if(artistSnap.exists()){
+async function loadSongs(){
 
-          const artistData = artistSnap.data();
+  if(!currentUser) return;
 
-          artistName =
-            artistData.nomeArtistico ||
-            artistData.nome ||
-            currentUser.displayName ||
-            currentUser.email?.split("@")[0] ||
-            "Artista Prime";
+  const list = document.querySelector("#songsList");
 
-          artistPhoto =
-            artistData.foto ||
-            artistData.fotoPerfil ||
-            artistData.imagem ||
-            artistData.photoURL ||
-            "";
+  list.innerHTML =
+    `<div class="loading">⏳ A carregar músicas...</div>`;
 
-        }
-        else{
+  try{
 
-          artistName =
-            currentUser.displayName ||
-            currentUser.email?.split("@")[0] ||
-            "Artista Prime";
+    const snapshot = await getDocs(
+      collection(db,"musicas")
+    );
 
-          artistPhoto = "";
+    songs = snapshot.docs
+      .map(musicDoc => ({
+        id:musicDoc.id,
+        ...musicDoc.data()
+      }))
+      .filter(song => {
 
-        }
-
-        document.querySelector("#miniName").textContent =
-          artistName;
-
-        const miniPhoto =
-          document.querySelector("#miniPhoto");
-
-        if(artistPhoto){
-
-          miniPhoto.innerHTML =
-            `<img src="${artistPhoto}" alt="Foto do artista">`;
-
-        }
-        else{
-
-          miniPhoto.textContent = "👤";
-
-        }
-
-      }
-      catch(error){
-
-        console.error("Erro ao carregar perfil:",error);
-
-      }
-
-    }
-
-
-    async function loadSongs(){
-
-      if(!currentUser) return;
-
-      const list = document.querySelector("#songsList");
-
-      list.innerHTML =
-        `<div class="loading">⏳ A carregar músicas...</div>`;
-
-      try{
-
-        const musicQuery =
-          query(
-            collection(db,"musicas"),
-            where("artistaId","==",currentUser.uid)
-          );
-
-        const snapshot =
-          await getDocs(musicQuery);
-
-        songs =
-          snapshot.docs
-          .map(musicDoc => ({
-            id:musicDoc.id,
-            ...musicDoc.data()
-          }))
-          .sort((a,b) => {
-
-            const timeA =
-              a.criadoEm?.seconds || 0;
-
-            const timeB =
-              b.criadoEm?.seconds || 0;
-
-            return timeB - timeA;
-
-          });
-
-        await renderSongs();
-
-      }
-      catch(error){
-
-        console.error("Erro ao carregar músicas:",error);
-
-        list.innerHTML = `
-          <div class="empty">
-            <div class="empty-icon">⚠</div>
-            <h3>Erro ao carregar as músicas</h3>
-            <p>${escapeHTML(error.message)}</p>
-          </div>
-        `;
-
-      }
-
-    }
-
-
-    async function hasUnlimitedSongs(){
-
-      if(!currentUser) return false;
-
-      try{
-
-        const artistSnap =
-          await getDoc(
-            doc(db,"artistas",currentUser.uid)
-          );
-
-        if(
-          artistSnap.exists() &&
-          artistSnap.data().musicasDesbloqueadas === true
-        ){
-          return true;
-        }
-
-        const paymentQuery =
-          query(
-            collection(db,"pagamentos"),
-            where("artistaId","==",currentUser.uid),
-            where("status","==","aprovado")
-          );
-
-        const paymentSnapshot =
-          await getDocs(paymentQuery);
-
-        return !paymentSnapshot.empty;
-
-      }
-      catch(error){
-
-        console.error(
-          "Erro ao verificar pagamento:",
-          error
-        );
-
-        return false;
-
-      }
-
-    }
-
-
-    async function canPublishMore(){
-
-      if(songs.length < 3) return true;
-
-      return await hasUnlimitedSongs();
-
-    }
-
-
-    async function updateLimit(){
-
-      const freeLimit =
-        document.querySelector("#freeLimit");
-
-      const songsCount =
-        document.querySelector("#songsCount");
-
-      const unlimited =
-        await hasUnlimitedSongs();
-
-      if(songs.length < 3){
-
-        freeLimit.classList.remove("blocked");
-
-        freeLimit.textContent =
-          `🎵 ${songs.length} de 3 músicas gratuitas utilizadas.`;
-
-        songsCount.textContent =
-          `${songs.length} / 3 GRÁTIS`;
-
-      }
-      else if(unlimited){
-
-        freeLimit.classList.remove("blocked");
-
-        freeLimit.textContent =
-          `👑 Plano desbloqueado. Tens ${songs.length} músicas publicadas.`;
-
-        songsCount.textContent =
-          `${songs.length} MÚSICAS`;
-
-      }
-      else{
-
-        freeLimit.classList.add("blocked");
-
-        freeLimit.textContent =
-          "🔒 As 3 músicas gratuitas foram utilizadas. Faz o pagamento para publicar mais músicas.";
-
-        songsCount.textContent =
-          `${songs.length} / 3 GRÁTIS`;
-
-      }
-
-    }
-
-
-    async function uploadToCloudinary(file,resourceType){
-
-      const formData = new FormData();
-
-      formData.append("file",file);
-
-      formData.append(
-        "upload_preset",
-        CLOUDINARY_UPLOAD_PRESET
-      );
-
-      /*
-        IMPORTANTE:
-        áudio no Cloudinary é enviado como VIDEO.
-      */
-
-      const response =
-        await fetch(
-          `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/${resourceType}/upload`,
-          {
-            method:"POST",
-            body:formData
-          }
-        );
-
-      const data = await response.json();
-
-      if(!response.ok){
-
-        console.error(data);
-
-        throw new Error(
-          data.error?.message ||
-          "Erro ao enviar o ficheiro."
-        );
-
-      }
-
-      return data.secure_url;
-
-    }
-
-
-    window.openUpload = async function(){
-
-      if(!currentUser){
-
-        alert("A tua sessão ainda não foi carregada.");
-
-        return;
-
-      }
-
-      const allowed =
-        await canPublishMore();
-
-      if(!allowed){
-
-        const goToPayment =
-          confirm(
-            "Já utilizaste as tuas 3 músicas gratuitas.\n\nQueres ir para a página de pagamento?"
-          );
-
-        if(goToPayment){
-          window.location.href =
-            "pagamento-musicas.html";
-        }
-
-        return;
-
-      }
-
-      document
-        .querySelector("#uploadBox")
-        .classList
-        .add("show");
-
-      document
-        .querySelector("#uploadBox")
-        .scrollIntoView({
-          behavior:"smooth"
-        });
-
-    };
-
-
-    window.closeUpload = function(){
-
-      document
-        .querySelector("#uploadBox")
-        .classList
-        .remove("show");
-
-      document
-        .querySelector("#songForm")
-        .reset();
-
-      const status =
-        document.querySelector("#uploadStatus");
-
-      status.classList.remove("show");
-      status.textContent = "";
-
-    };
-
-
-    document
-      .querySelector("#songForm")
-      .addEventListener(
-        "submit",
-        async function(event){
-
-          event.preventDefault();
-
-          if(!currentUser){
-
-            alert(
-              "A tua sessão ainda não foi carregada."
-            );
-
-            return;
-
-          }
-
-          const allowed =
-            await canPublishMore();
-
-          if(!allowed){
-
-            alert(
-              "Já utilizaste as tuas 3 músicas gratuitas."
-            );
-
-            window.location.href =
-              "pagamento-musicas.html";
-
-            return;
-
-          }
-
-          const title =
-            document
-            .querySelector("#songTitle")
-            .value
-            .trim();
-
-          const coverFile =
-            document
-            .querySelector("#songCover")
-            .files[0];
-
-          const audioFile =
-            document
-            .querySelector("#songFile")
-            .files[0];
-
-          const status =
-            document
-            .querySelector("#uploadStatus");
-
-          const publishButton =
-            document
-            .querySelector("#publishButton");
-
-          const cancelButton =
-            document
-            .querySelector("#cancelUploadBtn");
-
-
-          if(!title){
-
-            alert(
-              "Escreve o título da música."
-            );
-
-            return;
-
-          }
-
-          if(!audioFile){
-
-            alert(
-              "Escolhe o ficheiro da música."
-            );
-
-            return;
-
-          }
-
-
-          if(!audioFile.type.startsWith("audio/")){
-
-            alert(
-              "Este ficheiro não parece ser uma música válida. Escolhe um MP3, WAV, M4A, AAC ou OGG."
-            );
-
-            return;
-
-          }
-
-
-          try{
-
-            publishButton.disabled = true;
-            cancelButton.disabled = true;
-
-            status.classList.add("show");
-
-            let coverUrl = "";
-
-            if(coverFile){
-
-              status.textContent =
-                "🖼️ A enviar a capa...";
-
-              coverUrl =
-                await uploadToCloudinary(
-                  coverFile,
-                  "image"
-                );
-
-            }
-
-
-            status.textContent =
-              "🎵 A enviar a música...";
-
-            const audioUrl =
-              await uploadToCloudinary(
-                audioFile,
-                "video"
-              );
-
-
-            status.textContent =
-              "💾 A publicar no KUDURO PRIME...";
-
-
-            await addDoc(
-              collection(db,"musicas"),
-              {
-
-                artistaId:currentUser.uid,
-
-                artistaNome:artistName,
-                artistName:artistName,
-
-                artistaFoto:artistPhoto,
-                artistPhoto:artistPhoto,
-
-                titulo:title,
-                title:title,
-
-                tipo:
-                  document
-                  .querySelector("#songType")
-                  .value,
-
-                genero:
-                  document
-                  .querySelector("#songGenre")
-                  .value,
-
-                dataLancamento:
-                  document
-                  .querySelector("#songDate")
-                  .value,
-
-                descricao:
-                  document
-                  .querySelector("#songDescription")
-                  .value
-                  .trim(),
-
-                capa:coverUrl,
-                cover:coverUrl,
-
-                /*
-                  Guardamos as duas versões.
-                */
-
-                audio:audioUrl,
-                audioUrl:audioUrl,
-
-                /*
-                  Informação útil para o player.
-                */
-
-                audioMimeType:
-                  audioFile.type,
-
-                audioFileName:
-                  audioFile.name,
-
-                views:0,
-                audicoes:0,
-
-                status:"publicada",
-
-                criadoEm:
-                  serverTimestamp()
-
-              }
-            );
-
-
-            status.textContent =
-              "♕ Música publicada com sucesso!";
-
-            await loadSongs();
-
-            setTimeout(
-              closeUpload,
-              1200
-            );
-
-          }
-          catch(error){
-
-            console.error(error);
-
-            status.textContent =
-              "❌ Erro: " +
-              error.message;
-
-          }
-          finally{
-
-            publishButton.disabled = false;
-            cancelButton.disabled = false;
-
-          }
-
-        }
-      );
-
-
-    async function renderSongs(){
-
-      const list =
-        document.querySelector("#songsList");
-
-      await updateLimit();
-
-
-      if(songs.length === 0){
-
-        list.innerHTML = `
-          <div class="empty">
-
-            <div class="empty-icon">🎵</div>
-
-            <h3>Ainda não tens músicas</h3>
-
-            <p>
-              Publica o teu primeiro lançamento
-              e mostra o teu talento ao movimento.
-            </p>
-
-            <button
-              class="btn gold"
-              onclick="openUpload()"
-            >
-              + PUBLICAR PRIMEIRA MÚSICA
-            </button>
-
-          </div>
-        `;
-
-        return;
-
-      }
-
-
-      list.innerHTML =
-        songs
-        .map(song => {
-
-          const songTitle =
-            song.titulo ||
-            song.title ||
-            "Sem título";
-
-          const songArtist =
-            song.artistaNome ||
-            song.artistName ||
-            artistName;
-
-          const songCover =
-            song.capa ||
-            song.cover ||
-            "";
-
-          /*
-            Procura todas as possíveis URLs
-            que podem existir nas músicas antigas.
-          */
-
-          const rawAudioUrl =
-            song.audio ||
-            song.audioUrl ||
-            song.url ||
-            song.musicaUrl ||
-            song.musicUrl ||
-            "";
-
-          const songAudio =
-            normalizeCloudinaryAudioUrl(
-              rawAudioUrl
-            );
-
-          const views =
-            song.views ||
-            song.audicoes ||
-            0;
-
-
-          const coverHTML =
-            songCover
-            ?
-            `
-            <div
-              class="cover"
-              style="background-image:url('${songCover}')"
-            ></div>
-            `
-            :
-            `
-            <div class="cover">🎵</div>
-            `;
-
-
-          const audioHTML =
-            songAudio
-            ?
-            `
-              <audio
-                controls
-                preload="metadata"
-                playsinline
-                data-song-id="${song.id}"
-              >
-                <source
-                  src="${songAudio}"
-                  type="${song.audioMimeType || "audio/mpeg"}"
-                >
-
-                O teu navegador não suporta áudio.
-              </audio>
-            `
-            :
-            `
-              <p class="audio-error" style="display:block">
-                ❌ Esta música não possui uma ligação de áudio.
-              </p>
-            `;
-
-
-          return `
-            <article class="song-card">
-
-              ${coverHTML}
-
-              <div class="song-info">
-
-                <strong>
-                  ${escapeHTML(songTitle)}
-                </strong>
-
-                <p class="artist-song-name">
-                  👤 ${escapeHTML(songArtist)}
-                </p>
-
-                <p>
-                  ${escapeHTML(
-                    song.descricao ||
-                    "Lançamento KUDURO PRIME"
-                  )}
-                </p>
-
-                <div class="song-meta">
-
-                  <span class="badge active">
-                    ● PUBLICADA
-                  </span>
-
-                  <span class="badge">
-                    🎧 ${escapeHTML(song.tipo || "Single")}
-                  </span>
-
-                  <span class="badge">
-                    🎵 ${escapeHTML(song.genero || "Kuduro")}
-                  </span>
-
-                  <span class="badge">
-                    👁 ${views}
-                  </span>
-
-                </div>
-
-              </div>
-
-              <div class="song-actions">
-
-                <button
-                  class="icon-btn"
-                  onclick="playSong('${song.id}')"
-                  title="Ouvir"
-                >
-                  ▶
-                </button>
-
-                <button
-                  class="icon-btn"
-                  onclick="editSong('${song.id}')"
-                  title="Editar"
-                >
-                  ✏
-                </button>
-
-                <button
-                  class="icon-btn delete-btn"
-                  onclick="deleteSong('${song.id}')"
-                  title="Eliminar"
-                >
-                  🗑
-                </button>
-
-              </div>
-
-              <div
-                class="audio-player"
-                id="audioPlayer${song.id}"
-              >
-
-                ${audioHTML}
-
-                <p
-                  class="audio-error"
-                  id="audioError${song.id}"
-                ></p>
-
-              </div>
-
-            </article>
-          `;
-
-        })
-        .join("");
-
-
-      /*
-        Mostra um erro verdadeiro caso o Cloudinary
-        não consiga entregar o áudio.
-      */
-
-      document
-        .querySelectorAll("audio")
-        .forEach(audio => {
-
-          audio.addEventListener(
-            "error",
-            () => {
-
-              const songId =
-                audio.dataset.songId;
-
-              const errorBox =
-                document.querySelector(
-                  "#audioError" + songId
-                );
-
-              if(errorBox){
-
-                errorBox.style.display =
-                  "block";
-
-                errorBox.textContent =
-                  "❌ Não foi possível carregar este ficheiro de áudio.";
-
-              }
-
-            }
-          );
-
-
-          /*
-            Quando uma música começa,
-            as outras param.
-          */
-
-          audio.addEventListener(
-            "play",
-            () => {
-
-              document
-                .querySelectorAll("audio")
-                .forEach(otherAudio => {
-
-                  if(otherAudio !== audio){
-                    otherAudio.pause();
-                  }
-
-                });
-
-            }
-          );
-
-        });
-
-    }
-
-
-    window.playSong =
-      async function(songId){
-
-        const player =
-          document.querySelector(
-            "#audioPlayer" + songId
-          );
-
-        if(!player) return;
-
-
-        document
-          .querySelectorAll(".audio-player")
-          .forEach(item => {
-
-            if(item !== player){
-
-              item.classList.remove("show");
-
-              const otherAudio =
-                item.querySelector("audio");
-
-              if(otherAudio){
-                otherAudio.pause();
-              }
-
-            }
-
-          });
-
-
-        player.classList.add("show");
-
-
-        const audio =
-          player.querySelector("audio");
-
-
-        if(!audio){
-
-          alert(
-            "Esta publicação não possui uma música válida."
-          );
-
-          return;
-
-        }
-
-
-        try{
-
-          /*
-            Carrega novamente a URL antes de tocar.
-          */
-
-          audio.load();
-
-          await audio.play();
-
-        }
-        catch(error){
-
-          console.error(
-            "Erro ao tocar:",
-            error
-          );
-
-          const errorBox =
-            document.querySelector(
-              "#audioError" + songId
-            );
-
-          if(errorBox){
-
-            errorBox.style.display =
-              "block";
-
-            errorBox.textContent =
-              "❌ Não foi possível tocar esta música. A URL do áudio pode estar inválida.";
-
-          }
-
-        }
-
-
-        /*
-          Contagem não pode impedir a música de tocar.
-        */
-
-        try{
-
-          await updateDoc(
-            doc(db,"musicas",songId),
-            {
-              views:increment(1),
-              audicoes:increment(1)
-            }
-          );
-
-          const song =
-            songs.find(
-              item => item.id === songId
-            );
-
-          if(song){
-
-            song.views =
-              (song.views || 0) + 1;
-
-          }
-
-        }
-        catch(error){
-
-          console.log(
-            "Erro ao contar audição:",
-            error
-          );
-
-        }
-
-      };
-
-
-    window.editSong =
-      async function(songId){
-
-        const song =
-          songs.find(
-            item => item.id === songId
-          );
-
-        if(!song) return;
-
-        const currentTitle =
-          song.titulo ||
-          song.title ||
+        const songArtistId =
+          song.artistaId ||
+          song.artistId ||
+          song.userId ||
+          song.uid ||
           "";
 
-        const newTitle =
-          prompt(
-            "Novo título da música:",
-            currentTitle
+        return songArtistId === currentUser.uid;
+
+      })
+      .sort((a,b) => {
+
+        const timeA =
+          a.criadoEm?.seconds ||
+          a.createdAt?.seconds ||
+          0;
+
+        const timeB =
+          b.criadoEm?.seconds ||
+          b.createdAt?.seconds ||
+          0;
+
+        return timeB - timeA;
+
+      });
+
+    await renderSongs();
+
+  }
+  catch(error){
+
+    console.error("Erro ao carregar músicas:",error);
+
+    list.innerHTML = `
+      <div class="empty">
+        <div class="empty-icon">⚠</div>
+        <h3>Erro ao carregar as músicas</h3>
+        <p>${escapeHTML(error.message)}</p>
+      </div>
+    `;
+
+  }
+
+}
+
+
+async function hasUnlimitedSongs(){
+
+  if(!currentUser) return false;
+
+  try{
+
+    const artistSnap = await getDoc(
+      doc(db,"artistas",currentUser.uid)
+    );
+
+    if(
+      artistSnap.exists() &&
+      artistSnap.data().musicasDesbloqueadas === true
+    ){
+      return true;
+    }
+
+    return false;
+
+  }
+  catch(error){
+    console.error("Erro ao verificar plano:",error);
+    return false;
+  }
+
+}
+
+
+async function canPublishMore(){
+
+  if(songs.length < 3) return true;
+
+  return await hasUnlimitedSongs();
+
+}
+
+
+async function updateLimit(){
+
+  const freeLimit =
+    document.querySelector("#freeLimit");
+
+  const songsCount =
+    document.querySelector("#songsCount");
+
+  const unlimited =
+    await hasUnlimitedSongs();
+
+  if(songs.length < 3){
+
+    freeLimit.classList.remove("blocked");
+
+    freeLimit.textContent =
+      `🎵 ${songs.length} de 3 músicas gratuitas utilizadas.`;
+
+    songsCount.textContent =
+      `${songs.length} / 3 GRÁTIS`;
+
+  }
+  else if(unlimited){
+
+    freeLimit.classList.remove("blocked");
+
+    freeLimit.textContent =
+      `👑 Plano desbloqueado. Tens ${songs.length} músicas publicadas.`;
+
+    songsCount.textContent =
+      `${songs.length} MÚSICAS`;
+
+  }
+  else{
+
+    freeLimit.classList.add("blocked");
+
+    freeLimit.textContent =
+      "🔒 As 3 músicas gratuitas foram utilizadas.";
+
+    songsCount.textContent =
+      `${songs.length} / 3 GRÁTIS`;
+
+  }
+
+}
+
+
+async function uploadToCloudinary(file,resourceType){
+
+  const formData = new FormData();
+
+  formData.append("file",file);
+  formData.append("upload_preset",CLOUDINARY_UPLOAD_PRESET);
+
+  const response = await fetch(
+    `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/${resourceType}/upload`,
+    {
+      method:"POST",
+      body:formData
+    }
+  );
+
+  const data = await response.json();
+
+  if(!response.ok){
+    throw new Error(
+      data.error?.message ||
+      "Erro ao enviar o ficheiro."
+    );
+  }
+
+  return data.secure_url;
+
+}
+
+
+window.openUpload = async function(){
+
+  if(!currentUser){
+    alert("A tua sessão ainda não foi carregada.");
+    return;
+  }
+
+  const allowed = await canPublishMore();
+
+  if(!allowed){
+
+    const goToPayment = confirm(
+      "Já utilizaste as tuas 3 músicas gratuitas.\n\nQueres ir para pagamentos?"
+    );
+
+    if(goToPayment){
+      window.location.href = "pagamento-musicas.html";
+    }
+
+    return;
+
+  }
+
+  document.querySelector("#uploadBox")
+    .classList.add("show");
+
+  document.querySelector("#uploadBox")
+    .scrollIntoView({
+      behavior:"smooth"
+    });
+
+};
+
+
+window.closeUpload = function(){
+
+  document.querySelector("#uploadBox")
+    .classList.remove("show");
+
+  document.querySelector("#songForm").reset();
+
+  const status =
+    document.querySelector("#uploadStatus");
+
+  status.classList.remove("show");
+  status.textContent = "";
+
+};
+
+
+document.querySelector("#songForm")
+  .addEventListener("submit",async function(event){
+
+    event.preventDefault();
+
+    if(!currentUser){
+      alert("A tua sessão ainda não foi carregada.");
+      return;
+    }
+
+    const allowed = await canPublishMore();
+
+    if(!allowed){
+      alert("Já utilizaste as tuas 3 músicas gratuitas.");
+      window.location.href = "pagamento-musicas.html";
+      return;
+    }
+
+    const title =
+      document.querySelector("#songTitle")
+        .value.trim();
+
+    const coverFile =
+      document.querySelector("#songCover")
+        .files[0];
+
+    const audioFile =
+      document.querySelector("#songFile")
+        .files[0];
+
+    const status =
+      document.querySelector("#uploadStatus");
+
+    const publishButton =
+      document.querySelector("#publishButton");
+
+    const cancelButton =
+      document.querySelector("#cancelUploadBtn");
+
+    if(!title){
+      alert("Escreve o título da música.");
+      return;
+    }
+
+    if(!audioFile){
+      alert("Escolhe o ficheiro da música.");
+      return;
+    }
+
+    try{
+
+      publishButton.disabled = true;
+      cancelButton.disabled = true;
+
+      status.classList.add("show");
+
+      let coverUrl = "";
+
+      if(coverFile){
+
+        status.textContent =
+          "🖼️ A enviar a capa...";
+
+        coverUrl =
+          await uploadToCloudinary(
+            coverFile,
+            "image"
           );
 
-        if(!newTitle || !newTitle.trim()){
-          return;
+      }
+
+      status.textContent =
+        "🎵 A enviar a música...";
+
+      const audioUrl =
+        await uploadToCloudinary(
+          audioFile,
+          "video"
+        );
+
+      status.textContent =
+        "💾 A publicar no KUDURO PRIME...";
+
+      await addDoc(
+        collection(db,"musicas"),
+        {
+
+          artistaId:currentUser.uid,
+          artistId:currentUser.uid,
+          userId:currentUser.uid,
+          uid:currentUser.uid,
+
+          artistaNome:artistName,
+          artistName:artistName,
+
+          artistaFoto:artistPhoto,
+          artistPhoto:artistPhoto,
+
+          titulo:title,
+          title:title,
+
+          tipo:
+            document.querySelector("#songType").value,
+
+          genero:
+            document.querySelector("#songGenre").value,
+
+          dataLancamento:
+            document.querySelector("#songDate").value,
+
+          descricao:
+            document.querySelector("#songDescription")
+              .value.trim(),
+
+          capa:coverUrl,
+          cover:coverUrl,
+
+          audio:audioUrl,
+          audioUrl:audioUrl,
+
+          audioMimeType:audioFile.type,
+          audioFileName:audioFile.name,
+
+          views:0,
+          audicoes:0,
+
+          status:"publicada",
+
+          criadoEm:serverTimestamp()
+
+        }
+      );
+
+      status.textContent =
+        "♕ Música publicada com sucesso!";
+
+      await loadSongs();
+
+      setTimeout(closeUpload,1200);
+
+    }
+    catch(error){
+
+      console.error(error);
+
+      status.textContent =
+        "❌ Erro: " + error.message;
+
+    }
+    finally{
+
+      publishButton.disabled = false;
+      cancelButton.disabled = false;
+
+    }
+
+  });
+
+
+async function renderSongs(){
+
+  const list =
+    document.querySelector("#songsList");
+
+  await updateLimit();
+
+  if(songs.length === 0){
+
+    list.innerHTML = `
+      <div class="empty">
+
+        <div class="empty-icon">🎵</div>
+
+        <h3>Ainda não tens músicas</h3>
+
+        <p>
+          Publica o teu primeiro lançamento
+          e mostra o teu talento.
+        </p>
+
+        <button
+          class="btn gold"
+          onclick="openUpload()"
+        >
+          + PUBLICAR PRIMEIRA MÚSICA
+        </button>
+
+      </div>
+    `;
+
+    return;
+
+  }
+
+  list.innerHTML = songs
+    .map(song => {
+
+      const songTitle =
+        song.titulo ||
+        song.title ||
+        "Sem título";
+
+      const songArtist =
+        song.artistaNome ||
+        song.artistName ||
+        artistName;
+
+      const songCover =
+        song.capa ||
+        song.cover ||
+        "";
+
+      const songAudio =
+        song.audio ||
+        song.audioUrl ||
+        song.url ||
+        song.musicaUrl ||
+        song.musicUrl ||
+        "";
+
+      const views =
+        song.views ||
+        song.audicoes ||
+        0;
+
+      const safeCover =
+        String(songCover)
+          .replace(/'/g,"%27");
+
+      const coverHTML =
+        songCover
+        ? `<div class="cover" style="background-image:url('${safeCover}')"></div>`
+        : `<div class="cover">🎵</div>`;
+
+      const audioHTML =
+        songAudio
+        ? `
+          <audio
+            controls
+            preload="metadata"
+            playsinline
+            data-song-id="${song.id}"
+          >
+            <source
+              src="${escapeHTML(songAudio)}"
+              type="${escapeHTML(song.audioMimeType || "audio/mpeg")}"
+            >
+            O teu navegador não suporta áudio.
+          </audio>
+        `
+        : `
+          <p class="audio-error" style="display:block">
+            ❌ Esta música não possui ficheiro de áudio.
+          </p>
+        `;
+
+      return `
+        <article class="song-card">
+
+          ${coverHTML}
+
+          <div class="song-info">
+
+            <strong>${escapeHTML(songTitle)}</strong>
+
+            <p class="artist-song-name">
+              👤 ${escapeHTML(songArtist)}
+            </p>
+
+            <p>
+              ${escapeHTML(
+                song.descricao ||
+                "Lançamento KUDURO PRIME"
+              )}
+            </p>
+
+            <div class="song-meta">
+
+              <span class="badge active">
+                ● PUBLICADA
+              </span>
+
+              <span class="badge">
+                🎧 ${escapeHTML(song.tipo || "Single")}
+              </span>
+
+              <span class="badge">
+                🎵 ${escapeHTML(song.genero || "Kuduro")}
+              </span>
+
+              <span class="badge">
+                👁 ${views}
+              </span>
+
+            </div>
+
+          </div>
+
+          <div class="song-actions">
+
+            <button
+              class="icon-btn"
+              onclick="playSong('${song.id}')"
+              title="Ouvir"
+            >▶</button>
+
+            <button
+              class="icon-btn"
+              onclick="editSong('${song.id}')"
+              title="Editar"
+            >✏</button>
+
+            <button
+              class="icon-btn delete-btn"
+              onclick="deleteSong('${song.id}')"
+              title="Eliminar"
+            >🗑</button>
+
+          </div>
+
+          <div
+            class="audio-player"
+            id="audioPlayer${song.id}"
+          >
+
+            ${audioHTML}
+
+            <p
+              class="audio-error"
+              id="audioError${song.id}"
+            ></p>
+
+          </div>
+
+        </article>
+      `;
+
+    })
+    .join("");
+
+
+  document.querySelectorAll("audio")
+    .forEach(audio => {
+
+      audio.addEventListener("error",() => {
+
+        const errorBox =
+          document.querySelector(
+            "#audioError" +
+            audio.dataset.songId
+          );
+
+        if(errorBox){
+
+          errorBox.style.display = "block";
+
+          errorBox.textContent =
+            "❌ Não foi possível carregar esta música.";
+
         }
 
-        try{
+      });
 
-          await updateDoc(
-            doc(db,"musicas",songId),
-            {
-              titulo:newTitle.trim(),
-              title:newTitle.trim()
+      audio.addEventListener("play",() => {
+
+        document.querySelectorAll("audio")
+          .forEach(otherAudio => {
+
+            if(otherAudio !== audio){
+              otherAudio.pause();
             }
-          );
 
-          await loadSongs();
+          });
 
-        }
-        catch(error){
+      });
 
-          console.error(error);
+    });
 
-          alert(
-            "Erro ao editar: " +
-            error.message
-          );
-
-        }
-
-      };
+}
 
 
-    window.deleteSong =
-      async function(songId){
+window.playSong = async function(songId){
 
-        const confirmed =
-          confirm(
-            "Tens a certeza que queres eliminar esta música?"
-          );
+  const player =
+    document.querySelector(
+      "#audioPlayer" + songId
+    );
 
-        if(!confirmed) return;
+  if(!player) return;
 
-        try{
+  document.querySelectorAll(".audio-player")
+    .forEach(item => {
 
-          await deleteDoc(
-            doc(db,"musicas",songId)
-          );
+      if(item !== player){
 
-          await loadSongs();
+        item.classList.remove("show");
 
-        }
-        catch(error){
+        const otherAudio =
+          item.querySelector("audio");
 
-          console.error(error);
-
-          alert(
-            "Erro ao eliminar a música: " +
-            error.message
-          );
-
+        if(otherAudio){
+          otherAudio.pause();
         }
 
-      };
+      }
 
+    });
 
-    window.toggleMenu =
-      function(){
+  player.classList.add("show");
 
-        document
-          .querySelector("#sidebar")
-          .classList
-          .toggle("show");
+  const audio =
+    player.querySelector("audio");
 
-      };
+  if(!audio){
 
+    alert(
+      "Esta publicação não possui uma música válida."
+    );
 
-    window.logout =
-      async function(){
+    return;
 
-        try{
+  }
 
-          await signOut(auth);
+  try{
 
-          window.location.href =
-            "area-do-artista.html";
+    await audio.play();
 
-        }
-        catch(error){
+  }
+  catch(error){
 
-          console.error(error);
+    console.error(error);
 
-        }
+    const errorBox =
+      document.querySelector(
+        "#audioError" + songId
+      );
 
-      };
+    if(errorBox){
 
+      errorBox.style.display = "block";
 
-    onAuthStateChanged(
-      auth,
-      async user => {
+      errorBox.textContent =
+        "❌ Não foi possível tocar esta música.";
 
-        if(!user){
+    }
 
-          window.location.href =
-            "area-do-artista.html";
+  }
 
-          return;
+  try{
 
-        }
-
-        currentUser = user;
-
-        await loadArtistProfile();
-
-        await loadSongs();
-
+    await updateDoc(
+      doc(db,"musicas",songId),
+      {
+        views:increment(1),
+        audicoes:increment(1)
       }
     );
 
-  </script>
+  }
+  catch(error){
+
+    console.log(
+      "Erro ao contar audição:",
+      error
+    );
+
+  }
+
+};
+
+
+window.editSong = async function(songId){
+
+  const song =
+    songs.find(item => item.id === songId);
+
+  if(!song) return;
+
+  const currentTitle =
+    song.titulo ||
+    song.title ||
+    "";
+
+  const newTitle =
+    prompt(
+      "Novo título da música:",
+      currentTitle
+    );
+
+  if(!newTitle || !newTitle.trim()){
+    return;
+  }
+
+  try{
+
+    await updateDoc(
+      doc(db,"musicas",songId),
+      {
+        titulo:newTitle.trim(),
+        title:newTitle.trim()
+      }
+    );
+
+    await loadSongs();
+
+  }
+  catch(error){
+
+    console.error(error);
+
+    alert(
+      "Erro ao editar: " +
+      error.message
+    );
+
+  }
+
+};
+
+
+window.deleteSong = async function(songId){
+
+  const confirmed =
+    confirm(
+      "Tens a certeza que queres eliminar esta música?"
+    );
+
+  if(!confirmed) return;
+
+  try{
+
+    await deleteDoc(
+      doc(db,"musicas",songId)
+    );
+
+    await loadSongs();
+
+  }
+  catch(error){
+
+    console.error(error);
+
+    alert(
+      "Erro ao eliminar a música: " +
+      error.message
+    );
+
+  }
+
+};
+
+
+window.toggleMenu = function(){
+
+  document.querySelector("#sidebar")
+    .classList.toggle("show");
+
+};
+
+
+window.logout = async function(){
+
+  try{
+
+    await signOut(auth);
+
+    window.location.href =
+      "area-do-artista.html";
+
+  }
+  catch(error){
+    console.error(error);
+  }
+
+};
+
+
+onAuthStateChanged(auth,async user => {
+
+  if(!user){
+
+    window.location.href =
+      "area-do-artista.html";
+
+    return;
+
+  }
+
+  currentUser = user;
+
+  await loadArtistProfile();
+
+  await loadSongs();
+
+});
+
+</script>
 
 </body>
 </html>
