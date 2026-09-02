@@ -1,16 +1,11 @@
 <!DOCTYPE html>
 
 <html lang="pt">
-
 <head>
 
 <meta charset="UTF-8">
 
-<meta
-name="viewport"
-content="width=device-width, initial-scale=1.0"
-
->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Feed — KUDURO PRIME</title>
 
@@ -76,12 +71,6 @@ button{
   align-items:center;
   justify-content:center;
   background:#070707;
-  transition:opacity .25s ease;
-}
-
-#loadingScreen.hidden{
-  opacity:0;
-  pointer-events:none;
 }
 
 .loading-box{
@@ -187,7 +176,6 @@ button{
   align-items:center;
   justify-content:space-between;
   gap:20px;
-  position:relative;
 }
 
 .brand{
@@ -195,7 +183,6 @@ button{
   font-weight:900;
   line-height:.78;
   letter-spacing:-1px;
-  flex-shrink:0;
 }
 
 .brand b{
@@ -229,7 +216,6 @@ button{
   display:flex;
   align-items:center;
   gap:10px;
-  flex-shrink:0;
 }
 
 .user-btn{
@@ -273,8 +259,7 @@ button{
   border:0;
   background:none;
   color:white;
-  font-size:24px;
-  padding:6px;
+  font-size:22px;
 }
 
 /* ================================
@@ -489,7 +474,7 @@ button{
 }
 
 .publish-btn:disabled{
-  opacity:.6;
+  opacity:.65;
   cursor:not-allowed;
 }
 
@@ -562,6 +547,49 @@ button{
   border-radius:6px;
   font-size:10px;
   font-weight:900;
+}
+
+/* ================================
+   UPLOAD PROGRESS
+================================ */
+
+.upload-progress{
+  display:none;
+  margin-top:14px;
+  margin-left:56px;
+  padding:12px;
+  border:1px solid rgba(244,191,49,.25);
+  border-radius:10px;
+  background:#0b0b0b;
+}
+
+.upload-progress.show{
+  display:block;
+}
+
+.upload-progress-text{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom:8px;
+  font-size:10px;
+  color:#ccc;
+}
+
+.progress-bar{
+  width:100%;
+  height:7px;
+  overflow:hidden;
+  border-radius:20px;
+  background:#242424;
+}
+
+.progress-fill{
+  width:0%;
+  height:100%;
+  border-radius:20px;
+  background:var(--gold);
+  transition:width .2s ease;
 }
 
 /* ================================
@@ -808,7 +836,7 @@ button{
 }
 
 /* ================================
-   MOBILE
+   MOBILE MENU
 ================================ */
 
 @media(max-width:950px){
@@ -825,6 +853,32 @@ button{
     display:none;
   }
 
+  .links.mobile-open{
+    display:flex;
+    position:absolute;
+    top:calc(100% + 1px);
+    left:0;
+    right:0;
+    z-index:100;
+    flex-direction:column;
+    align-items:stretch;
+    gap:0;
+    padding:10px 4%;
+    background:#0b0b0b;
+    border-bottom:1px solid var(--line);
+    box-shadow:0 12px 30px rgba(0,0,0,.35);
+  }
+
+  .links.mobile-open a{
+    width:100%;
+    padding:13px 10px;
+    border-bottom:1px solid rgba(255,255,255,.04);
+  }
+
+  .links.mobile-open a:last-child{
+    border-bottom:0;
+  }
+
   .menu{
     display:block;
   }
@@ -835,10 +889,6 @@ button{
 
   .nav{
     height:70px;
-  }
-
-  .nav-in{
-    width:94%;
   }
 
   .nav-avatar{
@@ -856,40 +906,6 @@ button{
 
   .crown{
     font-size:18px;
-  }
-
-  /* MENU MOBILE CORRIGIDO */
-
-  .links{
-    display:none;
-  }
-
-  .links.mobile-open{
-    display:flex;
-    position:absolute;
-    top:62px;
-    right:0;
-    left:0;
-    z-index:200;
-    flex-direction:column;
-    align-items:stretch;
-    gap:0;
-    padding:10px;
-    background:#101010;
-    border:1px solid var(--line);
-    border-radius:12px;
-    box-shadow:0 15px 40px rgba(0,0,0,.45);
-  }
-
-  .links.mobile-open a{
-    display:block;
-    padding:13px;
-    border-radius:7px;
-  }
-
-  .links.mobile-open a:hover,
-  .links.mobile-open a.active{
-    background:rgba(244,191,49,.08);
   }
 
   .layout{
@@ -919,10 +935,6 @@ button{
     padding:10px 12px;
   }
 
-  .side-divider{
-    display:none;
-  }
-
   .post-image{
     min-height:280px;
   }
@@ -936,6 +948,10 @@ button{
     margin-left:0;
   }
 
+  .upload-progress{
+    margin-left:0;
+  }
+
 }
 
 </style>
@@ -944,17 +960,13 @@ button{
 
 <body>
 
-<!-- LOADING -->
-
 <div id="loadingScreen">
-
   <div class="loading-box">
+    <div class="loading-logo">
+      👑 KUDURO PRIME
+    </div>
 
 ```
-<div class="loading-logo">
-  👑 KUDURO PRIME
-</div>
-
 <div class="loader"></div>
 
 <div
@@ -966,20 +978,15 @@ button{
 ```
 
   </div>
-
 </div>
 
-<!-- ERRO -->
-
 <div id="sessionError">
-
   <div class="session-error-box">
+    <h2>
+      ⚠️ Sessão não encontrada
+    </h2>
 
 ```
-<h2>
-  ⚠️ Sessão não encontrada
-</h2>
-
 <p id="sessionErrorText">
   Não foi possível confirmar a tua conta.
 </p>
@@ -993,10 +1000,7 @@ button{
 ```
 
   </div>
-
 </div>
-
-<!-- NAV -->
 
 <nav class="nav">
 
@@ -1007,20 +1011,13 @@ button{
   href="index.html"
   class="brand"
 >
-
   <span class="crown">♕</span>
-
   KUDURO
-
   <b>PRIME</b>
-
 </a>
 
 
-<div
-  class="links"
-  id="mainLinks"
->
+<div class="links">
 
   <a
     href="feed.html"
@@ -1054,7 +1051,6 @@ button{
     href="meu-perfil.html"
     class="user-btn"
   >
-
     <div
       class="nav-avatar"
       id="navAvatar"
@@ -1065,13 +1061,10 @@ button{
     <span id="navName">
       Meu Perfil
     </span>
-
   </a>
-
 
   <button
     class="menu"
-    id="menuButton"
     type="button"
     onclick="abrirMenu()"
     aria-label="Abrir menu"
@@ -1086,11 +1079,7 @@ button{
 
 </nav>
 
-<!-- CONTEÚDO -->
-
 <main class="layout">
-
-<!-- ESQUERDA -->
 
 <aside class="sidebar panel">
 
@@ -1187,8 +1176,6 @@ button{
 
 </aside>
 
-<!-- CENTRO -->
-
 <section>
 
   <div class="feed-head">
@@ -1204,8 +1191,6 @@ button{
 ```
 
   </div>
-
-  <!-- CRIAR POST -->
 
   <div class="create-post panel">
 
@@ -1316,6 +1301,35 @@ button{
 </div>
 
 
+<!-- PROGRESSO CLOUDINARY -->
+
+<div
+  class="upload-progress"
+  id="uploadProgress"
+>
+
+  <div class="upload-progress-text">
+
+    <span id="uploadStatus">
+      A preparar...
+    </span>
+
+    <span id="uploadPercent">
+      0%
+    </span>
+
+  </div>
+
+  <div class="progress-bar">
+    <div
+      class="progress-fill"
+      id="progressFill"
+    ></div>
+  </div>
+
+</div>
+
+
 <div class="post-actions">
 
   <div class="post-tools">
@@ -1353,7 +1367,7 @@ button{
   <button
     type="button"
     class="publish-btn"
-    id="publishButton"
+    id="publishBtn"
     onclick="publicar()"
   >
     PUBLICAR
@@ -1381,11 +1395,8 @@ button{
     <div>
 
       <div class="post-name">
-
         Figura do Adoço
-
         <span class="verified">●</span>
-
       </div>
 
       <div class="post-meta">
@@ -1394,32 +1405,26 @@ button{
 
     </div>
 
-    <div class="more">⋯</div>
+    <div class="more">
+      ⋯
+    </div>
 
   </div>
 
-
   <div class="post-text">
-```
+    O movimento não para! 🔥👑
+    Obrigado a todos que estão a apoiar a nossa música.
+  </div>
 
-O movimento não para! 🔥👑
-Obrigado a todos que estão a apoiar a nossa música. </div>
-
-```
   <div
     class="post-image"
     style="--img:url('images/artista-1.jpg')"
   ></div>
 
-
   <div class="post-stats">
-
     <span>🔥 1.2K reações</span>
-
     <span>84 comentários</span>
-
   </div>
-
 
   <div class="post-buttons">
 
@@ -1452,11 +1457,8 @@ Obrigado a todos que estão a apoiar a nossa música. </div>
     <div>
 
       <div class="post-name">
-
         DJ Jeff Afrozila
-
         <span class="verified">●</span>
-
       </div>
 
       <div class="post-meta">
@@ -1465,20 +1467,21 @@ Obrigado a todos que estão a apoiar a nossa música. </div>
 
     </div>
 
-    <div class="more">⋯</div>
+    <div class="more">
+      ⋯
+    </div>
 
   </div>
 
-
   <div class="post-text">
-```
+    Novo som disponível no KUDURO PRIME! 🎵🔥
+  </div>
 
-Novo som disponível no KUDURO PRIME! 🎵🔥 </div>
-
-```
   <div class="music-post">
 
-    <div class="music-cover">🎵</div>
+    <div class="music-cover">
+      🎵
+    </div>
 
     <div class="music-info">
 
@@ -1499,15 +1502,10 @@ Novo som disponível no KUDURO PRIME! 🎵🔥 </div>
 
   </div>
 
-
   <div class="post-stats">
-
     <span>🔥 890 reações</span>
-
     <span>52 comentários</span>
-
   </div>
-
 
   <div class="post-buttons">
 
@@ -1540,11 +1538,8 @@ Novo som disponível no KUDURO PRIME! 🎵🔥 </div>
     <div>
 
       <div class="post-name">
-
         Ready Neutro
-
         <span class="verified">●</span>
-
       </div>
 
       <div class="post-meta">
@@ -1553,32 +1548,26 @@ Novo som disponível no KUDURO PRIME! 🎵🔥 </div>
 
     </div>
 
-    <div class="more">⋯</div>
+    <div class="more">
+      ⋯
+    </div>
 
   </div>
 
-
   <div class="post-text">
-```
+    Luanda, estamos juntos! 👊🏾🔥
+    Qual é a tua música favorita neste momento?
+  </div>
 
-Luanda, estamos juntos! 👊🏾🔥
-Qual é a tua música favorita neste momento? </div>
-
-```
   <div
     class="post-image"
     style="--img:url('images/artista-4.jpg')"
   ></div>
 
-
   <div class="post-stats">
-
     <span>🔥 2.4K reações</span>
-
     <span>137 comentários</span>
-
   </div>
-
 
   <div class="post-buttons">
 
@@ -1603,8 +1592,6 @@ Qual é a tua música favorita neste momento? </div>
 
 </section>
 
-<!-- DIREITA -->
-
 <aside class="right">
 
   <div class="right-panel panel">
@@ -1618,39 +1605,27 @@ Qual é a tua música favorita neste momento? </div>
   href="ranking.html"
   class="trend"
 >
-
   <small>#1 NO RANKING</small>
-
   <strong>Mim Faz Só Broxe</strong>
-
   <span>Figura do Adoço</span>
-
 </a>
 
 <a
   href="ranking.html"
   class="trend"
 >
-
   <small>#2 NO RANKING</small>
-
   <strong>Vida de Artista</strong>
-
   <span>Ready Neutro</span>
-
 </a>
 
 <a
   href="ranking.html"
   class="trend"
 >
-
   <small>#3 NO RANKING</small>
-
   <strong>Zona Quente</strong>
-
   <span>DJ Jeff Afrozila</span>
-
 </a>
 ```
 
@@ -1663,7 +1638,6 @@ Qual é a tua música favorita neste momento? </div>
   👑 ARTISTAS PRIME
 </h3>
 
-
 <div class="suggestion">
 
   <div
@@ -1672,13 +1646,8 @@ Qual é a tua música favorita neste momento? </div>
   ></div>
 
   <div>
-
     <div class="suggestion-name">MCK</div>
-
-    <div class="suggestion-tag">
-      @mckoficial
-    </div>
-
+    <div class="suggestion-tag">@mckoficial</div>
   </div>
 
   <button
@@ -1699,15 +1668,8 @@ Qual é a tua música favorita neste momento? </div>
   ></div>
 
   <div>
-
-    <div class="suggestion-name">
-      Nagrelha
-    </div>
-
-    <div class="suggestion-tag">
-      Artista Prime
-    </div>
-
+    <div class="suggestion-name">Nagrelha</div>
+    <div class="suggestion-tag">Artista Prime</div>
   </div>
 
   <button
@@ -1728,15 +1690,8 @@ Qual é a tua música favorita neste momento? </div>
   ></div>
 
   <div>
-
-    <div class="suggestion-name">
-      Nova Geração
-    </div>
-
-    <div class="suggestion-tag">
-      Revelação Prime
-    </div>
-
+    <div class="suggestion-name">Nova Geração</div>
+    <div class="suggestion-tag">Revelação Prime</div>
   </div>
 
   <button
@@ -1755,8 +1710,6 @@ Qual é a tua música favorita neste momento? </div>
 
 </main>
 
-<!-- FIREBASE -->
-
 <script type="module">
 
 import {
@@ -1767,19 +1720,9 @@ import {
 import {
   getAuth,
   onAuthStateChanged,
-  signOut,
-  setPersistence,
-  browserLocalPersistence
+  signOut
 } from
 "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
-
-import {
-  getFirestore,
-  collection,
-  addDoc,
-  serverTimestamp
-} from
-"https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 
 
 /* =====================================
@@ -1809,36 +1752,35 @@ const firebaseConfig = {
 };
 
 
+/* =====================================
+   CLOUDINARY CONFIG
+===================================== */
+
+const CLOUDINARY_CLOUD_NAME =
+  "ge1ntqqc";
+
+const CLOUDINARY_UPLOAD_PRESET =
+  "kuduro_prime";
+
+
+const CLOUDINARY_IMAGE_URL =
+  "https://api.cloudinary.com/v1_1/" +
+  CLOUDINARY_CLOUD_NAME +
+  "/image/upload";
+
+
+const CLOUDINARY_VIDEO_URL =
+  "https://api.cloudinary.com/v1_1/" +
+  CLOUDINARY_CLOUD_NAME +
+  "/video/upload";
+
+
 const app =
   initializeApp(firebaseConfig);
 
 
 const auth =
   getAuth(app);
-
-
-const db =
-  getFirestore(app);
-
-
-/* =====================================
-   PERSISTÊNCIA DA SESSÃO
-===================================== */
-
-setPersistence(
-  auth,
-  browserLocalPersistence
-)
-.catch(
-  function(erro){
-
-    console.error(
-      "Erro ao manter sessão:",
-      erro
-    );
-
-  }
-);
 
 
 /* =====================================
@@ -1856,18 +1798,18 @@ let artistPhoto = "";
 let selectedType = "";
 
 let photoData = "";
-
 let videoData = "";
-
 let musicData = "";
 
 let photoFile = null;
-
 let videoFile = null;
-
 let musicFile = null;
 
-let sessionConfirmed = false;
+let photoPreviewURL = "";
+let videoPreviewURL = "";
+let musicPreviewURL = "";
+
+let isPublishing = false;
 
 
 /* =====================================
@@ -1886,48 +1828,8 @@ const sessionError =
 const sessionErrorText =
   document.getElementById("sessionErrorText");
 
-
-/* =====================================
-   FECHAR LOADING
-===================================== */
-
-function esconderLoading(){
-
-  loadingScreen.classList.add(
-    "hidden"
-  );
-
-  setTimeout(
-    function(){
-
-      loadingScreen.style.display =
-        "none";
-
-    },
-    300
-  );
-
-}
-
-
-/* =====================================
-   TIMEOUT DA SESSÃO
-===================================== */
-
-const sessionTimer =
-  setTimeout(
-    function(){
-
-      if(!sessionConfirmed){
-
-        loadingText.textContent =
-          "Ainda estamos a confirmar a tua sessão...";
-
-      }
-
-    },
-    6000
-  );
+const publishBtn =
+  document.getElementById("publishBtn");
 
 
 /* =====================================
@@ -1938,54 +1840,23 @@ onAuthStateChanged(
   auth,
   function(user){
 
-    sessionConfirmed = true;
-
-    clearTimeout(
-      sessionTimer
-    );
-
-
-    console.log(
-      "KUDURO PRIME - Firebase Auth:",
-      user
-    );
-
-
     if(!user){
 
-      esconderLoading();
+      loadingScreen.style.display =
+        "none";
 
       sessionError.style.display =
         "flex";
 
-      const uidGuardado =
-        localStorage.getItem(
-          "kpArtistUID"
-        );
-
       sessionErrorText.textContent =
-        uidGuardado
-        ?
-        "A tua sessão terminou. Inicia sessão novamente para continuar."
-        :
-        "Não encontrámos uma sessão ativa. Inicia sessão para entrar no KUDURO PRIME.";
+        "Não foi possível confirmar uma sessão ativa.";
 
       return;
-
     }
 
 
-    /* ================================
-       UTILIZADOR AUTENTICADO
-       FICA NO FEED.HTML
-    ================================= */
-
     usuarioAtual = user;
 
-
-    /* ================================
-       GUARDAR SESSÃO
-    ================================= */
 
     localStorage.setItem(
       "kpLoggedIn",
@@ -2012,10 +1883,6 @@ onAuthStateChanged(
 
     }
 
-
-    /* ================================
-       NOME
-    ================================= */
 
     artistName =
 
@@ -2044,10 +1911,6 @@ onAuthStateChanged(
       );
 
 
-    /* ================================
-       USERNAME
-    ================================= */
-
     artistUser =
 
       localStorage.getItem(
@@ -2066,10 +1929,6 @@ onAuthStateChanged(
       "artista";
 
 
-    /* ================================
-       FOTO
-    ================================= */
-
     artistPhoto =
 
       localStorage.getItem(
@@ -2084,10 +1943,6 @@ onAuthStateChanged(
 
       "";
 
-
-    /* ================================
-       GUARDAR DADOS
-    ================================= */
 
     localStorage.setItem(
       "kpArtistStageName",
@@ -2110,10 +1965,6 @@ onAuthStateChanged(
     }
 
 
-    /* ================================
-       MOSTRAR PERFIL
-    ================================= */
-
     document.getElementById(
       "navName"
     ).textContent =
@@ -2132,39 +1983,24 @@ onAuthStateChanged(
       "@" + artistUser;
 
 
-    colocarFoto(
-      "navAvatar"
-    );
+    colocarFoto("navAvatar");
+    colocarFoto("sideAvatar");
+    colocarFoto("postAvatar");
 
-    colocarFoto(
-      "sideAvatar"
-    );
-
-    colocarFoto(
-      "postAvatar"
-    );
-
-
-    /* ================================
-       FEED
-    ================================= */
 
     loadingText.textContent =
       "Bem-vindo ao KUDURO PRIME 👑";
 
 
     setTimeout(
-      esconderLoading,
+      function(){
+
+        loadingScreen.style.display =
+          "none";
+
+      },
       250
     );
-
-
-    /*
-    NÃO REDIRECIONAR.
-
-    O UTILIZADOR AUTENTICADO
-    PERMANECE NO FEED.HTML.
-    */
 
   }
 );
@@ -2206,7 +2042,9 @@ function colocarFoto(id){
     "Foto do artista";
 
 
-  elemento.innerHTML = "";
+  elemento.innerHTML =
+    "";
+
 
   elemento.appendChild(img);
 
@@ -2231,66 +2069,46 @@ function escaparHTML(text){
 
 
 /* =====================================
-   REMOVER TODAS AS MÍDIAS
+   ESCAPAR URL PARA HTML
 ===================================== */
 
-function limparOutrasMidias(exceto = ""){
+function escaparURL(url){
 
-  if(exceto !== "photo"){
-
-    removerFoto();
-
-  }
-
-  if(exceto !== "video"){
-
-    removerVideo();
-
-  }
-
-  if(exceto !== "music"){
-
-    removerMusica();
-
-  }
+  return String(url || "")
+    .replace(/&/g,"&amp;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;");
 
 }
 
 
 /* =====================================
-   FECHAR BOXES
+   LIMPAR OUTRAS MÍDIAS
+
+   Apenas uma mídia por publicação.
 ===================================== */
 
-function fecharBoxes(){
+function limparOutrasMidias(exceptType){
 
-  document
-    .querySelectorAll(
-      ".media-box"
-    )
-    .forEach(
-      function(box){
+  if(exceptType !== "photo"){
 
-        box.classList.remove(
-          "show"
-        );
+    removerFoto();
 
-      }
-    );
+  }
 
+  if(exceptType !== "video"){
 
-  document
-    .querySelectorAll(
-      ".tool-btn"
-    )
-    .forEach(
-      function(button){
+    removerVideo();
 
-        button.classList.remove(
-          "active"
-        );
+  }
 
-      }
-    );
+  if(exceptType !== "music"){
+
+    removerMusica();
+
+  }
 
 }
 
@@ -2303,48 +2121,45 @@ window.abrirMidia =
 function(type){
 
   const boxes = {
-
     photo:
-      document.getElementById(
-        "photoBox"
-      ),
+      document.getElementById("photoBox"),
 
     video:
-      document.getElementById(
-        "videoBox"
-      ),
+      document.getElementById("videoBox"),
 
     music:
-      document.getElementById(
-        "musicBox"
-      )
-
+      document.getElementById("musicBox")
   };
 
 
   const buttons = {
-
     photo:
-      document.getElementById(
-        "photoBtn"
-      ),
+      document.getElementById("photoBtn"),
 
     video:
-      document.getElementById(
-        "videoBtn"
-      ),
+      document.getElementById("videoBtn"),
 
     music:
-      document.getElementById(
-        "musicBtn"
-      )
-
+      document.getElementById("musicBtn")
   };
 
 
-  if(selectedType === type){
+  Object.keys(boxes).forEach(
+    function(key){
 
-    fecharBoxes();
+      boxes[key]
+        .classList
+        .remove("show");
+
+      buttons[key]
+        .classList
+        .remove("active");
+
+    }
+  );
+
+
+  if(selectedType === type){
 
     selectedType = "";
 
@@ -2353,17 +2168,8 @@ function(type){
   }
 
 
-  /*
-  IMPORTANTE:
-  Se trocar de tipo,
-  a mídia anterior é removida.
-  */
-
-  limparOutrasMidias(
-    type
-  );
-
-  fecharBoxes();
+  /* Impede conflitos */
+  limparOutrasMidias(type);
 
 
   selectedType =
@@ -2372,16 +2178,12 @@ function(type){
 
   boxes[type]
     .classList
-    .add(
-      "show"
-    );
+    .add("show");
 
 
   buttons[type]
     .classList
-    .add(
-      "active"
-    );
+    .add("active");
 
 };
 
@@ -2404,82 +2206,55 @@ function(event){
   }
 
 
-  if(!file.type.startsWith("image/")){
+  limparOutrasMidias("photo");
 
-    alert(
-      "Escolhe apenas uma imagem."
+
+  if(photoPreviewURL){
+
+    URL.revokeObjectURL(
+      photoPreviewURL
     );
 
-    event.target.value = "";
-
-    return;
-
   }
-
-
-  /*
-  Remove vídeo e música.
-  */
-
-  limparOutrasMidias(
-    "photo"
-  );
-
-
-  selectedType =
-    "photo";
 
 
   photoFile =
     file;
 
 
-  const reader =
-    new FileReader();
+  photoPreviewURL =
+    URL.createObjectURL(file);
 
 
-  reader.onload =
-    function(e){
-
-      photoData =
-        e.target.result;
+  photoData =
+    photoPreviewURL;
 
 
-      const preview =
-        document.getElementById(
-          "photoPreview"
-        );
+  document.getElementById(
+    "photoPreview"
+  ).innerHTML =
+
+    `
+    <img
+      src="${escaparURL(photoPreviewURL)}"
+      alt="Foto selecionada"
+    >
+
+    <button
+      class="remove-media"
+      type="button"
+      onclick="removerFoto()"
+    >
+      REMOVER FOTO
+    </button>
+    `;
 
 
-      preview.innerHTML =
-        `
-        <img
-          src="${photoData}"
-          alt="Foto selecionada"
-        >
-
-        <button
-          class="remove-media"
-          type="button"
-          onclick="removerFoto()"
-        >
-          REMOVER FOTO
-        </button>
-        `;
-
-
-      preview
-        .classList
-        .add(
-          "show"
-        );
-
-    };
-
-
-  reader.readAsDataURL(
-    file
-  );
+  document.getElementById(
+    "photoPreview"
+  )
+  .classList
+  .add("show");
 
 };
 
@@ -2502,44 +2277,14 @@ function(event){
   }
 
 
-  if(!file.type.startsWith("video/")){
+  limparOutrasMidias("video");
 
-    alert(
-      "Escolhe apenas um vídeo."
+
+  if(videoPreviewURL){
+
+    URL.revokeObjectURL(
+      videoPreviewURL
     );
-
-    event.target.value = "";
-
-    return;
-
-  }
-
-
-  /*
-  Remove foto e música.
-  */
-
-  limparOutrasMidias(
-    "video"
-  );
-
-
-  selectedType =
-    "video";
-
-
-  if(
-    videoData &&
-    videoData.startsWith("blob:")
-  ){
-
-    try{
-
-      URL.revokeObjectURL(
-        videoData
-      );
-
-    }catch(e){}
 
   }
 
@@ -2548,24 +2293,28 @@ function(event){
     file;
 
 
+  videoPreviewURL =
+    URL.createObjectURL(file);
+
+
   videoData =
-    URL.createObjectURL(
-      file
-    );
+    videoPreviewURL;
 
 
-  const preview =
-    document.getElementById(
-      "videoPreview"
-    );
+  document.getElementById(
+    "videoPreview"
+  ).innerHTML =
 
-
-  preview.innerHTML =
     `
     <video
       controls
-      src="${videoData}"
-    ></video>
+      playsinline
+    >
+      <source
+        src="${escaparURL(videoPreviewURL)}"
+        type="${escaparURL(file.type)}"
+      >
+    </video>
 
     <button
       class="remove-media"
@@ -2577,11 +2326,11 @@ function(event){
     `;
 
 
-  preview
-    .classList
-    .add(
-      "show"
-    );
+  document.getElementById(
+    "videoPreview"
+  )
+  .classList
+  .add("show");
 
 };
 
@@ -2604,40 +2353,28 @@ function(event){
   }
 
 
-  if(!file.type.startsWith("audio/")){
+  limparOutrasMidias("music");
 
-    alert(
-      "Escolhe apenas um ficheiro de música."
+
+  if(musicPreviewURL){
+
+    URL.revokeObjectURL(
+      musicPreviewURL
     );
 
-    event.target.value = "";
-
-    return;
-
   }
-
-
-  /*
-  Remove foto e vídeo.
-  */
-
-  limparOutrasMidias(
-    "music"
-  );
-
-
-  selectedType =
-    "music";
 
 
   musicFile =
     file;
 
 
+  musicPreviewURL =
+    URL.createObjectURL(file);
+
+
   musicData =
-    URL.createObjectURL(
-      file
-    );
+    musicPreviewURL;
 
 
   document.getElementById(
@@ -2646,7 +2383,7 @@ function(event){
 
 
   mostrarMusica(
-    musicData,
+    musicPreviewURL,
     file.name
   );
 
@@ -2672,7 +2409,17 @@ function(){
 
     if(!musicFile){
 
-      removerMusica();
+      musicData = "";
+
+      document.getElementById(
+        "musicPreview"
+      ).innerHTML = "";
+
+      document.getElementById(
+        "musicPreview"
+      )
+      .classList
+      .remove("show");
 
     }
 
@@ -2681,54 +2428,36 @@ function(){
   }
 
 
-  /*
-  Remove foto e vídeo.
-  */
-
-  limparOutrasMidias(
-    "music"
-  );
-
-
-  selectedType =
-    "music";
+  limparOutrasMidias("music");
 
 
   musicFile =
     null;
 
 
-  const input =
-    document.getElementById(
-      "musicInput"
+  if(musicPreviewURL){
+
+    URL.revokeObjectURL(
+      musicPreviewURL
     );
 
-
-  if(
-    musicData &&
-    musicData.startsWith("blob:")
-  ){
-
-    try{
-
-      URL.revokeObjectURL(
-        musicData
-      );
-
-    }catch(e){}
+    musicPreviewURL =
+      "";
 
   }
-
-
-  input.value = "";
 
 
   musicData =
     link;
 
 
+  document.getElementById(
+    "musicInput"
+  ).value = "";
+
+
   mostrarMusica(
-    musicData,
+    link,
     "Música por link"
   );
 
@@ -2739,18 +2468,12 @@ function(){
    MOSTRAR MÚSICA
 ===================================== */
 
-function mostrarMusica(
-  src,
-  name
-){
+function mostrarMusica(src,name){
 
-  const preview =
-    document.getElementById(
-      "musicPreview"
-    );
+  document.getElementById(
+    "musicPreview"
+  ).innerHTML =
 
-
-  preview.innerHTML =
     `
     <div class="music-post">
 
@@ -2771,7 +2494,7 @@ function mostrarMusica(
         <audio
           class="music-player"
           controls
-          src="${escaparHTML(src)}"
+          src="${escaparURL(src)}"
         ></audio>
 
       </div>
@@ -2788,11 +2511,11 @@ function mostrarMusica(
     `;
 
 
-  preview
-    .classList
-    .add(
-      "show"
-    );
+  document.getElementById(
+    "musicPreview"
+  )
+  .classList
+  .add("show");
 
 }
 
@@ -2804,18 +2527,26 @@ function mostrarMusica(
 window.removerFoto =
 function(){
 
-  photoData =
-    "";
+  if(photoPreviewURL){
 
-  photoFile =
-    null;
+    try{
+      URL.revokeObjectURL(
+        photoPreviewURL
+      );
+    }catch(e){}
+
+  }
+
+
+  photoFile = null;
+  photoPreviewURL = "";
+  photoData = "";
 
 
   const input =
     document.getElementById(
       "photoInput"
     );
-
 
   if(input){
 
@@ -2829,23 +2560,13 @@ function(){
       "photoPreview"
     );
 
-
   if(preview){
 
     preview.innerHTML = "";
 
-    preview
-      .classList
-      .remove(
-        "show"
-      );
-
-  }
-
-
-  if(selectedType === "photo"){
-
-    selectedType = "";
+    preview.classList.remove(
+      "show"
+    );
 
   }
 
@@ -2859,34 +2580,26 @@ function(){
 window.removerVideo =
 function(){
 
-  if(
-    videoData &&
-    videoData.startsWith("blob:")
-  ){
+  if(videoPreviewURL){
 
     try{
-
       URL.revokeObjectURL(
-        videoData
+        videoPreviewURL
       );
-
     }catch(e){}
 
   }
 
 
-  videoData =
-    "";
-
-  videoFile =
-    null;
+  videoFile = null;
+  videoPreviewURL = "";
+  videoData = "";
 
 
   const input =
     document.getElementById(
       "videoInput"
     );
-
 
   if(input){
 
@@ -2900,23 +2613,13 @@ function(){
       "videoPreview"
     );
 
-
   if(preview){
 
     preview.innerHTML = "";
 
-    preview
-      .classList
-      .remove(
-        "show"
-      );
-
-  }
-
-
-  if(selectedType === "video"){
-
-    selectedType = "";
+    preview.classList.remove(
+      "show"
+    );
 
   }
 
@@ -2930,51 +2633,42 @@ function(){
 window.removerMusica =
 function(){
 
-  if(
-    musicData &&
-    musicData.startsWith("blob:")
-  ){
+  if(musicPreviewURL){
 
     try{
-
       URL.revokeObjectURL(
-        musicData
+        musicPreviewURL
       );
-
     }catch(e){}
 
   }
 
 
-  musicData =
-    "";
-
-  musicFile =
-    null;
+  musicFile = null;
+  musicPreviewURL = "";
+  musicData = "";
 
 
-  const fileInput =
+  const input =
     document.getElementById(
       "musicInput"
     );
 
+  if(input){
 
-  const linkInput =
-    document.getElementById(
-      "musicLink"
-    );
-
-
-  if(fileInput){
-
-    fileInput.value = "";
+    input.value = "";
 
   }
 
 
-  if(linkInput){
+  const link =
+    document.getElementById(
+      "musicLink"
+    );
 
-    linkInput.value = "";
+  if(link){
+
+    link.value = "";
 
   }
 
@@ -2984,27 +2678,273 @@ function(){
       "musicPreview"
     );
 
-
   if(preview){
 
     preview.innerHTML = "";
 
-    preview
-      .classList
-      .remove(
-        "show"
-      );
-
-  }
-
-
-  if(selectedType === "music"){
-
-    selectedType = "";
+    preview.classList.remove(
+      "show"
+    );
 
   }
 
 };
+
+
+/* =====================================
+   CLOUDINARY PROGRESS
+===================================== */
+
+function mostrarProgresso(
+  percent,
+  text
+){
+
+  const progress =
+    document.getElementById(
+      "uploadProgress"
+    );
+
+
+  const fill =
+    document.getElementById(
+      "progressFill"
+    );
+
+
+  const percentText =
+    document.getElementById(
+      "uploadPercent"
+    );
+
+
+  const status =
+    document.getElementById(
+      "uploadStatus"
+    );
+
+
+  progress.classList.add(
+    "show"
+  );
+
+
+  fill.style.width =
+    percent + "%";
+
+
+  percentText.textContent =
+    percent + "%";
+
+
+  status.textContent =
+    text;
+
+}
+
+
+function esconderProgresso(){
+
+  setTimeout(
+    function(){
+
+      document.getElementById(
+        "uploadProgress"
+      )
+      .classList
+      .remove("show");
+
+    },
+    800
+  );
+
+}
+
+
+/* =====================================
+   UPLOAD CLOUDINARY
+===================================== */
+
+function enviarParaCloudinary(
+  file,
+  resourceType
+){
+
+  return new Promise(
+    function(resolve,reject){
+
+      const endpoint =
+
+        resourceType === "image"
+
+        ?
+
+        CLOUDINARY_IMAGE_URL
+
+        :
+
+        CLOUDINARY_VIDEO_URL;
+
+
+      const formData =
+        new FormData();
+
+
+      formData.append(
+        "file",
+        file
+      );
+
+
+      formData.append(
+        "upload_preset",
+        CLOUDINARY_UPLOAD_PRESET
+      );
+
+
+      formData.append(
+        "folder",
+        "kuduro-prime/feed"
+      );
+
+
+      const xhr =
+        new XMLHttpRequest();
+
+
+      xhr.open(
+        "POST",
+        endpoint,
+        true
+      );
+
+
+      xhr.upload.onprogress =
+        function(event){
+
+          if(event.lengthComputable){
+
+            const percent =
+              Math.round(
+                event.loaded /
+                event.total *
+                100
+              );
+
+
+            mostrarProgresso(
+              percent,
+              "A enviar para o Cloudinary..."
+            );
+
+          }
+
+        };
+
+
+      xhr.onload =
+        function(){
+
+          if(
+            xhr.status >= 200 &&
+            xhr.status < 300
+          ){
+
+            try{
+
+              const resposta =
+                JSON.parse(
+                  xhr.responseText
+                );
+
+
+              if(!resposta.secure_url){
+
+                reject(
+                  new Error(
+                    "Cloudinary não devolveu o URL."
+                  )
+                );
+
+                return;
+
+              }
+
+
+              mostrarProgresso(
+                100,
+                "Upload concluído! 👑"
+              );
+
+
+              resolve(
+                resposta
+              );
+
+            }catch(erro){
+
+              reject(erro);
+
+            }
+
+          }else{
+
+            let mensagem =
+              "Erro no Cloudinary.";
+
+
+            try{
+
+              const erro =
+                JSON.parse(
+                  xhr.responseText
+                );
+
+
+              if(
+                erro.error &&
+                erro.error.message
+              ){
+
+                mensagem =
+                  erro.error.message;
+
+              }
+
+            }catch(e){}
+
+
+            reject(
+              new Error(
+                mensagem
+              )
+            );
+
+          }
+
+        };
+
+
+      xhr.onerror =
+        function(){
+
+          reject(
+            new Error(
+              "Não foi possível ligar ao Cloudinary."
+            )
+          );
+
+        };
+
+
+      xhr.send(
+        formData
+      );
+
+    }
+  );
+
+}
 
 
 /* =====================================
@@ -3123,192 +3063,18 @@ function(){
 
 
 /* =====================================
-   CRIAR POST NO HTML
-===================================== */
-
-function criarPostHTML(
-  text,
-  media,
-  mediaType,
-  musicName
-){
-
-  let mediaHTML =
-    "";
-
-
-  if(
-    mediaType === "photo"
-  ){
-
-    mediaHTML =
-      `
-      <img
-        src="${media}"
-        alt="Publicação"
-        style="
-          width:100%;
-          max-height:600px;
-          object-fit:contain;
-          display:block;
-          background:#000;
-        "
-      >
-      `;
-
-  }
-
-
-  if(
-    mediaType === "video"
-  ){
-
-    mediaHTML =
-      `
-      <video
-        class="post-video"
-        controls
-        src="${media}"
-      ></video>
-      `;
-
-  }
-
-
-  if(
-    mediaType === "music"
-  ){
-
-    mediaHTML =
-      `
-      <div class="music-post">
-
-        <div class="music-cover">
-          🎵
-        </div>
-
-        <div class="music-info">
-
-          <div class="music-name">
-            ${escaparHTML(
-              musicName || "Música partilhada"
-            )}
-          </div>
-
-          <div class="music-artist">
-            ${escaparHTML(artistName)}
-          </div>
-
-          <audio
-            class="music-player"
-            controls
-            src="${escaparHTML(media)}"
-          ></audio>
-
-        </div>
-
-      </div>
-      `;
-
-  }
-
-
-  const authorImage =
-    artistPhoto
-    ?
-    `background-image:url('${artistPhoto}')`
-    :
-    "";
-
-
-  return `
-    <article class="post panel">
-
-      <div class="post-top">
-
-        <div
-          class="post-author-img"
-          style="${authorImage}"
-        ></div>
-
-        <div>
-
-          <div class="post-name">
-
-            ${escaparHTML(artistName)}
-
-            <span class="verified">
-              ●
-            </span>
-
-          </div>
-
-          <div class="post-meta">
-            @${escaparHTML(artistUser)} · agora
-          </div>
-
-        </div>
-
-        <div class="more">
-          ⋯
-        </div>
-
-      </div>
-
-      ${
-        text
-        ?
-        `
-        <div class="post-text">
-          ${escaparHTML(text)}
-        </div>
-        `
-        :
-        ""
-      }
-
-      ${mediaHTML}
-
-      <div class="post-stats">
-
-        <span>
-          🔥 0 reações
-        </span>
-
-        <span>
-          0 comentários
-        </span>
-
-      </div>
-
-      <div class="post-buttons">
-
-        <button onclick="like(this)">
-          ♡ GOSTAR
-        </button>
-
-        <button onclick="comentar()">
-          💬 COMENTAR
-        </button>
-
-        <button onclick="partilhar()">
-          ↗ PARTILHAR
-        </button>
-
-      </div>
-
-    </article>
-  `;
-
-}
-
-
-/* =====================================
-   PUBLICAR
+   PUBLICAR + CLOUDINARY
 ===================================== */
 
 window.publicar =
 async function(){
+
+  if(isPublishing){
+
+    return;
+
+  }
+
 
   if(!usuarioAtual){
 
@@ -3329,37 +3095,11 @@ async function(){
     .trim();
 
 
-  /*
-  Garantia:
-  Apenas uma mídia.
-  */
-
-  const mediaTypes =
-    [
-      photoData,
-      videoData,
-      musicData
-    ]
-    .filter(
-      Boolean
-    );
-
-
-  if(mediaTypes.length > 1){
-
-    alert(
-      "Escolhe apenas uma mídia: foto, vídeo ou música."
-    );
-
-    return;
-
-  }
-
-
   if(
     !text &&
-    !photoData &&
-    !videoData &&
+    !photoFile &&
+    !videoFile &&
+    !musicFile &&
     !musicData
   ){
 
@@ -3372,166 +3112,425 @@ async function(){
   }
 
 
-  const publishButton =
-    document.getElementById(
-      "publishButton"
-    );
-
-
-  publishButton.disabled =
+  isPublishing =
     true;
 
 
-  publishButton.textContent =
+  publishBtn.disabled =
+    true;
+
+
+  publishBtn.textContent =
     "A PUBLICAR...";
 
 
-  let media =
+  let mediaURL =
     "";
+
 
   let mediaType =
     "";
 
-  let musicName =
+
+  let mediaHTML =
     "";
 
 
-  if(photoData){
-
-    media =
-      photoData;
-
-    mediaType =
-      "photo";
-
-  }
-
-
-  if(videoData){
-
-    media =
-      videoData;
-
-    mediaType =
-      "video";
-
-  }
-
-
-  if(musicData){
-
-    media =
-      musicData;
-
-    mediaType =
-      "music";
-
-    musicName =
-      musicFile
-      ?
-      musicFile.name
-      :
-      "Música por link";
-
-  }
+  let mediaName =
+    "";
 
 
   try{
 
+    /* ================================
+       FOTO
+    ================================= */
 
-    /*
-    =====================================
-    PREPARADO PARA FIRESTORE
+    if(photoFile){
 
-    AQUI A PUBLICAÇÃO É GUARDADA.
+      mediaType =
+        "photo";
 
-    ATENÇÃO:
-    Para foto, vídeo e ficheiros de música,
-    o ideal é enviar primeiro o ficheiro
-    para Firebase Storage ou Cloudinary e
-    depois guardar apenas o URL no Firestore.
-    =====================================
-    */
 
-    await addDoc(
-      collection(
-        db,
-        "publicacoes"
-      ),
+      mostrarProgresso(
+        0,
+        "A preparar foto..."
+      );
 
-      {
 
-        autorId:
-          usuarioAtual.uid,
+      const resultado =
+        await enviarParaCloudinary(
+          photoFile,
+          "image"
+        );
 
-        autorNome:
-          artistName,
 
-        autorUsername:
-          artistUser,
+      mediaURL =
+        resultado.secure_url;
 
-        autorFoto:
-          artistPhoto || "",
 
-        texto:
-          text,
+      mediaHTML =
 
-        mediaTipo:
-          mediaType,
+        `
+        <img
+          src="${escaparURL(mediaURL)}"
+          alt="Publicação"
+          style="
+            width:100%;
+            max-height:600px;
+            display:block;
+            object-fit:contain;
+            background:#000;
+          "
+        >
+        `;
 
-        mediaUrl:
-          media,
+    }
 
-        musicaNome:
-          musicName,
 
-        criadoEm:
-          serverTimestamp()
+    /* ================================
+       VÍDEO
+    ================================= */
 
-      }
+    else if(videoFile){
 
+      mediaType =
+        "video";
+
+
+      mostrarProgresso(
+        0,
+        "A preparar vídeo..."
+      );
+
+
+      const resultado =
+        await enviarParaCloudinary(
+          videoFile,
+          "video"
+        );
+
+
+      mediaURL =
+        resultado.secure_url;
+
+
+      mediaHTML =
+
+        `
+        <video
+          class="post-video"
+          controls
+          playsinline
+        >
+
+          <source
+            src="${escaparURL(mediaURL)}"
+          >
+
+        </video>
+        `;
+
+    }
+
+
+    /* ================================
+       MÚSICA - FICHEIRO
+    ================================= */
+
+    else if(musicFile){
+
+      mediaType =
+        "music";
+
+
+      mediaName =
+        musicFile.name;
+
+
+      mostrarProgresso(
+        0,
+        "A preparar música..."
+      );
+
+
+      const resultado =
+        await enviarParaCloudinary(
+          musicFile,
+          "video"
+        );
+
+
+      mediaURL =
+        resultado.secure_url;
+
+
+      mediaHTML =
+
+        `
+        <div class="music-post">
+
+          <div class="music-cover">
+            🎵
+          </div>
+
+          <div class="music-info">
+
+            <div class="music-name">
+              ${escaparHTML(mediaName)}
+            </div>
+
+            <div class="music-artist">
+              ${escaparHTML(artistName)}
+            </div>
+
+            <audio
+              class="music-player"
+              controls
+              src="${escaparURL(mediaURL)}"
+            ></audio>
+
+          </div>
+
+        </div>
+        `;
+
+    }
+
+
+    /* ================================
+       MÚSICA - LINK
+    ================================= */
+
+    else if(musicData){
+
+      mediaType =
+        "music-link";
+
+
+      mediaURL =
+        musicData;
+
+
+      mediaName =
+        "Música partilhada";
+
+
+      mediaHTML =
+
+        `
+        <div class="music-post">
+
+          <div class="music-cover">
+            🎵
+          </div>
+
+          <div class="music-info">
+
+            <div class="music-name">
+              Música partilhada
+            </div>
+
+            <div class="music-artist">
+              ${escaparHTML(artistName)}
+            </div>
+
+            <audio
+              class="music-player"
+              controls
+              src="${escaparURL(mediaURL)}"
+            ></audio>
+
+          </div>
+
+        </div>
+        `;
+
+    }
+
+
+    /* ================================
+       FOTO DO ARTISTA
+    ================================= */
+
+    const photoStyle =
+
+      artistPhoto
+
+      ?
+
+      `style="--img:url('${escaparURL(artistPhoto)}')"`
+
+      :
+
+      "";
+
+
+    /* ================================
+       CRIAR PUBLICAÇÃO
+    ================================= */
+
+    const newPost =
+
+      `
+      <article
+        class="post panel"
+        data-author="${escaparHTML(usuarioAtual.uid)}"
+        data-media-type="${escaparHTML(mediaType)}"
+        data-media-url="${escaparURL(mediaURL)}"
+      >
+
+        <div class="post-top">
+
+          <div
+            class="post-author-img"
+            ${photoStyle}
+          ></div>
+
+          <div>
+
+            <div class="post-name">
+
+              ${escaparHTML(artistName)}
+
+              <span class="verified">
+                ●
+              </span>
+
+            </div>
+
+            <div class="post-meta">
+              @${escaparHTML(artistUser)} · agora
+            </div>
+
+          </div>
+
+          <div class="more">
+            ⋯
+          </div>
+
+        </div>
+
+        ${
+          text
+          ?
+          `<div class="post-text">${escaparHTML(text)}</div>`
+          :
+          ""
+        }
+
+        ${mediaHTML}
+
+        <div class="post-stats">
+
+          <span>
+            🔥 0 reações
+          </span>
+
+          <span>
+            0 comentários
+          </span>
+
+        </div>
+
+        <div class="post-buttons">
+
+          <button onclick="like(this)">
+            ♡ GOSTAR
+          </button>
+
+          <button onclick="comentar()">
+            💬 COMENTAR
+          </button>
+
+          <button onclick="partilhar()">
+            ↗ PARTILHAR
+          </button>
+
+        </div>
+
+      </article>
+      `;
+
+
+    document.getElementById(
+      "feedPosts"
+    )
+    .insertAdjacentHTML(
+      "afterbegin",
+      newPost
     );
 
 
-    const newPost =
-      criarPostHTML(
-        text,
-        media,
-        mediaType,
-        musicName
-      );
+    /* ================================
+       PREPARADO PARA FIREBASE
 
+       Depois vamos guardar:
 
-    document
-      .getElementById(
-        "feedPosts"
-      )
-      .insertAdjacentHTML(
-        "afterbegin",
-        newPost
-      );
+       {
+         authorId: usuarioAtual.uid,
+         authorName: artistName,
+         authorUsername: artistUser,
+         authorPhoto: artistPhoto,
+         text: text,
+         mediaType: mediaType,
+         mediaURL: mediaURL,
+         mediaName: mediaName,
+         createdAt: serverTimestamp()
+       }
+
+       O URL do Cloudinary já estará
+       pronto para ser guardado.
+    ================================= */
 
 
     document.getElementById(
       "postText"
-    ).value =
-      "";
+    ).value = "";
 
 
     removerFoto();
-
     removerVideo();
-
     removerMusica();
 
-    fecharBoxes();
 
     selectedType =
       "";
 
 
+    document.querySelectorAll(
+      ".media-box"
+    )
+    .forEach(
+      function(box){
+
+        box.classList.remove(
+          "show"
+        );
+
+      }
+    );
+
+
+    document.querySelectorAll(
+      ".tool-btn"
+    )
+    .forEach(
+      function(button){
+
+        button.classList.remove(
+          "active"
+        );
+
+      }
+    );
+
+
+    esconderProgresso();
+
+
     alert(
-      "Publicação criada com sucesso! 👑"
+      "Publicação enviada com sucesso! 👑"
     );
 
 
@@ -3543,56 +3542,26 @@ async function(){
     );
 
 
-    /*
-    Se o Firestore ainda não tiver
-    regras prontas, mostra a publicação
-    localmente para não quebrar o feed.
-    */
-
-    const newPost =
-      criarPostHTML(
-        text,
-        media,
-        mediaType,
-        musicName
-      );
-
-
-    document
-      .getElementById(
-        "feedPosts"
-      )
-      .insertAdjacentHTML(
-        "afterbegin",
-        newPost
-      );
-
-
-    document.getElementById(
-      "postText"
-    ).value =
-      "";
-
-
-    removerFoto();
-
-    removerVideo();
-
-    removerMusica();
-
-    fecharBoxes();
-
-
     alert(
-      "A publicação apareceu no feed, mas ainda falta autorizar o Firebase para guardar permanentemente."
+      "Erro ao enviar para o Cloudinary: " +
+      erro.message
     );
+
+
+    esconderProgresso();
+
 
   }finally{
 
-    publishButton.disabled =
+    isPublishing =
       false;
 
-    publishButton.textContent =
+
+    publishBtn.disabled =
+      false;
+
+
+    publishBtn.textContent =
       "PUBLICAR";
 
   }
@@ -3616,9 +3585,7 @@ async function(event){
 
   try{
 
-    await signOut(
-      auth
-    );
+    await signOut(auth);
 
   }catch(erro){
 
@@ -3676,14 +3643,8 @@ window.abrirMenu =
 function(){
 
   const links =
-    document.getElementById(
-      "mainLinks"
-    );
-
-
-  const button =
-    document.getElementById(
-      "menuButton"
+    document.querySelector(
+      ".links"
     );
 
 
@@ -3694,90 +3655,32 @@ function(){
   }
 
 
-  const aberto =
-    links
-      .classList
-      .toggle(
-        "mobile-open"
-      );
-
-
-  if(button){
-
-    button.textContent =
-      aberto
-      ?
-      "✕"
-      :
-      "☰";
-
-  }
+  links.classList.toggle(
+    "mobile-open"
+  );
 
 };
 
-
-/* =====================================
-   FECHAR MENU AO CLICAR NUM LINK
-===================================== */
-
-document
-  .querySelectorAll(
-    "#mainLinks a"
-  )
-  .forEach(
-    function(link){
-
-      link.addEventListener(
-        "click",
-        function(){
-
-          document
-            .getElementById(
-              "mainLinks"
-            )
-            .classList
-            .remove(
-              "mobile-open"
-            );
-
-
-          document
-            .getElementById(
-              "menuButton"
-            )
-            .textContent =
-              "☰";
-
-        }
-      );
-
-    }
-  );
-
-
-/* =====================================
-   FECHAR MENU AO CLICAR FORA
-===================================== */
 
 document.addEventListener(
   "click",
   function(event){
 
     const links =
-      document.getElementById(
-        "mainLinks"
+      document.querySelector(
+        ".links"
       );
 
 
-    const button =
-      document.getElementById(
-        "menuButton"
+    const menuButton =
+      document.querySelector(
+        ".menu"
       );
 
 
     if(
       !links ||
-      !button
+      !menuButton
     ){
 
       return;
@@ -3788,69 +3691,18 @@ document.addEventListener(
     if(
       links.classList.contains(
         "mobile-open"
-      )
-      &&
+      ) &&
       !links.contains(
         event.target
-      )
-      &&
-      !button.contains(
+      ) &&
+      !menuButton.contains(
         event.target
       )
     ){
 
-      links
-        .classList
-        .remove(
-          "mobile-open"
-        );
-
-
-      button.textContent =
-        "☰";
-
-    }
-
-  }
-);
-
-
-/* =====================================
-   LIMPAR URLS TEMPORÁRIAS
-===================================== */
-
-window.addEventListener(
-  "beforeunload",
-  function(){
-
-    if(
-      videoData &&
-      videoData.startsWith("blob:")
-    ){
-
-      try{
-
-        URL.revokeObjectURL(
-          videoData
-        );
-
-      }catch(e){}
-
-    }
-
-
-    if(
-      musicData &&
-      musicData.startsWith("blob:")
-    ){
-
-      try{
-
-        URL.revokeObjectURL(
-          musicData
-        );
-
-      }catch(e){}
+      links.classList.remove(
+        "mobile-open"
+      );
 
     }
 
