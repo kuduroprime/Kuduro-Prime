@@ -1,171 +1,1346 @@
 <!DOCTYPE html>
+
 <html lang="pt">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Artistas | KUDURO PRIME</title>
 
 <style>
-body {
-  margin: 0;
-  background: #080808;
-  color: white;
-  font-family: Arial, sans-serif;
+
+:root{
+  --bg:#070707;
+  --panel:#111111;
+  --panel2:#171717;
+  --gold:#f4bf31;
+  --gold2:#ffdc6b;
+  --text:#f7f4ed;
+  --muted:#aaa59a;
+  --line:#2a271f;
+  --blue:#4eb8ff;
 }
 
-header {
-  background: #111;
-  padding: 20px;
-  text-align: center;
-  border-bottom: 2px solid #d4af37;
+*{
+  box-sizing:border-box;
 }
 
-.logo {
-  color: #d4af37;
-  font-size: 30px;
-  font-weight: bold;
+body{
+  margin:0;
+  background:
+    radial-gradient(
+      circle at 80% 0,
+      rgba(244,191,49,.12),
+      transparent 30%
+    ),
+    var(--bg);
+  color:var(--text);
+  font-family:Arial,Helvetica,sans-serif;
 }
 
-nav {
-  margin-top: 15px;
+a{
+  color:inherit;
+  text-decoration:none;
 }
 
-nav a {
-  color: white;
-  margin: 10px;
-  text-decoration: none;
+
+/* HEADER */
+
+header{
+  position:sticky;
+  top:0;
+  z-index:100;
+  background:rgba(7,7,7,.94);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line);
 }
 
-h1 {
-  text-align: center;
-  margin-top: 50px;
-  color: #d4af37;
+.header-in{
+  width:min(1180px,92%);
+  min-height:82px;
+  margin:auto;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:25px;
 }
 
-.subtitulo {
-  text-align: center;
-  color: #aaa;
+.logo{
+  color:var(--gold);
+  font-size:23px;
+  font-weight:900;
+  letter-spacing:-1px;
 }
 
-.artistas {
-  max-width: 1100px;
-  margin: 50px auto;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 25px;
-  padding: 20px;
+.logo span{
+  display:block;
+  text-align:center;
+  font-size:22px;
+  line-height:.7;
 }
 
-.artista {
-  background: #151515;
-  border: 1px solid #333;
-  border-radius: 12px;
-  overflow: hidden;
-  transition: 0.3s;
+
+nav{
+  display:flex;
+  align-items:center;
+  gap:22px;
 }
 
-.artista:hover {
-  transform: translateY(-8px);
-  border-color: #d4af37;
+nav a{
+  color:#ddd;
+  font-size:11px;
+  font-weight:900;
+  transition:.25s;
 }
 
-.artista img {
-  width: 100%;
-  height: 250px;
-  object-fit: cover;
+nav a:hover,
+nav a.active{
+  color:var(--gold);
 }
 
-.info {
-  padding: 20px;
+
+/* HERO */
+
+.hero{
+  width:min(1180px,92%);
+  margin:0 auto;
+  padding:65px 0 35px;
+  text-align:center;
 }
 
-.info h2 {
-  margin: 0;
+.hero-badge{
+  display:inline-block;
+  color:var(--gold);
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:2px;
+  margin-bottom:14px;
 }
 
-.info p {
-  color: #aaa;
+.hero h1{
+  margin:0;
+  font-size:clamp(34px,6vw,60px);
+  font-weight:950;
+  letter-spacing:-3px;
 }
 
-.botao {
-  display: inline-block;
-  background: #d4af37;
-  color: black;
-  padding: 10px 15px;
-  text-decoration: none;
-  font-weight: bold;
-  border-radius: 5px;
+.hero h1 span{
+  color:var(--gold);
 }
 
-footer {
-  background: #111;
-  text-align: center;
-  padding: 30px;
-  color: #777;
+.hero p{
+  margin:14px auto 0;
+  max-width:600px;
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.7;
 }
+
+
+/* PESQUISA */
+
+.search-area{
+  width:min(700px,92%);
+  margin:5px auto 45px;
+}
+
+.search-box{
+  position:relative;
+}
+
+.search-box input{
+  width:100%;
+  height:52px;
+  padding:0 20px 0 48px;
+  border:1px solid var(--line);
+  border-radius:12px;
+  outline:none;
+  background:#111;
+  color:white;
+  font-size:13px;
+  transition:.25s;
+}
+
+.search-box input:focus{
+  border-color:var(--gold);
+  box-shadow:0 0 0 3px rgba(244,191,49,.08);
+}
+
+.search-icon{
+  position:absolute;
+  left:17px;
+  top:50%;
+  transform:translateY(-50%);
+  color:var(--gold);
+  font-size:18px;
+}
+
+
+/* CONTADOR */
+
+.artists-top{
+  width:min(1180px,92%);
+  margin:0 auto 15px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:15px;
+}
+
+.artist-count{
+  color:var(--muted);
+  font-size:11px;
+  font-weight:900;
+}
+
+.artist-count strong{
+  color:var(--gold);
+}
+
+
+/* ARTISTAS */
+
+.artistas{
+  width:min(1180px,92%);
+  margin:0 auto 80px;
+  display:grid;
+  grid-template-columns:
+    repeat(4,minmax(0,1fr));
+  gap:18px;
+}
+
+.artista{
+  background:
+    linear-gradient(
+      145deg,
+      #151515,
+      #0c0c0c
+    );
+  border:1px solid var(--line);
+  border-radius:14px;
+  overflow:hidden;
+  transition:.25s;
+}
+
+.artista:hover{
+  transform:translateY(-5px);
+  border-color:#806721;
+  box-shadow:
+    0 15px 35px rgba(0,0,0,.35);
+}
+
+
+/* FOTO */
+
+.artista-photo{
+  position:relative;
+  height:270px;
+  background:
+    radial-gradient(
+      circle at center,
+      #30260f,
+      #0d0d0d 70%
+    );
+  overflow:hidden;
+}
+
+.artista-photo img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+
+.photo-placeholder{
+  width:100%;
+  height:100%;
+  display:grid;
+  place-items:center;
+  color:var(--gold);
+  font-size:65px;
+}
+
+
+/* VERIFICADO */
+
+.verified{
+  position:absolute;
+  right:12px;
+  top:12px;
+  width:29px;
+  height:29px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  background:#080808;
+  border:1px solid var(--blue);
+  color:var(--blue);
+  font-size:13px;
+  font-weight:900;
+}
+
+
+/* INFO */
+
+.info{
+  padding:18px;
+}
+
+.info h2{
+  margin:0;
+  font-size:17px;
+  font-weight:900;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+.username{
+  margin-top:5px;
+  color:var(--gold);
+  font-size:10px;
+  font-weight:800;
+}
+
+.info p{
+  margin:12px 0 16px;
+  color:var(--muted);
+  font-size:10px;
+  line-height:1.5;
+}
+
+.botao{
+  width:100%;
+  min-height:40px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:8px;
+  background:linear-gradient(
+    135deg,
+    var(--gold2),
+    var(--gold)
+  );
+  color:#17120a;
+  font-size:10px;
+  font-weight:900;
+  transition:.25s;
+}
+
+.botao:hover{
+  filter:brightness(1.08);
+  transform:translateY(-1px);
+}
+
+
+/* LOADING */
+
+.loading{
+  grid-column:1/-1;
+  padding:70px 20px;
+  text-align:center;
+}
+
+.spinner{
+  width:40px;
+  height:40px;
+  margin:0 auto 15px;
+  border-radius:50%;
+  border:3px solid #29251d;
+  border-top-color:var(--gold);
+  animation:spin .8s linear infinite;
+}
+
+@keyframes spin{
+  to{
+    transform:rotate(360deg);
+  }
+}
+
+.loading-text{
+  color:var(--muted);
+  font-size:12px;
+}
+
+
+/* VAZIO */
+
+.empty{
+  grid-column:1/-1;
+  padding:70px 20px;
+  text-align:center;
+  border:1px solid var(--line);
+  border-radius:14px;
+  background:#0d0d0d;
+}
+
+.empty-icon{
+  font-size:45px;
+  margin-bottom:15px;
+}
+
+.empty h2{
+  margin:0;
+  font-size:18px;
+}
+
+.empty p{
+  color:var(--muted);
+  font-size:12px;
+}
+
+
+/* ERRO */
+
+.error{
+  grid-column:1/-1;
+  padding:30px;
+  text-align:center;
+  border:1px solid #422;
+  border-radius:12px;
+  background:#160c0c;
+  color:#ff8585;
+  font-size:12px;
+}
+
+
+/* FOOTER */
+
+footer{
+  border-top:1px solid var(--line);
+  background:#0b0b0b;
+  padding:35px 20px;
+  text-align:center;
+  color:#777;
+  font-size:10px;
+}
+
+
+/* RESPONSIVO */
+
+@media(max-width:1000px){
+
+  .artistas{
+    grid-template-columns:
+      repeat(3,minmax(0,1fr));
+  }
+
+}
+
+
+@media(max-width:750px){
+
+  .header-in{
+    min-height:70px;
+  }
+
+  nav{
+    gap:10px;
+  }
+
+  nav a{
+    font-size:9px;
+  }
+
+  nav a:nth-child(n+4){
+    display:none;
+  }
+
+  .artistas{
+    grid-template-columns:
+      repeat(2,minmax(0,1fr));
+  }
+
+  .artista-photo{
+    height:230px;
+  }
+
+}
+
+
+@media(max-width:480px){
+
+  .logo{
+    font-size:18px;
+  }
+
+  .logo span{
+    font-size:18px;
+  }
+
+  nav{
+    gap:7px;
+  }
+
+  nav a{
+    font-size:8px;
+  }
+
+  .hero{
+    padding-top:45px;
+  }
+
+  .hero h1{
+    letter-spacing:-2px;
+  }
+
+  .artistas{
+    grid-template-columns:1fr;
+  }
+
+  .artista-photo{
+    height:300px;
+  }
+
+}
+
 </style>
 
 </head>
 
 <body>
 
+<!-- HEADER -->
+
 <header>
 
-<div class="logo">
-👑 KUDURO PRIME
-</div>
+  <div class="header-in">
+
+```
+<a
+  href="index.html"
+  class="logo"
+>
+
+  <span>♕</span>
+
+  KUDURO PRIME
+
+</a>
+
 
 <nav>
-<a href="index.html">INÍCIO</a>
-<a href="artistas.html">ARTISTAS</a>
-<a href="#">MÚSICAS</a>
-<a href="#">RANKING</a>
-<a href="#">EVENTOS</a>
+
+  <a href="index.html">
+    INÍCIO
+  </a>
+
+  <a
+    href="artistas.html"
+    class="active"
+  >
+    ARTISTAS
+  </a>
+
+  <a href="musicas.html">
+    MÚSICAS
+  </a>
+
+  <a href="ranking.html">
+    RANKING
+  </a>
+
+  <a href="eventos.html">
+    EVENTOS
+  </a>
+
 </nav>
+```
+
+  </div>
 
 </header>
 
-<h1>👑 ARTISTAS PRIME</h1>
+<!-- HERO -->
 
-<p class="subtitulo">
-Os artistas que fazem o Kuduro acontecer.
-</p>
+<section class="hero">
 
-<section class="artistas">
+  <div class="hero-badge">
+    👑 KUDURO PRIME
+  </div>
 
-<div class="artista">
-<img src="https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&w=600&q=80">
-<div class="info">
-<h2>Figura do Adoço</h2>
-<p>Artista de Kuduro • Angola</p>
-<a class="botao" href="#">VER PERFIL</a>
-</div>
-</div>
+  <h1>
+    ARTISTAS <span>PRIME</span>
+  </h1>
 
-<div class="artista">
-<img src="https://images.unsplash.com/photo-1501386761578-eac5c94b800a?auto=format&fit=crop&w=600&q=80">
-<div class="info">
-<h2>Ready Neutro</h2>
-<p>Artista de Kuduro • Angola</p>
-<a class="botao" href="#">VER PERFIL</a>
-</div>
-</div>
-
-<div class="artista">
-<img src="https://images.unsplash.com/photo-1524650359799-842906ca9b00?auto=format&fit=crop&w=600&q=80">
-<div class="info">
-<h2>Nagrelha</h2>
-<p>Artista de Kuduro • Angola</p>
-<a class="botao" href="#">VER PERFIL</a>
-</div>
-</div>
+  <p>
+    Conhece todos os artistas que fazem parte
+    da comunidade KUDURO PRIME.
+  </p>
 
 </section>
 
+<!-- PESQUISA -->
+
+<div class="search-area">
+
+  <div class="search-box">
+
+```
+<span class="search-icon">
+  🔎
+</span>
+
+<input
+  type="text"
+  id="searchInput"
+  placeholder="Pesquisar artista..."
+  autocomplete="off"
+>
+```
+
+  </div>
+
+</div>
+
+<!-- CONTADOR -->
+
+<div class="artists-top">
+
+  <div class="artist-count">
+
+```
+<strong id="artistCount">
+  0
+</strong>
+
+ARTISTAS ENCONTRADOS
+```
+
+  </div>
+
+</div>
+
+<!-- LISTA -->
+
+<section
+  class="artistas"
+  id="artistsList"
+>
+
+  <div class="loading">
+
+```
+<div class="spinner"></div>
+
+<div class="loading-text">
+  A carregar artistas...
+</div>
+```
+
+  </div>
+
+</section>
+
+<!-- FOOTER -->
+
 <footer>
-© 2026 KUDURO PRIME — O KUDURO VIVE AQUI 👑
+
+© 2026 KUDURO PRIME —
+O KUDURO VIVE AQUI 👑
+
 </footer>
+
+<!-- FIREBASE -->
+
+<script type="module">
+
+import {
+  initializeApp
+}
+from
+"https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+
+
+import {
+  getFirestore,
+  collection,
+  getDocs
+}
+from
+"https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+
+
+/* =========================
+   FIREBASE
+========================= */
+
+const firebaseConfig = {
+
+  apiKey:
+    "AIzaSyDoitCcLeLDNBNPCP6fG1s_xbHr4UmohSo",
+
+  authDomain:
+    "kuduro-prime.firebaseapp.com",
+
+  projectId:
+    "kuduro-prime",
+
+  storageBucket:
+    "kuduro-prime.firebasestorage.app",
+
+  messagingSenderId:
+    "299776559545",
+
+  appId:
+    "1:299776559545:web:04aced1ba25391eb3fce68"
+
+};
+
+
+const app =
+  initializeApp(
+    firebaseConfig
+  );
+
+
+const db =
+  getFirestore(
+    app
+  );
+
+
+/* =========================
+   ELEMENTOS
+========================= */
+
+const artistsList =
+  document.querySelector(
+    "#artistsList"
+  );
+
+
+const searchInput =
+  document.querySelector(
+    "#searchInput"
+  );
+
+
+const artistCount =
+  document.querySelector(
+    "#artistCount"
+  );
+
+
+/* =========================
+   TODOS OS ARTISTAS
+========================= */
+
+let allArtists = [];
+
+
+/* =========================
+   NORMALIZAR ARTISTA
+========================= */
+
+function normalizeArtist(
+  docSnapshot
+){
+
+  const data =
+    docSnapshot.data();
+
+
+  const artist = {
+
+    id:
+      docSnapshot.id,
+
+    ...data
+
+  };
+
+
+  /*
+    ACEITA VÁRIOS NOMES
+    PARA NÃO QUEBRAR O SISTEMA
+  */
+
+  artist.name =
+
+    data.nome
+    ||
+
+    data.artistName
+    ||
+
+    data.artistaNome
+    ||
+
+    data.stageName
+    ||
+
+    data.nomeArtistico
+    ||
+
+    data.nome_artistico
+    ||
+
+    data.name
+
+    ||
+
+    "Artista Prime";
+
+
+  artist.username =
+
+    data.username
+    ||
+
+    data.userName
+    ||
+
+    data.nomeUsuario
+    ||
+
+    data.artistaUsername
+    ||
+
+    data.usernameArtistico
+
+    ||
+
+    "artista";
+
+
+  artist.photo =
+
+    data.foto
+    ||
+
+    data.photo
+    ||
+
+    data.photoURL
+    ||
+
+    data.fotoPerfil
+    ||
+
+    data.imagem
+    ||
+
+    data.image
+    ||
+
+    data.avatar
+    ||
+
+    "";
+
+
+  artist.genre =
+
+    data.genero
+    ||
+
+    data.genre
+    ||
+
+    data.estilo
+    ||
+
+    data.tipo
+
+    ||
+
+    "Kuduro";
+
+
+  artist.city =
+
+    data.cidade
+    ||
+
+    data.city
+    ||
+
+    data.localizacao
+    ||
+
+    data.location
+
+    ||
+
+    "Angola";
+
+
+  artist.country =
+
+    data.pais
+    ||
+
+    data.country
+
+    ||
+
+    "Angola";
+
+
+  return artist;
+
+}
+
+
+/* =========================
+   RENDERIZAR
+========================= */
+
+function renderArtists(
+  artists
+){
+
+  artistsList.innerHTML =
+    "";
+
+
+  artistCount.textContent =
+    artists.length;
+
+
+  if(
+    artists.length === 0
+  ){
+
+    artistsList.innerHTML = `
+
+      <div class="empty">
+
+        <div class="empty-icon">
+          👑
+        </div>
+
+        <h2>
+          Nenhum artista encontrado
+        </h2>
+
+        <p>
+          Ainda não existem artistas
+          correspondentes à pesquisa.
+        </p>
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  artists.forEach(
+    artist => {
+
+      const card =
+        document.createElement(
+          "article"
+        );
+
+
+      card.className =
+        "artista";
+
+
+      /* FOTO */
+
+      const photo =
+        document.createElement(
+          "div"
+        );
+
+
+      photo.className =
+        "artista-photo";
+
+
+      if(artist.photo){
+
+        const image =
+          document.createElement(
+            "img"
+          );
+
+
+        image.src =
+          artist.photo;
+
+
+        image.alt =
+          artist.name;
+
+
+        image.loading =
+          "lazy";
+
+
+        image.onerror =
+          () => {
+
+            image.style.display =
+              "none";
+
+            photo.innerHTML += `
+              <div class="photo-placeholder">
+                👤
+              </div>
+            `;
+
+          };
+
+
+        photo.appendChild(
+          image
+        );
+
+      }
+      else{
+
+        photo.innerHTML = `
+
+          <div class="photo-placeholder">
+            👤
+          </div>
+
+        `;
+
+      }
+
+
+      /* VERIFICADO */
+
+      const verified =
+        document.createElement(
+          "div"
+        );
+
+
+      verified.className =
+        "verified";
+
+
+      verified.textContent =
+        "✓";
+
+
+      photo.appendChild(
+        verified
+      );
+
+
+      /* INFO */
+
+      const info =
+        document.createElement(
+          "div"
+        );
+
+
+      info.className =
+        "info";
+
+
+      const name =
+        document.createElement(
+          "h2"
+        );
+
+
+      name.textContent =
+        artist.name;
+
+
+      const username =
+        document.createElement(
+          "div"
+        );
+
+
+      username.className =
+        "username";
+
+
+      username.textContent =
+        "@" +
+        String(
+          artist.username
+        ).replace(
+          /^@/,
+          ""
+        );
+
+
+      const description =
+        document.createElement(
+          "p"
+        );
+
+
+      description.textContent =
+
+        artist.genre
+
+        +
+
+        " • "
+
+        +
+
+        artist.city
+
+        +
+
+        ", "
+
+        +
+
+        artist.country;
+
+
+      /* BOTÃO */
+
+      const button =
+        document.createElement(
+          "a"
+        );
+
+
+      button.className =
+        "botao";
+
+
+      button.textContent =
+        "👁 VER PERFIL";
+
+
+      /*
+        O PERFIL PÚBLICO
+        PODE SER ABERTO PELO UID
+      */
+
+      button.href =
+
+        "perfil.html?user="
+
+        +
+
+        encodeURIComponent(
+          artist.username
+        );
+
+
+      info.appendChild(
+        name
+      );
+
+      info.appendChild(
+        username
+      );
+
+      info.appendChild(
+        description
+      );
+
+      info.appendChild(
+        button
+      );
+
+
+      card.appendChild(
+        photo
+      );
+
+      card.appendChild(
+        info
+      );
+
+
+      artistsList.appendChild(
+        card
+      );
+
+    }
+  );
+
+}
+
+
+/* =========================
+   CARREGAR FIRESTORE
+========================= */
+
+async function loadArtists(){
+
+  try{
+
+    const snapshot =
+      await getDocs(
+        collection(
+          db,
+          "artistas"
+        )
+      );
+
+
+    allArtists = [];
+
+
+    snapshot.forEach(
+      docSnapshot => {
+
+        allArtists.push(
+          normalizeArtist(
+            docSnapshot
+          )
+        );
+
+      }
+    );
+
+
+    /*
+      ORDENAR POR NOME
+    */
+
+    allArtists.sort(
+      (
+        a,
+        b
+      ) => {
+
+        return a.name
+          .localeCompare(
+            b.name,
+            "pt"
+          );
+
+      }
+    );
+
+
+    renderArtists(
+      allArtists
+    );
+
+  }
+  catch(error){
+
+    console.error(
+      "Erro ao carregar artistas:",
+      error
+    );
+
+
+    artistsList.innerHTML = `
+
+      <div class="error">
+
+        ⚠ Não foi possível
+        carregar os artistas.
+
+        <br><br>
+
+        Verifica as regras do Firestore.
+
+      </div>
+
+    `;
+
+  }
+
+}
+
+
+/* =========================
+   PESQUISA
+========================= */
+
+searchInput.addEventListener(
+  "input",
+  () => {
+
+    const term =
+      searchInput.value
+        .trim()
+        .toLowerCase();
+
+
+    if(!term){
+
+      renderArtists(
+        allArtists
+      );
+
+      return;
+
+    }
+
+
+    const filtered =
+      allArtists.filter(
+        artist => {
+
+          const text =
+
+            (
+              artist.name
+              +
+
+              " "
+
+              +
+
+              artist.username
+              +
+
+              " "
+
+              +
+
+              artist.genre
+              +
+
+              " "
+
+              +
+
+              artist.city
+              +
+
+              " "
+
+              +
+
+              artist.country
+
+            )
+            .toLowerCase();
+
+
+          return text.includes(
+            term
+          );
+
+        }
+      );
+
+
+    renderArtists(
+      filtered
+    );
+
+  }
+);
+
+
+/* =========================
+   INICIAR
+========================= */
+
+loadArtists();
+
+</script>
 
 </body>
 </html>
