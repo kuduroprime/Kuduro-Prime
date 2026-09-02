@@ -1,0 +1,1695 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Reels — KUDURO PRIME</title>
+
+  <style>
+    :root{
+      --bg:#070707;
+      --panel:#101010;
+      --gold:#f4bf31;
+      --gold2:#ffdc6b;
+      --text:#fff;
+      --muted:#aaa59a;
+      --line:#2a271f;
+      --red:#ff563f;
+    }
+
+    *{
+      box-sizing:border-box;
+    }
+
+    html,
+    body{
+      margin:0;
+      width:100%;
+      height:100%;
+      background:#000;
+      color:var(--text);
+      font-family:Arial,Helvetica,sans-serif;
+      overflow:hidden;
+    }
+
+    a{
+      color:inherit;
+      text-decoration:none;
+    }
+
+    /* TOPO */
+
+    .top{
+      position:fixed;
+      top:0;
+      left:0;
+      right:0;
+      height:68px;
+      z-index:100;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:0 22px;
+      background:linear-gradient(
+        180deg,
+        rgba(0,0,0,.85),
+        transparent
+      );
+    }
+
+    .back{
+      width:42px;
+      height:42px;
+      border-radius:50%;
+      display:grid;
+      place-items:center;
+      background:rgba(0,0,0,.45);
+      border:1px solid rgba(255,255,255,.15);
+      font-size:23px;
+    }
+
+    .title{
+      font-size:16px;
+      font-weight:900;
+      letter-spacing:.5px;
+    }
+
+    .title span{
+      color:var(--gold);
+    }
+
+    .camera{
+      width:42px;
+      height:42px;
+      display:grid;
+      place-items:center;
+      border-radius:50%;
+      border:1px solid var(--gold);
+      color:var(--gold);
+      font-size:20px;
+    }
+
+    /* REELS */
+
+    .reels{
+      height:100vh;
+      overflow-y:auto;
+      scroll-snap-type:y mandatory;
+      scrollbar-width:none;
+    }
+
+    .reels::-webkit-scrollbar{
+      display:none;
+    }
+
+    .reel{
+      position:relative;
+      width:100%;
+      height:100vh;
+      scroll-snap-align:start;
+      background:#111;
+      overflow:hidden;
+    }
+
+    .reel video{
+      position:absolute;
+      width:100%;
+      height:100%;
+      inset:0;
+      object-fit:cover;
+      background:#000;
+    }
+
+    .reel-placeholder{
+      position:absolute;
+      inset:0;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      flex-direction:column;
+      gap:12px;
+      text-align:center;
+      background:
+        radial-gradient(
+          circle at center,
+          rgba(244,191,49,.16),
+          transparent 40%
+        ),
+        #0a0a0a;
+      color:var(--muted);
+    }
+
+    .reel-placeholder strong{
+      color:var(--gold);
+      font-size:20px;
+    }
+
+    .reel-placeholder span{
+      font-size:13px;
+    }
+
+    .gradient{
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      background:
+        linear-gradient(
+          180deg,
+          rgba(0,0,0,.35),
+          transparent 30%,
+          transparent 60%,
+          rgba(0,0,0,.9)
+        );
+    }
+
+    /* ÁREA PARA PAUSAR */
+
+    .tap-area{
+      position:absolute;
+      inset:0;
+      z-index:5;
+      cursor:pointer;
+    }
+
+    /* PLAY */
+
+    .play-icon{
+      position:absolute;
+      top:50%;
+      left:50%;
+      transform:translate(-50%,-50%);
+      width:75px;
+      height:75px;
+      border-radius:50%;
+      display:none;
+      place-items:center;
+      background:rgba(0,0,0,.55);
+      border:2px solid rgba(255,255,255,.8);
+      font-size:30px;
+      z-index:10;
+    }
+
+    .reel.paused .play-icon{
+      display:grid;
+    }
+
+    /* INFORMAÇÕES */
+
+    .info{
+      position:absolute;
+      left:18px;
+      right:85px;
+      bottom:28px;
+      z-index:10;
+    }
+
+    .artist{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      margin-bottom:12px;
+    }
+
+    .avatar{
+      width:46px;
+      height:46px;
+      flex-shrink:0;
+      border-radius:50%;
+      overflow:hidden;
+      background:#1a1a1a;
+      border:2px solid var(--gold);
+      display:grid;
+      place-items:center;
+      color:var(--gold);
+      font-weight:bold;
+    }
+
+    .avatar img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
+
+    .artist-text{
+      min-width:0;
+    }
+
+    .artist-name{
+      font-size:14px;
+      font-weight:900;
+    }
+
+    .artist-user{
+      margin-top:3px;
+      font-size:11px;
+      color:#ccc;
+    }
+
+    .follow{
+      margin-left:5px;
+      padding:7px 10px;
+      border:1px solid var(--gold);
+      border-radius:7px;
+      background:rgba(0,0,0,.4);
+      color:var(--gold);
+      font-size:10px;
+      font-weight:900;
+      cursor:pointer;
+    }
+
+    .reel-title{
+      font-size:16px;
+      font-weight:900;
+      margin-bottom:8px;
+      line-height:1.3;
+    }
+
+    .caption{
+      font-size:13px;
+      color:#ddd;
+      line-height:1.5;
+      max-height:58px;
+      overflow:hidden;
+    }
+
+    .music{
+      margin-top:12px;
+      display:flex;
+      align-items:center;
+      gap:8px;
+      font-size:11px;
+      font-weight:bold;
+      white-space:nowrap;
+      overflow:hidden;
+    }
+
+    .music-text{
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+
+    /* AÇÕES */
+
+    .actions{
+      position:absolute;
+      right:13px;
+      bottom:28px;
+      z-index:10;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:18px;
+    }
+
+    .action{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:5px;
+    }
+
+    .action button{
+      width:52px;
+      height:52px;
+      border:0;
+      border-radius:50%;
+      background:rgba(0,0,0,.5);
+      color:#fff;
+      font-size:23px;
+      cursor:pointer;
+      backdrop-filter:blur(8px);
+    }
+
+    .action button.liked{
+      color:var(--red);
+    }
+
+    .action button.saved{
+      color:var(--gold);
+    }
+
+    .action span{
+      font-size:10px;
+      font-weight:bold;
+    }
+
+    .more{
+      font-size:24px !important;
+    }
+
+    /* BARRA DE PROGRESSO */
+
+    .progress{
+      position:absolute;
+      left:0;
+      bottom:0;
+      width:100%;
+      height:3px;
+      background:rgba(255,255,255,.2);
+      z-index:20;
+    }
+
+    .progress div{
+      width:0%;
+      height:100%;
+      background:var(--gold);
+    }
+
+    /* BOTÃO NOVO REEL */
+
+    .new-reel{
+      position:fixed;
+      right:18px;
+      top:78px;
+      z-index:101;
+      width:48px;
+      height:48px;
+      border-radius:50%;
+      display:grid;
+      place-items:center;
+      background:linear-gradient(
+        135deg,
+        var(--gold2),
+        var(--gold)
+      );
+      color:#17120a;
+      font-size:24px;
+      font-weight:bold;
+      box-shadow:0 5px 25px rgba(0,0,0,.4);
+    }
+
+    /* RESPONSIVO */
+
+    @media(min-width:700px){
+
+      .reel{
+        width:min(500px,100%);
+        margin:auto;
+        border-left:1px solid #222;
+        border-right:1px solid #222;
+      }
+
+    }
+
+    @media(max-width:480px){
+
+      .info{
+        left:14px;
+        bottom:24px;
+        right:78px;
+      }
+
+      .actions{
+        right:8px;
+        bottom:25px;
+        gap:14px;
+      }
+
+      .action button{
+        width:48px;
+        height:48px;
+      }
+
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- TOPO -->
+
+  <header class="top">
+
+    <a
+      href="feed.html"
+      class="back"
+      title="Voltar"
+    >
+      ←
+    </a>
+
+    <div class="title">
+      👑 KUDURO <span>REELS</span>
+    </div>
+
+    <a
+      href="nova-publicacao.html"
+      class="camera"
+      title="Criar Reel"
+    >
+      +
+    </a>
+
+  </header>
+
+
+  <a
+    href="nova-publicacao.html"
+    class="new-reel"
+    title="Criar publicação"
+  >
+    +
+  </a>
+
+
+  <!-- REELS -->
+
+  <main
+    class="reels"
+    id="reels"
+  >
+
+    <div
+      id="loading"
+      class="reel"
+    >
+
+      <div class="reel-placeholder">
+
+        <strong>👑 KUDURO REELS</strong>
+
+        <span>
+          A carregar vídeos...
+        </span>
+
+      </div>
+
+    </div>
+
+  </main>
+
+
+  <!-- FIREBASE -->
+
+  <script type="module">
+
+    import {
+      initializeApp
+    } from
+    "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+
+
+    import {
+      getAuth,
+      onAuthStateChanged
+    } from
+    "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+
+
+    import {
+      getFirestore,
+      collection,
+      query,
+      orderBy,
+      limit,
+      getDocs,
+      doc,
+      getDoc,
+      updateDoc,
+      increment,
+      arrayUnion,
+      arrayRemove,
+      setDoc,
+      serverTimestamp
+    } from
+    "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+
+
+    const firebaseConfig = {
+
+      apiKey:
+        "AIzaSyDoitCcLeLDNBNPCP6fG1s_xbHr4UmohSo",
+
+      authDomain:
+        "kuduro-prime.firebaseapp.com",
+
+      projectId:
+        "kuduro-prime",
+
+      storageBucket:
+        "kuduro-prime.firebasestorage.app",
+
+      messagingSenderId:
+        "299776559545",
+
+      appId:
+        "1:299776559545:web:04aced1ba25391eb3fce68"
+
+    };
+
+
+    const app =
+      initializeApp(
+        firebaseConfig
+      );
+
+
+    const auth =
+      getAuth(
+        app
+      );
+
+
+    const db =
+      getFirestore(
+        app
+      );
+
+
+    const reelsContainer =
+      document.getElementById(
+        "reels"
+      );
+
+
+    let currentUser =
+      null;
+
+
+    onAuthStateChanged(
+      auth,
+
+      user => {
+
+        currentUser =
+          user;
+
+      }
+
+    );
+
+
+    carregarReels();
+
+
+    async function carregarReels(){
+
+      try{
+
+        const q =
+          query(
+            collection(
+              db,
+              "publicacoes"
+            ),
+
+            orderBy(
+              "createdAt",
+              "desc"
+            ),
+
+            limit(50)
+
+          );
+
+
+        const snapshot =
+          await getDocs(q);
+
+
+        const reels =
+          [];
+
+
+        snapshot.forEach(
+          documento => {
+
+            const data =
+              documento.data();
+
+
+            if(
+              data.tipo ===
+              "video"
+            ){
+
+              reels.push({
+
+                id:
+                  documento.id,
+
+                ...data
+
+              });
+
+            }
+
+          }
+
+        );
+
+
+        reelsContainer.innerHTML =
+          "";
+
+
+        if(
+          reels.length === 0
+        ){
+
+          mostrarSemReels();
+
+          return;
+
+        }
+
+
+        reels.forEach(
+          reel => {
+
+            criarReel(
+              reel
+            );
+
+          }
+
+        );
+
+
+        iniciarObserver();
+
+
+      }
+      catch(error){
+
+        console.error(
+          "Erro ao carregar reels:",
+          error
+        );
+
+
+        reelsContainer.innerHTML =
+          "";
+
+
+        mostrarSemReels();
+
+      }
+
+    }
+
+
+    function mostrarSemReels(){
+
+      reelsContainer.innerHTML =
+        `
+
+          <section
+            class="reel"
+          >
+
+            <div
+              class="reel-placeholder"
+            >
+
+              <strong>
+                🎬 AINDA NÃO EXISTEM REELS
+              </strong>
+
+              <span>
+                Publica um vídeo para aparecer aqui.
+              </span>
+
+              <a
+                href="nova-publicacao.html"
+                class="follow"
+                style="
+                  margin-top:15px;
+                  font-size:12px;
+                "
+              >
+                + CRIAR PUBLICAÇÃO
+              </a>
+
+            </div>
+
+          </section>
+
+        `;
+
+    }
+
+
+    function criarReel(
+      reel
+    ){
+
+      const section =
+        document.createElement(
+          "section"
+        );
+
+
+      section.className =
+        "reel";
+
+
+      section.dataset.id =
+        reel.id;
+
+
+      const photo =
+        reel.fotoArtista
+        ||
+        "";
+
+
+      const nome =
+        reel.nomeArtista
+        ||
+        "Artista Prime";
+
+
+      const username =
+        reel.username
+        ||
+        "artista";
+
+
+      const titulo =
+        reel.titulo
+        ||
+        "Novo Reel";
+
+
+      const legenda =
+        reel.legenda
+        ||
+        "";
+
+
+      section.innerHTML =
+        `
+
+          <video
+            src="${reel.arquivoUrl}"
+            loop
+            playsinline
+            preload="metadata"
+          ></video>
+
+
+          <div
+            class="gradient"
+          ></div>
+
+
+          <div
+            class="tap-area"
+          ></div>
+
+
+          <div
+            class="play-icon"
+          >
+            ▶
+          </div>
+
+
+          <div
+            class="info"
+          >
+
+            <div
+              class="artist"
+            >
+
+              <div
+                class="avatar"
+              >
+
+                ${
+                  photo
+                  ?
+                  `<img
+                    src="${photo}"
+                    alt="${nome}"
+                  >`
+                  :
+                  "👤"
+                }
+
+              </div>
+
+
+              <div
+                class="artist-text"
+              >
+
+                <div
+                  class="artist-name"
+                >
+                  ${nome}
+                </div>
+
+
+                <div
+                  class="artist-user"
+                >
+                  @${username}
+                </div>
+
+              </div>
+
+
+              <button
+                class="follow"
+              >
+                + SEGUIR
+              </button>
+
+            </div>
+
+
+            <div
+              class="reel-title"
+            >
+              ${titulo}
+            </div>
+
+
+            <div
+              class="caption"
+            >
+              ${legenda}
+            </div>
+
+
+            <div
+              class="music"
+            >
+
+              🎵
+
+              <div
+                class="music-text"
+              >
+                Som original • ${nome}
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <div
+            class="actions"
+          >
+
+            <div
+              class="action"
+            >
+
+              <button
+                class="likeBtn"
+              >
+                ♡
+              </button>
+
+              <span
+                class="likeCount"
+              >
+                0
+              </span>
+
+            </div>
+
+
+            <div
+              class="action"
+            >
+
+              <button
+                class="commentBtn"
+              >
+                💬
+              </button>
+
+              <span>
+                COMENTAR
+              </span>
+
+            </div>
+
+
+            <div
+              class="action"
+            >
+
+              <button
+                class="shareBtn"
+              >
+                ↗
+              </button>
+
+              <span>
+                PARTILHAR
+              </span>
+
+            </div>
+
+
+            <div
+              class="action"
+            >
+
+              <button
+                class="saveBtn"
+              >
+                🔖
+              </button>
+
+              <span>
+                GUARDAR
+              </span>
+
+            </div>
+
+          </div>
+
+
+          <div
+            class="progress"
+          >
+
+            <div></div>
+
+          </div>
+
+        `;
+
+
+      reelsContainer.appendChild(
+        section
+      );
+
+
+      const video =
+        section.querySelector(
+          "video"
+        );
+
+
+      const tapArea =
+        section.querySelector(
+          ".tap-area"
+        );
+
+
+      const playIcon =
+        section.querySelector(
+          ".play-icon"
+        );
+
+
+      const progress =
+        section.querySelector(
+          ".progress div"
+        );
+
+
+      const likeBtn =
+        section.querySelector(
+          ".likeBtn"
+        );
+
+
+      const saveBtn =
+        section.querySelector(
+          ".saveBtn"
+        );
+
+
+      const commentBtn =
+        section.querySelector(
+          ".commentBtn"
+        );
+
+
+      const shareBtn =
+        section.querySelector(
+          ".shareBtn"
+        );
+
+
+      tapArea.addEventListener(
+        "click",
+
+        () => {
+
+          if(
+            video.paused
+          ){
+
+            video.play();
+
+            section.classList.remove(
+              "paused"
+            );
+
+          }
+          else{
+
+            video.pause();
+
+            section.classList.add(
+              "paused"
+            );
+
+          }
+
+        }
+
+      );
+
+
+      video.addEventListener(
+        "play",
+
+        () => {
+
+          section.classList.remove(
+            "paused"
+          );
+
+        }
+
+      );
+
+
+      video.addEventListener(
+        "pause",
+
+        () => {
+
+          section.classList.add(
+            "paused"
+          );
+
+        }
+
+      );
+
+
+      video.addEventListener(
+        "timeupdate",
+
+        () => {
+
+          if(
+            video.duration
+          ){
+
+            const percent =
+              (
+                video.currentTime
+                /
+                video.duration
+              )
+              *
+              100;
+
+
+            progress.style.width =
+              percent + "%";
+
+          }
+
+        }
+
+      );
+
+
+      likeBtn.addEventListener(
+        "click",
+
+        event => {
+
+          event.stopPropagation();
+
+          gostarReel(
+            reel.id,
+            likeBtn,
+            section
+          );
+
+        }
+
+      );
+
+
+      saveBtn.addEventListener(
+        "click",
+
+        event => {
+
+          event.stopPropagation();
+
+          guardarReel(
+            reel,
+            saveBtn
+          );
+
+        }
+
+      );
+
+
+      commentBtn.addEventListener(
+        "click",
+
+        event => {
+
+          event.stopPropagation();
+
+          abrirComentarios(
+            reel
+          );
+
+        }
+
+      );
+
+
+      shareBtn.addEventListener(
+        "click",
+
+        event => {
+
+          event.stopPropagation();
+
+          partilharReel(
+            reel
+          );
+
+        }
+
+      );
+
+
+      const followBtn =
+        section.querySelector(
+          ".follow"
+        );
+
+
+      followBtn.addEventListener(
+        "click",
+
+        event => {
+
+          event.stopPropagation();
+
+
+          if(
+            followBtn.textContent.includes(
+              "SEGUIR"
+            )
+          ){
+
+            followBtn.textContent =
+              "✓ A SEGUIR";
+
+          }
+          else{
+
+            followBtn.textContent =
+              "+ SEGUIR";
+
+          }
+
+        }
+
+      );
+
+    }
+
+
+    async function gostarReel(
+      reelId,
+      button,
+      section
+    ){
+
+      if(
+        !currentUser
+      ){
+
+        alert(
+          "Inicia sessão para gostar."
+        );
+
+        return;
+
+      }
+
+
+      const reelRef =
+        doc(
+          db,
+          "publicacoes",
+          reelId
+        );
+
+
+      try{
+
+        const reelSnap =
+          await getDoc(
+            reelRef
+          );
+
+
+        if(
+          !reelSnap.exists()
+        ){
+
+          return;
+
+        }
+
+
+        const data =
+          reelSnap.data();
+
+
+        const likes =
+          data.likes
+          ||
+          [];
+
+
+        const alreadyLiked =
+          likes.includes(
+            currentUser.uid
+          );
+
+
+        if(
+          alreadyLiked
+        ){
+
+          await updateDoc(
+            reelRef,
+            {
+
+              likes:
+                arrayRemove(
+                  currentUser.uid
+                )
+
+            }
+          );
+
+
+          button.classList.remove(
+            "liked"
+          );
+
+          button.textContent =
+            "♡";
+
+        }
+        else{
+
+          await updateDoc(
+            reelRef,
+            {
+
+              likes:
+                arrayUnion(
+                  currentUser.uid
+                )
+
+            }
+          );
+
+
+          button.classList.add(
+            "liked"
+          );
+
+          button.textContent =
+            "♥";
+
+        }
+
+
+        const likeCount =
+          section.querySelector(
+            ".likeCount"
+          );
+
+
+        const novoNumero =
+          alreadyLiked
+          ?
+          Math.max(
+            0,
+            Number(
+              likeCount.textContent
+            ) - 1
+          )
+          :
+          Number(
+            likeCount.textContent
+          ) + 1;
+
+
+        likeCount.textContent =
+          novoNumero;
+
+      }
+      catch(error){
+
+        console.error(
+          error
+        );
+
+      }
+
+    }
+
+
+    async function guardarReel(
+      reel,
+      button
+    ){
+
+      if(
+        !currentUser
+      ){
+
+        alert(
+          "Inicia sessão para guardar."
+        );
+
+        return;
+
+      }
+
+
+      try{
+
+        const savedRef =
+          doc(
+            db,
+            "utilizadores",
+            currentUser.uid,
+            "guardados",
+            reel.id
+          );
+
+
+        const savedSnap =
+          await getDoc(
+            savedRef
+          );
+
+
+        if(
+          savedSnap.exists()
+        ){
+
+          await updateDoc(
+            savedRef,
+            {
+
+              removido:
+                true
+
+            }
+          );
+
+
+          button.classList.remove(
+            "saved"
+          );
+
+          button.textContent =
+            "🔖";
+
+
+          alert(
+            "Removido dos guardados."
+          );
+
+        }
+        else{
+
+          await setDoc(
+            savedRef,
+            {
+
+              publicacaoId:
+                reel.id,
+
+              tipo:
+                "video",
+
+              titulo:
+                reel.titulo
+                ||
+                "Reel",
+
+              legenda:
+                reel.legenda
+                ||
+                "",
+
+              arquivoUrl:
+                reel.arquivoUrl,
+
+              nomeArtista:
+                reel.nomeArtista
+                ||
+                "Artista",
+
+              fotoArtista:
+                reel.fotoArtista
+                ||
+                "",
+
+              criadoEm:
+                serverTimestamp(),
+
+              removido:
+                false
+
+            }
+          );
+
+
+          button.classList.add(
+            "saved"
+          );
+
+
+          alert(
+            "👑 Reel guardado com sucesso!"
+          );
+
+        }
+
+      }
+      catch(error){
+
+        console.error(
+          error
+        );
+
+
+        alert(
+          "Erro ao guardar o Reel."
+        );
+
+      }
+
+    }
+
+
+    function abrirComentarios(
+      reel
+    ){
+
+      window.location.href =
+        "perfil.html?user="
+        +
+        encodeURIComponent(
+          reel.username
+          ||
+          ""
+        );
+
+    }
+
+
+    async function partilharReel(
+      reel
+    ){
+
+      const texto =
+        `Vê este Reel de ${reel.nomeArtista || "um artista"} no KUDURO PRIME 👑`;
+
+
+      if(
+        navigator.share
+      ){
+
+        try{
+
+          await navigator.share({
+
+            title:
+              reel.titulo
+              ||
+              "KUDURO PRIME Reel",
+
+            text:
+              texto,
+
+            url:
+              window.location.href
+
+          });
+
+        }
+        catch(error){
+
+          console.log(
+            "Partilha cancelada."
+          );
+
+        }
+
+      }
+      else{
+
+        try{
+
+          await navigator.clipboard.writeText(
+            window.location.href
+          );
+
+
+          alert(
+            "Link copiado!"
+          );
+
+        }
+        catch(error){
+
+          alert(
+            texto
+          );
+
+        }
+
+      }
+
+    }
+
+
+    function iniciarObserver(){
+
+      const observer =
+        new IntersectionObserver(
+
+          entries => {
+
+            entries.forEach(
+              entry => {
+
+                const video =
+                  entry.target.querySelector(
+                    "video"
+                  );
+
+
+                if(
+                  !video
+                ){
+
+                  return;
+
+                }
+
+
+                if(
+                  entry.isIntersecting
+                  &&
+                  entry.intersectionRatio >
+                  0.7
+                ){
+
+                  document
+                    .querySelectorAll(
+                      ".reel video"
+                    )
+                    .forEach(
+                      outroVideo => {
+
+                        if(
+                          outroVideo !==
+                          video
+                        ){
+
+                          outroVideo.pause();
+
+                        }
+
+                      }
+                    );
+
+
+                  video.play()
+                  .catch(
+                    () => {}
+                  );
+
+                }
+                else{
+
+                  video.pause();
+
+                }
+
+              }
+
+            );
+
+          },
+
+          {
+
+            threshold:
+              0.7
+
+          }
+
+        );
+
+
+      document
+        .querySelectorAll(
+          ".reel"
+        )
+        .forEach(
+          reel => {
+
+            observer.observe(
+              reel
+            );
+
+          }
+
+        );
+
+    }
+
+  </script>
+
+</body>
+</html>
