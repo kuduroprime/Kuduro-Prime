@@ -4,11 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Meus Vídeos — KUDURO PRIME</title>
+  <title>Meus Vídeos | KUDURO PRIME</title>
 
   <style>
     :root{
-      --bg:#070707;
+      --bg:#060606;
       --panel:#101010;
       --panel2:#151515;
       --gold:#f4bf31;
@@ -16,8 +16,8 @@
       --text:#f7f4ed;
       --muted:#aaa59a;
       --line:#29251d;
-      --red:#ff563f;
       --green:#48d597;
+      --red:#ff563f;
       --blue:#5da9ff;
     }
 
@@ -28,234 +28,112 @@
     }
 
     body{
-      background:var(--bg);
+      font-family:Arial, Helvetica, sans-serif;
+      background:
+        radial-gradient(circle at top,#1b1608 0%,#060606 45%);
       color:var(--text);
-      font-family:Arial,Helvetica,sans-serif;
       min-height:100vh;
-    }
-
-    button,
-    input,
-    textarea,
-    select{
-      font:inherit;
-    }
-
-    button{
-      cursor:pointer;
-    }
-
-    /* =========================
-       SIDEBAR
-    ========================= */
-
-    .sidebar{
-      position:fixed;
-      left:0;
-      top:0;
-      width:250px;
-      height:100vh;
-      background:#090909;
-      border-right:1px solid var(--line);
-      padding:25px 16px;
-      z-index:1000;
-      overflow-y:auto;
-    }
-
-    .logo{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      padding:5px 10px 28px;
-      font-size:21px;
-      font-weight:900;
-      color:var(--gold);
-      letter-spacing:.5px;
-    }
-
-    .logo span{
-      color:#fff;
-    }
-
-    .artist-mini{
-      background:linear-gradient(145deg,#151515,#0d0d0d);
-      border:1px solid var(--line);
-      border-radius:14px;
-      padding:14px;
-      margin-bottom:22px;
-    }
-
-    .artist-mini-top{
-      display:flex;
-      align-items:center;
-      gap:11px;
-    }
-
-    .artist-photo{
-      width:45px;
-      height:45px;
-      border-radius:50%;
-      object-fit:cover;
-      border:2px solid var(--gold);
-      background:#222;
-    }
-
-    .artist-name{
-      font-weight:800;
-      font-size:14px;
-      overflow:hidden;
-      text-overflow:ellipsis;
-      white-space:nowrap;
-      max-width:145px;
-    }
-
-    .artist-label{
-      font-size:11px;
-      color:var(--muted);
-      margin-top:4px;
-    }
-
-    .menu-title{
-      color:#777;
-      font-size:10px;
-      font-weight:800;
-      letter-spacing:1.5px;
-      margin:18px 10px 8px;
-      text-transform:uppercase;
-    }
-
-    .menu{
-      display:flex;
-      flex-direction:column;
-      gap:5px;
-    }
-
-    .menu a{
-      color:#bdb9b0;
-      text-decoration:none;
-      padding:12px 13px;
-      border-radius:10px;
-      display:flex;
-      align-items:center;
-      gap:11px;
-      font-size:14px;
-      font-weight:700;
-      transition:.2s;
-    }
-
-    .menu a:hover{
-      background:#161616;
-      color:#fff;
-    }
-
-    .menu a.active{
-      background:rgba(244,191,49,.12);
-      color:var(--gold);
-      border:1px solid rgba(244,191,49,.18);
-    }
-
-    .logout{
-      margin-top:25px;
-      width:100%;
-      border:1px solid #35221e;
-      background:#160d0b;
-      color:#ff8979;
-      padding:11px;
-      border-radius:10px;
-      font-weight:800;
-    }
-
-    /* =========================
-       MAIN
-    ========================= */
-
-    .main{
-      margin-left:250px;
-      min-height:100vh;
-    }
-
-    .topbar{
-      height:72px;
-      border-bottom:1px solid var(--line);
-      background:rgba(7,7,7,.92);
-      backdrop-filter:blur(10px);
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      padding:0 30px;
-      position:sticky;
-      top:0;
-      z-index:500;
-    }
-
-    .topbar-title{
-      font-size:17px;
-      font-weight:900;
-    }
-
-    .topbar-title span{
-      color:var(--gold);
-    }
-
-    .top-actions{
-      display:flex;
-      gap:10px;
-    }
-
-    .btn{
-      border:none;
-      border-radius:10px;
-      padding:11px 16px;
-      font-weight:800;
-      transition:.2s;
-    }
-
-    .btn:hover{
-      transform:translateY(-1px);
-    }
-
-    .btn-gold{
-      background:var(--gold);
-      color:#080808;
-    }
-
-    .btn-dark{
-      background:#151515;
-      border:1px solid var(--line);
-      color:#fff;
-    }
-
-    .content{
-      padding:30px;
-      max-width:1400px;
-      margin:auto;
     }
 
     /* =========================
        HEADER
     ========================= */
 
-    .page-header{
+    header{
+      height:70px;
+      background:rgba(6,6,6,.96);
+      border-bottom:1px solid var(--line);
       display:flex;
-      align-items:flex-start;
+      align-items:center;
       justify-content:space-between;
-      gap:20px;
-      margin-bottom:25px;
+      padding:0 30px;
+      position:sticky;
+      top:0;
+      z-index:100;
     }
 
-    .page-header h1{
-      font-size:32px;
-      margin-bottom:7px;
+    .logo{
+      color:var(--gold);
+      font-size:22px;
+      font-weight:900;
+      letter-spacing:.5px;
     }
 
-    .page-header h1 span{
+    .header-right{
+      display:flex;
+      align-items:center;
+      gap:15px;
+    }
+
+    .back{
+      color:var(--muted);
+      text-decoration:none;
+      font-weight:700;
+      transition:.2s;
+    }
+
+    .back:hover{
       color:var(--gold);
     }
 
-    .page-header p{
+    .logout{
+      border:1px solid var(--line);
+      background:#111;
+      color:#ddd;
+      padding:9px 14px;
+      border-radius:9px;
+      cursor:pointer;
+      font-weight:700;
+    }
+
+    .logout:hover{
+      color:var(--gold);
+      border-color:#55461e;
+    }
+
+    /* =========================
+       MAIN
+    ========================= */
+
+    main{
+      width:min(1100px,92%);
+      margin:40px auto 70px;
+    }
+
+    .hero{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-end;
+      gap:20px;
+      margin-bottom:28px;
+    }
+
+    .hero h1{
+      font-size:34px;
+      color:var(--gold);
+      margin-bottom:8px;
+    }
+
+    .hero p{
       color:var(--muted);
-      font-size:14px;
       line-height:1.5;
+    }
+
+    .upload-btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:14px 20px;
+      border-radius:11px;
+      background:linear-gradient(135deg,var(--gold),var(--gold2));
+      color:#050505;
+      text-decoration:none;
+      font-weight:900;
+      white-space:nowrap;
+    }
+
+    .upload-btn:hover{
+      filter:brightness(1.05);
     }
 
     /* =========================
@@ -265,359 +143,315 @@
     .stats{
       display:grid;
       grid-template-columns:repeat(3,1fr);
-      gap:14px;
+      gap:15px;
       margin-bottom:25px;
     }
 
     .stat{
-      background:linear-gradient(145deg,var(--panel2),var(--panel));
+      background:linear-gradient(145deg,var(--panel),var(--panel2));
       border:1px solid var(--line);
       border-radius:15px;
-      padding:19px;
+      padding:20px;
     }
 
-    .stat-label{
-      color:var(--muted);
-      font-size:12px;
-      margin-bottom:8px;
-    }
-
-    .stat-number{
-      font-size:25px;
-      font-weight:900;
-    }
-
-    .stat-number.gold{
-      color:var(--gold);
-    }
-
-    /* =========================
-       FORM
-    ========================= */
-
-    .upload-panel{
-      background:linear-gradient(145deg,#121212,#0c0c0c);
-      border:1px solid var(--line);
-      border-radius:18px;
-      padding:24px;
-      margin-bottom:30px;
-    }
-
-    .panel-title{
-      font-size:18px;
-      font-weight:900;
-      margin-bottom:5px;
-    }
-
-    .panel-subtitle{
+    .stat span{
+      display:block;
       color:var(--muted);
       font-size:13px;
-      margin-bottom:22px;
-    }
-
-    .free-rule{
-      background:rgba(72,213,151,.08);
-      border:1px solid rgba(72,213,151,.2);
-      color:#baf2d7;
-      border-radius:12px;
-      padding:13px 15px;
-      font-size:13px;
-      margin-bottom:20px;
-    }
-
-    .free-rule strong{
-      color:var(--green);
-    }
-
-    .form-grid{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:16px;
-    }
-
-    .field{
-      display:flex;
-      flex-direction:column;
-      gap:7px;
-    }
-
-    .field.full{
-      grid-column:1/-1;
-    }
-
-    label{
-      font-size:12px;
-      font-weight:800;
-      color:#d7d2c8;
-    }
-
-    input,
-    textarea,
-    select{
-      width:100%;
-      background:#090909;
-      color:#fff;
-      border:1px solid #302c24;
-      border-radius:10px;
-      padding:13px;
-      outline:none;
-    }
-
-    input:focus,
-    textarea:focus,
-    select:focus{
-      border-color:var(--gold);
-    }
-
-    textarea{
-      min-height:100px;
-      resize:vertical;
-    }
-
-    input[type="file"]{
-      padding:11px;
-    }
-
-    input[type="file"]::file-selector-button{
-      background:var(--gold);
-      border:0;
-      border-radius:7px;
-      padding:8px 12px;
-      margin-right:10px;
-      font-weight:800;
-      cursor:pointer;
-    }
-
-    .video-info{
-      display:none;
-      margin-top:10px;
-      background:#151515;
-      border:1px solid var(--line);
-      border-radius:10px;
-      padding:12px;
-      font-size:13px;
-    }
-
-    .video-info.show{
-      display:block;
-    }
-
-    .duration-ok{
-      color:var(--green);
-      font-weight:800;
-    }
-
-    .duration-paid{
-      color:var(--gold);
-      font-weight:800;
-    }
-
-    .payment-box{
-      display:none;
-      margin-top:18px;
-      background:rgba(244,191,49,.08);
-      border:1px solid rgba(244,191,49,.25);
-      border-radius:13px;
-      padding:16px;
-    }
-
-    .payment-box.show{
-      display:block;
-    }
-
-    .payment-box h3{
-      color:var(--gold);
-      font-size:15px;
       margin-bottom:7px;
     }
 
-    .payment-box p{
-      color:#c8c2b7;
-      font-size:13px;
-      line-height:1.5;
-    }
-
-    .payment-price{
-      font-size:23px;
-      font-weight:900;
+    .stat strong{
       color:var(--gold);
-      margin:9px 0;
-    }
-
-    .check-row{
-      display:flex;
-      align-items:flex-start;
-      gap:9px;
-      margin-top:14px;
-      color:#c7c1b7;
-      font-size:12px;
-      line-height:1.4;
-    }
-
-    .check-row input{
-      width:auto;
-      margin-top:2px;
-      accent-color:var(--gold);
-    }
-
-    .form-footer{
-      margin-top:20px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:15px;
-    }
-
-    .upload-status{
-      font-size:13px;
-      color:var(--muted);
-    }
-
-    .progress{
-      display:none;
-      margin-top:14px;
-      height:7px;
-      background:#1d1d1d;
-      border-radius:10px;
-      overflow:hidden;
-    }
-
-    .progress.show{
-      display:block;
-    }
-
-    .progress-bar{
-      width:0%;
-      height:100%;
-      background:var(--gold);
-      transition:.3s;
+      font-size:28px;
     }
 
     /* =========================
-       VIDEOS
+       INFO
     ========================= */
 
-    .section-head{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      margin-bottom:17px;
+    .rule-box{
+      background:rgba(244,191,49,.06);
+      border:1px solid rgba(244,191,49,.22);
+      border-radius:15px;
+      padding:17px 20px;
+      margin-bottom:28px;
+      line-height:1.6;
+      color:#ddd;
     }
 
-    .section-head h2{
-      font-size:20px;
+    .rule-box strong{
+      color:var(--gold);
     }
 
-    .section-head span{
-      color:var(--muted);
-      font-size:12px;
-    }
+    /* =========================
+       GRID
+    ========================= */
 
     .videos-grid{
       display:grid;
       grid-template-columns:repeat(3,1fr);
-      gap:18px;
+      gap:20px;
     }
 
     .video-card{
-      background:linear-gradient(145deg,#121212,#0d0d0d);
+      background:linear-gradient(145deg,var(--panel),var(--panel2));
       border:1px solid var(--line);
-      border-radius:16px;
+      border-radius:17px;
       overflow:hidden;
-      position:relative;
+      box-shadow:0 12px 35px rgba(0,0,0,.25);
     }
 
-    .video-player{
-      width:100%;
-      aspect-ratio:16/9;
+    .video-cover{
+      position:relative;
       background:#000;
-      display:block;
+      aspect-ratio:16/9;
+      overflow:hidden;
+    }
+
+    .video-cover img{
+      width:100%;
+      height:100%;
       object-fit:cover;
+      display:block;
+    }
+
+    .video-cover video{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+      background:#000;
+    }
+
+    .no-cover{
+      width:100%;
+      height:100%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:45px;
+      color:#555;
+      background:
+        radial-gradient(circle,#1b1b1b,#050505);
+    }
+
+    .duration{
+      position:absolute;
+      right:9px;
+      bottom:9px;
+      background:rgba(0,0,0,.85);
+      color:white;
+      padding:5px 8px;
+      border-radius:6px;
+      font-size:12px;
+      font-weight:900;
+    }
+
+    .status-badge{
+      position:absolute;
+      left:9px;
+      top:9px;
+      padding:6px 9px;
+      border-radius:7px;
+      font-size:11px;
+      font-weight:900;
+      text-transform:uppercase;
+      background:#111;
+    }
+
+    .status-publicado{
+      color:var(--green);
+      border:1px solid rgba(72,213,151,.35);
+    }
+
+    .status-pendente{
+      color:var(--gold);
+      border:1px solid rgba(244,191,49,.35);
+    }
+
+    .status-privado{
+      color:var(--blue);
+      border:1px solid rgba(93,169,255,.35);
     }
 
     .video-body{
-      padding:15px;
+      padding:17px;
     }
 
     .video-title{
-      font-size:16px;
+      color:#fff;
+      font-size:18px;
       font-weight:900;
       margin-bottom:7px;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
-    }
-
-    .video-meta{
-      color:var(--muted);
-      font-size:11px;
-      margin-bottom:9px;
+      line-height:1.3;
+      word-break:break-word;
     }
 
     .video-description{
-      color:#aaa59a;
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.5;
+      margin-bottom:14px;
+      min-height:20px;
+    }
+
+    .meta{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      margin-bottom:15px;
+    }
+
+    .meta span{
+      padding:6px 8px;
+      border-radius:7px;
+      background:#0a0a0a;
+      border:1px solid var(--line);
+      color:#bbb;
+      font-size:11px;
+    }
+
+    /* =========================
+       PAGAMENTO
+    ========================= */
+
+    .payment-box{
+      margin-top:13px;
+      padding:12px;
+      border-radius:10px;
+      background:rgba(244,191,49,.07);
+      border:1px solid rgba(244,191,49,.25);
+    }
+
+    .payment-box .payment-text{
+      color:#ddd;
       font-size:12px;
       line-height:1.45;
-      margin-bottom:14px;
-      display:-webkit-box;
-      -webkit-line-clamp:2;
-      -webkit-box-orient:vertical;
-      overflow:hidden;
+      margin-bottom:10px;
     }
 
-    .video-footer{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:10px;
-    }
-
-    .status{
-      padding:5px 8px;
-      border-radius:7px;
-      font-size:10px;
-      font-weight:900;
-    }
-
-    .status.publicado{
-      background:rgba(72,213,151,.1);
-      color:var(--green);
-      border:1px solid rgba(72,213,151,.2);
-    }
-
-    .status.pendente{
-      background:rgba(244,191,49,.1);
+    .payment-box strong{
       color:var(--gold);
-      border:1px solid rgba(244,191,49,.2);
     }
 
-    .delete-btn{
-      background:#1a0e0c;
-      color:#ff796a;
-      border:1px solid #3a211d;
-      border-radius:8px;
-      padding:7px 10px;
-      font-size:11px;
+    .pay-btn{
+      display:flex;
+      width:100%;
+      justify-content:center;
+      align-items:center;
+      text-decoration:none;
+      background:linear-gradient(135deg,var(--gold),var(--gold2));
+      color:#050505;
+      padding:11px 10px;
+      border-radius:9px;
+      font-weight:900;
+      font-size:13px;
+      transition:.2s;
+    }
+
+    .pay-btn:hover{
+      transform:translateY(-1px);
+      filter:brightness(1.06);
+    }
+
+    .pending-box{
+      margin-top:13px;
+      padding:12px;
+      border-radius:10px;
+      background:rgba(244,191,49,.07);
+      border:1px solid rgba(244,191,49,.28);
+      color:var(--gold2);
+      font-size:12px;
+      line-height:1.5;
+      font-weight:700;
+    }
+
+    .free-box{
+      margin-top:13px;
+      padding:10px 12px;
+      border-radius:9px;
+      background:rgba(72,213,151,.07);
+      border:1px solid rgba(72,213,151,.25);
+      color:var(--green);
+      font-size:12px;
       font-weight:800;
     }
 
-    .delete-btn:hover{
-      background:#26120f;
+    .confirmed-box{
+      margin-top:13px;
+      padding:10px 12px;
+      border-radius:9px;
+      background:rgba(72,213,151,.07);
+      border:1px solid rgba(72,213,151,.25);
+      color:var(--green);
+      font-size:12px;
+      font-weight:800;
     }
+
+    /* =========================
+       ACTIONS
+    ========================= */
+
+    .actions{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:9px;
+      margin-top:15px;
+    }
+
+    .action{
+      border:1px solid var(--line);
+      background:#0b0b0b;
+      color:#ddd;
+      padding:10px;
+      border-radius:9px;
+      text-align:center;
+      text-decoration:none;
+      font-size:12px;
+      font-weight:800;
+      cursor:pointer;
+    }
+
+    .action:hover{
+      border-color:#55461e;
+      color:var(--gold);
+    }
+
+    .delete-btn{
+      color:#ff8b7a;
+    }
+
+    .delete-btn:hover{
+      color:#ff563f;
+      border-color:rgba(255,86,63,.3);
+    }
+
+    /* =========================
+       EMPTY
+    ========================= */
 
     .empty{
-      background:#101010;
-      border:1px dashed #332f27;
-      border-radius:16px;
-      padding:45px 20px;
+      background:linear-gradient(145deg,var(--panel),var(--panel2));
+      border:1px solid var(--line);
+      border-radius:17px;
+      padding:50px 25px;
       text-align:center;
-      color:var(--muted);
-      grid-column:1/-1;
     }
 
-    .empty-icon{
-      font-size:38px;
-      margin-bottom:12px;
+    .empty .icon{
+      font-size:55px;
+      margin-bottom:15px;
+    }
+
+    .empty h2{
+      margin-bottom:8px;
+      color:#fff;
+    }
+
+    .empty p{
+      color:var(--muted);
+      margin-bottom:22px;
     }
 
     /* =========================
@@ -625,1629 +459,726 @@
     ========================= */
 
     .loading{
-      padding:30px;
       text-align:center;
+      padding:45px;
       color:var(--muted);
-      grid-column:1/-1;
     }
 
-    .spinner{
-      width:30px;
-      height:30px;
-      border:3px solid #292929;
-      border-top-color:var(--gold);
-      border-radius:50%;
-      margin:0 auto 10px;
-      animation:spin 1s linear infinite;
-    }
-
-    @keyframes spin{
-      to{transform:rotate(360deg);}
+    .error{
+      background:rgba(255,86,63,.08);
+      border:1px solid rgba(255,86,63,.25);
+      color:#ff9586;
+      padding:18px;
+      border-radius:12px;
+      line-height:1.5;
     }
 
     /* =========================
-       TOAST
+       MODAL
     ========================= */
 
-    .toast{
+    .modal{
+      display:none;
       position:fixed;
-      right:25px;
-      bottom:25px;
-      background:#151515;
+      inset:0;
+      background:rgba(0,0,0,.8);
+      z-index:999;
+      align-items:center;
+      justify-content:center;
+      padding:20px;
+    }
+
+    .modal.active{
+      display:flex;
+    }
+
+    .modal-box{
+      width:min(430px,100%);
+      background:#111;
       border:1px solid var(--line);
+      border-radius:17px;
+      padding:25px;
+      text-align:center;
+    }
+
+    .modal-box h3{
+      color:var(--gold);
+      margin-bottom:10px;
+    }
+
+    .modal-box p{
+      color:#bbb;
+      line-height:1.5;
+      margin-bottom:20px;
+    }
+
+    .modal-actions{
+      display:flex;
+      gap:10px;
+    }
+
+    .modal-actions button{
+      flex:1;
+      padding:12px;
+      border-radius:9px;
+      border:1px solid var(--line);
+      cursor:pointer;
+      font-weight:900;
+    }
+
+    .cancel{
+      background:#181818;
+      color:#ddd;
+    }
+
+    .confirm-delete{
+      background:var(--red);
       color:#fff;
-      padding:14px 17px;
-      border-radius:11px;
-      box-shadow:0 10px 30px rgba(0,0,0,.4);
-      transform:translateY(100px);
-      opacity:0;
-      pointer-events:none;
-      transition:.3s;
-      z-index:5000;
-      max-width:350px;
-      font-size:13px;
-    }
-
-    .toast.show{
-      transform:translateY(0);
-      opacity:1;
-    }
-
-    .toast.success{
-      border-color:rgba(72,213,151,.35);
-    }
-
-    .toast.error{
-      border-color:rgba(255,86,63,.4);
+      border-color:var(--red) !important;
     }
 
     /* =========================
        MOBILE
     ========================= */
 
-    .mobile-menu{
-      display:none;
-      background:none;
-      border:0;
-      color:#fff;
-      font-size:25px;
-    }
+    @media(max-width:850px){
 
-    @media(max-width:1050px){
       .videos-grid{
         grid-template-columns:repeat(2,1fr);
       }
+
     }
 
-    @media(max-width:800px){
-      .sidebar{
-        transform:translateX(-100%);
-        transition:.3s;
+    @media(max-width:650px){
+
+      header{
+        padding:0 15px;
       }
 
-      .sidebar.open{
-        transform:translateX(0);
+      .logo{
+        font-size:18px;
       }
 
-      .main{
-        margin-left:0;
+      .header-right{
+        gap:8px;
       }
 
-      .mobile-menu{
-        display:block;
+      .logout{
+        display:none;
       }
 
-      .topbar{
-        padding:0 17px;
+      main{
+        margin-top:28px;
       }
 
-      .content{
-        padding:20px 15px;
+      .hero{
+        flex-direction:column;
+        align-items:stretch;
+      }
+
+      .hero h1{
+        font-size:28px;
+      }
+
+      .upload-btn{
+        width:100%;
       }
 
       .stats{
         grid-template-columns:1fr;
       }
 
-      .form-grid{
-        grid-template-columns:1fr;
-      }
-
-      .field.full{
-        grid-column:auto;
-      }
-
-      .page-header{
-        flex-direction:column;
-      }
-
-      .top-actions .btn-dark{
-        display:none;
-      }
-    }
-
-    @media(max-width:600px){
       .videos-grid{
         grid-template-columns:1fr;
       }
 
-      .page-header h1{
-        font-size:26px;
-      }
-
-      .upload-panel{
-        padding:17px;
-      }
-
-      .form-footer{
-        flex-direction:column;
-        align-items:stretch;
-      }
-
-      .form-footer .btn{
-        width:100%;
-      }
-
-      .topbar-title{
-        font-size:14px;
-      }
     }
   </style>
 </head>
 
+
 <body>
 
-  <!-- =========================
-       SIDEBAR
-  ========================== -->
 
-  <aside class="sidebar" id="sidebar">
+<!-- =========================
+     HEADER
+========================= -->
 
-    <div class="logo">
-      👑 <span>KUDURO</span> PRIME
-    </div>
+<header>
 
-    <div class="artist-mini">
-      <div class="artist-mini-top">
+  <div class="logo">
+    👑 KUDURO PRIME
+  </div>
 
-        <img
-          id="artistPhoto"
-          class="artist-photo"
-          src="https://via.placeholder.com/100/151515/f4bf31?text=KP"
-          alt="Artista"
-        >
+  <div class="header-right">
 
-        <div>
-          <div class="artist-name" id="artistName">
-            A carregar...
-          </div>
+    <a
+      href="painel-do-artista.html"
+      class="back"
+    >
+      ← Painel
+    </a>
 
-          <div class="artist-label">
-            Artista Prime
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <div class="menu-title">Principal</div>
-
-    <nav class="menu">
-
-      <a href="painel-do-artista.html">
-        🏠
-        <span>Painel</span>
-      </a>
-
-      <a href="meu-perfil.html">
-        👤
-        <span>Meu Perfil</span>
-      </a>
-
-      <a href="editar-perfil.html">
-        ✏️
-        <span>Editar Perfil</span>
-      </a>
-
-    </nav>
-
-    <div class="menu-title">Conteúdo</div>
-
-    <nav class="menu">
-
-      <a href="minhas-musicas.html">
-        🎵
-        <span>Minhas Músicas</span>
-      </a>
-
-      <a href="meus-videos.html" class="active">
-        🎬
-        <span>Meus Vídeos</span>
-      </a>
-
-      <a href="feed.html">
-        📰
-        <span>Meu Feed</span>
-      </a>
-
-    </nav>
-
-    <div class="menu-title">KUDURO PRIME</div>
-
-    <nav class="menu">
-
-      <a href="ranking.html">
-        🏆
-        <span>Ranking</span>
-      </a>
-
-      <a href="artistas.html">
-        ⭐
-        <span>Artistas</span>
-      </a>
-
-      <a href="eventos.html">
-        📅
-        <span>Eventos</span>
-      </a>
-
-    </nav>
-
-    <button class="logout" id="logoutBtn">
-      🚪 Terminar sessão
+    <button
+      class="logout"
+      id="logoutBtn"
+    >
+      Sair
     </button>
 
-  </aside>
+  </div>
 
+</header>
 
-  <!-- =========================
-       MAIN
-  ========================== -->
 
-  <main class="main">
+<!-- =========================
+     MAIN
+========================= -->
 
-    <header class="topbar">
+<main>
 
-      <div style="display:flex;align-items:center;gap:12px;">
 
-        <button
-          class="mobile-menu"
-          id="mobileMenu"
-          type="button"
-        >
-          ☰
-        </button>
+  <section class="hero">
 
-        <div class="topbar-title">
-          Meus <span>Vídeos</span>
-        </div>
+    <div>
 
-      </div>
+      <h1>🎬 MEUS VÍDEOS</h1>
 
-      <div class="top-actions">
-
-        <a
-          href="videos.html"
-          class="btn btn-dark"
-          style="text-decoration:none;"
-        >
-          🌐 Ver vídeos
-        </a>
-
-        <button
-          class="btn btn-gold"
-          type="button"
-          onclick="document.getElementById('videoFile').click()"
-        >
-          + Publicar vídeo
-        </button>
-
-      </div>
-
-    </header>
-
-
-    <div class="content">
-
-      <!-- HEADER -->
-
-      <section class="page-header">
-
-        <div>
-          <h1>
-            🎬 Meus <span>Vídeos</span>
-          </h1>
-
-          <p>
-            Publica videoclipes, freestyles, performances,
-            entrevistas e muito mais no KUDURO PRIME.
-          </p>
-        </div>
-
-      </section>
-
-
-      <!-- STATS -->
-
-      <section class="stats">
-
-        <div class="stat">
-          <div class="stat-label">
-            TOTAL DE VÍDEOS
-          </div>
-
-          <div
-            class="stat-number gold"
-            id="totalVideos"
-          >
-            0
-          </div>
-        </div>
-
-        <div class="stat">
-          <div class="stat-label">
-            VÍDEOS PUBLICADOS
-          </div>
-
-          <div
-            class="stat-number"
-            id="publishedVideos"
-          >
-            0
-          </div>
-        </div>
-
-        <div class="stat">
-          <div class="stat-label">
-            VÍDEOS PENDENTES
-          </div>
-
-          <div
-            class="stat-number"
-            id="pendingVideos"
-          >
-            0
-          </div>
-        </div>
-
-      </section>
-
-
-      <!-- UPLOAD -->
-
-      <section class="upload-panel">
-
-        <div class="panel-title">
-          🚀 Publicar novo vídeo
-        </div>
-
-        <div class="panel-subtitle">
-          Mostra o teu trabalho para toda a comunidade do KUDURO PRIME.
-        </div>
-
-        <div class="free-rule">
-          🎁 <strong>Regra KUDURO PRIME:</strong>
-          vídeos com duração de até <strong>1 minuto</strong>
-          são grátis. Vídeos com mais de 1 minuto têm uma taxa
-          de <strong>500 Kz por vídeo</strong>.
-        </div>
-
-        <form id="videoForm">
-
-          <div class="form-grid">
-
-            <div class="field">
-
-              <label for="videoTitle">
-                Título do vídeo *
-              </label>
-
-              <input
-                id="videoTitle"
-                type="text"
-                placeholder="Ex: Novo Videoclipe"
-                maxlength="120"
-                required
-              >
-
-            </div>
-
-
-            <div class="field">
-
-              <label for="videoType">
-                Categoria *
-              </label>
-
-              <select id="videoType" required>
-
-                <option value="">
-                  Seleciona uma categoria
-                </option>
-
-                <option value="Videoclipe">
-                  🎵 Videoclipe
-                </option>
-
-                <option value="Freestyle">
-                  🎤 Freestyle
-                </option>
-
-                <option value="Performance">
-                  🔥 Performance
-                </option>
-
-                <option value="Making Of">
-                  🎥 Making Of
-                </option>
-
-                <option value="Entrevista">
-                  🎙️ Entrevista
-                </option>
-
-                <option value="Outro">
-                  📹 Outro
-                </option>
-
-              </select>
-
-            </div>
-
-
-            <div class="field full">
-
-              <label for="videoDescription">
-                Descrição
-              </label>
-
-              <textarea
-                id="videoDescription"
-                maxlength="1000"
-                placeholder="Escreve uma descrição para o teu vídeo..."
-              ></textarea>
-
-            </div>
-
-
-            <div class="field">
-
-              <label for="coverFile">
-                Capa do vídeo
-              </label>
-
-              <input
-                id="coverFile"
-                type="file"
-                accept="image/*"
-              >
-
-            </div>
-
-
-            <div class="field">
-
-              <label for="videoFile">
-                Ficheiro de vídeo *
-              </label>
-
-              <input
-                id="videoFile"
-                type="file"
-                accept="video/*"
-                required
-              >
-
-              <div
-                class="video-info"
-                id="videoInfo"
-              ></div>
-
-            </div>
-
-          </div>
-
-
-          <!-- PAGAMENTO -->
-
-          <div
-            class="payment-box"
-            id="paymentBox"
-          >
-
-            <h3>
-              💰 Este vídeo necessita de pagamento
-            </h3>
-
-            <p>
-              O vídeo selecionado ultrapassa o limite gratuito
-              de 1 minuto.
-            </p>
-
-            <div class="payment-price">
-              500 Kz
-            </div>
-
-            <p>
-              Depois de enviares o vídeo, ele ficará como
-              <strong>Pagamento Pendente</strong>.
-              A publicação será liberada depois da confirmação
-              do pagamento.
-            </p>
-
-            <label class="check-row">
-
-              <input
-                type="checkbox"
-                id="acceptPayment"
-              >
-
-              <span>
-                Confirmo que aceito pagar <strong>500 Kz</strong>
-                para publicar este vídeo.
-              </span>
-
-            </label>
-
-          </div>
-
-
-          <!-- PROGRESS -->
-
-          <div
-            class="progress"
-            id="progressContainer"
-          >
-
-            <div
-              class="progress-bar"
-              id="progressBar"
-            ></div>
-
-          </div>
-
-
-          <div class="form-footer">
-
-            <div
-              class="upload-status"
-              id="uploadStatus"
-            >
-              Seleciona um vídeo para começar.
-            </div>
-
-            <button
-              class="btn btn-gold"
-              id="submitBtn"
-              type="submit"
-            >
-              🎬 Publicar vídeo
-            </button>
-
-          </div>
-
-        </form>
-
-      </section>
-
-
-      <!-- VIDEOS -->
-
-      <section>
-
-        <div class="section-head">
-
-          <h2>
-            Os meus vídeos
-          </h2>
-
-          <span id="videoCountText">
-            0 vídeos
-          </span>
-
-        </div>
-
-        <div
-          class="videos-grid"
-          id="videosGrid"
-        >
-
-          <div class="loading">
-
-            <div class="spinner"></div>
-
-            A carregar vídeos...
-
-          </div>
-
-        </div>
-
-      </section>
+      <p>
+        Publica os teus vídeos e mostra o teu trabalho
+        para toda a comunidade KUDURO PRIME.
+      </p>
 
     </div>
 
-  </main>
+    <a
+      href="#"
+      class="upload-btn"
+      id="publicarBtn"
+    >
+      ＋ PUBLICAR VÍDEO
+    </a>
 
-
-  <!-- TOAST -->
-
-  <div
-    class="toast"
-    id="toast"
-  ></div>
+  </section>
 
 
   <!-- =========================
-       FIREBASE
-  ========================== -->
+       ESTATÍSTICAS
+  ========================= -->
 
-  <script type="module">
+  <section class="stats">
 
-    import {
-      initializeApp
-    } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+    <div class="stat">
 
-    import {
-      getAuth,
-      onAuthStateChanged,
-      signOut
-    } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+      <span>Total de vídeos</span>
 
-    import {
-      getFirestore,
-      collection,
-      addDoc,
-      getDocs,
-      doc,
-      getDoc,
-      deleteDoc,
-      serverTimestamp
-    } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+      <strong id="totalVideos">
+        0
+      </strong>
+
+    </div>
 
 
-    /* =========================
-       FIREBASE CONFIG
-    ========================== */
+    <div class="stat">
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyDoitCcLeLDNBNPCP6fG1s_xbHr4UmohSo",
-      authDomain: "kuduro-prime.firebaseapp.com",
-      projectId: "kuduro-prime",
-      storageBucket: "kuduro-prime.firebasestorage.app",
-      messagingSenderId: "299776559545",
-      appId: "1:299776559545:web:04aced1ba25391eb3fce68"
-    };
+      <span>Vídeos grátis</span>
+
+      <strong id="totalGratis">
+        0
+      </strong>
+
+    </div>
 
 
-    const app = initializeApp(firebaseConfig);
+    <div class="stat">
 
-    const auth = getAuth(app);
+      <span>Pagamentos pendentes</span>
 
-    const db = getFirestore(app);
+      <strong id="totalPendentes">
+        0
+      </strong>
 
+    </div>
 
-    /* =========================
-       CLOUDINARY
-    ========================== */
-
-    const CLOUDINARY_CLOUD_NAME = "ge1ntqqc";
-
-    const CLOUDINARY_UPLOAD_PRESET = "kuduro_prime";
+  </section>
 
 
-    /* =========================
-       ESTADO
-    ========================== */
+  <!-- =========================
+       REGRA
+  ========================= -->
 
-    let currentUser = null;
+  <div class="rule-box">
 
-    let artistName = "Artista Prime";
+    🎬 <strong>Regra dos vídeos:</strong>
 
-    let artistPhoto = "";
+    Vídeos com duração de
+    <strong>até 1 minuto (01:00)</strong>
+    são gratuitos.
 
-    let videos = [];
+    <br>
 
-    let selectedVideoDuration = 0;
+    Vídeos com duração de
+    <strong>mais de 1 minuto</strong>
+    têm uma taxa única de
+    <strong>500 Kz por vídeo</strong>.
 
+    <br><br>
 
-    /* =========================
-       ELEMENTOS
-    ========================== */
+    Exemplos:
+    <strong>01:00 = grátis</strong> |
+    <strong>01:01 = 500 Kz</strong> |
+    <strong>05:00 = 500 Kz</strong> |
+    <strong>30:00 = 500 Kz</strong>
 
-    const artistNameEl =
-      document.getElementById("artistName");
-
-    const artistPhotoEl =
-      document.getElementById("artistPhoto");
-
-    const videoForm =
-      document.getElementById("videoForm");
-
-    const videoFile =
-      document.getElementById("videoFile");
-
-    const coverFile =
-      document.getElementById("coverFile");
-
-    const videoInfo =
-      document.getElementById("videoInfo");
-
-    const paymentBox =
-      document.getElementById("paymentBox");
-
-    const acceptPayment =
-      document.getElementById("acceptPayment");
-
-    const uploadStatus =
-      document.getElementById("uploadStatus");
-
-    const submitBtn =
-      document.getElementById("submitBtn");
-
-    const progressContainer =
-      document.getElementById("progressContainer");
-
-    const progressBar =
-      document.getElementById("progressBar");
-
-    const videosGrid =
-      document.getElementById("videosGrid");
-
-    const totalVideos =
-      document.getElementById("totalVideos");
-
-    const publishedVideos =
-      document.getElementById("publishedVideos");
-
-    const pendingVideos =
-      document.getElementById("pendingVideos");
-
-    const videoCountText =
-      document.getElementById("videoCountText");
-
-    const toast =
-      document.getElementById("toast");
+  </div>
 
 
-    /* =========================
-       TOAST
-    ========================== */
+  <!-- =========================
+       LISTA
+  ========================= -->
 
-    function showToast(message, type = ""){
+  <div id="videosContainer">
 
-      toast.textContent = message;
+    <div class="loading">
+      ⏳ A carregar os teus vídeos...
+    </div>
 
-      toast.className = "toast show " + type;
-
-      setTimeout(() => {
-
-        toast.className = "toast";
-
-      }, 4000);
-
-    }
+  </div>
 
 
-    /* =========================
-       FORMATAR DURAÇÃO
-    ========================== */
-
-    function formatDuration(seconds){
-
-      seconds = Math.floor(Number(seconds) || 0);
-
-      const minutes =
-        Math.floor(seconds / 60);
-
-      const remainingSeconds =
-        seconds % 60;
-
-      return (
-        minutes +
-        ":" +
-        String(remainingSeconds).padStart(2, "0")
-      );
-
-    }
+</main>
 
 
-    /* =========================
-       FORMATAR DATA
-    ========================== */
+<!-- =========================
+     MODAL DELETE
+========================= -->
 
-    function formatDate(value){
+<div
+  class="modal"
+  id="deleteModal"
+>
+
+  <div class="modal-box">
+
+    <h3>🗑️ Apagar vídeo?</h3>
+
+    <p>
+      Tens a certeza que queres apagar este vídeo?
+      Esta ação remove o vídeo da tua lista.
+    </p>
+
+    <div class="modal-actions">
+
+      <button
+        class="cancel"
+        id="cancelDelete"
+      >
+        CANCELAR
+      </button>
+
+      <button
+        class="confirm-delete"
+        id="confirmDelete"
+      >
+        APAGAR
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<script type="module">
+
+
+  /* =====================================================
+     FIREBASE
+  ===================================================== */
+
+  import {
+    initializeApp
+  } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+
+
+  import {
+    getAuth,
+    onAuthStateChanged,
+    signOut
+  } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+
+
+  import {
+    getFirestore,
+    collection,
+    getDocs,
+    doc,
+    getDoc,
+    deleteDoc
+  } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+
+
+  /* =====================================================
+     CONFIG
+  ===================================================== */
+
+  const firebaseConfig = {
+
+    apiKey:
+      "AIzaSyDoitCcLeLDNBNPCP6fG1s_xbHr4UmohSo",
+
+    authDomain:
+      "kuduro-prime.firebaseapp.com",
+
+    projectId:
+      "kuduro-prime",
+
+    storageBucket:
+      "kuduro-prime.firebasestorage.app",
+
+    messagingSenderId:
+      "299776559545",
+
+    appId:
+      "1:299776559545:web:04aced1ba25391eb3fce68"
+
+  };
+
+
+  const app =
+    initializeApp(firebaseConfig);
+
+
+  const auth =
+    getAuth(app);
+
+
+  const db =
+    getFirestore(app);
+
+
+  /* =====================================================
+     ELEMENTOS
+  ===================================================== */
+
+  const videosContainer =
+    document.getElementById(
+      "videosContainer"
+    );
+
+
+  const totalVideos =
+    document.getElementById(
+      "totalVideos"
+    );
+
+
+  const totalGratis =
+    document.getElementById(
+      "totalGratis"
+    );
+
+
+  const totalPendentes =
+    document.getElementById(
+      "totalPendentes"
+    );
+
+
+  const logoutBtn =
+    document.getElementById(
+      "logoutBtn"
+    );
+
+
+  const publicarBtn =
+    document.getElementById(
+      "publicarBtn"
+    );
+
+
+  const deleteModal =
+    document.getElementById(
+      "deleteModal"
+    );
+
+
+  const cancelDelete =
+    document.getElementById(
+      "cancelDelete"
+    );
+
+
+  const confirmDelete =
+    document.getElementById(
+      "confirmDelete"
+    );
+
+
+  let usuarioAtual = null;
+
+  let videoParaApagar = null;
+
+
+  /* =====================================================
+     LOGOUT
+  ===================================================== */
+
+  logoutBtn.addEventListener(
+    "click",
+    async () => {
 
       try{
 
-        if(!value){
-          return "";
-        }
-
-        let date;
-
-        if(value?.seconds){
-
-          date = new Date(
-            value.seconds * 1000
-          );
-
-        }else{
-
-          date = new Date(value);
-
-        }
-
-        if(isNaN(date.getTime())){
-          return "";
-        }
-
-        return date.toLocaleDateString(
-          "pt-PT",
-          {
-            day:"2-digit",
-            month:"2-digit",
-            year:"numeric"
-          }
-        );
-
-      }catch(error){
-
-        return "";
-
-      }
-
-    }
-
-
-    /* =========================
-       ESCAPAR HTML
-    ========================== */
-
-    function escapeHTML(value){
-
-      return String(value ?? "")
-        .replace(/&/g,"&amp;")
-        .replace(/</g,"&lt;")
-        .replace(/>/g,"&gt;")
-        .replace(/"/g,"&quot;")
-        .replace(/'/g,"&#039;");
-
-    }
-
-
-    /* =========================
-       AUTENTICAÇÃO
-    ========================== */
-
-    onAuthStateChanged(auth, async (user) => {
-
-      if(!user){
+        await signOut(auth);
 
         window.location.href =
           "area-do-artista.html";
 
-        return;
-
-      }
-
-      currentUser = user;
-
-      await loadArtistProfile();
-
-      await loadVideos();
-
-    });
-
-
-    /* =========================
-       PERFIL
-    ========================== */
-
-    async function loadArtistProfile(){
-
-      try{
-
-        const ref =
-          doc(
-            db,
-            "artistas",
-            currentUser.uid
-          );
-
-        const snap =
-          await getDoc(ref);
-
-        if(snap.exists()){
-
-          const data =
-            snap.data();
-
-          artistName =
-            data.nomeArtistico ||
-            data.nome ||
-            data.artistName ||
-            "Artista Prime";
-
-          artistPhoto =
-            data.foto ||
-            data.fotoPerfil ||
-            data.imagem ||
-            data.photoURL ||
-            "";
-
-        }
-
       }catch(error){
 
-        console.error(
-          "Erro ao carregar perfil:",
-          error
+        console.error(error);
+
+        alert(
+          "Erro ao terminar sessão."
         );
 
       }
 
-      artistNameEl.textContent =
-        artistName;
+    }
+  );
 
-      if(artistPhoto){
 
-        artistPhotoEl.src =
-          artistPhoto;
+  /* =====================================================
+     BOTÃO PUBLICAR
+  ===================================================== */
 
-      }
+  publicarBtn.addEventListener(
+    "click",
+    (event) => {
+
+      event.preventDefault();
+
+      /*
+        Se a tua página de upload tiver
+        outro nome, muda aqui.
+      */
+
+      window.location.href =
+        "publicar-video.html";
 
     }
+  );
 
 
-    /* =========================
-       DETETAR DURAÇÃO
-    ========================== */
+  /* =====================================================
+     DURAÇÃO
+  ===================================================== */
 
-    videoFile.addEventListener(
-      "change",
-      () => {
+  function getDurationSeconds(video){
 
-        const file =
-          videoFile.files[0];
-
-        if(!file){
-
-          videoInfo.classList.remove("show");
-
-          paymentBox.classList.remove("show");
-
-          selectedVideoDuration = 0;
-
-          return;
-
-        }
-
-        const video =
-          document.createElement("video");
-
-        const objectUrl =
-          URL.createObjectURL(file);
-
-        video.preload = "metadata";
-
-        video.src = objectUrl;
-
-        video.onloadedmetadata = () => {
-
-          selectedVideoDuration =
-            video.duration;
-
-          URL.revokeObjectURL(
-            objectUrl
-          );
-
-          const formatted =
-            formatDuration(
-              selectedVideoDuration
-            );
-
-          videoInfo.classList.add("show");
-
-          if(selectedVideoDuration <= 60){
-
-            videoInfo.innerHTML = `
-              ⏱️ Duração:
-              <strong>${formatted}</strong>
-              <br>
-              <span class="duration-ok">
-                ✓ Vídeo gratuito — até 1 minuto.
-              </span>
-            `;
-
-            paymentBox.classList.remove(
-              "show"
-            );
-
-            acceptPayment.checked = false;
-
-            uploadStatus.textContent =
-              "✓ Vídeo gratuito.";
-
-          }else{
-
-            videoInfo.innerHTML = `
-              ⏱️ Duração:
-              <strong>${formatted}</strong>
-              <br>
-              <span class="duration-paid">
-                💰 Este vídeo tem uma taxa de 500 Kz.
-              </span>
-            `;
-
-            paymentBox.classList.add(
-              "show"
-            );
-
-            uploadStatus.textContent =
-              "💰 Pagamento de 500 Kz necessário.";
-
-          }
-
-        };
-
-        video.onerror = () => {
-
-          URL.revokeObjectURL(
-            objectUrl
-          );
-
-          selectedVideoDuration = 0;
-
-          videoInfo.classList.add(
-            "show"
-          );
-
-          videoInfo.innerHTML = `
-            <span style="color:var(--red)">
-              ❌ Não foi possível identificar
-              a duração deste vídeo.
-            </span>
-          `;
-
-        };
-
-      }
-    );
+    let seconds =
+      Number(
+        video.duracaoSegundos
+      );
 
 
-    /* =========================
-       CLOUDINARY UPLOAD
-    ========================== */
-
-    async function uploadToCloudinary(
-      file,
-      resourceType
+    if(
+      Number.isFinite(seconds) &&
+      seconds > 0
     ){
 
-      const formData =
-        new FormData();
-
-      formData.append(
-        "file",
-        file
-      );
-
-      formData.append(
-        "upload_preset",
-        CLOUDINARY_UPLOAD_PRESET
-      );
-
-      const endpoint =
-        `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/${resourceType}/upload`;
-
-
-      const response =
-        await fetch(
-          endpoint,
-          {
-            method:"POST",
-            body:formData
-          }
-        );
-
-
-      const data =
-        await response.json();
-
-
-      if(!response.ok){
-
-        throw new Error(
-          data?.error?.message ||
-          "Erro ao enviar ficheiro para o Cloudinary."
-        );
-
-      }
-
-
-      if(!data.secure_url){
-
-        throw new Error(
-          "O Cloudinary não devolveu o endereço do ficheiro."
-        );
-
-      }
-
-
-      return {
-
-        secure_url:
-          data.secure_url,
-
-        public_id:
-          data.public_id || "",
-
-        resource_type:
-          data.resource_type ||
-          resourceType,
-
-        format:
-          data.format || ""
-
-      };
+      return seconds;
 
     }
 
 
-    /* =========================
-       SUBMETER VÍDEO
-    ========================== */
+    /*
+      Compatibilidade com documentos
+      antigos que guardaram duração
+      como texto.
+    */
 
-    videoForm.addEventListener(
-      "submit",
-      async (event) => {
+    const durationText =
+      video.duracaoFormatada ||
+      video.duracao ||
+      "";
 
-        event.preventDefault();
 
+    if(
+      typeof durationText === "string" &&
+      durationText.includes(":")
+    ){
 
-        if(!currentUser){
+      const parts =
+        durationText.split(":");
 
-          showToast(
-            "Sessão não encontrada.",
-            "error"
-          );
 
-          return;
+      if(parts.length === 2){
 
-        }
+        const minutes =
+          Number(parts[0]) || 0;
 
+        const secs =
+          Number(parts[1]) || 0;
 
-        const title =
-          document
-            .getElementById("videoTitle")
-            .value
-            .trim();
-
-
-        const type =
-          document
-            .getElementById("videoType")
-            .value;
-
-
-        const description =
-          document
-            .getElementById("videoDescription")
-            .value
-            .trim();
-
-
-        const video =
-          videoFile.files[0];
-
-
-        const cover =
-          coverFile.files[0];
-
-
-        if(!title){
-
-          showToast(
-            "Digite o título do vídeo.",
-            "error"
-          );
-
-          return;
-
-        }
-
-
-        if(!type){
-
-          showToast(
-            "Selecione uma categoria.",
-            "error"
-          );
-
-          return;
-
-        }
-
-
-        if(!video){
-
-          showToast(
-            "Selecione o ficheiro de vídeo.",
-            "error"
-          );
-
-          return;
-
-        }
-
-
-        if(!selectedVideoDuration){
-
-          showToast(
-            "Não foi possível identificar a duração do vídeo.",
-            "error"
-          );
-
-          return;
-
-        }
-
-
-        const requiresPayment =
-          selectedVideoDuration > 60;
-
-
-        if(
-          requiresPayment &&
-          !acceptPayment.checked
-        ){
-
-          showToast(
-            "Este vídeo tem mais de 1 minuto. Confirma o pagamento de 500 Kz.",
-            "error"
-          );
-
-          paymentBox.scrollIntoView({
-            behavior:"smooth",
-            block:"center"
-          });
-
-          return;
-
-        }
-
-
-        try{
-
-          submitBtn.disabled = true;
-
-          submitBtn.textContent =
-            "⏳ A enviar...";
-
-          progressContainer.classList.add(
-            "show"
-          );
-
-          progressBar.style.width =
-            "5%";
-
-
-          /* =====================
-             CAPA
-          ===================== */
-
-          let coverData = {
-            secure_url:"",
-            public_id:""
-          };
-
-
-          if(cover){
-
-            uploadStatus.textContent =
-              "🖼️ A enviar capa...";
-
-            coverData =
-              await uploadToCloudinary(
-                cover,
-                "image"
-              );
-
-            progressBar.style.width =
-              "20%";
-
-          }
-
-
-          /* =====================
-             VÍDEO
-          ===================== */
-
-          uploadStatus.textContent =
-            "🎬 A enviar vídeo...";
-
-
-          const videoData =
-            await uploadToCloudinary(
-              video,
-              "video"
-            );
-
-
-          progressBar.style.width =
-            "85%";
-
-
-          /* =====================
-             STATUS
-          ===================== */
-
-          const status =
-            requiresPayment
-              ? "pendente"
-              : "publicado";
-
-
-          /* =====================
-             FIRESTORE
-          ===================== */
-
-          const videoDoc = {
-
-            artistaId:
-              currentUser.uid,
-
-            artistId:
-              currentUser.uid,
-
-            userId:
-              currentUser.uid,
-
-            uid:
-              currentUser.uid,
-
-
-            artistaNome:
-              artistName,
-
-            artistName:
-              artistName,
-
-
-            artistaFoto:
-              artistPhoto,
-
-            artistPhoto:
-              artistPhoto,
-
-
-            titulo:
-              title,
-
-            title:
-              title,
-
-
-            categoria:
-              type,
-
-            tipo:
-              type,
-
-
-            descricao:
-              description,
-
-
-            duracao:
-              Math.round(
-                selectedVideoDuration
-              ),
-
-            duracaoSegundos:
-              Math.round(
-                selectedVideoDuration
-              ),
-
-
-            duracaoFormatada:
-              formatDuration(
-                selectedVideoDuration
-              ),
-
-
-            capa:
-              coverData.secure_url || "",
-
-            cover:
-              coverData.secure_url || "",
-
-
-            coverPublicId:
-              coverData.public_id || "",
-
-            coverResourceType:
-              "image",
-
-
-            video:
-              videoData.secure_url,
-
-            videoUrl:
-              videoData.secure_url,
-
-
-            videoPublicId:
-              videoData.public_id || "",
-
-            videoResourceType:
-              "video",
-
-
-            videoFileName:
-              video.name,
-
-            videoMimeType:
-              video.type || "video/mp4",
-
-
-            views:
-              0,
-
-            visualizacoes:
-              0,
-
-
-            gostos:
-              0,
-
-            comentarios:
-              0,
-
-
-            taxa:
-              requiresPayment
-                ? 500
-                : 0,
-
-
-            pagamentoNecessario:
-              requiresPayment,
-
-
-            pagamentoPendente:
-              requiresPayment,
-
-
-            pagamentoConfirmado:
-              !requiresPayment,
-
-
-            status:
-              status,
-
-
-            criadoEm:
-              serverTimestamp()
-
-          };
-
-
-          await addDoc(
-            collection(
-              db,
-              "videos"
-            ),
-            videoDoc
-          );
-
-
-          progressBar.style.width =
-            "100%";
-
-
-          uploadStatus.textContent =
-            requiresPayment
-              ? "✓ Vídeo enviado e aguardando pagamento."
-              : "✓ Vídeo publicado com sucesso.";
-
-
-          showToast(
-            requiresPayment
-              ? "Vídeo enviado! Falta confirmar o pagamento de 500 Kz."
-              : "Vídeo publicado com sucesso!",
-            "success"
-          );
-
-
-          videoForm.reset();
-
-          videoInfo.classList.remove(
-            "show"
-          );
-
-          paymentBox.classList.remove(
-            "show"
-          );
-
-          acceptPayment.checked = false;
-
-          selectedVideoDuration = 0;
-
-
-          await loadVideos();
-
-
-        }catch(error){
-
-          console.error(
-            "Erro ao publicar vídeo:",
-            error
-          );
-
-
-          showToast(
-            "Erro ao publicar vídeo: " +
-            (error.message || "erro desconhecido"),
-            "error"
-          );
-
-
-          uploadStatus.textContent =
-            "❌ Ocorreu um erro durante o envio.";
-
-
-        }finally{
-
-          submitBtn.disabled = false;
-
-          submitBtn.textContent =
-            "🎬 Publicar vídeo";
-
-
-          setTimeout(() => {
-
-            progressContainer.classList.remove(
-              "show"
-            );
-
-            progressBar.style.width =
-              "0%";
-
-          }, 1000);
-
-        }
+        return (
+          minutes * 60 +
+          secs
+        );
 
       }
+
+
+      if(parts.length === 3){
+
+        const hours =
+          Number(parts[0]) || 0;
+
+        const minutes =
+          Number(parts[1]) || 0;
+
+        const secs =
+          Number(parts[2]) || 0;
+
+        return (
+          hours * 3600 +
+          minutes * 60 +
+          secs
+        );
+
+      }
+
+    }
+
+
+    return 0;
+
+  }
+
+
+  /* =====================================================
+     FORMATAR DURAÇÃO
+  ===================================================== */
+
+  function formatDuration(seconds){
+
+    seconds =
+      Math.max(
+        0,
+        Math.floor(
+          Number(seconds) || 0
+        )
+      );
+
+
+    const hours =
+      Math.floor(
+        seconds / 3600
+      );
+
+
+    const minutes =
+      Math.floor(
+        (seconds % 3600) / 60
+      );
+
+
+    const secs =
+      seconds % 60;
+
+
+    if(hours > 0){
+
+      return (
+        String(hours).padStart(2,"0")
+        + ":" +
+        String(minutes).padStart(2,"0")
+        + ":" +
+        String(secs).padStart(2,"0")
+      );
+
+    }
+
+
+    return (
+      String(minutes).padStart(2,"0")
+      + ":" +
+      String(secs).padStart(2,"0")
     );
 
-
-    /* =========================
-       CARREGAR VÍDEOS
-    ========================== */
-
-    async function loadVideos(){
-
-      videosGrid.innerHTML = `
-        <div class="loading">
-          <div class="spinner"></div>
-          A carregar vídeos...
-        </div>
-      `;
+  }
 
 
-      try{
+  /* =====================================================
+     ESCAPAR HTML
+  ===================================================== */
 
-        const snapshot =
-          await getDocs(
-            collection(
-              db,
-              "videos"
-            )
-          );
+  function escapeHtml(value){
+
+    return String(value ?? "")
+      .replace(/&/g,"&amp;")
+      .replace(/</g,"&lt;")
+      .replace(/>/g,"&gt;")
+      .replace(/"/g,"&quot;")
+      .replace(/'/g,"&#039;");
+
+  }
 
 
-        videos = [];
+  /* =====================================================
+     CARREGAR VÍDEOS
+  ===================================================== */
+
+  async function carregarVideos(){
+
+    videosContainer.innerHTML = `
+      <div class="loading">
+        ⏳ A carregar os teus vídeos...
+      </div>
+    `;
 
 
-        snapshot.forEach((docSnap) => {
+    try{
+
+      const snapshot =
+        await getDocs(
+          collection(
+            db,
+            "videos"
+          )
+        );
+
+
+      const meusVideos = [];
+
+
+      snapshot.forEach(
+        (docSnap) => {
 
           const data =
             docSnap.data();
 
 
-          const ownerId =
+          /*
+            Aceita os nomes de campos
+            que já utilizaste anteriormente.
+          */
+
+          const dono =
             data.artistaId ||
             data.artistId ||
             data.userId ||
-            data.uid;
+            data.uid ||
+            "";
 
 
           if(
-            ownerId ===
-            currentUser.uid
+            dono === usuarioAtual.uid
           ){
 
-            videos.push({
+            meusVideos.push({
 
               id:
                 docSnap.id,
@@ -2258,119 +1189,66 @@
 
           }
 
-        });
+        }
+      );
 
 
-        videos.sort(
-          (a,b) => {
+      /*
+        Mais recentes primeiro.
+        Quando criadoEm não estiver
+        disponível, mantém a ordem.
+      */
 
-            const aTime =
-              a.criadoEm?.seconds ||
-              a.createdAt?.seconds ||
-              0;
+      meusVideos.sort(
+        (a,b) => {
 
-            const bTime =
-              b.criadoEm?.seconds ||
-              b.createdAt?.seconds ||
-              0;
+          const aTime =
+            a.criadoEm?.seconds ||
+            0;
 
-            return bTime - aTime;
+          const bTime =
+            b.criadoEm?.seconds ||
+            0;
 
-          }
-        );
+          return bTime - aTime;
 
-
-        renderVideos();
-
-
-      }catch(error){
-
-        console.error(
-          "Erro ao carregar vídeos:",
-          error
-        );
+        }
+      );
 
 
-        videosGrid.innerHTML = `
-          <div class="empty">
-            <div class="empty-icon">⚠️</div>
-            <strong>Erro ao carregar os vídeos.</strong>
-            <br><br>
-            <span>
-              ${escapeHTML(error.message || "")}
-            </span>
-          </div>
-        `;
-
-      }
-
-    }
+      atualizarEstatisticas(
+        meusVideos
+      );
 
 
-    /* =========================
-       RENDERIZAR
-    ========================== */
+      if(meusVideos.length === 0){
 
-    function renderVideos(){
+        videosContainer.innerHTML = `
 
-      const total =
-        videos.length;
-
-
-      const published =
-        videos.filter(
-          video =>
-            video.status ===
-            "publicado"
-        ).length;
-
-
-      const pending =
-        videos.filter(
-          video =>
-            video.status ===
-            "pendente" ||
-            video.pagamentoPendente === true
-        ).length;
-
-
-      totalVideos.textContent =
-        total;
-
-      publishedVideos.textContent =
-        published;
-
-      pendingVideos.textContent =
-        pending;
-
-
-      videoCountText.textContent =
-        total === 1
-          ? "1 vídeo"
-          : `${total} vídeos`;
-
-
-      if(!videos.length){
-
-        videosGrid.innerHTML = `
           <div class="empty">
 
-            <div class="empty-icon">
+            <div class="icon">
               🎬
             </div>
 
-            <strong>
-              Ainda não tens vídeos.
-            </strong>
+            <h2>
+              Ainda não tens vídeos
+            </h2>
 
-            <br><br>
-
-            <span>
+            <p>
               Publica o teu primeiro vídeo
-              e mostra o teu talento no KUDURO PRIME.
-            </span>
+              no KUDURO PRIME.
+            </p>
+
+            <a
+              href="publicar-video.html"
+              class="upload-btn"
+            >
+              ＋ PUBLICAR PRIMEIRO VÍDEO
+            </a>
 
           </div>
+
         `;
 
         return;
@@ -2378,389 +1256,688 @@
       }
 
 
-      videosGrid.innerHTML =
-        videos
-          .map(
-            video =>
-              createVideoCard(video)
+      renderVideos(
+        meusVideos
+      );
+
+
+    }catch(error){
+
+      console.error(
+        "Erro ao carregar vídeos:",
+        error
+      );
+
+
+      videosContainer.innerHTML = `
+
+        <div class="error">
+
+          ❌ <strong>Erro ao carregar os vídeos.</strong>
+
+          <br><br>
+
+          ${escapeHtml(
+            error.message
+          )}
+
+          <br><br>
+
+          Verifica as regras do Firestore
+          e tenta novamente.
+
+        </div>
+
+      `;
+
+    }
+
+  }
+
+
+  /* =====================================================
+     ESTATÍSTICAS
+  ===================================================== */
+
+  function atualizarEstatisticas(
+    videos
+  ){
+
+    totalVideos.textContent =
+      videos.length;
+
+
+    let gratis = 0;
+
+    let pendentes = 0;
+
+
+    videos.forEach(
+      (video) => {
+
+        const seconds =
+          getDurationSeconds(
+            video
+          );
+
+
+        /*
+          Até 60 segundos = grátis.
+        */
+
+        if(seconds <= 60){
+
+          gratis++;
+
+        }
+
+
+        /*
+          Mais de 60 segundos
+          e pagamento pendente.
+        */
+
+        if(
+          seconds > 60 &&
+          (
+            video.pagamentoPendente === true ||
+            video.status === "pendente"
           )
-          .join("");
+        ){
+
+          pendentes++;
+
+        }
+
+      }
+    );
 
 
-      document
-        .querySelectorAll(".delete-video")
-        .forEach(button => {
+    totalGratis.textContent =
+      gratis;
+
+
+    totalPendentes.textContent =
+      pendentes;
+
+  }
+
+
+  /* =====================================================
+     RENDERIZAR VÍDEOS
+  ===================================================== */
+
+  function renderVideos(
+    videos
+  ){
+
+    videosContainer.innerHTML = `
+
+      <div class="videos-grid">
+
+        ${videos
+          .map(
+            video => renderVideoCard(
+              video
+            )
+          )
+          .join("")}
+
+      </div>
+
+    `;
+
+
+    /*
+      Botões apagar
+    */
+
+    document
+      .querySelectorAll(
+        "[data-delete-video]"
+      )
+      .forEach(
+        button => {
 
           button.addEventListener(
             "click",
             () => {
 
-              deleteVideo(
-                button.dataset.id
+              videoParaApagar =
+                button.dataset.deleteVideo;
+
+              deleteModal.classList.add(
+                "active"
               );
 
             }
           );
 
-        });
+        }
+      );
+
+  }
+
+
+  /* =====================================================
+     CARD DO VÍDEO
+  ===================================================== */
+
+  function renderVideoCard(
+    video
+  ){
+
+    const title =
+      video.titulo ||
+      video.title ||
+      "Vídeo sem título";
+
+
+    const description =
+      video.descricao ||
+      "";
+
+
+    const videoUrl =
+      video.video ||
+      video.videoUrl ||
+      "";
+
+
+    const cover =
+      video.capa ||
+      video.cover ||
+      "";
+
+
+    const seconds =
+      getDurationSeconds(
+        video
+      );
+
+
+    const duration =
+      video.duracaoFormatada ||
+      formatDuration(
+        seconds
+      );
+
+
+    /*
+      REGRA PRINCIPAL
+
+      <= 60 segundos:
+      GRÁTIS
+
+      > 60 segundos:
+      500 Kz
+    */
+
+    const requiresPayment =
+      seconds > 60;
+
+
+    const paymentPending =
+      video.pagamentoPendente === true ||
+      (
+        requiresPayment &&
+        video.status === "pendente"
+      );
+
+
+    const paymentConfirmed =
+      video.pagamentoConfirmado === true;
+
+
+    let status =
+      video.status ||
+      "publicado";
+
+
+    if(paymentPending){
+
+      status =
+        "pendente";
 
     }
 
 
-    /* =========================
-       CARD
-    ========================== */
-
-    function createVideoCard(video){
-
-      const url =
-        video.video ||
-        video.videoUrl ||
-        video.url ||
-        "";
+    let statusClass =
+      "status-publicado";
 
 
-      const title =
-        video.titulo ||
-        video.title ||
-        "Vídeo sem título";
+    if(status === "pendente"){
+
+      statusClass =
+        "status-pendente";
+
+    }
 
 
-      const category =
-        video.categoria ||
-        video.tipo ||
-        "Vídeo";
+    if(
+      status === "privado"
+    ){
+
+      statusClass =
+        "status-privado";
+
+    }
 
 
-      const description =
-        video.descricao ||
-        "";
+    /*
+      CAPA
+    */
+
+    let mediaHTML = "";
 
 
-      const duration =
-        video.duracaoFormatada ||
-        formatDuration(
-          video.duracao ||
-          video.duracaoSegundos ||
-          0
-        );
+    if(cover){
 
+      mediaHTML = `
 
-      const date =
-        formatDate(
-          video.criadoEm ||
-          video.createdAt
-        );
+        <img
+          src="${escapeHtml(cover)}"
+          alt="${escapeHtml(title)}"
+          loading="lazy"
+        >
 
+      `;
 
-      const cover =
-        video.capa ||
-        video.cover ||
-        "";
+    }else if(videoUrl){
 
+      mediaHTML = `
 
-      const status =
-        video.status === "pendente"
-          ? "pendente"
-          : "publicado";
+        <video
+          src="${escapeHtml(videoUrl)}"
+          preload="metadata"
+          muted
+          playsinline
+        ></video>
 
+      `;
 
-      const statusText =
-        status === "pendente"
-          ? "💰 Pagamento pendente"
-          : "✓ Publicado";
+    }else{
 
+      mediaHTML = `
 
-      if(!url){
+        <div class="no-cover">
+          🎬
+        </div>
 
-        return `
-          <article class="video-card">
-
-            <div
-              style="
-                aspect-ratio:16/9;
-                background:#080808;
-                display:flex;
-                align-items:center;
-                justify-content:center;
-                color:#ff796a;
-                padding:20px;
-                text-align:center;
-              "
-            >
-              ❌ Este vídeo não possui
-              ficheiro de vídeo.
-            </div>
-
-            <div class="video-body">
-
-              <div class="video-title">
-                ${escapeHTML(title)}
-              </div>
-
-              <div class="video-meta">
-                ${escapeHTML(category)}
-              </div>
-
-              <div class="video-footer">
-
-                <span class="status ${status}">
-                  ${statusText}
-                </span>
-
-                <button
-                  class="delete-btn delete-video"
-                  data-id="${escapeHTML(video.id)}"
-                >
-                  🗑️ Apagar
-                </button>
-
-              </div>
-
-            </div>
-
-          </article>
-        `;
-
-      }
-
-
-      return `
-        <article class="video-card">
-
-          <video
-            class="video-player"
-            controls
-            playsinline
-            preload="metadata"
-            ${cover ? `poster="${escapeHTML(cover)}"` : ""}
-          >
-            <source
-              src="${escapeHTML(url)}"
-              type="${escapeHTML(
-                video.videoMimeType ||
-                "video/mp4"
-              )}"
-            >
-
-            O teu navegador não suporta
-            reprodução de vídeo.
-          </video>
-
-
-          <div class="video-body">
-
-            <div class="video-title">
-              ${escapeHTML(title)}
-            </div>
-
-
-            <div class="video-meta">
-
-              🎬 ${escapeHTML(category)}
-
-              ${duration
-                ? ` • ⏱️ ${escapeHTML(duration)}`
-                : ""
-              }
-
-              ${date
-                ? ` • ${escapeHTML(date)}`
-                : ""
-              }
-
-            </div>
-
-
-            ${
-              description
-                ? `
-                  <div class="video-description">
-                    ${escapeHTML(description)}
-                  </div>
-                `
-                : ""
-            }
-
-
-            <div class="video-footer">
-
-              <span class="status ${status}">
-                ${statusText}
-              </span>
-
-
-              <button
-                class="delete-btn delete-video"
-                data-id="${escapeHTML(video.id)}"
-                type="button"
-              >
-                🗑️ Apagar
-              </button>
-
-            </div>
-
-          </div>
-
-        </article>
       `;
 
     }
 
 
-    /* =========================
-       APAGAR VÍDEO
-    ========================== */
+    /*
+      PAGAMENTO
+    */
 
-    async function deleteVideo(id){
-
-      const video =
-        videos.find(
-          item =>
-            item.id === id
-        );
+    let paymentHTML = "";
 
 
-      if(!video){
+    if(!requiresPayment){
+
+      paymentHTML = `
+
+        <div class="free-box">
+
+          ✓ VÍDEO GRÁTIS — até 1 minuto
+
+        </div>
+
+      `;
+
+    }else if(paymentPending){
+
+      paymentHTML = `
+
+        <div class="pending-box">
+
+          ⏳ <strong>Pagamento pendente</strong>
+
+          <br>
+
+          Comprovativo enviado.
+          Aguarda a confirmação do administrador.
+
+        </div>
+
+      `;
+
+    }else if(paymentConfirmed){
+
+      paymentHTML = `
+
+        <div class="confirmed-box">
+
+          ✓ PAGAMENTO CONFIRMADO — VÍDEO DESBLOQUEADO
+
+        </div>
+
+      `;
+
+    }else{
+
+      /*
+        ESTE É O BOTÃO PRINCIPAL
+        PAGAR 500 KZ
+      */
+
+      paymentHTML = `
+
+        <div class="payment-box">
+
+          <div class="payment-text">
+
+            ⏱️ Este vídeo tem
+            <strong>${escapeHtml(duration)}</strong>.
+
+            <br>
+
+            Vídeos com mais de 1 minuto
+            precisam de pagamento.
+
+            <br>
+
+            Valor:
+            <strong>500 Kz</strong>
+
+          </div>
+
+          <a
+            class="pay-btn"
+            href="pagamento-videos.html?videoId=${encodeURIComponent(video.id)}"
+          >
+
+            💳 PAGAR 500 Kz
+
+          </a>
+
+        </div>
+
+      `;
+
+    }
+
+
+    /*
+      RETORNO DO CARD
+    */
+
+    return `
+
+      <article
+        class="video-card"
+      >
+
+        <div class="video-cover">
+
+          ${mediaHTML}
+
+          <div class="duration">
+            ${escapeHtml(duration)}
+          </div>
+
+          <div
+            class="status-badge ${statusClass}"
+          >
+            ${escapeHtml(status)}
+          </div>
+
+        </div>
+
+
+        <div class="video-body">
+
+          <div class="video-title">
+
+            ${escapeHtml(title)}
+
+          </div>
+
+
+          <div class="video-description">
+
+            ${
+              description
+                ? escapeHtml(description)
+                : "Sem descrição."
+            }
+
+          </div>
+
+
+          <div class="meta">
+
+            <span>
+              👁️ ${
+                Number(
+                  video.visualizacoes ??
+                  video.views ??
+                  0
+                )
+              } visualizações
+            </span>
+
+            <span>
+              ❤️ ${
+                Number(
+                  video.gostos ??
+                  0
+                )
+              }
+            </span>
+
+            <span>
+              💬 ${
+                Number(
+                  video.comentarios ??
+                  0
+                )
+              }
+            </span>
+
+          </div>
+
+
+          ${paymentHTML}
+
+
+          <div class="actions">
+
+            ${
+              videoUrl
+              ?
+              `
+                <a
+                  href="${escapeHtml(videoUrl)}"
+                  target="_blank"
+                  class="action"
+                >
+                  ▶ VER VÍDEO
+                </a>
+              `
+              :
+              `
+                <span
+                  class="action"
+                  style="opacity:.5"
+                >
+                  Sem vídeo
+                </span>
+              `
+            }
+
+
+            <button
+              class="action delete-btn"
+              data-delete-video="${escapeHtml(video.id)}"
+            >
+              🗑️ APAGAR
+            </button>
+
+          </div>
+
+        </div>
+
+      </article>
+
+    `;
+
+  }
+
+
+  /* =====================================================
+     CANCELAR DELETE
+  ===================================================== */
+
+  cancelDelete.addEventListener(
+    "click",
+    () => {
+
+      videoParaApagar =
+        null;
+
+      deleteModal.classList.remove(
+        "active"
+      );
+
+    }
+  );
+
+
+  /* =====================================================
+     CONFIRMAR DELETE
+  ===================================================== */
+
+  confirmDelete.addEventListener(
+    "click",
+    async () => {
+
+      if(!videoParaApagar){
+
         return;
+
       }
-
-
-      const confirmed =
-        confirm(
-          `Queres apagar o vídeo "${video.titulo || video.title || "sem título"}"?`
-        );
-
-
-      if(!confirmed){
-        return;
-      }
-
-
-      /* =====================
-         REMOVER IMEDIATAMENTE
-      ===================== */
-
-      const oldVideos =
-        [...videos];
-
-
-      videos =
-        videos.filter(
-          item =>
-            item.id !== id
-        );
-
-
-      renderVideos();
 
 
       try{
+
+        confirmDelete.disabled =
+          true;
+
+        confirmDelete.textContent =
+          "A apagar...";
+
+
+        /*
+          IMPORTANTE:
+          Isto apaga o documento do Firestore.
+
+          O ficheiro do Cloudinary não é apagado
+          pelo navegador porque a API Secret
+          não deve ficar exposta no frontend.
+        */
 
         await deleteDoc(
           doc(
             db,
             "videos",
-            id
+            videoParaApagar
           )
         );
 
 
-        showToast(
-          "Vídeo apagado com sucesso.",
-          "success"
+        deleteModal.classList.remove(
+          "active"
         );
 
 
-        /*
-          IMPORTANTE:
+        videoParaApagar =
+          null;
 
-          O Firestore foi apagado.
 
-          O ficheiro do Cloudinary NÃO é apagado
-          diretamente pelo navegador porque a API
-          de destruição exige a API Secret.
-
-          O public_id foi guardado no Firestore para
-          podermos fazer a eliminação segura através
-          de um backend/Firebase Function.
-        */
+        await carregarVideos();
 
 
       }catch(error){
 
-        console.error(
-          "Erro ao apagar vídeo:",
-          error
+        console.error(error);
+
+        alert(
+          "Erro ao apagar vídeo: " +
+          error.message
         );
 
+      }finally{
 
-        videos =
-          oldVideos;
+        confirmDelete.disabled =
+          false;
 
-
-        renderVideos();
-
-
-        showToast(
-          "Não foi possível apagar o vídeo.",
-          "error"
-        );
+        confirmDelete.textContent =
+          "APAGAR";
 
       }
 
     }
+  );
 
 
-    /* =========================
-       LOGOUT
-    ========================== */
+  /* =====================================================
+     CLICAR FORA DO MODAL
+  ===================================================== */
 
-    document
-      .getElementById("logoutBtn")
-      .addEventListener(
-        "click",
-        async () => {
+  deleteModal.addEventListener(
+    "click",
+    (event) => {
 
-          try{
+      if(
+        event.target === deleteModal
+      ){
 
-            await signOut(auth);
+        deleteModal.classList.remove(
+          "active"
+        );
 
-            window.location.href =
-              "area-do-artista.html";
+        videoParaApagar =
+          null;
 
-          }catch(error){
+      }
 
-            showToast(
-              "Erro ao terminar sessão.",
-              "error"
-            );
-
-          }
-
-        }
-      );
+    }
+  );
 
 
-    /* =========================
-       MOBILE MENU
-    ========================== */
+  /* =====================================================
+     AUTENTICAÇÃO
+  ===================================================== */
 
-    document
-      .getElementById("mobileMenu")
-      .addEventListener(
-        "click",
-        () => {
+  onAuthStateChanged(
+    auth,
+    async (user) => {
 
-          document
-            .getElementById("sidebar")
-            .classList.toggle("open");
+      if(!user){
 
-        }
-      );
+        window.location.href =
+          "area-do-artista.html";
+
+        return;
+
+      }
 
 
-  </script>
+      usuarioAtual =
+        user;
+
+
+      await carregarVideos();
+
+    }
+  );
+
+
+</script>
 
 </body>
 </html>
