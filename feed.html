@@ -1724,6 +1724,2305 @@ import {
 } from
 "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
 
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  serverTimestamp,
+  query,
+  orderBy,
+  onSnapshot
+} from
+"https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+
+
+/* =====================================
+   FIREBASE CONFIG
+===================================== */
+
+const firebaseConfig = {
+
+  apiKey:
+    "AIzaSyDoitCcLeLDNBNPCP6fG1s_xbHr4UmohSo",
+
+  authDomain:
+    "kuduro-prime.firebaseapp.com",
+
+  projectId:
+    "kuduro-prime",
+
+  storageBucket:
+    "kuduro-prime.firebasestorage.app",
+
+  messagingSenderId:
+    "299776559545",
+
+  appId:
+    "1:299776559545:web:04aced1ba25391eb3fce68"
+
+};
+
+
+/* =====================================
+   CLOUDINARY CONFIG
+===================================== */
+
+const CLOUDINARY_CLOUD_NAME =
+  "ge1ntqqc";
+
+const CLOUDINARY_UPLOAD_PRESET =
+  "kuduro_prime";
+
+
+const CLOUDINARY_IMAGE_URL =
+  "https://api.cloudinary.com/v1_1/" +
+  CLOUDINARY_CLOUD_NAME +
+  "/image/upload";
+
+
+const CLOUDINARY_VIDEO_URL =
+  "https://api.cloudinary.com/v1_1/" +
+  CLOUDINARY_CLOUD_NAME +
+  "/video/upload";
+
+
+/* =====================================
+   INICIAR FIREBASE
+===================================== */
+
+const app =
+  initializeApp(firebaseConfig);
+
+
+const auth =
+  getAuth(app);
+
+
+const db =
+  getFirestore(app);
+
+
+/* =====================================
+   VARIÁVEIS
+===================================== */
+
+let usuarioAtual = null;
+
+let artistName = "Artista Prime";
+
+let artistUser = "artista";
+
+let artistPhoto = "";
+
+let selectedType = "";
+
+let photoData = "";
+let videoData = "";
+let musicData = "";
+
+let photoFile = null;
+let videoFile = null;
+let musicFile = null;
+
+let photoPreviewURL = "";
+let videoPreviewURL = "";
+let musicPreviewURL = "";
+
+let isPublishing = false;
+
+
+/* =====================================
+   ELEMENTOS
+===================================== */
+
+const loadingScreen =
+  document.getElementById("loadingScreen");
+
+const loadingText =
+  document.getElementById("loadingText");
+
+const sessionError =
+  document.getElementById("sessionError");
+
+const sessionErrorText =
+  document.getElementById("sessionErrorText");
+
+const publishBtn =
+  document.getElementById("publishBtn");
+
+
+/* =====================================
+   ESCAPAR HTML
+===================================== */
+
+function escaparHTML(text){
+
+  const div =
+    document.createElement("div");
+
+  div.textContent =
+    String(text ?? "");
+
+  return div.innerHTML;
+
+}
+
+
+/* =====================================
+   ESCAPAR URL
+===================================== */
+
+function escaparURL(url){
+
+  return String(url || "")
+    .replace(/&/g,"&amp;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;");
+
+}
+
+
+/* =====================================
+   AUTENTICAÇÃO
+===================================== */
+
+onAuthStateChanged(
+  auth,
+  function(user){
+
+    if(!user){
+
+      loadingScreen.style.display =
+        "none";
+
+      sessionError.style.display =
+        "flex";
+
+      sessionErrorText.textContent =
+        "Não foi possível confirmar uma sessão ativa.";
+
+      return;
+
+    }
+
+
+    usuarioAtual = user;
+
+
+    localStorage.setItem(
+      "kpLoggedIn",
+      "true"
+    );
+
+    localStorage.setItem(
+      "kpArtistLoggedIn",
+      "true"
+    );
+
+    localStorage.setItem(
+      "kpArtistUID",
+      user.uid
+    );
+
+
+    if(user.email){
+
+      localStorage.setItem(
+        "kpArtistEmail",
+        user.email
+      );
+
+    }
+
+
+    artistName =
+
+      localStorage.getItem(
+        "kpArtistStageName"
+      )
+
+      ||
+
+      localStorage.getItem(
+        "kpArtistName"
+      )
+
+      ||
+
+      user.displayName
+
+      ||
+
+      (
+        user.email
+        ?
+        user.email.split("@")[0]
+        :
+        "Artista Prime"
+      );
+
+
+    artistUser =
+
+      localStorage.getItem(
+        "kpArtistUsername"
+      )
+
+      ||
+
+      artistName
+        .toLowerCase()
+        .replace(/\s+/g,"")
+        .replace(/[^a-z0-9]/g,"")
+
+      ||
+
+      "artista";
+
+
+    artistPhoto =
+
+      localStorage.getItem(
+        "kpArtistPhoto"
+      )
+
+      ||
+
+      user.photoURL
+
+      ||
+
+      "";
+
+
+    localStorage.setItem(
+      "kpArtistStageName",
+      artistName
+    );
+
+    localStorage.setItem(
+      "kpArtistUsername",
+      artistUser
+    );
+
+
+    if(artistPhoto){
+
+      localStorage.setItem(
+        "kpArtistPhoto",
+        artistPhoto
+      );
+
+    }
+
+
+    document.getElementById(
+      "navName"
+    ).textContent =
+      artistName;
+
+
+    document.getElementById(
+      "sideName"
+    ).textContent =
+      artistName;
+
+
+    document.getElementById(
+      "sideUser"
+    ).textContent =
+      "@" + artistUser;
+
+
+    colocarFoto("navAvatar");
+    colocarFoto("sideAvatar");
+    colocarFoto("postAvatar");
+
+
+    carregarPublicacoes();
+
+
+    loadingText.textContent =
+      "Bem-vindo ao KUDURO PRIME 👑";
+
+
+    setTimeout(
+      function(){
+
+        loadingScreen.style.display =
+          "none";
+
+      },
+      250
+    );
+
+  }
+);
+
+
+/* =====================================
+   FOTO DO ARTISTA
+===================================== */
+
+function colocarFoto(id){
+
+  if(!artistPhoto){
+
+    return;
+
+  }
+
+
+  const elemento =
+    document.getElementById(id);
+
+
+  if(!elemento){
+
+    return;
+
+  }
+
+
+  const img =
+    document.createElement("img");
+
+
+  img.src =
+    artistPhoto;
+
+
+  img.alt =
+    "Foto do artista";
+
+
+  elemento.innerHTML =
+    "";
+
+
+  elemento.appendChild(img);
+
+}
+
+
+/* =====================================
+   DATA DA PUBLICAÇÃO
+===================================== */
+
+function formatarData(timestamp){
+
+  if(!timestamp){
+
+    return "agora";
+
+  }
+
+
+  let data;
+
+
+  if(typeof timestamp.toDate === "function"){
+
+    data =
+      timestamp.toDate();
+
+  }else{
+
+    data =
+      new Date(timestamp);
+
+  }
+
+
+  const agora =
+    new Date();
+
+
+  const diferenca =
+    agora - data;
+
+
+  const segundos =
+    Math.floor(
+      diferenca / 1000
+    );
+
+
+  const minutos =
+    Math.floor(
+      segundos / 60
+    );
+
+
+  const horas =
+    Math.floor(
+      minutos / 60
+    );
+
+
+  const dias =
+    Math.floor(
+      horas / 24
+    );
+
+
+  if(segundos < 60){
+
+    return "agora";
+
+  }
+
+
+  if(minutos < 60){
+
+    return minutos + " min";
+
+  }
+
+
+  if(horas < 24){
+
+    return horas + " h";
+
+  }
+
+
+  if(dias === 1){
+
+    return "ontem";
+
+  }
+
+
+  if(dias < 7){
+
+    return dias + " dias";
+
+  }
+
+
+  return data.toLocaleDateString(
+    "pt-PT",
+    {
+      day:"2-digit",
+      month:"short"
+    }
+  );
+
+}
+
+
+/* =====================================
+   CARREGAR PUBLICAÇÕES FIRESTORE
+===================================== */
+
+function carregarPublicacoes(){
+
+  const feedPosts =
+    document.getElementById(
+      "feedPosts"
+    );
+
+
+  feedPosts.innerHTML =
+    `
+    <div
+      style="
+        padding:30px;
+        text-align:center;
+        color:#aaa;
+        font-size:12px;
+      "
+    >
+      A carregar publicações...
+    </div>
+    `;
+
+
+  const publicacoesRef =
+    collection(
+      db,
+      "publicacoes"
+    );
+
+
+  const consulta =
+    query(
+      publicacoesRef,
+      orderBy(
+        "createdAt",
+        "desc"
+      )
+    );
+
+
+  onSnapshot(
+    consulta,
+    function(snapshot){
+
+      feedPosts.innerHTML =
+        "";
+
+
+      if(snapshot.empty){
+
+        feedPosts.innerHTML =
+          `
+          <div
+            class="panel"
+            style="
+              padding:30px;
+              text-align:center;
+              color:#aaa;
+              font-size:12px;
+            "
+          >
+            👑 Ainda não existem publicações.
+            <br><br>
+            Sê o primeiro a publicar!
+          </div>
+          `;
+
+        return;
+
+      }
+
+
+      snapshot.forEach(
+        function(docSnapshot){
+
+          const post =
+            docSnapshot.data();
+
+
+          feedPosts.insertAdjacentHTML(
+            "beforeend",
+            criarPostHTML(
+              post,
+              docSnapshot.id
+            )
+          );
+
+        }
+      );
+
+    },
+    function(erro){
+
+      console.error(
+        "Erro ao carregar feed:",
+        erro
+      );
+
+
+      feedPosts.innerHTML =
+        `
+        <div
+          class="panel"
+          style="
+            padding:30px;
+            text-align:center;
+            color:#ff887a;
+            font-size:12px;
+          "
+        >
+          ⚠️ Erro ao carregar as publicações.
+        </div>
+        `;
+
+    }
+  );
+
+}
+
+
+/* =====================================
+   CRIAR HTML DO POST
+===================================== */
+
+function criarPostHTML(
+  post,
+  postId
+){
+
+  let mediaHTML =
+    "";
+
+
+  const photoStyle =
+
+    post.authorPhoto
+
+    ?
+
+    `style="--img:url('${escaparURL(post.authorPhoto)}')"`
+
+    :
+
+    "";
+
+
+  /* FOTO */
+
+  if(
+    post.mediaType === "photo" &&
+    post.mediaURL
+  ){
+
+    mediaHTML =
+      `
+      <img
+        src="${escaparURL(post.mediaURL)}"
+        alt="Publicação"
+        style="
+          width:100%;
+          max-height:600px;
+          display:block;
+          object-fit:contain;
+          background:#000;
+        "
+      >
+      `;
+
+  }
+
+
+  /* VÍDEO */
+
+  else if(
+    post.mediaType === "video" &&
+    post.mediaURL
+  ){
+
+    mediaHTML =
+      `
+      <video
+        class="post-video"
+        controls
+        playsinline
+      >
+        <source
+          src="${escaparURL(post.mediaURL)}"
+        >
+      </video>
+      `;
+
+  }
+
+
+  /* MÚSICA */
+
+  else if(
+    (
+      post.mediaType === "music" ||
+      post.mediaType === "music-link"
+    )
+    &&
+    post.mediaURL
+  ){
+
+    mediaHTML =
+      `
+      <div class="music-post">
+
+        <div class="music-cover">
+          🎵
+        </div>
+
+        <div class="music-info">
+
+          <div class="music-name">
+            ${escaparHTML(
+              post.mediaName ||
+              "Música partilhada"
+            )}
+          </div>
+
+          <div class="music-artist">
+            ${escaparHTML(
+              post.authorName ||
+              "Artista"
+            )}
+          </div>
+
+          <audio
+            class="music-player"
+            controls
+            src="${escaparURL(post.mediaURL)}"
+          ></audio>
+
+        </div>
+
+      </div>
+      `;
+
+  }
+
+
+  const textoHTML =
+
+    post.text
+
+    ?
+
+    `
+    <div class="post-text">
+      ${escaparHTML(post.text)}
+    </div>
+    `
+
+    :
+
+    "";
+
+
+  return `
+
+    <article
+      class="post panel"
+      data-post-id="${escaparHTML(postId)}"
+      data-author="${escaparHTML(post.authorId || "")}"
+    >
+
+      <div class="post-top">
+
+        <div
+          class="post-author-img"
+          ${photoStyle}
+        ></div>
+
+        <div>
+
+          <div class="post-name">
+
+            ${escaparHTML(
+              post.authorName ||
+              "Artista Prime"
+            )}
+
+            <span class="verified">
+              ●
+            </span>
+
+          </div>
+
+          <div class="post-meta">
+
+            @${escaparHTML(
+              post.authorUsername ||
+              "artista"
+            )}
+
+            ·
+
+            ${formatarData(
+              post.createdAt
+            )}
+
+          </div>
+
+        </div>
+
+        <div class="more">
+          ⋯
+        </div>
+
+      </div>
+
+      ${textoHTML}
+
+      ${mediaHTML}
+
+      <div class="post-stats">
+
+        <span>
+          🔥 0 reações
+        </span>
+
+        <span>
+          0 comentários
+        </span>
+
+      </div>
+
+      <div class="post-buttons">
+
+        <button onclick="like(this)">
+          ♡ GOSTAR
+        </button>
+
+        <button onclick="comentar()">
+          💬 COMENTAR
+        </button>
+
+        <button onclick="partilhar()">
+          ↗ PARTILHAR
+        </button>
+
+      </div>
+
+    </article>
+
+  `;
+
+}
+
+
+/* =====================================
+   LIMPAR OUTRAS MÍDIAS
+===================================== */
+
+function limparOutrasMidias(exceptType){
+
+  if(exceptType !== "photo"){
+
+    removerFoto();
+
+  }
+
+  if(exceptType !== "video"){
+
+    removerVideo();
+
+  }
+
+  if(exceptType !== "music"){
+
+    removerMusica();
+
+  }
+
+}
+
+
+/* =====================================
+   ABRIR MÍDIA
+===================================== */
+
+window.abrirMidia =
+function(type){
+
+  const boxes = {
+    photo:
+      document.getElementById("photoBox"),
+
+    video:
+      document.getElementById("videoBox"),
+
+    music:
+      document.getElementById("musicBox")
+  };
+
+
+  const buttons = {
+    photo:
+      document.getElementById("photoBtn"),
+
+    video:
+      document.getElementById("videoBtn"),
+
+    music:
+      document.getElementById("musicBtn")
+  };
+
+
+  Object.keys(boxes).forEach(
+    function(key){
+
+      boxes[key]
+        .classList
+        .remove("show");
+
+      buttons[key]
+        .classList
+        .remove("active");
+
+    }
+  );
+
+
+  if(selectedType === type){
+
+    selectedType = "";
+
+    return;
+
+  }
+
+
+  limparOutrasMidias(type);
+
+
+  selectedType =
+    type;
+
+
+  boxes[type]
+    .classList
+    .add("show");
+
+
+  buttons[type]
+    .classList
+    .add("active");
+
+};
+
+
+/* =====================================
+   PREVIEW FOTO
+===================================== */
+
+window.previewPhoto =
+function(event){
+
+  const file =
+    event.target.files[0];
+
+
+  if(!file){
+
+    return;
+
+  }
+
+
+  limparOutrasMidias("photo");
+
+
+  if(photoPreviewURL){
+
+    URL.revokeObjectURL(
+      photoPreviewURL
+    );
+
+  }
+
+
+  photoFile =
+    file;
+
+
+  photoPreviewURL =
+    URL.createObjectURL(file);
+
+
+  photoData =
+    photoPreviewURL;
+
+
+  document.getElementById(
+    "photoPreview"
+  ).innerHTML =
+
+    `
+    <img
+      src="${escaparURL(photoPreviewURL)}"
+      alt="Foto selecionada"
+    >
+
+    <button
+      class="remove-media"
+      type="button"
+      onclick="removerFoto()"
+    >
+      REMOVER FOTO
+    </button>
+    `;
+
+
+  document.getElementById(
+    "photoPreview"
+  )
+  .classList
+  .add("show");
+
+};
+
+
+/* =====================================
+   PREVIEW VÍDEO
+===================================== */
+
+window.previewVideo =
+function(event){
+
+  const file =
+    event.target.files[0];
+
+
+  if(!file){
+
+    return;
+
+  }
+
+
+  limparOutrasMidias("video");
+
+
+  if(videoPreviewURL){
+
+    URL.revokeObjectURL(
+      videoPreviewURL
+    );
+
+  }
+
+
+  videoFile =
+    file;
+
+
+  videoPreviewURL =
+    URL.createObjectURL(file);
+
+
+  videoData =
+    videoPreviewURL;
+
+
+  document.getElementById(
+    "videoPreview"
+  ).innerHTML =
+
+    `
+    <video
+      controls
+      playsinline
+    >
+      <source
+        src="${escaparURL(videoPreviewURL)}"
+        type="${escaparURL(file.type)}"
+      >
+    </video>
+
+    <button
+      class="remove-media"
+      type="button"
+      onclick="removerVideo()"
+    >
+      REMOVER VÍDEO
+    </button>
+    `;
+
+
+  document.getElementById(
+    "videoPreview"
+  )
+  .classList
+  .add("show");
+
+};
+
+
+/* =====================================
+   SELECIONAR MÚSICA
+===================================== */
+
+window.selecionarMusica =
+function(event){
+
+  const file =
+    event.target.files[0];
+
+
+  if(!file){
+
+    return;
+
+  }
+
+
+  limparOutrasMidias("music");
+
+
+  if(musicPreviewURL){
+
+    URL.revokeObjectURL(
+      musicPreviewURL
+    );
+
+  }
+
+
+  musicFile =
+    file;
+
+
+  musicPreviewURL =
+    URL.createObjectURL(file);
+
+
+  musicData =
+    musicPreviewURL;
+
+
+  document.getElementById(
+    "musicLink"
+  ).value = "";
+
+
+  mostrarMusica(
+    musicPreviewURL,
+    file.name
+  );
+
+};
+
+
+/* =====================================
+   LINK DA MÚSICA
+===================================== */
+
+window.usarLinkMusica =
+function(){
+
+  const link =
+    document.getElementById(
+      "musicLink"
+    )
+    .value
+    .trim();
+
+
+  if(!link){
+
+    if(!musicFile){
+
+      musicData = "";
+
+      document.getElementById(
+        "musicPreview"
+      ).innerHTML = "";
+
+      document.getElementById(
+        "musicPreview"
+      )
+      .classList
+      .remove("show");
+
+    }
+
+    return;
+
+  }
+
+
+  limparOutrasMidias("music");
+
+
+  musicFile =
+    null;
+
+
+  if(musicPreviewURL){
+
+    URL.revokeObjectURL(
+      musicPreviewURL
+    );
+
+    musicPreviewURL =
+      "";
+
+  }
+
+
+  musicData =
+    link;
+
+
+  document.getElementById(
+    "musicInput"
+  ).value = "";
+
+
+  mostrarMusica(
+    link,
+    "Música por link"
+  );
+
+};
+
+
+/* =====================================
+   MOSTRAR MÚSICA
+===================================== */
+
+function mostrarMusica(src,name){
+
+  document.getElementById(
+    "musicPreview"
+  ).innerHTML =
+
+    `
+    <div class="music-post">
+
+      <div class="music-cover">
+        🎵
+      </div>
+
+      <div class="music-info">
+
+        <div class="music-name">
+          ${escaparHTML(name)}
+        </div>
+
+        <div class="music-artist">
+          ${escaparHTML(artistName)}
+        </div>
+
+        <audio
+          class="music-player"
+          controls
+          src="${escaparURL(src)}"
+        ></audio>
+
+      </div>
+
+    </div>
+
+    <button
+      class="remove-media"
+      type="button"
+      onclick="removerMusica()"
+    >
+      REMOVER MÚSICA
+    </button>
+    `;
+
+
+  document.getElementById(
+    "musicPreview"
+  )
+  .classList
+  .add("show");
+
+}
+
+
+/* =====================================
+   REMOVER FOTO
+===================================== */
+
+window.removerFoto =
+function(){
+
+  if(photoPreviewURL){
+
+    try{
+      URL.revokeObjectURL(
+        photoPreviewURL
+      );
+    }catch(e){}
+
+  }
+
+
+  photoFile = null;
+  photoPreviewURL = "";
+  photoData = "";
+
+
+  const input =
+    document.getElementById(
+      "photoInput"
+    );
+
+  if(input){
+
+    input.value = "";
+
+  }
+
+
+  const preview =
+    document.getElementById(
+      "photoPreview"
+    );
+
+  if(preview){
+
+    preview.innerHTML = "";
+
+    preview.classList.remove(
+      "show"
+    );
+
+  }
+
+};
+
+
+/* =====================================
+   REMOVER VÍDEO
+===================================== */
+
+window.removerVideo =
+function(){
+
+  if(videoPreviewURL){
+
+    try{
+      URL.revokeObjectURL(
+        videoPreviewURL
+      );
+    }catch(e){}
+
+  }
+
+
+  videoFile = null;
+  videoPreviewURL = "";
+  videoData = "";
+
+
+  const input =
+    document.getElementById(
+      "videoInput"
+    );
+
+  if(input){
+
+    input.value = "";
+
+  }
+
+
+  const preview =
+    document.getElementById(
+      "videoPreview"
+    );
+
+  if(preview){
+
+    preview.innerHTML = "";
+
+    preview.classList.remove(
+      "show"
+    );
+
+  }
+
+};
+
+
+/* =====================================
+   REMOVER MÚSICA
+===================================== */
+
+window.removerMusica =
+function(){
+
+  if(musicPreviewURL){
+
+    try{
+      URL.revokeObjectURL(
+        musicPreviewURL
+      );
+    }catch(e){}
+
+  }
+
+
+  musicFile = null;
+  musicPreviewURL = "";
+  musicData = "";
+
+
+  const input =
+    document.getElementById(
+      "musicInput"
+    );
+
+  if(input){
+
+    input.value = "";
+
+  }
+
+
+  const link =
+    document.getElementById(
+      "musicLink"
+    );
+
+  if(link){
+
+    link.value = "";
+
+  }
+
+
+  const preview =
+    document.getElementById(
+      "musicPreview"
+    );
+
+  if(preview){
+
+    preview.innerHTML = "";
+
+    preview.classList.remove(
+      "show"
+    );
+
+  }
+
+};
+
+
+/* =====================================
+   PROGRESSO
+===================================== */
+
+function mostrarProgresso(
+  percent,
+  text
+){
+
+  const progress =
+    document.getElementById(
+      "uploadProgress"
+    );
+
+
+  const fill =
+    document.getElementById(
+      "progressFill"
+    );
+
+
+  const percentText =
+    document.getElementById(
+      "uploadPercent"
+    );
+
+
+  const status =
+    document.getElementById(
+      "uploadStatus"
+    );
+
+
+  progress.classList.add(
+    "show"
+  );
+
+
+  fill.style.width =
+    percent + "%";
+
+
+  percentText.textContent =
+    percent + "%";
+
+
+  status.textContent =
+    text;
+
+}
+
+
+function esconderProgresso(){
+
+  setTimeout(
+    function(){
+
+      document.getElementById(
+        "uploadProgress"
+      )
+      .classList
+      .remove("show");
+
+    },
+    1000
+  );
+
+}
+
+
+/* =====================================
+   UPLOAD CLOUDINARY
+===================================== */
+
+function enviarParaCloudinary(
+  file,
+  resourceType
+){
+
+  return new Promise(
+    function(resolve,reject){
+
+      const endpoint =
+
+        resourceType === "image"
+
+        ?
+
+        CLOUDINARY_IMAGE_URL
+
+        :
+
+        CLOUDINARY_VIDEO_URL;
+
+
+      const formData =
+        new FormData();
+
+
+      formData.append(
+        "file",
+        file
+      );
+
+
+      formData.append(
+        "upload_preset",
+        CLOUDINARY_UPLOAD_PRESET
+      );
+
+
+      formData.append(
+        "folder",
+        "kuduro-prime/feed"
+      );
+
+
+      const xhr =
+        new XMLHttpRequest();
+
+
+      xhr.open(
+        "POST",
+        endpoint,
+        true
+      );
+
+
+      xhr.upload.onprogress =
+        function(event){
+
+          if(event.lengthComputable){
+
+            const percent =
+              Math.round(
+                event.loaded /
+                event.total *
+                100
+              );
+
+
+            mostrarProgresso(
+              percent,
+              "A enviar para o Cloudinary..."
+            );
+
+          }
+
+        };
+
+
+      xhr.onload =
+        function(){
+
+          if(
+            xhr.status >= 200 &&
+            xhr.status < 300
+          ){
+
+            try{
+
+              const resposta =
+                JSON.parse(
+                  xhr.responseText
+                );
+
+
+              if(!resposta.secure_url){
+
+                reject(
+                  new Error(
+                    "Cloudinary não devolveu o URL."
+                  )
+                );
+
+                return;
+
+              }
+
+
+              mostrarProgresso(
+                100,
+                "Upload concluído! 👑"
+              );
+
+
+              resolve(
+                resposta
+              );
+
+            }catch(erro){
+
+              reject(erro);
+
+            }
+
+          }else{
+
+            let mensagem =
+              "Erro no Cloudinary.";
+
+
+            try{
+
+              const erro =
+                JSON.parse(
+                  xhr.responseText
+                );
+
+
+              if(
+                erro.error &&
+                erro.error.message
+              ){
+
+                mensagem =
+                  erro.error.message;
+
+              }
+
+            }catch(e){}
+
+
+            reject(
+              new Error(
+                mensagem
+              )
+            );
+
+          }
+
+        };
+
+
+      xhr.onerror =
+        function(){
+
+          reject(
+            new Error(
+              "Não foi possível ligar ao Cloudinary."
+            )
+          );
+
+        };
+
+
+      xhr.send(
+        formData
+      );
+
+    }
+  );
+
+}
+
+
+/* =====================================
+   PUBLICAR + CLOUDINARY + FIRESTORE
+===================================== */
+
+window.publicar =
+async function(){
+
+  if(isPublishing){
+
+    return;
+
+  }
+
+
+  if(!usuarioAtual){
+
+    alert(
+      "A tua conta ainda está a carregar."
+    );
+
+    return;
+
+  }
+
+
+  const text =
+    document.getElementById(
+      "postText"
+    )
+    .value
+    .trim();
+
+
+  if(
+    !text &&
+    !photoFile &&
+    !videoFile &&
+    !musicFile &&
+    !musicData
+  ){
+
+    alert(
+      "Escreve algo ou adiciona uma foto, vídeo ou música."
+    );
+
+    return;
+
+  }
+
+
+  isPublishing =
+    true;
+
+
+  publishBtn.disabled =
+    true;
+
+
+  publishBtn.textContent =
+    "A PUBLICAR...";
+
+
+  let mediaURL =
+    "";
+
+
+  let mediaType =
+    "";
+
+
+  let mediaName =
+    "";
+
+
+  try{
+
+    /* FOTO */
+
+    if(photoFile){
+
+      mediaType =
+        "photo";
+
+
+      mostrarProgresso(
+        0,
+        "A preparar foto..."
+      );
+
+
+      const resultado =
+        await enviarParaCloudinary(
+          photoFile,
+          "image"
+        );
+
+
+      mediaURL =
+        resultado.secure_url;
+
+    }
+
+
+    /* VÍDEO */
+
+    else if(videoFile){
+
+      mediaType =
+        "video";
+
+
+      mostrarProgresso(
+        0,
+        "A preparar vídeo..."
+      );
+
+
+      const resultado =
+        await enviarParaCloudinary(
+          videoFile,
+          "video"
+        );
+
+
+      mediaURL =
+        resultado.secure_url;
+
+    }
+
+
+    /* MÚSICA FICHEIRO */
+
+    else if(musicFile){
+
+      mediaType =
+        "music";
+
+
+      mediaName =
+        musicFile.name;
+
+
+      mostrarProgresso(
+        0,
+        "A preparar música..."
+      );
+
+
+      const resultado =
+        await enviarParaCloudinary(
+          musicFile,
+          "video"
+        );
+
+
+      mediaURL =
+        resultado.secure_url;
+
+    }
+
+
+    /* MÚSICA POR LINK */
+
+    else if(musicData){
+
+      mediaType =
+        "music-link";
+
+
+      mediaURL =
+        musicData;
+
+
+      mediaName =
+        "Música partilhada";
+
+    }
+
+
+    /* GUARDAR NO FIRESTORE */
+
+    publishBtn.textContent =
+      "A GUARDAR...";
+
+
+    mostrarProgresso(
+      100,
+      "A guardar no KUDURO PRIME..."
+    );
+
+
+    await addDoc(
+
+      collection(
+        db,
+        "publicacoes"
+      ),
+
+      {
+
+        authorId:
+          usuarioAtual.uid,
+
+        authorName:
+          artistName,
+
+        authorUsername:
+          artistUser,
+
+        authorPhoto:
+          artistPhoto,
+
+        text:
+          text,
+
+        mediaType:
+          mediaType,
+
+        mediaURL:
+          mediaURL,
+
+        mediaName:
+          mediaName,
+
+        likes:
+          0,
+
+        comments:
+          0,
+
+        createdAt:
+          serverTimestamp()
+
+      }
+
+    );
+
+
+    /* LIMPAR FORMULÁRIO */
+
+    document.getElementById(
+      "postText"
+    ).value = "";
+
+
+    removerFoto();
+    removerVideo();
+    removerMusica();
+
+
+    selectedType =
+      "";
+
+
+    document.querySelectorAll(
+      ".media-box"
+    )
+    .forEach(
+      function(box){
+
+        box.classList.remove(
+          "show"
+        );
+
+      }
+    );
+
+
+    document.querySelectorAll(
+      ".tool-btn"
+    )
+    .forEach(
+      function(button){
+
+        button.classList.remove(
+          "active"
+        );
+
+      }
+    );
+
+
+    esconderProgresso();
+
+
+    alert(
+      "Publicação guardada com sucesso! 👑"
+    );
+
+
+  }catch(erro){
+
+    console.error(
+      "Erro ao publicar:",
+      erro
+    );
+
+
+    alert(
+      "Erro ao publicar: " +
+      erro.message
+    );
+
+
+    esconderProgresso();
+
+  }finally{
+
+    isPublishing =
+      false;
+
+
+    publishBtn.disabled =
+      false;
+
+
+    publishBtn.textContent =
+      "PUBLICAR";
+
+  }
+
+};
+
+
+/* =====================================
+   LIKE
+===================================== */
+
+window.like =
+function(button){
+
+  button.classList.toggle(
+    "liked"
+  );
+
+
+  if(
+    button.classList.contains(
+      "liked"
+    )
+  ){
+
+    button.innerHTML =
+      "♥ GOSTEI";
+
+  }else{
+
+    button.innerHTML =
+      "♡ GOSTAR";
+
+  }
+
+};
+
+
+/* =====================================
+   SEGUIR
+===================================== */
+
+window.seguir =
+function(button){
+
+  if(
+    button.textContent.trim() ===
+    "SEGUIR"
+  ){
+
+    button.textContent =
+      "✓ A SEGUIR";
+
+    button.style.background =
+      "#f4bf31";
+
+    button.style.color =
+      "#111";
+
+  }else{
+
+    button.textContent =
+      "SEGUIR";
+
+    button.style.background =
+      "transparent";
+
+    button.style.color =
+      "#f4bf31";
+
+  }
+
+};
+
+
+/* =====================================
+   COMENTAR
+===================================== */
+
+window.comentar =
+function(){
+
+  alert(
+    "Os comentários serão ativados em breve no KUDURO PRIME. 👑"
+  );
+
+};
+
+
+/* =====================================
+   PARTILHAR
+===================================== */
+
+window.partilhar =
+function(){
+
+  if(navigator.share){
+
+    navigator.share({
+
+      title:
+        "KUDURO PRIME",
+
+      text:
+        "Vê esta publicação no KUDURO PRIME!"
+
+    })
+    .catch(
+      function(){}
+    );
+
+  }else{
+
+    alert(
+      "Publicação pronta para ser partilhada!"
+    );
+
+  }
+
+};
+
+
+/* =====================================
+   SAIR
+===================================== */
+
+window.sair =
+async function(event){
+
+  if(event){
+
+    event.preventDefault();
+
+  }
+
+
+  try{
+
+    await signOut(auth);
+
+  }catch(erro){
+
+    console.error(
+      "Erro ao sair:",
+      erro
+    );
+
+  }
+
+
+  localStorage.removeItem(
+    "kpLoggedIn"
+  );
+
+  localStorage.removeItem(
+    "kpArtistLoggedIn"
+  );
+
+  localStorage.removeItem(
+    "kpArtistUID"
+  );
+
+  localStorage.removeItem(
+    "kpArtistEmail"
+  );
+
+
+  window.location.replace(
+    "index.html"
+  );
+
+};
+
+
+/* =====================================
+   VOLTAR AO LOGIN
+===================================== */
+
+window.irParaLogin =
+function(){
+
+  window.location.replace(
+    "area-do-artista.html"
+  );
+
+};
+
+
+/* =====================================
+   MENU MOBILE
+===================================== */
+
+window.abrirMenu =
+function(){
+
+  const links =
+    document.querySelector(
+      ".links"
+    );
+
+
+  if(!links){
+
+    return;
+
+  }
+
+
+  links.classList.toggle(
+    "mobile-open"
+  );
+
+};
+
+
+document.addEventListener(
+  "click",
+  function(event){
+
+    const links =
+      document.querySelector(
+        ".links"
+      );
+
+
+    const menuButton =
+      document.querySelector(
+        ".menu"
+      );
+
+
+    if(
+      !links ||
+      !menuButton
+    ){
+
+      return;
+
+    }
+
+
+    if(
+      links.classList.contains(
+        "mobile-open"
+      ) &&
+      !links.contains(
+        event.target
+      ) &&
+      !menuButton.contains(
+        event.target
+      )
+    ){
+
+      links.classList.remove(
+        "mobile-open"
+      );
+
+    }
+
+  }
+);
+
+</script>
+
+import {
+  initializeApp
+} from
+"https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+
+import {
+  getAuth,
+  onAuthStateChanged,
+  signOut
+} from
+"https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+
 
 /* =====================================
    FIREBASE CONFIG
