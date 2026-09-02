@@ -1,0 +1,1944 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Definições — KUDURO PRIME</title>
+
+  <style>
+    :root{
+      --bg:#070707;
+      --panel:#111111;
+      --panel2:#161616;
+      --gold:#f4bf31;
+      --gold2:#ffdc6b;
+      --text:#ffffff;
+      --muted:#9f9f9f;
+      --line:#292929;
+      --red:#ff5b57;
+      --green:#48d597;
+    }
+
+    *{
+      box-sizing:border-box;
+    }
+
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--text);
+      font-family:Arial,Helvetica,sans-serif;
+    }
+
+    a{
+      color:inherit;
+      text-decoration:none;
+    }
+
+    button,
+    input,
+    select{
+      font:inherit;
+    }
+
+    /* CABEÇALHO */
+
+    .top{
+      height:72px;
+      border-bottom:1px solid var(--line);
+      display:flex;
+      align-items:center;
+      position:sticky;
+      top:0;
+      z-index:50;
+      background:rgba(7,7,7,.96);
+      backdrop-filter:blur(15px);
+    }
+
+    .top-in{
+      width:min(900px,92%);
+      margin:auto;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:20px;
+    }
+
+    .brand{
+      font-size:19px;
+      font-weight:900;
+      letter-spacing:-1px;
+    }
+
+    .brand span{
+      color:var(--gold);
+    }
+
+    .back{
+      color:var(--gold);
+      font-size:13px;
+      font-weight:900;
+    }
+
+    /* CONTEÚDO */
+
+    main{
+      width:min(900px,92%);
+      margin:0 auto;
+      padding:35px 0 80px;
+    }
+
+    h1{
+      margin:0;
+      font-size:32px;
+      letter-spacing:-1px;
+    }
+
+    .subtitle{
+      margin:8px 0 30px;
+      color:var(--muted);
+      font-size:14px;
+    }
+
+    .layout{
+      display:grid;
+      grid-template-columns:220px minmax(0,1fr);
+      gap:22px;
+      align-items:start;
+    }
+
+    /* MENU */
+
+    .menu{
+      position:sticky;
+      top:95px;
+      background:var(--panel);
+      border:1px solid var(--line);
+      border-radius:16px;
+      overflow:hidden;
+    }
+
+    .menu-title{
+      padding:16px 18px;
+      color:var(--gold);
+      font-size:11px;
+      font-weight:900;
+      border-bottom:1px solid var(--line);
+    }
+
+    .menu-btn{
+      width:100%;
+      padding:15px 18px;
+      border:0;
+      border-bottom:1px solid var(--line);
+      background:transparent;
+      color:var(--muted);
+      text-align:left;
+      font-size:12px;
+      font-weight:800;
+      cursor:pointer;
+    }
+
+    .menu-btn:last-child{
+      border-bottom:0;
+    }
+
+    .menu-btn:hover,
+    .menu-btn.active{
+      color:var(--gold);
+      background:rgba(244,191,49,.06);
+    }
+
+    /* PAINEL */
+
+    .tab-content{
+      display:none;
+    }
+
+    .tab-content.active{
+      display:block;
+    }
+
+    .card{
+      background:var(--panel);
+      border:1px solid var(--line);
+      border-radius:18px;
+      padding:22px;
+      margin-bottom:20px;
+    }
+
+    .card-title{
+      margin:0;
+      font-size:20px;
+    }
+
+    .card-text{
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.6;
+      margin:8px 0 22px;
+    }
+
+    /* PERFIL */
+
+    .profile-box{
+      display:flex;
+      align-items:center;
+      gap:16px;
+      padding-bottom:20px;
+      margin-bottom:20px;
+      border-bottom:1px solid var(--line);
+    }
+
+    .avatar{
+      width:75px;
+      height:75px;
+      flex:0 0 auto;
+      border-radius:50%;
+      overflow:hidden;
+      border:2px solid var(--gold);
+      background:#1c1608;
+      display:grid;
+      place-items:center;
+      font-size:30px;
+    }
+
+    .avatar img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
+
+    .profile-name{
+      font-size:17px;
+      font-weight:900;
+    }
+
+    .profile-user{
+      color:var(--gold);
+      font-size:12px;
+      margin-top:5px;
+    }
+
+    .edit-link{
+      display:inline-block;
+      margin-top:8px;
+      color:var(--gold);
+      font-size:11px;
+      font-weight:900;
+    }
+
+    /* FORMULÁRIO */
+
+    label{
+      display:block;
+      margin:18px 0 8px;
+      color:#dddddd;
+      font-size:11px;
+      font-weight:900;
+    }
+
+    input,
+    select{
+      width:100%;
+      padding:14px;
+      border:1px solid var(--line);
+      border-radius:10px;
+      background:#090909;
+      color:white;
+      outline:none;
+    }
+
+    input:focus,
+    select:focus{
+      border-color:var(--gold);
+    }
+
+    .save{
+      margin-top:22px;
+      padding:14px 20px;
+      border:0;
+      border-radius:10px;
+      background:linear-gradient(135deg,var(--gold2),var(--gold));
+      color:#17120a;
+      font-size:12px;
+      font-weight:900;
+      cursor:pointer;
+    }
+
+    .save:disabled{
+      opacity:.5;
+      cursor:not-allowed;
+    }
+
+    /* LINHAS */
+
+    .setting-row{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:20px;
+      padding:18px 0;
+      border-bottom:1px solid var(--line);
+    }
+
+    .setting-row:last-child{
+      border-bottom:0;
+    }
+
+    .setting-name{
+      font-size:13px;
+      font-weight:900;
+    }
+
+    .setting-desc{
+      margin-top:5px;
+      color:var(--muted);
+      font-size:11px;
+      line-height:1.5;
+    }
+
+    /* SWITCH */
+
+    .switch{
+      position:relative;
+      width:48px;
+      height:27px;
+      flex:0 0 auto;
+    }
+
+    .switch input{
+      display:none;
+    }
+
+    .slider{
+      position:absolute;
+      inset:0;
+      background:#333;
+      border-radius:30px;
+      cursor:pointer;
+      transition:.25s;
+    }
+
+    .slider:before{
+      content:"";
+      position:absolute;
+      width:19px;
+      height:19px;
+      left:4px;
+      top:4px;
+      border-radius:50%;
+      background:white;
+      transition:.25s;
+    }
+
+    .switch input:checked + .slider{
+      background:var(--gold);
+    }
+
+    .switch input:checked + .slider:before{
+      transform:translateX(21px);
+      background:#17120a;
+    }
+
+    /* BOTÕES */
+
+    .btn-dark{
+      padding:12px 16px;
+      border:1px solid var(--line);
+      border-radius:9px;
+      background:#0a0a0a;
+      color:white;
+      font-size:11px;
+      font-weight:900;
+      cursor:pointer;
+    }
+
+    .btn-dark:hover{
+      border-color:var(--gold);
+      color:var(--gold);
+    }
+
+    .btn-danger{
+      padding:13px 18px;
+      border:1px solid rgba(255,91,87,.5);
+      border-radius:9px;
+      background:rgba(255,91,87,.08);
+      color:var(--red);
+      font-size:11px;
+      font-weight:900;
+      cursor:pointer;
+    }
+
+    .btn-danger:hover{
+      background:rgba(255,91,87,.15);
+    }
+
+    /* MENSAGEM */
+
+    .message{
+      display:none;
+      margin-top:16px;
+      padding:14px;
+      border-radius:10px;
+      font-size:12px;
+      line-height:1.5;
+    }
+
+    .message.success{
+      display:block;
+      background:rgba(72,213,151,.12);
+      border:1px solid rgba(72,213,151,.35);
+      color:var(--green);
+    }
+
+    .message.error{
+      display:block;
+      background:rgba(255,91,87,.12);
+      border:1px solid rgba(255,91,87,.35);
+      color:#ff938f;
+    }
+
+    /* LOGIN */
+
+    .account-email{
+      padding:14px;
+      border:1px solid var(--line);
+      border-radius:10px;
+      background:#0a0a0a;
+      color:var(--muted);
+      font-size:12px;
+    }
+
+    /* RESPONSIVO */
+
+    @media(max-width:700px){
+
+      .layout{
+        grid-template-columns:1fr;
+      }
+
+      .menu{
+        position:static;
+        display:grid;
+        grid-template-columns:repeat(2,1fr);
+      }
+
+      .menu-title{
+        grid-column:1/-1;
+      }
+
+      .menu-btn{
+        text-align:center;
+        padding:14px 8px;
+      }
+
+    }
+
+    @media(max-width:500px){
+
+      h1{
+        font-size:27px;
+      }
+
+      .setting-row{
+        align-items:flex-start;
+      }
+
+      .card{
+        padding:17px;
+      }
+
+      .menu{
+        grid-template-columns:1fr;
+      }
+
+      .profile-box{
+        align-items:flex-start;
+      }
+
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <header class="top">
+
+    <div class="top-in">
+
+      <a
+        href="feed.html"
+        class="brand"
+      >
+        👑 KUDURO <span>PRIME</span>
+      </a>
+
+      <a
+        href="feed.html"
+        class="back"
+      >
+        ← VOLTAR
+      </a>
+
+    </div>
+
+  </header>
+
+
+  <main>
+
+    <h1>DEFINIÇÕES</h1>
+
+    <p class="subtitle">
+      Controla a tua conta e as preferências do KUDURO PRIME.
+    </p>
+
+
+    <div class="layout">
+
+      <!-- MENU -->
+
+      <aside class="menu">
+
+        <div class="menu-title">
+          ⚙️ DEFINIÇÕES
+        </div>
+
+        <button
+          class="menu-btn active"
+          data-tab="conta"
+        >
+          👤 MINHA CONTA
+        </button>
+
+        <button
+          class="menu-btn"
+          data-tab="seguranca"
+        >
+          🔒 SEGURANÇA
+        </button>
+
+        <button
+          class="menu-btn"
+          data-tab="notificacoes"
+        >
+          🔔 NOTIFICAÇÕES
+        </button>
+
+        <button
+          class="menu-btn"
+          data-tab="privacidade"
+        >
+          🛡️ PRIVACIDADE
+        </button>
+
+        <button
+          class="menu-btn"
+          data-tab="sair"
+        >
+          🚪 SAIR DA CONTA
+        </button>
+
+      </aside>
+
+
+      <!-- CONTEÚDO -->
+
+      <section>
+
+        <!-- CONTA -->
+
+        <div
+          class="tab-content active"
+          id="conta"
+        >
+
+          <div class="card">
+
+            <h2 class="card-title">
+              MINHA CONTA
+            </h2>
+
+            <p class="card-text">
+              Informações principais da tua conta.
+            </p>
+
+
+            <div class="profile-box">
+
+              <div
+                class="avatar"
+                id="avatar"
+              >
+                👤
+              </div>
+
+
+              <div>
+
+                <div
+                  class="profile-name"
+                  id="artistName"
+                >
+                  A carregar...
+                </div>
+
+                <div
+                  class="profile-user"
+                  id="artistUsername"
+                >
+                  @artista
+                </div>
+
+                <a
+                  href="editar-perfil.html"
+                  class="edit-link"
+                >
+                  EDITAR PERFIL →
+                </a>
+
+              </div>
+
+            </div>
+
+
+            <label>
+              EMAIL DA CONTA
+            </label>
+
+            <div
+              class="account-email"
+              id="accountEmail"
+            >
+              A carregar...
+            </div>
+
+
+            <label>
+              NOME DO ARTISTA
+            </label>
+
+            <input
+              type="text"
+              id="nameInput"
+              placeholder="Nome do artista"
+            />
+
+
+            <label>
+              NOME DE UTILIZADOR
+            </label>
+
+            <input
+              type="text"
+              id="usernameInput"
+              placeholder="@username"
+            />
+
+
+            <button
+              class="save"
+              id="saveProfileBtn"
+            >
+              💾 GUARDAR ALTERAÇÕES
+            </button>
+
+            <div
+              class="message"
+              id="accountMessage"
+            ></div>
+
+          </div>
+
+        </div>
+
+
+        <!-- SEGURANÇA -->
+
+        <div
+          class="tab-content"
+          id="seguranca"
+        >
+
+          <div class="card">
+
+            <h2 class="card-title">
+              🔒 SEGURANÇA
+            </h2>
+
+            <p class="card-text">
+              Altera a palavra-passe da tua conta.
+            </p>
+
+
+            <label>
+              NOVA PALAVRA-PASSE
+            </label>
+
+            <input
+              type="password"
+              id="newPassword"
+              placeholder="Mínimo de 6 caracteres"
+            />
+
+
+            <label>
+              CONFIRMAR NOVA PALAVRA-PASSE
+            </label>
+
+            <input
+              type="password"
+              id="confirmPassword"
+              placeholder="Repete a nova palavra-passe"
+            />
+
+
+            <button
+              class="save"
+              id="changePasswordBtn"
+            >
+              🔒 ALTERAR PALAVRA-PASSE
+            </button>
+
+
+            <div
+              class="message"
+              id="securityMessage"
+            ></div>
+
+          </div>
+
+        </div>
+
+
+        <!-- NOTIFICAÇÕES -->
+
+        <div
+          class="tab-content"
+          id="notificacoes"
+        >
+
+          <div class="card">
+
+            <h2 class="card-title">
+              🔔 NOTIFICAÇÕES
+            </h2>
+
+            <p class="card-text">
+              Escolhe quais notificações queres receber.
+            </p>
+
+
+            <div class="setting-row">
+
+              <div>
+
+                <div class="setting-name">
+                  Gostos
+                </div>
+
+                <div class="setting-desc">
+                  Receber notificações quando gostarem das tuas publicações.
+                </div>
+
+              </div>
+
+              <label class="switch">
+
+                <input
+                  type="checkbox"
+                  id="likesNotifications"
+                  checked
+                >
+
+                <span class="slider"></span>
+
+              </label>
+
+            </div>
+
+
+            <div class="setting-row">
+
+              <div>
+
+                <div class="setting-name">
+                  Comentários
+                </div>
+
+                <div class="setting-desc">
+                  Receber notificações sobre novos comentários.
+                </div>
+
+              </div>
+
+              <label class="switch">
+
+                <input
+                  type="checkbox"
+                  id="commentsNotifications"
+                  checked
+                >
+
+                <span class="slider"></span>
+
+              </label>
+
+            </div>
+
+
+            <div class="setting-row">
+
+              <div>
+
+                <div class="setting-name">
+                  Novos seguidores
+                </div>
+
+                <div class="setting-desc">
+                  Receber notificações quando alguém te seguir.
+                </div>
+
+              </div>
+
+              <label class="switch">
+
+                <input
+                  type="checkbox"
+                  id="followersNotifications"
+                  checked
+                >
+
+                <span class="slider"></span>
+
+              </label>
+
+            </div>
+
+
+            <div class="setting-row">
+
+              <div>
+
+                <div class="setting-name">
+                  Mensagens
+                </div>
+
+                <div class="setting-desc">
+                  Receber notificações sobre novas mensagens.
+                </div>
+
+              </div>
+
+              <label class="switch">
+
+                <input
+                  type="checkbox"
+                  id="messagesNotifications"
+                  checked
+                >
+
+                <span class="slider"></span>
+
+              </label>
+
+            </div>
+
+
+            <button
+              class="save"
+              id="saveNotificationsBtn"
+            >
+              💾 GUARDAR PREFERÊNCIAS
+            </button>
+
+
+            <div
+              class="message"
+              id="notificationMessage"
+            ></div>
+
+          </div>
+
+        </div>
+
+
+        <!-- PRIVACIDADE -->
+
+        <div
+          class="tab-content"
+          id="privacidade"
+        >
+
+          <div class="card">
+
+            <h2 class="card-title">
+              🛡️ PRIVACIDADE
+            </h2>
+
+            <p class="card-text">
+              Controla quem pode interagir com a tua conta.
+            </p>
+
+
+            <div class="setting-row">
+
+              <div>
+
+                <div class="setting-name">
+                  Conta privada
+                </div>
+
+                <div class="setting-desc">
+                  Apenas seguidores aprovados poderão ver as tuas publicações.
+                </div>
+
+              </div>
+
+              <label class="switch">
+
+                <input
+                  type="checkbox"
+                  id="privateAccount"
+                >
+
+                <span class="slider"></span>
+
+              </label>
+
+            </div>
+
+
+            <div class="setting-row">
+
+              <div>
+
+                <div class="setting-name">
+                  Mostrar localização
+                </div>
+
+                <div class="setting-desc">
+                  Permitir que a localização do artista apareça no perfil.
+                </div>
+
+              </div>
+
+              <label class="switch">
+
+                <input
+                  type="checkbox"
+                  id="showLocation"
+                  checked
+                >
+
+                <span class="slider"></span>
+
+              </label>
+
+            </div>
+
+
+            <button
+              class="save"
+              id="savePrivacyBtn"
+            >
+              💾 GUARDAR PRIVACIDADE
+            </button>
+
+
+            <div
+              class="message"
+              id="privacyMessage"
+            ></div>
+
+          </div>
+
+        </div>
+
+
+        <!-- SAIR -->
+
+        <div
+          class="tab-content"
+          id="sair"
+        >
+
+          <div class="card">
+
+            <h2 class="card-title">
+              🚪 TERMINAR SESSÃO
+            </h2>
+
+            <p class="card-text">
+              Vais sair da tua conta KUDURO PRIME neste dispositivo.
+            </p>
+
+
+            <button
+              class="btn-dark"
+              id="logoutBtn"
+            >
+              🚪 TERMINAR SESSÃO
+            </button>
+
+          </div>
+
+
+          <div class="card">
+
+            <h2 class="card-title">
+              ⚠️ ZONA DE PERIGO
+            </h2>
+
+            <p class="card-text">
+              Esta ação poderá eliminar permanentemente a tua conta e os teus dados.
+            </p>
+
+
+            <button
+              class="btn-danger"
+              id="deleteAccountBtn"
+            >
+              🗑️ ELIMINAR CONTA
+            </button>
+
+          </div>
+
+        </div>
+
+      </section>
+
+    </div>
+
+  </main>
+
+
+  <script type="module">
+
+    import {
+      initializeApp
+    } from
+    "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+
+
+    import {
+      getAuth,
+      onAuthStateChanged,
+      signOut,
+      updatePassword,
+      deleteUser
+    } from
+    "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+
+
+    import {
+      getFirestore,
+      doc,
+      getDoc,
+      updateDoc,
+      setDoc,
+      serverTimestamp
+    } from
+    "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+
+
+    /* FIREBASE */
+
+    const firebaseConfig = {
+
+      apiKey:
+        "AIzaSyDoitCcLeLDNBNPCP6fG1s_xbHr4UmohSo",
+
+      authDomain:
+        "kuduro-prime.firebaseapp.com",
+
+      projectId:
+        "kuduro-prime",
+
+      storageBucket:
+        "kuduro-prime.firebasestorage.app",
+
+      messagingSenderId:
+        "299776559545",
+
+      appId:
+        "1:299776559545:web:04aced1ba25391eb3fce68"
+
+    };
+
+
+    const app =
+      initializeApp(firebaseConfig);
+
+
+    const auth =
+      getAuth(app);
+
+
+    const db =
+      getFirestore(app);
+
+
+    let currentUser =
+      null;
+
+
+    let artistData =
+      null;
+
+
+    /* ELEMENTOS */
+
+    const menuButtons =
+      document.querySelectorAll(".menu-btn");
+
+
+    const tabContents =
+      document.querySelectorAll(".tab-content");
+
+
+    /* TROCAR ABAS */
+
+    menuButtons.forEach(button => {
+
+      button.addEventListener(
+        "click",
+        () => {
+
+          const tab =
+            button.dataset.tab;
+
+
+          menuButtons.forEach(item =>
+            item.classList.remove("active")
+          );
+
+
+          tabContents.forEach(content =>
+            content.classList.remove("active")
+          );
+
+
+          button.classList.add(
+            "active"
+          );
+
+
+          document
+            .getElementById(tab)
+            .classList.add("active");
+
+        }
+      );
+
+    });
+
+
+    /* LOGIN */
+
+    onAuthStateChanged(
+      auth,
+      async user => {
+
+        if(!user){
+
+          window.location.href =
+            "area-do-artista.html";
+
+          return;
+
+        }
+
+
+        currentUser =
+          user;
+
+
+        document
+          .getElementById("accountEmail")
+          .textContent =
+            user.email ||
+            "Email não disponível";
+
+
+        try{
+
+          const artistRef =
+            doc(
+              db,
+              "artists",
+              user.uid
+            );
+
+
+          const artistSnap =
+            await getDoc(
+              artistRef
+            );
+
+
+          if(
+            artistSnap.exists()
+          ){
+
+            artistData =
+              artistSnap.data();
+
+
+            loadArtistData();
+
+          }
+          else{
+
+            document
+              .getElementById("artistName")
+              .textContent =
+                "Artista Prime";
+
+            document
+              .getElementById("artistUsername")
+              .textContent =
+                "@artista";
+
+          }
+
+
+          loadSettings();
+
+        }
+        catch(error){
+
+          console.error(error);
+
+        }
+
+      }
+    );
+
+
+    /* CARREGAR ARTISTA */
+
+    function loadArtistData(){
+
+      const name =
+        artistData.artistName
+        ||
+        artistData.nome
+        ||
+        "Artista Prime";
+
+
+      const username =
+        artistData.username
+        ||
+        "artista";
+
+
+      const photo =
+        artistData.photo
+        ||
+        artistData.foto
+        ||
+        "";
+
+
+      document
+        .getElementById("artistName")
+        .textContent =
+          name;
+
+
+      document
+        .getElementById("artistUsername")
+        .textContent =
+          "@" + username;
+
+
+      document
+        .getElementById("nameInput")
+        .value =
+          name;
+
+
+      document
+        .getElementById("usernameInput")
+        .value =
+          username;
+
+
+      if(photo){
+
+        document
+          .getElementById("avatar")
+          .innerHTML =
+            `
+              <img
+                src="${photo}"
+                alt="${name}"
+              >
+            `;
+
+      }
+
+    }
+
+
+    /* GUARDAR PERFIL */
+
+    document
+      .getElementById("saveProfileBtn")
+      .addEventListener(
+        "click",
+        async () => {
+
+          if(!currentUser)
+            return;
+
+
+          const name =
+            document
+              .getElementById("nameInput")
+              .value
+              .trim();
+
+
+          const username =
+            document
+              .getElementById("usernameInput")
+              .value
+              .trim()
+              .replace("@","");
+
+
+          if(!name){
+
+            showMessage(
+              "accountMessage",
+              "Escreve o nome do artista.",
+              "error"
+            );
+
+            return;
+
+          }
+
+
+          try{
+
+            const button =
+              document.getElementById(
+                "saveProfileBtn"
+              );
+
+
+            button.disabled =
+              true;
+
+
+            button.textContent =
+              "A GUARDAR...";
+
+
+            await updateDoc(
+
+              doc(
+                db,
+                "artists",
+                currentUser.uid
+              ),
+
+              {
+
+                artistName:
+                  name,
+
+                nome:
+                  name,
+
+                username:
+                  username,
+
+                updatedAt:
+                  serverTimestamp()
+
+              }
+
+            );
+
+
+            document
+              .getElementById("artistName")
+              .textContent =
+                name;
+
+
+            document
+              .getElementById("artistUsername")
+              .textContent =
+                "@" + username;
+
+
+            showMessage(
+              "accountMessage",
+              "✓ Alterações guardadas com sucesso!",
+              "success"
+            );
+
+
+            button.disabled =
+              false;
+
+
+            button.textContent =
+              "💾 GUARDAR ALTERAÇÕES";
+
+          }
+          catch(error){
+
+            console.error(error);
+
+
+            showMessage(
+              "accountMessage",
+              "Erro ao guardar: "
+              + error.message,
+              "error"
+            );
+
+
+            document
+              .getElementById(
+                "saveProfileBtn"
+              )
+              .disabled =
+                false;
+
+
+            document
+              .getElementById(
+                "saveProfileBtn"
+              )
+              .textContent =
+                "💾 GUARDAR ALTERAÇÕES";
+
+          }
+
+        }
+      );
+
+
+    /* ALTERAR PASSWORD */
+
+    document
+      .getElementById("changePasswordBtn")
+      .addEventListener(
+        "click",
+        async () => {
+
+          const password =
+            document
+              .getElementById("newPassword")
+              .value;
+
+
+          const confirmPassword =
+            document
+              .getElementById("confirmPassword")
+              .value;
+
+
+          if(
+            password.length < 6
+          ){
+
+            showMessage(
+              "securityMessage",
+              "A palavra-passe deve ter pelo menos 6 caracteres.",
+              "error"
+            );
+
+            return;
+
+          }
+
+
+          if(
+            password !==
+            confirmPassword
+          ){
+
+            showMessage(
+              "securityMessage",
+              "As palavras-passe não coincidem.",
+              "error"
+            );
+
+            return;
+
+          }
+
+
+          try{
+
+            await updatePassword(
+              currentUser,
+              password
+            );
+
+
+            document
+              .getElementById("newPassword")
+              .value =
+                "";
+
+
+            document
+              .getElementById("confirmPassword")
+              .value =
+                "";
+
+
+            showMessage(
+              "securityMessage",
+              "✓ Palavra-passe alterada com sucesso!",
+              "success"
+            );
+
+          }
+          catch(error){
+
+            let text =
+              "Erro ao alterar a palavra-passe.";
+
+
+            if(
+              error.code ===
+              "auth/requires-recent-login"
+            ){
+
+              text =
+                "Por segurança, termina sessão e inicia novamente antes de alterar a palavra-passe.";
+
+            }
+
+
+            showMessage(
+              "securityMessage",
+              text,
+              "error"
+            );
+
+          }
+
+        }
+      );
+
+
+    /* CARREGAR DEFINIÇÕES */
+
+    async function loadSettings(){
+
+      if(!currentUser)
+        return;
+
+
+      try{
+
+        const settingsRef =
+          doc(
+            db,
+            "settings",
+            currentUser.uid
+          );
+
+
+        const settingsSnap =
+          await getDoc(
+            settingsRef
+          );
+
+
+        if(
+          !settingsSnap.exists()
+        )
+          return;
+
+
+        const settings =
+          settingsSnap.data();
+
+
+        document
+          .getElementById(
+            "likesNotifications"
+          )
+          .checked =
+            settings.likesNotifications !==
+            false;
+
+
+        document
+          .getElementById(
+            "commentsNotifications"
+          )
+          .checked =
+            settings.commentsNotifications !==
+            false;
+
+
+        document
+          .getElementById(
+            "followersNotifications"
+          )
+          .checked =
+            settings.followersNotifications !==
+            false;
+
+
+        document
+          .getElementById(
+            "messagesNotifications"
+          )
+          .checked =
+            settings.messagesNotifications !==
+            false;
+
+
+        document
+          .getElementById(
+            "privateAccount"
+          )
+          .checked =
+            settings.privateAccount ===
+            true;
+
+
+        document
+          .getElementById(
+            "showLocation"
+          )
+          .checked =
+            settings.showLocation !==
+            false;
+
+      }
+      catch(error){
+
+        console.error(error);
+
+      }
+
+    }
+
+
+    /* GUARDAR NOTIFICAÇÕES */
+
+    document
+      .getElementById(
+        "saveNotificationsBtn"
+      )
+      .addEventListener(
+        "click",
+        async () => {
+
+          if(!currentUser)
+            return;
+
+
+          try{
+
+            await setDoc(
+
+              doc(
+                db,
+                "settings",
+                currentUser.uid
+              ),
+
+              {
+
+                likesNotifications:
+                  document
+                    .getElementById(
+                      "likesNotifications"
+                    )
+                    .checked,
+
+                commentsNotifications:
+                  document
+                    .getElementById(
+                      "commentsNotifications"
+                    )
+                    .checked,
+
+                followersNotifications:
+                  document
+                    .getElementById(
+                      "followersNotifications"
+                    )
+                    .checked,
+
+                messagesNotifications:
+                  document
+                    .getElementById(
+                      "messagesNotifications"
+                    )
+                    .checked,
+
+                updatedAt:
+                  serverTimestamp()
+
+              },
+
+              {
+                merge:true
+              }
+
+            );
+
+
+            showMessage(
+              "notificationMessage",
+              "✓ Preferências guardadas!",
+              "success"
+            );
+
+          }
+          catch(error){
+
+            showMessage(
+              "notificationMessage",
+              "Erro ao guardar as preferências.",
+              "error"
+            );
+
+          }
+
+        }
+      );
+
+
+    /* GUARDAR PRIVACIDADE */
+
+    document
+      .getElementById(
+        "savePrivacyBtn"
+      )
+      .addEventListener(
+        "click",
+        async () => {
+
+          if(!currentUser)
+            return;
+
+
+          try{
+
+            await setDoc(
+
+              doc(
+                db,
+                "settings",
+                currentUser.uid
+              ),
+
+              {
+
+                privateAccount:
+                  document
+                    .getElementById(
+                      "privateAccount"
+                    )
+                    .checked,
+
+                showLocation:
+                  document
+                    .getElementById(
+                      "showLocation"
+                    )
+                    .checked,
+
+                updatedAt:
+                  serverTimestamp()
+
+              },
+
+              {
+                merge:true
+              }
+
+            );
+
+
+            showMessage(
+              "privacyMessage",
+              "✓ Definições de privacidade guardadas!",
+              "success"
+            );
+
+          }
+          catch(error){
+
+            showMessage(
+              "privacyMessage",
+              "Erro ao guardar a privacidade.",
+              "error"
+            );
+
+          }
+
+        }
+      );
+
+
+    /* TERMINAR SESSÃO */
+
+    document
+      .getElementById("logoutBtn")
+      .addEventListener(
+        "click",
+        async () => {
+
+          try{
+
+            await signOut(auth);
+
+
+            window.location.href =
+              "area-do-artista.html";
+
+          }
+          catch(error){
+
+            alert(
+              "Erro ao terminar sessão."
+            );
+
+          }
+
+        }
+      );
+
+
+    /* ELIMINAR CONTA */
+
+    document
+      .getElementById("deleteAccountBtn")
+      .addEventListener(
+        "click",
+        async () => {
+
+          const confirmation =
+            confirm(
+              "⚠️ Tens a certeza que queres eliminar a tua conta? Esta ação pode ser permanente."
+            );
+
+
+          if(!confirmation)
+            return;
+
+
+          const finalConfirmation =
+            prompt(
+              "Para confirmar, escreve ELIMINAR"
+            );
+
+
+          if(
+            finalConfirmation !==
+            "ELIMINAR"
+          ){
+
+            alert(
+              "A conta não foi eliminada."
+            );
+
+            return;
+
+          }
+
+
+          try{
+
+            await deleteUser(
+              currentUser
+            );
+
+
+            alert(
+              "A tua conta foi eliminada."
+            );
+
+
+            window.location.href =
+              "index.html";
+
+          }
+          catch(error){
+
+            if(
+              error.code ===
+              "auth/requires-recent-login"
+            ){
+
+              alert(
+                "Por segurança, termina sessão e inicia novamente antes de eliminar a conta."
+              );
+
+            }
+            else{
+
+              alert(
+                "Erro ao eliminar a conta: "
+                + error.message
+              );
+
+            }
+
+          }
+
+        }
+      );
+
+
+    /* MENSAGENS */
+
+    function showMessage(
+      elementId,
+      text,
+      type
+    ){
+
+      const element =
+        document.getElementById(
+          elementId
+        );
+
+
+      element.textContent =
+        text;
+
+
+      element.className =
+        "message " + type;
+
+
+      setTimeout(
+        () => {
+
+          element.className =
+            "message";
+
+        },
+        5000
+      );
+
+    }
+
+  </script>
+
+</body>
+</html>
