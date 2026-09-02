@@ -4,32 +4,67 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>Minhas Músicas — KUDURO PRIME</title>
 
   <style>
     :root{
-      --bg:#070707;
+      --bg:#060606;
       --panel:#101010;
+      --panel2:#151515;
       --gold:#f4bf31;
       --gold2:#ffdc6b;
       --text:#f7f4ed;
       --muted:#aaa59a;
-      --line:#2a271f;
+      --line:#29251d;
       --green:#48d597;
       --red:#ff563f;
+      --blue:#5da9ff;
+      --shadow:0 20px 60px rgba(0,0,0,.45);
     }
 
-    *{box-sizing:border-box}
+    *{
+      box-sizing:border-box;
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
 
     body{
       margin:0;
-      background:radial-gradient(circle at 90% 0,rgba(244,191,49,.12),transparent 30%),var(--bg);
+      background:
+        radial-gradient(circle at 85% 0%,rgba(244,191,49,.13),transparent 28%),
+        radial-gradient(circle at 20% 40%,rgba(244,191,49,.04),transparent 30%),
+        var(--bg);
       color:var(--text);
       font-family:Arial,Helvetica,sans-serif;
+      min-height:100vh;
     }
 
-    a{color:inherit;text-decoration:none}
-    button,input,select,textarea{font:inherit}
+    body.menu-open{
+      overflow:hidden;
+    }
+
+    a{
+      color:inherit;
+      text-decoration:none;
+    }
+
+    button,
+    input,
+    select,
+    textarea{
+      font:inherit;
+    }
+
+    button{
+      -webkit-tap-highlight-color:transparent;
+    }
+
+    /* =========================================
+       LAYOUT
+    ========================================= */
 
     .app{
       min-height:100vh;
@@ -42,53 +77,69 @@
       position:sticky;
       top:0;
       height:100vh;
-      padding:25px 15px;
-      background:#090909;
+      padding:24px 14px;
+      background:
+        linear-gradient(180deg,#090909,#070707);
       border-right:1px solid var(--line);
       display:flex;
       flex-direction:column;
+      z-index:100;
     }
 
     .brand{
       display:block;
-      margin:0 12px 35px;
-      font-size:22px;
+      margin:0 12px 30px;
+      font-size:23px;
       font-weight:900;
       line-height:.78;
-      letter-spacing:-1px;
+      letter-spacing:-1.2px;
     }
 
-    .brand b{display:block;color:var(--gold)}
+    .brand b{
+      display:block;
+      color:var(--gold);
+      margin-top:2px;
+    }
 
     .crown{
       display:block;
       color:var(--gold);
       text-align:center;
-      font-size:23px;
-      line-height:.6;
+      font-size:25px;
+      line-height:.65;
+      margin-bottom:5px;
+      text-shadow:0 0 18px rgba(244,191,49,.25);
     }
 
     .artist-mini{
       display:flex;
       align-items:center;
-      gap:10px;
+      gap:11px;
       padding:12px;
-      margin-bottom:20px;
-      border-radius:10px;
-      background:#121212;
+      margin-bottom:21px;
+      border-radius:12px;
+      background:linear-gradient(145deg,#151515,#0e0e0e);
       border:1px solid var(--line);
+      transition:.2s;
+    }
+
+    .artist-mini:hover{
+      border-color:#55451d;
+      transform:translateY(-1px);
     }
 
     .mini-photo{
-      width:42px;
-      height:42px;
+      width:44px;
+      height:44px;
       border-radius:50%;
       overflow:hidden;
       background:#1a1609;
       display:grid;
       place-items:center;
       color:var(--gold);
+      font-size:20px;
       flex:0 0 auto;
+      border:1px solid #4d3d18;
     }
 
     .mini-photo img{
@@ -97,7 +148,10 @@
       object-fit:cover;
     }
 
-    .mini-name{overflow:hidden}
+    .mini-name{
+      overflow:hidden;
+      min-width:0;
+    }
 
     .mini-name strong{
       display:block;
@@ -109,47 +163,57 @@
 
     .mini-name span{
       display:block;
-      margin-top:4px;
+      margin-top:5px;
       color:var(--gold);
       font-size:9px;
       font-weight:900;
+      letter-spacing:.4px;
     }
 
     .nav-title{
       padding:0 12px;
-      margin:15px 0 7px;
-      color:#777;
+      margin:17px 0 7px;
+      color:#666;
       font-size:9px;
       font-weight:900;
-      letter-spacing:1px;
+      letter-spacing:1.2px;
     }
 
     .side-link{
-      padding:13px 12px;
-      border-radius:8px;
+      padding:12px;
+      border-radius:9px;
       display:flex;
       align-items:center;
       gap:10px;
-      color:#aaa;
+      color:#a6a6a6;
       font-size:11px;
       font-weight:800;
+      transition:.2s;
+      border:1px solid transparent;
     }
 
-    .side-link:hover,
+    .side-link:hover{
+      color:var(--gold);
+      background:#151208;
+    }
+
     .side-link.active{
       color:var(--gold);
-      background:#18140a;
+      background:linear-gradient(90deg,#1b1609,#12100a);
+      border-color:#3f3318;
+      box-shadow:inset 3px 0 0 var(--gold);
     }
 
     .side-bottom{
       margin-top:auto;
-      padding-top:20px;
+      padding-top:18px;
       border-top:1px solid var(--line);
     }
 
     .logout{
       width:100%;
       border:0;
+      border-radius:9px;
       background:transparent;
       color:#d27b6e;
       padding:12px;
@@ -157,9 +221,21 @@
       font-size:11px;
       font-weight:900;
       cursor:pointer;
+      transition:.2s;
     }
 
-    .main{min-width:0}
+    .logout:hover{
+      background:#190d0d;
+      color:#ff8c7c;
+    }
+
+    /* =========================================
+       MAIN
+    ========================================= */
+
+    .main{
+      min-width:0;
+    }
 
     .topbar{
       height:82px;
@@ -172,14 +248,22 @@
       position:sticky;
       top:0;
       z-index:30;
-      background:rgba(7,7,7,.94);
-      backdrop-filter:blur(12px);
+      background:rgba(7,7,7,.92);
+      backdrop-filter:blur(15px);
     }
 
-    .topbar h2{margin:0;font-size:18px}
+    .top-title{
+      min-width:0;
+    }
+
+    .topbar h2{
+      margin:0;
+      font-size:18px;
+      letter-spacing:.2px;
+    }
 
     .topbar p{
-      margin:4px 0 0;
+      margin:5px 0 0;
       color:var(--muted);
       font-size:10px;
     }
@@ -197,40 +281,72 @@
       align-items:center;
       justify-content:center;
       gap:7px;
-      border-radius:8px;
-      border:1px solid var(--gold);
-      background:transparent;
+      border-radius:9px;
+      border:1px solid #5b481b;
+      background:#111;
       color:var(--gold);
       font-size:10px;
       font-weight:900;
       cursor:pointer;
+      transition:.2s;
+    }
+
+    .btn:hover{
+      border-color:var(--gold);
+      transform:translateY(-1px);
     }
 
     .btn.gold{
       border:0;
       color:#17120a;
       background:linear-gradient(135deg,var(--gold2),var(--gold));
+      box-shadow:0 8px 25px rgba(244,191,49,.13);
+    }
+
+    .btn.gold:hover{
+      box-shadow:0 10px 30px rgba(244,191,49,.22);
     }
 
     .btn:disabled{
       opacity:.55;
       cursor:not-allowed;
+      transform:none;
+    }
+
+    .mobile-menu{
+      display:none;
+      width:40px;
+      height:40px;
+      border:1px solid var(--line);
+      border-radius:9px;
+      background:#101010;
+      color:white;
+      font-size:20px;
+      cursor:pointer;
     }
 
     .content{
       width:min(1150px,94%);
-      margin:35px auto 60px;
+      margin:34px auto 65px;
     }
+
+    /* =========================================
+       INTRO
+    ========================================= */
 
     .intro{
       display:flex;
-      align-items:end;
+      align-items:flex-end;
       justify-content:space-between;
       gap:20px;
-      margin-bottom:25px;
+      margin-bottom:24px;
     }
 
-    .intro h1{margin:0;font-size:32px}
+    .intro h1{
+      margin:0;
+      font-size:32px;
+      letter-spacing:-.8px;
+    }
 
     .intro p{
       margin:8px 0 0;
@@ -240,10 +356,10 @@
 
     .free-limit{
       margin-top:15px;
-      padding:12px 15px;
+      padding:13px 15px;
       border:1px solid #5b481b;
       border-radius:10px;
-      background:#16120a;
+      background:linear-gradient(145deg,#17130a,#100e09);
       color:var(--gold2);
       font-size:11px;
       font-weight:800;
@@ -251,20 +367,70 @@
 
     .free-limit.blocked{
       border-color:#5a2020;
-      background:#1c0d0d;
+      background:#1b0d0d;
       color:#ff9d8e;
     }
+
+    /* =========================================
+       UPLOAD BOX
+    ========================================= */
 
     .upload-box{
       display:none;
       margin-bottom:25px;
-      padding:25px;
+      padding:26px;
       border:1px solid #6e5720;
-      border-radius:15px;
-      background:linear-gradient(145deg,#17130a,#0d0d0d);
+      border-radius:16px;
+      background:
+        radial-gradient(circle at 90% 0%,rgba(244,191,49,.09),transparent 30%),
+        linear-gradient(145deg,#17130a,#0d0d0d);
+      box-shadow:var(--shadow);
     }
 
-    .upload-box.show{display:block}
+    .upload-box.show{
+      display:block;
+      animation:fadeIn .25s ease;
+    }
+
+    @keyframes fadeIn{
+      from{
+        opacity:0;
+        transform:translateY(-8px);
+      }
+      to{
+        opacity:1;
+        transform:translateY(0);
+      }
+    }
+
+    .upload-heading{
+      display:flex;
+      align-items:center;
+      gap:14px;
+      margin-bottom:22px;
+    }
+
+    .upload-icon{
+      width:48px;
+      height:48px;
+      display:grid;
+      place-items:center;
+      border-radius:12px;
+      background:#251d0b;
+      border:1px solid #5b481b;
+      font-size:22px;
+    }
+
+    .upload-heading h2{
+      margin:0;
+      font-size:20px;
+    }
+
+    .upload-heading p{
+      margin:5px 0 0;
+      color:var(--muted);
+      font-size:11px;
+    }
 
     .form-grid{
       display:grid;
@@ -272,8 +438,13 @@
       gap:15px;
     }
 
-    .field{margin-bottom:15px}
-    .field.full{grid-column:1/-1}
+    .field{
+      margin-bottom:15px;
+    }
+
+    .field.full{
+      grid-column:1/-1;
+    }
 
     label{
       display:block;
@@ -281,27 +452,41 @@
       color:#cfc8ba;
       font-size:10px;
       font-weight:900;
+      letter-spacing:.2px;
     }
 
-    input,select,textarea{
+    input,
+    select,
+    textarea{
       width:100%;
       padding:14px;
-      border-radius:8px;
+      border-radius:9px;
       border:1px solid var(--line);
       outline:none;
-      background:#0a0a0a;
+      background:#090909;
       color:white;
+      transition:.2s;
     }
 
-    textarea{
-      min-height:90px;
-      resize:vertical;
+    input::placeholder,
+    textarea::placeholder{
+      color:#666;
     }
 
     input:focus,
     select:focus,
     textarea:focus{
       border-color:var(--gold);
+      box-shadow:0 0 0 3px rgba(244,191,49,.06);
+    }
+
+    select{
+      cursor:pointer;
+    }
+
+    textarea{
+      min-height:95px;
+      resize:vertical;
     }
 
     input[type="file"]{
@@ -309,11 +494,22 @@
       cursor:pointer;
     }
 
+    input[type="file"]::file-selector-button{
+      margin-right:10px;
+      padding:8px 11px;
+      border:0;
+      border-radius:7px;
+      background:#211a0b;
+      color:var(--gold);
+      cursor:pointer;
+      font-weight:800;
+    }
+
     .upload-status{
       display:none;
-      margin-top:15px;
-      padding:12px;
-      border-radius:8px;
+      margin-top:5px;
+      padding:13px;
+      border-radius:9px;
       background:#16120a;
       border:1px solid #5b481b;
       color:var(--gold2);
@@ -321,20 +517,40 @@
       font-weight:800;
     }
 
-    .upload-status.show{display:block}
+    .upload-status.show{
+      display:block;
+    }
+
+    .upload-status.success{
+      border-color:#205b42;
+      background:#0d1c15;
+      color:var(--green);
+    }
+
+    .upload-status.error{
+      border-color:#5a2020;
+      background:#1c0d0d;
+      color:#ff9d8e;
+    }
 
     .form-actions{
       display:flex;
       justify-content:flex-end;
       gap:10px;
-      margin-top:10px;
+      margin-top:15px;
     }
+
+    /* =========================================
+       SONG PANEL
+    ========================================= */
 
     .songs-panel{
       border:1px solid var(--line);
-      border-radius:15px;
+      border-radius:16px;
       overflow:hidden;
-      background:linear-gradient(145deg,#141414,#0b0b0b);
+      background:
+        linear-gradient(145deg,#141414,#0b0b0b);
+      box-shadow:0 15px 45px rgba(0,0,0,.25);
     }
 
     .songs-head{
@@ -343,43 +559,65 @@
       justify-content:space-between;
       align-items:center;
       border-bottom:1px solid var(--line);
+      background:rgba(255,255,255,.01);
     }
 
-    .songs-head h3{margin:0;font-size:15px}
+    .songs-head h3{
+      margin:0;
+      font-size:14px;
+      letter-spacing:.3px;
+    }
 
     .songs-count{
       color:var(--gold);
-      font-size:11px;
+      font-size:10px;
       font-weight:900;
+      padding:7px 10px;
+      border-radius:20px;
+      background:#19150a;
+      border:1px solid #403316;
     }
 
-    .song-list{padding:0 20px}
+    .song-list{
+      padding:0 20px;
+    }
 
     .song-card{
       display:grid;
-      grid-template-columns:70px 1fr auto;
+      grid-template-columns:76px 1fr auto;
       align-items:center;
-      gap:15px;
-      padding:15px 0;
+      gap:16px;
+      padding:17px 0;
       border-bottom:1px solid var(--line);
     }
 
-    .song-card:last-child{border-bottom:0}
+    .song-card:last-child{
+      border-bottom:0;
+    }
 
     .cover{
-      width:70px;
-      height:70px;
-      border-radius:9px;
+      width:76px;
+      height:76px;
+      border-radius:10px;
       background:#1a1609 center/cover no-repeat;
       display:grid;
       place-items:center;
-      font-size:25px;
+      font-size:27px;
       overflow:hidden;
+      border:1px solid #312915;
+      box-shadow:0 8px 20px rgba(0,0,0,.3);
+    }
+
+    .song-info{
+      min-width:0;
     }
 
     .song-info strong{
       display:block;
       font-size:14px;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
     }
 
     .song-info p{
@@ -396,8 +634,8 @@
 
     .song-meta{
       display:flex;
-      gap:10px;
-      margin-top:9px;
+      gap:7px;
+      margin-top:10px;
       flex-wrap:wrap;
     }
 
@@ -405,19 +643,21 @@
       padding:5px 8px;
       border-radius:20px;
       background:#191919;
-      color:#aaa;
-      font-size:9px;
+      color:#999;
+      font-size:8px;
       font-weight:800;
+      border:1px solid #252525;
     }
 
     .badge.active{
-      background:#123524;
+      background:#10281d;
+      border-color:#1b523b;
       color:var(--green);
     }
 
     .song-actions{
       display:flex;
-      gap:8px;
+      gap:7px;
       flex-wrap:wrap;
       justify-content:flex-end;
     }
@@ -425,125 +665,269 @@
     .icon-btn{
       width:38px;
       height:38px;
-      border-radius:8px;
+      border-radius:9px;
       border:1px solid var(--line);
       background:#111;
       color:#ccc;
       cursor:pointer;
+      transition:.2s;
     }
 
     .icon-btn:hover{
       border-color:var(--gold);
       color:var(--gold);
+      background:#18140a;
+      transform:translateY(-1px);
     }
 
     .delete-btn:hover{
       border-color:var(--red);
       color:var(--red);
+      background:#190d0d;
     }
 
     .audio-player{
       display:none;
       grid-column:1/-1;
       width:100%;
-      margin-top:5px;
-      padding:10px;
+      margin-top:4px;
+      padding:11px;
       border-radius:10px;
       background:#090909;
       border:1px solid var(--line);
     }
 
-    .audio-player.show{display:block}
-    .audio-player audio{width:100%}
+    .audio-player.show{
+      display:block;
+      animation:fadeIn .2s ease;
+    }
+
+    .audio-player audio{
+      width:100%;
+      height:40px;
+    }
 
     .audio-error{
       display:none;
-      margin-top:8px;
+      margin:8px 0 0;
       color:#ff9d8e;
       font-size:11px;
     }
 
+    /* =========================================
+       EMPTY / LOADING
+    ========================================= */
+
     .empty{
-      padding:70px 20px;
+      padding:75px 20px;
       text-align:center;
     }
 
     .empty-icon{
-      width:70px;
-      height:70px;
+      width:72px;
+      height:72px;
       margin:auto auto 18px;
       display:grid;
       place-items:center;
       border-radius:50%;
       background:#1b170c;
+      border:1px solid #403316;
       color:var(--gold);
       font-size:30px;
     }
 
-    .empty h3{margin:0;font-size:17px}
+    .empty h3{
+      margin:0;
+      font-size:17px;
+    }
 
     .empty p{
       color:var(--muted);
       font-size:12px;
-      margin:9px 0 20px;
+      margin:9px auto 20px;
+      max-width:420px;
+      line-height:1.6;
     }
 
     .loading{
-      padding:50px 20px;
+      padding:55px 20px;
       text-align:center;
       color:var(--muted);
       font-size:12px;
     }
 
-    .mobile-menu{
+    .loading-spinner{
+      width:28px;
+      height:28px;
+      margin:0 auto 12px;
+      border:3px solid #2b261b;
+      border-top-color:var(--gold);
+      border-radius:50%;
+      animation:spin .8s linear infinite;
+    }
+
+    @keyframes spin{
+      to{
+        transform:rotate(360deg);
+      }
+    }
+
+    /* =========================================
+       MOBILE OVERLAY
+    ========================================= */
+
+    .sidebar-overlay{
       display:none;
-      border:0;
-      background:transparent;
-      color:white;
-      font-size:22px;
-      cursor:pointer;
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,.65);
+      z-index:90;
+      backdrop-filter:blur(3px);
+    }
+
+    .sidebar-overlay.show{
+      display:block;
+    }
+
+    /* =========================================
+       RESPONSIVE
+    ========================================= */
+
+    @media(max-width:900px){
+
+      .app{
+        grid-template-columns:220px 1fr;
+      }
+
+      .song-card{
+        grid-template-columns:68px 1fr;
+      }
+
+      .cover{
+        width:68px;
+        height:68px;
+      }
+
+      .song-actions{
+        grid-column:2;
+        justify-content:flex-start;
+      }
     }
 
     @media(max-width:760px){
-      .app{display:block}
+
+      .app{
+        display:block;
+      }
 
       .sidebar{
         position:fixed;
         top:0;
         left:-280px;
         width:260px;
-        z-index:100;
-        transition:.3s;
+        transition:left .25s ease;
+        box-shadow:20px 0 60px rgba(0,0,0,.5);
       }
 
-      .sidebar.show{left:0}
-      .mobile-menu{display:block}
-    }
+      .sidebar.show{
+        left:0;
+      }
 
-    @media(max-width:600px){
-      .topbar{height:70px}
+      .mobile-menu{
+        display:block;
+      }
 
-      .topbar p,
+      .topbar{
+        height:70px;
+        padding:0 4%;
+      }
+
       .top-actions .btn:not(.gold){
         display:none;
       }
 
+      .content{
+        margin-top:28px;
+      }
+    }
+
+    @media(max-width:600px){
+
+      .topbar h2{
+        font-size:15px;
+      }
+
+      .topbar p{
+        display:none;
+      }
+
       .intro{
-        align-items:start;
+        align-items:flex-start;
         flex-direction:column;
       }
 
-      .intro h1{font-size:27px}
-      .form-grid{grid-template-columns:1fr}
-      .field.full{grid-column:auto}
+      .intro h1{
+        font-size:27px;
+      }
+
+      .intro > .btn{
+        width:100%;
+      }
+
+      .form-grid{
+        grid-template-columns:1fr;
+        gap:0;
+      }
+
+      .field.full{
+        grid-column:auto;
+      }
+
+      .upload-box{
+        padding:18px;
+      }
+
+      .upload-heading h2{
+        font-size:17px;
+      }
+
+      .form-actions{
+        justify-content:stretch;
+      }
+
+      .form-actions .btn{
+        flex:1;
+      }
+
+      .songs-head{
+        padding:16px;
+      }
+
+      .songs-head h3{
+        font-size:11px;
+      }
+
+      .songs-count{
+        font-size:8px;
+      }
+
+      .song-list{
+        padding:0 16px;
+      }
 
       .song-card{
         grid-template-columns:60px 1fr;
+        gap:12px;
       }
 
       .cover{
         width:60px;
         height:60px;
+        font-size:22px;
+      }
+
+      .song-info strong{
+        font-size:13px;
       }
 
       .song-actions{
@@ -551,8 +935,30 @@
         justify-content:flex-start;
       }
 
-      .form-actions{justify-content:stretch}
-      .form-actions .btn{flex:1}
+      .icon-btn{
+        width:40px;
+        height:40px;
+      }
+    }
+
+    @media(max-width:380px){
+
+      .content{
+        width:92%;
+      }
+
+      .intro h1{
+        font-size:24px;
+      }
+
+      .song-meta{
+        gap:5px;
+      }
+
+      .badge{
+        font-size:7px;
+        padding:4px 6px;
+      }
     }
   </style>
 
@@ -561,6 +967,10 @@
 <body>
 
 <div class="app">
+
+  <!-- =========================================
+       SIDEBAR
+  ========================================== -->
 
   <aside class="sidebar" id="sidebar">
 
@@ -572,86 +982,195 @@
 </a>
 
 <a href="meu-perfil.html" class="artist-mini">
-  <div class="mini-photo" id="miniPhoto">👤</div>
+
+  <div class="mini-photo" id="miniPhoto">
+    👤
+  </div>
 
   <div class="mini-name">
-    <strong id="miniName">Artista Prime</strong>
-    <span>VER PERFIL</span>
+    <strong id="miniName">
+      Artista Prime
+    </strong>
+
+    <span>
+      VER PERFIL
+    </span>
   </div>
+
 </a>
 
-<div class="nav-title">MENU PRINCIPAL</div>
+<div class="nav-title">
+  MENU PRINCIPAL
+</div>
 
-<a href="painel-do-artista.html" class="side-link">📊 Painel do Artista</a>
-<a href="meu-perfil.html" class="side-link">👤 Meu Perfil</a>
-<a href="editar-perfil.html" class="side-link">✏ Editar Perfil</a>
+<a href="painel-do-artista.html" class="side-link">
+  📊 Painel do Artista
+</a>
 
-<div class="nav-title">CONTEÚDO</div>
+<a href="meu-perfil.html" class="side-link">
+  👤 Meu Perfil
+</a>
 
-<a href="minhas-musicas.html" class="side-link active">🎵 Minhas Músicas</a>
-<a href="pagamento-musicas.html" class="side-link">💳 Pagamentos</a>
+<a href="editar-perfil.html" class="side-link">
+  ✏️ Editar Perfil
+</a>
 
-<div class="nav-title">PLATAFORMA</div>
+<div class="nav-title">
+  CONTEÚDO
+</div>
 
-<a href="ranking.html" class="side-link">🏆 Ranking Prime</a>
-<a href="index.html" class="side-link">🌐 Ver Site Público</a>
+<a href="minhas-musicas.html" class="side-link active">
+  🎵 Minhas Músicas
+</a>
+
+<a href="pagamento-musicas.html" class="side-link">
+  💳 Pagamentos
+</a>
+
+<div class="nav-title">
+  PLATAFORMA
+</div>
+
+<a href="ranking.html" class="side-link">
+  🏆 Ranking Prime
+</a>
+
+<a href="index.html" class="side-link">
+  🌐 Ver Site Público
+</a>
 
 <div class="side-bottom">
-  <button class="logout" onclick="logout()">↪ TERMINAR SESSÃO</button>
+
+  <button
+    class="logout"
+    onclick="logout()"
+  >
+    ↪ TERMINAR SESSÃO
+  </button>
+
 </div>
 ```
 
   </aside>
+
+  <div
+    class="sidebar-overlay"
+    id="sidebarOverlay"
+    onclick="toggleMenu()"
+  ></div>
+
+  <!-- =========================================
+       MAIN
+  ========================================== -->
 
   <main class="main">
 
 ```
 <header class="topbar">
 
-  <button class="mobile-menu" onclick="toggleMenu()">☰</button>
+  <button
+    class="mobile-menu"
+    onclick="toggleMenu()"
+    aria-label="Abrir menu"
+  >
+    ☰
+  </button>
 
-  <div>
-    <h2>MINHAS MÚSICAS</h2>
-    <p>Publica e gere os teus lançamentos.</p>
+  <div class="top-title">
+
+    <h2>
+      MINHAS MÚSICAS
+    </h2>
+
+    <p>
+      Publica e gere os teus lançamentos.
+    </p>
+
   </div>
 
   <div class="top-actions">
-    <a href="painel-do-artista.html" class="btn">← PAINEL</a>
 
-    <button class="btn gold" onclick="openUpload()">
+    <a
+      href="painel-do-artista.html"
+      class="btn"
+    >
+      ← PAINEL
+    </a>
+
+    <button
+      class="btn gold"
+      onclick="openUpload()"
+    >
       + PUBLICAR MÚSICA
     </button>
+
   </div>
 
 </header>
 
 <div class="content">
 
+  <!-- =====================================
+       INTRO
+  ====================================== -->
+
   <section class="intro">
 
     <div>
-      <h1>Os meus lançamentos</h1>
 
-      <p>Escolhe os ficheiros diretamente da pasta do teu computador.</p>
+      <h1>
+        Os meus lançamentos
+      </h1>
 
-      <div class="free-limit" id="freeLimit">
+      <p>
+        Publica as tuas músicas diretamente do computador.
+      </p>
+
+      <div
+        class="free-limit"
+        id="freeLimit"
+      >
         ⏳ A carregar o teu plano...
       </div>
+
     </div>
 
-    <button class="btn gold" onclick="openUpload()">
+    <button
+      class="btn gold"
+      onclick="openUpload()"
+    >
       + NOVA MÚSICA
     </button>
 
   </section>
 
-  <section class="upload-box" id="uploadBox">
+  <!-- =====================================
+       UPLOAD
+  ====================================== -->
 
-    <div style="margin-bottom:20px">
-      <h2 style="margin:0;font-size:20px">🎵 Publicar Nova Música</h2>
-      <p style="color:var(--muted);font-size:11px">
-        Escolhe a capa e a música diretamente da tua pasta.
-      </p>
+  <section
+    class="upload-box"
+    id="uploadBox"
+  >
+
+    <div class="upload-heading">
+
+      <div class="upload-icon">
+        🎵
+      </div>
+
+      <div>
+
+        <h2>
+          Publicar Nova Música
+        </h2>
+
+        <p>
+          Preenche as informações e escolhe os ficheiros.
+        </p>
+
+      </div>
+
     </div>
 
     <form id="songForm">
@@ -659,80 +1178,203 @@
       <div class="form-grid">
 
         <div class="field">
-          <label>TÍTULO DA MÚSICA *</label>
-          <input type="text" id="songTitle" required>
+
+          <label>
+            TÍTULO DA MÚSICA *
+          </label>
+
+          <input
+            type="text"
+            id="songTitle"
+            placeholder="Ex.: Meu Novo Kuduro"
+            maxlength="150"
+            required
+          >
+
         </div>
 
         <div class="field">
-          <label>TIPO DE LANÇAMENTO</label>
+
+          <label>
+            TIPO DE LANÇAMENTO
+          </label>
+
           <select id="songType">
-            <option>Single</option>
-            <option>EP</option>
-            <option>Álbum</option>
-            <option>Freestyle</option>
+
+            <option value="Single">
+              Single
+            </option>
+
+            <option value="EP">
+              EP
+            </option>
+
+            <option value="Álbum">
+              Álbum
+            </option>
+
+            <option value="Freestyle">
+              Freestyle
+            </option>
+
           </select>
+
         </div>
 
         <div class="field">
-          <label>GÉNERO</label>
+
+          <label>
+            GÉNERO
+          </label>
+
           <select id="songGenre">
-            <option>Kuduro</option>
-            <option>Afro House</option>
-            <option>Semba</option>
-            <option>Afrobeat</option>
-            <option>Outro</option>
+
+            <option value="Kuduro">
+              Kuduro
+            </option>
+
+            <option value="Afro House">
+              Afro House
+            </option>
+
+            <option value="Semba">
+              Semba
+            </option>
+
+            <option value="Afrobeat">
+              Afrobeat
+            </option>
+
+            <option value="Outro">
+              Outro
+            </option>
+
           </select>
+
         </div>
 
         <div class="field">
-          <label>DATA DE LANÇAMENTO</label>
-          <input type="date" id="songDate">
+
+          <label>
+            DATA DE LANÇAMENTO
+          </label>
+
+          <input
+            type="date"
+            id="songDate"
+          >
+
         </div>
 
         <div class="field full">
-          <label>🖼️ CAPA DA MÚSICA</label>
-          <input type="file" id="songCover" accept="image/*">
+
+          <label>
+            🖼️ CAPA DA MÚSICA
+          </label>
+
+          <input
+            type="file"
+            id="songCover"
+            accept="image/*"
+          >
+
         </div>
 
         <div class="field full">
-          <label>🎵 FICHEIRO DA MÚSICA *</label>
-          <input type="file" id="songFile"
+
+          <label>
+            🎵 FICHEIRO DA MÚSICA *
+          </label>
+
+          <input
+            type="file"
+            id="songFile"
             accept=".mp3,.wav,.m4a,.aac,.ogg,audio/*"
-            required>
+            required
+          >
+
         </div>
 
         <div class="field full">
-          <label>DESCRIÇÃO</label>
-          <textarea id="songDescription"></textarea>
+
+          <label>
+            DESCRIÇÃO
+          </label>
+
+          <textarea
+            id="songDescription"
+            placeholder="Escreve uma breve descrição da música..."
+            maxlength="1000"
+          ></textarea>
+
         </div>
 
       </div>
 
-      <div class="upload-status" id="uploadStatus"></div>
+      <div
+        class="upload-status"
+        id="uploadStatus"
+      ></div>
 
       <div class="form-actions">
-        <button type="button" class="btn" id="cancelUploadBtn" onclick="closeUpload()">
+
+        <button
+          type="button"
+          class="btn"
+          id="cancelUploadBtn"
+          onclick="closeUpload()"
+        >
           CANCELAR
         </button>
 
-        <button type="submit" class="btn gold" id="publishButton">
+        <button
+          type="submit"
+          class="btn gold"
+          id="publishButton"
+        >
           ♕ PUBLICAR MÚSICA
         </button>
+
       </div>
 
     </form>
 
   </section>
 
+  <!-- =====================================
+       SONGS
+  ====================================== -->
+
   <section class="songs-panel">
 
     <div class="songs-head">
-      <h3>🎵 TODAS AS MINHAS MÚSICAS</h3>
-      <span class="songs-count" id="songsCount">0 / 3 GRÁTIS</span>
+
+      <h3>
+        🎵 TODAS AS MINHAS MÚSICAS
+      </h3>
+
+      <span
+        class="songs-count"
+        id="songsCount"
+      >
+        0 / 3 GRÁTIS
+      </span>
+
     </div>
 
-    <div class="song-list" id="songsList">
-      <div class="loading">A carregar músicas...</div>
+    <div
+      class="song-list"
+      id="songsList"
+    >
+
+      <div class="loading">
+
+        <div class="loading-spinner"></div>
+
+        A carregar músicas...
+
+      </div>
+
     </div>
 
   </section>
@@ -746,956 +1388,1915 @@
 
 <script type="module">
 
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+  /* =========================================
+     FIREBASE
+  ========================================== */
 
-import {
-  getAuth,
-  onAuthStateChanged,
-  signOut
-} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+  import {
+    initializeApp
+  } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
 
-import {
-  getFirestore,
-  collection,
-  addDoc,
-  getDocs,
-  getDoc,
-  doc,
-  updateDoc,
-  deleteDoc,
-  query,
-  where,
-  serverTimestamp,
-  increment
-} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+  import {
+    getAuth,
+    onAuthStateChanged,
+    signOut
+  } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
 
-
-const CLOUDINARY_CLOUD_NAME = "ge1ntqqc";
-const CLOUDINARY_UPLOAD_PRESET = "kuduro_prime";
-
-
-const firebaseConfig = {
-  apiKey: "AIzaSyDoitCcLeLDNBNPCP6fG1s_xbHr4UmohSo",
-  authDomain: "kuduro-prime.firebaseapp.com",
-  projectId: "kuduro-prime",
-  storageBucket: "kuduro-prime.firebasestorage.app",
-  messagingSenderId: "299776559545",
-  appId: "1:299776559545:web:04aced1ba25391eb3fce68"
-};
+  import {
+    getFirestore,
+    collection,
+    addDoc,
+    getDocs,
+    getDoc,
+    doc,
+    updateDoc,
+    deleteDoc,
+    serverTimestamp,
+    increment
+  } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 
 
-const firebaseApp = initializeApp(firebaseConfig);
-const auth = getAuth(firebaseApp);
-const db = getFirestore(firebaseApp);
+  /* =========================================
+     CLOUDINARY
+  ========================================== */
 
-let currentUser = null;
-let artistName = "Artista Prime";
-let artistPhoto = "";
-let songs = [];
+  const CLOUDINARY_CLOUD_NAME = "ge1ntqqc";
 
-
-function escapeHTML(text){
-  const div = document.createElement("div");
-  div.textContent = text || "";
-  return div.innerHTML;
-}
+  const CLOUDINARY_UPLOAD_PRESET = "kuduro_prime";
 
 
-async function loadArtistProfile(){
+  /* =========================================
+     FIREBASE CONFIG
+  ========================================== */
 
-  if(!currentUser) return;
+  const firebaseConfig = {
 
-  try{
+    apiKey:
+      "AIzaSyDoitCcLeLDNBNPCP6fG1s_xbHr4UmohSo",
 
-    const artistSnap = await getDoc(
-      doc(db,"artistas",currentUser.uid)
+    authDomain:
+      "kuduro-prime.firebaseapp.com",
+
+    projectId:
+      "kuduro-prime",
+
+    storageBucket:
+      "kuduro-prime.firebasestorage.app",
+
+    messagingSenderId:
+      "299776559545",
+
+    appId:
+      "1:299776559545:web:04aced1ba25391eb3fce68"
+
+  };
+
+
+  /* =========================================
+     INITIALIZE
+  ========================================== */
+
+  const firebaseApp =
+    initializeApp(firebaseConfig);
+
+  const auth =
+    getAuth(firebaseApp);
+
+  const db =
+    getFirestore(firebaseApp);
+
+
+  /* =========================================
+     STATE
+  ========================================== */
+
+  let currentUser = null;
+
+  let artistName =
+    "Artista Prime";
+
+  let artistPhoto =
+    "";
+
+  let songs = [];
+
+  let unlimitedPlan = false;
+
+
+  /* =========================================
+     HELPERS
+  ========================================== */
+
+  function escapeHTML(text){
+
+    const div =
+      document.createElement("div");
+
+    div.textContent =
+      text == null ? "" : String(text);
+
+    return div.innerHTML;
+
+  }
+
+
+  function getSongArtistId(song){
+
+    return (
+      song.artistaId ||
+      song.artistId ||
+      song.userId ||
+      song.uid ||
+      ""
     );
 
-    if(artistSnap.exists()){
-
-      const data = artistSnap.data();
-
-      artistName =
-        data.nomeArtistico ||
-        data.nome ||
-        data.artistName ||
-        currentUser.displayName ||
-        currentUser.email?.split("@")[0] ||
-        "Artista Prime";
-
-      artistPhoto =
-        data.foto ||
-        data.fotoPerfil ||
-        data.imagem ||
-        data.photoURL ||
-        "";
-
-    }
-    else{
-
-      artistName =
-        currentUser.displayName ||
-        currentUser.email?.split("@")[0] ||
-        "Artista Prime";
-
-      artistPhoto = "";
-
-    }
-
-    document.querySelector("#miniName").textContent = artistName;
-
-    const miniPhoto = document.querySelector("#miniPhoto");
-
-    if(artistPhoto){
-      miniPhoto.innerHTML =
-        `<img src="${artistPhoto}" alt="Foto do artista">`;
-    }
-    else{
-      miniPhoto.textContent = "👤";
-    }
-
-  }
-  catch(error){
-    console.error("Erro ao carregar perfil:",error);
   }
 
-}
 
+  function getSongTitle(song){
 
-/* ==========================================
-   CARREGAR MÚSICAS
-
-   Esta função lê todas as músicas e filtra
-   vários formatos antigos e novos de artistaId.
-========================================== */
-
-async function loadSongs(){
-
-  if(!currentUser) return;
-
-  const list = document.querySelector("#songsList");
-
-  list.innerHTML =
-    `<div class="loading">⏳ A carregar músicas...</div>`;
-
-  try{
-
-    const snapshot = await getDocs(
-      collection(db,"musicas")
+    return (
+      song.titulo ||
+      song.title ||
+      "Sem título"
     );
 
-    songs = snapshot.docs
-      .map(musicDoc => ({
-        id:musicDoc.id,
-        ...musicDoc.data()
-      }))
-      .filter(song => {
-
-        const songArtistId =
-          song.artistaId ||
-          song.artistId ||
-          song.userId ||
-          song.uid ||
-          "";
-
-        return songArtistId === currentUser.uid;
-
-      })
-      .sort((a,b) => {
-
-        const timeA =
-          a.criadoEm?.seconds ||
-          a.createdAt?.seconds ||
-          0;
-
-        const timeB =
-          b.criadoEm?.seconds ||
-          b.createdAt?.seconds ||
-          0;
-
-        return timeB - timeA;
-
-      });
-
-    await renderSongs();
-
-  }
-  catch(error){
-
-    console.error("Erro ao carregar músicas:",error);
-
-    list.innerHTML = `
-      <div class="empty">
-        <div class="empty-icon">⚠</div>
-        <h3>Erro ao carregar as músicas</h3>
-        <p>${escapeHTML(error.message)}</p>
-      </div>
-    `;
-
   }
 
-}
 
+  function getSongAudio(song){
 
-async function hasUnlimitedSongs(){
-
-  if(!currentUser) return false;
-
-  try{
-
-    const artistSnap = await getDoc(
-      doc(db,"artistas",currentUser.uid)
+    return (
+      song.audio ||
+      song.audioUrl ||
+      song.url ||
+      song.musicaUrl ||
+      song.musicUrl ||
+      ""
     );
 
-    if(
-      artistSnap.exists() &&
-      artistSnap.data().musicasDesbloqueadas === true
-    ){
-      return true;
-    }
-
-    return false;
-
-  }
-  catch(error){
-    console.error("Erro ao verificar plano:",error);
-    return false;
   }
 
-}
 
+  function getSongCover(song){
 
-async function canPublishMore(){
-
-  if(songs.length < 3) return true;
-
-  return await hasUnlimitedSongs();
-
-}
-
-
-async function updateLimit(){
-
-  const freeLimit =
-    document.querySelector("#freeLimit");
-
-  const songsCount =
-    document.querySelector("#songsCount");
-
-  const unlimited =
-    await hasUnlimitedSongs();
-
-  if(songs.length < 3){
-
-    freeLimit.classList.remove("blocked");
-
-    freeLimit.textContent =
-      `🎵 ${songs.length} de 3 músicas gratuitas utilizadas.`;
-
-    songsCount.textContent =
-      `${songs.length} / 3 GRÁTIS`;
-
-  }
-  else if(unlimited){
-
-    freeLimit.classList.remove("blocked");
-
-    freeLimit.textContent =
-      `👑 Plano desbloqueado. Tens ${songs.length} músicas publicadas.`;
-
-    songsCount.textContent =
-      `${songs.length} MÚSICAS`;
-
-  }
-  else{
-
-    freeLimit.classList.add("blocked");
-
-    freeLimit.textContent =
-      "🔒 As 3 músicas gratuitas foram utilizadas.";
-
-    songsCount.textContent =
-      `${songs.length} / 3 GRÁTIS`;
-
-  }
-
-}
-
-
-async function uploadToCloudinary(file,resourceType){
-
-  const formData = new FormData();
-
-  formData.append("file",file);
-  formData.append("upload_preset",CLOUDINARY_UPLOAD_PRESET);
-
-  const response = await fetch(
-    `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/${resourceType}/upload`,
-    {
-      method:"POST",
-      body:formData
-    }
-  );
-
-  const data = await response.json();
-
-  if(!response.ok){
-    throw new Error(
-      data.error?.message ||
-      "Erro ao enviar o ficheiro."
-    );
-  }
-
-  return data.secure_url;
-
-}
-
-
-window.openUpload = async function(){
-
-  if(!currentUser){
-    alert("A tua sessão ainda não foi carregada.");
-    return;
-  }
-
-  const allowed = await canPublishMore();
-
-  if(!allowed){
-
-    const goToPayment = confirm(
-      "Já utilizaste as tuas 3 músicas gratuitas.\n\nQueres ir para pagamentos?"
+    return (
+      song.capa ||
+      song.cover ||
+      ""
     );
 
-    if(goToPayment){
-      window.location.href = "pagamento-musicas.html";
-    }
+  }
 
-    return;
+
+  function getSongViews(song){
+
+    return Number(
+      song.views ||
+      song.audicoes ||
+      0
+    );
 
   }
 
-  document.querySelector("#uploadBox")
-    .classList.add("show");
 
-  document.querySelector("#uploadBox")
-    .scrollIntoView({
-      behavior:"smooth"
-    });
+  /* =========================================
+     ARTIST PROFILE
+  ========================================== */
 
-};
+  async function loadArtistProfile(){
 
-
-window.closeUpload = function(){
-
-  document.querySelector("#uploadBox")
-    .classList.remove("show");
-
-  document.querySelector("#songForm").reset();
-
-  const status =
-    document.querySelector("#uploadStatus");
-
-  status.classList.remove("show");
-  status.textContent = "";
-
-};
-
-
-document.querySelector("#songForm")
-  .addEventListener("submit",async function(event){
-
-    event.preventDefault();
-
-    if(!currentUser){
-      alert("A tua sessão ainda não foi carregada.");
-      return;
-    }
-
-    const allowed = await canPublishMore();
-
-    if(!allowed){
-      alert("Já utilizaste as tuas 3 músicas gratuitas.");
-      window.location.href = "pagamento-musicas.html";
-      return;
-    }
-
-    const title =
-      document.querySelector("#songTitle")
-        .value.trim();
-
-    const coverFile =
-      document.querySelector("#songCover")
-        .files[0];
-
-    const audioFile =
-      document.querySelector("#songFile")
-        .files[0];
-
-    const status =
-      document.querySelector("#uploadStatus");
-
-    const publishButton =
-      document.querySelector("#publishButton");
-
-    const cancelButton =
-      document.querySelector("#cancelUploadBtn");
-
-    if(!title){
-      alert("Escreve o título da música.");
-      return;
-    }
-
-    if(!audioFile){
-      alert("Escolhe o ficheiro da música.");
-      return;
-    }
+    if(!currentUser) return;
 
     try{
 
-      publishButton.disabled = true;
-      cancelButton.disabled = true;
+      const artistRef =
+        doc(
+          db,
+          "artistas",
+          currentUser.uid
+        );
 
-      status.classList.add("show");
+      const artistSnap =
+        await getDoc(artistRef);
 
-      let coverUrl = "";
 
-      if(coverFile){
+      if(artistSnap.exists()){
 
-        status.textContent =
-          "🖼️ A enviar a capa...";
+        const data =
+          artistSnap.data();
 
-        coverUrl =
-          await uploadToCloudinary(
-            coverFile,
-            "image"
-          );
+
+        artistName =
+          data.nomeArtistico ||
+          data.nome ||
+          data.artistName ||
+          currentUser.displayName ||
+          currentUser.email?.split("@")[0] ||
+          "Artista Prime";
+
+
+        artistPhoto =
+          data.foto ||
+          data.fotoPerfil ||
+          data.imagem ||
+          data.photoURL ||
+          "";
+
+      }
+      else{
+
+        artistName =
+          currentUser.displayName ||
+          currentUser.email?.split("@")[0] ||
+          "Artista Prime";
+
+        artistPhoto = "";
 
       }
 
-      status.textContent =
-        "🎵 A enviar a música...";
 
-      const audioUrl =
-        await uploadToCloudinary(
-          audioFile,
-          "video"
-        );
+      const miniName =
+        document.querySelector("#miniName");
 
-      status.textContent =
-        "💾 A publicar no KUDURO PRIME...";
+      if(miniName){
 
-      await addDoc(
-        collection(db,"musicas"),
-        {
+        miniName.textContent =
+          artistName;
 
-          artistaId:currentUser.uid,
-          artistId:currentUser.uid,
-          userId:currentUser.uid,
-          uid:currentUser.uid,
+      }
 
-          artistaNome:artistName,
-          artistName:artistName,
 
-          artistaFoto:artistPhoto,
-          artistPhoto:artistPhoto,
+      const miniPhoto =
+        document.querySelector("#miniPhoto");
 
-          titulo:title,
-          title:title,
 
-          tipo:
-            document.querySelector("#songType").value,
+      if(miniPhoto){
 
-          genero:
-            document.querySelector("#songGenre").value,
+        miniPhoto.innerHTML = "";
 
-          dataLancamento:
-            document.querySelector("#songDate").value,
+        if(artistPhoto){
 
-          descricao:
-            document.querySelector("#songDescription")
-              .value.trim(),
+          const image =
+            document.createElement("img");
 
-          capa:coverUrl,
-          cover:coverUrl,
+          image.src =
+            artistPhoto;
 
-          audio:audioUrl,
-          audioUrl:audioUrl,
+          image.alt =
+            "Foto do artista";
 
-          audioMimeType:audioFile.type,
-          audioFileName:audioFile.name,
+          image.onerror =
+            function(){
 
-          views:0,
-          audicoes:0,
+              miniPhoto.textContent =
+                "👤";
 
-          status:"publicada",
+            };
 
-          criadoEm:serverTimestamp()
+          miniPhoto.appendChild(image);
 
         }
-      );
+        else{
 
-      status.textContent =
-        "♕ Música publicada com sucesso!";
+          miniPhoto.textContent =
+            "👤";
 
-      await loadSongs();
+        }
 
-      setTimeout(closeUpload,1200);
+      }
 
     }
     catch(error){
 
-      console.error(error);
-
-      status.textContent =
-        "❌ Erro: " + error.message;
-
-    }
-    finally{
-
-      publishButton.disabled = false;
-      cancelButton.disabled = false;
+      console.error(
+        "Erro ao carregar perfil:",
+        error
+      );
 
     }
-
-  });
-
-
-async function renderSongs(){
-
-  const list =
-    document.querySelector("#songsList");
-
-  await updateLimit();
-
-  if(songs.length === 0){
-
-    list.innerHTML = `
-      <div class="empty">
-
-        <div class="empty-icon">🎵</div>
-
-        <h3>Ainda não tens músicas</h3>
-
-        <p>
-          Publica o teu primeiro lançamento
-          e mostra o teu talento.
-        </p>
-
-        <button
-          class="btn gold"
-          onclick="openUpload()"
-        >
-          + PUBLICAR PRIMEIRA MÚSICA
-        </button>
-
-      </div>
-    `;
-
-    return;
 
   }
 
-  list.innerHTML = songs
-    .map(song => {
 
-      const songTitle =
-        song.titulo ||
-        song.title ||
-        "Sem título";
+  /* =========================================
+     PLANO DO ARTISTA
+  ========================================== */
 
-      const songArtist =
-        song.artistaNome ||
-        song.artistName ||
-        artistName;
+  async function hasUnlimitedSongs(){
 
-      const songCover =
-        song.capa ||
-        song.cover ||
-        "";
+    if(!currentUser)
+      return false;
 
-      const songAudio =
-        song.audio ||
-        song.audioUrl ||
-        song.url ||
-        song.musicaUrl ||
-        song.musicUrl ||
-        "";
 
-      const views =
-        song.views ||
-        song.audicoes ||
-        0;
+    try{
 
-      const safeCover =
-        String(songCover)
-          .replace(/'/g,"%27");
+      const artistSnap =
+        await getDoc(
+          doc(
+            db,
+            "artistas",
+            currentUser.uid
+          )
+        );
 
-      const coverHTML =
-        songCover
-        ? `<div class="cover" style="background-image:url('${safeCover}')"></div>`
-        : `<div class="cover">🎵</div>`;
 
-      const audioHTML =
-        songAudio
-        ? `
-          <audio
-            controls
-            preload="metadata"
-            playsinline
-            data-song-id="${song.id}"
-          >
-            <source
-              src="${escapeHTML(songAudio)}"
-              type="${escapeHTML(song.audioMimeType || "audio/mpeg")}"
-            >
-            O teu navegador não suporta áudio.
-          </audio>
-        `
-        : `
-          <p class="audio-error" style="display:block">
-            ❌ Esta música não possui ficheiro de áudio.
+      if(
+        artistSnap.exists() &&
+        artistSnap.data().musicasDesbloqueadas === true
+      ){
+
+        return true;
+
+      }
+
+
+      return false;
+
+    }
+    catch(error){
+
+      console.error(
+        "Erro ao verificar plano:",
+        error
+      );
+
+      return false;
+
+    }
+
+  }
+
+
+  async function canPublishMore(){
+
+    if(
+      songs.length < 3
+    ){
+
+      return true;
+
+    }
+
+
+    unlimitedPlan =
+      await hasUnlimitedSongs();
+
+
+    return unlimitedPlan;
+
+  }
+
+
+  async function updateLimit(){
+
+    const freeLimit =
+      document.querySelector("#freeLimit");
+
+    const songsCount =
+      document.querySelector("#songsCount");
+
+
+    unlimitedPlan =
+      await hasUnlimitedSongs();
+
+
+    if(
+      unlimitedPlan
+    ){
+
+      freeLimit.classList.remove(
+        "blocked"
+      );
+
+      freeLimit.textContent =
+        `👑 Plano desbloqueado. Tens ${songs.length} músicas publicadas.`;
+
+      songsCount.textContent =
+        `${songs.length} MÚSICAS`;
+
+      return;
+
+    }
+
+
+    if(
+      songs.length < 3
+    ){
+
+      freeLimit.classList.remove(
+        "blocked"
+      );
+
+      freeLimit.textContent =
+        `🎵 ${songs.length} de 3 músicas gratuitas utilizadas.`;
+
+      songsCount.textContent =
+        `${songs.length} / 3 GRÁTIS`;
+
+    }
+    else{
+
+      freeLimit.classList.add(
+        "blocked"
+      );
+
+      freeLimit.textContent =
+        "🔒 As 3 músicas gratuitas foram utilizadas. Desbloqueia o plano para publicar mais.";
+
+      songsCount.textContent =
+        `${songs.length} / 3 GRÁTIS`;
+
+    }
+
+  }
+
+
+  /* =========================================
+     CARREGAR MÚSICAS
+  ========================================== */
+
+  async function loadSongs(){
+
+    if(!currentUser)
+      return;
+
+
+    const list =
+      document.querySelector("#songsList");
+
+
+    list.innerHTML = `
+      <div class="loading">
+        <div class="loading-spinner"></div>
+        A carregar músicas...
+      </div>
+    `;
+
+
+    try{
+
+      /*
+        Lemos a coleção completa e filtramos
+        pelo ID do utilizador.
+
+        Isto permite compatibilidade com
+        documentos antigos que utilizam:
+        artistaId / artistId / userId / uid.
+      */
+
+      const snapshot =
+        await getDocs(
+          collection(
+            db,
+            "musicas"
+          )
+        );
+
+
+      songs =
+        snapshot.docs
+          .map(musicDoc => ({
+            id:
+              musicDoc.id,
+            ...musicDoc.data()
+          }))
+          .filter(song => {
+
+            return (
+              getSongArtistId(song) ===
+              currentUser.uid
+            );
+
+          })
+          .sort((a,b) => {
+
+            const timeA =
+              a.criadoEm?.seconds ||
+              a.createdAt?.seconds ||
+              0;
+
+            const timeB =
+              b.criadoEm?.seconds ||
+              b.createdAt?.seconds ||
+              0;
+
+            return (
+              timeB - timeA
+            );
+
+          });
+
+
+      await renderSongs();
+
+    }
+    catch(error){
+
+      console.error(
+        "Erro ao carregar músicas:",
+        error
+      );
+
+
+      list.innerHTML = `
+        <div class="empty">
+
+          <div class="empty-icon">
+            ⚠
+          </div>
+
+          <h3>
+            Erro ao carregar as músicas
+          </h3>
+
+          <p>
+            ${escapeHTML(error.message)}
           </p>
-        `;
 
-      return `
-        <article class="song-card">
-
-          ${coverHTML}
-
-          <div class="song-info">
-
-            <strong>${escapeHTML(songTitle)}</strong>
-
-            <p class="artist-song-name">
-              👤 ${escapeHTML(songArtist)}
-            </p>
-
-            <p>
-              ${escapeHTML(
-                song.descricao ||
-                "Lançamento KUDURO PRIME"
-              )}
-            </p>
-
-            <div class="song-meta">
-
-              <span class="badge active">
-                ● PUBLICADA
-              </span>
-
-              <span class="badge">
-                🎧 ${escapeHTML(song.tipo || "Single")}
-              </span>
-
-              <span class="badge">
-                🎵 ${escapeHTML(song.genero || "Kuduro")}
-              </span>
-
-              <span class="badge">
-                👁 ${views}
-              </span>
-
-            </div>
-
-          </div>
-
-          <div class="song-actions">
-
-            <button
-              class="icon-btn"
-              onclick="playSong('${song.id}')"
-              title="Ouvir"
-            >▶</button>
-
-            <button
-              class="icon-btn"
-              onclick="editSong('${song.id}')"
-              title="Editar"
-            >✏</button>
-
-            <button
-              class="icon-btn delete-btn"
-              onclick="deleteSong('${song.id}')"
-              title="Eliminar"
-            >🗑</button>
-
-          </div>
-
-          <div
-            class="audio-player"
-            id="audioPlayer${song.id}"
+          <button
+            class="btn gold"
+            onclick="location.reload()"
           >
+            ↻ TENTAR NOVAMENTE
+          </button>
 
-            ${audioHTML}
-
-            <p
-              class="audio-error"
-              id="audioError${song.id}"
-            ></p>
-
-          </div>
-
-        </article>
+        </div>
       `;
 
-    })
-    .join("");
+    }
+
+  }
 
 
-  document.querySelectorAll("audio")
-    .forEach(audio => {
+  /* =========================================
+     CLOUDINARY UPLOAD
+  ========================================== */
 
-      audio.addEventListener("error",() => {
+  async function uploadToCloudinary(
+    file,
+    resourceType
+  ){
+
+    if(!file){
+
+      throw new Error(
+        "Ficheiro não selecionado."
+      );
+
+    }
+
+
+    const formData =
+      new FormData();
+
+
+    formData.append(
+      "file",
+      file
+    );
+
+    formData.append(
+      "upload_preset",
+      CLOUDINARY_UPLOAD_PRESET
+    );
+
+
+    const endpoint =
+      `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/${resourceType}/upload`;
+
+
+    const response =
+      await fetch(
+        endpoint,
+        {
+          method:"POST",
+          body:formData
+        }
+      );
+
+
+    let data = null;
+
+
+    try{
+
+      data =
+        await response.json();
+
+    }
+    catch(error){
+
+      throw new Error(
+        "O Cloudinary não devolveu uma resposta válida."
+      );
+
+    }
+
+
+    if(!response.ok){
+
+      throw new Error(
+        data?.error?.message ||
+        "Erro ao enviar o ficheiro para o Cloudinary."
+      );
+
+    }
+
+
+    if(!data.secure_url){
+
+      throw new Error(
+        "O Cloudinary não devolveu o endereço do ficheiro."
+      );
+
+    }
+
+
+    return data.secure_url;
+
+  }
+
+
+  /* =========================================
+     ABRIR UPLOAD
+  ========================================== */
+
+  window.openUpload =
+    async function(){
+
+      if(!currentUser){
+
+        alert(
+          "A tua sessão ainda não foi carregada."
+        );
+
+        return;
+
+      }
+
+
+      const allowed =
+        await canPublishMore();
+
+
+      if(!allowed){
+
+        const goToPayment =
+          confirm(
+            "Já utilizaste as tuas 3 músicas gratuitas.\n\nQueres ir para pagamentos?"
+          );
+
+
+        if(goToPayment){
+
+          window.location.href =
+            "pagamento-musicas.html";
+
+        }
+
+        return;
+
+      }
+
+
+      const uploadBox =
+        document.querySelector(
+          "#uploadBox"
+        );
+
+
+      uploadBox.classList.add(
+        "show"
+      );
+
+
+      uploadBox.scrollIntoView({
+        behavior:"smooth",
+        block:"start"
+      });
+
+
+      setTimeout(
+        () => {
+
+          document.querySelector(
+            "#songTitle"
+          )?.focus();
+
+        },
+        350
+      );
+
+    };
+
+
+  /* =========================================
+     FECHAR UPLOAD
+  ========================================== */
+
+  window.closeUpload =
+    function(){
+
+      const uploadBox =
+        document.querySelector(
+          "#uploadBox"
+        );
+
+
+      uploadBox.classList.remove(
+        "show"
+      );
+
+
+      document.querySelector(
+        "#songForm"
+      ).reset();
+
+
+      const status =
+        document.querySelector(
+          "#uploadStatus"
+        );
+
+
+      status.className =
+        "upload-status";
+
+      status.textContent =
+        "";
+
+    };
+
+
+  /* =========================================
+     PUBLICAR MÚSICA
+  ========================================== */
+
+  document
+    .querySelector("#songForm")
+    .addEventListener(
+      "submit",
+      async function(event){
+
+        event.preventDefault();
+
+
+        if(!currentUser){
+
+          alert(
+            "A tua sessão ainda não foi carregada."
+          );
+
+          return;
+
+        }
+
+
+        const allowed =
+          await canPublishMore();
+
+
+        if(!allowed){
+
+          alert(
+            "Já utilizaste as tuas 3 músicas gratuitas."
+          );
+
+          window.location.href =
+            "pagamento-musicas.html";
+
+          return;
+
+        }
+
+
+        const title =
+          document
+            .querySelector("#songTitle")
+            .value
+            .trim();
+
+
+        const coverFile =
+          document
+            .querySelector("#songCover")
+            .files[0];
+
+
+        const audioFile =
+          document
+            .querySelector("#songFile")
+            .files[0];
+
+
+        const songType =
+          document
+            .querySelector("#songType")
+            .value;
+
+
+        const songGenre =
+          document
+            .querySelector("#songGenre")
+            .value;
+
+
+        const songDate =
+          document
+            .querySelector("#songDate")
+            .value;
+
+
+        const description =
+          document
+            .querySelector("#songDescription")
+            .value
+            .trim();
+
+
+        const status =
+          document.querySelector(
+            "#uploadStatus"
+          );
+
+
+        const publishButton =
+          document.querySelector(
+            "#publishButton"
+          );
+
+
+        const cancelButton =
+          document.querySelector(
+            "#cancelUploadBtn"
+          );
+
+
+        if(!title){
+
+          alert(
+            "Escreve o título da música."
+          );
+
+          return;
+
+        }
+
+
+        if(!audioFile){
+
+          alert(
+            "Escolhe o ficheiro da música."
+          );
+
+          return;
+
+        }
+
+
+        /*
+          Verificação simples do ficheiro.
+        */
+
+        if(
+          !audioFile.type.startsWith("audio/") &&
+          !/\.(mp3|wav|m4a|aac|ogg)$/i.test(
+            audioFile.name
+          )
+        ){
+
+          alert(
+            "Escolhe um ficheiro de áudio válido: MP3, WAV, M4A, AAC ou OGG."
+          );
+
+          return;
+
+        }
+
+
+        try{
+
+          publishButton.disabled =
+            true;
+
+          cancelButton.disabled =
+            true;
+
+
+          status.className =
+            "upload-status show";
+
+
+          status.textContent =
+            "⏳ A preparar publicação...";
+
+
+          /* ================================
+             CAPA
+          ================================= */
+
+          let coverUrl = "";
+
+
+          if(coverFile){
+
+            status.textContent =
+              "🖼️ A enviar a capa...";
+
+
+            coverUrl =
+              await uploadToCloudinary(
+                coverFile,
+                "image"
+              );
+
+          }
+
+
+          /* ================================
+             ÁUDIO
+          ================================= */
+
+          status.textContent =
+            "🎵 A enviar a música...";
+
+
+          const audioUrl =
+            await uploadToCloudinary(
+              audioFile,
+              "video"
+            );
+
+
+          /* ================================
+             FIRESTORE
+          ================================= */
+
+          status.textContent =
+            "💾 A guardar no KUDURO PRIME...";
+
+
+          await addDoc(
+            collection(
+              db,
+              "musicas"
+            ),
+            {
+
+              /*
+                IDs — mantemos os quatro
+                formatos para compatibilidade.
+              */
+
+              artistaId:
+                currentUser.uid,
+
+              artistId:
+                currentUser.uid,
+
+              userId:
+                currentUser.uid,
+
+              uid:
+                currentUser.uid,
+
+
+              /*
+                Artista
+              */
+
+              artistaNome:
+                artistName,
+
+              artistName:
+                artistName,
+
+              artistaFoto:
+                artistPhoto,
+
+              artistPhoto:
+                artistPhoto,
+
+
+              /*
+                Música
+              */
+
+              titulo:
+                title,
+
+              title:
+                title,
+
+              tipo:
+                songType,
+
+              genero:
+                songGenre,
+
+              dataLancamento:
+                songDate,
+
+              descricao:
+                description,
+
+
+              /*
+                Ficheiros
+              */
+
+              capa:
+                coverUrl,
+
+              cover:
+                coverUrl,
+
+              audio:
+                audioUrl,
+
+              audioUrl:
+                audioUrl,
+
+
+              /*
+                Informações técnicas
+              */
+
+              audioMimeType:
+                audioFile.type ||
+                "audio/mpeg",
+
+              audioFileName:
+                audioFile.name,
+
+
+              /*
+                Estatísticas
+              */
+
+              views:
+                0,
+
+              audicoes:
+                0,
+
+
+              /*
+                Estado
+              */
+
+              status:
+                "publicada",
+
+
+              /*
+                Data
+              */
+
+              criadoEm:
+                serverTimestamp()
+
+            }
+          );
+
+
+          status.className =
+            "upload-status show success";
+
+
+          status.textContent =
+            "♕ Música publicada com sucesso!";
+
+
+          /*
+            Atualiza a lista sem precisar
+            atualizar a página.
+          */
+
+          await loadSongs();
+
+
+          setTimeout(
+            () => {
+
+              closeUpload();
+
+            },
+            1300
+          );
+
+        }
+        catch(error){
+
+          console.error(
+            "Erro ao publicar música:",
+            error
+          );
+
+
+          status.className =
+            "upload-status show error";
+
+
+          status.textContent =
+            "❌ Erro: " +
+            (
+              error.message ||
+              "Não foi possível publicar a música."
+            );
+
+        }
+        finally{
+
+          publishButton.disabled =
+            false;
+
+          cancelButton.disabled =
+            false;
+
+        }
+
+      }
+    );
+
+
+  /* =========================================
+     RENDERIZAR MÚSICAS
+  ========================================== */
+
+  async function renderSongs(){
+
+    const list =
+      document.querySelector(
+        "#songsList"
+      );
+
+
+    await updateLimit();
+
+
+    if(songs.length === 0){
+
+      list.innerHTML = `
+        <div class="empty">
+
+          <div class="empty-icon">
+            🎵
+          </div>
+
+          <h3>
+            Ainda não tens músicas
+          </h3>
+
+          <p>
+            Publica o teu primeiro lançamento
+            e mostra o teu talento no KUDURO PRIME.
+          </p>
+
+          <button
+            class="btn gold"
+            onclick="openUpload()"
+          >
+            + PUBLICAR PRIMEIRA MÚSICA
+          </button>
+
+        </div>
+      `;
+
+      return;
+
+    }
+
+
+    list.innerHTML =
+      songs
+        .map(song => {
+
+          const songTitle =
+            getSongTitle(song);
+
+
+          const songArtist =
+            song.artistaNome ||
+            song.artistName ||
+            artistName;
+
+
+          const songCover =
+            getSongCover(song);
+
+
+          const songAudio =
+            getSongAudio(song);
+
+
+          const views =
+            getSongViews(song);
+
+
+          const safeCover =
+            String(songCover)
+              .replace(/'/g,"%27")
+              .replace(/"/g,"%22");
+
+
+          const coverHTML =
+            songCover
+
+            ?
+
+            `
+              <div
+                class="cover"
+                style="background-image:url('${safeCover}')"
+              ></div>
+            `
+
+            :
+
+            `
+              <div class="cover">
+                🎵
+              </div>
+            `;
+
+
+          const audioHTML =
+            songAudio
+
+            ?
+
+            `
+              <audio
+                controls
+                preload="metadata"
+                playsinline
+                data-song-id="${escapeHTML(song.id)}"
+              >
+
+                <source
+                  src="${escapeHTML(songAudio)}"
+                  type="${escapeHTML(
+                    song.audioMimeType ||
+                    "audio/mpeg"
+                  )}"
+                >
+
+                O teu navegador não suporta áudio.
+
+              </audio>
+            `
+
+            :
+
+            `
+              <p
+                class="audio-error"
+                style="display:block"
+              >
+                ❌ Esta música não possui ficheiro de áudio.
+              </p>
+            `;
+
+
+          return `
+
+            <article
+              class="song-card"
+            >
+
+              ${coverHTML}
+
+
+              <div class="song-info">
+
+                <strong>
+                  ${escapeHTML(songTitle)}
+                </strong>
+
+
+                <p class="artist-song-name">
+                  👤 ${escapeHTML(songArtist)}
+                </p>
+
+
+                <p>
+                  ${escapeHTML(
+                    song.descricao ||
+                    "Lançamento KUDURO PRIME"
+                  )}
+                </p>
+
+
+                <div class="song-meta">
+
+                  <span class="badge active">
+                    ● PUBLICADA
+                  </span>
+
+                  <span class="badge">
+                    🎧 ${escapeHTML(
+                      song.tipo ||
+                      "Single"
+                    )}
+                  </span>
+
+                  <span class="badge">
+                    🎵 ${escapeHTML(
+                      song.genero ||
+                      "Kuduro"
+                    )}
+                  </span>
+
+                  <span class="badge">
+                    👁 ${views}
+                  </span>
+
+                </div>
+
+              </div>
+
+
+              <div class="song-actions">
+
+                <button
+                  class="icon-btn"
+                  onclick="playSong('${escapeHTML(song.id)}')"
+                  title="Ouvir"
+                  aria-label="Ouvir música"
+                >
+                  ▶
+                </button>
+
+
+                <button
+                  class="icon-btn"
+                  onclick="editSong('${escapeHTML(song.id)}')"
+                  title="Editar título"
+                  aria-label="Editar música"
+                >
+                  ✏️
+                </button>
+
+
+                <button
+                  class="icon-btn delete-btn"
+                  onclick="deleteSong('${escapeHTML(song.id)}')"
+                  title="Eliminar"
+                  aria-label="Eliminar música"
+                >
+                  🗑
+                </button>
+
+              </div>
+
+
+              <div
+                class="audio-player"
+                id="audioPlayer${escapeHTML(song.id)}"
+              >
+
+                ${audioHTML}
+
+                <p
+                  class="audio-error"
+                  id="audioError${escapeHTML(song.id)}"
+                ></p>
+
+              </div>
+
+            </article>
+
+          `;
+
+        })
+        .join("");
+
+
+    /*
+      Configurar players.
+    */
+
+    document
+      .querySelectorAll("audio")
+      .forEach(audio => {
+
+        audio.addEventListener(
+          "error",
+          () => {
+
+            const errorBox =
+              document.querySelector(
+                "#audioError" +
+                audio.dataset.songId
+              );
+
+
+            if(errorBox){
+
+              errorBox.style.display =
+                "block";
+
+              errorBox.textContent =
+                "❌ Não foi possível carregar esta música. Verifica o ficheiro no Cloudinary.";
+
+            }
+
+          }
+        );
+
+
+        audio.addEventListener(
+          "play",
+          () => {
+
+            document
+              .querySelectorAll("audio")
+              .forEach(otherAudio => {
+
+                if(
+                  otherAudio !== audio
+                ){
+
+                  otherAudio.pause();
+
+                }
+
+              });
+
+          }
+        );
+
+      });
+
+  }
+
+
+  /* =========================================
+     REPRODUZIR MÚSICA
+  ========================================== */
+
+  window.playSong =
+    async function(songId){
+
+      const player =
+        document.querySelector(
+          "#audioPlayer" +
+          songId
+        );
+
+
+      if(!player)
+        return;
+
+
+      /*
+        Fechar os outros players.
+      */
+
+      document
+        .querySelectorAll(
+          ".audio-player"
+        )
+        .forEach(item => {
+
+          if(
+            item !== player
+          ){
+
+            item.classList.remove(
+              "show"
+            );
+
+
+            const otherAudio =
+              item.querySelector(
+                "audio"
+              );
+
+
+            if(otherAudio){
+
+              otherAudio.pause();
+
+            }
+
+          }
+
+        });
+
+
+      player.classList.add(
+        "show"
+      );
+
+
+      const audio =
+        player.querySelector(
+          "audio"
+        );
+
+
+      if(!audio){
+
+        alert(
+          "Esta publicação não possui uma música válida."
+        );
+
+        return;
+
+      }
+
+
+      try{
+
+        await audio.play();
+
+      }
+      catch(error){
+
+        console.error(
+          "Erro ao tocar música:",
+          error
+        );
+
 
         const errorBox =
           document.querySelector(
             "#audioError" +
-            audio.dataset.songId
+            songId
           );
+
 
         if(errorBox){
 
-          errorBox.style.display = "block";
+          errorBox.style.display =
+            "block";
 
           errorBox.textContent =
-            "❌ Não foi possível carregar esta música.";
+            "❌ Não foi possível tocar esta música.";
 
-        }
-
-      });
-
-      audio.addEventListener("play",() => {
-
-        document.querySelectorAll("audio")
-          .forEach(otherAudio => {
-
-            if(otherAudio !== audio){
-              otherAudio.pause();
-            }
-
-          });
-
-      });
-
-    });
-
-}
-
-
-window.playSong = async function(songId){
-
-  const player =
-    document.querySelector(
-      "#audioPlayer" + songId
-    );
-
-  if(!player) return;
-
-  document.querySelectorAll(".audio-player")
-    .forEach(item => {
-
-      if(item !== player){
-
-        item.classList.remove("show");
-
-        const otherAudio =
-          item.querySelector("audio");
-
-        if(otherAudio){
-          otherAudio.pause();
         }
 
       }
 
-    });
 
-  player.classList.add("show");
+      /*
+        Contar audição.
+      */
 
-  const audio =
-    player.querySelector("audio");
+      try{
 
-  if(!audio){
+        await updateDoc(
+          doc(
+            db,
+            "musicas",
+            songId
+          ),
+          {
 
-    alert(
-      "Esta publicação não possui uma música válida."
-    );
+            views:
+              increment(1),
 
-    return;
+            audicoes:
+              increment(1)
 
-  }
+          }
+        );
 
-  try{
 
-    await audio.play();
+        /*
+          Atualiza o contador local.
+        */
 
-  }
-  catch(error){
+        const song =
+          songs.find(
+            item =>
+              item.id === songId
+          );
 
-    console.error(error);
 
-    const errorBox =
-      document.querySelector(
-        "#audioError" + songId
+        if(song){
+
+          song.views =
+            getSongViews(song) + 1;
+
+        }
+
+      }
+      catch(error){
+
+        console.log(
+          "Erro ao contar audição:",
+          error
+        );
+
+      }
+
+    };
+
+
+  /* =========================================
+     EDITAR MÚSICA
+  ========================================== */
+
+  window.editSong =
+    async function(songId){
+
+      const song =
+        songs.find(
+          item =>
+            item.id === songId
+        );
+
+
+      if(!song)
+        return;
+
+
+      const currentTitle =
+        getSongTitle(song);
+
+
+      const newTitle =
+        prompt(
+          "Novo título da música:",
+          currentTitle
+        );
+
+
+      if(
+        newTitle === null
+      ){
+
+        return;
+
+      }
+
+
+      if(
+        !newTitle.trim()
+      ){
+
+        alert(
+          "O título não pode ficar vazio."
+        );
+
+        return;
+
+      }
+
+
+      try{
+
+        await updateDoc(
+          doc(
+            db,
+            "musicas",
+            songId
+          ),
+          {
+
+            titulo:
+              newTitle.trim(),
+
+            title:
+              newTitle.trim()
+
+          }
+        );
+
+
+        await loadSongs();
+
+
+      }
+      catch(error){
+
+        console.error(
+          "Erro ao editar:",
+          error
+        );
+
+
+        alert(
+          "Erro ao editar: " +
+          error.message
+        );
+
+      }
+
+    };
+
+
+  /* =========================================
+     ELIMINAR MÚSICA
+  ========================================== */
+
+  window.deleteSong =
+    async function(songId){
+
+      const song =
+        songs.find(
+          item =>
+            item.id === songId
+        );
+
+
+      const title =
+        song
+          ? getSongTitle(song)
+          : "esta música";
+
+
+      const confirmed =
+        confirm(
+          `Tens a certeza que queres eliminar "${title}"?\n\nEsta ação não pode ser desfeita.`
+        );
+
+
+      if(!confirmed)
+        return;
+
+
+      try{
+
+        await deleteDoc(
+          doc(
+            db,
+            "musicas",
+            songId
+          )
+        );
+
+
+        await loadSongs();
+
+
+      }
+      catch(error){
+
+        console.error(
+          "Erro ao eliminar:",
+          error
+        );
+
+
+        alert(
+          "Erro ao eliminar a música: " +
+          error.message
+        );
+
+      }
+
+    };
+
+
+  /* =========================================
+     MENU MOBILE
+  ========================================== */
+
+  window.toggleMenu =
+    function(){
+
+      const sidebar =
+        document.querySelector(
+          "#sidebar"
+        );
+
+      const overlay =
+        document.querySelector(
+          "#sidebarOverlay"
+        );
+
+
+      sidebar.classList.toggle(
+        "show"
       );
 
-    if(errorBox){
+      overlay.classList.toggle(
+        "show"
+      );
 
-      errorBox.style.display = "block";
+      document.body.classList.toggle(
+        "menu-open"
+      );
 
-      errorBox.textContent =
-        "❌ Não foi possível tocar esta música.";
+    };
+
+
+  /*
+    Fechar menu ao clicar num link
+    em dispositivos móveis.
+  */
+
+  document
+    .querySelectorAll(".side-link,.artist-mini")
+    .forEach(link => {
+
+      link.addEventListener(
+        "click",
+        () => {
+
+          if(
+            window.innerWidth <= 760
+          ){
+
+            const sidebar =
+              document.querySelector(
+                "#sidebar"
+              );
+
+            const overlay =
+              document.querySelector(
+                "#sidebarOverlay"
+              );
+
+
+            sidebar.classList.remove(
+              "show"
+            );
+
+            overlay.classList.remove(
+              "show"
+            );
+
+            document.body.classList.remove(
+              "menu-open"
+            );
+
+          }
+
+        }
+      );
+
+    });
+
+
+  /* =========================================
+     LOGOUT
+  ========================================== */
+
+  window.logout =
+    async function(){
+
+      try{
+
+        await signOut(
+          auth
+        );
+
+
+        window.location.href =
+          "area-do-artista.html";
+
+      }
+      catch(error){
+
+        console.error(
+          "Erro ao terminar sessão:",
+          error
+        );
+
+
+        alert(
+          "Não foi possível terminar a sessão."
+        );
+
+      }
+
+    };
+
+
+  /* =========================================
+     AUTENTICAÇÃO
+  ========================================== */
+
+  onAuthStateChanged(
+    auth,
+    async user => {
+
+      if(!user){
+
+        window.location.href =
+          "area-do-artista.html";
+
+        return;
+
+      }
+
+
+      currentUser =
+        user;
+
+
+      await loadArtistProfile();
+
+      await loadSongs();
 
     }
-
-  }
-
-  try{
-
-    await updateDoc(
-      doc(db,"musicas",songId),
-      {
-        views:increment(1),
-        audicoes:increment(1)
-      }
-    );
-
-  }
-  catch(error){
-
-    console.log(
-      "Erro ao contar audição:",
-      error
-    );
-
-  }
-
-};
-
-
-window.editSong = async function(songId){
-
-  const song =
-    songs.find(item => item.id === songId);
-
-  if(!song) return;
-
-  const currentTitle =
-    song.titulo ||
-    song.title ||
-    "";
-
-  const newTitle =
-    prompt(
-      "Novo título da música:",
-      currentTitle
-    );
-
-  if(!newTitle || !newTitle.trim()){
-    return;
-  }
-
-  try{
-
-    await updateDoc(
-      doc(db,"musicas",songId),
-      {
-        titulo:newTitle.trim(),
-        title:newTitle.trim()
-      }
-    );
-
-    await loadSongs();
-
-  }
-  catch(error){
-
-    console.error(error);
-
-    alert(
-      "Erro ao editar: " +
-      error.message
-    );
-
-  }
-
-};
-
-
-window.deleteSong = async function(songId){
-
-  const confirmed =
-    confirm(
-      "Tens a certeza que queres eliminar esta música?"
-    );
-
-  if(!confirmed) return;
-
-  try{
-
-    await deleteDoc(
-      doc(db,"musicas",songId)
-    );
-
-    await loadSongs();
-
-  }
-  catch(error){
-
-    console.error(error);
-
-    alert(
-      "Erro ao eliminar a música: " +
-      error.message
-    );
-
-  }
-
-};
-
-
-window.toggleMenu = function(){
-
-  document.querySelector("#sidebar")
-    .classList.toggle("show");
-
-};
-
-
-window.logout = async function(){
-
-  try{
-
-    await signOut(auth);
-
-    window.location.href =
-      "area-do-artista.html";
-
-  }
-  catch(error){
-    console.error(error);
-  }
-
-};
-
-
-onAuthStateChanged(auth,async user => {
-
-  if(!user){
-
-    window.location.href =
-      "area-do-artista.html";
-
-    return;
-
-  }
-
-  currentUser = user;
-
-  await loadArtistProfile();
-
-  await loadSongs();
-
-});
+  );
 
 </script>
 
