@@ -1,0 +1,1290 @@
+<!DOCTYPE html>
+
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Guardados — KUDURO PRIME</title>
+
+  <style>
+    :root{
+      --bg:#070707;
+      --panel:#111;
+      --panel2:#171717;
+      --gold:#f4bf31;
+      --gold2:#ffdc6b;
+      --text:#f7f4ed;
+      --muted:#9d9d9d;
+      --line:#292929;
+      --red:#ff6b5d;
+      --blue:#4eb8ff;
+    }
+
+    *{
+      box-sizing:border-box;
+    }
+
+    body{
+      margin:0;
+      min-height:100vh;
+      background:
+        radial-gradient(
+          circle at 50% -10%,
+          rgba(244,191,49,.12),
+          transparent 35%
+        ),
+        var(--bg);
+      color:var(--text);
+      font-family:Arial,Helvetica,sans-serif;
+    }
+
+    a{
+      color:inherit;
+      text-decoration:none;
+    }
+
+    button{
+      font:inherit;
+    }
+
+    .top{
+      height:72px;
+      position:sticky;
+      top:0;
+      z-index:100;
+      display:flex;
+      align-items:center;
+      border-bottom:1px solid var(--line);
+      background:rgba(7,7,7,.96);
+      backdrop-filter:blur(15px);
+    }
+
+    .top-in{
+      width:min(900px,92%);
+      margin:auto;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+    }
+
+    .brand{
+      font-size:18px;
+      font-weight:900;
+      letter-spacing:-1px;
+    }
+
+    .brand span{
+      color:var(--gold);
+    }
+
+    .back{
+      color:var(--gold);
+      font-size:13px;
+      font-weight:900;
+    }
+
+    main{
+      width:min(900px,92%);
+      margin:auto;
+      padding:30px 0 70px;
+    }
+
+    .head{
+      margin-bottom:25px;
+    }
+
+    h1{
+      margin:0;
+      font-size:32px;
+      letter-spacing:-1px;
+    }
+
+    .subtitle{
+      margin:8px 0 0;
+      color:var(--muted);
+      font-size:13px;
+    }
+
+    .tabs{
+      display:flex;
+      gap:8px;
+      margin-bottom:22px;
+      overflow-x:auto;
+      padding-bottom:3px;
+    }
+
+    .tab{
+      min-height:42px;
+      padding:0 16px;
+      border:1px solid var(--line);
+      border-radius:9px;
+      background:#101010;
+      color:var(--muted);
+      cursor:pointer;
+      white-space:nowrap;
+      font-size:11px;
+      font-weight:900;
+      transition:.2s;
+    }
+
+    .tab:hover{
+      border-color:rgba(244,191,49,.5);
+      color:var(--gold);
+    }
+
+    .tab.active{
+      background:linear-gradient(
+        135deg,
+        rgba(244,191,49,.18),
+        rgba(244,191,49,.05)
+      );
+      border-color:var(--gold);
+      color:var(--gold);
+    }
+
+    .loading{
+      padding:50px 20px;
+      text-align:center;
+      color:var(--muted);
+      background:var(--panel);
+      border:1px solid var(--line);
+      border-radius:18px;
+      font-size:13px;
+    }
+
+    .saved-grid{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:18px;
+    }
+
+    .saved-card{
+      overflow:hidden;
+      background:linear-gradient(
+        145deg,
+        var(--panel2),
+        var(--panel)
+      );
+      border:1px solid var(--line);
+      border-radius:16px;
+    }
+
+    .media{
+      position:relative;
+      aspect-ratio:16/10;
+      overflow:hidden;
+      background:#000;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .media img,
+    .media video{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
+
+    .media.audio{
+      background:
+        radial-gradient(
+          circle at center,
+          rgba(244,191,49,.16),
+          transparent 60%
+        ),
+        #0c0c0c;
+      font-size:65px;
+    }
+
+    .media video{
+      pointer-events:none;
+    }
+
+    .type-badge{
+      position:absolute;
+      top:10px;
+      left:10px;
+      padding:6px 9px;
+      border-radius:20px;
+      background:rgba(0,0,0,.72);
+      border:1px solid rgba(255,255,255,.12);
+      font-size:9px;
+      font-weight:900;
+    }
+
+    .remove-btn{
+      position:absolute;
+      top:10px;
+      right:10px;
+      width:34px;
+      height:34px;
+      border:0;
+      border-radius:50%;
+      background:rgba(0,0,0,.75);
+      color:white;
+      cursor:pointer;
+      font-size:16px;
+    }
+
+    .remove-btn:hover{
+      background:var(--red);
+    }
+
+    .card-content{
+      padding:15px;
+    }
+
+    .card-title{
+      margin:0;
+      font-size:15px;
+      font-weight:900;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+
+    .artist{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      margin-top:12px;
+    }
+
+    .artist-photo{
+      width:32px;
+      height:32px;
+      border-radius:50%;
+      overflow:hidden;
+      display:grid;
+      place-items:center;
+      background:#1c1608;
+      color:var(--gold);
+      font-size:13px;
+    }
+
+    .artist-photo img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
+
+    .artist-name{
+      min-width:0;
+      flex:1;
+      font-size:11px;
+      font-weight:800;
+      color:#ddd;
+    }
+
+    .username{
+      margin-top:3px;
+      color:var(--muted);
+      font-size:10px;
+      font-weight:normal;
+    }
+
+    .card-footer{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      margin-top:15px;
+      padding-top:12px;
+      border-top:1px solid var(--line);
+    }
+
+    .date{
+      color:var(--muted);
+      font-size:10px;
+    }
+
+    .view-btn{
+      padding:8px 10px;
+      border:1px solid var(--gold);
+      border-radius:7px;
+      background:transparent;
+      color:var(--gold);
+      cursor:pointer;
+      font-size:9px;
+      font-weight:900;
+    }
+
+    .view-btn:hover{
+      background:var(--gold);
+      color:#17120a;
+    }
+
+    .empty{
+      display:none;
+      padding:65px 20px;
+      text-align:center;
+      background:linear-gradient(
+        145deg,
+        var(--panel2),
+        var(--panel)
+      );
+      border:1px solid var(--line);
+      border-radius:18px;
+    }
+
+    .empty-icon{
+      font-size:58px;
+      margin-bottom:15px;
+    }
+
+    .empty h2{
+      margin:0 0 10px;
+      font-size:22px;
+    }
+
+    .empty p{
+      max-width:430px;
+      margin:0 auto;
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.6;
+    }
+
+    .explore{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:44px;
+      margin-top:22px;
+      padding:0 18px;
+      border-radius:9px;
+      background:linear-gradient(
+        135deg,
+        var(--gold2),
+        var(--gold)
+      );
+      color:#17120a;
+      font-size:11px;
+      font-weight:900;
+    }
+
+    .error{
+      display:none;
+      margin-bottom:16px;
+      padding:14px;
+      border:1px solid rgba(255,107,93,.35);
+      border-radius:10px;
+      background:rgba(255,107,93,.1);
+      color:#ff9a8e;
+      font-size:12px;
+    }
+
+    @media(max-width:650px){
+
+      main{
+        padding-top:24px;
+      }
+
+      h1{
+        font-size:28px;
+      }
+
+      .saved-grid{
+        grid-template-columns:1fr;
+      }
+
+    }
+
+    @media(max-width:400px){
+
+      .tab{
+        padding:0 12px;
+        font-size:10px;
+      }
+
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <header class="top">
+
+```
+<div class="top-in">
+
+  <a href="feed.html" class="brand">
+    👑 KUDURO <span>PRIME</span>
+  </a>
+
+  <a href="feed.html" class="back">
+    ← VOLTAR
+  </a>
+
+</div>
+```
+
+  </header>
+
+  <main>
+
+```
+<div class="head">
+
+  <h1>GUARDADOS</h1>
+
+  <p class="subtitle">
+    Tudo o que guardaste para ver ou ouvir mais tarde.
+  </p>
+
+</div>
+
+
+<div class="tabs">
+
+  <button
+    class="tab active"
+    data-filter="todos"
+  >
+    🔖 TODOS
+  </button>
+
+  <button
+    class="tab"
+    data-filter="foto"
+  >
+    🖼️ FOTOS
+  </button>
+
+  <button
+    class="tab"
+    data-filter="video"
+  >
+    🎬 VÍDEOS
+  </button>
+
+  <button
+    class="tab"
+    data-filter="musica"
+  >
+    🎵 MÚSICAS
+  </button>
+
+</div>
+
+
+<div class="error" id="error"></div>
+
+
+<div
+  class="saved-grid"
+  id="savedGrid"
+>
+
+  <div class="loading">
+    A carregar os teus guardados...
+  </div>
+
+</div>
+
+
+<div
+  class="empty"
+  id="empty"
+>
+
+  <div class="empty-icon">
+    🔖
+  </div>
+
+  <h2>Nada guardado ainda</h2>
+
+  <p>
+    Quando guardares uma publicação,
+    música ou vídeo, aparecerá aqui.
+  </p>
+
+  <a
+    href="feed.html"
+    class="explore"
+  >
+    EXPLORAR O FEED
+  </a>
+
+</div>
+```
+
+  </main>
+
+  <script type="module">
+
+    import {
+      initializeApp
+    } from
+    "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+
+
+    import {
+      getAuth,
+      onAuthStateChanged
+    } from
+    "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+
+
+    import {
+      getFirestore,
+      collection,
+      query,
+      where,
+      getDocs,
+      doc,
+      getDoc,
+      deleteDoc
+    } from
+    "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+
+
+    const firebaseConfig = {
+
+      apiKey:
+        "AIzaSyDoitCcLeLDNBNPCP6fG1s_xbHr4UmohSo",
+
+      authDomain:
+        "kuduro-prime.firebaseapp.com",
+
+      projectId:
+        "kuduro-prime",
+
+      storageBucket:
+        "kuduro-prime.firebasestorage.app",
+
+      messagingSenderId:
+        "299776559545",
+
+      appId:
+        "1:299776559545:web:04aced1ba25391eb3fce68"
+
+    };
+
+
+    const app =
+      initializeApp(firebaseConfig);
+
+
+    const auth =
+      getAuth(app);
+
+
+    const db =
+      getFirestore(app);
+
+
+    const savedGrid =
+      document.getElementById(
+        "savedGrid"
+      );
+
+
+    const empty =
+      document.getElementById(
+        "empty"
+      );
+
+
+    const errorBox =
+      document.getElementById(
+        "error"
+      );
+
+
+    const tabs =
+      document.querySelectorAll(
+        ".tab"
+      );
+
+
+    let currentUser = null;
+
+    let savedItems = [];
+
+    let currentFilter = "todos";
+
+
+    onAuthStateChanged(
+      auth,
+      async user => {
+
+        if(!user){
+
+          window.location.href =
+            "area-do-artista.html";
+
+          return;
+
+        }
+
+
+        currentUser = user;
+
+        await loadSavedItems();
+
+      }
+    );
+
+
+    tabs.forEach(
+      tab => {
+
+        tab.addEventListener(
+          "click",
+          () => {
+
+            currentFilter =
+              tab.dataset.filter;
+
+
+            tabs.forEach(
+              item =>
+                item.classList.remove(
+                  "active"
+                )
+            );
+
+
+            tab.classList.add(
+              "active"
+            );
+
+
+            renderSavedItems();
+
+          }
+        );
+
+      }
+    );
+
+
+    async function loadSavedItems(){
+
+      try{
+
+        savedGrid.innerHTML =
+          `
+            <div class="loading">
+              A carregar os teus guardados...
+            </div>
+          `;
+
+
+        empty.style.display =
+          "none";
+
+
+        errorBox.style.display =
+          "none";
+
+
+        const savedQuery =
+          query(
+
+            collection(
+              db,
+              "guardados"
+            ),
+
+            where(
+              "uid",
+              "==",
+              currentUser.uid
+            )
+
+          );
+
+
+        const snapshot =
+          await getDocs(
+            savedQuery
+          );
+
+
+        savedItems = [];
+
+
+        for(
+          const savedDoc
+          of snapshot.docs
+        ){
+
+          const savedData =
+            savedDoc.data();
+
+
+          const publicacaoId =
+            savedData.publicacaoId
+            ||
+            savedData.itemId;
+
+
+          if(!publicacaoId)
+            continue;
+
+
+          try{
+
+            const publicacaoRef =
+              doc(
+                db,
+                "publicacoes",
+                publicacaoId
+              );
+
+
+            const publicacaoSnap =
+              await getDoc(
+                publicacaoRef
+              );
+
+
+            if(
+              publicacaoSnap.exists()
+            ){
+
+              savedItems.push({
+
+                savedId:
+                  savedDoc.id,
+
+                id:
+                  publicacaoSnap.id,
+
+                ...publicacaoSnap.data()
+
+              });
+
+            }
+            else{
+
+              /*
+                A publicação já não existe,
+                então removemos o guardado
+                que ficou vazio.
+              */
+
+              await deleteDoc(
+                doc(
+                  db,
+                  "guardados",
+                  savedDoc.id
+                )
+              );
+
+            }
+
+          }
+          catch(error){
+
+            console.error(
+              "Erro ao carregar item guardado:",
+              error
+            );
+
+          }
+
+        }
+
+
+        renderSavedItems();
+
+      }
+      catch(error){
+
+        console.error(
+          "Erro ao carregar guardados:",
+          error
+        );
+
+
+        savedGrid.innerHTML =
+          "";
+
+
+        showError(
+          "Erro ao carregar guardados: "
+          + error.message
+        );
+
+      }
+
+    }
+
+
+    function renderSavedItems(){
+
+      let filteredItems =
+        savedItems;
+
+
+      if(
+        currentFilter !== "todos"
+      ){
+
+        filteredItems =
+          savedItems.filter(
+            item =>
+              item.tipo ===
+              currentFilter
+          );
+
+      }
+
+
+      if(
+        !filteredItems.length
+      ){
+
+        savedGrid.innerHTML =
+          "";
+
+
+        empty.style.display =
+          "block";
+
+
+        if(
+          currentFilter ===
+          "todos"
+        ){
+
+          document
+            .querySelector(
+              "#empty h2"
+            )
+            .textContent =
+              "Nada guardado ainda";
+
+
+          document
+            .querySelector(
+              "#empty p"
+            )
+            .textContent =
+              "Quando guardares uma publicação, música ou vídeo, aparecerá aqui.";
+
+        }
+        else{
+
+          document
+            .querySelector(
+              "#empty h2"
+            )
+            .textContent =
+              "Nada guardado nesta categoria";
+
+
+          document
+            .querySelector(
+              "#empty p"
+            )
+            .textContent =
+              "Experimenta escolher outra categoria ou explora o feed.";
+
+        }
+
+
+        return;
+
+      }
+
+
+      empty.style.display =
+        "none";
+
+
+      savedGrid.innerHTML =
+        filteredItems
+        .map(
+          item =>
+            createCard(item)
+        )
+        .join("");
+
+
+      document
+        .querySelectorAll(
+          ".remove-btn"
+        )
+        .forEach(
+          button => {
+
+            button.addEventListener(
+              "click",
+              () => {
+
+                removeSaved(
+                  button.dataset.savedId
+                );
+
+              }
+            );
+
+          }
+        );
+
+    }
+
+
+    function createCard(item){
+
+      const title =
+        item.titulo
+        ||
+        "Publicação sem título";
+
+
+      const artist =
+        item.nomeArtista
+        ||
+        "Artista Prime";
+
+
+      const username =
+        item.username
+        ||
+        "";
+
+
+      const photo =
+        item.fotoArtista
+        ||
+        "";
+
+
+      const type =
+        item.tipo
+        ||
+        "foto";
+
+
+      const fileUrl =
+        item.arquivoUrl
+        ||
+        "";
+
+
+      const date =
+        formatDate(
+          item.createdAt
+        );
+
+
+      let mediaHtml =
+        "";
+
+
+      if(
+        type === "foto"
+      ){
+
+        mediaHtml =
+          fileUrl
+          ?
+          `
+            <img
+              src="${escapeHtml(fileUrl)}"
+              alt="${escapeHtml(title)}"
+            >
+          `
+          :
+          "🖼️";
+
+      }
+
+
+      if(
+        type === "video"
+      ){
+
+        mediaHtml =
+          fileUrl
+          ?
+          `
+            <video
+              src="${escapeHtml(fileUrl)}"
+              muted
+              preload="metadata"
+            ></video>
+          `
+          :
+          "🎬";
+
+      }
+
+
+      if(
+        type === "musica"
+      ){
+
+        mediaHtml =
+          "🎵";
+
+      }
+
+
+      const typeLabel =
+        type === "foto"
+        ?
+        "🖼️ FOTO"
+        :
+        type === "video"
+        ?
+        "🎬 VÍDEO"
+        :
+        "🎵 MÚSICA";
+
+
+      return `
+
+        <article
+          class="saved-card"
+        >
+
+          <div
+            class="media ${type === "musica" ? "audio" : ""}"
+          >
+
+            ${mediaHtml}
+
+
+            <div class="type-badge">
+              ${typeLabel}
+            </div>
+
+
+            <button
+              class="remove-btn"
+              data-saved-id="${item.savedId}"
+              title="Remover dos guardados"
+            >
+              🔖
+            </button>
+
+          </div>
+
+
+          <div class="card-content">
+
+            <h2 class="card-title">
+              ${escapeHtml(title)}
+            </h2>
+
+
+            <div class="artist">
+
+              <div
+                class="artist-photo"
+              >
+
+                ${
+                  photo
+                  ?
+                  `
+                    <img
+                      src="${escapeHtml(photo)}"
+                      alt="${escapeHtml(artist)}"
+                    >
+                  `
+                  :
+                  "👤"
+                }
+
+              </div>
+
+
+              <div
+                class="artist-name"
+              >
+
+                ${escapeHtml(artist)}
+
+
+                ${
+                  username
+                  ?
+                  `
+                    <div class="username">
+                      @${escapeHtml(username)}
+                    </div>
+                  `
+                  :
+                  ""
+                }
+
+              </div>
+
+            </div>
+
+
+            <div
+              class="card-footer"
+            >
+
+              <span class="date">
+                ${date}
+              </span>
+
+
+              <a
+                href="feed.html#${item.id}"
+              >
+
+                <button
+                  class="view-btn"
+                >
+                  VER →
+                </button>
+
+              </a>
+
+            </div>
+
+          </div>
+
+        </article>
+
+      `;
+
+    }
+
+
+    async function removeSaved(
+      savedId
+    ){
+
+      const confirmRemove =
+        confirm(
+          "Remover este item dos guardados?"
+        );
+
+
+      if(
+        !confirmRemove
+      )
+        return;
+
+
+      try{
+
+        await deleteDoc(
+          doc(
+            db,
+            "guardados",
+            savedId
+          )
+        );
+
+
+        savedItems =
+          savedItems.filter(
+            item =>
+              item.savedId !==
+              savedId
+          );
+
+
+        renderSavedItems();
+
+      }
+      catch(error){
+
+        console.error(
+          "Erro ao remover:",
+          error
+        );
+
+
+        alert(
+          "Erro ao remover dos guardados: "
+          + error.message
+        );
+
+      }
+
+    }
+
+
+    function formatDate(
+      timestamp
+    ){
+
+      if(!timestamp)
+        return "Agora";
+
+
+      try{
+
+        const date =
+          timestamp.toDate
+          ?
+          timestamp.toDate()
+          :
+          new Date(timestamp);
+
+
+        return date.toLocaleDateString(
+          "pt-PT",
+          {
+
+            day:"2-digit",
+
+            month:"short",
+
+            year:"numeric"
+
+          }
+        );
+
+      }
+      catch(error){
+
+        return "Guardado";
+
+      }
+
+    }
+
+
+    function showError(
+      text
+    ){
+
+      errorBox.textContent =
+        text;
+
+
+      errorBox.style.display =
+        "block";
+
+    }
+
+
+    function escapeHtml(
+      text
+    ){
+
+      const div =
+        document.createElement(
+          "div"
+        );
+
+
+      div.textContent =
+        String(text);
+
+
+      return div.innerHTML;
+
+    }
+
+  </script>
+
+</body>
+</html>
