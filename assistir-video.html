@@ -1,0 +1,1819 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Assistir Vídeo — KUDURO PRIME</title>
+
+  <!-- CLOUDINARY VIDEO PLAYER -->
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/cloudinary-video-player/dist/player.min.css"
+  >
+
+  <style>
+    :root{
+      --bg:#070707;
+      --panel:#111111;
+      --panel2:#171717;
+      --gold:#f4bf31;
+      --gold2:#ffdc6b;
+      --text:#f7f4ed;
+      --muted:#aaa59a;
+      --line:#29251d;
+      --red:#ff3d3d;
+    }
+
+    *{
+      box-sizing:border-box;
+      margin:0;
+      padding:0;
+    }
+
+    body{
+      background:var(--bg);
+      color:var(--text);
+      font-family:Arial, Helvetica, sans-serif;
+    }
+
+    a{
+      color:inherit;
+      text-decoration:none;
+    }
+
+    button{
+      font-family:inherit;
+    }
+
+    /* HEADER */
+
+    header{
+      height:64px;
+      background:#0b0b0b;
+      border-bottom:1px solid var(--line);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:0 24px;
+      position:sticky;
+      top:0;
+      z-index:100;
+    }
+
+    .logo{
+      display:flex;
+      align-items:center;
+      gap:9px;
+      font-weight:900;
+      font-size:20px;
+      color:var(--gold);
+      letter-spacing:.5px;
+    }
+
+    .logo span{
+      color:#fff;
+    }
+
+    .top-actions{
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+
+    .top-btn{
+      border:1px solid var(--line);
+      background:#141414;
+      color:#fff;
+      padding:9px 14px;
+      border-radius:8px;
+      cursor:pointer;
+      font-weight:700;
+    }
+
+    .top-btn:hover{
+      border-color:var(--gold);
+      color:var(--gold);
+    }
+
+    /* LAYOUT */
+
+    .page{
+      max-width:1500px;
+      margin:auto;
+      padding:25px;
+    }
+
+    .watch-layout{
+      display:grid;
+      grid-template-columns:minmax(0, 1fr) 370px;
+      gap:24px;
+      align-items:start;
+    }
+
+    /* VIDEO */
+
+    .video-box{
+      background:#000;
+      border-radius:10px;
+      overflow:hidden;
+      border:1px solid #1e1e1e;
+    }
+
+    .video-container{
+      width:100%;
+      background:#000;
+      aspect-ratio:16 / 9;
+    }
+
+    .video-container video{
+      width:100%;
+      height:100%;
+    }
+
+    /* CLOUDINARY */
+
+    .cld-video-player{
+      width:100% !important;
+      height:100% !important;
+    }
+
+    .vjs-fluid{
+      height:100% !important;
+    }
+
+    .vjs-tech{
+      object-fit:contain !important;
+    }
+
+    /* INFO */
+
+    .video-title{
+      font-size:25px;
+      font-weight:800;
+      margin-top:18px;
+      line-height:1.25;
+    }
+
+    .meta{
+      margin-top:10px;
+      color:var(--muted);
+      font-size:14px;
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+    }
+
+    .artist-row{
+      margin-top:18px;
+      padding:15px 0;
+      border-top:1px solid var(--line);
+      border-bottom:1px solid var(--line);
+
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:15px;
+    }
+
+    .artist-info{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      min-width:0;
+    }
+
+    .artist-photo{
+      width:48px;
+      height:48px;
+      border-radius:50%;
+      object-fit:cover;
+      background:#222;
+      border:2px solid var(--gold);
+    }
+
+    .artist-name{
+      font-weight:800;
+      font-size:16px;
+    }
+
+    .artist-label{
+      color:var(--muted);
+      font-size:13px;
+      margin-top:3px;
+    }
+
+    .profile-btn{
+      background:var(--gold);
+      color:#000;
+      border:none;
+      padding:10px 16px;
+      border-radius:7px;
+      font-weight:900;
+      cursor:pointer;
+    }
+
+    .profile-btn:hover{
+      background:var(--gold2);
+    }
+
+    /* ACTIONS */
+
+    .actions{
+      margin-top:15px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:9px;
+    }
+
+    .action-btn{
+      background:#181818;
+      border:1px solid var(--line);
+      color:#fff;
+      border-radius:8px;
+      padding:10px 15px;
+      cursor:pointer;
+      font-weight:700;
+    }
+
+    .action-btn:hover{
+      border-color:var(--gold);
+      color:var(--gold);
+    }
+
+    .action-btn.liked{
+      background:#251f0c;
+      color:var(--gold);
+      border-color:var(--gold);
+    }
+
+    /* DESCRIPTION */
+
+    .description{
+      margin-top:18px;
+      background:var(--panel);
+      border-radius:10px;
+      padding:18px;
+      border:1px solid var(--line);
+      white-space:pre-wrap;
+      line-height:1.6;
+      color:#ddd;
+      font-size:14px;
+    }
+
+    .description-title{
+      font-weight:900;
+      margin-bottom:9px;
+      color:#fff;
+    }
+
+    /* SIDEBAR */
+
+    .sidebar-title{
+      font-size:18px;
+      font-weight:900;
+      margin-bottom:15px;
+    }
+
+    .related{
+      display:flex;
+      flex-direction:column;
+      gap:13px;
+    }
+
+    .related-card{
+      display:grid;
+      grid-template-columns:145px 1fr;
+      gap:10px;
+      cursor:pointer;
+      padding:7px;
+      border-radius:8px;
+    }
+
+    .related-card:hover{
+      background:#151515;
+    }
+
+    .related-thumb{
+      width:145px;
+      height:82px;
+      border-radius:7px;
+      object-fit:cover;
+      background:#222;
+    }
+
+    .related-title{
+      font-size:14px;
+      font-weight:800;
+      line-height:1.35;
+      margin-bottom:6px;
+    }
+
+    .related-artist{
+      color:#aaa;
+      font-size:12px;
+      margin-bottom:4px;
+    }
+
+    .related-views{
+      color:#777;
+      font-size:11px;
+    }
+
+    /* COMMENTS */
+
+    .comments{
+      margin-top:25px;
+      padding-top:20px;
+      border-top:1px solid var(--line);
+    }
+
+    .comments h2{
+      font-size:19px;
+      margin-bottom:15px;
+    }
+
+    .comment-box{
+      background:var(--panel);
+      border:1px solid var(--line);
+      border-radius:9px;
+      padding:14px;
+    }
+
+    .comment-box textarea{
+      width:100%;
+      min-height:80px;
+      resize:vertical;
+      background:#0b0b0b;
+      border:1px solid var(--line);
+      border-radius:7px;
+      color:#fff;
+      padding:12px;
+      outline:none;
+    }
+
+    .comment-box textarea:focus{
+      border-color:var(--gold);
+    }
+
+    .comment-send{
+      margin-top:10px;
+      background:var(--gold);
+      color:#000;
+      border:none;
+      padding:10px 17px;
+      border-radius:7px;
+      font-weight:900;
+      cursor:pointer;
+    }
+
+    /* LOADING */
+
+    .loading{
+      min-height:400px;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      color:var(--gold);
+      font-weight:800;
+      font-size:17px;
+    }
+
+    .error{
+      max-width:700px;
+      margin:70px auto;
+      text-align:center;
+      padding:30px;
+      background:var(--panel);
+      border:1px solid var(--line);
+      border-radius:12px;
+    }
+
+    .error h2{
+      margin-bottom:10px;
+      color:var(--gold);
+    }
+
+    .error p{
+      color:var(--muted);
+      margin-bottom:20px;
+    }
+
+    .back-btn{
+      display:inline-block;
+      background:var(--gold);
+      color:#000;
+      padding:11px 18px;
+      border-radius:8px;
+      font-weight:900;
+    }
+
+    /* MOBILE */
+
+    @media(max-width:1000px){
+
+      .watch-layout{
+        grid-template-columns:1fr;
+      }
+
+      .sidebar{
+        margin-top:10px;
+      }
+
+      .related{
+        display:grid;
+        grid-template-columns:repeat(2,1fr);
+      }
+    }
+
+    @media(max-width:650px){
+
+      header{
+        padding:0 14px;
+      }
+
+      .logo{
+        font-size:17px;
+      }
+
+      .top-btn{
+        padding:8px 10px;
+        font-size:12px;
+      }
+
+      .page{
+        padding:12px;
+      }
+
+      .video-box{
+        border-radius:0;
+        margin-left:-12px;
+        margin-right:-12px;
+      }
+
+      .video-title{
+        font-size:20px;
+      }
+
+      .artist-row{
+        align-items:flex-start;
+      }
+
+      .profile-btn{
+        padding:9px 11px;
+        font-size:12px;
+      }
+
+      .related{
+        grid-template-columns:1fr;
+      }
+
+      .related-card{
+        grid-template-columns:150px 1fr;
+      }
+
+      .related-thumb{
+        width:150px;
+        height:84px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+
+  <a href="videos.html" class="logo">
+    👑 <span>KUDURO</span> PRIME
+  </a>
+
+  <div class="top-actions">
+    <a href="videos.html" class="top-btn">← Vídeos</a>
+  </div>
+
+</header>
+
+
+<main class="page">
+
+  <div id="loading" class="loading">
+    🎬 A carregar vídeo...
+  </div>
+
+  <div id="content" style="display:none;">
+
+    <div class="watch-layout">
+
+      <!-- ESQUERDA -->
+
+      <section>
+
+        <div class="video-box">
+
+          <div class="video-container">
+
+            <video
+              id="mainPlayer"
+              class="cld-video-player cld-fluid"
+              controls
+              playsinline
+              webkit-playsinline
+              preload="metadata">
+            </video>
+
+          </div>
+
+        </div>
+
+
+        <h1 id="videoTitle" class="video-title">
+          —
+        </h1>
+
+        <div id="videoMeta" class="meta">
+          —
+        </div>
+
+
+        <!-- ARTISTA -->
+
+        <div class="artist-row">
+
+          <div class="artist-info">
+
+            <img
+              id="artistPhoto"
+              class="artist-photo"
+              src=""
+              alt="Artista">
+
+            <div>
+
+              <div id="artistName" class="artist-name">
+                —
+              </div>
+
+              <div class="artist-label">
+                Artista KUDURO PRIME 👑
+              </div>
+
+            </div>
+
+          </div>
+
+          <button
+            id="profileBtn"
+            class="profile-btn">
+            VER PERFIL
+          </button>
+
+        </div>
+
+
+        <!-- AÇÕES -->
+
+        <div class="actions">
+
+          <button
+            id="likeBtn"
+            class="action-btn">
+            ❤️ Gostei
+          </button>
+
+          <button
+            id="shareBtn"
+            class="action-btn">
+            📤 Partilhar
+          </button>
+
+          <button
+            id="copyBtn"
+            class="action-btn">
+            🔗 Copiar link
+          </button>
+
+        </div>
+
+
+        <!-- DESCRIÇÃO -->
+
+        <div class="description">
+
+          <div class="description-title">
+            Descrição
+          </div>
+
+          <div id="description">
+            —
+          </div>
+
+        </div>
+
+
+        <!-- COMENTÁRIOS -->
+
+        <section class="comments">
+
+          <h2>
+            💬 Comentários
+          </h2>
+
+          <div class="comment-box">
+
+            <textarea
+              id="commentText"
+              placeholder="Escreve um comentário..."></textarea>
+
+            <button
+              id="commentBtn"
+              class="comment-send">
+              COMENTAR
+            </button>
+
+          </div>
+
+          <div
+            id="commentsList"
+            style="margin-top:15px;">
+          </div>
+
+        </section>
+
+      </section>
+
+
+      <!-- DIREITA -->
+
+      <aside class="sidebar">
+
+        <div class="sidebar-title">
+          🎬 Próximos vídeos
+        </div>
+
+        <div id="relatedVideos" class="related">
+
+          <div style="color:#777;">
+            A carregar...
+          </div>
+
+        </div>
+
+      </aside>
+
+    </div>
+
+  </div>
+
+
+  <div id="errorBox" class="error" style="display:none;">
+
+    <h2>
+      😕 Vídeo não encontrado
+    </h2>
+
+    <p>
+      Este vídeo pode ter sido removido ou o endereço está incorreto.
+    </p>
+
+    <a href="videos.html" class="back-btn">
+      ← Voltar aos vídeos
+    </a>
+
+  </div>
+
+</main>
+
+
+<!-- CLOUDINARY PLAYER -->
+
+<script src="https://cdn.jsdelivr.net/npm/cloudinary-video-player/dist/player.min.js"></script>
+
+
+<script type="module">
+
+import {
+  initializeApp
+} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+
+import {
+  getAuth,
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+
+import {
+  getFirestore,
+  collection,
+  getDocs,
+  doc,
+  getDoc,
+  setDoc,
+  updateDoc,
+  increment,
+  serverTimestamp,
+  query,
+  orderBy,
+  limit,
+  addDoc
+} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+
+
+/* =========================
+   FIREBASE
+========================= */
+
+const firebaseConfig = {
+
+  apiKey: "AIzaSyDoitCcLeLDNBNPCP6fG1s_xbHr4UmohSo",
+
+  authDomain: "kuduro-prime.firebaseapp.com",
+
+  projectId: "kuduro-prime",
+
+  storageBucket: "kuduro-prime.firebasestorage.app",
+
+  messagingSenderId: "299776559545",
+
+  appId: "1:299776559545:web:04aced1ba25391eb3fce68"
+};
+
+
+const app = initializeApp(firebaseConfig);
+
+const auth = getAuth(app);
+
+const db = getFirestore(app);
+
+
+/* =========================
+   ELEMENTOS
+========================= */
+
+const loading = document.getElementById("loading");
+
+const content = document.getElementById("content");
+
+const errorBox = document.getElementById("errorBox");
+
+const videoTitle = document.getElementById("videoTitle");
+
+const videoMeta = document.getElementById("videoMeta");
+
+const artistName = document.getElementById("artistName");
+
+const artistPhoto = document.getElementById("artistPhoto");
+
+const description = document.getElementById("description");
+
+const relatedVideos = document.getElementById("relatedVideos");
+
+const mainPlayer = document.getElementById("mainPlayer");
+
+const likeBtn = document.getElementById("likeBtn");
+
+const shareBtn = document.getElementById("shareBtn");
+
+const copyBtn = document.getElementById("copyBtn");
+
+const profileBtn = document.getElementById("profileBtn");
+
+const commentBtn = document.getElementById("commentBtn");
+
+const commentText = document.getElementById("commentText");
+
+
+/* =========================
+   ID DO VÍDEO
+========================= */
+
+const params = new URLSearchParams(window.location.search);
+
+const videoId = params.get("id");
+
+
+let currentUser = null;
+
+let currentVideo = null;
+
+let cloudinaryPlayer = null;
+
+let viewRegistered = false;
+
+
+/* =========================
+   UTILIDADES
+========================= */
+
+function escapeHTML(value){
+
+  return String(value ?? "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+}
+
+
+function formatViews(value){
+
+  const n = Number(value || 0);
+
+  if(n >= 1000000){
+
+    return (n / 1000000)
+      .toFixed(1)
+      .replace(".0","") + " M";
+
+  }
+
+  if(n >= 1000){
+
+    return (n / 1000)
+      .toFixed(1)
+      .replace(".0","") + " mil";
+
+  }
+
+  return n.toString();
+}
+
+
+function formatDate(timestamp){
+
+  if(!timestamp){
+    return "";
+  }
+
+  try{
+
+    const date = timestamp.toDate
+      ? timestamp.toDate()
+      : new Date(timestamp);
+
+    return date.toLocaleDateString("pt-PT");
+
+  }catch{
+
+    return "";
+  }
+}
+
+
+function getPublicId(video){
+
+  const possible =
+    video.videoPublicId ||
+    video.publicId ||
+    "";
+
+  if(possible){
+    return possible;
+  }
+
+
+  const url =
+    video.videoUrl ||
+    video.video ||
+    video.url ||
+    "";
+
+
+  if(!url){
+    return "";
+  }
+
+
+  try{
+
+    const parsed = new URL(url);
+
+    let path = parsed.pathname;
+
+    const marker = "/video/upload/";
+
+    const index = path.indexOf(marker);
+
+    if(index === -1){
+      return "";
+    }
+
+    path = path.substring(index + marker.length);
+
+    const parts = path.split("/");
+
+    /*
+      Remove transformações e versão
+    */
+
+    while(parts.length){
+
+      const part = parts[0];
+
+      if(
+        part.startsWith("v") &&
+        /^v\d+$/.test(part)
+      ){
+        parts.shift();
+        continue;
+      }
+
+      if(
+        part.includes("_") ||
+        part.includes(",") ||
+        part.includes(":")
+      ){
+        parts.shift();
+        continue;
+      }
+
+      break;
+    }
+
+
+    let publicId = parts.join("/");
+
+    publicId = publicId.replace(/\.[^/.]+$/,"");
+
+    return publicId;
+
+  }catch{
+
+    return "";
+  }
+}
+
+
+/* =========================
+   AUTENTICAÇÃO
+========================= */
+
+onAuthStateChanged(auth, user => {
+
+  currentUser = user;
+
+  if(videoId){
+
+    loadVideo();
+
+  }else{
+
+    showError();
+  }
+
+});
+
+
+/* =========================
+   MOSTRAR ERRO
+========================= */
+
+function showError(){
+
+  loading.style.display = "none";
+
+  content.style.display = "none";
+
+  errorBox.style.display = "block";
+}
+
+
+/* =========================
+   CARREGAR VÍDEO
+========================= */
+
+async function loadVideo(){
+
+  try{
+
+    const videoRef =
+      doc(db,"videos",videoId);
+
+    const snapshot =
+      await getDoc(videoRef);
+
+
+    if(!snapshot.exists()){
+
+      showError();
+
+      return;
+    }
+
+
+    currentVideo = {
+      id:snapshot.id,
+      ...snapshot.data()
+    };
+
+
+    /*
+      Apenas vídeos publicados
+      podem ser assistidos publicamente.
+    */
+
+    if(
+      currentVideo.status &&
+      currentVideo.status !== "publicado"
+    ){
+
+      /*
+        O próprio artista pode ver o seu vídeo
+        enquanto está pendente.
+      */
+
+      const owner =
+        currentVideo.artistaId ||
+        currentVideo.artistId ||
+        currentVideo.userId ||
+        currentVideo.uid ||
+        "";
+
+
+      if(!currentUser || currentUser.uid !== owner){
+
+        showError();
+
+        return;
+      }
+
+    }
+
+
+    renderVideo();
+
+    await loadRelatedVideos();
+
+
+  }catch(error){
+
+    console.error("Erro ao carregar vídeo:",error);
+
+    showError();
+
+  }
+
+}
+
+
+/* =========================
+   RENDER
+========================= */
+
+function renderVideo(){
+
+  const video = currentVideo;
+
+
+  const title =
+    video.titulo ||
+    video.title ||
+    "Vídeo sem título";
+
+
+  const artist =
+    video.artistaNome ||
+    video.artistName ||
+    "Artista KUDURO PRIME";
+
+
+  const photo =
+    video.artistaFoto ||
+    video.artistPhoto ||
+    "https://via.placeholder.com/100";
+
+
+  const views =
+    video.views ??
+    video.visualizacoes ??
+    0;
+
+
+  videoTitle.textContent = title;
+
+  artistName.textContent = artist;
+
+  artistPhoto.src = photo;
+
+  artistPhoto.onerror = () => {
+
+    artistPhoto.src =
+      "https://via.placeholder.com/100";
+
+  };
+
+
+  description.textContent =
+    video.descricao ||
+    "Este artista publicou este vídeo no KUDURO PRIME 👑";
+
+
+  videoMeta.innerHTML = `
+    <span>👁️ ${formatViews(views)} visualizações</span>
+    <span>•</span>
+    <span>${formatDate(video.criadoEm)}</span>
+    ${
+      video.categoria
+      ? `<span>•</span><span>${escapeHTML(video.categoria)}</span>`
+      : ""
+    }
+  `;
+
+
+  const ownerId =
+    video.artistaId ||
+    video.artistId ||
+    video.userId ||
+    video.uid ||
+    "";
+
+
+  profileBtn.onclick = () => {
+
+    if(ownerId){
+
+      window.location.href =
+        `perfil.html?id=${encodeURIComponent(ownerId)}`;
+
+    }
+
+  };
+
+
+  initializePlayer();
+
+  setupActions();
+
+  loadComments();
+
+
+  loading.style.display = "none";
+
+  content.style.display = "block";
+
+}
+
+
+/* =========================
+   PLAYER
+========================= */
+
+function initializePlayer(){
+
+  const publicId =
+    getPublicId(currentVideo);
+
+
+  if(!publicId){
+
+    console.error(
+      "Não foi possível encontrar o public_id do vídeo."
+    );
+
+    return;
+  }
+
+
+  if(
+    typeof window.cloudinary === "undefined" ||
+    typeof window.cloudinary.videoPlayer !== "function"
+  ){
+
+    console.error(
+      "Cloudinary Video Player não carregou."
+    );
+
+    return;
+  }
+
+
+  cloudinaryPlayer =
+    window.cloudinary.videoPlayer(
+      "mainPlayer",
+      {
+
+        cloudName:"ge1ntqqc",
+
+        controls:true,
+
+        fluid:true,
+
+        responsive:true,
+
+        autoplay:false,
+
+        muted:false,
+
+        loop:false,
+
+        showLogo:false
+
+      }
+    );
+
+
+  cloudinaryPlayer.source(
+    publicId,
+    {
+      sourceTypes:["mp4"]
+    }
+  );
+
+
+  cloudinaryPlayer.on(
+    "play",
+    async () => {
+
+      await registerView();
+
+    }
+  );
+
+}
+
+
+/* =========================
+   REGISTRAR VISUALIZAÇÃO
+========================= */
+
+async function registerView(){
+
+  if(viewRegistered){
+    return;
+  }
+
+  if(!currentUser){
+    return;
+  }
+
+  if(!currentVideo){
+    return;
+  }
+
+
+  const ownerId =
+    currentVideo.artistaId ||
+    currentVideo.artistId ||
+    currentVideo.userId ||
+    currentVideo.uid ||
+    "";
+
+
+  /*
+    Não contar visualização do próprio artista
+  */
+
+  if(
+    ownerId &&
+    currentUser.uid === ownerId
+  ){
+
+    viewRegistered = true;
+
+    return;
+  }
+
+
+  try{
+
+    const viewerRef =
+      doc(
+        db,
+        "videos",
+        videoId,
+        "viewers",
+        currentUser.uid
+      );
+
+
+    const viewer =
+      await getDoc(viewerRef);
+
+
+    if(viewer.exists()){
+
+      viewRegistered = true;
+
+      return;
+    }
+
+
+    await setDoc(
+      viewerRef,
+      {
+        userId:currentUser.uid,
+        criadoEm:serverTimestamp()
+      }
+    );
+
+
+    const videoRef =
+      doc(db,"videos",videoId);
+
+
+    const currentViews =
+      Number(
+        currentVideo.views ??
+        currentVideo.visualizacoes ??
+        0
+      );
+
+
+    await updateDoc(
+      videoRef,
+      {
+        views:increment(1),
+        visualizacoes:increment(1)
+      }
+    );
+
+
+    currentVideo.views =
+      currentViews + 1;
+
+    currentVideo.visualizacoes =
+      currentViews + 1;
+
+
+    videoMeta.innerHTML =
+      videoMeta.innerHTML.replace(
+        /👁️.*?visualizações/,
+        `👁️ ${formatViews(currentViews + 1)} visualizações`
+      );
+
+
+    viewRegistered = true;
+
+
+  }catch(error){
+
+    console.error(
+      "Erro ao registrar visualização:",
+      error
+    );
+
+  }
+
+}
+
+
+/* =========================
+   AÇÕES
+========================= */
+
+function setupActions(){
+
+  likeBtn.onclick = async () => {
+
+    if(!currentUser){
+
+      alert(
+        "Entra na tua conta para gostar deste vídeo."
+      );
+
+      return;
+    }
+
+
+    likeBtn.classList.toggle("liked");
+
+
+    if(likeBtn.classList.contains("liked")){
+
+      likeBtn.textContent =
+        "❤️ Gostei";
+
+    }else{
+
+      likeBtn.textContent =
+        "🤍 Gostei";
+
+    }
+
+  };
+
+
+  shareBtn.onclick = async () => {
+
+    const shareData = {
+
+      title:
+        currentVideo.titulo ||
+        currentVideo.title ||
+        "Vídeo KUDURO PRIME",
+
+      text:
+        `Assiste este vídeo no KUDURO PRIME 👑`,
+
+      url:window.location.href
+
+    };
+
+
+    try{
+
+      if(
+        navigator.share
+      ){
+
+        await navigator.share(shareData);
+
+      }else{
+
+        await navigator.clipboard.writeText(
+          window.location.href
+        );
+
+        alert("Link copiado!");
+
+      }
+
+    }catch(error){
+
+      console.log(error);
+
+    }
+
+  };
+
+
+  copyBtn.onclick = async () => {
+
+    try{
+
+      await navigator.clipboard.writeText(
+        window.location.href
+      );
+
+      copyBtn.textContent =
+        "✓ Link copiado";
+
+      setTimeout(() => {
+
+        copyBtn.textContent =
+          "🔗 Copiar link";
+
+      },2000);
+
+    }catch{
+
+      alert(
+        "Não foi possível copiar o link."
+      );
+
+    }
+
+  };
+
+
+  commentBtn.onclick = sendComment;
+
+}
+
+
+/* =========================
+   VÍDEOS RELACIONADOS
+========================= */
+
+async function loadRelatedVideos(){
+
+  try{
+
+    const snapshot =
+      await getDocs(
+        query(
+          collection(db,"videos"),
+          orderBy("criadoEm","desc"),
+          limit(30)
+        )
+      );
+
+
+    let videos = [];
+
+
+    snapshot.forEach(item => {
+
+      const data = item.data();
+
+
+      if(
+        item.id !== videoId &&
+        (
+          !data.status ||
+          data.status === "publicado"
+        )
+      ){
+
+        videos.push({
+          id:item.id,
+          ...data
+        });
+
+      }
+
+    });
+
+
+    videos =
+      videos.slice(0,10);
+
+
+    if(!videos.length){
+
+      relatedVideos.innerHTML = `
+        <div style="color:#777;">
+          Ainda não existem outros vídeos.
+        </div>
+      `;
+
+      return;
+    }
+
+
+    relatedVideos.innerHTML =
+      videos.map(video => {
+
+        const title =
+          video.titulo ||
+          video.title ||
+          "Vídeo sem título";
+
+
+        const artist =
+          video.artistaNome ||
+          video.artistName ||
+          "Artista";
+
+
+        const views =
+          video.views ??
+          video.visualizacoes ??
+          0;
+
+
+        const cover =
+          video.capa ||
+          video.cover ||
+          "";
+
+
+        return `
+
+          <a
+            class="related-card"
+            href="assistir-video.html?id=${encodeURIComponent(video.id)}"
+          >
+
+            <img
+              class="related-thumb"
+              src="${escapeHTML(cover)}"
+              alt="${escapeHTML(title)}"
+              onerror="this.style.background='#222'; this.removeAttribute('src');"
+            >
+
+            <div>
+
+              <div class="related-title">
+                ${escapeHTML(title)}
+              </div>
+
+              <div class="related-artist">
+                ${escapeHTML(artist)}
+              </div>
+
+              <div class="related-views">
+                👁️ ${formatViews(views)} visualizações
+              </div>
+
+            </div>
+
+          </a>
+
+        `;
+
+      }).join("");
+
+
+  }catch(error){
+
+    console.error(
+      "Erro nos vídeos relacionados:",
+      error
+    );
+
+
+    relatedVideos.innerHTML = `
+      <div style="color:#777;">
+        Não foi possível carregar os próximos vídeos.
+      </div>
+    `;
+
+  }
+
+}
+
+
+/* =========================
+   COMENTÁRIOS
+========================= */
+
+async function loadComments(){
+
+  if(!videoId){
+    return;
+  }
+
+
+  const list =
+    document.getElementById("commentsList");
+
+
+  try{
+
+    const commentsRef =
+      collection(
+        db,
+        "videos",
+        videoId,
+        "comentarios"
+      );
+
+
+    const snapshot =
+      await getDocs(commentsRef);
+
+
+    if(snapshot.empty){
+
+      list.innerHTML = `
+        <div style="
+          color:#777;
+          padding:15px 0;
+        ">
+          Ainda não existem comentários.
+        </div>
+      `;
+
+      return;
+    }
+
+
+    let html = "";
+
+
+    snapshot.forEach(item => {
+
+      const data = item.data();
+
+
+      html += `
+
+        <div style="
+          padding:13px;
+          border-bottom:1px solid #29251d;
+        ">
+
+          <strong>
+            ${escapeHTML(
+              data.nome ||
+              data.email ||
+              "Utilizador"
+            )}
+          </strong>
+
+          <div style="
+            color:#ccc;
+            margin-top:5px;
+            line-height:1.5;
+          ">
+            ${escapeHTML(
+              data.texto ||
+              data.comentario ||
+              ""
+            )}
+          </div>
+
+        </div>
+
+      `;
+
+    });
+
+
+    list.innerHTML = html;
+
+
+  }catch(error){
+
+    console.error(
+      "Erro ao carregar comentários:",
+      error
+    );
+
+  }
+
+}
+
+
+/* =========================
+   ENVIAR COMENTÁRIO
+========================= */
+
+async function sendComment(){
+
+  if(!currentUser){
+
+    alert(
+      "Entra na tua conta para comentar."
+    );
+
+    return;
+  }
+
+
+  const text =
+    commentText.value.trim();
+
+
+  if(!text){
+
+    alert(
+      "Escreve um comentário primeiro."
+    );
+
+    return;
+  }
+
+
+  try{
+
+    commentBtn.disabled = true;
+
+    commentBtn.textContent =
+      "A enviar...";
+
+
+    await addDoc(
+      collection(
+        db,
+        "videos",
+        videoId,
+        "comentarios"
+      ),
+      {
+
+        userId:
+          currentUser.uid,
+
+        nome:
+          currentUser.displayName ||
+          currentUser.email ||
+          "Utilizador",
+
+        email:
+          currentUser.email ||
+          "",
+
+        texto:text,
+
+        criadoEm:
+          serverTimestamp()
+
+      }
+    );
+
+
+    commentText.value = "";
+
+
+    await loadComments();
+
+
+  }catch(error){
+
+    console.error(
+      "Erro ao comentar:",
+      error
+    );
+
+
+    alert(
+      "Não foi possível publicar o comentário."
+    );
+
+  }finally{
+
+    commentBtn.disabled = false;
+
+    commentBtn.textContent =
+      "COMENTAR";
+
+  }
+
+}
+
+</script>
+
+</body>
+</html>
