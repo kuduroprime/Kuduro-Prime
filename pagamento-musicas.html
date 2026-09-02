@@ -7,143 +7,254 @@
 <title>Pagamento | KUDURO PRIME</title>
 
 <style>
-* {
-  box-sizing: border-box;
+:root{
+  --bg:#070707;
+  --panel:#101010;
+  --gold:#f4bf31;
+  --gold2:#ffdc6b;
+  --text:#f7f4ed;
+  --muted:#aaa59a;
+  --line:#2a271f;
+  --green:#48d597;
+  --red:#ff563f;
 }
 
-body {
-  margin: 0;
-  background: #080808;
-  color: white;
-  font-family: Arial, sans-serif;
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  background:
+    radial-gradient(
+      circle at 90% 0,
+      rgba(244,191,49,.12),
+      transparent 30%
+    ),
+    var(--bg);
+  color:var(--text);
+  font-family:Arial,Helvetica,sans-serif;
 }
 
-header {
-  background: #111;
-  padding: 20px;
-  text-align: center;
-  border-bottom: 2px solid #d4af37;
+a{
+  color:inherit;
+  text-decoration:none;
 }
 
-.logo {
-  color: #d4af37;
-  font-size: 28px;
-  font-weight: bold;
-  text-decoration: none;
+header{
+  background:rgba(10,10,10,.95);
+  padding:18px 20px;
+  border-bottom:1px solid var(--line);
+  position:sticky;
+  top:0;
+  z-index:20;
+  backdrop-filter:blur(12px);
 }
 
-main {
-  max-width: 750px;
-  margin: auto;
-  padding: 40px 20px;
+.header-inner{
+  max-width:900px;
+  margin:auto;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
 }
 
-.voltar {
-  display: inline-block;
-  margin-bottom: 25px;
-  color: #d4af37;
-  text-decoration: none;
+.logo{
+  color:var(--gold);
+  font-size:23px;
+  font-weight:900;
+  text-decoration:none;
 }
 
-h1 {
-  color: #d4af37;
-  text-align: center;
+main{
+  max-width:800px;
+  margin:auto;
+  padding:35px 20px 60px;
 }
 
-.subtitulo {
-  text-align: center;
-  color: #aaa;
-  margin-bottom: 30px;
+.voltar{
+  display:inline-block;
+  margin-bottom:30px;
+  color:var(--gold);
+  font-size:11px;
+  font-weight:900;
 }
 
-.cartao {
-  background: #151515;
-  border: 1px solid #333;
-  border-radius: 15px;
-  padding: 25px;
-  margin-bottom: 20px;
+h1{
+  margin:0;
+  color:var(--gold);
+  text-align:center;
+  font-size:28px;
 }
 
-.valor {
-  text-align: center;
-  color: #d4af37;
-  font-size: 32px;
-  font-weight: bold;
+.subtitulo{
+  text-align:center;
+  color:var(--muted);
+  margin:12px auto 30px;
+  line-height:1.6;
+  max-width:600px;
 }
 
-.dados {
-  background: #0d0d0d;
-  border-radius: 10px;
-  padding: 20px;
-  margin-top: 20px;
+.cartao{
+  background:
+    linear-gradient(
+      145deg,
+      #151515,
+      #0b0b0b
+    );
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:25px;
+  margin-bottom:20px;
 }
 
-.dados p {
-  color: #ccc;
-  line-height: 1.7;
-  margin: 8px 0;
+.plano{
+  text-align:center;
+  margin-bottom:15px;
+  color:#ccc;
+  font-size:12px;
+  font-weight:900;
 }
 
-.iban {
-  color: #d4af37;
-  font-size: 18px;
-  font-weight: bold;
-  word-break: break-word;
+.valor{
+  text-align:center;
+  color:var(--gold);
+  font-size:36px;
+  font-weight:900;
 }
 
-label {
-  display: block;
-  color: #d4af37;
-  font-weight: bold;
-  margin: 18px 0 8px;
+.descricao-plano{
+  margin:10px 0 0;
+  text-align:center;
+  color:var(--muted);
+  font-size:12px;
 }
 
-input {
-  width: 100%;
-  padding: 14px;
-  background: #080808;
-  color: white;
-  border: 1px solid #444;
-  border-radius: 8px;
+.dados{
+  background:#090909;
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:20px;
+  margin-top:25px;
 }
 
-.botao {
-  width: 100%;
-  margin-top: 25px;
-  padding: 16px;
-  border: none;
-  border-radius: 8px;
-  background: #d4af37;
-  color: black;
-  font-size: 16px;
-  font-weight: bold;
-  cursor: pointer;
+.dados p{
+  color:#ccc;
+  line-height:1.7;
+  margin:12px 0;
+  font-size:13px;
 }
 
-.botao:hover {
-  background: #f5c842;
+.dados strong{
+  color:var(--gold);
 }
 
-.botao:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
+.iban{
+  color:var(--gold2)!important;
+  font-size:17px!important;
+  font-weight:900;
+  word-break:break-word;
 }
 
-#preview {
-  display: none;
-  width: 100%;
-  max-height: 350px;
-  object-fit: contain;
-  margin-top: 20px;
-  border: 1px solid #444;
-  border-radius: 10px;
+.info{
+  margin-top:20px;
+  padding:14px;
+  border-radius:10px;
+  background:#151209;
+  border:1px solid #5b481b;
+  color:#e8d59b;
+  font-size:11px;
+  line-height:1.6;
 }
 
-#mensagem {
-  text-align: center;
-  color: #d4af37;
-  margin-top: 20px;
-  min-height: 25px;
+label{
+  display:block;
+  color:var(--gold);
+  font-size:11px;
+  font-weight:900;
+  margin:5px 0 10px;
+}
+
+input{
+  width:100%;
+  padding:14px;
+  background:#080808;
+  color:white;
+  border:1px solid var(--line);
+  border-radius:9px;
+  outline:none;
+}
+
+input:focus{
+  border-color:var(--gold);
+}
+
+.botao{
+  width:100%;
+  min-height:50px;
+  margin-top:25px;
+  padding:15px;
+  border:0;
+  border-radius:9px;
+  background:
+    linear-gradient(
+      135deg,
+      var(--gold2),
+      var(--gold)
+    );
+  color:#17120a;
+  font-size:13px;
+  font-weight:900;
+  cursor:pointer;
+}
+
+.botao:hover{
+  filter:brightness(1.06);
+}
+
+.botao:disabled{
+  opacity:.6;
+  cursor:not-allowed;
+}
+
+#preview{
+  display:none;
+  width:100%;
+  max-height:350px;
+  object-fit:contain;
+  margin-top:20px;
+  border:1px solid var(--line);
+  border-radius:10px;
+}
+
+#mensagem{
+  text-align:center;
+  color:var(--gold);
+  margin:20px 0 0;
+  min-height:25px;
+  font-size:12px;
+  line-height:1.5;
+}
+
+.estado{
+  display:flex;
+  justify-content:center;
+  margin-bottom:20px;
+}
+
+.estado span{
+  padding:8px 13px;
+  border-radius:30px;
+  background:#19150a;
+  color:var(--gold);
+  font-size:10px;
+  font-weight:900;
+}
+
+@media(max-width:600px){
+  h1{font-size:24px}
+  .cartao{padding:20px}
+  .valor{font-size:30px}
+  .header-inner{justify-content:center}
 }
 </style>
 </head>
@@ -151,77 +262,113 @@ input {
 <body>
 
 <header>
-  <a href="index.html" class="logo">👑 KUDURO PRIME</a>
+  <div class="header-inner">
+
+    <a href="index.html" class="logo">
+      👑 KUDURO PRIME
+    </a>
+
+  </div>
 </header>
 
 <main>
 
-<a href="minhas-musicas.html" class="voltar">
-← VOLTAR ÀS MINHAS MÚSICAS
-</a>
+  <a href="minhas-musicas.html" class="voltar">
+    ← VOLTAR ÀS MINHAS MÚSICAS
+  </a>
 
-<h1>💰 DESBLOQUEAR MAIS MÚSICAS</h1>
-
-<p class="subtitulo">
-Já utilizaste as tuas 3 músicas gratuitas.
-Faz o pagamento e envia o comprovativo.
-</p>
-
-<div class="cartao">
-
-  <div class="valor">
-    2.000 Kz
+  <div class="estado">
+    <span>💳 PAGAMENTO DE PUBLICAÇÃO</span>
   </div>
 
-  <div class="dados">
+  <h1>DESBLOQUEAR MAIS MÚSICAS</h1>
 
-    <p><strong>🏦 BANCO:</strong> Banco BFA</p>
+  <p class="subtitulo">
+    Utilizaste as tuas músicas gratuitas? Faz o pagamento,
+    envia o comprovativo e aguarda a aprovação.
+  </p>
 
-    <p><strong>👤 TITULAR:</strong><br>
-    AUGUSTO PEDRO MUHONGO DOS SANTOS</p>
+  <div class="cartao">
 
-    <p><strong>💳 IBAN:</strong></p>
+    <div class="plano">
+      PLANO KUDURO PRIME
+    </div>
 
-    <p class="iban">
-      AO06 0006 0000 2264 1391 3011 6
+    <div class="valor">
+      2.000 Kz
+    </div>
+
+    <p class="descricao-plano">
+      Desbloqueio para publicar mais músicas na plataforma.
     </p>
 
+    <div class="dados">
+
+      <p>
+        <strong>🏦 BANCO:</strong>
+        Banco BFA
+      </p>
+
+      <p>
+        <strong>👤 TITULAR:</strong><br>
+        AUGUSTO PEDRO MUHONGO DOS SANTOS
+      </p>
+
+      <p>
+        <strong>💳 IBAN:</strong>
+      </p>
+
+      <p class="iban">
+        AO06 0006 0000 2264 1391 3011 6
+      </p>
+
+    </div>
+
+    <div class="info">
+      ⚠️ Depois de fazeres o pagamento, envia uma fotografia
+      ou PDF do comprovativo para a equipa KUDURO PRIME
+      verificar o teu pedido.
+    </div>
+
   </div>
 
-</div>
+  <form id="pagamentoForm" class="cartao">
 
-<form id="pagamentoForm" class="cartao">
+    <label for="comprovativo">
+      📸 ENVIAR COMPROVATIVO DE PAGAMENTO *
+    </label>
 
-  <label for="comprovativo">
-    📸 ENVIAR COMPROVATIVO DE PAGAMENTO
-  </label>
+    <input
+      type="file"
+      id="comprovativo"
+      accept="image/*,application/pdf"
+      required
+    >
 
-  <input
-    type="file"
-    id="comprovativo"
-    accept="image/*,application/pdf"
-    required
-  >
+    <img
+      id="preview"
+      alt="Pré-visualização do comprovativo"
+    >
 
-  <img id="preview" alt="Pré-visualização do comprovativo">
+    <button
+      type="submit"
+      class="botao"
+      id="enviarBtn"
+    >
+      📤 ENVIAR PARA VERIFICAÇÃO
+    </button>
 
-  <button
-    type="submit"
-    class="botao"
-    id="enviarBtn"
-  >
-    📤 ENVIAR PARA VERIFICAÇÃO
-  </button>
+    <p id="mensagem"></p>
 
-  <p id="mensagem"></p>
-
-</form>
+  </form>
 
 </main>
 
 <script type="module">
 
-import { initializeApp } from
+import {
+  initializeApp
+} from
 "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
 
 import {
@@ -239,6 +386,10 @@ import {
 "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 
 
+/* =================================
+   FIREBASE
+================================= */
+
 const firebaseConfig = {
   apiKey: "AIzaSyDoitCcLeLDNBNPCP6fG1s_xbHr4UmohSo",
   authDomain: "kuduro-prime.firebaseapp.com",
@@ -248,191 +399,332 @@ const firebaseConfig = {
   appId: "1:299776559545:web:04aced1ba25391eb3fce68"
 };
 
-const CLOUDINARY_CLOUD_NAME = "ge1ntqqc";
-const CLOUDINARY_UPLOAD_PRESET = "Kudu_";
 
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
+/* =================================
+   CLOUDINARY
+================================= */
 
-let usuarioAtual = null;
+const CLOUDINARY_CLOUD_NAME =
+  "ge1ntqqc";
 
-const form = document.getElementById("pagamentoForm");
+const CLOUDINARY_UPLOAD_PRESET =
+  "kuduro_prime";
+
+
+const firebaseApp =
+  initializeApp(firebaseConfig);
+
+const auth =
+  getAuth(firebaseApp);
+
+const db =
+  getFirestore(firebaseApp);
+
+
+let usuarioAtual =
+  null;
+
+
+/* ELEMENTOS */
+
+const form =
+  document.getElementById(
+    "pagamentoForm"
+  );
+
 const comprovativoInput =
-  document.getElementById("comprovativo");
+  document.getElementById(
+    "comprovativo"
+  );
 
 const preview =
-  document.getElementById("preview");
+  document.getElementById(
+    "preview"
+  );
 
 const mensagem =
-  document.getElementById("mensagem");
+  document.getElementById(
+    "mensagem"
+  );
 
 const enviarBtn =
-  document.getElementById("enviarBtn");
+  document.getElementById(
+    "enviarBtn"
+  );
 
 
-onAuthStateChanged(auth, (user) => {
+/* =================================
+   SESSÃO
+================================= */
 
-  if (!user) {
-    window.location.href = "area-do-artista.html";
-    return;
-  }
+onAuthStateChanged(
+  auth,
+  (user) => {
 
-  usuarioAtual = user;
+    if(!user){
 
-});
+      window.location.href =
+        "area-do-artista.html";
 
+      return;
 
-/* PRÉ-VISUALIZAR COMPROVATIVO */
-comprovativoInput.addEventListener("change", () => {
+    }
 
-  const ficheiro = comprovativoInput.files[0];
-
-  if (!ficheiro) return;
-
-  if (ficheiro.type.startsWith("image/")) {
-
-    const leitor = new FileReader();
-
-    leitor.onload = (evento) => {
-
-      preview.src = evento.target.result;
-
-      preview.style.display = "block";
-
-    };
-
-    leitor.readAsDataURL(ficheiro);
-
-  } else {
-
-    preview.style.display = "none";
+    usuarioAtual =
+      user;
 
   }
+);
 
-});
+
+/* =================================
+   PRÉ-VISUALIZAR
+================================= */
+
+comprovativoInput
+.addEventListener(
+  "change",
+  () => {
+
+    const ficheiro =
+      comprovativoInput.files[0];
+
+    if(!ficheiro){
+
+      preview.style.display =
+        "none";
+
+      return;
+
+    }
+
+    if(
+      ficheiro.type.startsWith(
+        "image/"
+      )
+    ){
+
+      const leitor =
+        new FileReader();
+
+      leitor.onload =
+        (evento) => {
+
+          preview.src =
+            evento.target.result;
+
+          preview.style.display =
+            "block";
+
+        };
+
+      leitor.readAsDataURL(
+        ficheiro
+      );
+
+    }
+    else{
+
+      preview.style.display =
+        "none";
+
+    }
+
+  }
+);
 
 
-/* ENVIAR FICHEIRO PARA CLOUDINARY */
-async function enviarComprovativo(ficheiro) {
+/* =================================
+   CLOUDINARY
+================================= */
 
-  const formData = new FormData();
+async function enviarComprovativo(
+  ficheiro
+){
 
-  formData.append("file", ficheiro);
+  const formData =
+    new FormData();
+
+  formData.append(
+    "file",
+    ficheiro
+  );
 
   formData.append(
     "upload_preset",
     CLOUDINARY_UPLOAD_PRESET
   );
 
-  const resposta = await fetch(
-    `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/auto/upload`,
-    {
-      method: "POST",
-      body: formData
-    }
+  formData.append(
+    "folder",
+    "kuduro-prime/comprovativos"
   );
 
-  const dados = await resposta.json();
 
-  if (!resposta.ok) {
+  const resposta =
+    await fetch(
+
+      `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/auto/upload`,
+
+      {
+        method:"POST",
+        body:formData
+      }
+
+    );
+
+
+  const dados =
+    await resposta.json();
+
+
+  if(!resposta.ok){
+
+    console.error(
+      dados
+    );
 
     throw new Error(
-      dados.error?.message ||
+      dados.error?.message
+      ||
       "Erro ao enviar o comprovativo."
     );
 
   }
+
 
   return dados.secure_url;
 
 }
 
 
-/* ENVIAR PEDIDO */
-form.addEventListener("submit", async (event) => {
+/* =================================
+   ENVIAR PEDIDO
+================================= */
 
-  event.preventDefault();
+form.addEventListener(
 
-  if (!usuarioAtual) {
+  "submit",
 
-    mensagem.textContent =
-      "A verificar o login...";
+  async(event) => {
 
-    return;
+    event.preventDefault();
+
+
+    if(!usuarioAtual){
+
+      mensagem.textContent =
+        "⏳ A verificar a sessão...";
+
+      return;
+
+    }
+
+
+    const ficheiro =
+      comprovativoInput.files[0];
+
+
+    if(!ficheiro){
+
+      mensagem.textContent =
+        "❌ Seleciona o comprovativo.";
+
+      return;
+
+    }
+
+
+    try{
+
+      enviarBtn.disabled =
+        true;
+
+
+      mensagem.textContent =
+        "📤 A enviar o comprovativo...";
+
+
+      const comprovativoURL =
+        await enviarComprovativo(
+          ficheiro
+        );
+
+
+      mensagem.textContent =
+        "💾 A guardar o pedido...";
+
+
+      await addDoc(
+
+        collection(
+          db,
+          "pagamentos"
+        ),
+
+        {
+
+          artistaId:
+            usuarioAtual.uid,
+
+          email:
+            usuarioAtual.email,
+
+          valor:
+            2000,
+
+          moeda:
+            "AOA",
+
+          comprovativo:
+            comprovativoURL,
+
+          status:
+            "pendente",
+
+          criadoEm:
+            serverTimestamp()
+
+        }
+
+      );
+
+
+      mensagem.textContent =
+        "👑 Pedido enviado com sucesso! Aguarda a aprovação da KUDURO PRIME.";
+
+
+      form.reset();
+
+
+      preview.style.display =
+        "none";
+
+
+    }
+    catch(erro){
+
+      console.error(
+        erro
+      );
+
+
+      mensagem.textContent =
+        "❌ Erro: " +
+        erro.message;
+
+
+    }
+    finally{
+
+      enviarBtn.disabled =
+        false;
+
+    }
 
   }
 
-  const ficheiro =
-    comprovativoInput.files[0];
-
-  if (!ficheiro) {
-
-    mensagem.textContent =
-      "Seleciona o comprovativo.";
-
-    return;
-
-  }
-
-  try {
-
-    enviarBtn.disabled = true;
-
-    mensagem.textContent =
-      "📤 A enviar o comprovativo...";
-
-    const comprovativoURL =
-      await enviarComprovativo(ficheiro);
-
-
-    mensagem.textContent =
-      "💾 A guardar o pedido...";
-
-
-    await addDoc(
-      collection(db, "pagamentos"),
-      {
-
-        artistaId: usuarioAtual.uid,
-
-        email: usuarioAtual.email,
-
-        valor: 2000,
-
-        moeda: "AOA",
-
-        comprovativo: comprovativoURL,
-
-        status: "pendente",
-
-        criadoEm: serverTimestamp()
-
-      }
-    );
-
-
-    mensagem.textContent =
-      "Pedido enviado com sucesso! 👑 Aguarda a aprovação.";
-
-
-    form.reset();
-
-    preview.style.display = "none";
-
-
-  } catch (erro) {
-
-    console.error(erro);
-
-    mensagem.textContent =
-      "Erro: " + erro.message;
-
-    enviarBtn.disabled = false;
-
-  }
-
-});
+);
 
 </script>
 
