@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="pt">
 <head>
   <meta charset="UTF-8">
@@ -64,7 +63,7 @@
 
     /* =========================================
        LAYOUT
-    ========================================= */
+    ========================================== */
 
     .app{
       min-height:100vh;
@@ -78,8 +77,7 @@
       top:0;
       height:100vh;
       padding:24px 14px;
-      background:
-        linear-gradient(180deg,#090909,#070707);
+      background:linear-gradient(180deg,#090909,#070707);
       border-right:1px solid var(--line);
       display:flex;
       flex-direction:column;
@@ -231,7 +229,7 @@
 
     /* =========================================
        MAIN
-    ========================================= */
+    ========================================== */
 
     .main{
       min-width:0;
@@ -332,7 +330,7 @@
 
     /* =========================================
        INTRO
-    ========================================= */
+    ========================================== */
 
     .intro{
       display:flex;
@@ -373,7 +371,7 @@
 
     /* =========================================
        UPLOAD BOX
-    ========================================= */
+    ========================================== */
 
     .upload-box{
       display:none;
@@ -542,14 +540,13 @@
 
     /* =========================================
        SONG PANEL
-    ========================================= */
+    ========================================== */
 
     .songs-panel{
       border:1px solid var(--line);
       border-radius:16px;
       overflow:hidden;
-      background:
-        linear-gradient(145deg,#141414,#0b0b0b);
+      background:linear-gradient(145deg,#141414,#0b0b0b);
       box-shadow:0 15px 45px rgba(0,0,0,.25);
     }
 
@@ -608,6 +605,13 @@
       box-shadow:0 8px 20px rgba(0,0,0,.3);
     }
 
+    .cover img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+
     .song-info{
       min-width:0;
     }
@@ -624,6 +628,7 @@
       margin:6px 0 0;
       color:var(--muted);
       font-size:10px;
+      line-height:1.5;
     }
 
     .artist-song-name{
@@ -686,6 +691,12 @@
       background:#190d0d;
     }
 
+    .delete-btn:disabled{
+      opacity:.45;
+      cursor:not-allowed;
+      transform:none;
+    }
+
     .audio-player{
       display:none;
       grid-column:1/-1;
@@ -716,7 +727,7 @@
 
     /* =========================================
        EMPTY / LOADING
-    ========================================= */
+    ========================================== */
 
     .empty{
       padding:75px 20px;
@@ -773,8 +784,49 @@
     }
 
     /* =========================================
+       DELETE STATUS
+    ========================================== */
+
+    .delete-status{
+      display:none;
+      position:fixed;
+      left:50%;
+      bottom:25px;
+      transform:translateX(-50%);
+      z-index:9999;
+      min-width:280px;
+      max-width:90%;
+      padding:14px 18px;
+      border-radius:10px;
+      background:#151515;
+      border:1px solid #5b481b;
+      color:var(--gold2);
+      text-align:center;
+      font-size:11px;
+      font-weight:900;
+      box-shadow:0 15px 40px rgba(0,0,0,.5);
+    }
+
+    .delete-status.show{
+      display:block;
+      animation:fadeIn .2s ease;
+    }
+
+    .delete-status.success{
+      color:var(--green);
+      border-color:#205b42;
+      background:#0d1c15;
+    }
+
+    .delete-status.error{
+      color:#ff9d8e;
+      border-color:#5a2020;
+      background:#1c0d0d;
+    }
+
+    /* =========================================
        MOBILE OVERLAY
-    ========================================= */
+    ========================================== */
 
     .sidebar-overlay{
       display:none;
@@ -791,7 +843,7 @@
 
     /* =========================================
        RESPONSIVE
-    ========================================= */
+    ========================================== */
 
     @media(max-width:900px){
 
@@ -961,97 +1013,93 @@
       }
     }
   </style>
-
 </head>
 
 <body>
 
 <div class="app">
 
-  <!-- =========================================
-       SIDEBAR
-  ========================================== -->
+  <!-- SIDEBAR -->
 
   <aside class="sidebar" id="sidebar">
 
-```
-<a href="index.html" class="brand">
-  <span class="crown">♕</span>
-  KUDURO
-  <b>PRIME</b>
-</a>
+    <a href="index.html" class="brand">
+      <span class="crown">♕</span>
+      KUDURO
+      <b>PRIME</b>
+    </a>
 
-<a href="meu-perfil.html" class="artist-mini">
+    <a href="meu-perfil.html" class="artist-mini">
 
-  <div class="mini-photo" id="miniPhoto">
-    👤
-  </div>
+      <div class="mini-photo" id="miniPhoto">
+        👤
+      </div>
 
-  <div class="mini-name">
-    <strong id="miniName">
-      Artista Prime
-    </strong>
+      <div class="mini-name">
+        <strong id="miniName">
+          Artista Prime
+        </strong>
 
-    <span>
-      VER PERFIL
-    </span>
-  </div>
+        <span>
+          VER PERFIL
+        </span>
+      </div>
 
-</a>
+    </a>
 
-<div class="nav-title">
-  MENU PRINCIPAL
-</div>
+    <div class="nav-title">
+      MENU PRINCIPAL
+    </div>
 
-<a href="painel-do-artista.html" class="side-link">
-  📊 Painel do Artista
-</a>
+    <a href="painel-do-artista.html" class="side-link">
+      📊 Painel do Artista
+    </a>
 
-<a href="meu-perfil.html" class="side-link">
-  👤 Meu Perfil
-</a>
+    <a href="meu-perfil.html" class="side-link">
+      👤 Meu Perfil
+    </a>
 
-<a href="editar-perfil.html" class="side-link">
-  ✏️ Editar Perfil
-</a>
+    <a href="editar-perfil.html" class="side-link">
+      ✏️ Editar Perfil
+    </a>
 
-<div class="nav-title">
-  CONTEÚDO
-</div>
+    <div class="nav-title">
+      CONTEÚDO
+    </div>
 
-<a href="minhas-musicas.html" class="side-link active">
-  🎵 Minhas Músicas
-</a>
+    <a href="minhas-musicas.html" class="side-link active">
+      🎵 Minhas Músicas
+    </a>
 
-<a href="pagamento-musicas.html" class="side-link">
-  💳 Pagamentos
-</a>
+    <a href="pagamento-musicas.html" class="side-link">
+      💳 Pagamentos
+    </a>
 
-<div class="nav-title">
-  PLATAFORMA
-</div>
+    <div class="nav-title">
+      PLATAFORMA
+    </div>
 
-<a href="ranking.html" class="side-link">
-  🏆 Ranking Prime
-</a>
+    <a href="ranking.html" class="side-link">
+      🏆 Ranking Prime
+    </a>
 
-<a href="index.html" class="side-link">
-  🌐 Ver Site Público
-</a>
+    <a href="index.html" class="side-link">
+      🌐 Ver Site Público
+    </a>
 
-<div class="side-bottom">
+    <div class="side-bottom">
 
-  <button
-    class="logout"
-    onclick="logout()"
-  >
-    ↪ TERMINAR SESSÃO
-  </button>
+      <button
+        class="logout"
+        onclick="logout()"
+      >
+        ↪ TERMINAR SESSÃO
+      </button>
 
-</div>
-```
+    </div>
 
   </aside>
+
 
   <div
     class="sidebar-overlay"
@@ -1059,332 +1107,343 @@
     onclick="toggleMenu()"
   ></div>
 
-  <!-- =========================================
-       MAIN
-  ========================================== -->
+
+  <!-- MAIN -->
 
   <main class="main">
 
-```
-<header class="topbar">
+    <header class="topbar">
 
-  <button
-    class="mobile-menu"
-    onclick="toggleMenu()"
-    aria-label="Abrir menu"
-  >
-    ☰
-  </button>
-
-  <div class="top-title">
-
-    <h2>
-      MINHAS MÚSICAS
-    </h2>
-
-    <p>
-      Publica e gere os teus lançamentos.
-    </p>
-
-  </div>
-
-  <div class="top-actions">
-
-    <a
-      href="painel-do-artista.html"
-      class="btn"
-    >
-      ← PAINEL
-    </a>
-
-    <button
-      class="btn gold"
-      onclick="openUpload()"
-    >
-      + PUBLICAR MÚSICA
-    </button>
-
-  </div>
-
-</header>
-
-<div class="content">
-
-  <!-- =====================================
-       INTRO
-  ====================================== -->
-
-  <section class="intro">
-
-    <div>
-
-      <h1>
-        Os meus lançamentos
-      </h1>
-
-      <p>
-        Publica as tuas músicas diretamente do computador.
-      </p>
-
-      <div
-        class="free-limit"
-        id="freeLimit"
+      <button
+        class="mobile-menu"
+        onclick="toggleMenu()"
+        aria-label="Abrir menu"
       >
-        ⏳ A carregar o teu plano...
-      </div>
+        ☰
+      </button>
 
-    </div>
-
-    <button
-      class="btn gold"
-      onclick="openUpload()"
-    >
-      + NOVA MÚSICA
-    </button>
-
-  </section>
-
-  <!-- =====================================
-       UPLOAD
-  ====================================== -->
-
-  <section
-    class="upload-box"
-    id="uploadBox"
-  >
-
-    <div class="upload-heading">
-
-      <div class="upload-icon">
-        🎵
-      </div>
-
-      <div>
+      <div class="top-title">
 
         <h2>
-          Publicar Nova Música
+          MINHAS MÚSICAS
         </h2>
 
         <p>
-          Preenche as informações e escolhe os ficheiros.
+          Publica e gere os teus lançamentos.
         </p>
 
       </div>
 
-    </div>
+      <div class="top-actions">
 
-    <form id="songForm">
-
-      <div class="form-grid">
-
-        <div class="field">
-
-          <label>
-            TÍTULO DA MÚSICA *
-          </label>
-
-          <input
-            type="text"
-            id="songTitle"
-            placeholder="Ex.: Meu Novo Kuduro"
-            maxlength="150"
-            required
-          >
-
-        </div>
-
-        <div class="field">
-
-          <label>
-            TIPO DE LANÇAMENTO
-          </label>
-
-          <select id="songType">
-
-            <option value="Single">
-              Single
-            </option>
-
-            <option value="EP">
-              EP
-            </option>
-
-            <option value="Álbum">
-              Álbum
-            </option>
-
-            <option value="Freestyle">
-              Freestyle
-            </option>
-
-          </select>
-
-        </div>
-
-        <div class="field">
-
-          <label>
-            GÉNERO
-          </label>
-
-          <select id="songGenre">
-
-            <option value="Kuduro">
-              Kuduro
-            </option>
-
-            <option value="Afro House">
-              Afro House
-            </option>
-
-            <option value="Semba">
-              Semba
-            </option>
-
-            <option value="Afrobeat">
-              Afrobeat
-            </option>
-
-            <option value="Outro">
-              Outro
-            </option>
-
-          </select>
-
-        </div>
-
-        <div class="field">
-
-          <label>
-            DATA DE LANÇAMENTO
-          </label>
-
-          <input
-            type="date"
-            id="songDate"
-          >
-
-        </div>
-
-        <div class="field full">
-
-          <label>
-            🖼️ CAPA DA MÚSICA
-          </label>
-
-          <input
-            type="file"
-            id="songCover"
-            accept="image/*"
-          >
-
-        </div>
-
-        <div class="field full">
-
-          <label>
-            🎵 FICHEIRO DA MÚSICA *
-          </label>
-
-          <input
-            type="file"
-            id="songFile"
-            accept=".mp3,.wav,.m4a,.aac,.ogg,audio/*"
-            required
-          >
-
-        </div>
-
-        <div class="field full">
-
-          <label>
-            DESCRIÇÃO
-          </label>
-
-          <textarea
-            id="songDescription"
-            placeholder="Escreve uma breve descrição da música..."
-            maxlength="1000"
-          ></textarea>
-
-        </div>
-
-      </div>
-
-      <div
-        class="upload-status"
-        id="uploadStatus"
-      ></div>
-
-      <div class="form-actions">
-
-        <button
-          type="button"
+        <a
+          href="painel-do-artista.html"
           class="btn"
-          id="cancelUploadBtn"
-          onclick="closeUpload()"
         >
-          CANCELAR
-        </button>
+          ← PAINEL
+        </a>
 
         <button
-          type="submit"
           class="btn gold"
-          id="publishButton"
+          onclick="openUpload()"
         >
-          ♕ PUBLICAR MÚSICA
+          + PUBLICAR MÚSICA
         </button>
 
       </div>
 
-    </form>
+    </header>
 
-  </section>
 
-  <!-- =====================================
-       SONGS
-  ====================================== -->
+    <div class="content">
 
-  <section class="songs-panel">
+      <!-- INTRO -->
 
-    <div class="songs-head">
+      <section class="intro">
 
-      <h3>
-        🎵 TODAS AS MINHAS MÚSICAS
-      </h3>
+        <div>
 
-      <span
-        class="songs-count"
-        id="songsCount"
+          <h1>
+            Os meus lançamentos
+          </h1>
+
+          <p>
+            Publica as tuas músicas diretamente do computador.
+          </p>
+
+          <div
+            class="free-limit"
+            id="freeLimit"
+          >
+            ⏳ A carregar o teu plano...
+          </div>
+
+        </div>
+
+        <button
+          class="btn gold"
+          onclick="openUpload()"
+        >
+          + NOVA MÚSICA
+        </button>
+
+      </section>
+
+
+      <!-- UPLOAD -->
+
+      <section
+        class="upload-box"
+        id="uploadBox"
       >
-        0 / 3 GRÁTIS
-      </span>
+
+        <div class="upload-heading">
+
+          <div class="upload-icon">
+            🎵
+          </div>
+
+          <div>
+
+            <h2>
+              Publicar Nova Música
+            </h2>
+
+            <p>
+              Preenche as informações e escolhe os ficheiros.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <form id="songForm">
+
+          <div class="form-grid">
+
+            <div class="field">
+
+              <label>
+                TÍTULO DA MÚSICA *
+              </label>
+
+              <input
+                type="text"
+                id="songTitle"
+                placeholder="Ex.: Meu Novo Kuduro"
+                maxlength="150"
+                required
+              >
+
+            </div>
+
+
+            <div class="field">
+
+              <label>
+                TIPO DE LANÇAMENTO
+              </label>
+
+              <select id="songType">
+
+                <option value="Single">
+                  Single
+                </option>
+
+                <option value="EP">
+                  EP
+                </option>
+
+                <option value="Álbum">
+                  Álbum
+                </option>
+
+                <option value="Freestyle">
+                  Freestyle
+                </option>
+
+              </select>
+
+            </div>
+
+
+            <div class="field">
+
+              <label>
+                GÉNERO
+              </label>
+
+              <select id="songGenre">
+
+                <option value="Kuduro">
+                  Kuduro
+                </option>
+
+                <option value="Afro House">
+                  Afro House
+                </option>
+
+                <option value="Semba">
+                  Semba
+                </option>
+
+                <option value="Afrobeat">
+                  Afrobeat
+                </option>
+
+                <option value="Outro">
+                  Outro
+                </option>
+
+              </select>
+
+            </div>
+
+
+            <div class="field">
+
+              <label>
+                DATA DE LANÇAMENTO
+              </label>
+
+              <input
+                type="date"
+                id="songDate"
+              >
+
+            </div>
+
+
+            <div class="field full">
+
+              <label>
+                🖼️ CAPA DA MÚSICA
+              </label>
+
+              <input
+                type="file"
+                id="songCover"
+                accept="image/*"
+              >
+
+            </div>
+
+
+            <div class="field full">
+
+              <label>
+                🎵 FICHEIRO DA MÚSICA *
+              </label>
+
+              <input
+                type="file"
+                id="songFile"
+                accept=".mp3,.wav,.m4a,.aac,.ogg,audio/*"
+                required
+              >
+
+            </div>
+
+
+            <div class="field full">
+
+              <label>
+                DESCRIÇÃO
+              </label>
+
+              <textarea
+                id="songDescription"
+                placeholder="Escreve uma breve descrição da música..."
+                maxlength="1000"
+              ></textarea>
+
+            </div>
+
+          </div>
+
+
+          <div
+            class="upload-status"
+            id="uploadStatus"
+          ></div>
+
+
+          <div class="form-actions">
+
+            <button
+              type="button"
+              class="btn"
+              id="cancelUploadBtn"
+              onclick="closeUpload()"
+            >
+              CANCELAR
+            </button>
+
+            <button
+              type="submit"
+              class="btn gold"
+              id="publishButton"
+            >
+              ♕ PUBLICAR MÚSICA
+            </button>
+
+          </div>
+
+        </form>
+
+      </section>
+
+
+      <!-- SONGS -->
+
+      <section class="songs-panel">
+
+        <div class="songs-head">
+
+          <h3>
+            🎵 TODAS AS MINHAS MÚSICAS
+          </h3>
+
+          <span
+            class="songs-count"
+            id="songsCount"
+          >
+            0 / 3 GRÁTIS
+          </span>
+
+        </div>
+
+
+        <div
+          class="song-list"
+          id="songsList"
+        >
+
+          <div class="loading">
+
+            <div class="loading-spinner"></div>
+
+            A carregar músicas...
+
+          </div>
+
+        </div>
+
+      </section>
 
     </div>
-
-    <div
-      class="song-list"
-      id="songsList"
-    >
-
-      <div class="loading">
-
-        <div class="loading-spinner"></div>
-
-        A carregar músicas...
-
-      </div>
-
-    </div>
-
-  </section>
-
-</div>
-```
 
   </main>
 
 </div>
+
+
+<div
+  class="delete-status"
+  id="deleteStatus"
+></div>
+
 
 <script type="module">
 
@@ -1527,11 +1586,17 @@
   function getSongAudio(song){
 
     return (
-      song.audio ||
       song.audioUrl ||
+      song.audio ||
       song.url ||
       song.musicaUrl ||
       song.musicUrl ||
+      song.ficheiro ||
+      song.arquivo ||
+      song.fileUrl ||
+      song.secure_url ||
+      song.urlAudio ||
+      song.linkAudio ||
       ""
     );
 
@@ -1543,6 +1608,8 @@
     return (
       song.capa ||
       song.cover ||
+      song.coverUrl ||
+      song.imagem ||
       ""
     );
 
@@ -1560,13 +1627,48 @@
   }
 
 
+  function showDeleteStatus(
+    message,
+    type = ""
+  ){
+
+    const box =
+      document.querySelector(
+        "#deleteStatus"
+      );
+
+    if(!box)
+      return;
+
+    box.className =
+      "delete-status show " +
+      type;
+
+    box.textContent =
+      message;
+
+    setTimeout(
+      () => {
+
+        box.classList.remove(
+          "show"
+        );
+
+      },
+      3000
+    );
+
+  }
+
+
   /* =========================================
      ARTIST PROFILE
   ========================================== */
 
   async function loadArtistProfile(){
 
-    if(!currentUser) return;
+    if(!currentUser)
+      return;
 
     try{
 
@@ -1578,7 +1680,9 @@
         );
 
       const artistSnap =
-        await getDoc(artistRef);
+        await getDoc(
+          artistRef
+        );
 
 
       if(artistSnap.exists()){
@@ -1617,7 +1721,10 @@
 
 
       const miniName =
-        document.querySelector("#miniName");
+        document.querySelector(
+          "#miniName"
+        );
+
 
       if(miniName){
 
@@ -1628,7 +1735,9 @@
 
 
       const miniPhoto =
-        document.querySelector("#miniPhoto");
+        document.querySelector(
+          "#miniPhoto"
+        );
 
 
       if(miniPhoto){
@@ -1638,7 +1747,9 @@
         if(artistPhoto){
 
           const image =
-            document.createElement("img");
+            document.createElement(
+              "img"
+            );
 
           image.src =
             artistPhoto;
@@ -1654,7 +1765,9 @@
 
             };
 
-          miniPhoto.appendChild(image);
+          miniPhoto.appendChild(
+            image
+          );
 
         }
         else{
@@ -1680,7 +1793,7 @@
 
 
   /* =========================================
-     PLANO DO ARTISTA
+     PLANO
   ========================================== */
 
   async function hasUnlimitedSongs(){
@@ -1701,17 +1814,11 @@
         );
 
 
-      if(
+      return (
         artistSnap.exists() &&
-        artistSnap.data().musicasDesbloqueadas === true
-      ){
-
-        return true;
-
-      }
-
-
-      return false;
+        artistSnap.data()
+          .musicasDesbloqueadas === true
+      );
 
     }
     catch(error){
@@ -1751,19 +1858,21 @@
   async function updateLimit(){
 
     const freeLimit =
-      document.querySelector("#freeLimit");
+      document.querySelector(
+        "#freeLimit"
+      );
 
     const songsCount =
-      document.querySelector("#songsCount");
+      document.querySelector(
+        "#songsCount"
+      );
 
 
     unlimitedPlan =
       await hasUnlimitedSongs();
 
 
-    if(
-      unlimitedPlan
-    ){
+    if(unlimitedPlan){
 
       freeLimit.classList.remove(
         "blocked"
@@ -1780,9 +1889,7 @@
     }
 
 
-    if(
-      songs.length < 3
-    ){
+    if(songs.length < 3){
 
       freeLimit.classList.remove(
         "blocked"
@@ -1823,7 +1930,9 @@
 
 
     const list =
-      document.querySelector("#songsList");
+      document.querySelector(
+        "#songsList"
+      );
 
 
     list.innerHTML = `
@@ -1836,15 +1945,6 @@
 
     try{
 
-      /*
-        Lemos a coleção completa e filtramos
-        pelo ID do utilizador.
-
-        Isto permite compatibilidade com
-        documentos antigos que utilizam:
-        artistaId / artistId / userId / uid.
-      */
-
       const snapshot =
         await getDocs(
           collection(
@@ -1856,36 +1956,38 @@
 
       songs =
         snapshot.docs
-          .map(musicDoc => ({
-            id:
-              musicDoc.id,
-            ...musicDoc.data()
-          }))
-          .filter(song => {
+          .map(
+            musicDoc => ({
+              id:
+                musicDoc.id,
 
-            return (
+              ...musicDoc.data()
+            })
+          )
+          .filter(
+            song =>
               getSongArtistId(song) ===
               currentUser.uid
-            );
+          )
+          .sort(
+            (a,b) => {
 
-          })
-          .sort((a,b) => {
+              const timeA =
+                a.criadoEm?.seconds ||
+                a.createdAt?.seconds ||
+                0;
 
-            const timeA =
-              a.criadoEm?.seconds ||
-              a.createdAt?.seconds ||
-              0;
+              const timeB =
+                b.criadoEm?.seconds ||
+                b.createdAt?.seconds ||
+                0;
 
-            const timeB =
-              b.criadoEm?.seconds ||
-              b.createdAt?.seconds ||
-              0;
+              return (
+                timeB - timeA
+              );
 
-            return (
-              timeB - timeA
-            );
-
-          });
+            }
+          );
 
 
       await renderSongs();
@@ -1931,6 +2033,9 @@
 
   /* =========================================
      CLOUDINARY UPLOAD
+     
+     IMPORTANTE:
+     Agora devolve secure_url + public_id.
   ========================================== */
 
   async function uploadToCloudinary(
@@ -2013,7 +2118,27 @@
     }
 
 
-    return data.secure_url;
+    return {
+
+      secure_url:
+        data.secure_url,
+
+      public_id:
+        data.public_id || "",
+
+      resource_type:
+        data.resource_type ||
+        resourceType,
+
+      format:
+        data.format ||
+        "",
+
+      original_filename:
+        data.original_filename ||
+        file.name
+
+    };
 
   }
 
@@ -2080,9 +2205,11 @@
       setTimeout(
         () => {
 
-          document.querySelector(
-            "#songTitle"
-          )?.focus();
+          document
+            .querySelector(
+              "#songTitle"
+            )
+            ?.focus();
 
         },
         350
@@ -2109,9 +2236,11 @@
       );
 
 
-      document.querySelector(
-        "#songForm"
-      ).reset();
+      document
+        .querySelector(
+          "#songForm"
+        )
+        .reset();
 
 
       const status =
@@ -2134,7 +2263,9 @@
   ========================================== */
 
   document
-    .querySelector("#songForm")
+    .querySelector(
+      "#songForm"
+    )
     .addEventListener(
       "submit",
       async function(event){
@@ -2173,44 +2304,58 @@
 
         const title =
           document
-            .querySelector("#songTitle")
+            .querySelector(
+              "#songTitle"
+            )
             .value
             .trim();
 
 
         const coverFile =
           document
-            .querySelector("#songCover")
+            .querySelector(
+              "#songCover"
+            )
             .files[0];
 
 
         const audioFile =
           document
-            .querySelector("#songFile")
+            .querySelector(
+              "#songFile"
+            )
             .files[0];
 
 
         const songType =
           document
-            .querySelector("#songType")
+            .querySelector(
+              "#songType"
+            )
             .value;
 
 
         const songGenre =
           document
-            .querySelector("#songGenre")
+            .querySelector(
+              "#songGenre"
+            )
             .value;
 
 
         const songDate =
           document
-            .querySelector("#songDate")
+            .querySelector(
+              "#songDate"
+            )
             .value;
 
 
         const description =
           document
-            .querySelector("#songDescription")
+            .querySelector(
+              "#songDescription"
+            )
             .value
             .trim();
 
@@ -2255,10 +2400,6 @@
         }
 
 
-        /*
-          Verificação simples do ficheiro.
-        */
-
         if(
           !audioFile.type.startsWith("audio/") &&
           !/\.(mp3|wav|m4a|aac|ogg)$/i.test(
@@ -2296,7 +2437,13 @@
              CAPA
           ================================= */
 
-          let coverUrl = "";
+          let coverData = {
+
+            secure_url:"",
+            public_id:"",
+            resource_type:"image"
+
+          };
 
 
           if(coverFile){
@@ -2305,7 +2452,7 @@
               "🖼️ A enviar a capa...";
 
 
-            coverUrl =
+            coverData =
               await uploadToCloudinary(
                 coverFile,
                 "image"
@@ -2322,7 +2469,7 @@
             "🎵 A enviar a música...";
 
 
-          const audioUrl =
+          const audioData =
             await uploadToCloudinary(
               audioFile,
               "video"
@@ -2344,10 +2491,7 @@
             ),
             {
 
-              /*
-                IDs — mantemos os quatro
-                formatos para compatibilidade.
-              */
+              /* IDs */
 
               artistaId:
                 currentUser.uid,
@@ -2362,9 +2506,7 @@
                 currentUser.uid,
 
 
-              /*
-                Artista
-              */
+              /* ARTISTA */
 
               artistaNome:
                 artistName,
@@ -2379,9 +2521,7 @@
                 artistPhoto,
 
 
-              /*
-                Música
-              */
+              /* MÚSICA */
 
               titulo:
                 title,
@@ -2402,26 +2542,43 @@
                 description,
 
 
-              /*
-                Ficheiros
-              */
+              /* CAPA */
 
               capa:
-                coverUrl,
+                coverData.secure_url,
 
               cover:
-                coverUrl,
+                coverData.secure_url,
+
+              coverUrl:
+                coverData.secure_url,
+
+              coverPublicId:
+                coverData.public_id,
+
+              coverResourceType:
+                coverData.resource_type,
+
+
+              /* ÁUDIO */
 
               audio:
-                audioUrl,
+                audioData.secure_url,
 
               audioUrl:
-                audioUrl,
+                audioData.secure_url,
+
+              audioPublicId:
+                audioData.public_id,
+
+              audioResourceType:
+                audioData.resource_type,
+
+              audioFormat:
+                audioData.format,
 
 
-              /*
-                Informações técnicas
-              */
+              /* INFORMAÇÕES */
 
               audioMimeType:
                 audioFile.type ||
@@ -2431,9 +2588,7 @@
                 audioFile.name,
 
 
-              /*
-                Estatísticas
-              */
+              /* ESTATÍSTICAS */
 
               views:
                 0,
@@ -2442,17 +2597,13 @@
                 0,
 
 
-              /*
-                Estado
-              */
+              /* ESTADO */
 
               status:
                 "publicada",
 
 
-              /*
-                Data
-              */
+              /* DATA */
 
               criadoEm:
                 serverTimestamp()
@@ -2468,11 +2619,6 @@
           status.textContent =
             "♕ Música publicada com sucesso!";
 
-
-          /*
-            Atualiza a lista sem precisar
-            atualizar a página.
-          */
 
           await loadSongs();
 
@@ -2571,270 +2717,283 @@
 
     list.innerHTML =
       songs
-        .map(song => {
+        .map(
+          song => {
 
-          const songTitle =
-            getSongTitle(song);
-
-
-          const songArtist =
-            song.artistaNome ||
-            song.artistName ||
-            artistName;
+            const songTitle =
+              getSongTitle(song);
 
 
-          const songCover =
-            getSongCover(song);
+            const songArtist =
+              song.artistaNome ||
+              song.artistName ||
+              artistName;
 
 
-          const songAudio =
-            getSongAudio(song);
+            const songCover =
+              getSongCover(song);
 
 
-          const views =
-            getSongViews(song);
+            const songAudio =
+              getSongAudio(song);
 
 
-          const safeCover =
-            String(songCover)
-              .replace(/'/g,"%27")
-              .replace(/"/g,"%22");
+            const views =
+              getSongViews(song);
 
 
-          const coverHTML =
-            songCover
-
-            ?
-
-            `
-              <div
-                class="cover"
-                style="background-image:url('${safeCover}')"
-              ></div>
-            `
-
-            :
-
-            `
+            let coverHTML = `
               <div class="cover">
                 🎵
               </div>
             `;
 
 
-          const audioHTML =
-            songAudio
+            if(songCover){
 
-            ?
-
-            `
-              <audio
-                controls
-                preload="metadata"
-                playsinline
-                data-song-id="${escapeHTML(song.id)}"
-              >
-
-                <source
-                  src="${escapeHTML(songAudio)}"
-                  type="${escapeHTML(
-                    song.audioMimeType ||
-                    "audio/mpeg"
-                  )}"
-                >
-
-                O teu navegador não suporta áudio.
-
-              </audio>
-            `
-
-            :
-
-            `
-              <p
-                class="audio-error"
-                style="display:block"
-              >
-                ❌ Esta música não possui ficheiro de áudio.
-              </p>
-            `;
-
-
-          return `
-
-            <article
-              class="song-card"
-            >
-
-              ${coverHTML}
-
-
-              <div class="song-info">
-
-                <strong>
-                  ${escapeHTML(songTitle)}
-                </strong>
-
-
-                <p class="artist-song-name">
-                  👤 ${escapeHTML(songArtist)}
-                </p>
-
-
-                <p>
-                  ${escapeHTML(
-                    song.descricao ||
-                    "Lançamento KUDURO PRIME"
-                  )}
-                </p>
-
-
-                <div class="song-meta">
-
-                  <span class="badge active">
-                    ● PUBLICADA
-                  </span>
-
-                  <span class="badge">
-                    🎧 ${escapeHTML(
-                      song.tipo ||
-                      "Single"
-                    )}
-                  </span>
-
-                  <span class="badge">
-                    🎵 ${escapeHTML(
-                      song.genero ||
-                      "Kuduro"
-                    )}
-                  </span>
-
-                  <span class="badge">
-                    👁 ${views}
-                  </span>
-
+              coverHTML = `
+                <div class="cover">
+                  <img
+                    src="${escapeHTML(songCover)}"
+                    alt="Capa de ${escapeHTML(songTitle)}"
+                    loading="lazy"
+                    onerror="this.parentElement.innerHTML='🎵'"
+                  >
                 </div>
-
-              </div>
-
-
-              <div class="song-actions">
-
-                <button
-                  class="icon-btn"
-                  onclick="playSong('${escapeHTML(song.id)}')"
-                  title="Ouvir"
-                  aria-label="Ouvir música"
-                >
-                  ▶
-                </button>
-
-
-                <button
-                  class="icon-btn"
-                  onclick="editSong('${escapeHTML(song.id)}')"
-                  title="Editar título"
-                  aria-label="Editar música"
-                >
-                  ✏️
-                </button>
-
-
-                <button
-                  class="icon-btn delete-btn"
-                  onclick="deleteSong('${escapeHTML(song.id)}')"
-                  title="Eliminar"
-                  aria-label="Eliminar música"
-                >
-                  🗑
-                </button>
-
-              </div>
-
-
-              <div
-                class="audio-player"
-                id="audioPlayer${escapeHTML(song.id)}"
-              >
-
-                ${audioHTML}
-
-                <p
-                  class="audio-error"
-                  id="audioError${escapeHTML(song.id)}"
-                ></p>
-
-              </div>
-
-            </article>
-
-          `;
-
-        })
-        .join("");
-
-
-    /*
-      Configurar players.
-    */
-
-    document
-      .querySelectorAll("audio")
-      .forEach(audio => {
-
-        audio.addEventListener(
-          "error",
-          () => {
-
-            const errorBox =
-              document.querySelector(
-                "#audioError" +
-                audio.dataset.songId
-              );
-
-
-            if(errorBox){
-
-              errorBox.style.display =
-                "block";
-
-              errorBox.textContent =
-                "❌ Não foi possível carregar esta música. Verifica o ficheiro no Cloudinary.";
+              `;
 
             }
 
+
+            let audioHTML = "";
+
+
+            if(songAudio){
+
+              audioHTML = `
+                <audio
+                  controls
+                  preload="metadata"
+                  playsinline
+                  data-song-id="${escapeHTML(song.id)}"
+                  src="${escapeHTML(songAudio)}"
+                >
+                  O teu navegador não suporta áudio.
+                </audio>
+              `;
+
+            }
+            else{
+
+              audioHTML = `
+                <p
+                  class="audio-error"
+                  style="display:block"
+                >
+                  ❌ Esta música não possui endereço de áudio.
+                </p>
+              `;
+
+            }
+
+
+            return `
+
+              <article
+                class="song-card"
+                id="song-card-${escapeHTML(song.id)}"
+              >
+
+                ${coverHTML}
+
+
+                <div class="song-info">
+
+                  <strong>
+                    ${escapeHTML(songTitle)}
+                  </strong>
+
+
+                  <p class="artist-song-name">
+                    👤 ${escapeHTML(songArtist)}
+                  </p>
+
+
+                  <p>
+                    ${escapeHTML(
+                      song.descricao ||
+                      "Lançamento KUDURO PRIME"
+                    )}
+                  </p>
+
+
+                  <div class="song-meta">
+
+                    <span class="badge active">
+                      ● PUBLICADA
+                    </span>
+
+                    <span class="badge">
+                      🎧 ${escapeHTML(
+                        song.tipo ||
+                        "Single"
+                      )}
+                    </span>
+
+                    <span class="badge">
+                      🎵 ${escapeHTML(
+                        song.genero ||
+                        "Kuduro"
+                      )}
+                    </span>
+
+                    <span class="badge">
+                      👁 ${views}
+                    </span>
+
+                  </div>
+
+                </div>
+
+
+                <div class="song-actions">
+
+                  <button
+                    class="icon-btn"
+                    onclick="playSong('${escapeHTML(song.id)}')"
+                    title="Ouvir"
+                    aria-label="Ouvir música"
+                  >
+                    ▶
+                  </button>
+
+
+                  <button
+                    class="icon-btn"
+                    onclick="editSong('${escapeHTML(song.id)}')"
+                    title="Editar título"
+                    aria-label="Editar música"
+                  >
+                    ✏️
+                  </button>
+
+
+                  <button
+                    class="icon-btn delete-btn"
+                    id="delete-${escapeHTML(song.id)}"
+                    onclick="deleteSong('${escapeHTML(song.id)}')"
+                    title="Eliminar"
+                    aria-label="Eliminar música"
+                  >
+                    🗑
+                  </button>
+
+                </div>
+
+
+                <div
+                  class="audio-player"
+                  id="audioPlayer${escapeHTML(song.id)}"
+                >
+
+                  ${audioHTML}
+
+                  <p
+                    class="audio-error"
+                    id="audioError${escapeHTML(song.id)}"
+                  ></p>
+
+                </div>
+
+              </article>
+
+            `;
+
           }
-        );
+        )
+        .join("");
 
 
-        audio.addEventListener(
-          "play",
-          () => {
+    /* CONFIGURAR PLAYERS */
 
-            document
-              .querySelectorAll("audio")
-              .forEach(otherAudio => {
+    document
+      .querySelectorAll(
+        "audio"
+      )
+      .forEach(
+        audio => {
 
-                if(
-                  otherAudio !== audio
-                ){
+          audio.addEventListener(
+            "error",
+            () => {
 
-                  otherAudio.pause();
+              const errorBox =
+                document.querySelector(
+                  "#audioError" +
+                  audio.dataset.songId
+                );
 
-                }
 
-              });
+              if(errorBox){
 
-          }
-        );
+                errorBox.style.display =
+                  "block";
 
-      });
+                errorBox.textContent =
+                  "❌ Não foi possível carregar esta música. Verifica o ficheiro no Cloudinary.";
+
+              }
+
+            }
+          );
+
+
+          audio.addEventListener(
+            "play",
+            () => {
+
+              document
+                .querySelectorAll(
+                  "audio"
+                )
+                .forEach(
+                  otherAudio => {
+
+                    if(
+                      otherAudio !== audio
+                    ){
+
+                      otherAudio.pause();
+
+                    }
+
+                  }
+                );
+
+            }
+          );
+
+
+          audio.addEventListener(
+            "ended",
+            () => {
+
+              console.log(
+                "Música terminou:",
+                audio.dataset.songId
+              );
+
+            }
+          );
+
+        }
+      );
 
   }
 
 
   /* =========================================
-     REPRODUZIR MÚSICA
+     REPRODUZIR
   ========================================== */
 
   window.playSong =
@@ -2851,40 +3010,38 @@
         return;
 
 
-      /*
-        Fechar os outros players.
-      */
-
       document
         .querySelectorAll(
           ".audio-player"
         )
-        .forEach(item => {
+        .forEach(
+          item => {
 
-          if(
-            item !== player
-          ){
+            if(
+              item !== player
+            ){
 
-            item.classList.remove(
-              "show"
-            );
-
-
-            const otherAudio =
-              item.querySelector(
-                "audio"
+              item.classList.remove(
+                "show"
               );
 
 
-            if(otherAudio){
+              const otherAudio =
+                item.querySelector(
+                  "audio"
+                );
 
-              otherAudio.pause();
+
+              if(otherAudio){
+
+                otherAudio.pause();
+
+              }
 
             }
 
           }
-
-        });
+        );
 
 
       player.classList.add(
@@ -2942,9 +3099,7 @@
       }
 
 
-      /*
-        Contar audição.
-      */
+      /* CONTAR AUDIÇÃO */
 
       try{
 
@@ -2965,10 +3120,6 @@
           }
         );
 
-
-        /*
-          Atualiza o contador local.
-        */
 
         const song =
           songs.find(
@@ -2998,7 +3149,7 @@
 
 
   /* =========================================
-     EDITAR MÚSICA
+     EDITAR
   ========================================== */
 
   window.editSong =
@@ -3068,8 +3219,14 @@
         );
 
 
-        await loadSongs();
+        song.titulo =
+          newTitle.trim();
 
+        song.title =
+          newTitle.trim();
+
+
+        await renderSongs();
 
       }
       catch(error){
@@ -3092,10 +3249,26 @@
 
   /* =========================================
      ELIMINAR MÚSICA
+     
+     1. Confirma
+     2. Remove imediatamente da tela
+     3. Apaga documento Firestore
+     4. Se Firestore falhar, restaura
   ========================================== */
 
   window.deleteSong =
     async function(songId){
+
+      if(!currentUser){
+
+        alert(
+          "A tua sessão não está ativa."
+        );
+
+        return;
+
+      }
+
 
       const song =
         songs.find(
@@ -3104,15 +3277,24 @@
         );
 
 
+      if(!song){
+
+        alert(
+          "Música não encontrada."
+        );
+
+        return;
+
+      }
+
+
       const title =
-        song
-          ? getSongTitle(song)
-          : "esta música";
+        getSongTitle(song);
 
 
       const confirmed =
         confirm(
-          `Tens a certeza que queres eliminar "${title}"?\n\nEsta ação não pode ser desfeita.`
+          `⚠️ ELIMINAR MÚSICA\n\n"${title}"\n\nA música será removida da tua lista e o documento será eliminado do KUDURO PRIME.\n\nEsta ação não pode ser desfeita.\n\nContinuar?`
         );
 
 
@@ -3120,7 +3302,66 @@
         return;
 
 
+      const deleteButton =
+        document.querySelector(
+          "#delete-" +
+          songId
+        );
+
+
+      if(deleteButton){
+
+        deleteButton.disabled =
+          true;
+
+        deleteButton.textContent =
+          "⏳";
+
+      }
+
+
+      /*
+        Guardamos a posição original.
+        Se o Firestore der erro,
+        conseguimos restaurar.
+      */
+
+      const oldIndex =
+        songs.findIndex(
+          item =>
+            item.id === songId
+        );
+
+
+      const oldSongs =
+        [...songs];
+
+
+      /*
+        REMOVE IMEDIATAMENTE DA LISTA.
+      */
+
+      songs =
+        songs.filter(
+          item =>
+            item.id !== songId
+        );
+
+
+      await renderSongs();
+
+
+      showDeleteStatus(
+        `🗑️ "${title}" foi removida da lista.`,
+        ""
+      );
+
+
       try{
+
+        /*
+          APAGA O DOCUMENTO DO FIRESTORE.
+        */
 
         await deleteDoc(
           doc(
@@ -3131,20 +3372,95 @@
         );
 
 
-        await loadSongs();
+        /*
+          Atualiza novamente o limite.
+        */
+
+        await updateLimit();
+
+
+        showDeleteStatus(
+          `✅ "${title}" foi eliminada com sucesso.`,
+          "success"
+        );
+
+
+        /*
+          Informações que ficaram guardadas
+          para futura limpeza do Cloudinary.
+        */
+
+        if(
+          song.audioPublicId ||
+          song.coverPublicId
+        ){
+
+          console.log(
+            "Cloudinary public IDs:",
+            {
+              audioPublicId:
+                song.audioPublicId ||
+                null,
+
+              coverPublicId:
+                song.coverPublicId ||
+                null
+            }
+          );
+
+        }
 
 
       }
       catch(error){
 
         console.error(
-          "Erro ao eliminar:",
+          "Erro ao eliminar música:",
           error
         );
 
 
+        /*
+          RESTAURA A MÚSICA SE O FIRESTORE
+          NÃO PERMITIR A ELIMINAÇÃO.
+        */
+
+        songs =
+          oldSongs;
+
+
+        /*
+          Mantém a ordem original.
+        */
+
+        songs.sort(
+          (a,b) => {
+
+            if(a.id === songId)
+              return oldIndex -
+                songs.indexOf(b);
+
+            if(b.id === songId)
+              return songs.indexOf(a) -
+                oldIndex;
+
+            return 0;
+
+          }
+        );
+
+
+        await renderSongs();
+
+
+        showDeleteStatus(
+          "❌ Não foi possível eliminar a música.",
+          "error"
+        );
+
+
         alert(
-          "Erro ao eliminar a música: " +
+          "Erro ao eliminar a música:\n\n" +
           error.message
         );
 
@@ -3186,52 +3502,49 @@
     };
 
 
-  /*
-    Fechar menu ao clicar num link
-    em dispositivos móveis.
-  */
-
   document
-    .querySelectorAll(".side-link,.artist-mini")
-    .forEach(link => {
+    .querySelectorAll(
+      ".side-link,.artist-mini"
+    )
+    .forEach(
+      link => {
 
-      link.addEventListener(
-        "click",
-        () => {
+        link.addEventListener(
+          "click",
+          () => {
 
-          if(
-            window.innerWidth <= 760
-          ){
+            if(
+              window.innerWidth <= 760
+            ){
 
-            const sidebar =
-              document.querySelector(
-                "#sidebar"
-              );
+              document
+                .querySelector(
+                  "#sidebar"
+                )
+                .classList.remove(
+                  "show"
+                );
 
-            const overlay =
-              document.querySelector(
-                "#sidebarOverlay"
-              );
+              document
+                .querySelector(
+                  "#sidebarOverlay"
+                )
+                .classList.remove(
+                  "show"
+                );
 
+              document.body
+                .classList.remove(
+                  "menu-open"
+                );
 
-            sidebar.classList.remove(
-              "show"
-            );
-
-            overlay.classList.remove(
-              "show"
-            );
-
-            document.body.classList.remove(
-              "menu-open"
-            );
+            }
 
           }
+        );
 
-        }
-      );
-
-    });
+      }
+    );
 
 
   /* =========================================
