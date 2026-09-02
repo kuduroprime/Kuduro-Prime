@@ -802,7 +802,7 @@
 
       <div class="nav-actions">
 
-        <a href="area-do-artista.html" class="area-artista-btn">
+        <a href="area-do-artista.html" class="area-artista-btn" id="areaArtistaBtn">
           👤 ÁREA DO ARTISTA
         </a>
 
@@ -839,7 +839,8 @@
 
         <div class="hero-buttons">
 
-          <a href="#artistas" class="btn gold">
+          <!-- ENTRAR AGORA VAI PARA O LOGIN -->
+          <a href="area-do-artista.html" class="btn gold">
             ♕ ENTRAR NO MOVIMENTO
           </a>
 
@@ -876,8 +877,10 @@
       <div class="container">
 
         <div class="section-head">
+
           <div>
             <h2 class="title">👑 ARTISTAS PRIME</h2>
+
             <p class="subtitle">
               Os grandes nomes e as novas revelações do Kuduro.
             </p>
@@ -886,6 +889,7 @@
           <a class="btn dark" href="artistas.html">
             VER TODOS ›
           </a>
+
         </div>
 
         <div class="artists" id="artistGrid"></div>
@@ -1008,9 +1012,13 @@
         <div>
 
           <a class="brand" href="index.html">
+
             <span class="crown">♕</span>
+
             KUDURO
+
             <b>PRIME</b>
+
           </a>
 
           <p>
@@ -1079,29 +1087,149 @@
       </div>
 
       <div class="copy">
+
         © 2026 KUDURO PRIME.
         Todos os direitos reservados.
         — O KUDURO VIVE AQUI. 👑
+
       </div>
 
     </div>
 
   </footer>
 
-  <script>
+  <!-- FIREBASE + FUNCIONAMENTO DO SITE -->
+
+  <script type="module">
+
+    import { initializeApp }
+      from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+
+    import {
+      getAuth,
+      onAuthStateChanged
+    } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+
+
+    /* =========================
+       FIREBASE
+    ========================= */
+
+    const firebaseConfig = {
+
+      apiKey: "AIzaSyDoitCcLeLDNBNPCP6fG1s_xbHr4UmohSo",
+
+      authDomain: "kuduro-prime.firebaseapp.com",
+
+      projectId: "kuduro-prime",
+
+      storageBucket: "kuduro-prime.firebasestorage.app",
+
+      messagingSenderId: "299776559545",
+
+      appId: "1:299776559545:web:04aced1ba25391eb3fce68"
+
+    };
+
+
+    const app = initializeApp(firebaseConfig);
+
+    const auth = getAuth(app);
+
+
+    /* =========================
+       BOTÃO ÁREA DO ARTISTA
+    ========================= */
+
+    const areaArtistaBtn =
+      document.querySelector("#areaArtistaBtn");
+
+
+    onAuthStateChanged(auth, (user) => {
+
+      if(user){
+
+        /*
+          UTILIZADOR JÁ ESTÁ LOGADO
+          → FEED
+        */
+
+        areaArtistaBtn.href = "feed.html";
+
+        areaArtistaBtn.innerHTML =
+          "👤 ENTRAR NO FEED";
+
+      }else{
+
+        /*
+          UTILIZADOR NÃO ESTÁ LOGADO
+          → LOGIN
+        */
+
+        areaArtistaBtn.href =
+          "area-do-artista.html";
+
+        areaArtistaBtn.innerHTML =
+          "👤 ÁREA DO ARTISTA";
+
+      }
+
+    });
+
+
+    /* =========================
+       ARTISTAS
+    ========================= */
 
     const artists = [
-      ["Figura do Adoço", "Artista Prime", "images/artista-1.jpg"],
-      ["Dj Jeff Afrozila", "Novo Lançamento", "images/artista-2.jpg"],
-      ["MCK", "No Top do Ranking", "images/artista-3.jpg"],
-      ["Ready Neutro", "Artista Prime", "images/artista-4.jpg"],
-      ["Nagrelha", "Artista Prime", "images/artista-5.jpg"],
-      ["Artista Prime", "Nova Geração", "images/artista-6.jpg"]
+
+      [
+        "Figura do Adoço",
+        "Artista Prime",
+        "images/artista-1.jpg"
+      ],
+
+      [
+        "Dj Jeff Afrozila",
+        "Novo Lançamento",
+        "images/artista-2.jpg"
+      ],
+
+      [
+        "MCK",
+        "No Top do Ranking",
+        "images/artista-3.jpg"
+      ],
+
+      [
+        "Ready Neutro",
+        "Artista Prime",
+        "images/artista-4.jpg"
+      ],
+
+      [
+        "Nagrelha",
+        "Artista Prime",
+        "images/artista-5.jpg"
+      ],
+
+      [
+        "Artista Prime",
+        "Nova Geração",
+        "images/artista-6.jpg"
+      ]
+
     ];
 
+
     document.querySelector("#artistGrid").innerHTML =
+
       artists.map(a => `
-        <a class="card" href="perfil.html?artista=${encodeURIComponent(a[0])}">
+
+        <a
+          class="card"
+          href="perfil.html?artista=${encodeURIComponent(a[0])}"
+        >
 
           <div
             class="artist-img"
@@ -1115,27 +1243,58 @@
               <span class="verified">●</span>
             </b>
 
-            <div class="tag">${a[1]}</div>
+            <div class="tag">
+              ${a[1]}
+            </div>
 
           </div>
 
         </a>
+
       `).join("");
 
 
+    /* =========================
+       MÚSICAS
+    ========================= */
+
     const songs = [
-      ["Mim Faz Só Broxe", "Figura do Adoço"],
-      ["Vida de Artista", "Ready Neutro"],
-      ["Zona Quente", "DJ Tafinha"],
-      ["Kuduro é Vida", "Yuri da Cunha"]
+
+      [
+        "Mim Faz Só Broxe",
+        "Figura do Adoço"
+      ],
+
+      [
+        "Vida de Artista",
+        "Ready Neutro"
+      ],
+
+      [
+        "Zona Quente",
+        "DJ Tafinha"
+      ],
+
+      [
+        "Kuduro é Vida",
+        "Yuri da Cunha"
+      ]
+
     ];
 
-    const pics = artists.map(a => a[2]);
+
+    const pics =
+      artists.map(a => a[2]);
 
 
     document.querySelector("#releases").innerHTML =
+
       songs.map((s, i) => `
-        <a class="release" href="musicas.html">
+
+        <a
+          class="release"
+          href="musicas.html"
+        >
 
           <div
             class="cover"
@@ -1144,29 +1303,49 @@
 
           <div>
 
-            <div class="song">${s[0]}</div>
+            <div class="song">
+              ${s[0]}
+            </div>
 
-            <div class="artist">${s[1]}</div>
+            <div class="artist">
+              ${s[1]}
+            </div>
 
           </div>
 
-          <div class="play">▶</div>
+          <div class="play">
+            ▶
+          </div>
 
         </a>
+
       `).join("");
 
 
+    /* =========================
+       RANKING
+    ========================= */
+
     const rankingSongs = songs.concat([
-      ["Balança", "Nagrelha"]
+
+      [
+        "Balança",
+        "Nagrelha"
+      ]
+
     ]);
 
 
     document.querySelector("#rankings").innerHTML =
+
       rankingSongs.map((s, i) => `
+
         <div class="rank">
 
           <div class="rank-num">
+
             ${String(i + 1).padStart(2, "0")}
+
           </div>
 
           <div
@@ -1176,36 +1355,52 @@
 
           <div>
 
-            <div class="song">${s[0]}</div>
+            <div class="song">
+              ${s[0]}
+            </div>
 
-            <div class="artist">${s[1]}</div>
+            <div class="artist">
+              ${s[1]}
+            </div>
 
           </div>
 
-          <div class="tag">▲</div>
+          <div class="tag">
+            ▲
+          </div>
 
         </div>
+
       `).join("");
 
 
+    /* =========================
+       EVENTOS
+    ========================= */
+
     const events = [
+
       [
         "26",
         "SHOW SOLIDÁRIO — DALO-PY",
         "Angola",
         "images/evento-1.jpg"
       ],
+
       [
         "11",
         "I LOVE RAPPERS — BLACK ON BLACK",
         "8.º Aniversário",
         "images/evento-2.jpg"
       ]
+
     ];
 
 
     document.querySelector("#eventGrid").innerHTML =
+
       events.map((e, i) => `
+
         <a
           class="event"
           href="evento.html?id=${i + 1}"
@@ -1216,16 +1411,28 @@
             ${e[0]} SET
           </span>
 
-          <h3>${e[1]}</h3>
+          <h3>
+            ${e[1]}
+          </h3>
 
-          <p>📍 ${e[2]}</p>
+          <p>
+            📍 ${e[2]}
+          </p>
 
         </a>
+
       `).join("");
 
 
-    const menuBtn = document.querySelector("#menuBtn");
-    const mobileLinks = document.querySelector("#mobileLinks");
+    /* =========================
+       MENU MOBILE
+    ========================= */
+
+    const menuBtn =
+      document.querySelector("#menuBtn");
+
+    const mobileLinks =
+      document.querySelector("#mobileLinks");
 
 
     menuBtn.addEventListener("click", () => {
@@ -1233,6 +1440,7 @@
       mobileLinks.classList.toggle("open");
 
       menuBtn.textContent =
+
         mobileLinks.classList.contains("open")
           ? "✕"
           : "☰";
@@ -1240,16 +1448,19 @@
     });
 
 
-    mobileLinks.querySelectorAll("a").forEach(link => {
+    mobileLinks
+      .querySelectorAll("a")
+      .forEach(link => {
 
-      link.addEventListener("click", () => {
+        link.addEventListener("click", () => {
 
-        mobileLinks.classList.remove("open");
-        menuBtn.textContent = "☰";
+          mobileLinks.classList.remove("open");
+
+          menuBtn.textContent = "☰";
+
+        });
 
       });
-
-    });
 
   </script>
 
