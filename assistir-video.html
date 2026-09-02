@@ -46,7 +46,9 @@
       font-family:inherit;
     }
 
-    /* HEADER */
+    /* =========================
+       HEADER
+    ========================= */
 
     header{
       height:64px;
@@ -96,7 +98,9 @@
       color:var(--gold);
     }
 
-    /* LAYOUT */
+    /* =========================
+       PAGE
+    ========================= */
 
     .page{
       max-width:1500px;
@@ -106,12 +110,14 @@
 
     .watch-layout{
       display:grid;
-      grid-template-columns:minmax(0, 1fr) 370px;
-      gap:24px;
+      grid-template-columns:minmax(0,1fr) 380px;
+      gap:25px;
       align-items:start;
     }
 
-    /* VIDEO */
+    /* =========================
+       VIDEO
+    ========================= */
 
     .video-box{
       background:#000;
@@ -123,15 +129,13 @@
     .video-container{
       width:100%;
       background:#000;
-      aspect-ratio:16 / 9;
+      aspect-ratio:16/9;
     }
 
     .video-container video{
       width:100%;
       height:100%;
     }
-
-    /* CLOUDINARY */
 
     .cld-video-player{
       width:100% !important;
@@ -146,7 +150,9 @@
       object-fit:contain !important;
     }
 
-    /* INFO */
+    /* =========================
+       INFO
+    ========================= */
 
     .video-title{
       font-size:25px;
@@ -163,6 +169,10 @@
       gap:8px;
       flex-wrap:wrap;
     }
+
+    /* =========================
+       ARTISTA
+    ========================= */
 
     .artist-row{
       margin-top:18px;
@@ -217,7 +227,9 @@
       background:var(--gold2);
     }
 
-    /* ACTIONS */
+    /* =========================
+       ACTIONS
+    ========================= */
 
     .actions{
       margin-top:15px;
@@ -247,7 +259,9 @@
       border-color:var(--gold);
     }
 
-    /* DESCRIPTION */
+    /* =========================
+       DESCRIPTION
+    ========================= */
 
     .description{
       margin-top:18px;
@@ -267,7 +281,13 @@
       color:#fff;
     }
 
-    /* SIDEBAR */
+    /* =========================
+       SIDEBAR YOUTUBE STYLE
+    ========================= */
+
+    .sidebar{
+      min-width:0;
+    }
 
     .sidebar-title{
       font-size:18px;
@@ -278,41 +298,87 @@
     .related{
       display:flex;
       flex-direction:column;
-      gap:13px;
+      gap:8px;
     }
 
     .related-card{
       display:grid;
-      grid-template-columns:145px 1fr;
-      gap:10px;
+      grid-template-columns:155px minmax(0,1fr);
+      gap:11px;
       cursor:pointer;
       padding:7px;
-      border-radius:8px;
+      border-radius:9px;
+      transition:.2s;
     }
 
     .related-card:hover{
       background:#151515;
     }
 
-    .related-thumb{
-      width:145px;
-      height:82px;
+    .related-thumb-box{
+      width:155px;
+      height:87px;
+      position:relative;
+      overflow:hidden;
       border-radius:7px;
+      background:#222;
+      flex-shrink:0;
+    }
+
+    .related-thumb{
+      width:100%;
+      height:100%;
+      display:block;
       object-fit:cover;
       background:#222;
+    }
+
+    .play-overlay{
+      position:absolute;
+      left:50%;
+      top:50%;
+      transform:translate(-50%,-50%);
+
+      width:38px;
+      height:38px;
+
+      border-radius:50%;
+
+      background:rgba(0,0,0,.82);
+
+      display:flex;
+      align-items:center;
+      justify-content:center;
+
+      font-size:16px;
+      color:#fff;
+    }
+
+    .related-info{
+      min-width:0;
     }
 
     .related-title{
       font-size:14px;
       font-weight:800;
       line-height:1.35;
+
+      display:-webkit-box;
+      -webkit-line-clamp:2;
+      -webkit-box-orient:vertical;
+      overflow:hidden;
+
       margin-bottom:6px;
     }
 
     .related-artist{
       color:#aaa;
       font-size:12px;
-      margin-bottom:4px;
+      margin-bottom:5px;
+
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
     }
 
     .related-views{
@@ -320,7 +386,15 @@
       font-size:11px;
     }
 
-    /* COMMENTS */
+    .no-related{
+      color:#777;
+      padding:15px 5px;
+      font-size:14px;
+    }
+
+    /* =========================
+       COMMENTS
+    ========================= */
 
     .comments{
       margin-top:25px;
@@ -367,7 +441,9 @@
       cursor:pointer;
     }
 
-    /* LOADING */
+    /* =========================
+       LOADING
+    ========================= */
 
     .loading{
       min-height:400px;
@@ -408,7 +484,9 @@
       font-weight:900;
     }
 
-    /* MOBILE */
+    /* =========================
+       MOBILE
+    ========================= */
 
     @media(max-width:1000px){
 
@@ -423,7 +501,9 @@
       .related{
         display:grid;
         grid-template-columns:repeat(2,1fr);
+        gap:10px;
       }
+
     }
 
     @media(max-width:650px){
@@ -469,13 +549,14 @@
       }
 
       .related-card{
-        grid-template-columns:150px 1fr;
+        grid-template-columns:150px minmax(0,1fr);
       }
 
-      .related-thumb{
+      .related-thumb-box{
         width:150px;
         height:84px;
       }
+
     }
   </style>
 </head>
@@ -489,7 +570,9 @@
   </a>
 
   <div class="top-actions">
-    <a href="videos.html" class="top-btn">← Vídeos</a>
+    <a href="videos.html" class="top-btn">
+      ← Vídeos
+    </a>
   </div>
 
 </header>
@@ -497,15 +580,22 @@
 
 <main class="page">
 
+  <!-- LOADING -->
+
   <div id="loading" class="loading">
     🎬 A carregar vídeo...
   </div>
+
+
+  <!-- CONTEÚDO -->
 
   <div id="content" style="display:none;">
 
     <div class="watch-layout">
 
-      <!-- ESQUERDA -->
+      <!-- ==================================
+           VÍDEO PRINCIPAL
+      =================================== -->
 
       <section>
 
@@ -527,11 +617,16 @@
         </div>
 
 
-        <h1 id="videoTitle" class="video-title">
+        <h1
+          id="videoTitle"
+          class="video-title">
           —
         </h1>
 
-        <div id="videoMeta" class="meta">
+
+        <div
+          id="videoMeta"
+          class="meta">
           —
         </div>
 
@@ -550,7 +645,9 @@
 
             <div>
 
-              <div id="artistName" class="artist-name">
+              <div
+                id="artistName"
+                class="artist-name">
                 —
               </div>
 
@@ -562,10 +659,13 @@
 
           </div>
 
+
           <button
             id="profileBtn"
             class="profile-btn">
+
             VER PERFIL
+
           </button>
 
         </div>
@@ -578,19 +678,27 @@
           <button
             id="likeBtn"
             class="action-btn">
-            ❤️ Gostei
+
+            🤍 Gostei
+
           </button>
+
 
           <button
             id="shareBtn"
             class="action-btn">
+
             📤 Partilhar
+
           </button>
+
 
           <button
             id="copyBtn"
             class="action-btn">
+
             🔗 Copiar link
+
           </button>
 
         </div>
@@ -619,19 +727,24 @@
             💬 Comentários
           </h2>
 
+
           <div class="comment-box">
 
             <textarea
               id="commentText"
               placeholder="Escreve um comentário..."></textarea>
 
+
             <button
               id="commentBtn"
               class="comment-send">
+
               COMENTAR
+
             </button>
 
           </div>
+
 
           <div
             id="commentsList"
@@ -643,18 +756,24 @@
       </section>
 
 
-      <!-- DIREITA -->
+      <!-- ==================================
+           LADO DIREITO
+           OUTROS ARTISTAS
+      =================================== -->
 
       <aside class="sidebar">
 
         <div class="sidebar-title">
-          🎬 Próximos vídeos
+          🎬 Vídeos de outros artistas
         </div>
 
-        <div id="relatedVideos" class="related">
 
-          <div style="color:#777;">
-            A carregar...
+        <div
+          id="relatedVideos"
+          class="related">
+
+          <div class="no-related">
+            A carregar vídeos...
           </div>
 
         </div>
@@ -666,7 +785,12 @@
   </div>
 
 
-  <div id="errorBox" class="error" style="display:none;">
+  <!-- ERRO -->
+
+  <div
+    id="errorBox"
+    class="error"
+    style="display:none;">
 
     <h2>
       😕 Vídeo não encontrado
@@ -676,8 +800,12 @@
       Este vídeo pode ter sido removido ou o endereço está incorreto.
     </p>
 
-    <a href="videos.html" class="back-btn">
+    <a
+      href="videos.html"
+      class="back-btn">
+
       ← Voltar aos vídeos
+
     </a>
 
   </div>
@@ -685,7 +813,7 @@
 </main>
 
 
-<!-- CLOUDINARY PLAYER -->
+<!-- CLOUDINARY VIDEO PLAYER -->
 
 <script src="https://cdn.jsdelivr.net/npm/cloudinary-video-player/dist/player.min.js"></script>
 
@@ -718,77 +846,109 @@ import {
 } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 
 
-/* =========================
+/* ==================================
    FIREBASE
-========================= */
+================================== */
 
 const firebaseConfig = {
 
-  apiKey: "AIzaSyDoitCcLeLDNBNPCP6fG1s_xbHr4UmohSo",
+  apiKey:
+    "AIzaSyDoitCcLeLDNBNPCP6fG1s_xbHr4UmohSo",
 
-  authDomain: "kuduro-prime.firebaseapp.com",
+  authDomain:
+    "kuduro-prime.firebaseapp.com",
 
-  projectId: "kuduro-prime",
+  projectId:
+    "kuduro-prime",
 
-  storageBucket: "kuduro-prime.firebasestorage.app",
+  storageBucket:
+    "kuduro-prime.firebasestorage.app",
 
-  messagingSenderId: "299776559545",
+  messagingSenderId:
+    "299776559545",
 
-  appId: "1:299776559545:web:04aced1ba25391eb3fce68"
+  appId:
+    "1:299776559545:web:04aced1ba25391eb3fce68"
+
 };
 
 
-const app = initializeApp(firebaseConfig);
-
-const auth = getAuth(app);
-
-const db = getFirestore(app);
+const app =
+  initializeApp(firebaseConfig);
 
 
-/* =========================
+const auth =
+  getAuth(app);
+
+
+const db =
+  getFirestore(app);
+
+
+/* ==================================
    ELEMENTOS
-========================= */
+================================== */
 
-const loading = document.getElementById("loading");
+const loading =
+  document.getElementById("loading");
 
-const content = document.getElementById("content");
+const content =
+  document.getElementById("content");
 
-const errorBox = document.getElementById("errorBox");
+const errorBox =
+  document.getElementById("errorBox");
 
-const videoTitle = document.getElementById("videoTitle");
+const videoTitle =
+  document.getElementById("videoTitle");
 
-const videoMeta = document.getElementById("videoMeta");
+const videoMeta =
+  document.getElementById("videoMeta");
 
-const artistName = document.getElementById("artistName");
+const artistName =
+  document.getElementById("artistName");
 
-const artistPhoto = document.getElementById("artistPhoto");
+const artistPhoto =
+  document.getElementById("artistPhoto");
 
-const description = document.getElementById("description");
+const description =
+  document.getElementById("description");
 
-const relatedVideos = document.getElementById("relatedVideos");
+const relatedVideos =
+  document.getElementById("relatedVideos");
 
-const mainPlayer = document.getElementById("mainPlayer");
+const mainPlayer =
+  document.getElementById("mainPlayer");
 
-const likeBtn = document.getElementById("likeBtn");
+const likeBtn =
+  document.getElementById("likeBtn");
 
-const shareBtn = document.getElementById("shareBtn");
+const shareBtn =
+  document.getElementById("shareBtn");
 
-const copyBtn = document.getElementById("copyBtn");
+const copyBtn =
+  document.getElementById("copyBtn");
 
-const profileBtn = document.getElementById("profileBtn");
+const profileBtn =
+  document.getElementById("profileBtn");
 
-const commentBtn = document.getElementById("commentBtn");
+const commentBtn =
+  document.getElementById("commentBtn");
 
-const commentText = document.getElementById("commentText");
+const commentText =
+  document.getElementById("commentText");
 
 
-/* =========================
+/* ==================================
    ID DO VÍDEO
-========================= */
+================================== */
 
-const params = new URLSearchParams(window.location.search);
+const params =
+  new URLSearchParams(
+    window.location.search
+  );
 
-const videoId = params.get("id");
+const videoId =
+  params.get("id");
 
 
 let currentUser = null;
@@ -800,9 +960,9 @@ let cloudinaryPlayer = null;
 let viewRegistered = false;
 
 
-/* =========================
+/* ==================================
    UTILIDADES
-========================= */
+================================== */
 
 function escapeHTML(value){
 
@@ -812,30 +972,42 @@ function escapeHTML(value){
     .replace(/>/g,"&gt;")
     .replace(/"/g,"&quot;")
     .replace(/'/g,"&#039;");
+
 }
 
 
 function formatViews(value){
 
-  const n = Number(value || 0);
+  const n =
+    Number(value || 0);
+
 
   if(n >= 1000000){
 
-    return (n / 1000000)
+    return (
+      n / 1000000
+    )
       .toFixed(1)
-      .replace(".0","") + " M";
+      .replace(".0","")
+      + " M";
 
   }
+
 
   if(n >= 1000){
 
-    return (n / 1000)
+    return (
+      n / 1000
+    )
       .toFixed(1)
-      .replace(".0","") + " mil";
+      .replace(".0","")
+      + " mil";
 
   }
 
+
   return n.toString();
+
 }
 
 
@@ -845,20 +1017,31 @@ function formatDate(timestamp){
     return "";
   }
 
+
   try{
 
-    const date = timestamp.toDate
-      ? timestamp.toDate()
-      : new Date(timestamp);
+    const date =
+      timestamp.toDate
+        ? timestamp.toDate()
+        : new Date(timestamp);
 
-    return date.toLocaleDateString("pt-PT");
+
+    return date.toLocaleDateString(
+      "pt-PT"
+    );
 
   }catch{
 
     return "";
+
   }
+
 }
 
+
+/* ==================================
+   PUBLIC ID CLOUDINARY
+================================== */
 
 function getPublicId(video){
 
@@ -866,6 +1049,7 @@ function getPublicId(video){
     video.videoPublicId ||
     video.publicId ||
     "";
+
 
   if(possible){
     return possible;
@@ -886,108 +1070,193 @@ function getPublicId(video){
 
   try{
 
-    const parsed = new URL(url);
+    const parsed =
+      new URL(url);
 
-    let path = parsed.pathname;
 
-    const marker = "/video/upload/";
+    let path =
+      parsed.pathname;
 
-    const index = path.indexOf(marker);
+
+    const marker =
+      "/video/upload/";
+
+
+    const index =
+      path.indexOf(marker);
+
 
     if(index === -1){
       return "";
     }
 
-    path = path.substring(index + marker.length);
 
-    const parts = path.split("/");
+    path =
+      path.substring(
+        index + marker.length
+      );
 
-    /*
-      Remove transformações e versão
-    */
+
+    const parts =
+      path.split("/");
+
 
     while(parts.length){
 
-      const part = parts[0];
+      const part =
+        parts[0];
+
 
       if(
         part.startsWith("v") &&
         /^v\d+$/.test(part)
       ){
+
         parts.shift();
+
         continue;
+
       }
+
 
       if(
         part.includes("_") ||
         part.includes(",") ||
         part.includes(":")
       ){
+
         parts.shift();
+
         continue;
+
       }
 
+
       break;
+
     }
 
 
-    let publicId = parts.join("/");
+    let publicId =
+      parts.join("/");
 
-    publicId = publicId.replace(/\.[^/.]+$/,"");
+
+    publicId =
+      publicId.replace(
+        /\.[^/.]+$/,
+        ""
+      );
+
 
     return publicId;
 
   }catch{
 
     return "";
+
   }
+
 }
 
 
-/* =========================
+/* ==================================
    AUTENTICAÇÃO
-========================= */
+================================== */
 
-onAuthStateChanged(auth, user => {
+onAuthStateChanged(
+  auth,
+  user => {
 
-  currentUser = user;
+    currentUser = user;
 
-  if(videoId){
 
-    loadVideo();
+    if(videoId){
 
-  }else{
+      loadVideo();
 
-    showError();
+    }else{
+
+      showError();
+
+    }
+
   }
+);
 
-});
 
-
-/* =========================
-   MOSTRAR ERRO
-========================= */
+/* ==================================
+   ERRO
+================================== */
 
 function showError(){
 
-  loading.style.display = "none";
+  loading.style.display =
+    "none";
 
-  content.style.display = "none";
+  content.style.display =
+    "none";
 
-  errorBox.style.display = "block";
+  errorBox.style.display =
+    "block";
+
 }
 
 
-/* =========================
+/* ==================================
    CARREGAR VÍDEO
-========================= */
+================================== */
 
 async function loadVideo(){
 
   try{
 
+    loading.style.display =
+      "flex";
+
+    content.style.display =
+      "none";
+
+    errorBox.style.display =
+      "none";
+
+
+    /*
+      Se já existia um player,
+      destruir antes de carregar outro.
+    */
+
+    if(cloudinaryPlayer){
+
+      try{
+
+        cloudinaryPlayer.dispose();
+
+      }catch(error){
+
+        console.log(
+          "Player anterior:",
+          error
+        );
+
+      }
+
+      cloudinaryPlayer =
+        null;
+
+    }
+
+
+    viewRegistered =
+      false;
+
+
     const videoRef =
-      doc(db,"videos",videoId);
+      doc(
+        db,
+        "videos",
+        videoId
+      );
+
 
     const snapshot =
       await getDoc(videoRef);
@@ -998,29 +1267,28 @@ async function loadVideo(){
       showError();
 
       return;
+
     }
 
 
     currentVideo = {
+
       id:snapshot.id,
+
       ...snapshot.data()
+
     };
 
 
     /*
-      Apenas vídeos publicados
-      podem ser assistidos publicamente.
+      SOMENTE VÍDEOS PUBLICADOS
+      PODEM SER VISTOS PUBLICAMENTE.
     */
 
     if(
       currentVideo.status &&
       currentVideo.status !== "publicado"
     ){
-
-      /*
-        O próprio artista pode ver o seu vídeo
-        enquanto está pendente.
-      */
 
       const owner =
         currentVideo.artistaId ||
@@ -1030,11 +1298,15 @@ async function loadVideo(){
         "";
 
 
-      if(!currentUser || currentUser.uid !== owner){
+      if(
+        !currentUser ||
+        currentUser.uid !== owner
+      ){
 
         showError();
 
         return;
+
       }
 
     }
@@ -1042,12 +1314,17 @@ async function loadVideo(){
 
     renderVideo();
 
+
     await loadRelatedVideos();
 
 
   }catch(error){
 
-    console.error("Erro ao carregar vídeo:",error);
+    console.error(
+      "Erro ao carregar vídeo:",
+      error
+    );
+
 
     showError();
 
@@ -1056,13 +1333,14 @@ async function loadVideo(){
 }
 
 
-/* =========================
-   RENDER
-========================= */
+/* ==================================
+   RENDERIZAR VÍDEO
+================================== */
 
 function renderVideo(){
 
-  const video = currentVideo;
+  const video =
+    currentVideo;
 
 
   const title =
@@ -1089,18 +1367,25 @@ function renderVideo(){
     0;
 
 
-  videoTitle.textContent = title;
+  videoTitle.textContent =
+    title;
 
-  artistName.textContent = artist;
 
-  artistPhoto.src = photo;
+  artistName.textContent =
+    artist;
 
-  artistPhoto.onerror = () => {
 
-    artistPhoto.src =
-      "https://via.placeholder.com/100";
+  artistPhoto.src =
+    photo;
 
-  };
+
+  artistPhoto.onerror =
+    () => {
+
+      artistPhoto.src =
+        "https://via.placeholder.com/100";
+
+    };
 
 
   description.textContent =
@@ -1109,14 +1394,30 @@ function renderVideo(){
 
 
   videoMeta.innerHTML = `
-    <span>👁️ ${formatViews(views)} visualizações</span>
+
+    <span>
+      👁️ ${formatViews(views)} visualizações
+    </span>
+
     <span>•</span>
-    <span>${formatDate(video.criadoEm)}</span>
+
+    <span>
+      ${formatDate(video.criadoEm)}
+    </span>
+
     ${
       video.categoria
-      ? `<span>•</span><span>${escapeHTML(video.categoria)}</span>`
-      : ""
+      ?
+      `
+        <span>•</span>
+        <span>
+          ${escapeHTML(video.categoria)}
+        </span>
+      `
+      :
+      ""
     }
+
   `;
 
 
@@ -1128,16 +1429,17 @@ function renderVideo(){
     "";
 
 
-  profileBtn.onclick = () => {
+  profileBtn.onclick =
+    () => {
 
-    if(ownerId){
+      if(ownerId){
 
-      window.location.href =
-        `perfil.html?id=${encodeURIComponent(ownerId)}`;
+        window.location.href =
+          `perfil.html?id=${encodeURIComponent(ownerId)}`;
 
-    }
+      }
 
-  };
+    };
 
 
   initializePlayer();
@@ -1147,16 +1449,18 @@ function renderVideo(){
   loadComments();
 
 
-  loading.style.display = "none";
+  loading.style.display =
+    "none";
 
-  content.style.display = "block";
+  content.style.display =
+    "block";
 
 }
 
 
-/* =========================
+/* ==================================
    PLAYER
-========================= */
+================================== */
 
 function initializePlayer(){
 
@@ -1167,10 +1471,11 @@ function initializePlayer(){
   if(!publicId){
 
     console.error(
-      "Não foi possível encontrar o public_id do vídeo."
+      "Public ID do vídeo não encontrado."
     );
 
     return;
+
   }
 
 
@@ -1184,6 +1489,7 @@ function initializePlayer(){
     );
 
     return;
+
   }
 
 
@@ -1192,21 +1498,29 @@ function initializePlayer(){
       "mainPlayer",
       {
 
-        cloudName:"ge1ntqqc",
+        cloudName:
+          "ge1ntqqc",
 
-        controls:true,
+        controls:
+          true,
 
-        fluid:true,
+        fluid:
+          true,
 
-        responsive:true,
+        responsive:
+          true,
 
-        autoplay:false,
+        autoplay:
+          false,
 
-        muted:false,
+        muted:
+          false,
 
-        loop:false,
+        loop:
+          false,
 
-        showLogo:false
+        showLogo:
+          false
 
       }
     );
@@ -1232,9 +1546,9 @@ function initializePlayer(){
 }
 
 
-/* =========================
-   REGISTRAR VISUALIZAÇÃO
-========================= */
+/* ==================================
+   VISUALIZAÇÃO
+================================== */
 
 async function registerView(){
 
@@ -1242,9 +1556,11 @@ async function registerView(){
     return;
   }
 
+
   if(!currentUser){
     return;
   }
+
 
   if(!currentVideo){
     return;
@@ -1260,7 +1576,8 @@ async function registerView(){
 
 
   /*
-    Não contar visualização do próprio artista
+    O artista não conta
+    a própria visualização.
   */
 
   if(
@@ -1268,9 +1585,11 @@ async function registerView(){
     currentUser.uid === ownerId
   ){
 
-    viewRegistered = true;
+    viewRegistered =
+      true;
 
     return;
+
   }
 
 
@@ -1292,23 +1611,34 @@ async function registerView(){
 
     if(viewer.exists()){
 
-      viewRegistered = true;
+      viewRegistered =
+        true;
 
       return;
+
     }
 
 
     await setDoc(
       viewerRef,
       {
-        userId:currentUser.uid,
-        criadoEm:serverTimestamp()
+
+        userId:
+          currentUser.uid,
+
+        criadoEm:
+          serverTimestamp()
+
       }
     );
 
 
     const videoRef =
-      doc(db,"videos",videoId);
+      doc(
+        db,
+        "videos",
+        videoId
+      );
 
 
     const currentViews =
@@ -1322,14 +1652,20 @@ async function registerView(){
     await updateDoc(
       videoRef,
       {
-        views:increment(1),
-        visualizacoes:increment(1)
+
+        views:
+          increment(1),
+
+        visualizacoes:
+          increment(1)
+
       }
     );
 
 
     currentVideo.views =
       currentViews + 1;
+
 
     currentVideo.visualizacoes =
       currentViews + 1;
@@ -1342,7 +1678,8 @@ async function registerView(){
       );
 
 
-    viewRegistered = true;
+    viewRegistered =
+      true;
 
 
   }catch(error){
@@ -1357,157 +1694,216 @@ async function registerView(){
 }
 
 
-/* =========================
+/* ==================================
    AÇÕES
-========================= */
+================================== */
 
 function setupActions(){
 
-  likeBtn.onclick = async () => {
+  likeBtn.onclick =
+    async () => {
 
-    if(!currentUser){
+      if(!currentUser){
 
-      alert(
-        "Entra na tua conta para gostar deste vídeo."
+        alert(
+          "Entra na tua conta para gostar deste vídeo."
+        );
+
+        return;
+
+      }
+
+
+      likeBtn.classList.toggle(
+        "liked"
       );
 
-      return;
-    }
 
+      if(
+        likeBtn.classList.contains(
+          "liked"
+        )
+      ){
 
-    likeBtn.classList.toggle("liked");
+        likeBtn.textContent =
+          "❤️ Gostei";
 
+      }else{
 
-    if(likeBtn.classList.contains("liked")){
+        likeBtn.textContent =
+          "🤍 Gostei";
 
-      likeBtn.textContent =
-        "❤️ Gostei";
-
-    }else{
-
-      likeBtn.textContent =
-        "🤍 Gostei";
-
-    }
-
-  };
-
-
-  shareBtn.onclick = async () => {
-
-    const shareData = {
-
-      title:
-        currentVideo.titulo ||
-        currentVideo.title ||
-        "Vídeo KUDURO PRIME",
-
-      text:
-        `Assiste este vídeo no KUDURO PRIME 👑`,
-
-      url:window.location.href
+      }
 
     };
 
 
-    try{
+  shareBtn.onclick =
+    async () => {
 
-      if(
-        navigator.share
-      ){
+      const shareData = {
 
-        await navigator.share(shareData);
+        title:
+          currentVideo.titulo ||
+          currentVideo.title ||
+          "Vídeo KUDURO PRIME",
 
-      }else{
+        text:
+          "Assiste este vídeo no KUDURO PRIME 👑",
+
+        url:
+          window.location.href
+
+      };
+
+
+      try{
+
+        if(
+          navigator.share
+        ){
+
+          await navigator.share(
+            shareData
+          );
+
+        }else{
+
+          await navigator.clipboard.writeText(
+            window.location.href
+          );
+
+          alert(
+            "Link copiado!"
+          );
+
+        }
+
+      }catch(error){
+
+        console.log(error);
+
+      }
+
+    };
+
+
+  copyBtn.onclick =
+    async () => {
+
+      try{
 
         await navigator.clipboard.writeText(
           window.location.href
         );
 
-        alert("Link copiado!");
+
+        copyBtn.textContent =
+          "✓ Link copiado";
+
+
+        setTimeout(
+          () => {
+
+            copyBtn.textContent =
+              "🔗 Copiar link";
+
+          },
+          2000
+        );
+
+
+      }catch{
+
+        alert(
+          "Não foi possível copiar o link."
+        );
 
       }
 
-    }catch(error){
-
-      console.log(error);
-
-    }
-
-  };
+    };
 
 
-  copyBtn.onclick = async () => {
-
-    try{
-
-      await navigator.clipboard.writeText(
-        window.location.href
-      );
-
-      copyBtn.textContent =
-        "✓ Link copiado";
-
-      setTimeout(() => {
-
-        copyBtn.textContent =
-          "🔗 Copiar link";
-
-      },2000);
-
-    }catch{
-
-      alert(
-        "Não foi possível copiar o link."
-      );
-
-    }
-
-  };
-
-
-  commentBtn.onclick = sendComment;
+  commentBtn.onclick =
+    sendComment;
 
 }
 
 
-/* =========================
-   VÍDEOS RELACIONADOS
-========================= */
+/* ==================================
+   VÍDEOS DE OUTROS ARTISTAS
+================================== */
 
 async function loadRelatedVideos(){
 
   try{
+
+    relatedVideos.innerHTML = `
+      <div class="no-related">
+        🎬 A procurar vídeos...
+      </div>
+    `;
+
 
     const snapshot =
       await getDocs(
         query(
           collection(db,"videos"),
           orderBy("criadoEm","desc"),
-          limit(30)
+          limit(50)
         )
       );
 
 
-    let videos = [];
+    const artistaAtual =
+      currentVideo.artistaId ||
+      currentVideo.artistId ||
+      currentVideo.userId ||
+      currentVideo.uid ||
+      "";
+
+
+    const videos = [];
 
 
     snapshot.forEach(item => {
 
-      const data = item.data();
+      const data =
+        item.data();
 
+
+      const artistaDoVideo =
+        data.artistaId ||
+        data.artistId ||
+        data.userId ||
+        data.uid ||
+        "";
+
+
+      /*
+        AQUI ESTÁ A REGRA:
+
+        1. Não mostrar vídeo atual
+        2. Somente publicado
+        3. Somente OUTROS artistas
+      */
 
       if(
+
         item.id !== videoId &&
-        (
-          !data.status ||
-          data.status === "publicado"
-        )
+
+        data.status === "publicado" &&
+
+        artistaDoVideo !== artistaAtual
+
       ){
 
         videos.push({
+
           id:item.id,
+
           ...data
+
         });
 
       }
@@ -1515,24 +1911,35 @@ async function loadRelatedVideos(){
     });
 
 
-    videos =
-      videos.slice(0,10);
+    /*
+      Máximo de 15 vídeos
+    */
+
+    const lista =
+      videos.slice(0,15);
 
 
-    if(!videos.length){
+    if(!lista.length){
 
       relatedVideos.innerHTML = `
-        <div style="color:#777;">
-          Ainda não existem outros vídeos.
+
+        <div class="no-related">
+
+          Ainda não existem vídeos
+          de outros artistas.
+
         </div>
+
       `;
 
       return;
+
     }
 
 
     relatedVideos.innerHTML =
-      videos.map(video => {
+      lista.map(video => {
+
 
         const title =
           video.titulo ||
@@ -1565,22 +1972,44 @@ async function loadRelatedVideos(){
             href="assistir-video.html?id=${encodeURIComponent(video.id)}"
           >
 
-            <img
-              class="related-thumb"
-              src="${escapeHTML(cover)}"
-              alt="${escapeHTML(title)}"
-              onerror="this.style.background='#222'; this.removeAttribute('src');"
-            >
+            <div class="related-thumb-box">
 
-            <div>
+              ${
+                cover
+                ?
+                `
+                  <img
+                    class="related-thumb"
+                    src="${escapeHTML(cover)}"
+                    alt="${escapeHTML(title)}"
+                    onerror="
+                      this.style.display='none';
+                    "
+                  >
+                `
+                :
+                ""
+              }
+
+
+              <div class="play-overlay">
+                ▶
+              </div>
+
+            </div>
+
+
+            <div class="related-info">
 
               <div class="related-title">
                 ${escapeHTML(title)}
               </div>
 
+
               <div class="related-artist">
                 ${escapeHTML(artist)}
               </div>
+
 
               <div class="related-views">
                 👁️ ${formatViews(views)} visualizações
@@ -1598,15 +2027,20 @@ async function loadRelatedVideos(){
   }catch(error){
 
     console.error(
-      "Erro nos vídeos relacionados:",
+      "Erro nos vídeos de outros artistas:",
       error
     );
 
 
     relatedVideos.innerHTML = `
-      <div style="color:#777;">
-        Não foi possível carregar os próximos vídeos.
+
+      <div class="no-related">
+
+        Não foi possível carregar
+        os vídeos.
+
       </div>
+
     `;
 
   }
@@ -1614,9 +2048,9 @@ async function loadRelatedVideos(){
 }
 
 
-/* =========================
+/* ==================================
    COMENTÁRIOS
-========================= */
+================================== */
 
 async function loadComments(){
 
@@ -1626,7 +2060,9 @@ async function loadComments(){
 
 
   const list =
-    document.getElementById("commentsList");
+    document.getElementById(
+      "commentsList"
+    );
 
 
   try{
@@ -1641,21 +2077,28 @@ async function loadComments(){
 
 
     const snapshot =
-      await getDocs(commentsRef);
+      await getDocs(
+        commentsRef
+      );
 
 
     if(snapshot.empty){
 
       list.innerHTML = `
+
         <div style="
           color:#777;
           padding:15px 0;
         ">
+
           Ainda não existem comentários.
+
         </div>
+
       `;
 
       return;
+
     }
 
 
@@ -1664,7 +2107,8 @@ async function loadComments(){
 
     snapshot.forEach(item => {
 
-      const data = item.data();
+      const data =
+        item.data();
 
 
       html += `
@@ -1675,23 +2119,28 @@ async function loadComments(){
         ">
 
           <strong>
+
             ${escapeHTML(
               data.nome ||
               data.email ||
               "Utilizador"
             )}
+
           </strong>
+
 
           <div style="
             color:#ccc;
             margin-top:5px;
             line-height:1.5;
           ">
+
             ${escapeHTML(
               data.texto ||
               data.comentario ||
               ""
             )}
+
           </div>
 
         </div>
@@ -1701,7 +2150,8 @@ async function loadComments(){
     });
 
 
-    list.innerHTML = html;
+    list.innerHTML =
+      html;
 
 
   }catch(error){
@@ -1716,9 +2166,9 @@ async function loadComments(){
 }
 
 
-/* =========================
+/* ==================================
    ENVIAR COMENTÁRIO
-========================= */
+================================== */
 
 async function sendComment(){
 
@@ -1729,6 +2179,7 @@ async function sendComment(){
     );
 
     return;
+
   }
 
 
@@ -1743,12 +2194,15 @@ async function sendComment(){
     );
 
     return;
+
   }
 
 
   try{
 
-    commentBtn.disabled = true;
+    commentBtn.disabled =
+      true;
+
 
     commentBtn.textContent =
       "A enviar...";
@@ -1775,7 +2229,8 @@ async function sendComment(){
           currentUser.email ||
           "",
 
-        texto:text,
+        texto:
+          text,
 
         criadoEm:
           serverTimestamp()
@@ -1784,7 +2239,8 @@ async function sendComment(){
     );
 
 
-    commentText.value = "";
+    commentText.value =
+      "";
 
 
     await loadComments();
@@ -1802,9 +2258,12 @@ async function sendComment(){
       "Não foi possível publicar o comentário."
     );
 
+
   }finally{
 
-    commentBtn.disabled = false;
+    commentBtn.disabled =
+      false;
+
 
     commentBtn.textContent =
       "COMENTAR";
