@@ -1,0 +1,2208 @@
+<!DOCTYPE html>
+
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Gerir Músicas — Administração | KUDURO PRIME</title>
+
+  <style>
+
+    :root{
+      --bg:#070707;
+      --panel:#101010;
+      --panel2:#151515;
+      --gold:#f4bf31;
+      --gold2:#ffdc6b;
+      --text:#f7f4ed;
+      --muted:#aaa59a;
+      --line:#2a271f;
+      --green:#48d597;
+      --red:#ff563f;
+      --blue:#4eb8ff;
+    }
+
+    *{
+      box-sizing:border-box;
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--text);
+      font-family:Arial,Helvetica,sans-serif;
+    }
+
+    a{
+      color:inherit;
+      text-decoration:none;
+    }
+
+    button,
+    input,
+    select{
+      font:inherit;
+    }
+
+    button{
+      cursor:pointer;
+    }
+
+    /* APP */
+
+    .app{
+      min-height:100vh;
+      display:grid;
+      grid-template-columns:260px 1fr;
+    }
+
+    /* SIDEBAR */
+
+    .sidebar{
+      position:sticky;
+      top:0;
+      height:100vh;
+      padding:24px 14px;
+      background:#090909;
+      border-right:1px solid var(--line);
+      display:flex;
+      flex-direction:column;
+      z-index:100;
+    }
+
+    .brand{
+      display:block;
+      margin:0 12px 35px;
+      font-size:22px;
+      line-height:.78;
+      font-weight:900;
+      letter-spacing:-1px;
+    }
+
+    .brand b{
+      display:block;
+      color:var(--gold);
+    }
+
+    .crown{
+      display:block;
+      color:var(--gold);
+      text-align:center;
+      line-height:.6;
+      font-size:23px;
+    }
+
+    .admin-box{
+      margin-bottom:20px;
+      padding:13px;
+      display:flex;
+      align-items:center;
+      gap:10px;
+      background:#121212;
+      border:1px solid #5e4b18;
+      border-radius:10px;
+    }
+
+    .admin-icon{
+      width:40px;
+      height:40px;
+      display:grid;
+      place-items:center;
+      border-radius:50%;
+      background:#211908;
+      color:var(--gold);
+      flex:0 0 auto;
+    }
+
+    .admin-box strong{
+      display:block;
+      font-size:11px;
+    }
+
+    .admin-box span{
+      display:block;
+      margin-top:4px;
+      color:var(--gold);
+      font-size:9px;
+      font-weight:900;
+    }
+
+    .nav-title{
+      margin:15px 12px 7px;
+      color:#666;
+      font-size:9px;
+      font-weight:900;
+      letter-spacing:1px;
+    }
+
+    .side-link{
+      width:100%;
+      padding:12px;
+      display:flex;
+      align-items:center;
+      gap:10px;
+      border:0;
+      border-radius:8px;
+      background:transparent;
+      color:#aaa;
+      text-align:left;
+      font-size:11px;
+      font-weight:800;
+      transition:.2s;
+    }
+
+    .side-link:hover,
+    .side-link.active{
+      color:var(--gold);
+      background:#18140a;
+    }
+
+    .side-bottom{
+      margin-top:auto;
+      padding-top:15px;
+      border-top:1px solid var(--line);
+    }
+
+    .logout{
+      width:100%;
+      padding:12px;
+      border:0;
+      background:transparent;
+      color:#d27b6e;
+      text-align:left;
+      font-size:11px;
+      font-weight:900;
+    }
+
+    /* MAIN */
+
+    .main{
+      min-width:0;
+    }
+
+    .topbar{
+      position:sticky;
+      top:0;
+      z-index:50;
+      height:82px;
+      padding:0 4%;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      border-bottom:1px solid var(--line);
+      background:rgba(7,7,7,.95);
+      backdrop-filter:blur(12px);
+    }
+
+    .topbar-left{
+      display:flex;
+      align-items:center;
+      gap:15px;
+    }
+
+    .topbar h2{
+      margin:0;
+      font-size:18px;
+    }
+
+    .topbar p{
+      margin:4px 0 0;
+      color:var(--muted);
+      font-size:10px;
+    }
+
+    .mobile-menu{
+      display:none;
+      border:0;
+      background:transparent;
+      color:white;
+      font-size:23px;
+    }
+
+    .admin-status{
+      padding:8px 12px;
+      border-radius:20px;
+      background:#10251b;
+      color:var(--green);
+      font-size:9px;
+      font-weight:900;
+    }
+
+    .content{
+      width:min(1250px,94%);
+      margin:35px auto 70px;
+    }
+
+    /* HEADER */
+
+    .page-head{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-end;
+      gap:20px;
+      margin-bottom:25px;
+    }
+
+    .page-head h1{
+      margin:0;
+      font-size:30px;
+    }
+
+    .page-head p{
+      margin:7px 0 0;
+      color:var(--muted);
+      font-size:12px;
+    }
+
+    /* STATS */
+
+    .stats-grid{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:15px;
+      margin-bottom:25px;
+    }
+
+    .stat-card{
+      padding:20px;
+      border-radius:14px;
+      background:linear-gradient(145deg,#151515,#0d0d0d);
+      border:1px solid var(--line);
+    }
+
+    .stat-icon{
+      margin-bottom:14px;
+      font-size:22px;
+    }
+
+    .stat-number{
+      font-size:28px;
+      font-weight:900;
+    }
+
+    .stat-label{
+      margin-top:6px;
+      color:var(--muted);
+      font-size:9px;
+      font-weight:900;
+      letter-spacing:.5px;
+    }
+
+    /* FILTERS */
+
+    .filters{
+      margin-bottom:20px;
+      padding:15px;
+      display:grid;
+      grid-template-columns:minmax(200px,1fr) 190px auto;
+      gap:12px;
+      border:1px solid var(--line);
+      border-radius:14px;
+      background:#101010;
+    }
+
+    .search,
+    .filter-select{
+      width:100%;
+      padding:12px 13px;
+      border:1px solid var(--line);
+      border-radius:8px;
+      background:#080808;
+      color:white;
+      outline:none;
+      font-size:11px;
+    }
+
+    .search:focus,
+    .filter-select:focus{
+      border-color:var(--gold);
+    }
+
+    /* BUTTONS */
+
+    .btn{
+      padding:9px 12px;
+      border:1px solid var(--gold);
+      border-radius:7px;
+      background:transparent;
+      color:var(--gold);
+      font-size:9px;
+      font-weight:900;
+    }
+
+    .btn:hover{
+      filter:brightness(1.1);
+    }
+
+    .btn.gold{
+      border-color:var(--gold);
+      background:var(--gold);
+      color:#17120a;
+    }
+
+    .btn.green{
+      border-color:var(--green);
+      color:var(--green);
+    }
+
+    .btn.red{
+      border-color:var(--red);
+      color:var(--red);
+    }
+
+    .btn.blue{
+      border-color:var(--blue);
+      color:var(--blue);
+    }
+
+    .btn.small{
+      padding:7px 9px;
+      font-size:8px;
+    }
+
+    .refresh-btn{
+      min-width:115px;
+    }
+
+    /* TABLE */
+
+    .table-panel{
+      overflow:hidden;
+      border:1px solid var(--line);
+      border-radius:14px;
+      background:#101010;
+    }
+
+    .table-wrap{
+      overflow-x:auto;
+    }
+
+    table{
+      width:100%;
+      min-width:950px;
+      border-collapse:collapse;
+    }
+
+    th{
+      padding:14px 18px;
+      color:#777;
+      background:#0c0c0c;
+      border-bottom:1px solid var(--line);
+      text-align:left;
+      font-size:9px;
+      letter-spacing:.5px;
+    }
+
+    td{
+      padding:15px 18px;
+      border-bottom:1px solid var(--line);
+      font-size:11px;
+      vertical-align:middle;
+    }
+
+    tr:last-child td{
+      border-bottom:0;
+    }
+
+    .music-info{
+      min-width:200px;
+      display:flex;
+      align-items:center;
+      gap:11px;
+    }
+
+    .music-cover{
+      width:42px;
+      height:42px;
+      border-radius:8px;
+      display:grid;
+      place-items:center;
+      overflow:hidden;
+      background:#1b1609;
+      color:var(--gold);
+      font-size:18px;
+      flex:0 0 auto;
+    }
+
+    .music-cover img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
+
+    .music-name{
+      display:block;
+      max-width:220px;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+      font-size:11px;
+    }
+
+    .music-meta{
+      display:block;
+      margin-top:4px;
+      color:var(--muted);
+      font-size:9px;
+    }
+
+    .artist-name{
+      font-weight:800;
+    }
+
+    /* BADGES */
+
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:5px;
+      padding:6px 9px;
+      border-radius:20px;
+      font-size:8px;
+      font-weight:900;
+      white-space:nowrap;
+    }
+
+    .badge.pending{
+      color:#ffcf57;
+      background:#352a0e;
+    }
+
+    .badge.approved{
+      color:var(--green);
+      background:#123524;
+    }
+
+    .badge.rejected{
+      color:var(--red);
+      background:#351410;
+    }
+
+    /* ACTIONS */
+
+    .actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:6px;
+    }
+
+    /* EMPTY */
+
+    .empty{
+      padding:55px 20px;
+      text-align:center;
+    }
+
+    .empty-icon{
+      margin-bottom:12px;
+      font-size:36px;
+    }
+
+    .empty h3{
+      margin:0 0 7px;
+      font-size:16px;
+    }
+
+    .empty p{
+      margin:0;
+      color:var(--muted);
+      font-size:11px;
+    }
+
+    /* MODAL */
+
+    .modal{
+      position:fixed;
+      inset:0;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:20px;
+      background:rgba(0,0,0,.8);
+      z-index:300;
+    }
+
+    .modal.show{
+      display:flex;
+    }
+
+    .modal-box{
+      width:min(620px,100%);
+      max-height:90vh;
+      overflow:auto;
+      padding:24px;
+      border:1px solid var(--line);
+      border-radius:15px;
+      background:#111;
+    }
+
+    .modal-box h2{
+      margin:0 0 8px;
+      font-size:20px;
+    }
+
+    .modal-subtitle{
+      margin:0 0 20px;
+      color:var(--muted);
+      font-size:11px;
+      line-height:1.5;
+    }
+
+    .detail-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
+    }
+
+    .detail-item{
+      padding:13px;
+      border:1px solid var(--line);
+      border-radius:10px;
+      background:#0b0b0b;
+    }
+
+    .detail-item.full{
+      grid-column:1/-1;
+    }
+
+    .detail-label{
+      display:block;
+      margin-bottom:6px;
+      color:#777;
+      font-size:9px;
+      font-weight:900;
+    }
+
+    .detail-value{
+      color:#eee;
+      font-size:11px;
+      line-height:1.5;
+      word-break:break-word;
+    }
+
+    .audio-box{
+      width:100%;
+      margin-top:10px;
+    }
+
+    .audio-box audio{
+      width:100%;
+    }
+
+    .modal-actions{
+      display:flex;
+      justify-content:flex-end;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:22px;
+    }
+
+    /* RESPONSIVE */
+
+    @media(max-width:1000px){
+
+      .stats-grid{
+        grid-template-columns:repeat(2,1fr);
+      }
+
+    }
+
+    @media(max-width:760px){
+
+      .app{
+        display:block;
+      }
+
+      .sidebar{
+        position:fixed;
+        top:0;
+        left:-280px;
+        width:260px;
+        transition:.3s;
+        box-shadow:10px 0 40px rgba(0,0,0,.5);
+      }
+
+      .sidebar.show{
+        left:0;
+      }
+
+      .mobile-menu{
+        display:block;
+      }
+
+      .admin-status{
+        display:none;
+      }
+
+      .filters{
+        grid-template-columns:1fr;
+      }
+
+      .refresh-btn{
+        width:100%;
+      }
+
+    }
+
+    @media(max-width:600px){
+
+      .topbar{
+        height:70px;
+      }
+
+      .topbar h2{
+        font-size:15px;
+      }
+
+      .content{
+        width:min(94%,1250px);
+        margin-top:25px;
+      }
+
+      .page-head{
+        flex-direction:column;
+        align-items:flex-start;
+      }
+
+      .page-head h1{
+        font-size:25px;
+      }
+
+      .stats-grid{
+        grid-template-columns:1fr 1fr;
+      }
+
+      .stat-card{
+        padding:15px;
+      }
+
+      .stat-number{
+        font-size:23px;
+      }
+
+      .detail-grid{
+        grid-template-columns:1fr;
+      }
+
+      .detail-item.full{
+        grid-column:auto;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <div class="app">
+
+```
+<!-- SIDEBAR -->
+
+<aside class="sidebar" id="sidebar">
+
+  <a href="index.html" class="brand">
+    <span class="crown">♕</span>
+    KUDURO
+    <b>PRIME</b>
+  </a>
+
+  <div class="admin-box">
+
+    <div class="admin-icon">
+      🛡️
+    </div>
+
+    <div>
+      <strong>ADMINISTRADOR</strong>
+      <span>ACESSO TOTAL</span>
+    </div>
+
+  </div>
+
+  <div class="nav-title">
+    ADMINISTRAÇÃO
+  </div>
+
+  <a href="admin.html" class="side-link">
+    📊 Dashboard
+  </a>
+
+  <a href="admin-artistas.html" class="side-link">
+    👤 Artistas
+  </a>
+
+  <a href="admin-musicas.html" class="side-link active">
+    🎵 Músicas
+  </a>
+
+  <a href="admin-publicacoes.html" class="side-link">
+    📝 Publicações
+  </a>
+
+  <a href="admin-eventos.html" class="side-link">
+    📅 Eventos
+  </a>
+
+  <a href="admin-pagamentos.html" class="side-link">
+    💳 Pagamentos
+  </a>
+
+  <div class="nav-title">
+    PLATAFORMA
+  </div>
+
+  <a href="index.html" class="side-link">
+    🌐 Ver Site
+  </a>
+
+  <div class="side-bottom">
+
+    <button class="logout" onclick="logout()">
+      ↪ TERMINAR SESSÃO
+    </button>
+
+  </div>
+
+</aside>
+
+
+<!-- MAIN -->
+
+<main class="main">
+
+  <header class="topbar">
+
+    <div class="topbar-left">
+
+      <button class="mobile-menu" onclick="toggleMenu()">
+        ☰
+      </button>
+
+      <div>
+        <h2>KUDURO PRIME ADMIN</h2>
+        <p>Gestão e moderação de músicas</p>
+      </div>
+
+    </div>
+
+    <div class="admin-status">
+      ● SISTEMA ONLINE
+    </div>
+
+  </header>
+
+
+  <div class="content">
+
+    <div class="page-head">
+
+      <div>
+        <h1>🎵 Gerir Músicas</h1>
+
+        <p>
+          Aprova, rejeita, visualiza e remove músicas da plataforma.
+        </p>
+      </div>
+
+    </div>
+
+
+    <!-- ESTATÍSTICAS -->
+
+    <div class="stats-grid">
+
+      <div class="stat-card">
+
+        <div class="stat-icon">
+          🎵
+        </div>
+
+        <div class="stat-number" id="totalSongs">
+          0
+        </div>
+
+        <div class="stat-label">
+          TOTAL DE MÚSICAS
+        </div>
+
+      </div>
+
+
+      <div class="stat-card">
+
+        <div class="stat-icon">
+          ⏳
+        </div>
+
+        <div class="stat-number" id="pendingSongs">
+          0
+        </div>
+
+        <div class="stat-label">
+          PENDENTES
+        </div>
+
+      </div>
+
+
+      <div class="stat-card">
+
+        <div class="stat-icon">
+          ✓
+        </div>
+
+        <div class="stat-number" id="approvedSongs">
+          0
+        </div>
+
+        <div class="stat-label">
+          APROVADAS
+        </div>
+
+      </div>
+
+
+      <div class="stat-card">
+
+        <div class="stat-icon">
+          ✕
+        </div>
+
+        <div class="stat-number" id="rejectedSongs">
+          0
+        </div>
+
+        <div class="stat-label">
+          REJEITADAS
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- FILTROS -->
+
+    <div class="filters">
+
+      <input
+        type="search"
+        class="search"
+        id="searchInput"
+        placeholder="Pesquisar por música ou artista..."
+        oninput="renderSongs()"
+      >
+
+      <select
+        class="filter-select"
+        id="statusFilter"
+        onchange="renderSongs()"
+      >
+        <option value="todos">
+          Todos os estados
+        </option>
+
+        <option value="Pendente">
+          Pendentes
+        </option>
+
+        <option value="Aprovado">
+          Aprovadas
+        </option>
+
+        <option value="Rejeitado">
+          Rejeitadas
+        </option>
+      </select>
+
+      <button
+        class="btn gold refresh-btn"
+        onclick="renderAll()"
+      >
+        ↻ ATUALIZAR
+      </button>
+
+    </div>
+
+
+    <!-- TABELA -->
+
+    <div class="table-panel">
+
+      <div class="table-wrap">
+
+        <table>
+
+          <thead>
+
+            <tr>
+              <th>MÚSICA</th>
+              <th>ARTISTA</th>
+              <th>TIPO</th>
+              <th>ESTADO</th>
+              <th>DATA</th>
+              <th>AÇÕES</th>
+            </tr>
+
+          </thead>
+
+          <tbody id="songsTable"></tbody>
+
+        </table>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</main>
+```
+
+  </div>
+
+  <!-- MODAL DETALHES -->
+
+  <div class="modal" id="detailsModal">
+
+```
+<div class="modal-box">
+
+  <h2 id="modalTitle">
+    Detalhes da Música
+  </h2>
+
+  <p class="modal-subtitle">
+    Informações enviadas pelo artista.
+  </p>
+
+  <div
+    class="detail-grid"
+    id="modalDetails"
+  ></div>
+
+  <div class="modal-actions">
+
+    <button
+      class="btn"
+      onclick="closeModal()"
+    >
+      FECHAR
+    </button>
+
+  </div>
+
+</div>
+```
+
+  </div>
+
+  <script>
+
+    /*
+      DADOS DAS MÚSICAS
+    */
+
+    function getSongs(){
+
+      try{
+
+        const saved =
+          JSON.parse(
+            localStorage.getItem(
+              "kpSongs"
+            )
+            ||
+            "[]"
+          );
+
+        return Array.isArray(saved)
+          ? saved
+          : [];
+
+      }
+      catch(error){
+
+        console.error(
+          "Erro ao carregar músicas:",
+          error
+        );
+
+        return [];
+
+      }
+
+    }
+
+
+    function saveSongs(
+      songs
+    ){
+
+      localStorage.setItem(
+        "kpSongs",
+        JSON.stringify(
+          songs
+        )
+      );
+
+    }
+
+
+    /*
+      NORMALIZAR ESTADO
+    */
+
+    function getSongStatus(
+      song
+    ){
+
+      if(
+        song.status
+      ){
+
+        const status =
+          String(
+            song.status
+          );
+
+        if(
+          status.toLowerCase() ===
+          "aprovado"
+        ){
+
+          return "Aprovado";
+
+        }
+
+        if(
+          status.toLowerCase() ===
+          "rejeitado"
+        ){
+
+          return "Rejeitado";
+
+        }
+
+        if(
+          status.toLowerCase() ===
+          "pendente"
+        ){
+
+          return "Pendente";
+
+        }
+
+      }
+
+
+      /*
+        Músicas antigas sem estado
+        aparecem como aprovadas.
+      */
+
+      return "Aprovado";
+
+    }
+
+
+    function getSongTitle(
+      song
+    ){
+
+      return (
+        song.title
+        ||
+        song.name
+        ||
+        song.nome
+        ||
+        "Sem título"
+      );
+
+    }
+
+
+    function getArtistName(
+      song
+    ){
+
+      return (
+        song.artist
+        ||
+        song.artistName
+        ||
+        song.artista
+        ||
+        song.artist_name
+        ||
+        "Artista desconhecido"
+      );
+
+    }
+
+
+    function getSongType(
+      song
+    ){
+
+      return (
+        song.type
+        ||
+        song.tipo
+        ||
+        "Música"
+      );
+
+    }
+
+
+    function getSongDate(
+      song
+    ){
+
+      const date =
+        song.date
+        ||
+        song.createdAt
+        ||
+        song.criadoEm
+        ||
+        song.created_at
+        ||
+        "";
+
+
+      if(
+        !date
+      ){
+
+        return "—";
+
+      }
+
+
+      if(
+        typeof date ===
+        "string"
+      ){
+
+        return date;
+
+      }
+
+
+      return "—";
+
+    }
+
+
+    function getSongCover(
+      song
+    ){
+
+      return (
+        song.cover
+        ||
+        song.coverUrl
+        ||
+        song.image
+        ||
+        song.imageUrl
+        ||
+        song.thumbnail
+        ||
+        ""
+      );
+
+    }
+
+
+    function getAudioUrl(
+      song
+    ){
+
+      return (
+        song.audio
+        ||
+        song.audioUrl
+        ||
+        song.url
+        ||
+        song.fileUrl
+        ||
+        ""
+      );
+
+    }
+
+
+    /*
+      ESTATÍSTICAS
+    */
+
+    function renderStats(){
+
+      const songs =
+        getSongs();
+
+
+      const total =
+        songs.length;
+
+
+      const pending =
+        songs.filter(
+          song =>
+            getSongStatus(song) ===
+            "Pendente"
+        ).length;
+
+
+      const approved =
+        songs.filter(
+          song =>
+            getSongStatus(song) ===
+            "Aprovado"
+        ).length;
+
+
+      const rejected =
+        songs.filter(
+          song =>
+            getSongStatus(song) ===
+            "Rejeitado"
+        ).length;
+
+
+      document
+        .querySelector("#totalSongs")
+        .textContent =
+          total;
+
+
+      document
+        .querySelector("#pendingSongs")
+        .textContent =
+          pending;
+
+
+      document
+        .querySelector("#approvedSongs")
+        .textContent =
+          approved;
+
+
+      document
+        .querySelector("#rejectedSongs")
+        .textContent =
+          rejected;
+
+    }
+
+
+    /*
+      TABELA
+    */
+
+    function renderSongs(){
+
+      const songs =
+        getSongs();
+
+
+      const search =
+        document
+        .querySelector("#searchInput")
+        .value
+        .trim()
+        .toLowerCase();
+
+
+      const selectedStatus =
+        document
+        .querySelector("#statusFilter")
+        .value;
+
+
+      const filtered =
+        songs.filter(
+          song => {
+
+            const title =
+              getSongTitle(song)
+              .toLowerCase();
+
+
+            const artist =
+              getArtistName(song)
+              .toLowerCase();
+
+
+            const status =
+              getSongStatus(song);
+
+
+            const matchesSearch =
+              title.includes(search)
+              ||
+              artist.includes(search);
+
+
+            const matchesStatus =
+              selectedStatus ===
+              "todos"
+              ||
+              status ===
+              selectedStatus;
+
+
+            return
+              matchesSearch
+              &&
+              matchesStatus;
+
+          }
+        );
+
+
+      const table =
+        document.querySelector(
+          "#songsTable"
+        );
+
+
+      if(
+        filtered.length === 0
+      ){
+
+        table.innerHTML =
+          `
+            <tr>
+
+              <td colspan="6">
+
+                <div class="empty">
+
+                  <div class="empty-icon">
+                    🎵
+                  </div>
+
+                  <h3>
+                    Nenhuma música encontrada
+                  </h3>
+
+                  <p>
+                    Ainda não existem músicas com este filtro.
+                  </p>
+
+                </div>
+
+              </td>
+
+            </tr>
+          `;
+
+        return;
+
+      }
+
+
+      table.innerHTML =
+        filtered
+        .map(
+          song => {
+
+            const id =
+              String(
+                song.id
+                ??
+                ""
+              );
+
+
+            const title =
+              escapeHtml(
+                getSongTitle(song)
+              );
+
+
+            const artist =
+              escapeHtml(
+                getArtistName(song)
+              );
+
+
+            const type =
+              escapeHtml(
+                getSongType(song)
+              );
+
+
+            const date =
+              escapeHtml(
+                getSongDate(song)
+              );
+
+
+            const status =
+              getSongStatus(song);
+
+
+            const cover =
+              getSongCover(song);
+
+
+            let badgeClass =
+              "pending";
+
+
+            if(
+              status ===
+              "Aprovado"
+            ){
+
+              badgeClass =
+                "approved";
+
+            }
+
+
+            if(
+              status ===
+              "Rejeitado"
+            ){
+
+              badgeClass =
+                "rejected";
+
+            }
+
+
+            return `
+
+              <tr>
+
+                <td>
+
+                  <div class="music-info">
+
+                    <div class="music-cover">
+
+                      ${
+                        cover
+                        ? `
+                          <img
+                            src="${escapeAttribute(cover)}"
+                            alt="${title}"
+                          >
+                        `
+                        : "🎵"
+                      }
+
+                    </div>
+
+                    <div>
+
+                      <strong class="music-name">
+                        ${title}
+                      </strong>
+
+                      <span class="music-meta">
+                        ID: ${escapeHtml(id || "—")}
+                      </span>
+
+                    </div>
+
+                  </div>
+
+                </td>
+
+
+                <td>
+
+                  <span class="artist-name">
+                    ${artist}
+                  </span>
+
+                </td>
+
+
+                <td>
+                  ${type}
+                </td>
+
+
+                <td>
+
+                  <span
+                    class="
+                      badge
+                      ${badgeClass}
+                    "
+                  >
+                    ● ${status}
+                  </span>
+
+                </td>
+
+
+                <td>
+                  ${date}
+                </td>
+
+
+                <td>
+
+                  <div class="actions">
+
+                    <button
+                      class="btn small blue"
+                      onclick="openDetails('${escapeJs(id)}')"
+                    >
+                      VER
+                    </button>
+
+                    ${
+                      status !==
+                      "Aprovado"
+
+                      ? `
+
+                        <button
+                          class="btn small green"
+                          onclick="approveSong('${escapeJs(id)}')"
+                        >
+                          APROVAR
+                        </button>
+
+                      `
+
+                      : ""
+                    }
+
+
+                    ${
+                      status !==
+                      "Rejeitado"
+
+                      ? `
+
+                        <button
+                          class="btn small red"
+                          onclick="rejectSong('${escapeJs(id)}')"
+                        >
+                          REJEITAR
+                        </button>
+
+                      `
+
+                      : `
+
+                        <button
+                          class="btn small"
+                          onclick="restoreSong('${escapeJs(id)}')"
+                        >
+                          RESTAURAR
+                        </button>
+
+                      `
+                    }
+
+
+                    <button
+                      class="btn small red"
+                      onclick="deleteSong('${escapeJs(id)}')"
+                    >
+                      REMOVER
+                    </button>
+
+                  </div>
+
+                </td>
+
+              </tr>
+
+            `;
+
+          }
+        )
+        .join("");
+
+    }
+
+
+    /*
+      APROVAR MÚSICA
+    */
+
+    function approveSong(
+      id
+    ){
+
+      updateSongStatus(
+        id,
+        "Aprovado"
+      );
+
+    }
+
+
+    /*
+      REJEITAR MÚSICA
+    */
+
+    function rejectSong(
+      id
+    ){
+
+      if(
+        !confirm(
+          "Tem certeza que deseja rejeitar esta música?"
+        )
+      ){
+
+        return;
+
+      }
+
+
+      updateSongStatus(
+        id,
+        "Rejeitado"
+      );
+
+    }
+
+
+    /*
+      RESTAURAR MÚSICA
+    */
+
+    function restoreSong(
+      id
+    ){
+
+      if(
+        !confirm(
+          "Deseja restaurar esta música para pendente?"
+        )
+      ){
+
+        return;
+
+      }
+
+
+      updateSongStatus(
+        id,
+        "Pendente"
+      );
+
+    }
+
+
+    /*
+      ATUALIZAR ESTADO
+    */
+
+    function updateSongStatus(
+      id,
+      status
+    ){
+
+      const songs =
+        getSongs();
+
+
+      const song =
+        songs.find(
+          item =>
+            String(
+              item.id
+            )
+            ===
+            String(
+              id
+            )
+        );
+
+
+      if(
+        !song
+      ){
+
+        alert(
+          "Música não encontrada."
+        );
+
+        return;
+
+      }
+
+
+      song.status =
+        status;
+
+
+      saveSongs(
+        songs
+      );
+
+
+      renderAll();
+
+    }
+
+
+    /*
+      REMOVER MÚSICA
+    */
+
+    function deleteSong(
+      id
+    ){
+
+      const songs =
+        getSongs();
+
+
+      const song =
+        songs.find(
+          item =>
+            String(
+              item.id
+            )
+            ===
+            String(
+              id
+            )
+        );
+
+
+      if(
+        !song
+      ){
+
+        alert(
+          "Música não encontrada."
+        );
+
+        return;
+
+      }
+
+
+      const confirmed =
+        confirm(
+          `Deseja remover permanentemente "${getSongTitle(song)}"?`
+        );
+
+
+      if(
+        !confirmed
+      ){
+
+        return;
+
+      }
+
+
+      const updatedSongs =
+        songs.filter(
+          item =>
+            String(
+              item.id
+            )
+            !==
+            String(
+              id
+            )
+        );
+
+
+      saveSongs(
+        updatedSongs
+      );
+
+
+      renderAll();
+
+      alert(
+        "Música removida com sucesso."
+      );
+
+    }
+
+
+    /*
+      DETALHES
+    */
+
+    function openDetails(
+      id
+    ){
+
+      const songs =
+        getSongs();
+
+
+      const song =
+        songs.find(
+          item =>
+            String(
+              item.id
+            )
+            ===
+            String(
+              id
+            )
+        );
+
+
+      if(
+        !song
+      ){
+
+        alert(
+          "Música não encontrada."
+        );
+
+        return;
+
+      }
+
+
+      const title =
+        getSongTitle(song);
+
+
+      const artist =
+        getArtistName(song);
+
+
+      const type =
+        getSongType(song);
+
+
+      const status =
+        getSongStatus(song);
+
+
+      const date =
+        getSongDate(song);
+
+
+      const audioUrl =
+        getAudioUrl(song);
+
+
+      const details =
+        document.querySelector(
+          "#modalDetails"
+        );
+
+
+      document
+        .querySelector("#modalTitle")
+        .textContent =
+          title;
+
+
+      details.innerHTML =
+        `
+
+          <div class="detail-item">
+
+            <span class="detail-label">
+              ARTISTA
+            </span>
+
+            <div class="detail-value">
+              ${escapeHtml(artist)}
+            </div>
+
+          </div>
+
+
+          <div class="detail-item">
+
+            <span class="detail-label">
+              ESTADO
+            </span>
+
+            <div class="detail-value">
+              ${escapeHtml(status)}
+            </div>
+
+          </div>
+
+
+          <div class="detail-item">
+
+            <span class="detail-label">
+              TIPO
+            </span>
+
+            <div class="detail-value">
+              ${escapeHtml(type)}
+            </div>
+
+          </div>
+
+
+          <div class="detail-item">
+
+            <span class="detail-label">
+              DATA
+            </span>
+
+            <div class="detail-value">
+              ${escapeHtml(date)}
+            </div>
+
+          </div>
+
+
+          <div class="detail-item full">
+
+            <span class="detail-label">
+              IDENTIFICADOR
+            </span>
+
+            <div class="detail-value">
+              ${escapeHtml(
+                String(
+                  song.id
+                  ??
+                  "—"
+                )
+              )}
+            </div>
+
+          </div>
+
+
+          <div class="detail-item full">
+
+            <span class="detail-label">
+              ÁUDIO
+            </span>
+
+            <div class="detail-value">
+
+              ${
+                audioUrl
+                ? `
+
+                  <div>
+                    Ficheiro disponível
+                  </div>
+
+                  <div class="audio-box">
+
+                    <audio
+                      controls
+                      src="${escapeAttribute(audioUrl)}"
+                    >
+                      O teu navegador não suporta áudio.
+                    </audio>
+
+                  </div>
+
+                `
+                : `
+                  Nenhum ficheiro de áudio encontrado.
+                `
+              }
+
+            </div>
+
+          </div>
+
+        `;
+
+
+      document
+        .querySelector(
+          "#detailsModal"
+        )
+        .classList
+        .add("show");
+
+    }
+
+
+    function closeModal(){
+
+      document
+        .querySelector(
+          "#detailsModal"
+        )
+        .classList
+        .remove("show");
+
+    }
+
+
+    /*
+      SEGURANÇA DE TEXTO
+    */
+
+    function escapeHtml(
+      value
+    ){
+
+      return String(
+        value
+      )
+      .replace(
+        /&/g,
+        "&amp;"
+      )
+      .replace(
+        /</g,
+        "&lt;"
+      )
+      .replace(
+        />/g,
+        "&gt;"
+      )
+      .replace(
+        /"/g,
+        "&quot;"
+      )
+      .replace(
+        /'/g,
+        "&#039;"
+      );
+
+    }
+
+
+    function escapeAttribute(
+      value
+    ){
+
+      return escapeHtml(
+        value
+      );
+
+    }
+
+
+    function escapeJs(
+      value
+    ){
+
+      return String(
+        value
+      )
+      .replace(
+        /\\/g,
+        "\\\\"
+      )
+      .replace(
+        /'/g,
+        "\\'"
+      )
+      .replace(
+        /"/g,
+        "&quot;"
+      );
+
+    }
+
+
+    /*
+      MOBILE
+    */
+
+    function toggleMenu(){
+
+      document
+        .querySelector("#sidebar")
+        .classList
+        .toggle(
+          "show"
+        );
+
+    }
+
+
+    /*
+      LOGOUT
+    */
+
+    function logout(){
+
+      if(
+        confirm(
+          "Terminar sessão de administrador?"
+        )
+      ){
+
+        window.location.href =
+          "index.html";
+
+      }
+
+    }
+
+
+    /*
+      FECHAR MODAL
+    */
+
+    document
+    .querySelector(
+      "#detailsModal"
+    )
+    .addEventListener(
+      "click",
+      event => {
+
+        if(
+          event.target.id ===
+          "detailsModal"
+        ){
+
+          closeModal();
+
+        }
+
+      }
+    );
+
+
+    /*
+      RENDER GERAL
+    */
+
+    function renderAll(){
+
+      renderStats();
+
+      renderSongs();
+
+    }
+
+
+    /*
+      INICIAR
+    */
+
+    renderAll();
+
+  </script>
+
+</body>
+</html>
