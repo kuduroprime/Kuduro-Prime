@@ -610,6 +610,16 @@
       border-top:1px solid var(--line);
     }
 
+    .ardes-count{
+      color:var(--gold);
+      font-weight:900;
+    }
+
+    .comments-count{
+      color:var(--text);
+      font-weight:700;
+    }
+
     .post-actions{
       display:flex;
       border-top:1px solid var(--line);
@@ -623,6 +633,7 @@
       padding:15px 8px;
       font-size:13px;
       font-weight:bold;
+      transition:.2s;
     }
 
     .post-action:hover{
@@ -630,8 +641,141 @@
       color:var(--gold);
     }
 
-    .post-action.liked{
+    .post-action.ardeu{
+      color:var(--gold);
+    }
+
+    .post-action.ardeu.liked{
       color:var(--danger);
+      background:#21100d;
+    }
+
+    .post-action:disabled{
+      opacity:.55;
+      cursor:not-allowed;
+    }
+
+    /* =========================
+       COMENTÁRIOS
+    ========================== */
+
+    .comments-box{
+      display:none;
+      border-top:1px solid var(--line);
+      background:#0d0d0d;
+      padding:15px 17px 17px;
+    }
+
+    .comments-box.show{
+      display:block;
+    }
+
+    .comments-list{
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      max-height:420px;
+      overflow-y:auto;
+      padding-right:3px;
+    }
+
+    .comment-item{
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+    }
+
+    .comment-avatar{
+      width:36px;
+      height:36px;
+      flex-shrink:0;
+      border-radius:50%;
+      background:#222;
+      border:1px solid var(--gold);
+      overflow:hidden;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:15px;
+    }
+
+    .comment-avatar img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
+
+    .comment-content{
+      background:#181818;
+      border:1px solid #252525;
+      border-radius:12px;
+      padding:9px 11px;
+      min-width:0;
+      flex:1;
+    }
+
+    .comment-name{
+      font-size:13px;
+      font-weight:900;
+      color:var(--gold);
+      margin-bottom:4px;
+    }
+
+    .comment-text{
+      font-size:14px;
+      line-height:1.45;
+      white-space:pre-wrap;
+      word-break:break-word;
+    }
+
+    .comment-time{
+      color:var(--muted);
+      font-size:11px;
+      margin-top:5px;
+    }
+
+    .no-comments{
+      text-align:center;
+      color:var(--muted);
+      font-size:13px;
+      padding:10px 5px;
+    }
+
+    .comment-form{
+      display:flex;
+      gap:8px;
+      margin-top:14px;
+    }
+
+    .comment-input{
+      flex:1;
+      min-width:0;
+      background:#080808;
+      border:1px solid var(--line);
+      color:var(--text);
+      border-radius:10px;
+      padding:11px 12px;
+      outline:none;
+    }
+
+    .comment-input:focus{
+      border-color:var(--gold);
+    }
+
+    .comment-send{
+      width:45px;
+      border:0;
+      border-radius:10px;
+      background:var(--gold);
+      color:#111;
+      font-weight:900;
+    }
+
+    .comment-login{
+      text-align:center;
+      color:var(--muted);
+      font-size:13px;
+      padding:10px;
     }
 
     /* =========================
@@ -733,6 +877,14 @@
 
       .publish-btn{
         width:100%;
+      }
+
+      .comment-form{
+        gap:6px;
+      }
+
+      .comment-send{
+        width:42px;
       }
 
     }
@@ -1145,10 +1297,17 @@
       collection,
       addDoc,
       getDocs,
+      getDoc,
+      setDoc,
+      deleteDoc,
+      doc,
       query,
       orderBy,
       serverTimestamp,
-      onSnapshot
+      onSnapshot,
+      runTransaction,
+      writeBatch,
+      increment
     }
     from
       "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
@@ -1266,6 +1425,12 @@
 
     let feedListenerIniciado =
       false;
+
+    const listenersComentarios =
+      {};
+
+    const comentariosAbertos =
+      new Set();
 
 
     /* =========================
@@ -2618,6 +2783,9 @@
               likes:
                 0,
 
+              ardes:
+                0,
+
               comments:
                 0
 
@@ -3182,6 +3350,9 @@
               id:
                 docSnap.id,
 
+              origem:
+                "musicas",
+
               tipo:
                 "music",
 
@@ -3225,6 +3396,12 @@
               likes:
                 Number(
                   data.likes ||
+                  0
+                ),
+
+              ardes:
+                Number(
+                  data.ardes ||
                   0
                 ),
 
@@ -3333,6 +3510,9 @@
               id:
                 docSnap.id,
 
+              origem:
+                "videos",
+
               tipo:
                 "video",
 
@@ -3376,6 +3556,12 @@
               likes:
                 Number(
                   data.likes ||
+                  0
+                ),
+
+              ardes:
+                Number(
+                  data.ardes ||
                   0
                 ),
 
@@ -3431,6 +3617,9 @@
             id:
               docSnap.id,
 
+            origem:
+              "publicacoes",
+
             tipo:
               "post",
 
@@ -3478,6 +3667,12 @@
             likes:
               Number(
                 data.likes ||
+                0
+              ),
+
+            ardes:
+              Number(
+                data.ardes ||
                 0
               ),
 
@@ -3987,9 +4182,7 @@
           <div class="post-music">
 
             <div class="music-icon">
-
               🎵
-
             </div>
 
 
@@ -4040,6 +4233,12 @@
         "video"
       ){
 
+        const capaSegura =
+          urlSegura(
+            item.capa
+          );
+
+
         conteudo = `
 
           <div class="content-badge">
@@ -4053,10 +4252,8 @@
             preload="metadata"
             playsinline
             ${
-              item.capa
-                ? `poster="${escaparHTML(
-                    urlSegura(item.capa)
-                  )}"`
+              capaSegura
+                ? `poster="${escaparHTML(capaSegura)}"`
                 : ""
             }
           >
@@ -4095,6 +4292,19 @@
         `;
 
       }
+
+
+      const postId =
+        escaparHTML(
+          item.id
+        );
+
+
+      const origem =
+        escaparHTML(
+          item.origem ||
+          "publicacoes"
+        );
 
 
       article.innerHTML = `
@@ -4157,12 +4367,29 @@
         <div class="post-stats">
 
           🔥
-          ${item.likes || 0}
-          reações
+
+          <span class="ardes-count">
+
+            ${Number(
+              item.ardes ||
+              0
+            )}
+
+          </span>
+
+          Ardeu
 
           ·
 
-          ${item.comments || 0}
+          <span class="comments-count">
+
+            ${Number(
+              item.comments ||
+              0
+            )}
+
+          </span>
+
           comentários
 
         </div>
@@ -4171,30 +4398,76 @@
         <div class="post-actions">
 
           <button
-            class="post-action"
+            class="post-action ardeu"
             type="button"
-            onclick="like(this)"
+            data-ardeu="false"
+            onclick="arder(this, '${postId}', '${origem}')"
           >
-            ♡ GOSTAR
+            🔥 ARDEU
           </button>
 
 
           <button
             class="post-action"
             type="button"
-            onclick="comentar()"
+            onclick="abrirComentarios('${postId}', '${origem}')"
           >
-            💬 COMENTAR
+            💬 COMENTÁRIOS
           </button>
 
 
           <button
             class="post-action"
             type="button"
-            onclick="partilhar()"
+            onclick="partilhar('${postId}', '${origem}')"
           >
             ↗ PARTILHAR
           </button>
+
+        </div>
+
+
+        <div
+          class="comments-box"
+          id="comments-${postId}-${origem}"
+        >
+
+          <div
+            class="comments-list"
+            id="comments-list-${postId}-${origem}"
+          >
+
+            <div class="no-comments">
+              A carregar comentários...
+            </div>
+
+          </div>
+
+
+          <form
+            class="comment-form"
+            onsubmit="enviarComentario(event, '${postId}', '${origem}')"
+          >
+
+            <input
+              class="comment-input"
+              id="comment-input-${postId}-${origem}"
+              type="text"
+              maxlength="500"
+              placeholder="Escreve um comentário..."
+              autocomplete="off"
+            >
+
+
+            <button
+              class="comment-send"
+              type="submit"
+              id="comment-send-${postId}-${origem}"
+            >
+              ➤
+            </button>
+
+          </form>
 
         </div>
 
@@ -4204,6 +4477,52 @@
       feedPosts.appendChild(
         article
       );
+
+
+      inicializarEstadoArdeu(
+        article,
+        item.id,
+        item.origem ||
+        "publicacoes"
+      );
+
+
+      const chave =
+        criarChaveComentario(
+          item.id,
+          item.origem ||
+          "publicacoes"
+        );
+
+
+      if(
+        comentariosAbertos.has(
+          chave
+        )
+      ){
+
+        const box =
+          article.querySelector(
+            ".comments-box"
+          );
+
+
+        if(box){
+
+          box.classList.add(
+            "show"
+          );
+
+        }
+
+
+        carregarComentarios(
+          item.id,
+          item.origem ||
+          "publicacoes"
+        );
+
+      }
 
     }
 
@@ -4360,31 +4679,389 @@
 
 
     /* =========================
-       LIKE
+       REFERÊNCIA DO CONTEÚDO
     ========================== */
 
-    window.like =
-      function(button){
+    function referenciaConteudo(
+      postId,
+      origem
+    ){
 
-        button.classList.toggle(
-          "liked"
+      const colecao =
+        origem ||
+        "publicacoes";
+
+
+      return doc(
+        db,
+        colecao,
+        postId
+      );
+
+    }
+
+
+    /* =========================
+       CHAVE DOS COMENTÁRIOS
+    ========================== */
+
+    function criarChaveComentario(
+      postId,
+      origem
+    ){
+
+      return (
+        origem +
+        "__" +
+        postId
+      );
+
+    }
+
+
+    /* =========================
+       ESTADO ARDEU
+    ========================== */
+
+    async function inicializarEstadoArdeu(
+      article,
+      postId,
+      origem
+    ){
+
+      if(
+        !usuarioAtual ||
+        !postId ||
+        !article
+      ){
+
+        return;
+
+      }
+
+
+      const button =
+        article.querySelector(
+          ".post-action.ardeu"
         );
 
 
+      if(!button){
+        return;
+      }
+
+
+      try{
+
+        const ardeRef =
+          doc(
+            db,
+            origem,
+            postId,
+            "ardes",
+            usuarioAtual.uid
+          );
+
+
+        const snapshot =
+          await getDoc(
+            ardeRef
+          );
+
+
         if(
-          button.classList.contains(
-            "liked"
-          )
+          snapshot.exists()
         ){
 
-          button.innerHTML =
-            "♥ GOSTEI";
+          button.dataset.ardeu =
+            "true";
+
+          button.classList.add(
+            "liked"
+          );
 
         }
         else{
 
-          button.innerHTML =
-            "♡ GOSTAR";
+          button.dataset.ardeu =
+            "false";
+
+          button.classList.remove(
+            "liked"
+          );
+
+        }
+
+      }
+      catch(error){
+
+        console.error(
+          "Erro ao verificar ARDEU:",
+          error
+        );
+
+      }
+
+    }
+
+
+    /* =========================
+       ARDEU 🔥
+    ========================== */
+
+    window.arder =
+      async function(
+        button,
+        postId,
+        origem
+      ){
+
+        if(!usuarioAtual){
+
+          alert(
+            "Precisas estar conectado para usar ARDEU 🔥."
+          );
+
+          return;
+
+        }
+
+
+        if(
+          !postId ||
+          !origem
+        ){
+
+          return;
+
+        }
+
+
+        if(
+          button.dataset.processando ===
+          "true"
+        ){
+
+          return;
+
+        }
+
+
+        button.dataset.processando =
+          "true";
+
+
+        button.disabled =
+          true;
+
+
+        try{
+
+          const resultado =
+            await runTransaction(
+              db,
+              async function(transaction){
+
+                const parentRef =
+                  referenciaConteudo(
+                    postId,
+                    origem
+                  );
+
+
+                const ardeRef =
+                  doc(
+                    db,
+                    origem,
+                    postId,
+                    "ardes",
+                    usuarioAtual.uid
+                  );
+
+
+                const parentSnap =
+                  await transaction.get(
+                    parentRef
+                  );
+
+
+                const ardeSnap =
+                  await transaction.get(
+                    ardeRef
+                  );
+
+
+                if(
+                  !parentSnap.exists()
+                ){
+
+                  throw new Error(
+                    "Esta publicação já não existe."
+                  );
+
+                }
+
+
+                const dados =
+                  parentSnap.data() ||
+                  {};
+
+
+                const contadorAtual =
+                  Math.max(
+                    0,
+                    Number(
+                      dados.ardes ||
+                      0
+                    )
+                  );
+
+
+                if(
+                  ardeSnap.exists()
+                ){
+
+                  const novoTotal =
+                    Math.max(
+                      0,
+                      contadorAtual - 1
+                    );
+
+
+                  transaction.delete(
+                    ardeRef
+                  );
+
+
+                  transaction.update(
+                    parentRef,
+                    {
+                      ardes:
+                        novoTotal
+                    }
+                  );
+
+
+                  return {
+                    ardeu:
+                      false,
+
+                    total:
+                      novoTotal
+                  };
+
+                }
+                else{
+
+                  const novoTotal =
+                    contadorAtual + 1;
+
+
+                  transaction.set(
+                    ardeRef,
+                    {
+
+                      artistaId:
+                        usuarioAtual.uid,
+
+                      createdAt:
+                        serverTimestamp()
+
+                    }
+                  );
+
+
+                  transaction.update(
+                    parentRef,
+                    {
+                      ardes:
+                        novoTotal
+                    }
+                  );
+
+
+                  return {
+                    ardeu:
+                      true,
+
+                    total:
+                      novoTotal
+                  };
+
+                }
+
+              }
+            );
+
+
+          button.dataset.ardeu =
+            resultado.ardeu
+              ? "true"
+              : "false";
+
+
+          if(
+            resultado.ardeu
+          ){
+
+            button.classList.add(
+              "liked"
+            );
+
+          }
+          else{
+
+            button.classList.remove(
+              "liked"
+            );
+
+          }
+
+
+          const article =
+            button.closest(
+              ".post"
+            );
+
+
+          if(article){
+
+            const count =
+              article.querySelector(
+                ".ardes-count"
+              );
+
+
+            if(count){
+
+              count.textContent =
+                resultado.total;
+
+            }
+
+          }
+
+        }
+        catch(error){
+
+          console.error(
+            "Erro no ARDEU:",
+            error
+          );
+
+
+          alert(
+            "Não foi possível atualizar o ARDEU. Verifica as regras do Firestore."
+          );
+
+        }
+        finally{
+
+          button.dataset.processando =
+            "false";
+
+          button.disabled =
+            false;
 
         }
 
@@ -4392,15 +5069,544 @@
 
 
     /* =========================
-       COMENTAR
+       ABRIR / FECHAR COMENTÁRIOS
     ========================== */
 
-    window.comentar =
-      function(){
+    window.abrirComentarios =
+      function(
+        postId,
+        origem
+      ){
 
-        alert(
-          "Os comentários serão ativados em breve no KUDURO PRIME. 👑"
+        const box =
+          document.getElementById(
+            "comments-" +
+            postId +
+            "-" +
+            origem
+          );
+
+
+        if(!box){
+          return;
+        }
+
+
+        const chave =
+          criarChaveComentario(
+            postId,
+            origem
+          );
+
+
+        const aberto =
+          box.classList.contains(
+            "show"
+          );
+
+
+        if(aberto){
+
+          box.classList.remove(
+            "show"
+          );
+
+
+          comentariosAbertos.delete(
+            chave
+          );
+
+        }
+        else{
+
+          box.classList.add(
+            "show"
+          );
+
+
+          comentariosAbertos.add(
+            chave
+          );
+
+
+          carregarComentarios(
+            postId,
+            origem
+          );
+
+
+          setTimeout(
+            function(){
+
+              const input =
+                document.getElementById(
+                  "comment-input-" +
+                  postId +
+                  "-" +
+                  origem
+                );
+
+
+              if(input){
+
+                input.focus();
+
+              }
+
+            },
+            100
+          );
+
+        }
+
+      };
+
+
+    /* =========================
+       CARREGAR COMENTÁRIOS
+    ========================== */
+
+    function carregarComentarios(
+      postId,
+      origem
+    ){
+
+      const chave =
+        criarChaveComentario(
+          postId,
+          origem
         );
+
+
+      const listaElemento =
+        document.getElementById(
+          "comments-list-" +
+          postId +
+          "-" +
+          origem
+        );
+
+
+      if(!listaElemento){
+        return;
+      }
+
+
+      if(
+        listenersComentarios[chave]
+      ){
+
+        return;
+
+      }
+
+
+      listaElemento.innerHTML = `
+
+        <div class="no-comments">
+          A carregar comentários...
+        </div>
+
+      `;
+
+
+      const comentariosRef =
+        collection(
+          db,
+          origem,
+          postId,
+          "comentarios"
+        );
+
+
+      const q =
+        query(
+          comentariosRef,
+          orderBy(
+            "createdAt",
+            "asc"
+          )
+        );
+
+
+      listenersComentarios[chave] =
+        onSnapshot(
+          q,
+          function(snapshot){
+
+            const elementoAtual =
+              document.getElementById(
+                "comments-list-" +
+                postId +
+                "-" +
+                origem
+              );
+
+
+            if(!elementoAtual){
+              return;
+            }
+
+
+            if(
+              snapshot.empty
+            ){
+
+              elementoAtual.innerHTML = `
+
+                <div class="no-comments">
+
+                  Ainda não há comentários.
+                  Sê o primeiro a comentar! 🔥
+
+                </div>
+
+              `;
+
+              return;
+
+            }
+
+
+            elementoAtual.innerHTML =
+              "";
+
+
+            snapshot.forEach(
+              function(docSnap){
+
+                const data =
+                  docSnap.data();
+
+
+                const nome =
+                  data.authorName ||
+                  "Artista Prime";
+
+
+                const texto =
+                  data.text ||
+                  "";
+
+
+                const foto =
+                  urlSegura(
+                    data.authorPhoto ||
+                    ""
+                  );
+
+
+                const tempo =
+                  tempoPublicacao(
+                    dataDoConteudo(
+                      data
+                    )
+                  );
+
+
+                let avatar =
+                  "👤";
+
+
+                if(foto){
+
+                  avatar = `
+
+                    <img
+                      src="${escaparHTML(foto)}"
+                      alt="Foto"
+                      onerror="this.style.display='none'"
+                    >
+
+                  `;
+
+                }
+
+
+                const item =
+                  document.createElement(
+                    "div"
+                  );
+
+
+                item.className =
+                  "comment-item";
+
+
+                item.innerHTML = `
+
+                  <div class="comment-avatar">
+
+                    ${avatar}
+
+                  </div>
+
+
+                  <div class="comment-content">
+
+                    <div class="comment-name">
+
+                      ${escaparHTML(
+                        nome
+                      )}
+
+                    </div>
+
+
+                    <div class="comment-text">
+
+                      ${escaparHTML(
+                        texto
+                      )}
+
+                    </div>
+
+
+                    <div class="comment-time">
+
+                      ${escaparHTML(
+                        tempo
+                      )}
+
+                    </div>
+
+                  </div>
+
+                `;
+
+
+                elementoAtual.appendChild(
+                  item
+                );
+
+              }
+            );
+
+
+            elementoAtual.scrollTop =
+              elementoAtual.scrollHeight;
+
+          },
+          function(error){
+
+            console.error(
+              "Erro nos comentários:",
+              error
+            );
+
+
+            const elementoAtual =
+              document.getElementById(
+                "comments-list-" +
+                postId +
+                "-" +
+                origem
+              );
+
+
+            if(elementoAtual){
+
+              elementoAtual.innerHTML = `
+
+                <div class="no-comments">
+
+                  ⚠️ Não foi possível carregar
+                  os comentários.
+
+                </div>
+
+              `;
+
+            }
+
+          }
+        );
+
+    }
+
+
+    /* =========================
+       ENVIAR COMENTÁRIO
+    ========================== */
+
+    window.enviarComentario =
+      async function(
+        event,
+        postId,
+        origem
+      ){
+
+        event.preventDefault();
+
+
+        if(!usuarioAtual){
+
+          alert(
+            "Precisas estar conectado para comentar."
+          );
+
+          return;
+
+        }
+
+
+        const input =
+          document.getElementById(
+            "comment-input-" +
+            postId +
+            "-" +
+            origem
+          );
+
+
+        const button =
+          document.getElementById(
+            "comment-send-" +
+            postId +
+            "-" +
+            origem
+          );
+
+
+        if(
+          !input ||
+          !button
+        ){
+
+          return;
+
+        }
+
+
+        const texto =
+          input.value.trim();
+
+
+        if(!texto){
+
+          return;
+
+        }
+
+
+        if(texto.length > 500){
+
+          alert(
+            "O comentário pode ter no máximo 500 caracteres."
+          );
+
+          return;
+
+        }
+
+
+        button.disabled =
+          true;
+
+
+        input.disabled =
+          true;
+
+
+        try{
+
+          const parentRef =
+            referenciaConteudo(
+              postId,
+              origem
+            );
+
+
+          const comentariosRef =
+            collection(
+              db,
+              origem,
+              postId,
+              "comentarios"
+            );
+
+
+          const comentarioRef =
+            doc(
+              comentariosRef
+            );
+
+
+          const batch =
+            writeBatch(
+              db
+            );
+
+
+          batch.set(
+            comentarioRef,
+            {
+
+              artistaId:
+                usuarioAtual.uid,
+
+              authorName:
+                artistName,
+
+              authorUsername:
+                artistUser,
+
+              authorPhoto:
+                artistPhoto,
+
+              text:
+                texto,
+
+              createdAt:
+                serverTimestamp()
+
+            }
+          );
+
+
+          batch.update(
+            parentRef,
+            {
+
+              comments:
+                increment(1)
+
+            }
+          );
+
+
+          await batch.commit();
+
+
+          input.value =
+            "";
+
+
+        }
+        catch(error){
+
+          console.error(
+            "Erro ao enviar comentário:",
+            error
+          );
+
+
+          alert(
+            "Não foi possível publicar o comentário. Verifica as regras do Firestore."
+          );
+
+        }
+        finally{
+
+          button.disabled =
+            false;
+
+          input.disabled =
+            false;
+
+          input.focus();
+
+        }
 
       };
 
@@ -4410,7 +5616,23 @@
     ========================== */
 
     window.partilhar =
-      async function(){
+      async function(
+        postId,
+        origem
+      ){
+
+        const url =
+          window.location.origin +
+          window.location.pathname +
+          "?post=" +
+          encodeURIComponent(
+            postId
+          ) +
+          "&origem=" +
+          encodeURIComponent(
+            origem
+          );
+
 
         if(
           navigator.share
@@ -4424,10 +5646,10 @@
                 "KUDURO PRIME",
 
               text:
-                "Vê esta publicação no KUDURO PRIME! 👑",
+                "Vê esta publicação no KUDURO PRIME! 🔥👑",
 
               url:
-                window.location.href
+                url
 
             });
 
@@ -4440,12 +5662,12 @@
           try{
 
             await navigator.clipboard.writeText(
-              window.location.href
+              url
             );
 
 
             alert(
-              "Link copiado! 👑"
+              "Link da publicação copiado! 👑"
             );
 
           }
@@ -4521,7 +5743,7 @@
 
 
     /* =========================
-       LIMPAR LISTENER
+       LIMPAR LISTENERS
     ========================== */
 
     window.addEventListener(
@@ -4536,6 +5758,31 @@
           unsubscribePublicacoes();
 
         }
+
+
+        Object.keys(
+          listenersComentarios
+        )
+        .forEach(
+          function(chave){
+
+            const unsubscribe =
+              listenersComentarios[
+                chave
+              ];
+
+
+            if(
+              typeof unsubscribe ===
+              "function"
+            ){
+
+              unsubscribe();
+
+            }
+
+          }
+        );
 
       }
     );
