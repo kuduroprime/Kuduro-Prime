@@ -34,7 +34,13 @@
 
     body{
       margin:0;
-      background:radial-gradient(circle at 80% 0,#2a1c07 0,transparent 30%),var(--bg);
+      background:
+        radial-gradient(
+          circle at 80% 0,
+          #2a1c07 0,
+          transparent 30%
+        ),
+        var(--bg);
       color:var(--text);
       font-family:Arial,Helvetica,sans-serif;
     }
@@ -54,7 +60,9 @@
       margin:auto;
     }
 
-    /* NAV */
+    /* =========================
+       NAV
+    ========================= */
 
     .nav{
       height:82px;
@@ -124,6 +132,192 @@
       position:relative;
       z-index:102;
     }
+
+    /* =========================
+       🔔 NOTIFICAÇÕES
+    ========================= */
+
+    .notification-btn{
+      position:relative;
+      width:43px;
+      height:43px;
+      border:1px solid var(--line);
+      border-radius:9px;
+      background:#111;
+      color:#fff;
+      cursor:pointer;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      font-size:20px;
+      transition:.25s;
+    }
+
+    .notification-btn:hover{
+      border-color:var(--gold);
+      color:var(--gold);
+      transform:translateY(-2px);
+    }
+
+    .notification-btn.show{
+      display:flex;
+    }
+
+    .notification-badge{
+      position:absolute;
+      top:-6px;
+      right:-6px;
+      min-width:19px;
+      height:19px;
+      padding:0 5px;
+      border-radius:20px;
+      background:var(--red);
+      color:#fff;
+      font-size:10px;
+      font-weight:900;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      border:2px solid #070707;
+    }
+
+    .notification-badge.show{
+      display:flex;
+    }
+
+    .notification-panel{
+      position:absolute;
+      right:0;
+      top:53px;
+      width:360px;
+      max-width:calc(100vw - 20px);
+      background:#101010;
+      border:1px solid var(--line);
+      border-radius:14px;
+      box-shadow:0 20px 60px rgba(0,0,0,.55);
+      overflow:hidden;
+      display:none;
+    }
+
+    .notification-panel.open{
+      display:block;
+    }
+
+    .notification-head{
+      padding:15px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      border-bottom:1px solid var(--line);
+    }
+
+    .notification-head strong{
+      font-size:15px;
+    }
+
+    .notification-head button{
+      border:0;
+      background:none;
+      color:var(--gold);
+      font-size:11px;
+      font-weight:800;
+      cursor:pointer;
+    }
+
+    .notification-list{
+      max-height:390px;
+      overflow-y:auto;
+    }
+
+    .notification-empty{
+      padding:35px 20px;
+      text-align:center;
+      color:var(--muted);
+      font-size:13px;
+    }
+
+    .notification-item{
+      display:flex;
+      gap:11px;
+      padding:13px 14px;
+      border-bottom:1px solid var(--line);
+      cursor:pointer;
+      transition:.2s;
+    }
+
+    .notification-item:hover{
+      background:#181818;
+    }
+
+    .notification-item.unread{
+      background:rgba(244,191,49,.07);
+    }
+
+    .notification-avatar{
+      width:40px;
+      height:40px;
+      flex:0 0 40px;
+      border-radius:50%;
+      background:
+        linear-gradient(135deg,#2b210c,#111);
+      border:1px solid #5b481d;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      overflow:hidden;
+      font-size:18px;
+    }
+
+    .notification-avatar img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
+
+    .notification-content{
+      min-width:0;
+    }
+
+    .notification-title{
+      font-size:13px;
+      font-weight:900;
+      color:#fff;
+      margin-bottom:4px;
+    }
+
+    .notification-text{
+      font-size:12px;
+      line-height:1.4;
+      color:#bbb;
+    }
+
+    .notification-time{
+      margin-top:5px;
+      font-size:10px;
+      color:#777;
+    }
+
+    .notification-enable{
+      margin:12px;
+      width:calc(100% - 24px);
+      border:1px solid var(--gold);
+      background:rgba(244,191,49,.08);
+      color:var(--gold);
+      border-radius:8px;
+      padding:11px;
+      font-size:11px;
+      font-weight:900;
+      cursor:pointer;
+    }
+
+    .notification-enable:hover{
+      background:var(--gold);
+      color:#111;
+    }
+
+    /* =========================
+       ÁREA DO ARTISTA
+    ========================= */
 
     .area-artista-btn{
       display:inline-flex;
@@ -200,7 +394,9 @@
       cursor:pointer;
     }
 
-    /* HERO */
+    /* =========================
+       HERO
+    ========================= */
 
     .hero{
       min-height:610px;
@@ -303,7 +499,9 @@
       letter-spacing:1px;
     }
 
-    /* SECÇÕES */
+    /* =========================
+       SECÇÕES
+    ========================= */
 
     section{
       padding:60px 0;
@@ -329,7 +527,9 @@
       margin:6px 0 0;
     }
 
-    /* ARTISTAS */
+    /* =========================
+       ARTISTAS
+    ========================= */
 
     .artists{
       display:grid;
@@ -372,7 +572,9 @@
       color:#4eb8ff;
     }
 
-    /* LANÇAMENTOS */
+    /* =========================
+       LANÇAMENTOS
+    ========================= */
 
     .grid-3{
       display:grid;
@@ -441,7 +643,9 @@
       color:#111;
     }
 
-    /* RANKING */
+    /* =========================
+       RANKING
+    ========================= */
 
     .rank-title{
       text-align:center;
@@ -473,7 +677,9 @@
       background:var(--img) center/cover;
     }
 
-    /* BATALHAS */
+    /* =========================
+       BATALHAS
+    ========================= */
 
     .battle{
       min-height:320px;
@@ -504,7 +710,9 @@
       white-space:nowrap;
     }
 
-    /* EVENTOS */
+    /* =========================
+       EVENTOS
+    ========================= */
 
     .events{
       display:grid;
@@ -552,7 +760,9 @@
       font-size:13px;
     }
 
-    /* CTA */
+    /* =========================
+       CTA
+    ========================= */
 
     .cta{
       padding:42px;
@@ -577,7 +787,9 @@
       color:#ccc;
     }
 
-    /* FOOTER */
+    /* =========================
+       FOOTER
+    ========================= */
 
     footer{
       padding:55px 0 30px;
@@ -612,7 +824,9 @@
       font-size:12px;
     }
 
-    /* MENU MOBILE */
+    /* =========================
+       MENU MOBILE
+    ========================= */
 
     @media(max-width:950px){
 
@@ -659,7 +873,9 @@
       }
     }
 
-    /* TELEMÓVEL */
+    /* =========================
+       TELEMÓVEL
+    ========================= */
 
     @media(max-width:620px){
 
@@ -680,11 +896,24 @@
       }
 
       .nav-in{
-        gap:7px;
+        gap:5px;
       }
 
       .nav-actions{
         gap:5px;
+      }
+
+      .notification-btn{
+        width:38px;
+        height:38px;
+        font-size:18px;
+      }
+
+      .notification-panel{
+        position:fixed;
+        top:76px;
+        right:10px;
+        width:360px;
       }
 
       .area-artista-btn{
@@ -782,54 +1011,173 @@
 
 <body>
 
+  <!-- =========================
+       NAV
+  ========================= -->
+
   <nav class="nav">
+
     <div class="nav-in">
 
-      <a class="brand" href="index.html" aria-label="Kuduro Prime">
+      <a
+        class="brand"
+        href="index.html"
+        aria-label="Kuduro Prime"
+      >
         <span class="crown">♕</span>
         KUDURO
         <b>PRIME</b>
       </a>
 
-      <div class="links" id="mobileLinks">
-        <a class="active" href="index.html">INÍCIO</a>
-        <a href="artistas.html">ARTISTAS</a>
-        <a href="musicas.html">MÚSICAS</a>
-        <a href="ranking.html">RANKING</a>
-        <a href="#batalhas">BATALHAS</a>
-        <a href="eventos.html">EVENTOS</a>
+      <div
+        class="links"
+        id="mobileLinks"
+      >
+
+        <a
+          class="active"
+          href="index.html"
+        >
+          INÍCIO
+        </a>
+
+        <a href="artistas.html">
+          ARTISTAS
+        </a>
+
+        <a href="musicas.html">
+          MÚSICAS
+        </a>
+
+        <a href="ranking.html">
+          RANKING
+        </a>
+
+        <a href="#batalhas">
+          BATALHAS
+        </a>
+
+        <a href="eventos.html">
+          EVENTOS
+        </a>
+
       </div>
 
       <div class="nav-actions">
 
-        <a href="area-do-artista.html" class="area-artista-btn" id="areaArtistaBtn">
+        <!-- 🔔 NOTIFICAÇÕES -->
+
+        <button
+          class="notification-btn"
+          id="notificationBtn"
+          type="button"
+          aria-label="Notificações"
+          title="Notificações"
+        >
+          🔔
+
+          <span
+            class="notification-badge"
+            id="notificationBadge"
+          >
+            0
+          </span>
+
+        </button>
+
+        <!-- PAINEL DAS NOTIFICAÇÕES -->
+
+        <div
+          class="notification-panel"
+          id="notificationPanel"
+        >
+
+          <div class="notification-head">
+
+            <strong>
+              🔔 Notificações
+            </strong>
+
+            <button
+              type="button"
+              id="markAllReadBtn"
+            >
+              MARCAR TODAS COMO LIDAS
+            </button>
+
+          </div>
+
+          <button
+            class="notification-enable"
+            id="enableNotificationsBtn"
+            type="button"
+          >
+            🔔 ATIVAR NOTIFICAÇÕES
+          </button>
+
+          <div
+            class="notification-list"
+            id="notificationList"
+          >
+
+            <div class="notification-empty">
+              Ainda não tens notificações.
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- ÁREA DO ARTISTA -->
+
+        <a
+          href="area-do-artista.html"
+          class="area-artista-btn"
+          id="areaArtistaBtn"
+        >
           👤 ÁREA DO ARTISTA
         </a>
 
-        <a href="juntar-se.html" class="join-btn">
+        <a
+          href="juntar-se.html"
+          class="join-btn"
+        >
           JUNTA-TE 👑
         </a>
 
-        <button class="menu" id="menuBtn" aria-label="Abrir menu">
+        <button
+          class="menu"
+          id="menuBtn"
+          aria-label="Abrir menu"
+        >
           ☰
         </button>
 
       </div>
 
     </div>
+
   </nav>
 
   <main id="inicio">
+
+    <!-- =========================
+         HERO
+    ========================= -->
 
     <section class="hero">
 
       <div class="container hero-content">
 
-        <div class="eyebrow">♕ O PALCO DOS GRANDES</div>
+        <div class="eyebrow">
+          ♕ O PALCO DOS GRANDES
+        </div>
 
         <h1>
           O KUDURO<br>
-          <span class="gold-text">NÃO PARA.</span>
+          <span class="gold-text">
+            NÃO PARA.
+          </span>
         </h1>
 
         <p>
@@ -839,12 +1187,17 @@
 
         <div class="hero-buttons">
 
-          <!-- ENTRAR AGORA VAI PARA O LOGIN -->
-          <a href="area-do-artista.html" class="btn gold">
+          <a
+            href="area-do-artista.html"
+            class="btn gold"
+          >
             ♕ ENTRAR NO MOVIMENTO
           </a>
 
-          <a href="#musicas" class="btn dark">
+          <a
+            href="#musicas"
+            class="btn dark"
+          >
             ▶ VER LANÇAMENTOS
           </a>
 
@@ -853,24 +1206,50 @@
         <div class="stats">
 
           <div class="stat">
-            <strong>2.8M</strong>
-            <span>VISITAS MENSAIS</span>
+
+            <strong>
+              2.8M
+            </strong>
+
+            <span>
+              VISITAS MENSAIS
+            </span>
+
           </div>
 
           <div class="stat">
-            <strong>1.5K</strong>
-            <span>ARTISTAS CADASTRADOS</span>
+
+            <strong>
+              1.5K
+            </strong>
+
+            <span>
+              ARTISTAS CADASTRADOS
+            </span>
+
           </div>
 
           <div class="stat">
-            <strong>10K+</strong>
-            <span>MÚSICAS PUBLICADAS</span>
+
+            <strong>
+              10K+
+            </strong>
+
+            <span>
+              MÚSICAS PUBLICADAS
+            </span>
+
           </div>
 
         </div>
 
       </div>
+
     </section>
+
+    <!-- =========================
+         ARTISTAS
+    ========================= -->
 
     <section id="artistas">
 
@@ -879,31 +1258,51 @@
         <div class="section-head">
 
           <div>
-            <h2 class="title">👑 ARTISTAS PRIME</h2>
+
+            <h2 class="title">
+              👑 ARTISTAS PRIME
+            </h2>
 
             <p class="subtitle">
               Os grandes nomes e as novas revelações do Kuduro.
             </p>
+
           </div>
 
-          <a class="btn dark" href="artistas.html">
+          <a
+            class="btn dark"
+            href="artistas.html"
+          >
             VER TODOS ›
           </a>
 
         </div>
 
-        <div class="artists" id="artistGrid"></div>
+        <div
+          class="artists"
+          id="artistGrid"
+        ></div>
 
       </div>
+
     </section>
 
-    <section id="musicas" style="padding-top:0">
+    <!-- =========================
+         MÚSICAS
+    ========================= -->
+
+    <section
+      id="musicas"
+      style="padding-top:0"
+    >
 
       <div class="container grid-3">
 
         <div class="panel">
 
-          <h2 class="title">🎵 LANÇAMENTOS</h2>
+          <h2 class="title">
+            🎵 LANÇAMENTOS
+          </h2>
 
           <p class="subtitle">
             O que está a tocar no movimento.
@@ -916,84 +1315,134 @@
         <div class="panel">
 
           <div class="rank-title">
-            TOP 10 <span style="color:#fff">PRIME</span>
+
+            TOP 10
+            <span style="color:#fff">
+              PRIME
+            </span>
+
           </div>
 
-          <p class="subtitle" style="text-align:center;margin-bottom:12px">
+          <p
+            class="subtitle"
+            style="text-align:center;margin-bottom:12px"
+          >
             As músicas mais ouvidas da semana.
           </p>
 
           <div id="rankings"></div>
 
-          <a class="btn dark"
-             style="width:100%;margin-top:15px"
-             href="ranking.html">
+          <a
+            class="btn dark"
+            style="width:100%;margin-top:15px"
+            href="ranking.html"
+          >
             VER RANKING COMPLETO ›
           </a>
 
         </div>
 
-        <div class="panel battle" id="batalhas">
+        <div
+          class="panel battle"
+          id="batalhas"
+        >
 
-          <h2 class="title">🔥 PRIME BATTLES</h2>
+          <h2 class="title">
+            🔥 PRIME BATTLES
+          </h2>
 
           <p class="subtitle">
             O público escolhe o melhor!
           </p>
 
-          <a class="btn gold" href="feed.html">
+          <a
+            class="btn gold"
+            href="feed.html"
+          >
             VOTAR AGORA ›
           </a>
 
         </div>
 
       </div>
+
     </section>
 
-    <section id="eventos" style="padding-top:0">
+    <!-- =========================
+         EVENTOS
+    ========================= -->
+
+    <section
+      id="eventos"
+      style="padding-top:0"
+    >
 
       <div class="container">
 
         <div class="section-head">
 
           <div>
-            <h2 class="title">📅 PRIME EVENTS</h2>
+
+            <h2 class="title">
+              📅 PRIME EVENTS
+            </h2>
 
             <p class="subtitle">
               Os próximos eventos do Kuduro.
             </p>
+
           </div>
 
-          <a class="btn dark" href="eventos.html">
+          <a
+            class="btn dark"
+            href="eventos.html"
+          >
             VER TODOS ›
           </a>
 
         </div>
 
-        <div class="events" id="eventGrid"></div>
+        <div
+          class="events"
+          id="eventGrid"
+        ></div>
 
       </div>
+
     </section>
 
-    <section class="cta" id="perfil">
+    <!-- =========================
+         CTA
+    ========================= -->
+
+    <section
+      class="cta"
+      id="perfil"
+    >
 
       <div class="container cta-in">
 
         <div>
 
-          <h2>O TEU TALENTO MERECE SER VISTO.</h2>
+          <h2>
+            O TEU TALENTO MERECE SER VISTO.
+          </h2>
 
           <p>
             Cria o teu perfil no
-            <b style="color:var(--gold)">KUDURO PRIME</b>
+            <b style="color:var(--gold)">
+              KUDURO PRIME
+            </b>
             e entra no movimento.
           </p>
 
         </div>
 
-        <a href="criar-perfil.html"
-           class="btn gold"
-           style="font-size:14px;padding:17px 28px">
+        <a
+          href="criar-perfil.html"
+          class="btn gold"
+          style="font-size:14px;padding:17px 28px"
+        >
           👤 CRIAR PERFIL DE ARTISTA
         </a>
 
@@ -1003,6 +1452,10 @@
 
   </main>
 
+  <!-- =========================
+       FOOTER
+  ========================= -->
+
   <footer>
 
     <div class="container">
@@ -1011,13 +1464,20 @@
 
         <div>
 
-          <a class="brand" href="index.html">
+          <a
+            class="brand"
+            href="index.html"
+          >
 
-            <span class="crown">♕</span>
+            <span class="crown">
+              ♕
+            </span>
 
             KUDURO
 
-            <b>PRIME</b>
+            <b>
+              PRIME
+            </b>
 
           </a>
 
@@ -1030,36 +1490,69 @@
 
         <div>
 
-          <h4>NAVEGAÇÃO</h4>
+          <h4>
+            NAVEGAÇÃO
+          </h4>
 
-          <a href="#inicio">Início</a>
-          <a href="artistas.html">Artistas</a>
-          <a href="musicas.html">Músicas</a>
-          <a href="ranking.html">Ranking</a>
-          <a href="eventos.html">Eventos</a>
+          <a href="#inicio">
+            Início
+          </a>
+
+          <a href="artistas.html">
+            Artistas
+          </a>
+
+          <a href="musicas.html">
+            Músicas
+          </a>
+
+          <a href="ranking.html">
+            Ranking
+          </a>
+
+          <a href="eventos.html">
+            Eventos
+          </a>
 
         </div>
 
         <div>
 
-          <h4>SOBRE</h4>
+          <h4>
+            SOBRE
+          </h4>
 
-          <a href="#">Quem Somos</a>
-          <a href="#">Termos de Uso</a>
-          <a href="#">Privacidade</a>
-          <a href="#">Ajuda</a>
+          <a href="#">
+            Quem Somos
+          </a>
+
+          <a href="#">
+            Termos de Uso
+          </a>
+
+          <a href="#">
+            Privacidade
+          </a>
+
+          <a href="#">
+            Ajuda
+          </a>
 
         </div>
 
         <div>
 
-          <h4>RECEBE AS NOVIDADES PRIME</h4>
+          <h4>
+            RECEBE AS NOVIDADES PRIME
+          </h4>
 
           <p>
             Fica por dentro dos lançamentos e eventos.
           </p>
 
-          <div style="display:flex;gap:8px">
+          <div
+            style="display:flex;gap:8px"
+          >
 
             <input
               type="email"
@@ -1076,7 +1569,10 @@
               "
             >
 
-            <button class="btn gold" type="button">
+            <button
+              class="btn gold"
+              type="button"
+            >
               RECEBER
             </button>
 
@@ -1098,73 +1594,106 @@
 
   </footer>
 
-  <!-- FIREBASE + FUNCIONAMENTO DO SITE -->
+  <!-- =========================
+       FIREBASE
+  ========================= -->
 
   <script type="module">
 
-    import { initializeApp }
-      from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+    import {
+      initializeApp
+    } from
+      "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
 
     import {
       getAuth,
       onAuthStateChanged
-    } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+    } from
+      "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
 
 
     /* =========================
-       FIREBASE
+       FIREBASE CONFIG
     ========================= */
 
     const firebaseConfig = {
 
-      apiKey: "AIzaSyDoitCcLeLDNBNPCP6fG1s_xbHr4UmohSo",
+      apiKey:
+        "AIzaSyDoitCcLeLDNBNPCP6fG1s_xbHr4UmohSo",
 
-      authDomain: "kuduro-prime.firebaseapp.com",
+      authDomain:
+        "kuduro-prime.firebaseapp.com",
 
-      projectId: "kuduro-prime",
+      projectId:
+        "kuduro-prime",
 
-      storageBucket: "kuduro-prime.firebasestorage.app",
+      storageBucket:
+        "kuduro-prime.firebasestorage.app",
 
-      messagingSenderId: "299776559545",
+      messagingSenderId:
+        "299776559545",
 
-      appId: "1:299776559545:web:04aced1ba25391eb3fce68"
+      appId:
+        "1:299776559545:web:04aced1ba25391eb3fce68"
 
     };
 
 
-    const app = initializeApp(firebaseConfig);
+    const app =
+      initializeApp(firebaseConfig);
 
-    const auth = getAuth(app);
+    const auth =
+      getAuth(app);
 
 
     /* =========================
-       BOTÃO ÁREA DO ARTISTA
+       ELEMENTOS
     ========================= */
 
     const areaArtistaBtn =
       document.querySelector("#areaArtistaBtn");
 
+    const notificationBtn =
+      document.querySelector("#notificationBtn");
+
+    const notificationPanel =
+      document.querySelector("#notificationPanel");
+
+    const notificationBadge =
+      document.querySelector("#notificationBadge");
+
+    const notificationList =
+      document.querySelector("#notificationList");
+
+    const enableNotificationsBtn =
+      document.querySelector("#enableNotificationsBtn");
+
+    const markAllReadBtn =
+      document.querySelector("#markAllReadBtn");
+
+
+    /* =========================
+       ÁREA DO ARTISTA
+    ========================= */
 
     onAuthStateChanged(auth, (user) => {
 
       if(user){
 
-        /*
-          UTILIZADOR JÁ ESTÁ LOGADO
-          → FEED
-        */
-
-        areaArtistaBtn.href = "feed.html";
+        areaArtistaBtn.href =
+          "feed.html";
 
         areaArtistaBtn.innerHTML =
           "👤 ENTRAR NO FEED";
 
-      }else{
-
         /*
-          UTILIZADOR NÃO ESTÁ LOGADO
-          → LOGIN
+          UTILIZADOR LOGADO
+          → MOSTRAR SINO
         */
+
+        notificationBtn.classList.add("show");
+
+      }else{
 
         areaArtistaBtn.href =
           "area-do-artista.html";
@@ -1172,9 +1701,62 @@
         areaArtistaBtn.innerHTML =
           "👤 ÁREA DO ARTISTA";
 
+        /*
+          UTILIZADOR NÃO LOGADO
+          → ESCONDER SINO
+        */
+
+        notificationBtn.classList.remove("show");
+
+        notificationPanel.classList.remove("open");
+
       }
 
     });
+
+
+    /* =========================
+       ABRIR NOTIFICAÇÕES
+    ========================= */
+
+    notificationBtn.addEventListener(
+      "click",
+      (event) => {
+
+        event.stopPropagation();
+
+        notificationPanel.classList.toggle("open");
+
+      }
+    );
+
+
+    /* =========================
+       NÃO FECHAR AO CLICAR DENTRO
+    ========================= */
+
+    notificationPanel.addEventListener(
+      "click",
+      (event) => {
+
+        event.stopPropagation();
+
+      }
+    );
+
+
+    /* =========================
+       FECHAR AO CLICAR FORA
+    ========================= */
+
+    document.addEventListener(
+      "click",
+      () => {
+
+        notificationPanel.classList.remove("open");
+
+      }
+    );
 
 
     /* =========================
@@ -1222,7 +1804,9 @@
     ];
 
 
-    document.querySelector("#artistGrid").innerHTML =
+    document.querySelector(
+      "#artistGrid"
+    ).innerHTML =
 
       artists.map(a => `
 
@@ -1239,8 +1823,13 @@
           <div class="artist-info">
 
             <b>
+
               ${a[0]}
-              <span class="verified">●</span>
+
+              <span class="verified">
+                ●
+              </span>
+
             </b>
 
             <div class="tag">
@@ -1287,7 +1876,9 @@
       artists.map(a => a[2]);
 
 
-    document.querySelector("#releases").innerHTML =
+    document.querySelector(
+      "#releases"
+    ).innerHTML =
 
       songs.map((s, i) => `
 
@@ -1326,26 +1917,27 @@
        RANKING
     ========================= */
 
-    const rankingSongs = songs.concat([
+    const rankingSongs =
+      songs.concat([
 
-      [
-        "Balança",
-        "Nagrelha"
-      ]
+        [
+          "Balança",
+          "Nagrelha"
+        ]
 
-    ]);
+      ]);
 
 
-    document.querySelector("#rankings").innerHTML =
+    document.querySelector(
+      "#rankings"
+    ).innerHTML =
 
       rankingSongs.map((s, i) => `
 
         <div class="rank">
 
           <div class="rank-num">
-
             ${String(i + 1).padStart(2, "0")}
-
           </div>
 
           <div
@@ -1397,7 +1989,9 @@
     ];
 
 
-    document.querySelector("#eventGrid").innerHTML =
+    document.querySelector(
+      "#eventGrid"
+    ).innerHTML =
 
       events.map((e, i) => `
 
@@ -1435,32 +2029,84 @@
       document.querySelector("#mobileLinks");
 
 
-    menuBtn.addEventListener("click", () => {
+    menuBtn.addEventListener(
+      "click",
+      () => {
 
-      mobileLinks.classList.toggle("open");
+        mobileLinks.classList.toggle(
+          "open"
+        );
 
-      menuBtn.textContent =
+        menuBtn.textContent =
 
-        mobileLinks.classList.contains("open")
-          ? "✕"
-          : "☰";
+          mobileLinks.classList.contains(
+            "open"
+          )
+            ? "✕"
+            : "☰";
 
-    });
+      }
+    );
 
 
     mobileLinks
       .querySelectorAll("a")
       .forEach(link => {
 
-        link.addEventListener("click", () => {
+        link.addEventListener(
+          "click",
+          () => {
 
-          mobileLinks.classList.remove("open");
+            mobileLinks.classList.remove(
+              "open"
+            );
 
-          menuBtn.textContent = "☰";
+            menuBtn.textContent =
+              "☰";
 
-        });
+          }
+        );
 
       });
+
+
+    /* =========================
+       🔔 ETAPA 1
+       PREPARAÇÃO DAS NOTIFICAÇÕES
+    ========================= */
+
+    /*
+      Por enquanto NÃO estamos a pedir
+      permissão ao navegador.
+
+      Primeiro vamos ligar o sistema
+      ao Firestore.
+
+      O botão já está preparado.
+    */
+
+    enableNotificationsBtn.addEventListener(
+      "click",
+      () => {
+
+        alert(
+          "🔔 O sistema de notificações está a ser configurado. Vamos ligar esta função ao Firebase na próxima etapa."
+        );
+
+      }
+    );
+
+
+    markAllReadBtn.addEventListener(
+      "click",
+      () => {
+
+        alert(
+          "🔔 A função 'marcar todas como lidas' será ligada ao Firestore na próxima etapa."
+        );
+
+      }
+    );
 
   </script>
 
