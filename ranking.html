@@ -1,9 +1,12 @@
 <!DOCTYPE html>
-
 <html lang="pt">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
 
   <title>Ranking — KUDURO PRIME</title>
 
@@ -32,16 +35,30 @@
 
     body{
       margin:0;
+
       background:
-        radial-gradient(circle at 50% 0,rgba(244,191,49,.14),transparent 28%),
+        radial-gradient(
+          circle at 50% 0,
+          rgba(244,191,49,.14),
+          transparent 28%
+        ),
         var(--bg);
+
       color:var(--text);
-      font-family:Arial,Helvetica,sans-serif;
+
+      font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
     }
 
     a{
-      text-decoration:none;
       color:inherit;
+      text-decoration:none;
+    }
+
+    button{
+      font:inherit;
     }
 
     .container{
@@ -49,34 +66,46 @@
       margin:auto;
     }
 
-    /* NAV */
+    /* =========================
+       NAV
+    ========================= */
 
     .nav{
       height:82px;
-      border-bottom:1px solid var(--line);
-      display:flex;
-      align-items:center;
+
       position:sticky;
       top:0;
-      background:rgba(7,7,7,.94);
-      backdrop-filter:blur(12px);
       z-index:50;
+
+      display:flex;
+      align-items:center;
+
+      border-bottom:
+        1px solid var(--line);
+
+      background:
+        rgba(7,7,7,.94);
+
+      backdrop-filter:
+        blur(12px);
     }
 
     .nav-in{
+      width:min(1180px,92%);
+      margin:auto;
+
       display:flex;
       align-items:center;
       justify-content:space-between;
-      width:min(1180px,92%);
-      margin:auto;
+
       gap:20px;
     }
 
     .brand{
       font-size:23px;
       font-weight:900;
+
       line-height:.78;
-      color:#fff;
       letter-spacing:-1px;
     }
 
@@ -86,16 +115,20 @@
     }
 
     .crown{
-      color:var(--gold);
-      font-size:23px;
       display:block;
+
+      color:var(--gold);
+
       text-align:center;
+
+      font-size:23px;
       line-height:.6;
     }
 
     .links{
       display:flex;
       gap:22px;
+
       font-size:11px;
       font-weight:800;
     }
@@ -113,50 +146,74 @@
 
     .area-btn{
       padding:10px 14px;
-      border:1px solid var(--gold);
+
+      border:
+        1px solid var(--gold);
+
       border-radius:8px;
+
       color:var(--gold);
+
       font-size:10px;
       font-weight:900;
     }
 
     .join-btn{
       padding:11px 16px;
-      background:var(--gold);
-      color:#17120a;
+
       border-radius:8px;
+
+      background:var(--gold);
+
+      color:#17120a;
+
       font-size:10px;
       font-weight:900;
     }
 
     .menu{
       display:none;
+
       border:0;
       background:transparent;
+
       color:white;
+
       font-size:24px;
+
       cursor:pointer;
     }
 
-    /* HERO */
+    /* =========================
+       HERO
+    ========================= */
 
     .hero{
       padding:75px 0 55px;
+
       text-align:center;
-      border-bottom:1px solid var(--line);
+
+      border-bottom:
+        1px solid var(--line);
     }
 
     .eyebrow{
       color:var(--gold);
+
       font-size:11px;
       font-weight:900;
+
       letter-spacing:3px;
     }
 
     .hero h1{
       margin:14px 0 12px;
-      font-size:clamp(48px,8vw,92px);
+
+      font-size:
+        clamp(48px,8vw,92px);
+
       line-height:.9;
+
       letter-spacing:-4px;
     }
 
@@ -166,83 +223,164 @@
 
     .hero p{
       max-width:580px;
+
       margin:0 auto;
+
       color:var(--muted);
+
       font-size:14px;
       line-height:1.6;
     }
 
-    /* FILTRO */
+    /* =========================
+       FILTROS
+    ========================= */
 
     .filters{
       padding:25px 0;
+
       display:flex;
-      gap:10px;
       justify-content:center;
+
+      gap:10px;
       flex-wrap:wrap;
     }
 
     .filter{
       padding:10px 16px;
-      border:1px solid var(--line);
+
+      border:
+        1px solid var(--line);
+
       border-radius:30px;
+
       background:#101010;
+
       color:#aaa;
+
       font-size:10px;
       font-weight:900;
+
       cursor:pointer;
     }
 
     .filter.active,
     .filter:hover{
       color:#17120a;
+
       border-color:var(--gold);
+
       background:var(--gold);
     }
 
-    /* TOP 3 */
+    /* =========================
+       CARREGAMENTO
+    ========================= */
+
+    .loading{
+      padding:70px 20px;
+
+      text-align:center;
+
+      color:var(--muted);
+    }
+
+    .loading .spinner{
+      width:45px;
+      height:45px;
+
+      margin:
+        0 auto 18px;
+
+      border:
+        3px solid #292310;
+
+      border-top-color:
+        var(--gold);
+
+      border-radius:50%;
+
+      animation:
+        spin 1s linear infinite;
+    }
+
+    @keyframes spin{
+      to{
+        transform:rotate(360deg);
+      }
+    }
+
+    /* =========================
+       TOP 3
+    ========================= */
 
     .top3{
       display:grid;
-      grid-template-columns:1fr 1.2fr 1fr;
+
+      grid-template-columns:
+        1fr 1.2fr 1fr;
+
       gap:18px;
+
       align-items:end;
-      margin:30px 0 55px;
+
+      margin:
+        30px 0 55px;
     }
 
     .podium{
       position:relative;
+
       min-height:350px;
+
       padding:20px;
+
       border-radius:16px;
-      border:1px solid var(--line);
+
+      border:
+        1px solid var(--line);
+
       overflow:hidden;
+
       display:flex;
       flex-direction:column;
       justify-content:end;
 
       background:
-        linear-gradient(0deg,#090909 0%,rgba(9,9,9,.3) 70%),
+        linear-gradient(
+          0deg,
+          #090909 0%,
+          rgba(9,9,9,.25) 70%
+        ),
         var(--img)
         center/cover;
     }
 
     .podium.first{
       min-height:430px;
-      border-color:var(--gold);
+
+      border-color:
+        var(--gold);
     }
 
     .position{
       position:absolute;
+
       top:18px;
       left:18px;
+
       width:45px;
       height:45px;
+
       border-radius:50%;
-      background:var(--gold);
-      color:#17120a;
+
       display:grid;
       place-items:center;
+
+      background:var(--gold);
+
+      color:#17120a;
+
       font-size:20px;
       font-weight:900;
     }
@@ -250,18 +388,24 @@
     .podium.first .position{
       width:60px;
       height:60px;
+
       font-size:28px;
     }
 
     .crown-big{
       margin-bottom:8px;
+
       color:var(--gold);
+
       font-size:28px;
     }
 
     .podium h2{
       margin:0;
+
       font-size:25px;
+
+      word-break:break-word;
     }
 
     .podium.first h2{
@@ -270,61 +414,89 @@
 
     .podium .song{
       margin-top:5px;
+
       color:#ddd;
+
       font-size:13px;
     }
 
     .views{
       margin-top:12px;
+
       color:var(--gold);
+
       font-size:11px;
       font-weight:900;
     }
 
-    /* LISTA */
+    /* =========================
+       LISTA
+    ========================= */
 
     .ranking-section{
-      padding:10px 0 80px;
+      padding:
+        10px 0 80px;
     }
 
     .section-head{
       display:flex;
-      justify-content:space-between;
+
       align-items:end;
+      justify-content:space-between;
+
       margin-bottom:20px;
     }
 
     .section-head h2{
       margin:0;
+
       font-size:26px;
     }
 
     .section-head p{
       margin:5px 0 0;
+
       color:var(--muted);
+
       font-size:12px;
     }
 
     .updated{
       color:var(--gold);
+
       font-size:10px;
       font-weight:800;
     }
 
     .ranking-list{
-      border:1px solid var(--line);
-      border-radius:16px;
       overflow:hidden;
+
+      border:
+        1px solid var(--line);
+
+      border-radius:16px;
+
       background:#0d0d0d;
     }
 
     .rank-item{
       display:grid;
-      grid-template-columns:60px 62px 1fr auto;
+
+      grid-template-columns:
+        60px
+        62px
+        1fr
+        auto;
+
       gap:15px;
+
       align-items:center;
+
       padding:15px 20px;
-      border-bottom:1px solid var(--line);
+
+      border-bottom:
+        1px solid var(--line);
+
       transition:.2s;
     }
 
@@ -337,52 +509,96 @@
     }
 
     .rank-number{
+      color:#aaa;
+
       font-size:22px;
       font-weight:900;
-      color:#aaa;
     }
 
-    .rank-item:nth-child(1) .rank-number{
+    .rank-item:nth-child(1)
+    .rank-number{
       color:#ffd95a;
     }
 
-    .rank-item:nth-child(2) .rank-number{
+    .rank-item:nth-child(2)
+    .rank-number{
       color:#d5d5d5;
     }
 
-    .rank-item:nth-child(3) .rank-number{
+    .rank-item:nth-child(3)
+    .rank-number{
       color:#cf8a52;
     }
 
     .cover{
       width:58px;
       height:58px;
+
       border-radius:9px;
+
       background:
-        linear-gradient(135deg,rgba(244,191,49,.15),rgba(0,0,0,.3)),
+        linear-gradient(
+          135deg,
+          rgba(244,191,49,.15),
+          rgba(0,0,0,.3)
+        ),
         var(--img)
-        center/cover;
+        center/cover,
+        #18140a;
+    }
+
+    .cover.empty{
+      display:grid;
+      place-items:center;
+
+      font-size:25px;
+
+      background:#18140a;
+    }
+
+    .music-info{
+      min-width:0;
     }
 
     .music-info strong{
       display:block;
+
+      overflow:hidden;
+
+      text-overflow:ellipsis;
+      white-space:nowrap;
+
       font-size:14px;
     }
 
     .music-info span{
       display:block;
+
       margin-top:5px;
+
+      overflow:hidden;
+
+      text-overflow:ellipsis;
+      white-space:nowrap;
+
       color:var(--muted);
+
       font-size:11px;
     }
 
     .music-info small{
       display:inline-block;
+
       margin-top:6px;
+
       padding:4px 7px;
+
       border-radius:4px;
+
       background:#19140a;
+
       color:var(--gold);
+
       font-size:8px;
       font-weight:900;
     }
@@ -393,27 +609,77 @@
 
     .stats strong{
       display:block;
+
       font-size:12px;
     }
 
     .trend{
       display:block;
+
       margin-top:6px;
+
       color:var(--green);
+
       font-size:10px;
       font-weight:900;
     }
 
-    .trend.down{
-      color:var(--red);
+    /* =========================
+       VAZIO
+    ========================= */
+
+    .empty{
+      padding:70px 20px;
+
+      text-align:center;
     }
 
-    /* CTA */
+    .empty-icon{
+      width:70px;
+      height:70px;
+
+      margin:
+        auto auto 18px;
+
+      display:grid;
+      place-items:center;
+
+      border-radius:50%;
+
+      background:#1b170c;
+
+      color:var(--gold);
+
+      font-size:30px;
+    }
+
+    .empty h3{
+      margin:0;
+
+      font-size:17px;
+    }
+
+    .empty p{
+      margin:9px 0 20px;
+
+      color:var(--muted);
+
+      font-size:12px;
+    }
+
+    /* =========================
+       CTA
+    ========================= */
 
     .cta{
       padding:50px 0;
-      border-top:1px solid #604b18;
-      border-bottom:1px solid #604b18;
+
+      border-top:
+        1px solid #604b18;
+
+      border-bottom:
+        1px solid #604b18;
+
       background:
         linear-gradient(
           90deg,
@@ -424,42 +690,59 @@
 
     .cta-in{
       display:flex;
-      justify-content:space-between;
+
       align-items:center;
+      justify-content:space-between;
+
       gap:30px;
     }
 
     .cta h2{
       margin:0;
+
       font-size:30px;
     }
 
     .cta p{
       margin:8px 0 0;
+
       color:var(--muted);
+
       font-size:13px;
     }
 
     .btn{
       padding:14px 22px;
+
       border-radius:8px;
+
       background:var(--gold);
+
       color:#17120a;
+
       font-size:11px;
       font-weight:900;
+
       white-space:nowrap;
     }
 
-    /* FOOTER */
+    /* =========================
+       FOOTER
+    ========================= */
 
     footer{
       padding:40px 0;
+
       text-align:center;
+
       color:#777;
+
       font-size:11px;
     }
 
-    /* MOBILE */
+    /* =========================
+       MOBILE
+    ========================= */
 
     @media(max-width:900px){
 
@@ -506,16 +789,23 @@
 
       .join-btn{
         padding:9px 11px;
+
         font-size:9px;
       }
 
       .hero{
-        padding:55px 0 35px;
+        padding:
+          55px 0 35px;
       }
 
       .rank-item{
-        grid-template-columns:35px 50px 1fr;
+        grid-template-columns:
+          35px
+          50px
+          1fr;
+
         gap:10px;
+
         padding:12px;
       }
 
@@ -533,385 +823,928 @@
       }
 
       .section-head{
-        align-items:start;
         flex-direction:column;
+
+        align-items:start;
+
         gap:10px;
       }
 
       .cta-in{
-        align-items:start;
         flex-direction:column;
+
+        align-items:start;
       }
 
     }
 
   </style>
-
 </head>
 
 <body>
 
+  <!-- NAV -->
+
   <nav class="nav">
 
-```
-<div class="nav-in">
+    <div class="nav-in">
 
-  <a href="index.html" class="brand">
-    <span class="crown">♕</span>
-    KUDURO
-    <b>PRIME</b>
-  </a>
+      <a
+        href="index.html"
+        class="brand"
+      >
 
-  <div class="links">
-    <a href="index.html">INÍCIO</a>
-    <a href="artistas.html">ARTISTAS</a>
-    <a href="musicas.html">MÚSICAS</a>
-    <a href="ranking.html" class="active">RANKING</a>
-    <a href="index.html#batalhas">BATALHAS</a>
-    <a href="eventos.html">EVENTOS</a>
-  </div>
+        <span class="crown">
+          ♕
+        </span>
 
-  <div class="nav-actions">
+        KUDURO
 
-    <a
-      href="area-do-artista.html"
-      class="area-btn"
-    >
-      👤 ÁREA DO ARTISTA
-    </a>
+        <b>
+          PRIME
+        </b>
 
-    <a
-      href="juntar-se.html"
-      class="join-btn"
-    >
-      JUNTA-TE 👑
-    </a>
+      </a>
 
-    <button class="menu">
-      ☰
-    </button>
 
-  </div>
+      <div class="links">
 
-</div>
-```
+        <a href="index.html">
+          INÍCIO
+        </a>
+
+        <a href="artistas.html">
+          ARTISTAS
+        </a>
+
+        <a href="musicas.html">
+          MÚSICAS
+        </a>
+
+        <a
+          href="ranking.html"
+          class="active"
+        >
+          RANKING
+        </a>
+
+        <a href="index.html#batalhas">
+          BATALHAS
+        </a>
+
+        <a href="eventos.html">
+          EVENTOS
+        </a>
+
+      </div>
+
+
+      <div class="nav-actions">
+
+        <a
+          href="area-do-artista.html"
+          class="area-btn"
+        >
+          👤 ÁREA DO ARTISTA
+        </a>
+
+        <a
+          href="juntar-se.html"
+          class="join-btn"
+        >
+          JUNTA-TE 👑
+        </a>
+
+        <button
+          class="menu"
+          onclick="toggleMenu()"
+        >
+          ☰
+        </button>
+
+      </div>
+
+    </div>
 
   </nav>
 
+
   <main>
 
-```
-<!-- HERO -->
+    <!-- HERO -->
 
-<section class="hero">
+    <section class="hero">
 
-  <div class="container">
+      <div class="container">
 
-    <div class="eyebrow">
-      👑 O PODER É DO PÚBLICO
-    </div>
+        <div class="eyebrow">
+          👑 O PODER É DO PÚBLICO
+        </div>
 
-    <h1>
-      TOP 10 <span>PRIME</span>
-    </h1>
-
-    <p>
-      As músicas que estão a dominar o movimento.
-      O ranking é atualizado com base na força do público.
-    </p>
-
-  </div>
-
-</section>
-
-
-<!-- FILTROS -->
-
-<div class="container">
-
-  <div class="filters">
-
-    <button
-      class="filter active"
-      onclick="filterRanking('all',this)"
-    >
-      🔥 GERAL
-    </button>
-
-    <button
-      class="filter"
-      onclick="filterRanking('semana',this)"
-    >
-      ESTA SEMANA
-    </button>
-
-    <button
-      class="filter"
-      onclick="filterRanking('mes',this)"
-    >
-      ESTE MÊS
-    </button>
-
-    <button
-      class="filter"
-      onclick="filterRanking('novos',this)"
-    >
-      🆕 NOVIDADES
-    </button>
-
-  </div>
-
-
-  <!-- PÓDIO -->
-
-  <section class="top3" id="top3"></section>
-
-
-  <!-- RANKING -->
-
-  <section class="ranking-section">
-
-    <div class="section-head">
-
-      <div>
-
-        <h2>
-          🏆 CLASSIFICAÇÃO
-        </h2>
+        <h1>
+          TOP 10
+          <span>PRIME</span>
+        </h1>
 
         <p>
-          Top 10 das músicas mais ouvidas.
+          As músicas mais ouvidas
+          no KUDURO PRIME.
+          O ranking é atualizado
+          automaticamente.
         </p>
 
       </div>
 
-      <div class="updated">
-        ● ATUALIZADO ESTA SEMANA
+    </section>
+
+
+    <!-- FILTROS -->
+
+    <div class="container">
+
+      <div class="filters">
+
+        <button
+          class="filter active"
+          onclick="filterRanking('all',this)"
+        >
+          🔥 GERAL
+        </button>
+
+        <button
+          class="filter"
+          onclick="filterRanking('semana',this)"
+        >
+          ESTA SEMANA
+        </button>
+
+        <button
+          class="filter"
+          onclick="filterRanking('mes',this)"
+        >
+          ESTE MÊS
+        </button>
+
+        <button
+          class="filter"
+          onclick="filterRanking('novos',this)"
+        >
+          🆕 NOVIDADES
+        </button>
+
       </div>
 
+
+      <!-- TOP 3 -->
+
+      <section
+        class="top3"
+        id="top3"
+      ></section>
+
+
+      <!-- RANKING -->
+
+      <section class="ranking-section">
+
+        <div class="section-head">
+
+          <div>
+
+            <h2>
+              🏆 CLASSIFICAÇÃO
+            </h2>
+
+            <p>
+              Top 10 das músicas
+              mais ouvidas.
+            </p>
+
+          </div>
+
+          <div class="updated">
+            ● ATUALIZADO AUTOMATICAMENTE
+          </div>
+
+        </div>
+
+
+        <div
+          class="ranking-list"
+          id="rankingList"
+        >
+
+          <div class="loading">
+
+            <div class="spinner"></div>
+
+            A carregar o ranking...
+
+          </div>
+
+        </div>
+
+      </section>
+
     </div>
 
-    <div
-      class="ranking-list"
-      id="rankingList"
-    ></div>
 
-  </section>
+    <!-- CTA -->
 
-</div>
+    <section class="cta">
 
+      <div class="container cta-in">
 
-<!-- CTA -->
+        <div>
 
-<section class="cta">
+          <h2>
+            A TUA MÚSICA
+            PODE ESTAR AQUI.
+          </h2>
 
-  <div class="container cta-in">
+          <p>
+            Publica no KUDURO PRIME
+            e entra na disputa
+            pelo Top 10.
+          </p>
 
-    <div>
+        </div>
 
-      <h2>
-        A TUA MÚSICA PODE ESTAR AQUI.
-      </h2>
+        <a
+          href="juntar-se.html"
+          class="btn"
+        >
+          ♕ ENTRAR NO RANKING
+        </a>
 
-      <p>
-        Publica no KUDURO PRIME e entra na disputa pelo Top 10.
-      </p>
+      </div>
 
-    </div>
-
-    <a
-      href="juntar-se.html"
-      class="btn"
-    >
-      ♕ ENTRAR NO RANKING
-    </a>
-
-  </div>
-
-</section>
-```
+    </section>
 
   </main>
 
+
   <footer>
 
-```
-<div class="container">
+    <div class="container">
 
-  © 2026 KUDURO PRIME —
-  O KUDURO VIVE AQUI. 👑
+      © 2026 KUDURO PRIME —
+      O KUDURO VIVE AQUI. 👑
 
-</div>
-```
+    </div>
 
   </footer>
 
-  <script>
 
-    const ranking = [
+  <script type="module">
 
-      {
-        artist:"Figura do Adoço",
-        song:"Mim Faz Só Broxe",
-        views:"245.8K",
-        trend:"+12.4%",
-        image:"images/artista-1.jpg",
-        tag:"N.º 1"
-      },
+    import {
+      initializeApp
+    } from
+    "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
 
-      {
-        artist:"Ready Neutro",
-        song:"Vida de Artista",
-        views:"198.2K",
-        trend:"+8.7%",
-        image:"images/artista-4.jpg",
-        tag:"TOP 3"
-      },
 
-      {
-        artist:"Dj Jeff Afrozila",
-        song:"Zona Quente",
-        views:"176.5K",
-        trend:"+6.1%",
-        image:"images/artista-2.jpg",
-        tag:"EM ALTA"
-      },
+    import {
+      getFirestore,
+      collection,
+      getDocs,
+      query,
+      orderBy,
+      limit
+    } from
+    "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 
-      {
-        artist:"MCK",
-        song:"Kuduro é Vida",
-        views:"154.9K",
-        trend:"+4.8%",
-        image:"images/artista-3.jpg",
-        tag:""
-      },
 
-      {
-        artist:"Nagrelha",
-        song:"Balança",
-        views:"143.2K",
-        trend:"+3.5%",
-        image:"images/artista-5.jpg",
-        tag:""
-      },
+    /* =========================
+       FIREBASE
+    ========================= */
 
-      {
-        artist:"Artista Prime",
-        song:"A Nossa Dança",
-        views:"121.7K",
-        trend:"+9.2%",
-        image:"images/artista-6.jpg",
-        tag:"NOVA"
-      },
+    const firebaseConfig = {
 
-      {
-        artist:"Dj Preto Show",
-        song:"No Movimento",
-        views:"98.4K",
-        trend:"+2.1%",
-        image:"images/artista-1.jpg",
-        tag:""
-      },
+      apiKey:
+        "AIzaSyDoitCcLeLDNBNPCP6fG1s_xbHr4UmohSo",
 
-      {
-        artist:"Puto Prata",
-        song:"Rua da Banda",
-        views:"86.3K",
-        trend:"-1.8%",
-        image:"images/artista-2.jpg",
-        tag:""
-      },
+      authDomain:
+        "kuduro-prime.firebaseapp.com",
 
-      {
-        artist:"Artista Prime",
-        song:"Não Para",
-        views:"74.9K",
-        trend:"+5.6%",
-        image:"images/artista-3.jpg",
-        tag:""
-      },
+      projectId:
+        "kuduro-prime",
 
-      {
-        artist:"Kuduro Boy",
-        song:"É Pra Mexer",
-        views:"63.1K",
-        trend:"+7.9%",
-        image:"images/artista-4.jpg",
-        tag:"NOVA"
+      storageBucket:
+        "kuduro-prime.firebasestorage.app",
+
+      messagingSenderId:
+        "299776559545",
+
+      appId:
+        "1:299776559545:web:04aced1ba25391eb3fce68"
+
+    };
+
+
+    const app =
+      initializeApp(firebaseConfig);
+
+
+    const db =
+      getFirestore(app);
+
+
+    /* =========================
+       DADOS
+    ========================= */
+
+    let ranking =
+      [];
+
+
+    let currentFilter =
+      "all";
+
+
+    /* =========================
+       SEGURANÇA
+    ========================= */
+
+    function escapeHTML(text){
+
+      const div =
+        document.createElement("div");
+
+
+      div.textContent =
+        text || "";
+
+
+      return div.innerHTML;
+
+    }
+
+
+    /* =========================
+       FORMATAR AUDIÇÕES
+    ========================= */
+
+    function formatViews(number){
+
+      const value =
+        Number(number || 0);
+
+
+      if(value >= 1000000){
+
+        return (
+          value / 1000000
+        )
+        .toFixed(1)
+        .replace(".0","")
+        +
+        "M";
+
       }
 
-    ];
 
+      if(value >= 1000){
+
+        return (
+          value / 1000
+        )
+        .toFixed(1)
+        .replace(".0","")
+        +
+        "K";
+
+      }
+
+
+      return value.toString();
+
+    }
+
+
+    /* =========================
+       DATA
+    ========================= */
+
+    function getSongDate(song){
+
+      if(
+        song.createdAt
+        &&
+        typeof song.createdAt.toDate
+        ===
+        "function"
+      ){
+
+        return
+          song.createdAt.toDate();
+
+      }
+
+
+      if(song.date){
+
+        const date =
+          new Date(song.date);
+
+
+        if(
+          !isNaN(date.getTime())
+        ){
+
+          return date;
+
+        }
+
+      }
+
+
+      return new Date(0);
+
+    }
+
+
+    /* =========================
+       CARREGAR MÚSICAS
+    ========================= */
+
+    async function loadRanking(){
+
+      const rankingList =
+        document.querySelector(
+          "#rankingList"
+        );
+
+
+      rankingList.innerHTML =
+        `
+          <div class="loading">
+
+            <div class="spinner"></div>
+
+            A carregar o ranking...
+
+          </div>
+        `;
+
+
+      try{
+
+        const songsRef =
+          collection(
+            db,
+            "musicas"
+          );
+
+
+        const songsQuery =
+          query(
+            songsRef,
+            orderBy(
+              "views",
+              "desc"
+            ),
+            limit(50)
+          );
+
+
+        const snapshot =
+          await getDocs(
+            songsQuery
+          );
+
+
+        ranking =
+          snapshot.docs.map(
+
+            documentItem => ({
+
+              id:
+                documentItem.id,
+
+              ...documentItem.data()
+
+            })
+
+          );
+
+
+        renderRanking();
+
+
+      }
+      catch(error){
+
+        console.error(
+          "Erro ao carregar ranking:",
+          error
+        );
+
+
+        rankingList.innerHTML =
+          `
+            <div class="empty">
+
+              <div class="empty-icon">
+                ⚠
+              </div>
+
+              <h3>
+                Não foi possível
+                carregar o ranking
+              </h3>
+
+              <p>
+                Verifica a coleção
+                "musicas" no Firebase
+                e tenta novamente.
+              </p>
+
+              <button
+                class="btn"
+                onclick="location.reload()"
+              >
+                TENTAR NOVAMENTE
+              </button>
+
+            </div>
+          `;
+
+      }
+
+    }
+
+
+    /* =========================
+       FILTRAR
+    ========================= */
+
+    function getFilteredRanking(){
+
+      let filtered =
+        [...ranking];
+
+
+      const now =
+        new Date();
+
+
+      if(
+        currentFilter ===
+        "semana"
+      ){
+
+        const weekAgo =
+          new Date();
+
+        weekAgo.setDate(
+          now.getDate() - 7
+        );
+
+
+        filtered =
+          filtered.filter(
+
+            song =>
+              getSongDate(song)
+              >=
+              weekAgo
+
+          );
+
+      }
+
+
+      if(
+        currentFilter ===
+        "mes"
+      ){
+
+        const monthAgo =
+          new Date();
+
+        monthAgo.setDate(
+          now.getDate() - 30
+        );
+
+
+        filtered =
+          filtered.filter(
+
+            song =>
+              getSongDate(song)
+              >=
+              monthAgo
+
+          );
+
+      }
+
+
+      if(
+        currentFilter ===
+        "novos"
+      ){
+
+        filtered =
+          filtered
+          .sort(
+
+            (a,b) =>
+              getSongDate(b)
+              -
+              getSongDate(a)
+
+          );
+
+      }
+      else{
+
+        filtered =
+          filtered
+          .sort(
+
+            (a,b) =>
+              Number(b.views || 0)
+              -
+              Number(a.views || 0)
+
+          );
+
+      }
+
+
+      return
+        filtered.slice(0,10);
+
+    }
+
+
+    /* =========================
+       MOSTRAR RANKING
+    ========================= */
 
     function renderRanking(){
 
-      document
-        .querySelector("#top3")
-        .innerHTML =
-          ranking
-          .slice(0,3)
-          .map(
-            (item,index) => `
+      const filteredRanking =
+        getFilteredRanking();
 
-              <article
-                class="podium ${
-                  index === 0
-                  ? "first"
-                  : ""
-                }"
-                style="
-                  --img:url('${item.image}')
-                "
+
+      const top3 =
+        document.querySelector(
+          "#top3"
+        );
+
+
+      const rankingList =
+        document.querySelector(
+          "#rankingList"
+        );
+
+
+      if(
+        filteredRanking.length === 0
+      ){
+
+        top3.innerHTML =
+          "";
+
+
+        rankingList.innerHTML =
+          `
+            <div class="empty">
+
+              <div class="empty-icon">
+                🎵
+              </div>
+
+              <h3>
+                Ainda não existem músicas
+              </h3>
+
+              <p>
+                Quando os artistas publicarem
+                músicas, elas aparecerão aqui.
+              </p>
+
+              <a
+                href="juntar-se.html"
+                class="btn"
               >
+                PUBLICAR MÚSICA
+              </a>
 
-                <div class="position">
-                  ${index + 1}
+            </div>
+          `;
+
+
+        return;
+
+      }
+
+
+      /* TOP 3 */
+
+      top3.innerHTML =
+        filteredRanking
+        .slice(0,3)
+        .map(
+
+          (
+            item,
+            index
+          ) => {
+
+            const image =
+              item.cover
+              ||
+              item.artistPhoto
+              ||
+              "";
+
+
+            const imageStyle =
+              image
+              ?
+              `--img:url('${image}')`
+              :
+              "";
+
+
+            return
+              `
+
+                <article
+                  class="
+                    podium
+                    ${
+                      index === 0
+                      ?
+                      "first"
+                      :
+                      ""
+                    }
+                  "
+                  style="${imageStyle}"
+                >
+
+                  <div class="position">
+
+                    ${index + 1}
+
+                  </div>
+
+
+                  ${
+                    index === 0
+                    ?
+                    `
+                      <div class="crown-big">
+                        👑
+                      </div>
+                    `
+                    :
+                    ""
+                  }
+
+
+                  <h2>
+
+                    ${
+                      escapeHTML(
+                        item.artistName
+                        ||
+                        "Artista Prime"
+                      )
+                    }
+
+                  </h2>
+
+
+                  <div class="song">
+
+                    🎵
+                    ${
+                      escapeHTML(
+                        item.title
+                        ||
+                        "Sem título"
+                      )
+                    }
+
+                  </div>
+
+
+                  <div class="views">
+
+                    ▶
+                    ${
+                      formatViews(
+                        item.views
+                      )
+                    }
+                    AUDIÇÕES
+
+                  </div>
+
+                </article>
+
+              `;
+
+          }
+
+        )
+        .join("");
+
+
+      /* TOP 10 */
+
+      rankingList.innerHTML =
+        filteredRanking
+        .map(
+
+          (
+            item,
+            index
+          ) => {
+
+            const image =
+              item.cover
+              ||
+              item.artistPhoto
+              ||
+              "";
+
+
+            const coverHTML =
+              image
+              ?
+              `
+                <div
+                  class="cover"
+                  style="
+                    --img:
+                    url('${image}')
+                  "
+                ></div>
+              `
+              :
+              `
+                <div
+                  class="
+                    cover
+                    empty
+                  "
+                >
+                  🎵
                 </div>
-
-                ${
-                  index === 0
-                  ? `
-                    <div class="crown-big">
-                      👑
-                    </div>
-                  `
-                  : ""
-                }
-
-                <h2>
-                  ${item.artist}
-                </h2>
-
-                <div class="song">
-                  🎵 ${item.song}
-                </div>
-
-                <div class="views">
-                  ▶ ${item.views} AUDIÇÕES
-                </div>
-
-              </article>
-
-            `
-          )
-          .join("");
+              `;
 
 
-      document
-        .querySelector("#rankingList")
-        .innerHTML =
-          ranking
-          .map(
-            (item,index) => {
+            let tag =
+              "";
 
-              const down =
-                item.trend.includes("-");
 
-              return `
+            if(index === 0){
+
+              tag =
+                "N.º 1";
+
+            }
+            else if(index === 1){
+
+              tag =
+                "TOP 3";
+
+            }
+            else if(index === 2){
+
+              tag =
+                "EM ALTA";
+
+            }
+
+
+            if(
+              currentFilter ===
+              "novos"
+              &&
+              index < 3
+            ){
+
+              tag =
+                "NOVA";
+
+            }
+
+
+            return
+              `
 
                 <article class="rank-item">
 
                   <div class="rank-number">
+
                     ${
                       String(
                         index + 1
@@ -921,59 +1754,75 @@
                         "0"
                       )
                     }
+
                   </div>
 
-                  <div
-                    class="cover"
-                    style="
-                      --img:url('${item.image}')
-                    "
-                  ></div>
+
+                  ${coverHTML}
+
 
                   <div class="music-info">
 
                     <strong>
-                      ${item.song}
+
+                      ${
+                        escapeHTML(
+                          item.title
+                          ||
+                          "Sem título"
+                        )
+                      }
+
                     </strong>
 
+
                     <span>
-                      ${item.artist}
+
+                      ${
+                        escapeHTML(
+                          item.artistName
+                          ||
+                          "Artista Prime"
+                        )
+                      }
+
                     </span>
 
+
                     ${
-                      item.tag
-                      ? `
+                      tag
+                      ?
+                      `
                         <small>
-                          ${item.tag}
+                          ${tag}
                         </small>
                       `
-                      : ""
+                      :
+                      ""
                     }
 
                   </div>
 
+
                   <div class="stats">
 
                     <strong>
-                      ▶ ${item.views}
+
+                      ▶
+                      ${
+                        formatViews(
+                          item.views
+                        )
+                      }
+
                     </strong>
 
-                    <span
-                      class="
-                        trend
-                        ${
-                          down
-                          ? "down"
-                          : ""
-                        }
-                      "
-                    >
-                      ${
-                        down
-                        ? "▼"
-                        : "▲"
-                      }
-                      ${item.trend}
+
+                    <span class="trend">
+
+                      🔥
+                      POPULAR
+
                     </span>
 
                   </div>
@@ -982,39 +1831,72 @@
 
               `;
 
-            }
-          )
-          .join("");
+          }
+
+        )
+        .join("");
 
     }
 
 
-    function filterRanking(
-      filter,
-      button
-    ){
+    /* =========================
+       BOTÕES DE FILTRO
+    ========================= */
 
-      document
-        .querySelectorAll(".filter")
-        .forEach(
-          item =>
-            item
-            .classList
-            .remove("active")
+    window.filterRanking =
+      function(
+        filter,
+        button
+      ){
+
+        currentFilter =
+          filter;
+
+
+        document
+          .querySelectorAll(
+            ".filter"
+          )
+          .forEach(
+
+            item =>
+
+              item
+              .classList
+              .remove("active")
+
+          );
+
+
+        button
+          .classList
+          .add("active");
+
+
+        renderRanking();
+
+      };
+
+
+    /* =========================
+       MENU
+    ========================= */
+
+    window.toggleMenu =
+      function(){
+
+        alert(
+          "Menu mobile em desenvolvimento."
         );
 
-
-      button
-        .classList
-        .add("active");
+      };
 
 
-      renderRanking();
+    /* =========================
+       INICIAR
+    ========================= */
 
-    }
-
-
-    renderRanking();
+    loadRanking();
 
   </script>
 
