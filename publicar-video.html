@@ -1,0 +1,1307 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Publicar Vídeo | KUDURO PRIME</title>
+
+  <style>
+    :root{
+      --bg:#060606;
+      --panel:#101010;
+      --panel2:#151515;
+      --gold:#f4bf31;
+      --gold2:#ffdc6b;
+      --text:#f7f4ed;
+      --muted:#aaa59a;
+      --line:#29251d;
+      --green:#48d597;
+      --red:#ff563f;
+    }
+
+    *{
+      box-sizing:border-box;
+      margin:0;
+      padding:0;
+    }
+
+    body{
+      font-family:Arial,Helvetica,sans-serif;
+      background:
+        radial-gradient(circle at top,#1b1608 0%,#060606 45%);
+      color:var(--text);
+      min-height:100vh;
+    }
+
+    header{
+      height:70px;
+      border-bottom:1px solid var(--line);
+      background:rgba(6,6,6,.96);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:0 30px;
+    }
+
+    .logo{
+      color:var(--gold);
+      font-size:22px;
+      font-weight:900;
+    }
+
+    .back{
+      color:var(--muted);
+      text-decoration:none;
+      font-weight:700;
+    }
+
+    .back:hover{
+      color:var(--gold);
+    }
+
+    main{
+      width:min(720px,92%);
+      margin:40px auto 70px;
+    }
+
+    .title{
+      text-align:center;
+      margin-bottom:28px;
+    }
+
+    .title .icon{
+      font-size:50px;
+      margin-bottom:10px;
+    }
+
+    h1{
+      color:var(--gold);
+      font-size:32px;
+      margin-bottom:10px;
+    }
+
+    .subtitle{
+      color:var(--muted);
+      line-height:1.6;
+    }
+
+    .card{
+      background:linear-gradient(145deg,var(--panel),var(--panel2));
+      border:1px solid var(--line);
+      border-radius:18px;
+      padding:24px;
+      margin-bottom:20px;
+    }
+
+    label{
+      display:block;
+      color:#ddd;
+      font-weight:800;
+      margin-bottom:8px;
+    }
+
+    input,
+    textarea,
+    select{
+      width:100%;
+      padding:14px;
+      background:#090909;
+      color:white;
+      border:1px solid var(--line);
+      border-radius:10px;
+      outline:none;
+      margin-bottom:18px;
+    }
+
+    input:focus,
+    textarea:focus,
+    select:focus{
+      border-color:var(--gold);
+    }
+
+    textarea{
+      min-height:110px;
+      resize:vertical;
+    }
+
+    input[type="file"]{
+      cursor:pointer;
+      border:1px dashed #514724;
+    }
+
+    input[type="file"]::file-selector-button{
+      background:var(--gold);
+      color:#000;
+      border:0;
+      padding:9px 12px;
+      border-radius:7px;
+      font-weight:900;
+      cursor:pointer;
+      margin-right:10px;
+    }
+
+    .preview{
+      display:none;
+      width:100%;
+      max-height:320px;
+      object-fit:contain;
+      background:#000;
+      border-radius:12px;
+      margin-top:5px;
+      border:1px solid var(--line);
+    }
+
+    .duration-box{
+      display:none;
+      text-align:center;
+      padding:20px;
+      border-radius:13px;
+      margin-top:5px;
+      margin-bottom:20px;
+    }
+
+    .duration-box.free{
+      display:block;
+      background:rgba(72,213,151,.08);
+      border:1px solid rgba(72,213,151,.3);
+    }
+
+    .duration-box.paid{
+      display:block;
+      background:rgba(244,191,49,.08);
+      border:1px solid rgba(244,191,49,.3);
+    }
+
+    .duration{
+      font-size:34px;
+      font-weight:900;
+      color:var(--gold);
+      margin-bottom:7px;
+    }
+
+    .duration-box.free .duration{
+      color:var(--green);
+    }
+
+    .duration-text{
+      color:#ccc;
+      line-height:1.5;
+    }
+
+    .price{
+      font-size:25px;
+      color:var(--gold);
+      font-weight:900;
+      margin-top:8px;
+    }
+
+    button{
+      width:100%;
+      padding:16px;
+      border:0;
+      border-radius:11px;
+      background:linear-gradient(135deg,var(--gold),var(--gold2));
+      color:#050505;
+      font-size:16px;
+      font-weight:900;
+      cursor:pointer;
+    }
+
+    button:hover{
+      filter:brightness(1.05);
+    }
+
+    button:disabled{
+      opacity:.5;
+      cursor:not-allowed;
+    }
+
+    .message{
+      display:none;
+      margin-top:18px;
+      padding:15px;
+      border-radius:10px;
+      line-height:1.5;
+      font-weight:700;
+    }
+
+    .message.success{
+      display:block;
+      background:rgba(72,213,151,.08);
+      border:1px solid rgba(72,213,151,.3);
+      color:var(--green);
+    }
+
+    .message.error{
+      display:block;
+      background:rgba(255,86,63,.08);
+      border:1px solid rgba(255,86,63,.3);
+      color:#ff9586;
+    }
+
+    .message.info{
+      display:block;
+      background:rgba(244,191,49,.08);
+      border:1px solid rgba(244,191,49,.3);
+      color:var(--gold2);
+    }
+
+    .rules{
+      background:#090909;
+      border:1px solid var(--line);
+      border-radius:12px;
+      padding:16px;
+      color:#ccc;
+      line-height:1.7;
+      margin-bottom:20px;
+    }
+
+    .rules strong{
+      color:var(--gold);
+    }
+
+    @media(max-width:600px){
+
+      header{
+        padding:0 15px;
+      }
+
+      .logo{
+        font-size:18px;
+      }
+
+      h1{
+        font-size:26px;
+      }
+
+      .card{
+        padding:18px;
+      }
+
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+
+  <div class="logo">
+    👑 KUDURO PRIME
+  </div>
+
+  <a
+    href="meus-videos.html"
+    class="back"
+  >
+    ← Meus vídeos
+  </a>
+
+</header>
+
+
+<main>
+
+  <div class="title">
+
+    <div class="icon">
+      🎬
+    </div>
+
+    <h1>
+      PUBLICAR VÍDEO
+    </h1>
+
+    <p class="subtitle">
+      Mostra o teu talento para toda a comunidade
+      KUDURO PRIME.
+    </p>
+
+  </div>
+
+
+  <div class="card">
+
+    <div class="rules">
+
+      🎬 <strong>Regra de publicação</strong>
+
+      <br>
+
+      Vídeos até <strong>1:00</strong> são
+      <strong>GRÁTIS</strong>.
+
+      <br>
+
+      Vídeos com mais de <strong>1:00</strong>
+      custam apenas <strong>500 Kz</strong>.
+
+    </div>
+
+
+    <label for="titulo">
+      Título do vídeo
+    </label>
+
+    <input
+      type="text"
+      id="titulo"
+      placeholder="Ex: Dabay O Mestria - Quebra Cabeça"
+      maxlength="100"
+    >
+
+
+    <label for="categoria">
+      Categoria
+    </label>
+
+    <select id="categoria">
+
+      <option value="videoclipe">
+        Videoclipe
+      </option>
+
+      <option value="performance">
+        Performance
+      </option>
+
+      <option value="freestyle">
+        Freestyle
+      </option>
+
+      <option value="entrevista">
+        Entrevista
+      </option>
+
+      <option value="bastidores">
+        Bastidores
+      </option>
+
+      <option value="outro">
+        Outro
+      </option>
+
+    </select>
+
+
+    <label for="descricao">
+      Descrição
+    </label>
+
+    <textarea
+      id="descricao"
+      placeholder="Fala um pouco sobre este vídeo..."
+    ></textarea>
+
+
+    <label for="capa">
+      Capa do vídeo
+    </label>
+
+    <input
+      type="file"
+      id="capa"
+      accept="image/*"
+    >
+
+    <img
+      id="coverPreview"
+      class="preview"
+      alt="Pré-visualização da capa"
+    >
+
+
+    <label for="video">
+      Selecionar vídeo
+    </label>
+
+    <input
+      type="file"
+      id="video"
+      accept="video/*"
+    >
+
+
+    <div
+      id="durationBox"
+      class="duration-box"
+    >
+
+      <div
+        id="duration"
+        class="duration"
+      >
+        00:00
+      </div>
+
+      <div
+        id="durationText"
+        class="duration-text"
+      ></div>
+
+      <div
+        id="price"
+        class="price"
+      ></div>
+
+    </div>
+
+
+    <button
+      id="publishBtn"
+      disabled
+    >
+      🎬 PUBLICAR VÍDEO
+    </button>
+
+
+    <div
+      id="message"
+      class="message"
+    ></div>
+
+  </div>
+
+</main>
+
+
+<script type="module">
+
+  import {
+    initializeApp
+  } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+
+  import {
+    getAuth,
+    onAuthStateChanged
+  } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+
+  import {
+    getFirestore,
+    collection,
+    addDoc,
+    doc,
+    getDoc,
+    serverTimestamp
+  } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+
+
+  /* =========================
+     FIREBASE
+  ========================= */
+
+  const firebaseConfig = {
+
+    apiKey:
+      "AIzaSyDoitCcLeLDNBNPCP6fG1s_xbHr4UmohSo",
+
+    authDomain:
+      "kuduro-prime.firebaseapp.com",
+
+    projectId:
+      "kuduro-prime",
+
+    storageBucket:
+      "kuduro-prime.firebasestorage.app",
+
+    messagingSenderId:
+      "299776559545",
+
+    appId:
+      "1:299776559545:web:04aced1ba25391eb3fce68"
+
+  };
+
+
+  const app =
+    initializeApp(firebaseConfig);
+
+
+  const auth =
+    getAuth(app);
+
+
+  const db =
+    getFirestore(app);
+
+
+  /* =========================
+     CLOUDINARY
+  ========================= */
+
+  const CLOUDINARY_CLOUD_NAME =
+    "ge1ntqqc";
+
+  const CLOUDINARY_UPLOAD_PRESET =
+    "kuduro_prime";
+
+
+  /* =========================
+     ELEMENTOS
+  ========================= */
+
+  const titulo =
+    document.getElementById("titulo");
+
+  const categoria =
+    document.getElementById("categoria");
+
+  const descricao =
+    document.getElementById("descricao");
+
+  const capa =
+    document.getElementById("capa");
+
+  const video =
+    document.getElementById("video");
+
+  const coverPreview =
+    document.getElementById("coverPreview");
+
+  const durationBox =
+    document.getElementById("durationBox");
+
+  const duration =
+    document.getElementById("duration");
+
+  const durationText =
+    document.getElementById("durationText");
+
+  const price =
+    document.getElementById("price");
+
+  const publishBtn =
+    document.getElementById("publishBtn");
+
+  const message =
+    document.getElementById("message");
+
+
+  let usuarioAtual = null;
+
+  let duracaoSegundos = 0;
+
+  let requiresPayment = false;
+
+
+  /* =========================
+     MENSAGEM
+  ========================= */
+
+  function showMessage(
+    text,
+    type
+  ){
+
+    message.textContent =
+      text;
+
+    message.className =
+      "message " + type;
+
+  }
+
+
+  /* =========================
+     FORMATAR DURAÇÃO
+  ========================= */
+
+  function formatDuration(
+    seconds
+  ){
+
+    seconds =
+      Math.floor(
+        Number(seconds) || 0
+      );
+
+
+    const minutes =
+      Math.floor(
+        seconds / 60
+      );
+
+
+    const secs =
+      seconds % 60;
+
+
+    return (
+      String(minutes).padStart(2,"0")
+      + ":" +
+      String(secs).padStart(2,"0")
+    );
+
+  }
+
+
+  /* =========================
+     CAPA PREVIEW
+  ========================= */
+
+  capa.addEventListener(
+    "change",
+    () => {
+
+      const file =
+        capa.files[0];
+
+      if(!file){
+
+        coverPreview.style.display =
+          "none";
+
+        return;
+
+      }
+
+
+      const url =
+        URL.createObjectURL(file);
+
+      coverPreview.src =
+        url;
+
+      coverPreview.style.display =
+        "block";
+
+    }
+  );
+
+
+  /* =========================
+     ESCOLHER VÍDEO
+  ========================= */
+
+  video.addEventListener(
+    "change",
+    () => {
+
+      const file =
+        video.files[0];
+
+
+      if(!file){
+
+        durationBox.className =
+          "duration-box";
+
+        duration.textContent =
+          "00:00";
+
+        durationText.textContent =
+          "";
+
+        price.textContent =
+          "";
+
+        publishBtn.disabled =
+          true;
+
+        return;
+
+      }
+
+
+      const videoElement =
+        document.createElement(
+          "video"
+        );
+
+
+      videoElement.preload =
+        "metadata";
+
+
+      videoElement.onloadedmetadata =
+        () => {
+
+          URL.revokeObjectURL(
+            videoElement.src
+          );
+
+
+          duracaoSegundos =
+            Math.floor(
+              videoElement.duration
+            );
+
+
+          duration.textContent =
+            formatDuration(
+              duracaoSegundos
+            );
+
+
+          /*
+             REGRA:
+
+             60 segundos ou menos
+             = GRÁTIS
+
+             Mais de 60 segundos
+             = 500 Kz
+          */
+
+          requiresPayment =
+            duracaoSegundos > 60;
+
+
+          if(requiresPayment){
+
+            durationBox.className =
+              "duration-box paid";
+
+            durationText.textContent =
+              "Este vídeo tem mais de 1 minuto.";
+
+            price.textContent =
+              "💳 Taxa: 500 Kz";
+
+          }else{
+
+            durationBox.className =
+              "duration-box free";
+
+            durationText.textContent =
+              "Este vídeo é gratuito.";
+
+            price.textContent =
+              "✓ GRÁTIS";
+
+          }
+
+
+          publishBtn.disabled =
+            false;
+
+        };
+
+
+      videoElement.onerror =
+        () => {
+
+          showMessage(
+            "Não foi possível ler a duração do vídeo.",
+            "error"
+          );
+
+          publishBtn.disabled =
+            true;
+
+        };
+
+
+      videoElement.src =
+        URL.createObjectURL(
+          file
+        );
+
+    }
+  );
+
+
+  /* =========================
+     UPLOAD CLOUDINARY
+  ========================= */
+
+  async function uploadCloudinary(
+    file,
+    resourceType
+  ){
+
+    const formData =
+      new FormData();
+
+
+    formData.append(
+      "file",
+      file
+    );
+
+
+    formData.append(
+      "upload_preset",
+      CLOUDINARY_UPLOAD_PRESET
+    );
+
+
+    const response =
+      await fetch(
+        `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/${resourceType}/upload`,
+        {
+          method:"POST",
+          body:formData
+        }
+      );
+
+
+    const data =
+      await response.json();
+
+
+    if(!response.ok){
+
+      throw new Error(
+        data.error?.message ||
+        "Erro no upload."
+      );
+
+    }
+
+
+    return data;
+
+  }
+
+
+  /* =========================
+     PUBLICAR
+  ========================= */
+
+  publishBtn.addEventListener(
+    "click",
+    async () => {
+
+      if(!usuarioAtual){
+
+        showMessage(
+          "Precisas estar logado.",
+          "error"
+        );
+
+        return;
+
+      }
+
+
+      const tituloValor =
+        titulo.value.trim();
+
+
+      const videoFile =
+        video.files[0];
+
+
+      const capaFile =
+        capa.files[0];
+
+
+      if(!tituloValor){
+
+        showMessage(
+          "Digite o título do vídeo.",
+          "error"
+        );
+
+        titulo.focus();
+
+        return;
+
+      }
+
+
+      if(!videoFile){
+
+        showMessage(
+          "Seleciona um vídeo.",
+          "error"
+        );
+
+        return;
+
+      }
+
+
+      if(duracaoSegundos <= 0){
+
+        showMessage(
+          "A duração do vídeo ainda não foi identificada.",
+          "error"
+        );
+
+        return;
+
+      }
+
+
+      try{
+
+        publishBtn.disabled =
+          true;
+
+        publishBtn.textContent =
+          "⏳ A preparar vídeo...";
+
+
+        /* =========================
+           PERFIL DO ARTISTA
+        ========================= */
+
+        let artistaNome =
+          usuarioAtual.displayName ||
+          "Artista KUDURO PRIME";
+
+        let artistaFoto =
+          usuarioAtual.photoURL ||
+          "";
+
+
+        try{
+
+          const perfilSnap =
+            await getDoc(
+              doc(
+                db,
+                "artistas",
+                usuarioAtual.uid
+              )
+            );
+
+
+          if(perfilSnap.exists()){
+
+            const perfil =
+              perfilSnap.data();
+
+
+            artistaNome =
+              perfil.nomeArtistico ||
+              perfil.nome ||
+              perfil.artistName ||
+              artistaNome;
+
+
+            artistaFoto =
+              perfil.foto ||
+              perfil.fotoPerfil ||
+              perfil.imagem ||
+              perfil.photoURL ||
+              artistaFoto;
+
+          }
+
+        }catch(profileError){
+
+          console.warn(
+            "Perfil não encontrado:",
+            profileError
+          );
+
+        }
+
+
+        /* =========================
+           UPLOAD DO VÍDEO
+        ========================= */
+
+        publishBtn.textContent =
+          "⏳ A enviar vídeo...";
+
+
+        const videoData =
+          await uploadCloudinary(
+            videoFile,
+            "video"
+          );
+
+
+        /* =========================
+           UPLOAD DA CAPA
+        ========================= */
+
+        let coverData = null;
+
+
+        if(capaFile){
+
+          publishBtn.textContent =
+            "⏳ A enviar capa...";
+
+
+          coverData =
+            await uploadCloudinary(
+              capaFile,
+              "image"
+            );
+
+        }
+
+
+        /* =========================
+           STATUS
+        ========================= */
+
+        let status;
+
+        if(requiresPayment){
+
+          status =
+            "pendente";
+
+        }else{
+
+          status =
+            "publicado";
+
+        }
+
+
+        /* =========================
+           FIRESTORE
+        ========================= */
+
+        publishBtn.textContent =
+          "⏳ A guardar publicação...";
+
+
+        const videoDoc =
+          await addDoc(
+            collection(
+              db,
+              "videos"
+            ),
+            {
+
+              artistaId:
+                usuarioAtual.uid,
+
+              artistId:
+                usuarioAtual.uid,
+
+              userId:
+                usuarioAtual.uid,
+
+              uid:
+                usuarioAtual.uid,
+
+
+              artistaNome:
+                artistaNome,
+
+              artistName:
+                artistaNome,
+
+
+              artistaFoto:
+                artistaFoto,
+
+              artistPhoto:
+                artistaFoto,
+
+
+              titulo:
+                tituloValor,
+
+              title:
+                tituloValor,
+
+
+              categoria:
+                categoria.value,
+
+              tipo:
+                categoria.value,
+
+
+              descricao:
+                descricao.value.trim(),
+
+
+              duracao:
+                formatDuration(
+                  duracaoSegundos
+                ),
+
+              duracaoSegundos:
+                duracaoSegundos,
+
+              duracaoFormatada:
+                formatDuration(
+                  duracaoSegundos
+                ),
+
+
+              video:
+                videoData.secure_url,
+
+              videoUrl:
+                videoData.secure_url,
+
+              videoPublicId:
+                videoData.public_id || "",
+
+              videoResourceType:
+                "video",
+
+              videoFileName:
+                videoFile.name,
+
+              videoMimeType:
+                videoFile.type || "",
+
+
+              capa:
+                coverData?.secure_url || "",
+
+              cover:
+                coverData?.secure_url || "",
+
+              coverPublicId:
+                coverData?.public_id || "",
+
+              coverResourceType:
+                "image",
+
+
+              views:
+                0,
+
+              visualizacoes:
+                0,
+
+              gostos:
+                0,
+
+              comentarios:
+                0,
+
+
+              /*
+                MAIS DE 1 MINUTO
+                = 500 Kz
+              */
+
+              taxa:
+                requiresPayment
+                  ? 500
+                  : 0,
+
+
+              pagamentoNecessario:
+                requiresPayment,
+
+
+              pagamentoPendente:
+                requiresPayment,
+
+
+              pagamentoConfirmado:
+                !requiresPayment,
+
+
+              pagamentoId:
+                "",
+
+
+              status:
+                status,
+
+
+              criadoEm:
+                serverTimestamp()
+
+            }
+          );
+
+
+        /* =========================
+           RESULTADO
+        ========================= */
+
+        if(requiresPayment){
+
+          showMessage(
+            "Vídeo enviado! Como tem mais de 1 minuto, é necessário pagar 500 Kz para ser publicado.",
+            "info"
+          );
+
+
+          setTimeout(
+            () => {
+
+              window.location.href =
+                `pagamento-videos.html?videoId=${encodeURIComponent(videoDoc.id)}`;
+
+            },
+            1800
+          );
+
+
+        }else{
+
+          showMessage(
+            "🎉 Vídeo publicado com sucesso! Este vídeo é grátis porque tem até 1 minuto.",
+            "success"
+          );
+
+
+          setTimeout(
+            () => {
+
+              window.location.href =
+                "meus-videos.html";
+
+            },
+            1800
+          );
+
+        }
+
+
+      }catch(error){
+
+        console.error(
+          "Erro ao publicar:",
+          error
+        );
+
+
+        showMessage(
+          "❌ Erro ao publicar: " +
+          error.message,
+          "error"
+        );
+
+
+        publishBtn.disabled =
+          false;
+
+        publishBtn.textContent =
+          "🎬 PUBLICAR VÍDEO";
+
+      }
+
+    }
+  );
+
+
+  /* =========================
+     LOGIN
+  ========================= */
+
+  onAuthStateChanged(
+    auth,
+    (user) => {
+
+      if(!user){
+
+        window.location.href =
+          "area-do-artista.html";
+
+        return;
+
+      }
+
+
+      usuarioAtual =
+        user;
+
+    }
+  );
+
+</script>
+
+</body>
+</html>
