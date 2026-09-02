@@ -1,12 +1,18 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
+
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
 
   <title>Feed — KUDURO PRIME</title>
 
   <style>
+
     :root{
       --bg:#070707;
       --panel:#101010;
@@ -30,10 +36,19 @@
     body{
       margin:0;
       background:
-        radial-gradient(circle at 90% 0,rgba(244,191,49,.08),transparent 30%),
+        radial-gradient(
+          circle at 90% 0,
+          rgba(244,191,49,.08),
+          transparent 30%
+        ),
         var(--bg);
+
       color:var(--text);
-      font-family:Arial,Helvetica,sans-serif;
+
+      font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
     }
 
     a{
@@ -51,35 +66,99 @@
       cursor:pointer;
     }
 
-    /* =========================
+    /* =====================================
+       TELA DE CARREGAMENTO
+    ===================================== */
+
+    #loadingScreen{
+      position:fixed;
+      inset:0;
+      z-index:9999;
+
+      display:flex;
+      align-items:center;
+      justify-content:center;
+
+      background:#070707;
+    }
+
+    .loading-box{
+      text-align:center;
+    }
+
+    .loading-logo{
+      color:var(--gold);
+      font-size:28px;
+      font-weight:900;
+      margin-bottom:15px;
+    }
+
+    .loading-text{
+      color:var(--muted);
+      font-size:12px;
+    }
+
+    .loader{
+      width:35px;
+      height:35px;
+
+      margin:20px auto;
+
+      border:3px solid #2a271f;
+      border-top-color:var(--gold);
+
+      border-radius:50%;
+
+      animation:
+        girar .8s linear infinite;
+    }
+
+    @keyframes girar{
+      to{
+        transform:rotate(360deg);
+      }
+    }
+
+    /* =====================================
        NAV
-    ========================= */
+    ===================================== */
 
     .nav{
       height:82px;
+
       border-bottom:1px solid var(--line);
+
       display:flex;
       align-items:center;
+
       position:sticky;
       top:0;
+
       background:rgba(7,7,7,.96);
+
       backdrop-filter:blur(12px);
+
       z-index:50;
     }
 
     .nav-in{
       width:min(1180px,92%);
+
       margin:auto;
+
       display:flex;
       align-items:center;
       justify-content:space-between;
+
       gap:20px;
     }
 
     .brand{
       font-size:23px;
       font-weight:900;
+
       line-height:.78;
+
       letter-spacing:-1px;
     }
 
@@ -90,18 +169,25 @@
 
     .crown{
       display:block;
+
       text-align:center;
+
       color:var(--gold);
+
       font-size:23px;
+
       line-height:.6;
     }
 
     .links{
       display:flex;
       align-items:center;
+
       gap:20px;
+
       font-size:11px;
       font-weight:900;
+
       letter-spacing:.3px;
     }
 
@@ -119,12 +205,18 @@
     .user-btn{
       display:flex;
       align-items:center;
+
       gap:9px;
+
       padding:7px 11px 7px 7px;
+
       border:1px solid var(--line);
+
       border-radius:30px;
+
       font-size:11px;
       font-weight:800;
+
       background:#0d0d0d;
     }
 
@@ -135,12 +227,18 @@
     .nav-avatar{
       width:30px;
       height:30px;
+
       border-radius:50%;
+
       background:#201a0a;
+
       border:1px solid var(--gold);
+
       overflow:hidden;
+
       display:grid;
       place-items:center;
+
       color:var(--gold);
     }
 
@@ -149,63 +247,95 @@
     .small-avatar img{
       width:100%;
       height:100%;
+
       object-fit:cover;
     }
 
     .menu{
       display:none;
+
       border:0;
+
       background:none;
+
       color:white;
+
       font-size:22px;
     }
 
-    /* =========================
+    /* =====================================
        LAYOUT
-    ========================= */
+    ===================================== */
 
     .layout{
       width:min(1180px,92%);
+
       margin:30px auto;
+
       display:grid;
-      grid-template-columns:230px minmax(0,1fr) 280px;
+
+      grid-template-columns:
+        230px
+        minmax(0,1fr)
+        280px;
+
       gap:20px;
+
       align-items:start;
     }
 
     .panel{
-      background:linear-gradient(145deg,#141414,#0b0b0b);
+      background:
+        linear-gradient(
+          145deg,
+          #141414,
+          #0b0b0b
+        );
+
       border:1px solid var(--line);
+
       border-radius:14px;
     }
 
-    /* =========================
+    /* =====================================
        SIDEBAR
-    ========================= */
+    ===================================== */
 
     .sidebar{
       position:sticky;
+
       top:105px;
+
       padding:15px;
     }
 
     .profile-mini{
       padding:12px 10px 20px;
+
       border-bottom:1px solid var(--line);
+
       text-align:center;
     }
 
     .avatar{
       width:74px;
       height:74px;
+
       border-radius:50%;
+
       border:2px solid var(--gold);
+
       overflow:hidden;
+
       margin:0 auto 10px;
+
       display:grid;
       place-items:center;
+
       color:var(--gold);
+
       background:#1c1608;
+
       font-size:26px;
     }
 
@@ -216,7 +346,9 @@
 
     .profile-user{
       font-size:11px;
+
       color:var(--muted);
+
       margin-top:4px;
     }
 
@@ -227,44 +359,60 @@
     .side-menu a{
       display:flex;
       align-items:center;
+
       gap:10px;
+
       padding:12px 10px;
+
       color:#bbb;
+
       font-size:12px;
+
       font-weight:700;
+
       border-radius:8px;
+
       transition:.2s;
     }
 
     .side-menu a:hover,
     .side-menu a.active{
-      background:rgba(244,191,49,.08);
+      background:
+        rgba(244,191,49,.08);
+
       color:var(--gold);
     }
 
-    /* ÁREA DO ARTISTA */
-
     .artist-area-btn{
       margin-top:8px;
-      border:1px solid rgba(244,191,49,.5);
+
+      border:1px solid
+        rgba(244,191,49,.5);
+
       background:
         linear-gradient(
           135deg,
           rgba(244,191,49,.14),
           rgba(244,191,49,.04)
         );
+
       color:var(--gold);
     }
 
     .artist-area-btn:hover{
-      background:rgba(244,191,49,.16) !important;
+      background:
+        rgba(244,191,49,.16) !important;
+
       border-color:var(--gold);
+
       color:var(--gold) !important;
     }
 
     .side-divider{
       height:1px;
+
       background:var(--line);
+
       margin:8px 0;
     }
 
@@ -273,13 +421,15 @@
     }
 
     .side-menu .danger:hover{
-      background:rgba(255,86,63,.08);
+      background:
+        rgba(255,86,63,.08);
+
       color:#ff887a;
     }
 
-    /* =========================
+    /* =====================================
        FEED
-    ========================= */
+    ===================================== */
 
     .feed-head{
       margin-bottom:20px;
@@ -287,51 +437,71 @@
 
     .feed-head h1{
       margin:0;
+
       font-size:28px;
     }
 
     .feed-head p{
       margin:6px 0 0;
+
       color:var(--muted);
+
       font-size:12px;
     }
 
-    /* =========================
+    /* =====================================
        CRIAR POST
-    ========================= */
+    ===================================== */
 
     .create-post{
       padding:18px;
+
       margin-bottom:18px;
     }
 
     .post-input{
       display:flex;
+
       gap:12px;
     }
 
     .small-avatar{
       width:44px;
       height:44px;
+
       flex:0 0 auto;
+
       border-radius:50%;
+
       overflow:hidden;
+
       display:grid;
       place-items:center;
+
       border:1px solid var(--gold);
+
       color:var(--gold);
+
       background:#1c1608;
     }
 
     .post-input textarea{
       width:100%;
+
       min-height:80px;
+
       padding:12px;
+
       resize:vertical;
+
       border:1px solid var(--line);
+
       border-radius:10px;
+
       background:#0b0b0b;
+
       color:white;
+
       outline:none;
     }
 
@@ -342,41 +512,60 @@
 
     .post-actions{
       display:flex;
+
       align-items:center;
+
       justify-content:space-between;
+
       gap:10px;
+
       margin-top:12px;
+
       padding-left:56px;
     }
 
     .post-tools{
       display:flex;
+
       gap:7px;
+
       flex-wrap:wrap;
     }
 
     .tool-btn{
       border:1px solid var(--line);
+
       background:#111;
+
       color:#bbb;
+
       padding:9px 11px;
+
       border-radius:7px;
+
       font-size:11px;
     }
 
     .tool-btn:hover,
     .tool-btn.active{
       color:var(--gold);
+
       border-color:var(--gold);
     }
 
     .publish-btn{
       border:0;
+
       background:var(--gold);
+
       color:#17120a;
+
       padding:10px 18px;
+
       border-radius:7px;
+
       font-size:11px;
+
       font-weight:900;
     }
 
@@ -384,16 +573,21 @@
       background:var(--gold2);
     }
 
-    /* =========================
-       MÍDIA
-    ========================= */
+    /* =====================================
+       MEDIA
+    ===================================== */
 
     .media-box{
       display:none;
+
       margin:14px 0 0 56px;
+
       padding:12px;
+
       border:1px dashed var(--line);
+
       border-radius:10px;
+
       background:#0b0b0b;
     }
 
@@ -403,32 +597,47 @@
 
     .media-label{
       display:block;
+
       margin-bottom:9px;
+
       color:var(--gold);
+
       font-size:11px;
+
       font-weight:900;
     }
 
     .file-input{
       width:100%;
+
       color:#bbb;
+
       font-size:11px;
     }
 
     .music-link-input{
       width:100%;
+
       margin-top:10px;
+
       padding:10px;
+
       background:#111;
+
       color:white;
+
       border:1px solid var(--line);
+
       border-radius:7px;
+
       outline:none;
     }
 
     .media-preview{
       display:none;
+
       position:relative;
+
       margin-top:10px;
     }
 
@@ -439,164 +648,242 @@
     .media-preview img,
     .media-preview video{
       width:100%;
+
       max-height:330px;
+
       object-fit:contain;
+
       border-radius:8px;
+
       background:#000;
     }
 
     .remove-media{
       margin-top:8px;
+
       border:1px solid var(--red);
+
       background:transparent;
+
       color:#ff887a;
+
       padding:7px 10px;
+
       border-radius:6px;
+
       font-size:10px;
+
       font-weight:900;
     }
 
-    /* =========================
+    /* =====================================
        POSTS
-    ========================= */
+    ===================================== */
 
     .post{
       margin-bottom:18px;
+
       overflow:hidden;
     }
 
     .post-top{
       display:flex;
+
       gap:11px;
+
       align-items:center;
+
       padding:16px;
     }
 
     .post-author-img{
       width:46px;
       height:46px;
+
       border-radius:50%;
-      background:var(--img) center/cover;
+
+      background:
+        var(--img)
+        center/cover;
+
       background-color:#1c1608;
+
       border:1px solid var(--line);
+
       flex:0 0 auto;
     }
 
     .post-name{
       font-size:13px;
+
       font-weight:900;
     }
 
     .post-meta{
       color:var(--muted);
+
       font-size:10px;
+
       margin-top:4px;
     }
 
     .verified{
       color:var(--blue);
+
       font-size:10px;
     }
 
     .more{
       margin-left:auto;
+
       color:var(--muted);
+
       font-size:20px;
     }
 
     .post-text{
       padding:0 16px 16px;
+
       font-size:13px;
+
       line-height:1.6;
+
       color:#ddd;
+
       white-space:pre-line;
+
       word-break:break-word;
     }
 
     .post-image{
       width:100%;
+
       min-height:320px;
+
       background:
-        linear-gradient(0deg,rgba(0,0,0,.2),rgba(0,0,0,.05)),
-        var(--img) center/cover;
+        linear-gradient(
+          0deg,
+          rgba(0,0,0,.2),
+          rgba(0,0,0,.05)
+        ),
+        var(--img)
+        center/cover;
     }
 
     .post-video{
       width:100%;
+
       max-height:500px;
+
       display:block;
+
       background:#000;
     }
 
     .music-post{
       margin:0 16px 16px;
+
       display:flex;
+
       align-items:center;
+
       gap:12px;
+
       padding:10px;
+
       border:1px solid var(--line);
+
       background:#0a0a0a;
+
       border-radius:10px;
     }
 
     .music-cover{
       width:55px;
       height:55px;
+
       flex:0 0 auto;
+
       border-radius:7px;
+
       display:grid;
       place-items:center;
+
       background:#201a0a;
+
       color:var(--gold);
+
       font-size:24px;
     }
 
     .music-info{
       min-width:0;
+
       flex:1;
     }
 
     .music-name{
       font-size:12px;
+
       font-weight:900;
+
       overflow:hidden;
+
       text-overflow:ellipsis;
+
       white-space:nowrap;
     }
 
     .music-artist{
       color:var(--muted);
+
       font-size:10px;
+
       margin-top:4px;
     }
 
     .music-player{
       width:100%;
+
       margin-top:8px;
     }
 
     .post-stats{
       padding:10px 16px;
+
       border-top:1px solid var(--line);
+
       color:var(--muted);
+
       font-size:10px;
+
       display:flex;
+
       justify-content:space-between;
     }
 
     .post-buttons{
       display:grid;
-      grid-template-columns:1fr 1fr 1fr;
+
+      grid-template-columns:
+        1fr 1fr 1fr;
+
       border-top:1px solid var(--line);
     }
 
     .post-buttons button{
       padding:12px;
+
       border:0;
+
       border-right:1px solid var(--line);
+
       background:transparent;
+
       color:#aaa;
+
       font-size:11px;
+
       font-weight:800;
     }
 
@@ -607,26 +894,32 @@
     .post-buttons button:hover,
     .post-buttons button.liked{
       color:var(--gold);
-      background:rgba(244,191,49,.04);
+
+      background:
+        rgba(244,191,49,.04);
     }
 
-    /* =========================
+    /* =====================================
        DIREITA
-    ========================= */
+    ===================================== */
 
     .right-panel{
       padding:16px;
+
       margin-bottom:18px;
     }
 
     .right-title{
       margin:0 0 15px;
+
       font-size:15px;
     }
 
     .trend{
       display:block;
+
       padding:12px 0;
+
       border-bottom:1px solid var(--line);
     }
 
@@ -636,8 +929,11 @@
 
     .trend small{
       display:block;
+
       color:var(--gold);
+
       font-size:9px;
+
       margin-bottom:4px;
     }
 
@@ -647,16 +943,23 @@
 
     .trend span{
       display:block;
+
       color:var(--muted);
+
       font-size:10px;
+
       margin-top:5px;
     }
 
     .suggestion{
       display:flex;
+
       gap:10px;
+
       align-items:center;
+
       padding:10px 0;
+
       border-bottom:1px solid var(--line);
     }
 
@@ -667,42 +970,60 @@
     .suggestion-avatar{
       width:42px;
       height:42px;
+
       border-radius:50%;
-      background:var(--img) center/cover;
+
+      background:
+        var(--img)
+        center/cover;
+
       background-color:#1c1608;
+
       flex:0 0 auto;
     }
 
     .suggestion-name{
       font-size:11px;
+
       font-weight:900;
     }
 
     .suggestion-tag{
       font-size:9px;
+
       color:var(--muted);
+
       margin-top:4px;
     }
 
     .follow-btn{
       margin-left:auto;
+
       padding:7px 9px;
+
       border:1px solid var(--gold);
+
       border-radius:6px;
+
       color:var(--gold);
+
       background:transparent;
+
       font-size:9px;
+
       font-weight:900;
     }
 
-    /* =========================
+    /* =====================================
        MOBILE
-    ========================= */
+    ===================================== */
 
     @media(max-width:950px){
 
       .layout{
-        grid-template-columns:200px minmax(0,1fr);
+        grid-template-columns:
+          200px
+          minmax(0,1fr);
       }
 
       .right{
@@ -719,15 +1040,24 @@
 
       .links.mobile-open{
         display:flex;
+
         position:absolute;
+
         top:70px;
+
         right:4%;
+
         padding:15px;
+
         background:#101010;
+
         border:1px solid #2a271f;
+
         flex-direction:column;
+
         align-items:flex-start;
       }
+
     }
 
     @media(max-width:650px){
@@ -755,13 +1085,17 @@
 
       .layout{
         width:94%;
+
         display:block;
+
         margin:20px auto;
       }
 
       .sidebar{
         position:static;
+
         margin-bottom:20px;
+
         padding:8px;
       }
 
@@ -771,12 +1105,15 @@
 
       .side-menu{
         display:flex;
+
         overflow-x:auto;
+
         gap:5px;
       }
 
       .side-menu a{
         white-space:nowrap;
+
         padding:10px 12px;
       }
 
@@ -786,6 +1123,7 @@
 
       .post-actions{
         padding-left:0;
+
         align-items:flex-end;
       }
 
@@ -800,29 +1138,70 @@
       .publish-btn{
         padding:10px 13px;
       }
+
     }
+
   </style>
+
 </head>
 
 <body>
 
-  <!-- =========================
+  <!-- =====================================
+       CARREGAMENTO
+  ===================================== -->
+
+  <div id="loadingScreen">
+
+    <div class="loading-box">
+
+      <div class="loading-logo">
+        👑 KUDURO PRIME
+      </div>
+
+      <div class="loader"></div>
+
+      <div class="loading-text">
+        A verificar a tua conta...
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- =====================================
        TOPO
-  ========================= -->
+  ===================================== -->
 
   <nav class="nav">
 
     <div class="nav-in">
 
-      <a href="index.html" class="brand">
-        <span class="crown">♕</span>
+      <a
+        href="index.html"
+        class="brand"
+      >
+
+        <span class="crown">
+          ♕
+        </span>
+
         KUDURO
-        <b>PRIME</b>
+
+        <b>
+          PRIME
+        </b>
+
       </a>
+
 
       <div class="links">
 
-        <a href="feed.html" class="active">
+        <a
+          href="feed.html"
+          class="active"
+        >
           INÍCIO
         </a>
 
@@ -844,11 +1223,18 @@
 
       </div>
 
+
       <div class="nav-actions">
 
-        <a href="meu-perfil.html" class="user-btn">
+        <a
+          href="meu-perfil.html"
+          class="user-btn"
+        >
 
-          <div class="nav-avatar" id="navAvatar">
+          <div
+            class="nav-avatar"
+            id="navAvatar"
+          >
             👤
           </div>
 
@@ -857,6 +1243,7 @@
           </span>
 
         </a>
+
 
         <button
           class="menu"
@@ -873,22 +1260,25 @@
   </nav>
 
 
-  <!-- =========================
+  <!-- =====================================
        CONTEÚDO
-  ========================= -->
+  ===================================== -->
 
   <main class="layout">
 
 
-    <!-- =========================
-         BARRA ESQUERDA
-    ========================= -->
+    <!-- =================================
+         ESQUERDA
+    ================================== -->
 
     <aside class="sidebar panel">
 
       <div class="profile-mini">
 
-        <div class="avatar" id="sideAvatar">
+        <div
+          class="avatar"
+          id="sideAvatar"
+        >
           👤
         </div>
 
@@ -942,8 +1332,6 @@
         <div class="side-divider"></div>
 
 
-        <!-- ÁREA DO ARTISTA -->
-
         <a
           href="area-do-artista.html"
           class="artist-area-btn"
@@ -981,9 +1369,9 @@
     </aside>
 
 
-    <!-- =========================
-         FEED CENTRAL
-    ========================= -->
+    <!-- =================================
+         CENTRO
+    ================================== -->
 
     <section>
 
@@ -1000,9 +1388,9 @@
       </div>
 
 
-      <!-- =========================
+      <!-- =================================
            CRIAR PUBLICAÇÃO
-      ========================= -->
+      ================================== -->
 
       <div class="create-post panel">
 
@@ -1145,6 +1533,7 @@
 
           </div>
 
+
           <button
             type="button"
             class="publish-btn"
@@ -1158,14 +1547,12 @@
       </div>
 
 
-      <!-- =========================
+      <!-- =================================
            PUBLICAÇÕES
-      ========================= -->
+      ================================== -->
 
       <div id="feedPosts">
 
-
-        <!-- PUBLICAÇÃO 1 -->
 
         <article class="post panel">
 
@@ -1244,8 +1631,6 @@
 
         </article>
 
-
-        <!-- PUBLICAÇÃO 2 -->
 
         <article class="post panel">
 
@@ -1344,8 +1729,6 @@
         </article>
 
 
-        <!-- PUBLICAÇÃO 3 -->
-
         <article class="post panel">
 
           <div class="post-top">
@@ -1423,15 +1806,14 @@
 
         </article>
 
-
       </div>
 
     </section>
 
 
-    <!-- =========================
+    <!-- =================================
          DIREITA
-    ========================= -->
+    ================================== -->
 
     <aside class="right">
 
@@ -1605,275 +1987,625 @@
   </main>
 
 
-  <script>
+  <!-- =====================================
+       FIREBASE + FUNCIONALIDADES
+  ===================================== -->
 
-    /* =========================
-       DADOS DO ARTISTA
-    ========================= */
+  <script type="module">
 
-    const artistName =
-      localStorage.getItem("kpArtistStageName") ||
-      localStorage.getItem("kpArtistName") ||
+    import {
+      initializeApp
+    } from
+      "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+
+
+    import {
+      getAuth,
+      onAuthStateChanged,
+      signOut
+    } from
+      "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+
+
+    /*
+    =========================================
+    CONFIGURAÇÃO FIREBASE
+    =========================================
+    */
+
+    const firebaseConfig = {
+
+      apiKey:
+        "AIzaSyDoitCcLeLDNBNPCP6fG1s_xbHr4UmohSo",
+
+      authDomain:
+        "kuduro-prime.firebaseapp.com",
+
+      projectId:
+        "kuduro-prime",
+
+      storageBucket:
+        "kuduro-prime.firebasestorage.app",
+
+      messagingSenderId:
+        "299776559545",
+
+      appId:
+        "1:299776559545:web:04aced1ba25391eb3fce68"
+
+    };
+
+
+    const app =
+      initializeApp(firebaseConfig);
+
+
+    const auth =
+      getAuth(app);
+
+
+    /*
+    =========================================
+    DADOS
+    =========================================
+    */
+
+    let usuarioAtual = null;
+
+    let artistName =
       "Artista Prime";
 
-    const artistUser =
-      localStorage.getItem("kpArtistUsername") ||
+    let artistUser =
       "artista";
 
-    const artistPhoto =
-      localStorage.getItem("kpArtistPhoto") ||
+    let artistPhoto =
       "";
 
 
     let selectedType = "";
+
     let photoData = "";
+
     let videoData = "";
+
     let musicData = "";
 
 
-    /* =========================
-       PERFIL
-    ========================= */
+    /*
+    =========================================
+    VERIFICAR LOGIN FIREBASE
+    =========================================
+    */
 
-    document.querySelector("#navName").textContent =
-      artistName;
+    onAuthStateChanged(
+      auth,
+      function(user){
 
-    document.querySelector("#sideName").textContent =
-      artistName;
+        /*
+        NÃO ESTÁ LOGADO
+        */
 
-    document.querySelector("#sideUser").textContent =
-      "@" + artistUser;
+        if(!user){
 
+          localStorage.removeItem(
+            "kpLoggedIn"
+          );
+
+          localStorage.removeItem(
+            "kpArtistLoggedIn"
+          );
+
+          window.location.replace(
+            "area-do-artista.html"
+          );
+
+          return;
+
+        }
+
+
+        /*
+        ESTÁ LOGADO
+        */
+
+        usuarioAtual =
+          user;
+
+
+        /*
+        GUARDA A SESSÃO
+        */
+
+        localStorage.setItem(
+          "kpLoggedIn",
+          "true"
+        );
+
+        localStorage.setItem(
+          "kpArtistLoggedIn",
+          "true"
+        );
+
+        localStorage.setItem(
+          "kpArtistUID",
+          user.uid
+        );
+
+
+        if(user.email){
+
+          localStorage.setItem(
+            "kpArtistEmail",
+            user.email
+          );
+
+        }
+
+
+        /*
+        NOME
+        */
+
+        artistName =
+
+          localStorage.getItem(
+            "kpArtistStageName"
+          )
+
+          ||
+
+          localStorage.getItem(
+            "kpArtistName"
+          )
+
+          ||
+
+          user.displayName
+
+          ||
+
+          (
+            user.email
+            ?
+            user.email.split("@")[0]
+            :
+            "Artista Prime"
+          );
+
+
+        /*
+        USERNAME
+        */
+
+        artistUser =
+
+          localStorage.getItem(
+            "kpArtistUsername"
+          )
+
+          ||
+
+          artistName
+            .toLowerCase()
+            .replace(/\s+/g,"")
+            .replace(/[^a-z0-9]/g,"")
+
+          ||
+
+          "artista";
+
+
+        /*
+        FOTO
+        */
+
+        artistPhoto =
+
+          localStorage.getItem(
+            "kpArtistPhoto"
+          )
+
+          ||
+
+          user.photoURL
+
+          ||
+
+          "";
+
+
+        /*
+        GUARDA DADOS
+        */
+
+        localStorage.setItem(
+          "kpArtistStageName",
+          artistName
+        );
+
+
+        localStorage.setItem(
+          "kpArtistUsername",
+          artistUser
+        );
+
+
+        if(artistPhoto){
+
+          localStorage.setItem(
+            "kpArtistPhoto",
+            artistPhoto
+          );
+
+        }
+
+
+        /*
+        MOSTRA PERFIL
+        */
+
+        document.querySelector(
+          "#navName"
+        ).textContent =
+          artistName;
+
+
+        document.querySelector(
+          "#sideName"
+        ).textContent =
+          artistName;
+
+
+        document.querySelector(
+          "#sideUser"
+        ).textContent =
+          "@" + artistUser;
+
+
+        colocarFoto(
+          "#navAvatar"
+        );
+
+        colocarFoto(
+          "#sideAvatar"
+        );
+
+        colocarFoto(
+          "#postAvatar"
+        );
+
+
+        /*
+        ESCONDE CARREGAMENTO
+        */
+
+        const loading =
+          document.querySelector(
+            "#loadingScreen"
+          );
+
+
+        if(loading){
+
+          loading.style.display =
+            "none";
+
+        }
+
+      }
+    );
+
+
+    /*
+    =========================================
+    COLOCAR FOTO
+    =========================================
+    */
 
     function colocarFoto(selector){
 
       if(!artistPhoto){
+
         return;
+
       }
+
 
       const elemento =
         document.querySelector(selector);
 
+
       if(!elemento){
+
         return;
+
       }
+
 
       elemento.innerHTML =
-        `<img src="${escaparAtributo(artistPhoto)}" alt="Foto de ${escaparHTML(artistName)}">`;
+
+        `<img
+          src="${escaparAtributo(artistPhoto)}"
+          alt="Foto"
+        >`;
 
     }
 
 
-    colocarFoto("#navAvatar");
-    colocarFoto("#sideAvatar");
-    colocarFoto("#postAvatar");
+    /*
+    =========================================
+    SEGURANÇA
+    =========================================
+    */
 
+    function escaparHTML(text){
 
-    /* =========================
-       ABRIR FOTO / VÍDEO / MÚSICA
-    ========================= */
+      const div =
+        document.createElement("div");
 
-    function abrirMidia(type){
+      div.textContent =
+        String(text ?? "");
 
-      const boxes = {
-        photo:document.querySelector("#photoBox"),
-        video:document.querySelector("#videoBox"),
-        music:document.querySelector("#musicBox")
-      };
-
-      const buttons = {
-        photo:document.querySelector("#photoBtn"),
-        video:document.querySelector("#videoBtn"),
-        music:document.querySelector("#musicBtn")
-      };
-
-
-      Object.keys(boxes).forEach(function(key){
-
-        boxes[key].classList.remove("show");
-        buttons[key].classList.remove("active");
-
-      });
-
-
-      if(selectedType === type){
-
-        selectedType = "";
-
-        return;
-
-      }
-
-
-      selectedType = type;
-
-      boxes[type].classList.add("show");
-      buttons[type].classList.add("active");
+      return div.innerHTML;
 
     }
 
 
-    /* =========================
-       FOTO
-    ========================= */
+    function escaparAtributo(text){
 
-    function previewPhoto(event){
+      return String(text ?? "")
+        .replace(/&/g,"&amp;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#39;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;");
 
-      const file =
-        event.target.files[0];
-
-      if(!file){
-        return;
-      }
+    }
 
 
-      const reader =
-        new FileReader();
+    /*
+    =========================================
+    ABRIR FOTO / VÍDEO / MÚSICA
+    =========================================
+    */
+
+    window.abrirMidia =
+      function(type){
+
+        const boxes = {
+
+          photo:
+            document.querySelector(
+              "#photoBox"
+            ),
+
+          video:
+            document.querySelector(
+              "#videoBox"
+            ),
+
+          music:
+            document.querySelector(
+              "#musicBox"
+            )
+
+        };
 
 
-      reader.onload = function(e){
+        const buttons = {
 
-        photoData =
-          e.target.result;
+          photo:
+            document.querySelector(
+              "#photoBtn"
+            ),
+
+          video:
+            document.querySelector(
+              "#videoBtn"
+            ),
+
+          music:
+            document.querySelector(
+              "#musicBtn"
+            )
+
+        };
 
 
-        document.querySelector("#photoPreview").innerHTML =
+        Object.keys(boxes)
+          .forEach(function(key){
+
+            boxes[key]
+              .classList
+              .remove("show");
+
+            buttons[key]
+              .classList
+              .remove("active");
+
+          });
+
+
+        if(selectedType === type){
+
+          selectedType = "";
+
+          return;
+
+        }
+
+
+        selectedType = type;
+
+
+        boxes[type]
+          .classList
+          .add("show");
+
+
+        buttons[type]
+          .classList
+          .add("active");
+
+      };
+
+
+    /*
+    =========================================
+    FOTO
+    =========================================
+    */
+
+    window.previewPhoto =
+      function(event){
+
+        const file =
+          event.target.files[0];
+
+
+        if(!file){
+
+          return;
+
+        }
+
+
+        const reader =
+          new FileReader();
+
+
+        reader.onload =
+          function(e){
+
+            photoData =
+              e.target.result;
+
+
+            document.querySelector(
+              "#photoPreview"
+            ).innerHTML =
+
+              `
+              <img
+                src="${escaparAtributo(photoData)}"
+                alt="Foto selecionada"
+              >
+
+              <button
+                class="remove-media"
+                type="button"
+                onclick="removerFoto()"
+              >
+                REMOVER FOTO
+              </button>
+              `;
+
+
+            document.querySelector(
+              "#photoPreview"
+            )
+            .classList
+            .add("show");
+
+          };
+
+
+        reader.readAsDataURL(file);
+
+      };
+
+
+    /*
+    =========================================
+    VÍDEO
+    =========================================
+    */
+
+    window.previewVideo =
+      function(event){
+
+        const file =
+          event.target.files[0];
+
+
+        if(!file){
+
+          return;
+
+        }
+
+
+        if(videoData){
+
+          try{
+
+            URL.revokeObjectURL(
+              videoData
+            );
+
+          }catch(e){}
+
+        }
+
+
+        videoData =
+          URL.createObjectURL(file);
+
+
+        document.querySelector(
+          "#videoPreview"
+        ).innerHTML =
+
           `
-          <img
-            src="${escaparAtributo(photoData)}"
-            alt="Foto selecionada"
-          >
+          <video controls>
+
+            <source
+              src="${escaparAtributo(videoData)}"
+              type="${escaparAtributo(file.type)}"
+            >
+
+            O teu navegador não suporta vídeo.
+
+          </video>
 
           <button
             class="remove-media"
             type="button"
-            onclick="removerFoto()"
+            onclick="removerVideo()"
           >
-            REMOVER FOTO
+            REMOVER VÍDEO
           </button>
           `;
 
 
-        document
-          .querySelector("#photoPreview")
-          .classList
-          .add("show");
+        document.querySelector(
+          "#videoPreview"
+        )
+        .classList
+        .add("show");
 
       };
 
 
-      reader.readAsDataURL(file);
+    /*
+    =========================================
+    MÚSICA
+    =========================================
+    */
 
-    }
+    window.selecionarMusica =
+      function(event){
 
-
-    /* =========================
-       VÍDEO
-    ========================= */
-
-    function previewVideo(event){
-
-      const file =
-        event.target.files[0];
-
-      if(!file){
-        return;
-      }
+        const file =
+          event.target.files[0];
 
 
-      if(videoData){
+        if(!file){
 
-        try{
-          URL.revokeObjectURL(videoData);
-        }catch(e){}
+          return;
 
-      }
+        }
 
-
-      videoData =
-        URL.createObjectURL(file);
-
-
-      document.querySelector("#videoPreview").innerHTML =
-        `
-        <video controls>
-          <source
-            src="${escaparAtributo(videoData)}"
-            type="${escaparAtributo(file.type)}"
-          >
-          O teu navegador não suporta vídeo.
-        </video>
-
-        <button
-          class="remove-media"
-          type="button"
-          onclick="removerVideo()"
-        >
-          REMOVER VÍDEO
-        </button>
-        `;
-
-
-      document
-        .querySelector("#videoPreview")
-        .classList
-        .add("show");
-
-    }
-
-
-    /* =========================
-       MÚSICA
-    ========================= */
-
-    function selecionarMusica(event){
-
-      const file =
-        event.target.files[0];
-
-      if(!file){
-        return;
-      }
-
-
-      if(
-        musicData &&
-        musicData.startsWith("blob:")
-      ){
-
-        try{
-          URL.revokeObjectURL(musicData);
-        }catch(e){}
-
-      }
-
-
-      musicData =
-        URL.createObjectURL(file);
-
-
-      document.querySelector("#musicLink").value =
-        "";
-
-
-      mostrarMusica(
-        musicData,
-        file.name
-      );
-
-    }
-
-
-    function usarLinkMusica(){
-
-      const link =
-        document
-          .querySelector("#musicLink")
-          .value
-          .trim();
-
-
-      if(!link){
 
         if(
           musicData &&
@@ -1881,45 +2613,89 @@
         ){
 
           try{
-            URL.revokeObjectURL(musicData);
+
+            URL.revokeObjectURL(
+              musicData
+            );
+
           }catch(e){}
 
         }
 
-        musicData = "";
 
-        document
-          .querySelector("#musicPreview")
+        musicData =
+          URL.createObjectURL(file);
+
+
+        document.querySelector(
+          "#musicLink"
+        ).value = "";
+
+
+        mostrarMusica(
+          musicData,
+          file.name
+        );
+
+      };
+
+
+    window.usarLinkMusica =
+      function(){
+
+        const link =
+          document.querySelector(
+            "#musicLink"
+          )
+          .value
+          .trim();
+
+
+        if(!link){
+
+          musicData = "";
+
+          document.querySelector(
+            "#musicPreview"
+          )
           .classList
           .remove("show");
 
-        document
-          .querySelector("#musicPreview")
-          .innerHTML = "";
+          document.querySelector(
+            "#musicPreview"
+          ).innerHTML = "";
 
-        return;
-      }
+          return;
 
-
-      musicData =
-        link;
+        }
 
 
-      document.querySelector("#musicInput").value =
-        "";
+        musicData =
+          link;
 
 
-      mostrarMusica(
-        musicData,
-        "Música por link"
-      );
-
-    }
+        document.querySelector(
+          "#musicInput"
+        ).value = "";
 
 
-    function mostrarMusica(src,name){
+        mostrarMusica(
+          musicData,
+          "Música por link"
+        );
 
-      document.querySelector("#musicPreview").innerHTML =
+      };
+
+
+    function mostrarMusica(
+      src,
+      name
+    ){
+
+      document.querySelector(
+        "#musicPreview"
+      ).innerHTML =
+
         `
         <div class="music-post">
 
@@ -1957,541 +2733,657 @@
         `;
 
 
-      document
-        .querySelector("#musicPreview")
-        .classList
-        .add("show");
+      document.querySelector(
+        "#musicPreview"
+      )
+      .classList
+      .add("show");
 
     }
 
 
-    /* =========================
-       REMOVER MÍDIA
-    ========================= */
+    /*
+    =========================================
+    REMOVER FOTO
+    =========================================
+    */
 
-    function removerFoto(){
+    window.removerFoto =
+      function(){
 
-      photoData = "";
-
-      document.querySelector("#photoInput").value =
-        "";
-
-
-      document
-        .querySelector("#photoPreview")
-        .classList
-        .remove("show");
+        photoData = "";
 
 
-      document.querySelector("#photoPreview").innerHTML =
-        "";
-
-    }
-
-
-    function removerVideo(){
-
-      if(videoData){
-
-        try{
-          URL.revokeObjectURL(videoData);
-        }catch(e){}
-
-      }
+        document.querySelector(
+          "#photoInput"
+        ).value = "";
 
 
-      videoData = "";
-
-      document.querySelector("#videoInput").value =
-        "";
-
-
-      document
-        .querySelector("#videoPreview")
+        document.querySelector(
+          "#photoPreview"
+        )
         .classList
         .remove("show");
 
 
-      document.querySelector("#videoPreview").innerHTML =
-        "";
+        document.querySelector(
+          "#photoPreview"
+        ).innerHTML = "";
 
-    }
+      };
 
 
-    function removerMusica(){
+    /*
+    =========================================
+    REMOVER VÍDEO
+    =========================================
+    */
 
-      if(
-        musicData &&
-        musicData.startsWith("blob:")
-      ){
+    window.removerVideo =
+      function(){
 
-        try{
-          URL.revokeObjectURL(musicData);
-        }catch(e){}
+        if(videoData){
 
-      }
+          try{
 
+            URL.revokeObjectURL(
+              videoData
+            );
 
-      musicData = "";
-
-
-      document.querySelector("#musicInput").value =
-        "";
-
-      document.querySelector("#musicLink").value =
-        "";
-
-
-      document
-        .querySelector("#musicPreview")
-        .classList
-        .remove("show");
-
-
-      document.querySelector("#musicPreview").innerHTML =
-        "";
-
-    }
-
-
-    /* =========================
-       SEGURANÇA
-    ========================= */
-
-    function escaparHTML(text){
-
-      const div =
-        document.createElement("div");
-
-      div.textContent =
-        String(text ?? "");
-
-      return div.innerHTML;
-
-    }
-
-
-    function escaparAtributo(text){
-
-      return String(text ?? "")
-        .replace(/&/g,"&amp;")
-        .replace(/"/g,"&quot;")
-        .replace(/'/g,"&#39;")
-        .replace(/</g,"&lt;")
-        .replace(/>/g,"&gt;");
-
-    }
-
-
-    /* =========================
-       GOSTAR
-    ========================= */
-
-    function like(button){
-
-      button.classList.toggle("liked");
-
-
-      if(
-        button.classList.contains("liked")
-      ){
-
-        button.innerHTML =
-          "♥ GOSTEI";
-
-      }else{
-
-        button.innerHTML =
-          "♡ GOSTAR";
-
-      }
-
-    }
-
-
-    /* =========================
-       SEGUIR
-    ========================= */
-
-    function seguir(button){
-
-      if(
-        button.textContent.trim() ===
-        "SEGUIR"
-      ){
-
-        button.textContent =
-          "✓ A SEGUIR";
-
-        button.style.background =
-          "#f4bf31";
-
-        button.style.color =
-          "#111";
-
-      }else{
-
-        button.textContent =
-          "SEGUIR";
-
-        button.style.background =
-          "transparent";
-
-        button.style.color =
-          "#f4bf31";
-
-      }
-
-    }
-
-
-    /* =========================
-       COMENTAR
-    ========================= */
-
-    function comentar(){
-
-      alert(
-        "Os comentários serão ativados em breve no KUDURO PRIME. 👑"
-      );
-
-    }
-
-
-    /* =========================
-       PARTILHAR
-    ========================= */
-
-    function partilhar(){
-
-      if(navigator.share){
-
-        navigator.share({
-          title:"KUDURO PRIME",
-          text:"Vê esta publicação no KUDURO PRIME!"
-        }).catch(function(){});
-
-      }else{
-
-        alert(
-          "Publicação pronta para ser partilhada!"
-        );
-
-      }
-
-    }
-
-
-    /* =========================
-       PUBLICAR
-    ========================= */
-
-    function publicar(){
-
-      const text =
-        document
-          .querySelector("#postText")
-          .value
-          .trim();
-
-
-      if(
-        !text &&
-        !photoData &&
-        !videoData &&
-        !musicData
-      ){
-
-        alert(
-          "Escreve algo ou adiciona uma foto, vídeo ou música."
-        );
-
-        return;
-
-      }
-
-
-      const safeText =
-        escaparHTML(text);
-
-      const safeName =
-        escaparHTML(artistName);
-
-      const safeUser =
-        escaparHTML(artistUser);
-
-
-      let authorStyle = "";
-
-
-      if(artistPhoto){
-
-        authorStyle =
-          `style="--img:url('${escaparAtributo(artistPhoto)}')"`;
-
-      }
-
-
-      let mediaHTML = "";
-
-
-      if(photoData){
-
-        mediaHTML =
-          `
-          <div
-            class="post-image"
-            style="--img:url('${escaparAtributo(photoData)}')"
-          ></div>
-          `;
-
-      }
-
-
-      if(videoData){
-
-        mediaHTML =
-          `
-          <video
-            class="post-video"
-            controls
-          >
-
-            <source
-              src="${escaparAtributo(videoData)}"
-            >
-
-            O teu navegador não suporta vídeo.
-
-          </video>
-          `;
-
-      }
-
-
-      if(musicData){
-
-        let musicName =
-          "Música partilhada";
-
-
-        const fileInput =
-          document.querySelector("#musicInput");
-
-
-        if(
-          fileInput.files &&
-          fileInput.files[0]
-        ){
-
-          musicName =
-            fileInput.files[0].name;
+          }catch(e){}
 
         }
 
 
-        mediaHTML =
-          `
-          <div class="music-post">
-
-            <div class="music-cover">
-              🎵
-            </div>
-
-            <div class="music-info">
-
-              <div class="music-name">
-                ${escaparHTML(musicName)}
-              </div>
-
-              <div class="music-artist">
-                ${safeName}
-              </div>
-
-              <audio
-                class="music-player"
-                controls
-                src="${escaparAtributo(musicData)}"
-              ></audio>
-
-            </div>
-
-          </div>
-          `;
-
-      }
+        videoData = "";
 
 
-      const newPost =
-        `
-        <article class="post panel">
+        document.querySelector(
+          "#videoInput"
+        ).value = "";
 
-          <div class="post-top">
 
+        document.querySelector(
+          "#videoPreview"
+        )
+        .classList
+        .remove("show");
+
+
+        document.querySelector(
+          "#videoPreview"
+        ).innerHTML = "";
+
+      };
+
+
+    /*
+    =========================================
+    REMOVER MÚSICA
+    =========================================
+    */
+
+    window.removerMusica =
+      function(){
+
+        if(
+          musicData &&
+          musicData.startsWith("blob:")
+        ){
+
+          try{
+
+            URL.revokeObjectURL(
+              musicData
+            );
+
+          }catch(e){}
+
+        }
+
+
+        musicData = "";
+
+
+        document.querySelector(
+          "#musicInput"
+        ).value = "";
+
+
+        document.querySelector(
+          "#musicLink"
+        ).value = "";
+
+
+        document.querySelector(
+          "#musicPreview"
+        )
+        .classList
+        .remove("show");
+
+
+        document.querySelector(
+          "#musicPreview"
+        ).innerHTML = "";
+
+      };
+
+
+    /*
+    =========================================
+    GOSTAR
+    =========================================
+    */
+
+    window.like =
+      function(button){
+
+        button.classList.toggle(
+          "liked"
+        );
+
+
+        if(
+          button.classList.contains(
+            "liked"
+          )
+        ){
+
+          button.innerHTML =
+            "♥ GOSTEI";
+
+        }else{
+
+          button.innerHTML =
+            "♡ GOSTAR";
+
+        }
+
+      };
+
+
+    /*
+    =========================================
+    SEGUIR
+    =========================================
+    */
+
+    window.seguir =
+      function(button){
+
+        if(
+          button.textContent.trim() ===
+          "SEGUIR"
+        ){
+
+          button.textContent =
+            "✓ A SEGUIR";
+
+          button.style.background =
+            "#f4bf31";
+
+          button.style.color =
+            "#111";
+
+        }else{
+
+          button.textContent =
+            "SEGUIR";
+
+          button.style.background =
+            "transparent";
+
+          button.style.color =
+            "#f4bf31";
+
+        }
+
+      };
+
+
+    /*
+    =========================================
+    COMENTAR
+    =========================================
+    */
+
+    window.comentar =
+      function(){
+
+        alert(
+          "Os comentários serão ativados em breve no KUDURO PRIME. 👑"
+        );
+
+      };
+
+
+    /*
+    =========================================
+    PARTILHAR
+    =========================================
+    */
+
+    window.partilhar =
+      function(){
+
+        if(navigator.share){
+
+          navigator.share({
+
+            title:
+              "KUDURO PRIME",
+
+            text:
+              "Vê esta publicação no KUDURO PRIME!"
+
+          })
+          .catch(
+            function(){}
+          );
+
+        }else{
+
+          alert(
+            "Publicação pronta para ser partilhada!"
+          );
+
+        }
+
+      };
+
+
+    /*
+    =========================================
+    PUBLICAR
+    =========================================
+    */
+
+    window.publicar =
+      function(){
+
+        /*
+        Confirma utilizador
+        */
+
+        if(!usuarioAtual){
+
+          alert(
+            "A tua sessão ainda não foi carregada. Aguarda um momento."
+          );
+
+          return;
+
+        }
+
+
+        const text =
+          document.querySelector(
+            "#postText"
+          )
+          .value
+          .trim();
+
+
+        if(
+          !text &&
+          !photoData &&
+          !videoData &&
+          !musicData
+        ){
+
+          alert(
+            "Escreve algo ou adiciona uma foto, vídeo ou música."
+          );
+
+          return;
+
+        }
+
+
+        const safeText =
+          escaparHTML(text);
+
+
+        const safeName =
+          escaparHTML(artistName);
+
+
+        const safeUser =
+          escaparHTML(artistUser);
+
+
+        let authorStyle = "";
+
+
+        if(artistPhoto){
+
+          authorStyle =
+            `style="--img:url('${escaparAtributo(artistPhoto)}')"`;
+
+        }
+
+
+        let mediaHTML = "";
+
+
+        if(photoData){
+
+          mediaHTML =
+
+            `
             <div
-              class="post-author-img"
-              ${authorStyle}
+              class="post-image"
+              style="--img:url('${escaparAtributo(photoData)}')"
             ></div>
+            `;
 
-            <div>
-
-              <div class="post-name">
-
-                ${safeName}
-
-                <span class="verified">
-                  ●
-                </span>
-
-              </div>
-
-              <div class="post-meta">
-                @${safeUser} · agora
-              </div>
-
-            </div>
-
-            <div class="more">
-              ⋯
-            </div>
-
-          </div>
+        }
 
 
-          ${
-            safeText
-            ?
-            `<div class="post-text">${safeText}</div>`
-            :
-            ""
+        if(videoData){
+
+          mediaHTML =
+
+            `
+            <video
+              class="post-video"
+              controls
+            >
+
+              <source
+                src="${escaparAtributo(videoData)}"
+              >
+
+              O teu navegador não suporta vídeo.
+
+            </video>
+            `;
+
+        }
+
+
+        if(musicData){
+
+          let musicName =
+            "Música partilhada";
+
+
+          const fileInput =
+            document.querySelector(
+              "#musicInput"
+            );
+
+
+          if(
+            fileInput.files &&
+            fileInput.files[0]
+          ){
+
+            musicName =
+              fileInput.files[0].name;
+
           }
 
 
-          ${mediaHTML}
+          mediaHTML =
+
+            `
+            <div class="music-post">
+
+              <div class="music-cover">
+                🎵
+              </div>
+
+              <div class="music-info">
+
+                <div class="music-name">
+                  ${escaparHTML(musicName)}
+                </div>
+
+                <div class="music-artist">
+                  ${safeName}
+                </div>
+
+                <audio
+                  class="music-player"
+                  controls
+                  src="${escaparAtributo(musicData)}"
+                ></audio>
+
+              </div>
+
+            </div>
+            `;
+
+        }
 
 
-          <div class="post-stats">
+        const newPost =
 
-            <span>
-              🔥 0 reações
-            </span>
+          `
+          <article class="post panel">
 
-            <span>
-              0 comentários
-            </span>
+            <div class="post-top">
 
-          </div>
+              <div
+                class="post-author-img"
+                ${authorStyle}
+              ></div>
+
+              <div>
+
+                <div class="post-name">
+
+                  ${safeName}
+
+                  <span class="verified">
+                    ●
+                  </span>
+
+                </div>
+
+                <div class="post-meta">
+                  @${safeUser} · agora
+                </div>
+
+              </div>
+
+              <div class="more">
+                ⋯
+              </div>
+
+            </div>
 
 
-          <div class="post-buttons">
-
-            <button onclick="like(this)">
-              ♡ GOSTAR
-            </button>
-
-            <button onclick="comentar()">
-              💬 COMENTAR
-            </button>
-
-            <button onclick="partilhar()">
-              ↗ PARTILHAR
-            </button>
-
-          </div>
-
-        </article>
-        `;
+            ${
+              safeText
+              ?
+              `<div class="post-text">${safeText}</div>`
+              :
+              ""
+            }
 
 
-      document
-        .querySelector("#feedPosts")
+            ${mediaHTML}
+
+
+            <div class="post-stats">
+
+              <span>
+                🔥 0 reações
+              </span>
+
+              <span>
+                0 comentários
+              </span>
+
+            </div>
+
+
+            <div class="post-buttons">
+
+              <button onclick="like(this)">
+                ♡ GOSTAR
+              </button>
+
+              <button onclick="comentar()">
+                💬 COMENTAR
+              </button>
+
+              <button onclick="partilhar()">
+                ↗ PARTILHAR
+              </button>
+
+            </div>
+
+          </article>
+          `;
+
+
+        document.querySelector(
+          "#feedPosts"
+        )
         .insertAdjacentHTML(
           "afterbegin",
           newPost
         );
 
 
-      document
-        .querySelector("#postText")
-        .value = "";
+        document.querySelector(
+          "#postText"
+        ).value = "";
 
 
-      removerFoto();
-      removerVideo();
-      removerMusica();
+        removerFoto();
+
+        removerVideo();
+
+        removerMusica();
 
 
-      selectedType = "";
+        selectedType = "";
 
 
-      document
-        .querySelectorAll(".media-box")
-        .forEach(function(box){
+        document.querySelectorAll(
+          ".media-box"
+        )
+        .forEach(
+          function(box){
 
-          box.classList.remove("show");
+            box.classList.remove(
+              "show"
+            );
+
+          }
+        );
+
+
+        document.querySelectorAll(
+          ".tool-btn"
+        )
+        .forEach(
+          function(button){
+
+            button.classList.remove(
+              "active"
+            );
+
+          }
+        );
+
+
+        window.scrollTo({
+
+          top:0,
+
+          behavior:"smooth"
 
         });
 
-
-      document
-        .querySelectorAll(".tool-btn")
-        .forEach(function(button){
-
-          button.classList.remove("active");
-
-        });
+      };
 
 
-      window.scrollTo({
-        top:0,
-        behavior:"smooth"
-      });
+    /*
+    =========================================
+    SAIR
+    =========================================
+    */
 
-    }
+    window.sair =
+      async function(event){
 
+        if(event){
 
-    /* =========================
-       SAIR
-    ========================= */
+          event.preventDefault();
 
-    function sair(event){
-
-      if(event){
-        event.preventDefault();
-      }
+        }
 
 
-      localStorage.removeItem(
-        "kpLoggedIn"
-      );
+        try{
+
+          await signOut(auth);
+
+        }catch(erro){
+
+          console.error(
+            "Erro ao sair:",
+            erro
+          );
+
+        }
 
 
-      window.location.href =
-        "index.html";
+        localStorage.removeItem(
+          "kpLoggedIn"
+        );
 
-    }
+        localStorage.removeItem(
+          "kpArtistLoggedIn"
+        );
 
+        localStorage.removeItem(
+          "kpArtistUID"
+        );
 
-    /* =========================
-       MENU MOBILE
-    ========================= */
-
-    function abrirMenu(){
-
-      const links =
-        document.querySelector(".links");
-
-
-      if(!links){
-        return;
-      }
+        localStorage.removeItem(
+          "kpArtistEmail"
+        );
 
 
-      links.classList.toggle(
-        "mobile-open"
-      );
+        window.location.replace(
+          "index.html"
+        );
 
-    }
+      };
+
+
+    /*
+    =========================================
+    MENU MOBILE
+    =========================================
+    */
+
+    window.abrirMenu =
+      function(){
+
+        const links =
+          document.querySelector(
+            ".links"
+          );
+
+
+        if(!links){
+
+          return;
+
+        }
+
+
+        links.classList.toggle(
+          "mobile-open"
+        );
+
+      };
 
   </script>
 
