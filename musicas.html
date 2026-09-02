@@ -7,112 +7,243 @@
 <title>Músicas | KUDURO PRIME</title>
 
 <style>
-* {
-  box-sizing: border-box;
+*{
+  box-sizing:border-box;
 }
 
-body {
-  margin: 0;
-  background: #080808;
-  color: white;
-  font-family: Arial, sans-serif;
+body{
+  margin:0;
+  background:#080808;
+  color:white;
+  font-family:Arial,Helvetica,sans-serif;
 }
 
-header {
-  background: #111;
-  padding: 20px;
-  text-align: center;
-  border-bottom: 2px solid #d4af37;
+header{
+  background:#0d0d0d;
+  padding:20px;
+  text-align:center;
+  border-bottom:2px solid #d4af37;
+  position:sticky;
+  top:0;
+  z-index:50;
 }
 
-.logo {
-  color: #d4af37;
-  font-size: 30px;
-  font-weight: bold;
+.logo{
+  color:#d4af37;
+  font-size:30px;
+  font-weight:900;
 }
 
-nav {
-  margin-top: 15px;
+nav{
+  margin-top:15px;
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:8px;
 }
 
-nav a {
-  color: white;
-  margin: 10px;
-  text-decoration: none;
-  font-size: 14px;
+nav a{
+  color:#fff;
+  margin:5px 10px;
+  text-decoration:none;
+  font-size:13px;
+  font-weight:800;
 }
 
-nav a:hover {
-  color: #d4af37;
+nav a:hover{
+  color:#d4af37;
 }
 
-h1 {
-  text-align: center;
-  color: #d4af37;
-  margin-top: 50px;
+.hero{
+  text-align:center;
+  padding:55px 20px 20px;
 }
 
-.subtitulo {
-  text-align: center;
-  color: #aaa;
+h1{
+  color:#d4af37;
+  margin:0;
+  font-size:38px;
 }
 
-.musicas {
-  max-width: 1100px;
-  margin: 50px auto;
-  padding: 20px;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 20px;
+.subtitulo{
+  color:#aaa;
+  margin-top:12px;
+  font-size:14px;
 }
 
-.musica {
-  background: #151515;
-  border: 1px solid #333;
-  border-radius: 12px;
-  padding: 20px;
-  transition: 0.3s;
+.musicas{
+  max-width:1200px;
+  margin:35px auto 70px;
+  padding:20px;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:22px;
 }
 
-.musica:hover {
-  border-color: #d4af37;
-  transform: translateY(-5px);
+.musica{
+  background:
+    linear-gradient(
+      145deg,
+      #171717,
+      #0e0e0e
+    );
+  border:1px solid #292929;
+  border-radius:15px;
+  padding:18px;
+  transition:.25s;
+  overflow:hidden;
 }
 
-.capa {
-  height: 170px;
-  border-radius: 10px;
-  margin-bottom: 15px;
-  background: linear-gradient(
-    135deg,
-    #d4af37,
-    #5b4100
-  );
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 70px;
+.musica:hover{
+  border-color:#d4af37;
+  transform:translateY(-5px);
 }
 
-.musica h2 {
-  margin: 10px 0 5px;
+.capa{
+  height:200px;
+  border-radius:11px;
+  margin-bottom:16px;
+  background:
+    linear-gradient(
+      135deg,
+      #d4af37,
+      #5b4100
+    );
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:70px;
+  overflow:hidden;
 }
 
-.artista {
-  color: #d4af37;
+.capa img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
 }
 
-audio {
-  width: 100%;
-  margin-top: 15px;
+.musica h2{
+  margin:8px 0 5px;
+  font-size:20px;
 }
 
-footer {
-  margin-top: 50px;
-  background: #111;
-  text-align: center;
-  padding: 30px;
-  color: #777;
+.artista{
+  color:#d4af37;
+  font-size:13px;
+  font-weight:900;
+}
+
+.descricao{
+  color:#aaa;
+  font-size:12px;
+  line-height:1.5;
+  min-height:36px;
+}
+
+audio{
+  width:100%;
+  margin-top:15px;
+}
+
+.info{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  margin-top:13px;
+  padding-top:12px;
+  border-top:1px solid #292929;
+  color:#888;
+  font-size:11px;
+}
+
+.views{
+  color:#d4af37;
+  font-weight:900;
+}
+
+.perfil-btn{
+  display:inline-block;
+  margin-top:12px;
+  color:#d4af37;
+  font-size:11px;
+  font-weight:900;
+  text-decoration:none;
+}
+
+.perfil-btn:hover{
+  text-decoration:underline;
+}
+
+.loading{
+  text-align:center;
+  padding:60px 20px;
+  color:#aaa;
+}
+
+.loading-icon{
+  font-size:40px;
+  margin-bottom:10px;
+}
+
+.empty{
+  grid-column:1/-1;
+  text-align:center;
+  padding:70px 20px;
+  color:#888;
+}
+
+.empty-icon{
+  font-size:55px;
+  margin-bottom:15px;
+}
+
+.error{
+  grid-column:1/-1;
+  text-align:center;
+  padding:50px 20px;
+  color:#ff7464;
+  background:#170c0a;
+  border:1px solid #4a1d17;
+  border-radius:12px;
+}
+
+footer{
+  margin-top:50px;
+  background:#111;
+  text-align:center;
+  padding:30px;
+  color:#777;
+  font-size:12px;
+}
+
+@media(max-width:600px){
+
+  .logo{
+    font-size:24px;
+  }
+
+  nav a{
+    font-size:11px;
+    margin:4px;
+  }
+
+  h1{
+    font-size:29px;
+  }
+
+  .hero{
+    padding-top:40px;
+  }
+
+  .musicas{
+    grid-template-columns:1fr;
+    padding:15px;
+  }
+
+  .capa{
+    height:190px;
+  }
+
 }
 </style>
 
@@ -122,95 +253,721 @@ footer {
 
 <header>
 
-<div class="logo">
-👑 KUDURO PRIME
-</div>
+  <div class="logo">
+    👑 KUDURO PRIME
+  </div>
 
-<nav>
-<a href="index.html">INÍCIO</a>
-<a href="artistas.html">ARTISTAS</a>
-<a href="musicas.html">MÚSICAS</a>
-<a href="#">RANKING</a>
-<a href="#">EVENTOS</a>
-</nav>
+  <nav>
+    <a href="index.html">INÍCIO</a>
+    <a href="artistas.html">ARTISTAS</a>
+    <a href="musicas.html">MÚSICAS</a>
+    <a href="ranking.html">RANKING</a>
+    <a href="eventos.html">EVENTOS</a>
+    <a href="videos.html">VÍDEOS</a>
+  </nav>
 
 </header>
 
-<h1>🎵 MÚSICAS PRIME</h1>
 
-<p class="subtitulo">
-Os lançamentos e músicas que estão a movimentar o Kuduro.
-</p>
+<section class="hero">
 
-<section class="musicas">
+  <h1>
+    🎵 MÚSICAS PRIME
+  </h1>
 
-<div class="musica">
-
-<div class="capa">🎵</div>
-
-<h2>Mim Faz Só Broxe</h2>
-
-<p class="artista">
-Figura do Adoço
-</p>
-
-<p>
-Novo lançamento em destaque no KUDURO PRIME.
-</p>
-
-<audio controls>
-Seu navegador não suporta áudio.
-</audio>
-
-</div>
-
-
-<div class="musica">
-
-<div class="capa">🔥</div>
-
-<h2>Vida de Artista</h2>
-
-<p class="artista">
-Artista Prime
-</p>
-
-<p>
-Uma das músicas em destaque do movimento.
-</p>
-
-<audio controls>
-Seu navegador não suporta áudio.
-</audio>
-
-</div>
-
-
-<div class="musica">
-
-<div class="capa">👑</div>
-
-<h2>Kuduro Não Para</h2>
-
-<p class="artista">
-Artista Prime
-</p>
-
-<p>
-Música selecionada para o KUDURO PRIME.
-</p>
-
-<audio controls>
-Seu navegador não suporta áudio.
-</audio>
-
-</div>
+  <p class="subtitulo">
+    Os lançamentos que estão a movimentar o Kuduro.
+  </p>
 
 </section>
 
+
+<section
+  class="musicas"
+  id="musicasContainer"
+>
+
+  <div class="loading">
+
+    <div class="loading-icon">
+      ⏳
+    </div>
+
+    A carregar músicas...
+
+  </div>
+
+</section>
+
+
 <footer>
-© 2026 KUDURO PRIME — O KUDURO VIVE AQUI 👑
+
+  © 2026 KUDURO PRIME — O KUDURO VIVE AQUI 👑
+
 </footer>
+
+
+<script type="module">
+
+/* =========================================
+   FIREBASE
+========================================= */
+
+import {
+  initializeApp
+}
+from
+"https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+
+
+import {
+  getAuth,
+  onAuthStateChanged
+}
+from
+"https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+
+
+import {
+  getFirestore,
+  collection,
+  getDocs,
+  doc,
+  updateDoc,
+  increment,
+  query,
+  orderBy
+}
+from
+"https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+
+
+const firebaseConfig = {
+
+  apiKey:
+    "AIzaSyDoitCcLeLDNBNPCP6fG1s_xbHr4UmohSo",
+
+  authDomain:
+    "kuduro-prime.firebaseapp.com",
+
+  projectId:
+    "kuduro-prime",
+
+  storageBucket:
+    "kuduro-prime.firebasestorage.app",
+
+  messagingSenderId:
+    "299776559545",
+
+  appId:
+    "1:299776559545:web:04aced1ba25391eb3fce68"
+
+};
+
+
+const app =
+  initializeApp(firebaseConfig);
+
+
+const auth =
+  getAuth(app);
+
+
+const db =
+  getFirestore(app);
+
+
+/* =========================================
+   ELEMENTOS
+========================================= */
+
+const container =
+  document.querySelector(
+    "#musicasContainer"
+  );
+
+
+let currentUser = null;
+
+
+/* =========================================
+   SEGURANÇA HTML
+========================================= */
+
+function escapeHTML(value){
+
+  const div =
+    document.createElement("div");
+
+  div.textContent =
+    value || "";
+
+  return div.innerHTML;
+
+}
+
+
+/* =========================================
+   FORMATAR DATA
+========================================= */
+
+function formatDate(timestamp){
+
+  if(!timestamp){
+    return "";
+  }
+
+  if(timestamp.seconds){
+
+    const date =
+      new Date(
+        timestamp.seconds * 1000
+      );
+
+    return date.toLocaleDateString(
+      "pt-PT"
+    );
+
+  }
+
+  return "";
+
+}
+
+
+/* =========================================
+   FORMATAR NÚMEROS
+========================================= */
+
+function formatNumber(number){
+
+  number =
+    Number(number) || 0;
+
+  return number.toLocaleString(
+    "pt-PT"
+  );
+
+}
+
+
+/* =========================================
+   CARREGAR MÚSICAS
+========================================= */
+
+async function loadSongs(){
+
+  try{
+
+    const musicQuery =
+      query(
+        collection(
+          db,
+          "musicas"
+        ),
+        orderBy(
+          "criadoEm",
+          "desc"
+        )
+      );
+
+
+    const snapshot =
+      await getDocs(
+        musicQuery
+      );
+
+
+    if(snapshot.empty){
+
+      container.innerHTML = `
+
+        <div class="empty">
+
+          <div class="empty-icon">
+            🎵
+          </div>
+
+          <h2>
+            Ainda não existem músicas.
+          </h2>
+
+          <p>
+            Os próximos lançamentos aparecerão aqui.
+          </p>
+
+        </div>
+
+      `;
+
+      return;
+
+    }
+
+
+    const songs =
+      snapshot.docs.map(
+        musicDoc => ({
+
+          id:
+            musicDoc.id,
+
+          ...musicDoc.data()
+
+        })
+      );
+
+
+    renderSongs(
+      songs
+    );
+
+  }
+  catch(error){
+
+    console.error(
+      "Erro ao carregar músicas:",
+      error
+    );
+
+
+    container.innerHTML = `
+
+      <div class="error">
+
+        ⚠️
+        <br><br>
+
+        Não foi possível carregar as músicas.
+
+        <br><br>
+
+        <small>
+          ${escapeHTML(error.message)}
+        </small>
+
+      </div>
+
+    `;
+
+  }
+
+}
+
+
+/* =========================================
+   RENDERIZAR MÚSICAS
+========================================= */
+
+function renderSongs(songs){
+
+  container.innerHTML =
+    songs.map(
+      song => {
+
+        const title =
+          song.titulo
+          ||
+          song.title
+          ||
+          "Música sem título";
+
+
+        const artist =
+          song.artistaNome
+          ||
+          song.artistName
+          ||
+          song.nomeArtistico
+          ||
+          "Artista Prime";
+
+
+        const description =
+          song.descricao
+          ||
+          song.description
+          ||
+          "Novo lançamento no KUDURO PRIME.";
+
+
+        const cover =
+          song.capa
+          ||
+          song.cover
+          ||
+          song.coverUrl
+          ||
+          "";
+
+
+        const audio =
+          song.audio
+          ||
+          song.audioUrl
+          ||
+          song.url
+          ||
+          song.musicUrl
+          ||
+          "";
+
+
+        const views =
+          Number(
+            song.views
+          )
+          ||
+          0;
+
+
+        const date =
+          song.dataLancamento
+          ||
+          formatDate(
+            song.criadoEm
+          );
+
+
+        const artistId =
+          song.artistaId
+          ||
+          song.artistId
+          ||
+          song.userId
+          ||
+          song.uid
+          ||
+          "";
+
+
+        const coverHTML =
+          cover
+          ?
+
+          `
+            <img
+              src="${escapeHTML(cover)}"
+              alt="${escapeHTML(title)}"
+              loading="lazy"
+              onerror="this.style.display='none'"
+            >
+          `
+
+          :
+
+          `🎵`;
+
+
+        const audioHTML =
+          audio
+
+          ?
+
+          `
+            <audio
+              controls
+              preload="none"
+              data-song-id="${escapeHTML(song.id)}"
+              data-owner-id="${escapeHTML(artistId)}"
+            >
+              <source
+                src="${escapeHTML(audio)}"
+              >
+
+              Seu navegador não suporta áudio.
+            </audio>
+          `
+
+          :
+
+          `
+            <p
+              style="
+                color:#777;
+                font-size:11px;
+                margin-top:15px;
+              "
+            >
+              Áudio indisponível.
+            </p>
+          `;
+
+
+        return `
+
+          <article
+            class="musica"
+            data-id="${escapeHTML(song.id)}"
+          >
+
+            <div class="capa">
+
+              ${coverHTML}
+
+            </div>
+
+
+            <h2>
+              ${escapeHTML(title)}
+            </h2>
+
+
+            <div class="artista">
+
+              👑
+              ${escapeHTML(artist)}
+
+            </div>
+
+
+            <p class="descricao">
+
+              ${escapeHTML(description)}
+
+            </p>
+
+
+            ${audioHTML}
+
+
+            <div class="info">
+
+              <span class="views">
+
+                👁
+                <span
+                  class="view-number"
+                  id="views-${escapeHTML(song.id)}"
+                >
+                  ${formatNumber(views)}
+                </span>
+
+                visualizações
+
+              </span>
+
+
+              <span>
+
+                ${escapeHTML(date)}
+
+              </span>
+
+            </div>
+
+
+            ${
+              artistId
+
+              ?
+
+              `
+                <a
+                  class="perfil-btn"
+                  href="perfil.html?id=${encodeURIComponent(artistId)}"
+                >
+                  VER PERFIL DO ARTISTA →
+                </a>
+              `
+
+              :
+
+              ""
+            }
+
+          </article>
+
+        `;
+
+      }
+    )
+    .join("");
+
+
+  activateViewTracking();
+
+}
+
+
+/* =========================================
+   VISUALIZAÇÕES
+========================================= */
+
+function activateViewTracking(){
+
+  const audios =
+    document.querySelectorAll(
+      "audio[data-song-id]"
+    );
+
+
+  audios.forEach(
+    audio => {
+
+      let counted =
+        false;
+
+
+      audio.addEventListener(
+        "play",
+        async () => {
+
+          if(counted){
+            return;
+          }
+
+
+          const songId =
+            audio.dataset.songId;
+
+
+          const ownerId =
+            audio.dataset.ownerId;
+
+
+          /*
+             REGRA PRINCIPAL:
+
+             Se o usuário estiver
+             autenticado e for o próprio
+             artista, NÃO conta.
+          */
+
+          if(
+            currentUser &&
+            ownerId &&
+            currentUser.uid === ownerId
+          ){
+
+            console.log(
+              "Visualização do próprio artista não contabilizada."
+            );
+
+            counted = true;
+
+            return;
+
+          }
+
+
+          /*
+             Se não estiver logado,
+             também não contamos.
+
+             Assim evitamos que visitas
+             anónimas sejam utilizadas
+             para inflar o contador.
+          */
+
+          if(!currentUser){
+
+            console.log(
+              "Utilizador não autenticado. Visualização não contabilizada."
+            );
+
+            counted = true;
+
+            return;
+
+          }
+
+
+          counted = true;
+
+
+          try{
+
+            const songRef =
+              doc(
+                db,
+                "musicas",
+                songId
+              );
+
+
+            await updateDoc(
+              songRef,
+              {
+
+                views:
+                  increment(1)
+
+              }
+            );
+
+
+            /*
+               Atualiza o número na tela
+               sem precisar recarregar.
+            */
+
+            const viewElement =
+              document.querySelector(
+                "#views-" +
+                CSS.escape(songId)
+              );
+
+
+            if(viewElement){
+
+              const current =
+                Number(
+                  viewElement.textContent
+                    .replace(/\D/g,"")
+                )
+                ||
+                0;
+
+
+              viewElement.textContent =
+                formatNumber(
+                  current + 1
+                );
+
+            }
+
+          }
+          catch(error){
+
+            console.error(
+              "Erro ao registrar visualização:",
+              error
+            );
+
+          }
+
+        }
+      );
+
+    }
+  );
+
+}
+
+
+/* =========================================
+   AUTENTICAÇÃO
+========================================= */
+
+onAuthStateChanged(
+  auth,
+  user => {
+
+    currentUser =
+      user || null;
+
+    /*
+       Só carregamos as músicas depois
+       de saber quem é o utilizador.
+    */
+
+    loadSongs();
+
+  }
+);
+
+</script>
 
 </body>
 </html>
