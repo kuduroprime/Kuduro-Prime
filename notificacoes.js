@@ -5,7 +5,9 @@
 // ==========================================
 
 import {
-  initializeApp
+  initializeApp,
+  getApps,
+  getApp
 } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
 
 import {
@@ -54,8 +56,14 @@ const firebaseConfig = {
 };
 
 
+// ==========================================
+// EVITAR FIREBASE DUPLICADO
+// ==========================================
+
 const app =
-  initializeApp(firebaseConfig);
+  getApps().length > 0
+    ? getApp()
+    : initializeApp(firebaseConfig);
 
 const auth =
   getAuth(app);
@@ -88,7 +96,7 @@ const enableNotificationsBtn =
 
 
 // ==========================================
-// UTILITÁRIOS
+// UTILITÁRIO
 // ==========================================
 
 function escaparHTML(texto){
@@ -98,17 +106,17 @@ function escaparHTML(texto){
   }
 
   return String(texto)
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
 
 }
 
 
 // ==========================================
-// DATA DA NOTIFICAÇÃO
+// TEMPO DA NOTIFICAÇÃO
 // ==========================================
 
 function tempoNotificacao(timestamp){
@@ -117,8 +125,17 @@ function tempoNotificacao(timestamp){
     return "Agora";
   }
 
-  const data =
-    timestamp.toDate();
+  let data;
+
+  try{
+
+    data = timestamp.toDate();
+
+  }catch(error){
+
+    return "Agora";
+
+  }
 
   const agora =
     new Date();
@@ -133,24 +150,36 @@ function tempoNotificacao(timestamp){
   }
 
   const minutos =
-    Math.floor(segundos / 60);
+    Math.floor(
+      segundos / 60
+    );
 
   if(minutos < 60){
+
     return `${minutos} min`;
+
   }
 
   const horas =
-    Math.floor(minutos / 60);
+    Math.floor(
+      minutos / 60
+    );
 
   if(horas < 24){
+
     return `${horas} h`;
+
   }
 
   const dias =
-    Math.floor(horas / 24);
+    Math.floor(
+      horas / 24
+    );
 
   if(dias < 7){
+
     return `${dias} d`;
+
   }
 
   return data.toLocaleDateString(
@@ -171,6 +200,11 @@ function mostrarNotificacoes(
   if(!notificationList){
     return;
   }
+
+
+  // ========================================
+  // SEM NOTIFICAÇÕES
+  // ========================================
 
   if(notificacoes.length === 0){
 
@@ -209,7 +243,8 @@ function mostrarNotificacoes(
 
   const naoLidas =
     notificacoes.filter(
-      n => n.data.read !== true
+      item =>
+        item.data.read !== true
     ).length;
 
 
@@ -238,92 +273,106 @@ function mostrarNotificacoes(
 
 
   // ========================================
-  // HTML
+  // GERAR HTML
   // ========================================
 
   notificationList.innerHTML =
+    notificacoes
+      .map(item => {
 
-    notificacoes.map(item => {
+        const n =
+          item.data;
 
-      const n =
-        item.data;
+        const titulo =
+          escaparHTML(
+            n.title ||
+            "Nova notificação"
+          );
 
-      const nome =
-        escaparHTML(
-          n.actorName ||
-          "Alguém"
-        );
+        const corpo =
+          escaparHTML(
+            n.body ||
+            ""
+          );
 
-      const titulo =
-        escaparHTML(
-          n.title ||
-          "Nova notificação"
-        );
+        const foto =
+          n.actorPhoto ||
+          "";
 
-      const corpo =
-        escaparHTML(
-          n.body ||
-          ""
-        );
+        const tempo =
+          tempoNotificacao(
+            n.createdAt
+          );
 
-      const foto =
-        n.actorPhoto || "";
-
-      const tempo =
-        tempoNotificacao(
-          n.createdAt
-        );
+        const url =
+          escaparHTML(
+            n.url ||
+            "feed.html"
+          );
 
 
-      return `
+        return `
 
-        <div
-          class="notification-item
-          ${n.read === true ? "" : "unread"}"
-          data-id="${item.id}"
-          data-url="${escaparHTML(
-            n.url || "feed.html"
-          )}"
-        >
+          <div
+            class="notification-item ${
+              n.read === true
+                ? ""
+                : "unread"
+            }"
+            data-id="${item.id}"
+            data-url="${url}"
+          >
 
-          <div class="notification-avatar">
+            <div class="notification-avatar">
 
-            ${
-              foto
-                ? `<img
-                    src="${escaparHTML(foto)}"
-                    alt=""
-                  >`
-                : "👤"
-            }
+              ${
+                foto
+
+                  ? `<img
+                      src="${escaparHTML(foto)}"
+                      alt=""
+                    >`
+
+                  : "👤"
+              }
+
+            </div>
+
+
+            <div class="notification-content">
+
+              <div class="notification-title">
+
+                ${titulo}
+
+              </div>
+
+
+              <div class="notification-text">
+
+                ${corpo}
+
+              </div>
+
+
+              <div class="notification-time">
+
+                ${tempo}
+
+              </div>
+
+            </div>
 
           </div>
 
-          <div class="notification-content">
+        `;
 
-            <div class="notification-title">
-              ${titulo}
-            </div>
-
-            <div class="notification-text">
-              ${corpo}
-            </div>
-
-            <div class="notification-time">
-              ${tempo}
-            </div>
-
-          </div>
-
-        </div>
-
-      `;
-
-    }).join("");
+      })
+      .join("");
 
 
   // ========================================
-  // CLIQUE
+  // CLIQUE NA NOTIFICAÇÃO
   // ========================================
 
   document
@@ -353,7 +402,7 @@ function mostrarNotificacoes(
                 id
               ),
               {
-                read:true
+                read: true
               }
             );
 
@@ -379,16 +428,18 @@ function mostrarNotificacoes(
 
 
 // ==========================================
-// CARREGAR NOTIFICAÇÕES
+// INICIAR NOTIFICAÇÕES
 // ==========================================
 
-function iniciarNotificacoes(
-  user
-){
+let pararNotificacoes = null;
+
+
+function iniciarNotificacoes(user){
 
   if(!user){
     return;
   }
+
 
   console.log(
     "🔔 Notificações iniciadas para:",
@@ -424,59 +475,64 @@ function iniciarNotificacoes(
     );
 
 
-  onSnapshot(
-    q,
+  pararNotificacoes =
+    onSnapshot(
 
-    snapshot => {
+      q,
 
-      const notificacoes =
-        snapshot.docs.map(
-          documento => ({
+      snapshot => {
 
-            id:
-              documento.id,
+        const notificacoes =
+          snapshot.docs.map(
+            documento => ({
 
-            data:
-              documento.data()
+              id:
+                documento.id,
 
-          })
+              data:
+                documento.data()
+
+            })
+          );
+
+
+        mostrarNotificacoes(
+          notificacoes
+        );
+
+      },
+
+
+      error => {
+
+        console.error(
+          "Erro ao carregar notificações:",
+          error
         );
 
 
-      mostrarNotificacoes(
-        notificacoes
-      );
+        if(notificationList){
 
-    },
+          notificationList.innerHTML = `
 
-    error => {
+            <div class="notification-empty">
 
-      console.error(
-        "Erro ao carregar notificações:",
-        error
-      );
+              ⚠️ Erro ao carregar notificações.
 
-      if(notificationList){
+              <br><br>
 
-        notificationList.innerHTML = `
+              Verifica as Firestore Rules
+              e o índice do Firestore.
 
-          <div class="notification-empty">
+            </div>
 
-            ⚠️ Erro ao carregar notificações.
+          `;
 
-            <br><br>
-
-            Verifica as Firestore Rules.
-
-          </div>
-
-        `;
+        }
 
       }
 
-    }
-
-  );
+    );
 
 }
 
@@ -493,6 +549,7 @@ if(markAllReadBtn){
 
       const user =
         auth.currentUser;
+
 
       if(!user){
         return;
@@ -522,11 +579,13 @@ if(markAllReadBtn){
 
         const snapshot =
           await new Promise(
-            (resolve,reject) => {
+            (resolve, reject) => {
 
               const unsubscribe =
                 onSnapshot(
+
                   q,
+
                   data => {
 
                     unsubscribe();
@@ -534,6 +593,7 @@ if(markAllReadBtn){
                     resolve(data);
 
                   },
+
                   error => {
 
                     unsubscribe();
@@ -541,6 +601,7 @@ if(markAllReadBtn){
                     reject(error);
 
                   }
+
                 );
 
             }
@@ -549,6 +610,10 @@ if(markAllReadBtn){
 
         const batch =
           writeBatch(db);
+
+
+        let quantidade =
+          0;
 
 
         snapshot.docs.forEach(
@@ -561,9 +626,11 @@ if(markAllReadBtn){
               batch.update(
                 documento.ref,
                 {
-                  read:true
+                  read: true
                 }
               );
+
+              quantidade++;
 
             }
 
@@ -571,17 +638,23 @@ if(markAllReadBtn){
         );
 
 
-        await batch.commit();
+        if(quantidade > 0){
+
+          await batch.commit();
+
+        }
 
 
         console.log(
-          "✅ Todas as notificações foram marcadas como lidas."
+          "✅ Notificações marcadas como lidas:",
+          quantidade
         );
+
 
       }catch(error){
 
         console.error(
-          "Erro:",
+          "❌ Erro ao marcar notificações:",
           error
         );
 
@@ -594,7 +667,7 @@ if(markAllReadBtn){
 
 
 // ==========================================
-// BOTÃO ATIVAR
+// BOTÃO ATIVAR NOTIFICAÇÕES
 // ==========================================
 
 if(enableNotificationsBtn){
@@ -604,7 +677,7 @@ if(enableNotificationsBtn){
     () => {
 
       alert(
-        "🔔 A ativação das notificações push será feita numa próxima etapa. Por enquanto estamos a configurar as notificações internas do KUDURO PRIME."
+        "🔔 As notificações internas do KUDURO PRIME já estão a ser configuradas. As notificações push para o telemóvel serão adicionadas numa próxima etapa."
       );
 
     }
@@ -621,11 +694,62 @@ onAuthStateChanged(
   auth,
   user => {
 
+    // ======================================
+    // PARAR LISTENER ANTERIOR
+    // ======================================
+
+    if(pararNotificacoes){
+
+      pararNotificacoes();
+
+      pararNotificacoes =
+        null;
+
+    }
+
+
+    // ======================================
+    // UTILIZADOR LOGADO
+    // ======================================
+
     if(user){
 
       iniciarNotificacoes(
         user
       );
+
+    }else{
+
+      if(notificationBadge){
+
+        notificationBadge.classList.remove(
+          "show"
+        );
+
+        notificationBadge.textContent =
+          "0";
+
+      }
+
+
+      if(notificationList){
+
+        notificationList.innerHTML = `
+
+          <div class="notification-empty">
+
+            🔔
+
+            <br><br>
+
+            Entra na tua conta para
+            veres as notificações.
+
+          </div>
+
+        `;
+
+      }
 
     }
 
