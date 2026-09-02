@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="pt">
 <head>
@@ -1686,11 +1687,6 @@
         areaArtistaBtn.innerHTML =
           "👤 ENTRAR NO FEED";
 
-        /*
-          UTILIZADOR LOGADO
-          → MOSTRAR SINO
-        */
-
         notificationBtn.classList.add("show");
 
       }else{
@@ -1700,11 +1696,6 @@
 
         areaArtistaBtn.innerHTML =
           "👤 ÁREA DO ARTISTA";
-
-        /*
-          UTILIZADOR NÃO LOGADO
-          → ESCONDER SINO
-        */
 
         notificationBtn.classList.remove("show");
 
@@ -2069,46 +2060,11 @@
 
       });
 
-
-    /* =========================
-       🔔 ETAPA 1
-       PREPARAÇÃO DAS NOTIFICAÇÕES
-    ========================= */
-
-    /*
-      Por enquanto NÃO estamos a pedir
-      permissão ao navegador.
-
-      Primeiro vamos ligar o sistema
-      ao Firestore.
-
-      O botão já está preparado.
-    */
-
-    enableNotificationsBtn.addEventListener(
-      "click",
-      () => {
-
-        alert(
-          "🔔 O sistema de notificações está a ser configurado. Vamos ligar esta função ao Firebase na próxima etapa."
-        );
-
-      }
-    );
-
-
-    markAllReadBtn.addEventListener(
-      "click",
-      () => {
-
-        alert(
-          "🔔 A função 'marcar todas como lidas' será ligada ao Firestore na próxima etapa."
-        );
-
-      }
-    );
-
   </script>
+
+  <!-- 🔔 SISTEMA DE NOTIFICAÇÕES -->
+  <script type="module" src="notificacoes.js"></script>
 
 </body>
 </html>
+```
