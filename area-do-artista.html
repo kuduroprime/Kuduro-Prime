@@ -1,17 +1,15 @@
 <!DOCTYPE html>
-
 <html lang="pt">
 <head>
 
   <meta charset="UTF-8">
 
-<meta
-name="viewport"
-content="width=device-width, initial-scale=1.0"
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
 
->
-
-  <title>Área do Artista — KUDURO PRIME</title>
+  <title>Entrar — KUDURO PRIME</title>
 
   <style>
 
@@ -33,9 +31,11 @@ content="width=device-width, initial-scale=1.0"
     body{
       margin:0;
       min-height:100vh;
+
       display:flex;
       align-items:center;
       justify-content:center;
+
       padding:25px;
 
       background:
@@ -45,7 +45,7 @@ content="width=device-width, initial-scale=1.0"
           transparent 35%
         ),
         radial-gradient(
-          circle at 0% 100%,
+          circle at 0 100%,
           rgba(244,191,49,.08),
           transparent 35%
         ),
@@ -329,114 +329,106 @@ content="width=device-width, initial-scale=1.0"
 
   <main class="box">
 
-```
-<div class="logo">
-  👑 KUDURO PRIME
-</div>
+    <div class="logo">
+      👑 KUDURO PRIME
+    </div>
 
-<h1>
-  ENTRAR NA ÁREA DO ARTISTA
-</h1>
+    <h1>
+      ENTRAR NA ÁREA DO ARTISTA
+    </h1>
 
-<p class="sub">
-  Entra com a tua conta e gere
-  o teu perfil, músicas e lançamentos.
-</p>
+    <p class="sub">
+      Entra com a tua conta e começa a usar
+      o KUDURO PRIME.
+    </p>
 
+    <form id="loginForm">
 
-<form id="loginForm">
+      <label for="email">
+        GMAIL
+      </label>
 
-  <label for="email">
-    GMAIL
-  </label>
+      <input
+        type="email"
+        id="email"
+        placeholder="teuemail@gmail.com"
+        autocomplete="email"
+        required
+      >
 
-  <input
-    type="email"
-    id="email"
-    placeholder="teuemail@gmail.com"
-    autocomplete="email"
-    required
-  >
+      <label for="password">
+        PALAVRA-PASSE
+      </label>
 
+      <input
+        type="password"
+        id="password"
+        placeholder="A tua palavra-passe"
+        autocomplete="current-password"
+        required
+      >
 
-  <label for="password">
-    PALAVRA-PASSE
-  </label>
+      <button
+        type="submit"
+        id="loginBtn"
+      >
+        🔐 ENTRAR
+      </button>
 
-  <input
-    type="password"
-    id="password"
-    placeholder="A tua palavra-passe"
-    autocomplete="current-password"
-    required
-  >
+      <div
+        class="mensagem"
+        id="mensagem"
+      ></div>
 
+    </form>
 
-  <button
-    type="submit"
-    id="loginBtn"
-  >
-    🔐 ENTRAR
-  </button>
+    <div class="divider"></div>
 
+    <div class="register-area">
 
-  <div
-    class="mensagem"
-    id="mensagem"
-  ></div>
+      <p>
+        Ainda não tens uma conta de artista?
+      </p>
 
-</form>
+      <a
+        href="juntar-se.html"
+        class="register-link"
+      >
+        👑 CRIAR CONTA DE ARTISTA
+      </a>
 
+    </div>
 
-<div class="divider"></div>
-
-
-<div class="register-area">
-
-  <p>
-    Ainda não tens uma conta de artista?
-  </p>
-
-  <a
-    href="cadastro.html"
-    class="register-link"
-  >
-    👑 CRIAR CONTA DE ARTISTA
-  </a>
-
-</div>
-
-
-<a
-  href="index.html"
-  class="back-home"
->
-  ← VOLTAR PARA O KUDURO PRIME
-</a>
-```
+    <a
+      href="index.html"
+      class="back-home"
+    >
+      ← VOLTAR PARA O KUDURO PRIME
+    </a>
 
   </main>
+
 
   <script type="module">
 
     import {
       initializeApp
-    }
-    from
-    "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+    } from
+      "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
 
 
     import {
       getAuth,
       signInWithEmailAndPassword,
       onAuthStateChanged
-    }
-    from
-    "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+    } from
+      "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
 
 
     /*
-      CONFIGURAÇÃO FIREBASE
+    ==========================================
+    FIREBASE
+    ==========================================
     */
 
     const firebaseConfig = {
@@ -483,40 +475,14 @@ content="width=device-width, initial-scale=1.0"
 
 
     /*
-      SE JÁ ESTIVER COM LOGIN,
-      ENTRA DIRETAMENTE NO PAINEL
+    ==========================================
+    MENSAGEM
+    ==========================================
     */
 
-    onAuthStateChanged(
-      auth,
+    function showMessage(texto, tipo){
 
-      user => {
-
-        if(user){
-
-          window.location.replace(
-            "painel-do-artista.html"
-          );
-
-        }
-
-      }
-
-    );
-
-
-    /*
-      MOSTRAR MENSAGEM
-    */
-
-    function showMessage(
-      texto,
-      tipo
-    ){
-
-      mensagem.textContent =
-        texto;
-
+      mensagem.textContent = texto;
 
       mensagem.className =
         "mensagem " + tipo;
@@ -525,14 +491,68 @@ content="width=device-width, initial-scale=1.0"
 
 
     /*
-      LOGIN
+    ==========================================
+    SE JÁ ESTIVER LOGADO
+    VAI DIRETO PARA O FEED
+    ==========================================
+    */
+
+    onAuthStateChanged(auth, (user) => {
+
+      if(user){
+
+        /*
+        Mantém as duas chaves para
+        compatibilidade com o feed.
+        */
+
+        localStorage.setItem(
+          "kpLoggedIn",
+          "true"
+        );
+
+        localStorage.setItem(
+          "kpArtistLoggedIn",
+          "true"
+        );
+
+        localStorage.setItem(
+          "kpArtistUID",
+          user.uid
+        );
+
+        if(user.email){
+
+          localStorage.setItem(
+            "kpArtistEmail",
+            user.email
+          );
+
+        }
+
+        /*
+        NÃO VAI MAIS PARA O PAINEL.
+        VAI DIRETAMENTE PARA O FEED.
+        */
+
+        window.location.replace(
+          "feed.html"
+        );
+
+      }
+
+    });
+
+
+    /*
+    ==========================================
+    LOGIN
+    ==========================================
     */
 
     loginForm.addEventListener(
-
       "submit",
-
-      async event => {
+      async (event) => {
 
         event.preventDefault();
 
@@ -550,10 +570,7 @@ content="width=device-width, initial-scale=1.0"
           .value;
 
 
-        if(
-          !email ||
-          !password
-        ){
+        if(!email || !password){
 
           showMessage(
             "Preenche o Gmail e a palavra-passe.",
@@ -565,9 +582,7 @@ content="width=device-width, initial-scale=1.0"
         }
 
 
-        loginBtn.disabled =
-          true;
-
+        loginBtn.disabled = true;
 
         loginBtn.textContent =
           "A ENTRAR...";
@@ -575,22 +590,27 @@ content="width=device-width, initial-scale=1.0"
 
         try{
 
+          /*
+          LOGIN FIREBASE
+          */
+
           const resultado =
-
             await signInWithEmailAndPassword(
-
               auth,
-
               email,
-
               password
-
             );
 
 
           const user =
             resultado.user;
 
+
+          /*
+          ======================================
+          NOME DO ARTISTA
+          ======================================
+          */
 
           const artistName =
 
@@ -605,7 +625,7 @@ content="width=device-width, initial-scale=1.0"
             ||
 
             user.email
-            .split("@")[0]
+              .split("@")[0]
 
             ||
 
@@ -613,8 +633,16 @@ content="width=device-width, initial-scale=1.0"
 
 
           /*
-            GUARDA A SESSÃO
+          ======================================
+          GUARDA A SESSÃO
+          ======================================
           */
+
+          localStorage.setItem(
+            "kpLoggedIn",
+            "true"
+          );
+
 
           localStorage.setItem(
             "kpArtistLoggedIn",
@@ -634,23 +662,16 @@ content="width=device-width, initial-scale=1.0"
           );
 
 
-          if(
-            !localStorage.getItem(
-              "kpArtistStageName"
-            )
-          ){
-
-            localStorage.setItem(
-              "kpArtistStageName",
-              artistName
-            );
-
-          }
+          localStorage.setItem(
+            "kpArtistStageName",
+            artistName
+          );
 
 
           /*
-            CRIA A LISTA DE MÚSICAS
-            SE AINDA NÃO EXISTIR
+          ======================================
+          LISTA DE MÚSICAS
+          ======================================
           */
 
           const songsKey =
@@ -659,9 +680,7 @@ content="width=device-width, initial-scale=1.0"
 
 
           if(
-            !localStorage.getItem(
-              songsKey
-            )
+            !localStorage.getItem(songsKey)
           ){
 
             localStorage.setItem(
@@ -672,25 +691,36 @@ content="width=device-width, initial-scale=1.0"
           }
 
 
+          /*
+          ======================================
+          LOGIN CONCLUÍDO
+          ======================================
+          */
+
           showMessage(
-            "Login feito com sucesso! 👑 A entrar no teu painel...",
+            "Login feito com sucesso! 👑 A entrar no feed...",
             "success"
           );
 
 
-          setTimeout(
+          loginBtn.textContent =
+            "✓ ENTRADA CONFIRMADA";
 
-            () => {
 
-              window.location.replace(
-                "painel-do-artista.html"
-              );
+          /*
+          ======================================
+          VAI PARA O FEED
+          ======================================
+          */
 
-            },
+          setTimeout(() => {
 
-            700
+            window.location.replace(
+              "feed.html"
+            );
 
-          );
+          }, 500);
+
 
         }
 
@@ -707,10 +737,8 @@ content="width=device-width, initial-scale=1.0"
 
 
           if(
-
             erro.code ===
             "auth/invalid-credential"
-
           ){
 
             textoErro =
@@ -720,10 +748,8 @@ content="width=device-width, initial-scale=1.0"
 
 
           if(
-
             erro.code ===
             "auth/user-not-found"
-
           ){
 
             textoErro =
@@ -733,10 +759,8 @@ content="width=device-width, initial-scale=1.0"
 
 
           if(
-
             erro.code ===
             "auth/wrong-password"
-
           ){
 
             textoErro =
@@ -746,10 +770,8 @@ content="width=device-width, initial-scale=1.0"
 
 
           if(
-
             erro.code ===
             "auth/invalid-email"
-
           ){
 
             textoErro =
@@ -759,14 +781,23 @@ content="width=device-width, initial-scale=1.0"
 
 
           if(
-
             erro.code ===
             "auth/too-many-requests"
-
           ){
 
             textoErro =
               "Muitas tentativas. Aguarda um pouco antes de tentar novamente.";
+
+          }
+
+
+          if(
+            erro.code ===
+            "auth/network-request-failed"
+          ){
+
+            textoErro =
+              "Erro de ligação. Verifica a internet e tenta novamente.";
 
           }
 
@@ -787,7 +818,6 @@ content="width=device-width, initial-scale=1.0"
         }
 
       }
-
     );
 
   </script>
