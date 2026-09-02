@@ -17,6 +17,7 @@
       --muted:#aaa59a;
       --line:#292929;
       --danger:#ff563f;
+      --blue:#4eb8ff;
     }
 
     *{
@@ -44,7 +45,7 @@
 
     /* =========================
        LOADING
-    ========================= */
+    ========================== */
 
     .loading-screen{
       position:fixed;
@@ -84,7 +85,7 @@
 
     /* =========================
        HEADER
-    ========================= */
+    ========================== */
 
     header{
       position:sticky;
@@ -149,7 +150,7 @@
 
     /* =========================
        LAYOUT
-    ========================= */
+    ========================== */
 
     .layout{
       width:min(1300px,96%);
@@ -162,7 +163,7 @@
 
     /* =========================
        SIDEBAR
-    ========================= */
+    ========================== */
 
     .sidebar{
       position:sticky;
@@ -237,7 +238,7 @@
 
     /* =========================
        FEED
-    ========================= */
+    ========================== */
 
     .feed-title{
       font-size:26px;
@@ -401,8 +402,8 @@
     }
 
     /* =========================
-       PROGRESS
-    ========================= */
+       PROGRESSO
+    ========================== */
 
     .upload-progress{
       display:none;
@@ -436,7 +437,7 @@
 
     /* =========================
        POST
-    ========================= */
+    ========================== */
 
     .post{
       margin-bottom:18px;
@@ -485,6 +486,14 @@
       font-size:22px;
     }
 
+    .post-type{
+      display:inline-block;
+      margin-left:7px;
+      color:var(--gold);
+      font-size:11px;
+      font-weight:900;
+    }
+
     .post-text{
       padding:0 17px 17px;
       white-space:pre-wrap;
@@ -501,17 +510,45 @@
       background:#000;
     }
 
+    .post-video{
+      min-height:250px;
+    }
+
+    /* =========================
+       MUSIC
+    ========================== */
+
     .post-music{
       margin:0 17px 17px;
       padding:17px;
       border-radius:14px;
-      background:#0b0b0b;
+      background:
+        linear-gradient(
+          135deg,
+          #171208,
+          #0b0b0b
+        );
       border:1px solid var(--line);
+    }
+
+    .music-icon{
+      width:55px;
+      height:55px;
+      border-radius:12px;
+      background:#221b09;
+      border:1px solid var(--gold);
+      display:grid;
+      place-items:center;
+      color:var(--gold);
+      font-size:25px;
+      margin-bottom:12px;
     }
 
     .music-title{
       font-weight:900;
+      font-size:17px;
       margin-bottom:5px;
+      word-break:break-word;
     }
 
     .music-artist{
@@ -523,6 +560,48 @@
     .post-music audio{
       width:100%;
     }
+
+    /* =========================
+       VIDEO INFO
+    ========================== */
+
+    .video-feed-info{
+      padding:14px 17px;
+      background:#0d0d0d;
+    }
+
+    .video-feed-title{
+      font-weight:900;
+      font-size:16px;
+      margin-bottom:5px;
+    }
+
+    .video-feed-meta{
+      color:var(--muted);
+      font-size:12px;
+    }
+
+    /* =========================
+       BADGES
+    ========================== */
+
+    .content-badge{
+      margin:0 17px 14px;
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      padding:6px 10px;
+      border-radius:20px;
+      background:#1c1709;
+      border:1px solid rgba(244,191,49,.35);
+      color:var(--gold);
+      font-size:10px;
+      font-weight:900;
+    }
+
+    /* =========================
+       STATS / ACTIONS
+    ========================== */
 
     .post-stats{
       padding:12px 17px;
@@ -557,7 +636,7 @@
 
     /* =========================
        RIGHT SIDE
-    ========================= */
+    ========================== */
 
     .side-card{
       padding:18px;
@@ -577,7 +656,7 @@
 
     /* =========================
        EMPTY
-    ========================= */
+    ========================== */
 
     .empty-feed{
       padding:40px 20px;
@@ -597,9 +676,10 @@
 
     /* =========================
        MOBILE
-    ========================= */
+    ========================== */
 
     @media(max-width:950px){
+
       .layout{
         grid-template-columns:minmax(0,700px) 230px;
       }
@@ -607,9 +687,11 @@
       .sidebar{
         display:none;
       }
+
     }
 
     @media(max-width:700px){
+
       header{
         padding:0 15px;
       }
@@ -643,6 +725,16 @@
       .post-action{
         font-size:11px;
       }
+
+      .composer-footer{
+        align-items:flex-start;
+        flex-direction:column;
+      }
+
+      .publish-btn{
+        width:100%;
+      }
+
     }
   </style>
 </head>
@@ -654,10 +746,18 @@
   ========================== -->
 
   <div class="loading-screen" id="loadingScreen">
-    <div class="loading-crown">👑</div>
-    <div class="loading-text" id="loadingText">
+
+    <div class="loading-crown">
+      👑
+    </div>
+
+    <div
+      class="loading-text"
+      id="loadingText"
+    >
       A carregar o KUDURO PRIME...
     </div>
+
   </div>
 
 
@@ -666,17 +766,36 @@
   ========================== -->
 
   <header>
-    <a href="index.html" class="brand">
-      👑 <span>KUDURO</span> PRIME
+
+    <a
+      href="index.html"
+      class="brand"
+    >
+      👑
+      <span>KUDURO</span>
+      PRIME
     </a>
 
-    <div class="nav-actions">
-      <div class="nav-avatar" id="navAvatar">👤</div>
 
-      <button class="logout-btn" onclick="sair(event)">
+    <div class="nav-actions">
+
+      <div
+        class="nav-avatar"
+        id="navAvatar"
+      >
+        👤
+      </div>
+
+
+      <button
+        class="logout-btn"
+        onclick="sair(event)"
+      >
         SAIR
       </button>
+
     </div>
+
   </header>
 
 
@@ -686,6 +805,7 @@
 
   <main class="layout">
 
+
     <!-- =========================
          SIDEBAR
     ========================== -->
@@ -693,23 +813,58 @@
     <aside class="sidebar">
 
       <div class="profile-card">
-        <div class="avatar" id="sideAvatar">👤</div>
 
-        <div class="profile-name" id="sideName">
+        <div
+          class="avatar"
+          id="sideAvatar"
+        >
+          👤
+        </div>
+
+
+        <div
+          class="profile-name"
+          id="sideName"
+        >
           Artista Prime
         </div>
 
-        <div class="profile-user" id="sideUser">
+
+        <div
+          class="profile-user"
+          id="sideUser"
+        >
           @artista
         </div>
+
       </div>
 
+
       <nav class="side-menu">
-        <a href="feed.html" class="active">🏠 Feed</a>
-        <a href="meu-perfil.html">👤 Meu Perfil</a>
-        <a href="minhas-musicas.html">🎵 Minhas Músicas</a>
-        <a href="painel-do-artista.html">📊 Painel</a>
-        <a href="ranking.html">🏆 Ranking</a>
+
+        <a
+          href="feed.html"
+          class="active"
+        >
+          🏠 Feed
+        </a>
+
+        <a href="meu-perfil.html">
+          👤 Meu Perfil
+        </a>
+
+        <a href="minhas-musicas.html">
+          🎵 Minhas Músicas
+        </a>
+
+        <a href="painel-do-artista.html">
+          📊 Painel
+        </a>
+
+        <a href="ranking.html">
+          🏆 Ranking
+        </a>
+
       </nav>
 
     </aside>
@@ -734,9 +889,13 @@
 
         <div class="composer-top">
 
-          <div class="composer-avatar" id="postAvatar">
+          <div
+            class="composer-avatar"
+            id="postAvatar"
+          >
             👤
           </div>
+
 
           <textarea
             id="postText"
@@ -745,8 +904,6 @@
 
         </div>
 
-
-        <!-- BOTÕES -->
 
         <div class="composer-tools">
 
@@ -759,6 +916,7 @@
             🖼️ FOTO
           </button>
 
+
           <button
             class="tool-btn"
             id="videoBtn"
@@ -767,6 +925,7 @@
           >
             🎥 VÍDEO
           </button>
+
 
           <button
             class="tool-btn"
@@ -782,7 +941,10 @@
 
         <!-- FOTO -->
 
-        <div class="media-box" id="photoBox">
+        <div
+          class="media-box"
+          id="photoBox"
+        >
 
           <input
             class="file-input"
@@ -792,14 +954,21 @@
             onchange="previewPhoto(event)"
           >
 
-          <div class="preview" id="photoPreview"></div>
+
+          <div
+            class="preview"
+            id="photoPreview"
+          ></div>
 
         </div>
 
 
         <!-- VIDEO -->
 
-        <div class="media-box" id="videoBox">
+        <div
+          class="media-box"
+          id="videoBox"
+        >
 
           <input
             class="file-input"
@@ -809,14 +978,21 @@
             onchange="previewVideo(event)"
           >
 
-          <div class="preview" id="videoPreview"></div>
+
+          <div
+            class="preview"
+            id="videoPreview"
+          ></div>
 
         </div>
 
 
-        <!-- MUSICA -->
+        <!-- MÚSICA -->
 
-        <div class="media-box" id="musicBox">
+        <div
+          class="media-box"
+          id="musicBox"
+        >
 
           <input
             class="file-input"
@@ -826,6 +1002,7 @@
             onchange="selecionarMusica(event)"
           >
 
+
           <input
             class="music-link"
             id="musicLink"
@@ -834,16 +1011,24 @@
             onchange="usarLinkMusica()"
           >
 
-          <div class="preview" id="musicPreview"></div>
+
+          <div
+            class="preview"
+            id="musicPreview"
+          ></div>
 
         </div>
 
 
         <!-- PROGRESS -->
 
-        <div class="upload-progress" id="uploadProgress">
+        <div
+          class="upload-progress"
+          id="uploadProgress"
+        >
 
           <div class="progress-info">
+
             <span id="uploadStatus">
               A preparar...
             </span>
@@ -851,13 +1036,17 @@
             <span id="uploadPercent">
               0%
             </span>
+
           </div>
 
+
           <div class="progress-bar">
+
             <div
               class="progress-fill"
               id="progressFill"
             ></div>
+
           </div>
 
         </div>
@@ -868,6 +1057,7 @@
           <small style="color:#aaa;">
             Partilha com a comunidade KUDURO PRIME 👑
           </small>
+
 
           <button
             class="publish-btn"
@@ -883,7 +1073,9 @@
       </div>
 
 
-      <!-- POSTS -->
+      <!-- =========================
+           POSTS
+      ========================== -->
 
       <div id="feedPosts"></div>
 
@@ -898,7 +1090,9 @@
 
       <div class="side-card">
 
-        <h3>🔥 KUDURO PRIME</h3>
+        <h3>
+          🔥 KUDURO PRIME
+        </h3>
 
         <p class="tip">
           Publica fotos, vídeos e músicas para mostrar o teu talento.
@@ -906,9 +1100,12 @@
 
       </div>
 
+
       <div class="side-card">
 
-        <h3>👑 DICA PRIME</h3>
+        <h3>
+          👑 DICA PRIME
+        </h3>
 
         <p class="tip">
           Publicações com conteúdo original ajudam mais pessoas a conhecerem o teu trabalho.
@@ -927,15 +1124,21 @@
 
   <script type="module">
 
-    import { initializeApp }
-      from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+    import {
+      initializeApp
+    }
+    from
+      "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+
 
     import {
       getAuth,
       onAuthStateChanged,
       signOut
     }
-      from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+    from
+      "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+
 
     import {
       getFirestore,
@@ -944,9 +1147,11 @@
       getDocs,
       query,
       orderBy,
-      serverTimestamp
+      serverTimestamp,
+      onSnapshot
     }
-      from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+    from
+      "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 
 
     /* =========================
@@ -954,33 +1159,59 @@
     ========================== */
 
     const firebaseConfig = {
-      apiKey: "AIzaSyDoitCcLeLDNBNPCP6fG1s_xbHr4UmohSo",
-      authDomain: "kuduro-prime.firebaseapp.com",
-      projectId: "kuduro-prime",
-      storageBucket: "kuduro-prime.firebasestorage.app",
-      messagingSenderId: "299776559545",
-      appId: "1:299776559545:web:04aced1ba25391eb3fce68"
+
+      apiKey:
+        "AIzaSyDoitCcLeLDNBNPCP6fG1s_xbHr4UmohSo",
+
+      authDomain:
+        "kuduro-prime.firebaseapp.com",
+
+      projectId:
+        "kuduro-prime",
+
+      storageBucket:
+        "kuduro-prime.firebasestorage.app",
+
+      messagingSenderId:
+        "299776559545",
+
+      appId:
+        "1:299776559545:web:04aced1ba25391eb3fce68"
+
     };
 
-    const app = initializeApp(firebaseConfig);
 
-    const auth = getAuth(app);
+    const app =
+      initializeApp(
+        firebaseConfig
+      );
 
-    const db = getFirestore(app);
+
+    const auth =
+      getAuth(app);
+
+
+    const db =
+      getFirestore(app);
 
 
     /* =========================
        CLOUDINARY
     ========================== */
 
-    const CLOUDINARY_CLOUD_NAME = "ge1ntqqc";
+    const CLOUDINARY_CLOUD_NAME =
+      "ge1ntqqc";
 
-    const CLOUDINARY_UPLOAD_PRESET = "kuduro_prime";
+
+    const CLOUDINARY_UPLOAD_PRESET =
+      "kuduro_prime";
+
 
     const CLOUDINARY_IMAGE_URL =
       "https://api.cloudinary.com/v1_1/" +
       CLOUDINARY_CLOUD_NAME +
       "/image/upload";
+
 
     const CLOUDINARY_VIDEO_URL =
       "https://api.cloudinary.com/v1_1/" +
@@ -994,29 +1225,47 @@
 
     let usuarioAtual = null;
 
-    let artistName = "Artista Prime";
+    let artistName =
+      "Artista Prime";
 
-    let artistUser = "artista";
+    let artistUser =
+      "artista";
 
-    let artistPhoto = "";
+    let artistPhoto =
+      "";
 
-    let selectedType = "";
+    let selectedType =
+      "";
 
-    let photoFile = null;
+    let photoFile =
+      null;
 
-    let videoFile = null;
+    let videoFile =
+      null;
 
-    let musicFile = null;
+    let musicFile =
+      null;
 
-    let musicData = "";
+    let musicData =
+      "";
 
-    let photoPreviewURL = "";
+    let photoPreviewURL =
+      "";
 
-    let videoPreviewURL = "";
+    let videoPreviewURL =
+      "";
 
-    let musicPreviewURL = "";
+    let musicPreviewURL =
+      "";
 
-    let isPublishing = false;
+    let isPublishing =
+      false;
+
+    let unsubscribePublicacoes =
+      null;
+
+    let feedListenerIniciado =
+      false;
 
 
     /* =========================
@@ -1024,16 +1273,27 @@
     ========================== */
 
     const loadingScreen =
-      document.getElementById("loadingScreen");
+      document.getElementById(
+        "loadingScreen"
+      );
+
 
     const loadingText =
-      document.getElementById("loadingText");
+      document.getElementById(
+        "loadingText"
+      );
+
 
     const publishBtn =
-      document.getElementById("publishBtn");
+      document.getElementById(
+        "publishBtn"
+      );
+
 
     const feedPosts =
-      document.getElementById("feedPosts");
+      document.getElementById(
+        "feedPosts"
+      );
 
 
     /* =========================
@@ -1043,10 +1303,16 @@
     function escaparHTML(text){
 
       const div =
-        document.createElement("div");
+        document.createElement(
+          "div"
+        );
+
 
       div.textContent =
-        String(text ?? "");
+        String(
+          text ?? ""
+        );
+
 
       return div.innerHTML;
 
@@ -1054,35 +1320,107 @@
 
 
     /* =========================
-       FOTO DO ARTISTA
+       URL SEGURA
+    ========================== */
+
+    function urlSegura(value){
+
+      const valor =
+        String(
+          value || ""
+        ).trim();
+
+
+      if(!valor){
+        return "";
+      }
+
+
+      try{
+
+        const url =
+          new URL(valor);
+
+
+        if(
+          url.protocol !== "http:" &&
+          url.protocol !== "https:"
+        ){
+
+          return "";
+
+        }
+
+
+        return url.href;
+
+      }
+      catch(error){
+
+        return "";
+
+      }
+
+    }
+
+
+    /* =========================
+       FOTO
     ========================== */
 
     function colocarFoto(id){
 
       const elemento =
-        document.getElementById(id);
+        document.getElementById(
+          id
+        );
+
 
       if(!elemento){
         return;
       }
 
+
       if(!artistPhoto){
 
-        elemento.innerHTML = "👤";
+        elemento.innerHTML =
+          "👤";
 
         return;
+
       }
 
+
       const img =
-        document.createElement("img");
+        document.createElement(
+          "img"
+        );
 
-      img.src = artistPhoto;
 
-      img.alt = "Foto do artista";
+      img.src =
+        artistPhoto;
 
-      elemento.innerHTML = "";
 
-      elemento.appendChild(img);
+      img.alt =
+        "Foto do artista";
+
+
+      img.onerror =
+        function(){
+
+          elemento.innerHTML =
+            "👤";
+
+        };
+
+
+      elemento.innerHTML =
+        "";
+
+
+      elemento.appendChild(
+        img
+      );
 
     }
 
@@ -1091,80 +1429,119 @@
        AUTENTICAÇÃO
     ========================== */
 
-    onAuthStateChanged(auth, async function(user){
+    onAuthStateChanged(
+      auth,
+      async function(user){
 
-      if(!user){
+        if(!user){
 
-        window.location.replace(
-          "area-do-artista.html"
+          window.location.replace(
+            "area-do-artista.html"
+          );
+
+          return;
+
+        }
+
+
+        usuarioAtual =
+          user;
+
+
+        artistName =
+          localStorage.getItem(
+            "kpArtistStageName"
+          ) ||
+
+          localStorage.getItem(
+            "kpArtistName"
+          ) ||
+
+          user.displayName ||
+
+          (
+            user.email
+              ? user.email.split("@")[0]
+              : "Artista Prime"
+          );
+
+
+        artistUser =
+          localStorage.getItem(
+            "kpArtistUsername"
+          ) ||
+
+          artistName
+            .toLowerCase()
+            .replace(
+              /\s+/g,
+              ""
+            )
+            .replace(
+              /[^a-z0-9]/g,
+              ""
+            ) ||
+
+          "artista";
+
+
+        artistPhoto =
+          localStorage.getItem(
+            "kpArtistPhoto"
+          ) ||
+
+          user.photoURL ||
+
+          "";
+
+
+        document.getElementById(
+          "sideName"
+        ).textContent =
+          artistName;
+
+
+        document.getElementById(
+          "sideUser"
+        ).textContent =
+          "@" +
+          artistUser;
+
+
+        colocarFoto(
+          "navAvatar"
         );
 
-        return;
+
+        colocarFoto(
+          "sideAvatar"
+        );
+
+
+        colocarFoto(
+          "postAvatar"
+        );
+
+
+        loadingText.textContent =
+          "A carregar o Feed PRIME...";
+
+
+        iniciarFeedTempoReal();
+
+
+        setTimeout(
+          function(){
+
+            loadingScreen.style.display =
+              "none";
+
+          },
+          500
+        );
 
       }
-
-
-      usuarioAtual = user;
-
-
-      artistName =
-        localStorage.getItem("kpArtistStageName") ||
-        localStorage.getItem("kpArtistName") ||
-        user.displayName ||
-        (
-          user.email
-            ? user.email.split("@")[0]
-            : "Artista Prime"
-        );
-
-
-      artistUser =
-        localStorage.getItem("kpArtistUsername") ||
-        artistName
-          .toLowerCase()
-          .replace(/\s+/g,"")
-          .replace(/[^a-z0-9]/g,"") ||
-        "artista";
-
-
-      artistPhoto =
-        localStorage.getItem("kpArtistPhoto") ||
-        user.photoURL ||
-        "";
-
-
-      document.getElementById(
-        "sideName"
-      ).textContent = artistName;
-
-
-      document.getElementById(
-        "sideUser"
-      ).textContent = "@" + artistUser;
-
-
-      colocarFoto("navAvatar");
-
-      colocarFoto("sideAvatar");
-
-      colocarFoto("postAvatar");
-
-
-      loadingText.textContent =
-        "A carregar publicações...";
-
-
-      await carregarPublicacoes();
-
-
-      setTimeout(function(){
-
-        loadingScreen.style.display =
-          "none";
-
-      },300);
-
-    });
+    );
 
 
     /* =========================
@@ -1177,13 +1554,19 @@
         const boxes = {
 
           photo:
-            document.getElementById("photoBox"),
+            document.getElementById(
+              "photoBox"
+            ),
 
           video:
-            document.getElementById("videoBox"),
+            document.getElementById(
+              "videoBox"
+            ),
 
           music:
-            document.getElementById("musicBox")
+            document.getElementById(
+              "musicBox"
+            )
 
         };
 
@@ -1191,40 +1574,73 @@
         const buttons = {
 
           photo:
-            document.getElementById("photoBtn"),
+            document.getElementById(
+              "photoBtn"
+            ),
 
           video:
-            document.getElementById("videoBtn"),
+            document.getElementById(
+              "videoBtn"
+            ),
 
           music:
-            document.getElementById("musicBtn")
+            document.getElementById(
+              "musicBtn"
+            )
 
         };
 
 
-        Object.keys(boxes).forEach(function(key){
+        Object.keys(boxes)
+          .forEach(
+            function(key){
 
-          boxes[key].classList.remove("show");
+              boxes[key]
+                .classList
+                .remove(
+                  "show"
+                );
 
-          buttons[key].classList.remove("active");
 
-        });
+              buttons[key]
+                .classList
+                .remove(
+                  "active"
+                );
+
+            }
+          );
 
 
-        if(selectedType === type){
+        if(
+          selectedType ===
+          type
+        ){
 
-          selectedType = "";
+          selectedType =
+            "";
 
           return;
 
         }
 
 
-        selectedType = type;
+        selectedType =
+          type;
 
-        boxes[type].classList.add("show");
 
-        buttons[type].classList.add("active");
+        boxes[type]
+          .classList
+          .add(
+            "show"
+          );
+
+
+        buttons[type]
+          .classList
+          .add(
+            "active"
+          );
 
       };
 
@@ -1238,6 +1654,7 @@
 
         const file =
           event.target.files[0];
+
 
         if(!file){
           return;
@@ -1258,15 +1675,20 @@
         }
 
 
-        photoFile = file;
+        photoFile =
+          file;
+
 
         photoPreviewURL =
-          URL.createObjectURL(file);
+          URL.createObjectURL(
+            file
+          );
 
 
         document.getElementById(
           "photoPreview"
         ).innerHTML = `
+
           <img
             src="${photoPreviewURL}"
             alt="Foto selecionada"
@@ -1279,12 +1701,15 @@
           >
             REMOVER FOTO
           </button>
+
         `;
 
 
         document.getElementById(
           "photoPreview"
-        ).classList.add("show");
+        ).classList.add(
+          "show"
+        );
 
       };
 
@@ -1298,6 +1723,7 @@
 
         const file =
           event.target.files[0];
+
 
         if(!file){
           return;
@@ -1318,21 +1744,29 @@
         }
 
 
-        videoFile = file;
+        videoFile =
+          file;
+
 
         videoPreviewURL =
-          URL.createObjectURL(file);
+          URL.createObjectURL(
+            file
+          );
 
 
         document.getElementById(
           "videoPreview"
         ).innerHTML = `
+
           <video controls>
+
             <source
               src="${videoPreviewURL}"
-              type="${file.type}"
+              type="${escaparHTML(file.type)}"
             >
+
           </video>
+
 
           <button
             class="remove-media"
@@ -1341,18 +1775,21 @@
           >
             REMOVER VÍDEO
           </button>
+
         `;
 
 
         document.getElementById(
           "videoPreview"
-        ).classList.add("show");
+        ).classList.add(
+          "show"
+        );
 
       };
 
 
     /* =========================
-       MÚSICA FICHEIRO
+       MÚSICA
     ========================== */
 
     window.selecionarMusica =
@@ -1360,6 +1797,7 @@
 
         const file =
           event.target.files[0];
+
 
         if(!file){
           return;
@@ -1380,17 +1818,24 @@
         }
 
 
-        musicFile = file;
+        musicFile =
+          file;
 
-        musicData = "";
+
+        musicData =
+          "";
+
 
         musicPreviewURL =
-          URL.createObjectURL(file);
+          URL.createObjectURL(
+            file
+          );
 
 
         document.getElementById(
           "musicLink"
-        ).value = "";
+        ).value =
+          "";
 
 
         mostrarMusicaPreview(
@@ -1402,7 +1847,7 @@
 
 
     /* =========================
-       LINK DA MÚSICA
+       LINK MÚSICA
     ========================== */
 
     window.usarLinkMusica =
@@ -1419,23 +1864,42 @@
         }
 
 
+        const url =
+          urlSegura(link);
+
+
+        if(!url){
+
+          alert(
+            "Coloca um link válido começando por https://"
+          );
+
+          return;
+
+        }
+
+
         removerFoto();
 
         removerVideo();
 
 
-        musicFile = null;
+        musicFile =
+          null;
 
-        musicData = link;
+
+        musicData =
+          url;
 
 
         document.getElementById(
           "musicInput"
-        ).value = "";
+        ).value =
+          "";
 
 
         mostrarMusicaPreview(
-          link,
+          url,
           "Música partilhada"
         );
 
@@ -1451,6 +1915,20 @@
       name
     ){
 
+      const url =
+        urlSegura(src);
+
+
+      if(
+        !url &&
+        !String(src).startsWith("blob:")
+      ){
+
+        return;
+
+      }
+
+
       document.getElementById(
         "musicPreview"
       ).innerHTML = `
@@ -1458,16 +1936,26 @@
         <div class="music-preview-card">
 
           <div class="music-title">
-            🎵 ${escaparHTML(name)}
+            🎵
+            ${escaparHTML(name)}
           </div>
+
 
           <div class="music-artist">
-            ${escaparHTML(artistName)}
+            ${escaparHTML(
+              artistName
+            )}
           </div>
 
+
           <audio controls>
-            <source src="${src}">
+
+            <source
+              src="${escaparHTML(src)}"
+            >
+
           </audio>
+
 
           <button
             class="remove-media"
@@ -1484,7 +1972,9 @@
 
       document.getElementById(
         "musicPreview"
-      ).classList.add("show");
+      ).classList.add(
+        "show"
+      );
 
     }
 
@@ -1499,33 +1989,42 @@
         if(photoPreviewURL){
 
           try{
+
             URL.revokeObjectURL(
               photoPreviewURL
             );
+
           }
           catch(error){}
 
         }
 
 
-        photoFile = null;
+        photoFile =
+          null;
 
-        photoPreviewURL = "";
+
+        photoPreviewURL =
+          "";
 
 
         document.getElementById(
           "photoInput"
-        ).value = "";
+        ).value =
+          "";
 
 
         document.getElementById(
           "photoPreview"
-        ).innerHTML = "";
+        ).innerHTML =
+          "";
 
 
         document.getElementById(
           "photoPreview"
-        ).classList.remove("show");
+        ).classList.remove(
+          "show"
+        );
 
       };
 
@@ -1540,33 +2039,42 @@
         if(videoPreviewURL){
 
           try{
+
             URL.revokeObjectURL(
               videoPreviewURL
             );
+
           }
           catch(error){}
 
         }
 
 
-        videoFile = null;
+        videoFile =
+          null;
 
-        videoPreviewURL = "";
+
+        videoPreviewURL =
+          "";
 
 
         document.getElementById(
           "videoInput"
-        ).value = "";
+        ).value =
+          "";
 
 
         document.getElementById(
           "videoPreview"
-        ).innerHTML = "";
+        ).innerHTML =
+          "";
 
 
         document.getElementById(
           "videoPreview"
-        ).classList.remove("show");
+        ).classList.remove(
+          "show"
+        );
 
       };
 
@@ -1581,40 +2089,52 @@
         if(musicPreviewURL){
 
           try{
+
             URL.revokeObjectURL(
               musicPreviewURL
             );
+
           }
           catch(error){}
 
         }
 
 
-        musicFile = null;
+        musicFile =
+          null;
 
-        musicPreviewURL = "";
 
-        musicData = "";
+        musicPreviewURL =
+          "";
+
+
+        musicData =
+          "";
 
 
         document.getElementById(
           "musicInput"
-        ).value = "";
+        ).value =
+          "";
 
 
         document.getElementById(
           "musicLink"
-        ).value = "";
+        ).value =
+          "";
 
 
         document.getElementById(
           "musicPreview"
-        ).innerHTML = "";
+        ).innerHTML =
+          "";
 
 
         document.getElementById(
           "musicPreview"
-        ).classList.remove("show");
+        ).classList.remove(
+          "show"
+        );
 
       };
 
@@ -1633,15 +2153,18 @@
           "uploadProgress"
         );
 
+
       const fill =
         document.getElementById(
           "progressFill"
         );
 
+
       const percentText =
         document.getElementById(
           "uploadPercent"
         );
+
 
       const status =
         document.getElementById(
@@ -1649,13 +2172,18 @@
         );
 
 
-      progress.classList.add("show");
+      progress.classList.add(
+        "show"
+      );
+
 
       fill.style.width =
         percent + "%";
 
+
       percentText.textContent =
         percent + "%";
+
 
       status.textContent =
         mensagem;
@@ -1665,13 +2193,18 @@
 
     function esconderProgresso(){
 
-      setTimeout(function(){
+      setTimeout(
+        function(){
 
-        document.getElementById(
-          "uploadProgress"
-        ).classList.remove("show");
+          document.getElementById(
+            "uploadProgress"
+          ).classList.remove(
+            "show"
+          );
 
-      },1000);
+        },
+        1000
+      );
 
     }
 
@@ -1685,170 +2218,184 @@
       resourceType
     ){
 
-      return new Promise(function(
-        resolve,
-        reject
-      ){
+      return new Promise(
+        function(
+          resolve,
+          reject
+        ){
 
-        const endpoint =
-          resourceType === "image"
-            ? CLOUDINARY_IMAGE_URL
-            : CLOUDINARY_VIDEO_URL;
+          const endpoint =
+            resourceType === "image"
 
+              ? CLOUDINARY_IMAGE_URL
 
-        const formData =
-          new FormData();
-
-
-        formData.append(
-          "file",
-          file
-        );
+              : CLOUDINARY_VIDEO_URL;
 
 
-        formData.append(
-          "upload_preset",
-          CLOUDINARY_UPLOAD_PRESET
-        );
+          const formData =
+            new FormData();
 
 
-        formData.append(
-          "folder",
-          "kuduro-prime/feed"
-        );
+          formData.append(
+            "file",
+            file
+          );
 
 
-        const xhr =
-          new XMLHttpRequest();
+          formData.append(
+            "upload_preset",
+            CLOUDINARY_UPLOAD_PRESET
+          );
 
 
-        xhr.open(
-          "POST",
-          endpoint,
-          true
-        );
+          formData.append(
+            "folder",
+            "kuduro-prime/feed"
+          );
 
 
-        xhr.upload.onprogress =
-          function(event){
-
-            if(event.lengthComputable){
-
-              const percent =
-                Math.round(
-                  event.loaded /
-                  event.total *
-                  100
-                );
+          const xhr =
+            new XMLHttpRequest();
 
 
-              mostrarProgresso(
-                percent,
-                "A enviar para o Cloudinary..."
-              );
-
-            }
-
-          };
+          xhr.open(
+            "POST",
+            endpoint,
+            true
+          );
 
 
-        xhr.onload =
-          function(){
+          xhr.upload.onprogress =
+            function(event){
 
-            if(
-              xhr.status >= 200 &&
-              xhr.status < 300
-            ){
+              if(
+                event.lengthComputable
+              ){
 
-              try{
-
-                const resposta =
-                  JSON.parse(
-                    xhr.responseText
+                const percent =
+                  Math.round(
+                    event.loaded /
+                    event.total *
+                    100
                   );
-
-
-                if(!resposta.secure_url){
-
-                  reject(
-                    new Error(
-                      "Cloudinary não devolveu o URL."
-                    )
-                  );
-
-                  return;
-
-                }
 
 
                 mostrarProgresso(
-                  100,
-                  "Upload concluído! 👑"
+                  percent,
+                  "A enviar para o Cloudinary..."
                 );
 
-
-                resolve(resposta);
-
-              }
-              catch(error){
-
-                reject(error);
-
               }
 
-            }
-            else{
-
-              let mensagem =
-                "Erro no Cloudinary.";
+            };
 
 
-              try{
+          xhr.onload =
+            function(){
 
-                const erro =
-                  JSON.parse(
-                    xhr.responseText
+              if(
+                xhr.status >= 200 &&
+                xhr.status < 300
+              ){
+
+                try{
+
+                  const resposta =
+                    JSON.parse(
+                      xhr.responseText
+                    );
+
+
+                  if(
+                    !resposta.secure_url
+                  ){
+
+                    reject(
+                      new Error(
+                        "Cloudinary não devolveu o URL."
+                      )
+                    );
+
+                    return;
+
+                  }
+
+
+                  mostrarProgresso(
+                    100,
+                    "Upload concluído! 👑"
                   );
 
 
-                if(
-                  erro.error &&
-                  erro.error.message
-                ){
+                  resolve(
+                    resposta
+                  );
 
-                  mensagem =
-                    erro.error.message;
+                }
+                catch(error){
+
+                  reject(error);
 
                 }
 
               }
-              catch(error){}
+              else{
 
+                let mensagem =
+                  "Erro no Cloudinary.";
+
+
+                try{
+
+                  const erro =
+                    JSON.parse(
+                      xhr.responseText
+                    );
+
+
+                  if(
+                    erro.error &&
+                    erro.error.message
+                  ){
+
+                    mensagem =
+                      erro.error.message;
+
+                  }
+
+                }
+                catch(error){}
+
+
+                reject(
+                  new Error(
+                    mensagem
+                  )
+                );
+
+              }
+
+            };
+
+
+          xhr.onerror =
+            function(){
 
               reject(
-                new Error(mensagem)
+                new Error(
+                  "Não foi possível ligar ao Cloudinary."
+                )
               );
 
-            }
-
-          };
+            };
 
 
-        xhr.onerror =
-          function(){
+          xhr.send(
+            formData
+          );
 
-            reject(
-              new Error(
-                "Não foi possível ligar ao Cloudinary."
-              )
-            );
-
-          };
-
-
-        xhr.send(formData);
-
-      });
+        }
+      );
 
     }
 
@@ -1899,29 +2446,38 @@
         }
 
 
-        isPublishing = true;
+        isPublishing =
+          true;
 
-        publishBtn.disabled = true;
+
+        publishBtn.disabled =
+          true;
+
 
         publishBtn.textContent =
           "A PUBLICAR...";
 
 
-        let mediaURL = "";
+        let mediaURL =
+          "";
 
-        let mediaType = "";
 
-        let mediaName = "";
+        let mediaType =
+          "";
+
+
+        let mediaName =
+          "";
 
 
         try{
-
 
           /* FOTO */
 
           if(photoFile){
 
-            mediaType = "photo";
+            mediaType =
+              "photo";
 
 
             mostrarProgresso(
@@ -1943,11 +2499,12 @@
           }
 
 
-          /* VIDEO */
+          /* VÍDEO */
 
           else if(videoFile){
 
-            mediaType = "video";
+            mediaType =
+              "video";
 
 
             mostrarProgresso(
@@ -1966,14 +2523,20 @@
             mediaURL =
               resultado.secure_url;
 
+
+            mediaName =
+              videoFile.name;
+
           }
 
 
-          /* MUSICA */
+          /* MÚSICA */
 
           else if(musicFile){
 
-            mediaType = "music";
+            mediaType =
+              "music";
+
 
             mediaName =
               musicFile.name;
@@ -2005,8 +2568,10 @@
             mediaType =
               "music-link";
 
+
             mediaURL =
               musicData;
+
 
             mediaName =
               "Música partilhada";
@@ -2014,9 +2579,7 @@
           }
 
 
-          /* =========================
-             GUARDAR FIRESTORE
-          ========================== */
+          /* FIRESTORE */
 
           await addDoc(
             collection(
@@ -2062,11 +2625,10 @@
           );
 
 
-          /* LIMPAR */
-
           document.getElementById(
             "postText"
-          ).value = "";
+          ).value =
+            "";
 
 
           removerFoto();
@@ -2076,33 +2638,38 @@
           removerMusica();
 
 
-          selectedType = "";
+          selectedType =
+            "";
 
 
           document
             .querySelectorAll(
               ".media-box"
             )
-            .forEach(function(box){
+            .forEach(
+              function(box){
 
-              box.classList.remove(
-                "show"
-              );
+                box.classList.remove(
+                  "show"
+                );
 
-            });
+              }
+            );
 
 
           document
             .querySelectorAll(
               ".tool-btn"
             )
-            .forEach(function(button){
+            .forEach(
+              function(button){
 
-              button.classList.remove(
-                "active"
-              );
+                button.classList.remove(
+                  "active"
+                );
 
-            });
+              }
+            );
 
 
           esconderProgresso();
@@ -2111,9 +2678,6 @@
           alert(
             "Publicação enviada com sucesso! 👑"
           );
-
-
-          await carregarPublicacoes();
 
 
         }
@@ -2136,9 +2700,13 @@
         }
         finally{
 
-          isPublishing = false;
+          isPublishing =
+            false;
 
-          publishBtn.disabled = false;
+
+          publishBtn.disabled =
+            false;
+
 
           publishBtn.textContent =
             "PUBLICAR";
@@ -2149,253 +2717,1311 @@
 
 
     /* =========================
-       CARREGAR FIRESTORE
+       BUSCAR VALOR
     ========================== */
 
-    async function carregarPublicacoes(){
+    function primeiroValor(
+      data,
+      campos
+    ){
 
-      feedPosts.innerHTML = `
-        <div class="empty-feed">
-          <strong>🔥 A carregar...</strong>
-          A buscar as publicações do KUDURO PRIME.
-        </div>
-      `;
+      for(
+        const campo of campos
+      ){
 
-
-      try{
-
-        const publicacoesRef =
-          collection(
-            db,
-            "publicacoes"
-          );
+        const valor =
+          data[campo];
 
 
-        const q =
-          query(
-            publicacoesRef,
-            orderBy(
-              "createdAt",
-              "desc"
-            )
-          );
+        if(
+          valor !== undefined &&
+          valor !== null &&
+          String(valor).trim() !== ""
+        ){
+
+          return valor;
+
+        }
+
+      }
 
 
-        const resultado =
-          await getDocs(q);
+      return "";
+
+    }
 
 
-        feedPosts.innerHTML = "";
+    /* =========================
+       ARTISTA DO CONTEÚDO
+    ========================== */
+
+    function artistaDoConteudo(
+      data
+    ){
+
+      return primeiroValor(
+        data,
+        [
+          "artistaId",
+          "artistId",
+          "userId",
+          "uid",
+          "artistaUID",
+          "artistaUid"
+        ]
+      );
+
+    }
 
 
-        if(resultado.empty){
+    /* =========================
+       NOME DO ARTISTA
+    ========================== */
 
-          feedPosts.innerHTML = `
-            <div class="empty-feed">
-              <strong>👑 Ainda não há publicações</strong>
-              Sê o primeiro artista a publicar no KUDURO PRIME.
-            </div>
-          `;
+    function nomeDoConteudo(
+      data
+    ){
 
-          return;
+      return primeiroValor(
+        data,
+        [
+          "artistName",
+          "nomeArtista",
+          "artista",
+          "authorName",
+          "nome",
+          "stageName"
+        ]
+      ) ||
+      "Artista Prime";
+
+    }
+
+
+    /* =========================
+       USERNAME
+    ========================== */
+
+    function usernameDoConteudo(
+      data
+    ){
+
+      return primeiroValor(
+        data,
+        [
+          "authorUsername",
+          "username",
+          "userName",
+          "artistaUsername",
+          "nomeUsuario",
+          "usuario"
+        ]
+      ) ||
+      "artista";
+
+    }
+
+
+    /* =========================
+       FOTO
+    ========================== */
+
+    function fotoDoConteudo(
+      data
+    ){
+
+      return primeiroValor(
+        data,
+        [
+          "authorPhoto",
+          "artistPhoto",
+          "foto",
+          "photo",
+          "photoURL",
+          "fotoPerfil",
+          "imagem",
+          "image",
+          "avatar",
+          "profilePhoto"
+        ]
+      );
+
+    }
+
+
+    /* =========================
+       TÍTULO
+    ========================== */
+
+    function tituloDoConteudo(
+      data,
+      tipo
+    ){
+
+      if(
+        tipo === "music"
+      ){
+
+        return primeiroValor(
+          data,
+          [
+            "titulo",
+            "title",
+            "nomeMusica",
+            "nome",
+            "musicName"
+          ]
+        ) ||
+        "Música sem título";
+
+      }
+
+
+      return primeiroValor(
+        data,
+        [
+          "titulo",
+          "title",
+          "nome",
+          "videoName",
+          "nomeVideo"
+        ]
+      ) ||
+      "Vídeo sem título";
+
+    }
+
+
+    /* =========================
+       URL DA MÚSICA
+    ========================== */
+
+    function urlDaMusica(
+      data
+    ){
+
+      return primeiroValor(
+        data,
+        [
+          "audioUrl",
+          "audioURL",
+          "audio",
+          "musicUrl",
+          "musicURL",
+          "url",
+          "file",
+          "fileUrl",
+          "src",
+          "mediaURL"
+        ]
+      );
+
+    }
+
+
+    /* =========================
+       URL DO VÍDEO
+    ========================== */
+
+    function urlDoVideo(
+      data
+    ){
+
+      return primeiroValor(
+        data,
+        [
+          "videoUrl",
+          "videoURL",
+          "video",
+          "urlVideo",
+          "url",
+          "file",
+          "fileUrl",
+          "src",
+          "mediaURL"
+        ]
+      );
+
+    }
+
+
+    /* =========================
+       CAPA DA MÚSICA
+    ========================== */
+
+    function capaDaMusica(
+      data
+    ){
+
+      return primeiroValor(
+        data,
+        [
+          "cover",
+          "coverUrl",
+          "capa",
+          "capaUrl",
+          "image",
+          "imageUrl",
+          "imagem",
+          "foto"
+        ]
+      );
+
+    }
+
+
+    /* =========================
+       CAPA DO VÍDEO
+    ========================== */
+
+    function capaDoVideo(
+      data
+    ){
+
+      return primeiroValor(
+        data,
+        [
+          "thumbnail",
+          "thumbnailUrl",
+          "capa",
+          "cover",
+          "coverUrl",
+          "image",
+          "imageUrl",
+          "imagem"
+        ]
+      );
+
+    }
+
+
+    /* =========================
+       DATA
+    ========================== */
+
+    function dataDoConteudo(
+      data
+    ){
+
+      const campos = [
+
+        data.createdAt,
+        data.criadoEm,
+        data.dataCriacao,
+        data.created_at,
+        data.timestamp,
+        data.data
+
+      ];
+
+
+      for(
+        const campo of campos
+      ){
+
+        if(!campo){
+          continue;
+        }
+
+
+        if(
+          typeof campo.toMillis ===
+          "function"
+        ){
+
+          return campo.toMillis();
 
         }
 
 
-        resultado.forEach(function(docSnapshot){
+        if(
+          campo.seconds !== undefined
+        ){
 
-          const post =
-            docSnapshot.data();
+          return Number(
+            campo.seconds
+          ) * 1000;
+
+        }
 
 
-          criarPublicacaoNaTela(
-            post,
-            docSnapshot.id
+        const date =
+          new Date(
+            campo
           );
 
-        });
+
+        if(
+          !isNaN(
+            date.getTime()
+          )
+        ){
+
+          return date.getTime();
+
+        }
+
+      }
+
+
+      return 0;
+
+    }
+
+
+    /* =========================
+       STATUS
+    ========================== */
+
+    function estaPublicado(
+      data
+    ){
+
+      const status =
+        String(
+          data.status ||
+          ""
+        )
+        .trim()
+        .toLowerCase();
+
+
+      return (
+
+        status === "" ||
+
+        status === "publicado" ||
+
+        status === "publicada" ||
+
+        status === "public" ||
+
+        status === "ativo" ||
+
+        status === "ativa"
+
+      );
+
+    }
+
+
+    /* =========================
+       CARREGAR MÚSICAS
+    ========================== */
+
+    async function buscarMusicas(){
+
+      const lista =
+        [];
+
+
+      try{
+
+        const snapshot =
+          await getDocs(
+            collection(
+              db,
+              "musicas"
+            )
+          );
+
+
+        snapshot.forEach(
+          function(docSnap){
+
+            const data =
+              docSnap.data();
+
+
+            if(
+              !estaPublicado(
+                data
+              )
+            ){
+
+              return;
+
+            }
+
+
+            const artistId =
+              String(
+                artistaDoConteudo(
+                  data
+                ) ||
+                ""
+              );
+
+
+            if(
+              !artistId
+            ){
+
+              return;
+
+            }
+
+
+            const url =
+              urlSegura(
+                urlDaMusica(
+                  data
+                )
+              );
+
+
+            if(!url){
+
+              return;
+
+            }
+
+
+            lista.push({
+
+              id:
+                docSnap.id,
+
+              tipo:
+                "music",
+
+              artistaId:
+                artistId,
+
+              nome:
+                nomeDoConteudo(
+                  data
+                ),
+
+              username:
+                usernameDoConteudo(
+                  data
+                ),
+
+              foto:
+                fotoDoConteudo(
+                  data
+                ),
+
+              titulo:
+                tituloDoConteudo(
+                  data,
+                  "music"
+                ),
+
+              url:
+                url,
+
+              capa:
+                capaDaMusica(
+                  data
+                ),
+
+              timestamp:
+                dataDoConteudo(
+                  data
+                ),
+
+              likes:
+                Number(
+                  data.likes ||
+                  0
+                ),
+
+              comments:
+                Number(
+                  data.comments ||
+                  data.comentarios ||
+                  0
+                )
+
+            });
+
+          }
+        );
 
       }
       catch(error){
 
         console.error(
-          "Erro ao carregar publicações:",
+          "Erro ao buscar músicas:",
           error
         );
 
-
-        feedPosts.innerHTML = `
-          <div class="empty-feed">
-            <strong>⚠️ Erro ao carregar</strong>
-            Não foi possível carregar o feed.
-          </div>
-        `;
-
       }
+
+
+      return lista;
 
     }
 
 
     /* =========================
-       TEMPO
+       CARREGAR VÍDEOS
     ========================== */
 
-    function tempoPublicacao(timestamp){
+    async function buscarVideos(){
 
-      if(!timestamp){
-        return "agora";
-      }
-
-
-      const data =
-        timestamp.toDate();
+      const lista =
+        [];
 
 
-      const agora =
-        new Date();
+      try{
+
+        const snapshot =
+          await getDocs(
+            collection(
+              db,
+              "videos"
+            )
+          );
 
 
-      const diferenca =
-        agora - data;
+        snapshot.forEach(
+          function(docSnap){
+
+            const data =
+              docSnap.data();
 
 
-      const minutos =
-        Math.floor(
-          diferenca / 60000
+            if(
+              !estaPublicado(
+                data
+              )
+            ){
+
+              return;
+
+            }
+
+
+            const artistId =
+              String(
+                artistaDoConteudo(
+                  data
+                ) ||
+                ""
+              );
+
+
+            if(
+              !artistId
+            ){
+
+              return;
+
+            }
+
+
+            const url =
+              urlSegura(
+                urlDoVideo(
+                  data
+                )
+              );
+
+
+            if(!url){
+
+              return;
+
+            }
+
+
+            lista.push({
+
+              id:
+                docSnap.id,
+
+              tipo:
+                "video",
+
+              artistaId:
+                artistId,
+
+              nome:
+                nomeDoConteudo(
+                  data
+                ),
+
+              username:
+                usernameDoConteudo(
+                  data
+                ),
+
+              foto:
+                fotoDoConteudo(
+                  data
+                ),
+
+              titulo:
+                tituloDoConteudo(
+                  data,
+                  "video"
+                ),
+
+              url:
+                url,
+
+              capa:
+                capaDoVideo(
+                  data
+                ),
+
+              timestamp:
+                dataDoConteudo(
+                  data
+                ),
+
+              likes:
+                Number(
+                  data.likes ||
+                  0
+                ),
+
+              comments:
+                Number(
+                  data.comments ||
+                  data.comentarios ||
+                  0
+                )
+
+            });
+
+          }
         );
 
-
-      if(minutos < 1){
-        return "agora";
       }
+      catch(error){
 
-
-      if(minutos < 60){
-        return minutos + " min";
-      }
-
-
-      const horas =
-        Math.floor(
-          minutos / 60
+        console.error(
+          "Erro ao buscar vídeos:",
+          error
         );
 
-
-      if(horas < 24){
-        return horas + " h";
       }
 
 
-      const dias =
-        Math.floor(
-          horas / 24
-        );
-
-
-      return dias + " d";
+      return lista;
 
     }
 
 
     /* =========================
-       CRIAR POST
+       CARREGAR PUBLICAÇÕES
     ========================== */
 
-    function criarPublicacaoNaTela(
-      post,
-      postId
+    function buscarPublicacoesSnapshot(
+      snapshot
     ){
 
-      const postElement =
-        document.createElement("article");
+      const lista =
+        [];
 
 
-      postElement.className =
-        "post";
+      snapshot.forEach(
+        function(docSnap){
+
+          const data =
+            docSnap.data();
 
 
-      const foto =
-        post.authorPhoto
-          ? `
-            <img
-              src="${post.authorPhoto}"
-              alt="Foto do artista"
-            >
-          `
-          : "👤";
+          lista.push({
+
+            id:
+              docSnap.id,
+
+            tipo:
+              "post",
+
+            artistaId:
+              String(
+                data.artistaId ||
+                ""
+              ),
+
+            nome:
+              data.authorName ||
+              "Artista Prime",
+
+            username:
+              data.authorUsername ||
+              "artista",
+
+            foto:
+              data.authorPhoto ||
+              "",
+
+            texto:
+              data.text ||
+              "",
+
+            mediaType:
+              data.mediaType ||
+              "",
+
+            url:
+              urlSegura(
+                data.mediaURL ||
+                ""
+              ),
+
+            mediaName:
+              data.mediaName ||
+              "",
+
+            timestamp:
+              dataDoConteudo(
+                data
+              ),
+
+            likes:
+              Number(
+                data.likes ||
+                0
+              ),
+
+            comments:
+              Number(
+                data.comments ||
+                0
+              )
+
+          });
+
+        }
+      );
 
 
-      let mediaHTML = "";
+      return lista;
+
+    }
+
+
+    /* =========================
+       FEED TEMPO REAL
+    ========================== */
+
+    function iniciarFeedTempoReal(){
+
+      if(
+        feedListenerIniciado
+      ){
+
+        return;
+
+      }
+
+
+      feedListenerIniciado =
+        true;
+
+
+      feedPosts.innerHTML = `
+
+        <div class="empty-feed">
+
+          <strong>
+            🔥 A carregar o Feed PRIME...
+          </strong>
+
+          A procurar músicas, vídeos e publicações dos artistas.
+
+        </div>
+
+      `;
+
+
+      const publicacoesRef =
+        collection(
+          db,
+          "publicacoes"
+        );
+
+
+      const q =
+        query(
+          publicacoesRef,
+          orderBy(
+            "createdAt",
+            "desc"
+          )
+        );
+
+
+      unsubscribePublicacoes =
+        onSnapshot(
+          q,
+          async function(snapshot){
+
+            try{
+
+              const publicacoes =
+                buscarPublicacoesSnapshot(
+                  snapshot
+                );
+
+
+              const musicas =
+                await buscarMusicas();
+
+
+              const videos =
+                await buscarVideos();
+
+
+              const tudo =
+                [
+                  ...publicacoes,
+                  ...musicas,
+                  ...videos
+                ];
+
+
+              tudo.sort(
+                function(a,b){
+
+                  return (
+                    b.timestamp -
+                    a.timestamp
+                  );
+
+                }
+              );
+
+
+              renderizarFeed(
+                tudo
+              );
+
+            }
+            catch(error){
+
+              console.error(
+                "Erro ao montar feed:",
+                error
+              );
+
+
+              feedPosts.innerHTML = `
+
+                <div class="empty-feed">
+
+                  <strong>
+                    ⚠️ Erro ao carregar o feed
+                  </strong>
+
+                  ${escaparHTML(
+                    error.message ||
+                    "Não foi possível carregar o conteúdo."
+                  )}
+
+                </div>
+
+              `;
+
+            }
+
+          },
+          function(error){
+
+            console.error(
+              "Erro no listener do feed:",
+              error
+            );
+
+
+            feedPosts.innerHTML = `
+
+              <div class="empty-feed">
+
+                <strong>
+                  ⚠️ Erro ao carregar
+                </strong>
+
+                Verifica as regras do Firestore
+                e tenta novamente.
+
+              </div>
+
+            `;
+
+          }
+        );
+
+    }
+
+
+    /* =========================
+       RENDERIZAR FEED
+    ========================== */
+
+    function renderizarFeed(
+      lista
+    ){
+
+      feedPosts.innerHTML =
+        "";
 
 
       if(
-        post.mediaType === "photo" &&
-        post.mediaURL
+        !lista.length
       ){
 
-        mediaHTML = `
-          <img
-            class="post-image"
-            src="${post.mediaURL}"
-            alt="Publicação"
-          >
+        feedPosts.innerHTML = `
+
+          <div class="empty-feed">
+
+            <strong>
+              👑 Ainda não há publicações
+            </strong>
+
+            Sê o primeiro artista a publicar
+            no KUDURO PRIME.
+
+          </div>
+
         `;
+
+        return;
 
       }
 
 
-      else if(
-        post.mediaType === "video" &&
-        post.mediaURL
-      ){
+      lista.forEach(
+        function(item){
 
-        mediaHTML = `
-          <video
-            class="post-video"
-            controls
-            preload="metadata"
-          >
-            <source
-              src="${post.mediaURL}"
-            >
-          </video>
-        `;
+          criarItemFeed(
+            item
+          );
 
-      }
+        }
+      );
+
+    }
 
 
-      else if(
-        (
-          post.mediaType === "music" ||
-          post.mediaType === "music-link"
+    /* =========================
+       CRIAR ITEM
+    ========================== */
+
+    function criarItemFeed(
+      item
+    ){
+
+      const article =
+        document.createElement(
+          "article"
+        );
+
+
+      article.className =
+        "post";
+
+
+      const nome =
+        item.nome ||
+        "Artista Prime";
+
+
+      const username =
+        String(
+          item.username ||
+          "artista"
         )
-        &&
-        post.mediaURL
+        .replace(
+          /^@/,
+          ""
+        );
+
+
+      const foto =
+        urlSegura(
+          item.foto
+        );
+
+
+      let avatarHTML =
+        "👤";
+
+
+      if(foto){
+
+        avatarHTML = `
+
+          <img
+            src="${escaparHTML(foto)}"
+            alt="Foto do artista"
+            onerror="this.style.display='none'"
+          >
+
+        `;
+
+      }
+
+
+      let tipoHTML =
+        "";
+
+
+      if(
+        item.tipo ===
+        "music"
       ){
 
-        mediaHTML = `
+        tipoHTML =
+          `<span class="post-type">🎵 NOVA MÚSICA</span>`;
+
+      }
+
+
+      else if(
+        item.tipo ===
+        "video"
+      ){
+
+        tipoHTML =
+          `<span class="post-type">🎬 NOVO VÍDEO</span>`;
+
+      }
+
+
+      else if(
+        item.tipo ===
+        "post"
+      ){
+
+        if(
+          item.mediaType ===
+          "music"
+          ||
+          item.mediaType ===
+          "music-link"
+        ){
+
+          tipoHTML =
+            `<span class="post-type">🎵 MÚSICA</span>`;
+
+        }
+
+
+        else if(
+          item.mediaType ===
+          "video"
+        ){
+
+          tipoHTML =
+            `<span class="post-type">🎬 VÍDEO</span>`;
+
+        }
+
+
+        else if(
+          item.mediaType ===
+          "photo"
+        ){
+
+          tipoHTML =
+            `<span class="post-type">🖼️ FOTO</span>`;
+
+        }
+
+      }
+
+
+      let conteudo =
+        "";
+
+
+      /* =========================
+         POST NORMAL
+      ========================== */
+
+      if(
+        item.tipo ===
+        "post"
+      ){
+
+        if(item.texto){
+
+          conteudo += `
+
+            <div class="post-text">
+
+              ${escaparHTML(
+                item.texto
+              )}
+
+            </div>
+
+          `;
+
+        }
+
+
+        if(
+          item.mediaType ===
+          "photo" &&
+          item.url
+        ){
+
+          conteudo += `
+
+            <img
+              class="post-image"
+              src="${escaparHTML(item.url)}"
+              alt="Publicação"
+              loading="lazy"
+            >
+
+          `;
+
+        }
+
+
+        else if(
+          item.mediaType ===
+          "video" &&
+          item.url
+        ){
+
+          conteudo += `
+
+            <video
+              class="post-video"
+              controls
+              preload="metadata"
+              playsinline
+            >
+
+              <source
+                src="${escaparHTML(item.url)}"
+              >
+
+              O teu navegador não suporta vídeo.
+
+            </video>
+
+          `;
+
+        }
+
+
+        else if(
+          (
+            item.mediaType ===
+            "music" ||
+
+            item.mediaType ===
+            "music-link"
+          ) &&
+          item.url
+        ){
+
+          conteudo += `
+
+            <div class="post-music">
+
+              <div class="music-icon">
+                🎵
+              </div>
+
+
+              <div class="music-title">
+
+                ${escaparHTML(
+                  item.mediaName ||
+                  "Música"
+                )}
+
+              </div>
+
+
+              <div class="music-artist">
+
+                ${escaparHTML(
+                  nome
+                )}
+
+              </div>
+
+
+              <audio
+                controls
+                preload="none"
+              >
+
+                <source
+                  src="${escaparHTML(item.url)}"
+                >
+
+                O teu navegador não suporta áudio.
+
+              </audio>
+
+            </div>
+
+          `;
+
+        }
+
+      }
+
+
+      /* =========================
+         MÚSICA DA COLEÇÃO MÚSICAS
+      ========================== */
+
+      else if(
+        item.tipo ===
+        "music"
+      ){
+
+        conteudo = `
+
+          <div class="content-badge">
+            👑 PUBLICADO NO KUDURO PRIME
+          </div>
+
 
           <div class="post-music">
 
-            <div class="music-title">
+            <div class="music-icon">
+
               🎵
-              ${escaparHTML(
-                post.mediaName ||
-                "Música"
-              )}
+
             </div>
+
+
+            <div class="music-title">
+
+              ${escaparHTML(
+                item.titulo
+              )}
+
+            </div>
+
 
             <div class="music-artist">
+
               ${escaparHTML(
-                post.authorName ||
-                "Artista"
+                nome
               )}
+
             </div>
 
-            <audio controls>
+
+            <audio
+              controls
+              preload="none"
+            >
+
               <source
-                src="${post.mediaURL}"
+                src="${escaparHTML(item.url)}"
               >
+
+              O teu navegador não suporta áudio.
+
             </audio>
 
           </div>
@@ -2405,36 +4031,118 @@
       }
 
 
-      postElement.innerHTML = `
+      /* =========================
+         VÍDEO DA COLEÇÃO VIDEOS
+      ========================== */
+
+      else if(
+        item.tipo ===
+        "video"
+      ){
+
+        conteudo = `
+
+          <div class="content-badge">
+            👑 PUBLICADO NO KUDURO PRIME
+          </div>
+
+
+          <video
+            class="post-video"
+            controls
+            preload="metadata"
+            playsinline
+            ${
+              item.capa
+                ? `poster="${escaparHTML(
+                    urlSegura(item.capa)
+                  )}"`
+                : ""
+            }
+          >
+
+            <source
+              src="${escaparHTML(item.url)}"
+            >
+
+            O teu navegador não suporta vídeo.
+
+          </video>
+
+
+          <div class="video-feed-info">
+
+            <div class="video-feed-title">
+
+              ${escaparHTML(
+                item.titulo
+              )}
+
+            </div>
+
+
+            <div class="video-feed-meta">
+
+              🎬 Vídeo de
+              ${escaparHTML(
+                nome
+              )}
+
+            </div>
+
+          </div>
+
+        `;
+
+      }
+
+
+      article.innerHTML = `
 
         <div class="post-header">
 
           <div class="post-avatar">
-            ${foto}
+
+            ${avatarHTML}
+
           </div>
+
 
           <div>
 
             <div class="post-author">
+
               ${escaparHTML(
-                post.authorName ||
-                "Artista Prime"
+                nome
               )}
-              <span style="color:#f4bf31;">●</span>
+
+              <span
+                style="color:#4eb8ff;"
+              >
+                ✓
+              </span>
+
+              ${tipoHTML}
+
             </div>
 
+
             <div class="post-meta">
+
               @${escaparHTML(
-                post.authorUsername ||
-                "artista"
+                username
               )}
+
               ·
+
               ${tempoPublicacao(
-                post.createdAt
+                item.timestamp
               )}
+
             </div>
 
           </div>
+
 
           <div class="post-menu">
             ⋯
@@ -2443,25 +4151,20 @@
         </div>
 
 
-        ${
-          post.text
-            ? `
-              <div class="post-text">
-                ${escaparHTML(post.text)}
-              </div>
-            `
-            : ""
-        }
-
-
-        ${mediaHTML}
+        ${conteudo}
 
 
         <div class="post-stats">
+
           🔥
-          ${post.likes || 0} reações
+          ${item.likes || 0}
+          reações
+
           ·
-          ${post.comments || 0} comentários
+
+          ${item.comments || 0}
+          comentários
+
         </div>
 
 
@@ -2499,7 +4202,158 @@
 
 
       feedPosts.appendChild(
-        postElement
+        article
+      );
+
+    }
+
+
+    /* =========================
+       TEMPO
+    ========================== */
+
+    function tempoPublicacao(
+      timestamp
+    ){
+
+      if(!timestamp){
+
+        return "agora";
+
+      }
+
+
+      const data =
+        new Date(
+          timestamp
+        );
+
+
+      if(
+        isNaN(
+          data.getTime()
+        )
+      ){
+
+        return "agora";
+
+      }
+
+
+      const agora =
+        new Date();
+
+
+      const diferenca =
+        agora -
+        data;
+
+
+      const minutos =
+        Math.floor(
+          diferenca /
+          60000
+        );
+
+
+      if(
+        minutos < 1
+      ){
+
+        return "agora";
+
+      }
+
+
+      if(
+        minutos < 60
+      ){
+
+        return (
+          minutos +
+          " min"
+        );
+
+      }
+
+
+      const horas =
+        Math.floor(
+          minutos /
+          60
+        );
+
+
+      if(
+        horas < 24
+      ){
+
+        return (
+          horas +
+          " h"
+        );
+
+      }
+
+
+      const dias =
+        Math.floor(
+          horas /
+          24
+        );
+
+
+      if(
+        dias < 30
+      ){
+
+        return (
+          dias +
+          " d"
+        );
+
+      }
+
+
+      const meses =
+        Math.floor(
+          dias /
+          30
+        );
+
+
+      if(
+        meses < 12
+      ){
+
+        return (
+          meses +
+          " mês" +
+          (
+            meses > 1
+              ? "es"
+              : ""
+          )
+        );
+
+      }
+
+
+      const anos =
+        Math.floor(
+          meses /
+          12
+        );
+
+
+      return (
+        anos +
+        " ano" +
+        (
+          anos > 1
+            ? "s"
+            : ""
+        )
       );
 
     }
@@ -2556,27 +4410,52 @@
     ========================== */
 
     window.partilhar =
-      function(){
+      async function(){
 
-        if(navigator.share){
+        if(
+          navigator.share
+        ){
 
-          navigator.share({
+          try{
 
-            title:
-              "KUDURO PRIME",
+            await navigator.share({
 
-            text:
-              "Vê esta publicação no KUDURO PRIME!"
+              title:
+                "KUDURO PRIME",
 
-          })
-          .catch(function(){});
+              text:
+                "Vê esta publicação no KUDURO PRIME! 👑",
+
+              url:
+                window.location.href
+
+            });
+
+          }
+          catch(error){}
 
         }
         else{
 
-          alert(
-            "Publicação pronta para ser partilhada!"
-          );
+          try{
+
+            await navigator.clipboard.writeText(
+              window.location.href
+            );
+
+
+            alert(
+              "Link copiado! 👑"
+            );
+
+          }
+          catch(error){
+
+            alert(
+              "Publicação pronta para ser partilhada!"
+            );
+
+          }
 
         }
 
@@ -2591,13 +4470,17 @@
       async function(event){
 
         if(event){
+
           event.preventDefault();
+
         }
 
 
         try{
 
-          await signOut(auth);
+          await signOut(
+            auth
+          );
 
         }
         catch(error){
@@ -2614,13 +4497,16 @@
           "kpLoggedIn"
         );
 
+
         localStorage.removeItem(
           "kpArtistLoggedIn"
         );
 
+
         localStorage.removeItem(
           "kpArtistUID"
         );
+
 
         localStorage.removeItem(
           "kpArtistEmail"
@@ -2632,6 +4518,27 @@
         );
 
       };
+
+
+    /* =========================
+       LIMPAR LISTENER
+    ========================== */
+
+    window.addEventListener(
+      "beforeunload",
+      function(){
+
+        if(
+          typeof unsubscribePublicacoes ===
+          "function"
+        ){
+
+          unsubscribePublicacoes();
+
+        }
+
+      }
+    );
 
   </script>
 
