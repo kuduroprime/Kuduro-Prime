@@ -98,10 +98,31 @@
     }
 
     .nav-actions{
-      display:flex;
-      align-items:center;
-      gap:10px;
-    }
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.feed-back-btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:40px;
+  padding:0 15px;
+  border:1px solid var(--gold);
+  border-radius:8px;
+  background:transparent;
+  color:var(--gold);
+  font-size:11px;
+  font-weight:900;
+  text-decoration:none;
+  transition:.25s;
+}
+
+.feed-back-btn:hover{
+  background:var(--gold);
+  color:#17120a;
+}
 
     .btn{
       display:inline-flex;
@@ -758,15 +779,18 @@
 
       <div class="nav-actions">
 
-        
+  <a
+    href="feed.html"
+    class="feed-back-btn"
+  >
+    ← FEED
+  </a>
 
-        
+  <button class="menu" onclick="abrirMenu()">
+    ☰
+  </button>
 
-        <button class="menu" onclick="abrirMenu()">
-          ☰
-        </button>
-
-      </div>
+</div>
 
     </div>
 
