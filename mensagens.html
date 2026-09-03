@@ -3931,30 +3931,27 @@ async function sendFirebaseMessage(
     }
   );
 
-  batch.set(
-    conversationRef,
-    {
+  batch.update(
+  conversationRef,
+  {
 
-      lastMessage:
-        preview,
+    lastMessage:
+      preview,
 
-      lastMessageType:
-        data.type,
+    lastMessageType:
+      data.type,
 
-      lastMessageAt:
-        serverTimestamp(),
+    lastMessageAt:
+      serverTimestamp(),
 
-      [`unreadCount.${firebaseUser.uid}`]:
-        0,
+    [`unreadCount.${firebaseUser.uid}`]:
+      0,
 
-      [`unreadCount.${receiverID}`]:
-        increment(1)
+    [`unreadCount.${receiverID}`]:
+      increment(1)
 
-    },
-    {
-      merge:true
-    }
-  );
+  }
+);
 
   await batch.commit();
 
