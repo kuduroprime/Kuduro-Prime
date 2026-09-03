@@ -4338,7 +4338,7 @@
         <div class="post-header">
 
           <a
-  href="perfil.html?id=${encodeURIComponent(item.artistaId || '')}"
+  href="perfil.html?artistaId=${encodeURIComponent(item.artistaId || '')}"
   class="post-avatar post-profile-link"
   title="Ver perfil de ${escaparHTML(nome)}"
 >
@@ -4351,12 +4351,12 @@
             <div class="post-author">
 
   <a
-    href="perfil.html?id=${encodeURIComponent(item.artistaId || '')}"
-    class="post-profile-link"
-    title="Ver perfil de ${escaparHTML(nome)}"
-  >
-    ${escaparHTML(nome)}
-  </a>
+  href="perfil.html?artistaId=${encodeURIComponent(item.artistaId || '')}"
+  class="post-profile-link"
+  title="Ver perfil de ${escaparHTML(nome)}"
+>
+  ${escaparHTML(nome)}
+</a>
 
   <span
     style="color:#4eb8ff;"
