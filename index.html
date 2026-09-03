@@ -14,6 +14,7 @@ content="A plataforma dedicada ao Kuduro: artistas, músicas, ranking, batalhas 
 >
 
   <style>
+
     :root{
       --bg:#070707;
       --panel:#101010;
@@ -24,6 +25,7 @@ content="A plataforma dedicada ao Kuduro: artistas, músicas, ranking, batalhas 
       --muted:#aaa59a;
       --line:#2a271f;
       --red:#ff563f;
+      --blue:#4eb8ff;
     }
 
     *{
@@ -61,6 +63,7 @@ content="A plataforma dedicada ao Kuduro: artistas, músicas, ranking, batalhas 
       width:min(1180px,92%);
       margin:auto;
     }
+
 
     /* =========================
        NAV
@@ -135,6 +138,7 @@ content="A plataforma dedicada ao Kuduro: artistas, músicas, ranking, batalhas 
       z-index:102;
     }
 
+
     /* =========================
        NOTIFICAÇÕES
     ========================= */
@@ -199,6 +203,7 @@ content="A plataforma dedicada ao Kuduro: artistas, músicas, ranking, batalhas 
       box-shadow:0 20px 60px rgba(0,0,0,.55);
       overflow:hidden;
       display:none;
+      z-index:1000;
     }
 
     .notification-panel.open{
@@ -210,6 +215,7 @@ content="A plataforma dedicada ao Kuduro: artistas, músicas, ranking, batalhas 
       display:flex;
       align-items:center;
       justify-content:space-between;
+      gap:10px;
       border-bottom:1px solid var(--line);
     }
 
@@ -221,7 +227,7 @@ content="A plataforma dedicada ao Kuduro: artistas, músicas, ranking, batalhas 
       border:0;
       background:none;
       color:var(--gold);
-      font-size:11px;
+      font-size:10px;
       font-weight:800;
       cursor:pointer;
     }
@@ -236,66 +242,6 @@ content="A plataforma dedicada ao Kuduro: artistas, músicas, ranking, batalhas 
       text-align:center;
       color:var(--muted);
       font-size:13px;
-    }
-
-    .notification-item{
-      display:flex;
-      gap:11px;
-      padding:13px 14px;
-      border-bottom:1px solid var(--line);
-      cursor:pointer;
-      transition:.2s;
-    }
-
-    .notification-item:hover{
-      background:#181818;
-    }
-
-    .notification-item.unread{
-      background:rgba(244,191,49,.07);
-    }
-
-    .notification-avatar{
-      width:40px;
-      height:40px;
-      flex:0 0 40px;
-      border-radius:50%;
-      background:linear-gradient(135deg,#2b210c,#111);
-      border:1px solid #5b481d;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      overflow:hidden;
-      font-size:18px;
-    }
-
-    .notification-avatar img{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-    }
-
-    .notification-content{
-      min-width:0;
-    }
-
-    .notification-title{
-      font-size:13px;
-      font-weight:900;
-      color:#fff;
-      margin-bottom:4px;
-    }
-
-    .notification-text{
-      font-size:12px;
-      line-height:1.4;
-      color:#bbb;
-    }
-
-    .notification-time{
-      margin-top:5px;
-      font-size:10px;
-      color:#777;
     }
 
     .notification-enable{
@@ -316,8 +262,9 @@ content="A plataforma dedicada ao Kuduro: artistas, músicas, ranking, batalhas 
       color:#111;
     }
 
+
     /* =========================
-       ÁREA DO ARTISTA
+       BOTÕES
     ========================= */
 
     .area-artista-btn{
@@ -396,6 +343,7 @@ content="A plataforma dedicada ao Kuduro: artistas, músicas, ranking, batalhas 
       cursor:pointer;
     }
 
+
     /* =========================
        HERO
     ========================= */
@@ -408,7 +356,12 @@ content="A plataforma dedicada ao Kuduro: artistas, músicas, ranking, batalhas 
       position:relative;
       overflow:hidden;
       background:
-        linear-gradient(90deg,#090909 10%,rgba(9,9,9,.4) 52%,rgba(0,0,0,.08)),
+        linear-gradient(
+          90deg,
+          #090909 10%,
+          rgba(9,9,9,.4) 52%,
+          rgba(0,0,0,.08)
+        ),
         url('images/artista-1.jpg') center/cover;
     }
 
@@ -418,7 +371,11 @@ content="A plataforma dedicada ao Kuduro: artistas, músicas, ranking, batalhas 
       inset:0;
       pointer-events:none;
       background:
-        radial-gradient(circle at 75% 30%,rgba(244,191,49,.3),transparent 25%);
+        radial-gradient(
+          circle at 75% 30%,
+          rgba(244,191,49,.3),
+          transparent 25%
+        );
     }
 
     .hero-content{
@@ -492,6 +449,7 @@ content="A plataforma dedicada ao Kuduro: artistas, músicas, ranking, batalhas 
       letter-spacing:1px;
     }
 
+
     /* =========================
        SECÇÕES
     ========================= */
@@ -519,6 +477,7 @@ content="A plataforma dedicada ao Kuduro: artistas, músicas, ranking, batalhas 
       font-size:13px;
       margin:6px 0 0;
     }
+
 
     /* =========================
        ARTISTAS
@@ -562,8 +521,9 @@ content="A plataforma dedicada ao Kuduro: artistas, músicas, ranking, batalhas 
     }
 
     .verified{
-      color:#4eb8ff;
+      color:var(--blue);
     }
+
 
     /* =========================
        LANÇAMENTOS
@@ -605,6 +565,7 @@ content="A plataforma dedicada ao Kuduro: artistas, músicas, ranking, batalhas 
       border-radius:8px;
       background:var(--img) center/cover;
       flex:0 0 auto;
+      cursor:pointer;
     }
 
     .song{
@@ -645,6 +606,7 @@ content="A plataforma dedicada ao Kuduro: artistas, músicas, ranking, batalhas 
       color:#111;
     }
 
+
     /* =========================
        RANKING
     ========================= */
@@ -664,6 +626,11 @@ content="A plataforma dedicada ao Kuduro: artistas, músicas, ranking, batalhas 
       gap:10px;
       padding:8px 0;
       border-bottom:1px solid var(--line);
+      transition:.2s;
+    }
+
+    .rank:hover{
+      background:rgba(255,255,255,.02);
     }
 
     .rank-num{
@@ -678,6 +645,7 @@ content="A plataforma dedicada ao Kuduro: artistas, músicas, ranking, batalhas 
       border-radius:6px;
       background:var(--img) center/cover;
     }
+
 
     /* =========================
        BATALHAS
@@ -711,6 +679,11 @@ content="A plataforma dedicada ao Kuduro: artistas, músicas, ranking, batalhas 
       transform:translateX(-50%);
       white-space:nowrap;
     }
+
+    .battle .btn:hover{
+      transform:translateX(-50%) translateY(-2px);
+    }
+
 
     /* =========================
        EVENTOS
@@ -762,6 +735,7 @@ content="A plataforma dedicada ao Kuduro: artistas, músicas, ranking, batalhas 
       font-size:13px;
     }
 
+
     /* =========================
        CTA
     ========================= */
@@ -788,6 +762,7 @@ content="A plataforma dedicada ao Kuduro: artistas, músicas, ranking, batalhas 
     .cta p{
       color:#ccc;
     }
+
 
     /* =========================
        FOOTER
@@ -825,6 +800,7 @@ content="A plataforma dedicada ao Kuduro: artistas, músicas, ranking, batalhas 
       color:#777;
       font-size:12px;
     }
+
 
     /* =========================
        MENU MOBILE
@@ -876,6 +852,7 @@ content="A plataforma dedicada ao Kuduro: artistas, músicas, ranking, batalhas 
 
     }
 
+
     /* =========================
        TELEMÓVEL
     ========================= */
@@ -920,7 +897,7 @@ content="A plataforma dedicada ao Kuduro: artistas, músicas, ranking, batalhas 
       }
 
       .area-artista-btn{
-        padding:9px 8px;
+        padding:9px;
         font-size:0;
       }
 
@@ -1010,6 +987,7 @@ content="A plataforma dedicada ao Kuduro: artistas, músicas, ranking, batalhas 
       }
 
     }
+
   </style>
 
 </head>
@@ -1017,23 +995,49 @@ content="A plataforma dedicada ao Kuduro: artistas, músicas, ranking, batalhas 
 <body>
 
   <nav class="nav">
-    <div class="nav-in">
 
 ```
+<div class="nav-in">
+
   <a class="brand" href="index.html" aria-label="Kuduro Prime">
+
     <span class="crown">♕</span>
+
     KUDURO
+
     <b>PRIME</b>
+
   </a>
 
+
   <div class="links" id="mobileLinks">
-    <a class="active" href="index.html">INÍCIO</a>
-    <a href="artistas.html">ARTISTAS</a>
-    <a href="musicas.html">MÚSICAS</a>
-    <a href="ranking.html">RANKING</a>
-    <a href="#batalhas">BATALHAS</a>
-    <a href="eventos.html">EVENTOS</a>
+
+    <a class="active" href="index.html">
+      INÍCIO
+    </a>
+
+    <a href="artistas.html">
+      ARTISTAS
+    </a>
+
+    <a href="musicas.html">
+      MÚSICAS
+    </a>
+
+    <a href="ranking.html">
+      RANKING
+    </a>
+
+    <a href="#batalhas">
+      BATALHAS
+    </a>
+
+    <a href="eventos.html">
+      EVENTOS
+    </a>
+
   </div>
+
 
   <div class="nav-actions">
 
@@ -1042,21 +1046,39 @@ content="A plataforma dedicada ao Kuduro: artistas, músicas, ranking, batalhas 
       id="notificationBtn"
       type="button"
       aria-label="Notificações"
-      title="Notificações"
     >
       🔔
-      <span class="notification-badge" id="notificationBadge">0</span>
+
+      <span
+        class="notification-badge"
+        id="notificationBadge"
+      >
+        0
+      </span>
+
     </button>
 
-    <div class="notification-panel" id="notificationPanel">
+
+    <div
+      class="notification-panel"
+      id="notificationPanel"
+    >
 
       <div class="notification-head">
-        <strong>🔔 Notificações</strong>
 
-        <button type="button" id="markAllReadBtn">
+        <strong>
+          🔔 Notificações
+        </strong>
+
+        <button
+          type="button"
+          id="markAllReadBtn"
+        >
           MARCAR TODAS COMO LIDAS
         </button>
+
       </div>
+
 
       <button
         class="notification-enable"
@@ -1066,13 +1088,20 @@ content="A plataforma dedicada ao Kuduro: artistas, músicas, ranking, batalhas 
         🔔 ATIVAR NOTIFICAÇÕES
       </button>
 
-      <div class="notification-list" id="notificationList">
+
+      <div
+        class="notification-list"
+        id="notificationList"
+      >
+
         <div class="notification-empty">
           Ainda não tens notificações.
         </div>
+
       </div>
 
     </div>
+
 
     <a
       href="area-do-artista.html"
@@ -1082,9 +1111,14 @@ content="A plataforma dedicada ao Kuduro: artistas, músicas, ranking, batalhas 
       👤 ÁREA DO ARTISTA
     </a>
 
-    <a href="juntar-se.html" class="join-btn">
+
+    <a
+      href="juntar-se.html"
+      class="join-btn"
+    >
       JUNTA-TE 👑
     </a>
+
 
     <button
       class="menu"
@@ -1096,6 +1130,7 @@ content="A plataforma dedicada ao Kuduro: artistas, músicas, ranking, batalhas 
     </button>
 
   </div>
+
 </div>
 ```
 
@@ -1104,109 +1139,211 @@ content="A plataforma dedicada ao Kuduro: artistas, músicas, ranking, batalhas 
   <main id="inicio">
 
 ```
+<!-- HERO -->
+
 <section class="hero">
+
   <div class="container hero-content">
 
     <div class="eyebrow">
       ♕ O PALCO DOS GRANDES
     </div>
 
+
     <h1>
-      O KUDURO<br>
-      <span class="gold-text">NÃO PARA.</span>
+
+      O KUDURO
+
+      <br>
+
+      <span class="gold-text">
+        NÃO PARA.
+      </span>
+
     </h1>
 
+
     <p>
+
       A maior plataforma dedicada aos artistas,
       à música, à dança e ao movimento Kuduro.
+
     </p>
 
+
     <div class="hero-buttons">
-      <a href="area-do-artista.html" class="btn gold">
+
+      <a
+        href="area-do-artista.html"
+        class="btn gold"
+      >
         ♕ ENTRAR NO MOVIMENTO
       </a>
 
-      <a href="#musicas" class="btn dark">
+
+      <a
+        href="#musicas"
+        class="btn dark"
+      >
         ▶ VER LANÇAMENTOS
       </a>
+
     </div>
+
 
     <div class="stats">
 
       <div class="stat">
+
         <strong>2.8M</strong>
-        <span>VISITAS MENSAIS</span>
+
+        <span>
+          VISITAS MENSAIS
+        </span>
+
       </div>
 
+
       <div class="stat">
+
         <strong>1.5K</strong>
-        <span>ARTISTAS CADASTRADOS</span>
+
+        <span>
+          ARTISTAS CADASTRADOS
+        </span>
+
       </div>
 
+
       <div class="stat">
+
         <strong>10K+</strong>
-        <span>MÚSICAS PUBLICADAS</span>
+
+        <span>
+          MÚSICAS PUBLICADAS
+        </span>
+
       </div>
 
     </div>
+
   </div>
+
 </section>
 
+
+
+<!-- ARTISTAS -->
+
 <section id="artistas">
+
   <div class="container">
 
     <div class="section-head">
+
       <div>
-        <h2 class="title">👑 ARTISTAS PRIME</h2>
+
+        <h2 class="title">
+          👑 ARTISTAS PRIME
+        </h2>
+
         <p class="subtitle">
           Os grandes nomes e as novas revelações do Kuduro.
         </p>
+
       </div>
 
-      <a class="btn dark" href="artistas.html">
+
+      <a
+        class="btn dark"
+        href="artistas.html"
+      >
         VER TODOS ›
       </a>
+
     </div>
 
-    <div class="artists" id="artistGrid"></div>
+
+    <div
+      class="artists"
+      id="artistGrid"
+    ></div>
 
   </div>
+
 </section>
 
-<section id="musicas" style="padding-top:0">
+
+
+<!-- MÚSICAS -->
+
+<section
+  id="musicas"
+  style="padding-top:0"
+>
+
   <div class="container grid-3">
+
+
+    <!-- LANÇAMENTOS -->
 
     <div class="panel">
 
-      <h2 class="title">🎵 LANÇAMENTOS</h2>
+      <h2 class="title">
+        🎵 LANÇAMENTOS
+      </h2>
 
       <p class="subtitle">
         O que está a tocar no movimento.
       </p>
 
+
       <div id="releases">
-        <div style="padding:20px 0;color:#aaa59a;font-size:13px">
+
+        <div
+          style="
+            padding:20px 0;
+            color:#aaa59a;
+            font-size:13px
+          "
+        >
           A carregar lançamentos...
         </div>
+
       </div>
 
     </div>
 
+
+
+    <!-- RANKING -->
+
     <div class="panel">
 
       <div class="rank-title">
+
         TOP 10
-        <span style="color:#fff">PRIME</span>
+
+        <span style="color:#fff">
+          PRIME
+        </span>
+
       </div>
+
 
       <p
         class="subtitle"
-        style="text-align:center;margin-bottom:12px"
+        style="
+          text-align:center;
+          margin-bottom:12px
+        "
       >
         As músicas mais ouvidas da semana.
       </p>
 
+
       <div id="rankings">
+
         <div
           style="
             padding:20px 0;
@@ -1217,11 +1354,16 @@ content="A plataforma dedicada ao Kuduro: artistas, músicas, ranking, batalhas 
         >
           A carregar ranking...
         </div>
+
       </div>
+
 
       <a
         class="btn dark"
-        style="width:100%;margin-top:15px"
+        style="
+          width:100%;
+          margin-top:15px
+        "
         href="ranking.html"
       >
         VER RANKING COMPLETO ›
@@ -1229,128 +1371,251 @@ content="A plataforma dedicada ao Kuduro: artistas, músicas, ranking, batalhas 
 
     </div>
 
-    <div class="panel battle" id="batalhas">
 
-      <h2 class="title">🔥 PRIME BATTLES</h2>
+
+    <!-- BATALHAS -->
+
+    <div
+      class="panel battle"
+      id="batalhas"
+    >
+
+      <h2 class="title">
+        🔥 PRIME BATTLES
+      </h2>
+
 
       <p class="subtitle">
         O público escolhe o melhor!
       </p>
 
-      <a class="btn gold" href="feed.html">
+
+      <a
+        class="btn gold"
+        href="feed.html"
+      >
         VOTAR AGORA ›
       </a>
 
     </div>
 
   </div>
+
 </section>
 
-<section id="eventos" style="padding-top:0">
+
+
+<!-- EVENTOS -->
+
+<section
+  id="eventos"
+  style="padding-top:0"
+>
+
   <div class="container">
 
     <div class="section-head">
 
       <div>
-        <h2 class="title">📅 PRIME EVENTS</h2>
+
+        <h2 class="title">
+          📅 PRIME EVENTS
+        </h2>
+
         <p class="subtitle">
           Os próximos eventos do Kuduro.
         </p>
+
       </div>
 
-      <a class="btn dark" href="eventos.html">
+
+      <a
+        class="btn dark"
+        href="eventos.html"
+      >
         VER TODOS ›
       </a>
 
     </div>
 
-    <div class="events" id="eventGrid"></div>
+
+    <div
+      class="events"
+      id="eventGrid"
+    ></div>
 
   </div>
+
 </section>
 
-<section class="cta" id="perfil">
+
+
+<!-- CTA -->
+
+<section
+  class="cta"
+  id="perfil"
+>
+
   <div class="container cta-in">
 
     <div>
-      <h2>O TEU TALENTO MERECE SER VISTO.</h2>
+
+      <h2>
+        O TEU TALENTO MERECE SER VISTO.
+      </h2>
+
 
       <p>
+
         Cria o teu perfil no
-        <b style="color:var(--gold)">KUDURO PRIME</b>
+
+        <b style="color:var(--gold)">
+          KUDURO PRIME
+        </b>
+
         e entra no movimento.
+
       </p>
+
     </div>
+
 
     <a
       href="criar-perfil.html"
       class="btn gold"
-      style="font-size:14px;padding:17px 28px"
+      style="
+        font-size:14px;
+        padding:17px 28px
+      "
     >
       👤 CRIAR PERFIL DE ARTISTA
     </a>
 
   </div>
+
 </section>
 ```
 
   </main>
 
+  <!-- FOOTER -->
+
   <footer>
-    <div class="container">
 
 ```
+<div class="container">
+
+
   <div class="footer-grid">
+
 
     <div>
 
-      <a class="brand" href="index.html">
-        <span class="crown">♕</span>
+      <a
+        class="brand"
+        href="index.html"
+      >
+
+        <span class="crown">
+          ♕
+        </span>
+
         KUDURO
+
         <b>PRIME</b>
+
       </a>
 
+
       <p>
+
         A plataforma oficial dedicada à música,
         aos artistas, à dança e à cultura do Kuduro.
+
       </p>
 
     </div>
 
+
+
     <div>
 
-      <h4>NAVEGAÇÃO</h4>
+      <h4>
+        NAVEGAÇÃO
+      </h4>
 
-      <a href="#inicio">Início</a>
-      <a href="artistas.html">Artistas</a>
-      <a href="musicas.html">Músicas</a>
-      <a href="ranking.html">Ranking</a>
-      <a href="eventos.html">Eventos</a>
+      <a href="#inicio">
+        Início
+      </a>
+
+      <a href="artistas.html">
+        Artistas
+      </a>
+
+      <a href="musicas.html">
+        Músicas
+      </a>
+
+      <a href="ranking.html">
+        Ranking
+      </a>
+
+      <a href="eventos.html">
+        Eventos
+      </a>
 
     </div>
 
+
+
     <div>
 
-      <h4>SOBRE</h4>
+      <h4>
+        SOBRE
+      </h4>
 
-      <a href="#">Quem Somos</a>
-      <a href="#">Termos de Uso</a>
-      <a href="#">Privacidade</a>
-      <a href="#">Ajuda</a>
+      <a href="#">
+        Quem Somos
+      </a>
+
+      <a href="#">
+        Termos de Uso
+      </a>
+
+      <a href="#">
+        Privacidade
+      </a>
+
+      <a href="#">
+        Ajuda
+      </a>
 
     </div>
 
+
+
     <div>
 
-      <h4>RECEBE AS NOVIDADES PRIME</h4>
+      <h4>
+        RECEBE AS NOVIDADES PRIME
+      </h4>
+
 
       <p>
         Fica por dentro dos lançamentos e eventos.
       </p>
 
-      <div style="display:flex;gap:8px">
+
+      <div
+        style="
+          display:flex;
+          gap:8px
+        "
+      >
 
         <input
+          id="newsletterEmail"
           type="email"
           placeholder="O teu e-mail"
           aria-label="O teu e-mail"
@@ -1365,7 +1630,12 @@ content="A plataforma dedicada ao Kuduro: artistas, músicas, ranking, batalhas 
           "
         >
 
-        <button class="btn gold" type="button">
+
+        <button
+          class="btn gold"
+          id="newsletterBtn"
+          type="button"
+        >
           RECEBER
         </button>
 
@@ -1373,13 +1643,21 @@ content="A plataforma dedicada ao Kuduro: artistas, músicas, ranking, batalhas 
 
     </div>
 
+
   </div>
 
+
+
   <div class="copy">
+
     © 2026 KUDURO PRIME.
+
     Todos os direitos reservados.
+
     — O KUDURO VIVE AQUI. 👑
+
   </div>
+
 
 </div>
 ```
@@ -1390,6 +1668,8 @@ content="A plataforma dedicada ao Kuduro: artistas, músicas, ranking, batalhas 
 
 <audio id="globalAudio"></audio>
 
+  <!-- FIREBASE -->
+
   <script type="module">
 
     import {
@@ -1397,11 +1677,13 @@ content="A plataforma dedicada ao Kuduro: artistas, músicas, ranking, batalhas 
     } from
       "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
 
+
     import {
       getAuth,
       onAuthStateChanged
     } from
       "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+
 
     import {
       getFirestore,
@@ -1414,24 +1696,44 @@ content="A plataforma dedicada ao Kuduro: artistas, músicas, ranking, batalhas 
       "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 
 
+    /* =========================
+       FIREBASE
+    ========================= */
+
     const firebaseConfig = {
-      apiKey:"AIzaSyDoitCcLeLDNBNPCP6fG1s_xbHr4UmohSo",
-      authDomain:"kuduro-prime.firebaseapp.com",
-      projectId:"kuduro-prime",
-      storageBucket:"kuduro-prime.firebasestorage.app",
-      messagingSenderId:"299776559545",
-      appId:"1:299776559545:web:04aced1ba25391eb3fce68"
+
+      apiKey:
+        "AIzaSyDoitCcLeLDNBNPCP6fG1s_xbHr4UmohSo",
+
+      authDomain:
+        "kuduro-prime.firebaseapp.com",
+
+      projectId:
+        "kuduro-prime",
+
+      storageBucket:
+        "kuduro-prime.firebasestorage.app",
+
+      messagingSenderId:
+        "299776559545",
+
+      appId:
+        "1:299776559545:web:04aced1ba25391eb3fce68"
+
     };
 
 
     const app =
       initializeApp(firebaseConfig);
 
+
     const auth =
       getAuth(app);
 
+
     const db =
       getFirestore(app);
+
 
 
     /* =========================
@@ -1441,35 +1743,60 @@ content="A plataforma dedicada ao Kuduro: artistas, músicas, ranking, batalhas 
     const areaArtistaBtn =
       document.querySelector("#areaArtistaBtn");
 
+
     const notificationBtn =
       document.querySelector("#notificationBtn");
+
 
     const notificationPanel =
       document.querySelector("#notificationPanel");
 
+
     const releasesContainer =
       document.querySelector("#releases");
 
+
     const rankingsContainer =
       document.querySelector("#rankings");
+
 
     const globalAudio =
       document.querySelector("#globalAudio");
 
 
-    let musicaAtualId = null;
-    let botaoAtual = null;
+    const menuBtn =
+      document.querySelector("#menuBtn");
+
+
+    const mobileLinks =
+      document.querySelector("#mobileLinks");
+
+
+    const newsletterEmail =
+      document.querySelector("#newsletterEmail");
+
+
+    const newsletterBtn =
+      document.querySelector("#newsletterBtn");
+
+
+    let musicaAtualId =
+      null;
+
+
+    let botaoAtual =
+      null;
+
 
 
     /* =========================
-       PROTEGER HTML
+       ESCAPAR HTML
     ========================= */
 
     function escaparHTML(valor){
 
-      return String(
-        valor ?? ""
-      )
+      return String(valor ?? "")
+
         .replace(/&/g,"&amp;")
         .replace(/</g,"&lt;")
         .replace(/>/g,"&gt;")
@@ -1479,43 +1806,99 @@ content="A plataforma dedicada ao Kuduro: artistas, músicas, ranking, batalhas 
     }
 
 
+
+    /* =========================
+       DATA
+    ========================= */
+
+    function obterDataSegura(valor){
+
+      if(!valor){
+        return 0;
+      }
+
+
+      if(typeof valor.toMillis === "function"){
+
+        return valor.toMillis();
+
+      }
+
+
+      if(typeof valor.toDate === "function"){
+
+        return valor
+          .toDate()
+          .getTime();
+
+      }
+
+
+      if(valor.seconds){
+
+        return valor.seconds * 1000;
+
+      }
+
+
+      const data =
+        new Date(valor).getTime();
+
+
+      return isNaN(data)
+        ? 0
+        : data;
+
+    }
+
+
+
     /* =========================
        AUTENTICAÇÃO
     ========================= */
 
-    onAuthStateChanged(auth, (user) => {
+    onAuthStateChanged(
+      auth,
+      (user) => {
 
-      if(user){
+        if(user){
 
-        areaArtistaBtn.href =
-          "feed.html";
+          areaArtistaBtn.href =
+            "feed.html";
 
-        areaArtistaBtn.innerHTML =
-          "👤 ENTRAR NO FEED";
 
-        notificationBtn.classList.add(
-          "show"
-        );
+          areaArtistaBtn.innerHTML =
+            "👤 ENTRAR NO FEED";
 
-      }else{
 
-        areaArtistaBtn.href =
-          "area-do-artista.html";
+          notificationBtn.classList.add(
+            "show"
+          );
 
-        areaArtistaBtn.innerHTML =
-          "👤 ÁREA DO ARTISTA";
+        }else{
 
-        notificationBtn.classList.remove(
-          "show"
-        );
+          areaArtistaBtn.href =
+            "area-do-artista.html";
 
-        notificationPanel.classList.remove(
-          "open"
-        );
+
+          areaArtistaBtn.innerHTML =
+            "👤 ÁREA DO ARTISTA";
+
+
+          notificationBtn.classList.remove(
+            "show"
+          );
+
+
+          notificationPanel.classList.remove(
+            "open"
+          );
+
+        }
 
       }
+    );
 
-    });
 
 
     /* =========================
@@ -1558,47 +1941,48 @@ content="A plataforma dedicada ao Kuduro: artistas, músicas, ranking, batalhas 
     );
 
 
+
     /* =========================
        ARTISTAS
     ========================= */
 
     const artists = [
 
-      [
-        "Figura do Adoço",
-        "Artista Prime",
-        "images/artista-1.jpg"
-      ],
+      {
+        nome:"Figura do Adoço",
+        tag:"Artista Prime",
+        imagem:"images/artista-1.jpg"
+      },
 
-      [
-        "Dj Jeff Afrozila",
-        "Novo Lançamento",
-        "images/artista-2.jpg"
-      ],
+      {
+        nome:"Dj Jeff Afrozila",
+        tag:"Novo Lançamento",
+        imagem:"images/artista-2.jpg"
+      },
 
-      [
-        "MCK",
-        "No Top do Ranking",
-        "images/artista-3.jpg"
-      ],
+      {
+        nome:"MCK",
+        tag:"No Top do Ranking",
+        imagem:"images/artista-3.jpg"
+      },
 
-      [
-        "Ready Neutro",
-        "Artista Prime",
-        "images/artista-4.jpg"
-      ],
+      {
+        nome:"Ready Neutro",
+        tag:"Artista Prime",
+        imagem:"images/artista-4.jpg"
+      },
 
-      [
-        "Nagrelha",
-        "Artista Prime",
-        "images/artista-5.jpg"
-      ],
+      {
+        nome:"Nagrelha",
+        tag:"Artista Prime",
+        imagem:"images/artista-5.jpg"
+      },
 
-      [
-        "Artista Prime",
-        "Nova Geração",
-        "images/artista-6.jpg"
-      ]
+      {
+        nome:"Artista Prime",
+        tag:"Nova Geração",
+        imagem:"images/artista-6.jpg"
+      }
 
     ];
 
@@ -1609,37 +1993,46 @@ content="A plataforma dedicada ao Kuduro: artistas, músicas, ranking, batalhas 
 
     artistGrid.innerHTML =
 
-      artists.map(a => `
+      artists.map(
+        (artista) => `
 
-        <a
-          class="card"
-          href="perfil.html?artista=${encodeURIComponent(a[0])}"
-        >
+          <a
+            class="card"
+            href="perfil.html?artista=${encodeURIComponent(artista.nome)}"
+          >
 
-          <div
-            class="artist-img"
-            style="--img:url('${a[2]}')"
-          ></div>
+            <div
+              class="artist-img"
+              style="--img:url('${artista.imagem}')"
+            ></div>
 
-          <div class="artist-info">
 
-            <b>
-              ${escaparHTML(a[0])}
+            <div class="artist-info">
 
-              <span class="verified">
-                ●
-              </span>
-            </b>
+              <b>
 
-            <div class="tag">
-              ${escaparHTML(a[1])}
+                ${escaparHTML(artista.nome)}
+
+                <span class="verified">
+                  ●
+                </span>
+
+              </b>
+
+
+              <div class="tag">
+
+                ${escaparHTML(artista.tag)}
+
+              </div>
+
             </div>
 
-          </div>
+          </a>
 
-        </a>
+        `
+      ).join("");
 
-      `).join("");
 
 
     /* =========================
@@ -1685,25 +2078,46 @@ content="A plataforma dedicada ao Kuduro: artistas, músicas, ranking, batalhas 
 
       const views =
         Number(
-          musica.visualizacoes ||
-          musica.views ||
-          musica.playCount ||
-          musica.reproducoes ||
-          musica.ouvintes ||
+          musica.visualizacoes ??
+          musica.views ??
+          musica.playCount ??
+          musica.reproducoes ??
+          musica.ouvintes ??
           0
         );
 
 
+      const criadoEm =
+        obterDataSegura(
+          musica.criadoEm ||
+          musica.createdAt ||
+          musica.dataCriacao
+        );
+
+
       return {
+
         id:musicaId,
+
         titulo,
+
         nomeArtista,
+
         capa,
+
         audioUrl,
-        views
+
+        views:
+          isNaN(views)
+            ? 0
+            : views,
+
+        criadoEm
+
       };
 
     }
+
 
 
     /* =========================
@@ -1726,7 +2140,6 @@ content="A plataforma dedicada ao Kuduro: artistas, músicas, ranking, batalhas 
       }
 
 
-      /* Se for a mesma música */
       if(
         musicaAtualId === musica.id &&
         globalAudio.src
@@ -1758,7 +2171,6 @@ content="A plataforma dedicada ao Kuduro: artistas, músicas, ranking, batalhas 
       }
 
 
-      /* Parar botão anterior */
       if(botaoAtual){
 
         botaoAtual.textContent =
@@ -1774,11 +2186,16 @@ content="A plataforma dedicada ao Kuduro: artistas, músicas, ranking, batalhas 
       musicaAtualId =
         musica.id;
 
+
       botaoAtual =
         botao;
 
+
       globalAudio.src =
         musica.audioUrl;
+
+
+      globalAudio.load();
 
 
       try{
@@ -1793,7 +2210,7 @@ content="A plataforma dedicada ao Kuduro: artistas, músicas, ranking, batalhas 
         );
 
         alert(
-          "Não foi possível tocar esta música. Verifica se o URL do áudio no Firebase está correto e é público."
+          "Não foi possível tocar esta música. Verifica se o URL do áudio está correto."
         );
 
       }
@@ -1801,8 +2218,9 @@ content="A plataforma dedicada ao Kuduro: artistas, músicas, ranking, batalhas 
     }
 
 
+
     /* =========================
-       EVENTOS DO PLAYER
+       PLAYER
     ========================= */
 
     globalAudio.addEventListener(
@@ -1858,6 +2276,7 @@ content="A plataforma dedicada ao Kuduro: artistas, músicas, ranking, batalhas 
 
         }
 
+
         musicaAtualId =
           null;
 
@@ -1874,6 +2293,7 @@ content="A plataforma dedicada ao Kuduro: artistas, músicas, ranking, batalhas 
           globalAudio.error
         );
 
+
         if(botaoAtual){
 
           botaoAtual.textContent =
@@ -1889,6 +2309,51 @@ content="A plataforma dedicada ao Kuduro: artistas, músicas, ranking, batalhas 
     );
 
 
+
+    /* =========================
+       BUSCAR MÚSICAS
+    ========================= */
+
+    async function buscarTodasMusicas(){
+
+      const musicasRef =
+        collection(
+          db,
+          "musicas"
+        );
+
+
+      const snapshot =
+        await getDocs(
+          musicasRef
+        );
+
+
+      const musicas = [];
+
+
+      snapshot.forEach(
+        (docMusica) => {
+
+          musicas.push(
+
+            obterDadosMusica(
+              docMusica.data(),
+              docMusica.id
+            )
+
+          );
+
+        }
+      );
+
+
+      return musicas;
+
+    }
+
+
+
     /* =========================
        LANÇAMENTOS
     ========================= */
@@ -1902,46 +2367,11 @@ content="A plataforma dedicada ao Kuduro: artistas, músicas, ranking, batalhas 
 
       try{
 
-        const musicasRef =
-          collection(
-            db,
-            "musicas"
-          );
+        const musicas =
+          await buscarTodasMusicas();
 
 
-        let snapshot;
-
-        try{
-
-          const q =
-            query(
-              musicasRef,
-              orderBy(
-                "criadoEm",
-                "desc"
-              ),
-              limit(6)
-            );
-
-          snapshot =
-            await getDocs(q);
-
-        }catch(errorOrdenacao){
-
-          console.warn(
-            "Não foi possível ordenar por criadoEm. A carregar músicas sem ordenação:",
-            errorOrdenacao
-          );
-
-          snapshot =
-            await getDocs(
-              musicasRef
-            );
-
-        }
-
-
-        if(snapshot.empty){
+        if(musicas.length === 0){
 
           releasesContainer.innerHTML = `
 
@@ -1962,28 +2392,19 @@ content="A plataforma dedicada ao Kuduro: artistas, músicas, ranking, batalhas 
         }
 
 
-        const musicas = [];
+        const ultimasMusicas =
+          musicas
 
-
-        snapshot.forEach((docMusica) => {
-
-          musicas.push(
-
-            obterDadosMusica(
-              docMusica.data(),
-              docMusica.id
+            .sort(
+              (a,b) =>
+                b.criadoEm -
+                a.criadoEm
             )
 
-          );
-
-        });
-
-
-        const ultimasMusicas =
-          musicas.slice(
-            0,
-            6
-          );
+            .slice(
+              0,
+              6
+            );
 
 
         releasesContainer.innerHTML =
@@ -1998,6 +2419,7 @@ content="A plataforma dedicada ao Kuduro: artistas, músicas, ranking, batalhas 
                 "div"
               );
 
+
             item.className =
               "release";
 
@@ -2007,8 +2429,10 @@ content="A plataforma dedicada ao Kuduro: artistas, músicas, ranking, batalhas 
                 "div"
               );
 
+
             capa.className =
               "cover";
+
 
             capa.style.setProperty(
               "--img",
@@ -2021,17 +2445,26 @@ content="A plataforma dedicada ao Kuduro: artistas, músicas, ranking, batalhas 
                 "div"
               );
 
+
             info.className =
               "release-info";
 
+
             info.innerHTML = `
+
               <div class="song">
+
                 ${escaparHTML(musica.titulo)}
+
               </div>
 
+
               <div class="artist">
+
                 ${escaparHTML(musica.nomeArtista)}
+
               </div>
+
             `;
 
 
@@ -2040,14 +2473,18 @@ content="A plataforma dedicada ao Kuduro: artistas, músicas, ranking, batalhas 
                 "button"
               );
 
+
             playButton.type =
               "button";
+
 
             playButton.className =
               "play";
 
+
             playButton.textContent =
               "▶";
+
 
             playButton.title =
               "Tocar música";
@@ -2096,9 +2533,11 @@ content="A plataforma dedicada ao Kuduro: artistas, músicas, ranking, batalhas 
               capa
             );
 
+
             item.appendChild(
               info
             );
+
 
             item.appendChild(
               playButton
@@ -2140,6 +2579,7 @@ content="A plataforma dedicada ao Kuduro: artistas, músicas, ranking, batalhas 
     }
 
 
+
     /* =========================
        RANKING
     ========================= */
@@ -2153,20 +2593,11 @@ content="A plataforma dedicada ao Kuduro: artistas, músicas, ranking, batalhas 
 
       try{
 
-        const musicasRef =
-          collection(
-            db,
-            "musicas"
-          );
+        const ranking =
+          await buscarTodasMusicas();
 
 
-        const snapshot =
-          await getDocs(
-            musicasRef
-          );
-
-
-        if(snapshot.empty){
+        if(ranking.length === 0){
 
           rankingsContainer.innerHTML = `
 
@@ -2188,40 +2619,25 @@ content="A plataforma dedicada ao Kuduro: artistas, músicas, ranking, batalhas 
         }
 
 
-        const ranking = [];
+        const top10 =
+          ranking
 
-
-        snapshot.forEach((docMusica) => {
-
-          ranking.push(
-
-            obterDadosMusica(
-              docMusica.data(),
-              docMusica.id
+            .sort(
+              (a,b) =>
+                b.views -
+                a.views
             )
 
-          );
-
-        });
-
-
-        ranking.sort(
-          (a, b) =>
-            b.views - a.views
-        );
-
-
-        const top10 =
-          ranking.slice(
-            0,
-            10
-          );
+            .slice(
+              0,
+              10
+            );
 
 
         rankingsContainer.innerHTML =
 
           top10.map(
-            (musica, index) => `
+            (musica,index) => `
 
               <a
                 class="rank"
@@ -2229,30 +2645,35 @@ content="A plataforma dedicada ao Kuduro: artistas, músicas, ranking, batalhas 
               >
 
                 <div class="rank-num">
-                  ${String(
-                    index + 1
-                  ).padStart(
-                    2,
-                    "0"
-                  )}
+
+                  ${String(index + 1).padStart(2,"0")}
+
                 </div>
+
 
                 <div
                   class="mini"
                   style="--img:url('${musica.capa}')"
                 ></div>
 
+
                 <div>
 
                   <div class="song">
+
                     ${escaparHTML(musica.titulo)}
+
                   </div>
 
+
                   <div class="artist">
+
                     ${escaparHTML(musica.nomeArtista)}
+
                   </div>
 
                 </div>
+
 
                 <div class="tag">
                   ▲
@@ -2292,6 +2713,7 @@ content="A plataforma dedicada ao Kuduro: artistas, músicas, ranking, batalhas 
     }
 
 
+
     /* =========================
        CARREGAR FIREBASE
     ========================= */
@@ -2301,68 +2723,126 @@ content="A plataforma dedicada ao Kuduro: artistas, músicas, ranking, batalhas 
     carregarRanking();
 
 
+
     /* =========================
        EVENTOS
     ========================= */
 
     const events = [
 
-      [
-        "26",
-        "SHOW SOLIDÁRIO — DALO-PY",
-        "Angola",
-        "images/evento-1.jpg"
-      ],
+      {
+        data:"26",
+        titulo:"SHOW SOLIDÁRIO — DALO-PY",
+        local:"Angola",
+        imagem:"images/evento-1.jpg"
+      },
 
-      [
-        "11",
-        "I LOVE RAPPERS — BLACK ON BLACK",
-        "8.º Aniversário",
-        "images/evento-2.jpg"
-      ]
+      {
+        data:"11",
+        titulo:"I LOVE RAPPERS — BLACK ON BLACK",
+        local:"8.º Aniversário",
+        imagem:"images/evento-2.jpg"
+      }
 
     ];
 
 
-    document.querySelector(
-      "#eventGrid"
-    ).innerHTML =
+    const eventGrid =
+      document.querySelector("#eventGrid");
 
-      events.map((e, i) => `
 
-        <a
-          class="event"
-          href="evento.html?id=${i + 1}"
-          style="--img:url('${e[3]}')"
-        >
+    eventGrid.innerHTML =
 
-          <span class="date">
-            ${e[0]} SET
-          </span>
+      events.map(
+        (evento,index) => `
 
-          <h3>
-            ${e[1]}
-          </h3>
+          <a
+            class="event"
+            href="evento.html?id=${index + 1}"
+            style="--img:url('${evento.imagem}')"
+          >
 
-          <p>
-            📍 ${e[2]}
-          </p>
+            <span class="date">
 
-        </a>
+              ${escaparHTML(evento.data)} SET
 
-      `).join("");
+            </span>
+
+
+            <h3>
+
+              ${escaparHTML(evento.titulo)}
+
+            </h3>
+
+
+            <p>
+
+              📍 ${escaparHTML(evento.local)}
+
+            </p>
+
+          </a>
+
+        `
+      ).join("");
+
+
+
+    /* =========================
+       NEWSLETTER
+    ========================= */
+
+    newsletterBtn.addEventListener(
+      "click",
+      () => {
+
+        const email =
+          newsletterEmail.value.trim();
+
+
+        if(!email){
+
+          alert(
+            "Introduz o teu e-mail."
+          );
+
+          newsletterEmail.focus();
+
+          return;
+
+        }
+
+
+        if(!email.includes("@")){
+
+          alert(
+            "Introduz um e-mail válido."
+          );
+
+          newsletterEmail.focus();
+
+          return;
+
+        }
+
+
+        alert(
+          "Obrigado! O teu e-mail foi registado para receber as novidades PRIME. 👑"
+        );
+
+
+        newsletterEmail.value =
+          "";
+
+      }
+    );
+
 
 
     /* =========================
        MENU MOBILE
     ========================= */
-
-    const menuBtn =
-      document.querySelector("#menuBtn");
-
-    const mobileLinks =
-      document.querySelector("#mobileLinks");
-
 
     menuBtn.addEventListener(
       "click",
@@ -2378,7 +2858,9 @@ content="A plataforma dedicada ao Kuduro: artistas, músicas, ranking, batalhas 
           mobileLinks.classList.contains(
             "open"
           )
+
             ? "✕"
+
             : "☰";
 
       }
@@ -2387,27 +2869,30 @@ content="A plataforma dedicada ao Kuduro: artistas, músicas, ranking, batalhas 
 
     mobileLinks
       .querySelectorAll("a")
-      .forEach(link => {
+      .forEach(
+        (link) => {
 
-        link.addEventListener(
-          "click",
-          () => {
+          link.addEventListener(
+            "click",
+            () => {
 
-            mobileLinks.classList.remove(
-              "open"
-            );
+              mobileLinks.classList.remove(
+                "open"
+              );
 
-            menuBtn.textContent =
-              "☰";
 
-          }
-        );
+              menuBtn.textContent =
+                "☰";
 
-      });
+            }
+          );
+
+        }
+      );
 
   </script>
 
-  <!-- 🔔 SISTEMA DE NOTIFICAÇÕES -->
+  <!-- SISTEMA DE NOTIFICAÇÕES -->
 
   <script
     type="module"
