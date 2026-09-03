@@ -2353,6 +2353,34 @@ onAuthStateChanged(
 
     firebaseUser = user;
 
+    /* ================================
+       MARCAR UTILIZADOR COMO ONLINE
+    ================================ */
+
+    const profileRef =
+      doc(
+        db,
+        "perfis",
+        user.uid
+      );
+
+    await setDoc(
+      profileRef,
+      {
+
+        online:
+          true,
+
+        lastSeen:
+          serverTimestamp()
+
+      },
+      {
+        merge:
+          true
+      }
+    );
+
     try{
 
       const profileRef =
@@ -3317,7 +3345,7 @@ async function openRealChat(
 
   }
 
-  const chatOnline =
+  cconst chatOnline =
   document.getElementById(
     "chatOnline"
   );
@@ -3327,8 +3355,13 @@ if(chatOnline){
   chatOnline.style.display =
     "block";
 
-  chatOnline.id =
-    "onlineLamp";
+  chatOnline.classList.remove(
+    "online"
+  );
+
+  chatOnline.classList.add(
+    "offline"
+  );
 
 }
   document
