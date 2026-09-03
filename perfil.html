@@ -1041,7 +1041,6 @@
     } from
       "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
 
-
     import {
       getFirestore,
       collection,
@@ -1078,14 +1077,13 @@
     const app =
       initializeApp(firebaseConfig);
 
-
     const db =
       getFirestore(app);
 
 
-    /* =========================
-       ID DO ARTISTA DO LINK
-    ========================= */
+    /* =====================================================
+       IDENTIFICADOR RECEBIDO
+    ===================================================== */
 
     const params =
       new URLSearchParams(
@@ -1094,7 +1092,7 @@
 
 
     const requestedUser =
-      (
+      String(
         params.get("id") ||
         params.get("artistaId") ||
         params.get("artistId") ||
@@ -1108,26 +1106,25 @@
 
 
     console.log(
-      "ID RECEBIDO NO PERFIL:",
+      "🔎 IDENTIFICADOR RECEBIDO NO PERFIL:",
       requestedUser
     );
 
 
     let profileData = null;
     let artistId = "";
+    let artistUid = "";
     let artistSongs = [];
     let artistVideos = [];
 
 
-    /* =========================
+    /* =====================================================
        FUNÇÕES AUXILIARES
-    ========================= */
+    ===================================================== */
 
     function texto(...valores){
 
-      for(
-        const valor of valores
-      ){
+      for(const valor of valores){
 
         if(
           valor !== undefined &&
@@ -1148,16 +1145,12 @@
 
     function numero(...valores){
 
-      for(
-        const valor of valores
-      ){
+      for(const valor of valores){
 
         const n =
           Number(valor);
 
-        if(
-          Number.isFinite(n)
-        ){
+        if(Number.isFinite(n)){
 
           return n;
 
@@ -1170,7 +1163,7 @@
     }
 
 
-    function normalizarParametro(valor){
+    function normalizar(valor){
 
       return String(valor || "")
         .trim()
@@ -1199,6 +1192,10 @@
     }
 
 
+    /* =====================================================
+       DADOS DO ARTISTA
+    ===================================================== */
+
     function nomeArtista(data){
 
       return texto(
@@ -1223,6 +1220,8 @@
         data.nomeUsuario,
         data.usuario,
         data.slug,
+        data.artistaUsername,
+        data.authorUsername,
         ""
       );
 
@@ -1239,6 +1238,7 @@
         data.imagem,
         data.image,
         data.avatar,
+        data.authorPhoto,
         ""
       );
 
@@ -1378,9 +1378,7 @@
           .getTime();
 
 
-        if(
-          Number.isFinite(valor)
-        ){
+        if(Number.isFinite(valor)){
 
           return valor;
 
@@ -1394,44 +1392,66 @@
     }
 
 
-    /* =========================
+    /* =====================================================
        PROCURAR ARTISTA
-    ========================= */
+    ===================================================== */
 
     async function procurarArtista(){
 
       if(!requestedUser){
+
         return null;
+
       }
 
 
+      const recebido =
+        String(
+          requestedUser
+        ).trim();
+
+
+      const recebidoNormalizado =
+        normalizar(recebido);
+
+
       /*
-        PRIMEIRO PROCURA PELO ID
-        DO DOCUMENTO FIRESTORE
+        ====================================================
+        1. PRIMEIRO:
+        PROCURA PELO ID DO DOCUMENTO
+        ====================================================
       */
 
       try{
 
-        const ref =
+        const referencia =
           doc(
             db,
             "artistas",
-            requestedUser
+            recebido
           );
 
 
-        const snap =
-          await getDoc(ref);
+        const snapshot =
+          await getDoc(
+            referencia
+          );
 
 
-        if(snap.exists()){
+        if(snapshot.exists()){
+
+          console.log(
+            "✅ ARTISTA ENCONTRADO PELO ID DO DOCUMENTO:",
+            snapshot.id
+          );
+
 
           return {
 
             id:
-              snap.id,
+              snapshot.id,
 
-            ...snap.data()
+            ...snapshot.data()
 
           };
 
@@ -1442,7 +1462,7 @@
       catch(error){
 
         console.warn(
-          "Erro na busca pelo ID:",
+          "⚠ Busca direta pelo ID falhou:",
           error
         );
 
@@ -1450,8 +1470,10 @@
 
 
       /*
-        SEGUNDO:
-        PROCURA PELO CAMPO UID
+        ====================================================
+        2. SEGUNDO:
+        PROCURA EM TODOS OS ARTISTAS
+        ====================================================
       */
 
       try{
@@ -1472,7 +1494,9 @@
           docSnap => {
 
             if(encontrado){
+
               return;
+
             }
 
 
@@ -1480,25 +1504,98 @@
               docSnap.data();
 
 
+            const documentId =
+              String(
+                docSnap.id
+              ).trim();
+
+
             const uid =
               texto(
                 data.uid,
                 data.artistaId,
                 data.artistId,
-                data.userId
+                data.userId,
+                data.usuarioId,
+                data.artistaUID,
+                data.artistaUid
               );
 
 
-            if(uid === requestedUser){
+            const username =
+              usernameArtista(data);
+
+
+            const nome =
+              nomeArtista(data);
+
+
+            const idsPossiveis = [
+
+              documentId,
+              uid,
+              username
+
+            ];
+
+
+            /*
+              COMPARAÇÃO EXATA
+            */
+
+            const encontrouExato =
+              idsPossiveis.some(
+                valor =>
+                  String(
+                    valor || ""
+                  ).trim() === recebido
+              );
+
+
+            /*
+              COMPARAÇÃO SEM @
+              E SEM DIFERENÇA DE MAIÚSCULAS
+            */
+
+            const encontrouNormalizado =
+              idsPossiveis.some(
+                valor =>
+                  normalizar(valor) ===
+                  recebidoNormalizado
+              );
+
+
+            /*
+              TAMBÉM PERMITE O NOME,
+              CASO ALGUM LINK ANTIGO TENHA
+              SIDO GRAVADO ASSIM.
+            */
+
+            const encontrouNome =
+              normalizar(nome) ===
+              recebidoNormalizado;
+
+
+            if(
+              encontrouExato ||
+              encontrouNormalizado ||
+              encontrouNome
+            ){
 
               encontrado = {
 
                 id:
-                  docSnap.id,
+                  documentId,
 
                 ...data
 
               };
+
+
+              console.log(
+                "✅ ARTISTA ENCONTRADO NA COLEÇÃO:",
+                encontrado
+              );
 
             }
 
@@ -1506,32 +1603,28 @@
         );
 
 
-        if(encontrado){
-
-          return encontrado;
-
-        }
+        return encontrado;
 
       }
 
       catch(error){
 
         console.error(
-          "Erro ao procurar UID:",
+          "❌ ERRO AO PROCURAR ARTISTA:",
           error
         );
 
+
+        return null;
+
       }
-
-
-      return null;
 
     }
 
 
-    /* =========================
-       CARREGAR PERFIL
-    ========================= */
+    /* =====================================================
+       CARREGAR ARTISTA
+    ===================================================== */
 
     async function carregarArtista(){
 
@@ -1546,46 +1639,102 @@
 
         if(!resultado){
 
+          console.error(
+            "❌ NENHUM ARTISTA ENCONTRADO PARA:",
+            requestedUser
+          );
+
+
           mostrarErro(
             "Artista não encontrado",
             "Este perfil não existe no KUDURO PRIME."
           );
+
 
           return;
 
         }
 
 
+        /*
+          ID DO DOCUMENTO FIRESTORE
+        */
+
         artistId =
-          resultado.id;
+          String(
+            resultado.id || ""
+          ).trim();
+
+
+        /*
+          UID DO ARTISTA
+        */
+
+        artistUid =
+          texto(
+            resultado.uid,
+            resultado.artistaId,
+            resultado.artistId,
+            resultado.userId,
+            resultado.usuarioId,
+            resultado.artistaUID,
+            resultado.artistaUid,
+            artistId
+          );
 
 
         console.log(
-          "ARTISTA ENCONTRADO:",
-          artistId,
-          resultado
+          "================================"
+        );
+
+        console.log(
+          "✅ PERFIL ENCONTRADO"
+        );
+
+        console.log(
+          "ID DOCUMENTO:",
+          artistId
+        );
+
+        console.log(
+          "UID:",
+          artistUid
+        );
+
+        console.log(
+          "NOME:",
+          nomeArtista(resultado)
+        );
+
+        console.log(
+          "USERNAME:",
+          usernameArtista(resultado)
+        );
+
+        console.log(
+          "================================"
         );
 
 
         profileData = {
 
           id:
-            resultado.id,
+            artistId,
 
+          uid:
+            artistUid,
 
           name:
             nomeArtista(resultado),
 
-
           username:
             usernameArtista(resultado) ||
-            resultado.uid ||
+            artistUid ||
+            artistId ||
             "artista",
-
 
           photo:
             fotoArtista(resultado),
-
 
           bio:
             texto(
@@ -1596,7 +1745,6 @@
               "Este artista faz parte do movimento KUDURO PRIME 👑."
             ),
 
-
           city:
             texto(
               resultado.provincia,
@@ -1606,14 +1754,12 @@
               "Luanda"
             ),
 
-
           country:
             texto(
               resultado.pais,
               resultado.country,
               "Angola"
             ),
-
 
           genre:
             texto(
@@ -1624,7 +1770,6 @@
               "Kuduro"
             ),
 
-
           year:
             texto(
               resultado.ano,
@@ -1634,13 +1779,11 @@
               "—"
             ),
 
-
           instagram:
             texto(
               resultado.instagram,
               resultado.instagramUrl
             ),
-
 
           facebook:
             texto(
@@ -1648,20 +1791,17 @@
               resultado.facebookUrl
             ),
 
-
           youtube:
             texto(
               resultado.youtube,
               resultado.youtubeUrl
             ),
 
-
           tiktok:
             texto(
               resultado.tiktok,
               resultado.tiktokUrl
             ),
-
 
           followers:
             numero(
@@ -1685,7 +1825,7 @@
       catch(error){
 
         console.error(
-          "ERRO COMPLETO:",
+          "❌ ERRO COMPLETO AO CARREGAR PERFIL:",
           error
         );
 
@@ -1699,6 +1839,10 @@
 
     }
 
+
+    /* =====================================================
+       LOADING
+    ===================================================== */
 
     function mostrarLoadingPerfil(){
 
@@ -1716,19 +1860,19 @@
     }
 
 
-    /* =========================
+    /* =====================================================
        MOSTRAR PERFIL
-    ========================= */
+    ===================================================== */
 
     function mostrarPerfil(){
 
       document
         .querySelector("#profileName")
         .innerHTML =
-          `
-            ${escapeHtml(profileData.name)}
-            <span class="verified">✓</span>
-          `;
+        `
+          ${escapeHtml(profileData.name)}
+          <span class="verified">✓</span>
+        `;
 
 
       document
@@ -1793,18 +1937,18 @@
         document
           .querySelector("#profilePhoto")
           .innerHTML =
-            `
-              <img
-                src="${escapeAttr(profileData.photo)}"
-                alt="${escapeAttr(profileData.name)}"
-              >
-            `;
+          `
+            <img
+              src="${escapeAttr(profileData.photo)}"
+              alt="${escapeAttr(profileData.name)}"
+            >
+          `;
 
 
         document
           .querySelector("#cover")
           .style.backgroundImage =
-            `url("${profileData.photo}")`;
+          `url("${profileData.photo}")`;
 
       }
 
@@ -1814,9 +1958,9 @@
     }
 
 
-    /* =========================
+    /* =====================================================
        CARREGAR MÚSICAS
-    ========================= */
+    ===================================================== */
 
     async function carregarMusicas(){
 
@@ -1858,10 +2002,25 @@
               );
 
 
+            const idsValidos = [
+
+              artistId,
+              artistUid,
+              requestedUser,
+              profileData.username
+
+            ]
+            .filter(Boolean)
+            .map(
+              valor =>
+                normalizar(valor)
+            );
+
+
             const pertence =
-              idArtista === artistId ||
-              idArtista === profileData.username ||
-              idArtista === requestedUser;
+              idsValidos.includes(
+                normalizar(idArtista)
+              );
 
 
             if(
@@ -1900,18 +2059,18 @@
         if(!artistSongs.length){
 
           list.innerHTML =
-            `
-              <div class="empty">
+          `
+            <div class="empty">
 
-                <strong>
-                  🎵 Nenhuma música publicada
-                </strong>
+              <strong>
+                🎵 Nenhuma música publicada
+              </strong>
 
-                Este artista ainda não publicou
-                músicas no KUDURO PRIME.
+              Este artista ainda não publicou
+              músicas no KUDURO PRIME.
 
-              </div>
-            `;
+            </div>
+          `;
 
 
           atualizarVisualizacoes();
@@ -2062,26 +2221,26 @@
 
 
         list.innerHTML =
-          `
-            <div class="empty">
+        `
+          <div class="empty">
 
-              <strong>
-                ⚠ Erro ao carregar músicas
-              </strong>
+            <strong>
+              ⚠ Erro ao carregar músicas
+            </strong>
 
-              Tenta atualizar a página.
+            Tenta atualizar a página.
 
-            </div>
-          `;
+          </div>
+        `;
 
       }
 
     }
 
 
-    /* =========================
+    /* =====================================================
        CARREGAR VÍDEOS
-    ========================= */
+    ===================================================== */
 
     async function carregarVideos(){
 
@@ -2117,13 +2276,31 @@
                 data.artistaId,
                 data.artistId,
                 data.userId,
-                data.uid
+                data.uid,
+                data.artistaUID,
+                data.artistaUid
               );
 
 
+            const idsValidos = [
+
+              artistId,
+              artistUid,
+              requestedUser,
+              profileData.username
+
+            ]
+            .filter(Boolean)
+            .map(
+              valor =>
+                normalizar(valor)
+            );
+
+
             if(
-              idArtista === artistId ||
-              idArtista === requestedUser
+              idsValidos.includes(
+                normalizar(idArtista)
+              )
             ){
 
               artistVideos.push({
@@ -2151,20 +2328,20 @@
         if(!artistVideos.length){
 
           grid.innerHTML =
-            `
-              <div
-                class="empty"
-                style="grid-column:1/-1"
-              >
+          `
+            <div
+              class="empty"
+              style="grid-column:1/-1"
+            >
 
-                <strong>
-                  🎬 Nenhum vídeo publicado
-                </strong>
+              <strong>
+                🎬 Nenhum vídeo publicado
+              </strong>
 
-                Este artista ainda não publicou vídeos.
+              Este artista ainda não publicou vídeos.
 
-              </div>
-            `;
+            </div>
+          `;
 
 
           atualizarVisualizacoes();
@@ -2272,27 +2449,27 @@
 
 
         grid.innerHTML =
-          `
-            <div
-              class="empty"
-              style="grid-column:1/-1"
-            >
+        `
+          <div
+            class="empty"
+            style="grid-column:1/-1"
+          >
 
-              <strong>
-                ⚠ Erro ao carregar vídeos
-              </strong>
+            <strong>
+              ⚠ Erro ao carregar vídeos
+            </strong>
 
-            </div>
-          `;
+          </div>
+        `;
 
       }
 
     }
 
 
-    /* =========================
+    /* =====================================================
        VISUALIZAÇÕES
-    ========================= */
+    ===================================================== */
 
     function atualizarVisualizacoes(){
 
@@ -2333,9 +2510,9 @@
     }
 
 
-    /* =========================
+    /* =====================================================
        REDES SOCIAIS
-    ========================= */
+    ===================================================== */
 
     function carregarRedes(){
 
@@ -2433,9 +2610,9 @@
     }
 
 
-    /* =========================
+    /* =====================================================
        TOCAR MÚSICA
-    ========================= */
+    ===================================================== */
 
     window.tocarMusica =
       function(button){
@@ -2449,7 +2626,9 @@
 
 
         if(!audio){
+
           return;
+
         }
 
 
@@ -2461,6 +2640,7 @@
               if(other !== audio){
 
                 other.pause();
+
 
                 const otherButton =
                   other
@@ -2502,9 +2682,9 @@
       };
 
 
-    /* =========================
+    /* =====================================================
        SEGUIR
-    ========================= */
+    ===================================================== */
 
     window.seguir =
       function(){
@@ -2536,9 +2716,9 @@
       };
 
 
-    /* =========================
+    /* =====================================================
        PARTILHAR
-    ========================= */
+    ===================================================== */
 
     window.partilharPerfil =
       async function(){
@@ -2571,6 +2751,7 @@
             await navigator.clipboard
               .writeText(url);
 
+
             alert(
               "Link do perfil copiado!"
             );
@@ -2590,9 +2771,9 @@
       };
 
 
-    /* =========================
+    /* =====================================================
        TABS
-    ========================= */
+    ===================================================== */
 
     window.abrirTab =
       function(
@@ -2638,9 +2819,9 @@
       };
 
 
-    /* =========================
+    /* =====================================================
        MENU
-    ========================= */
+    ===================================================== */
 
     window.abrirMenu =
       function(){
@@ -2691,9 +2872,9 @@
       };
 
 
-    /* =========================
+    /* =====================================================
        ERRO
-    ========================= */
+    ===================================================== */
 
     function mostrarErro(
       titulo,
@@ -2727,33 +2908,52 @@
       document
         .querySelector("#songList")
         .innerHTML =
-          `
-            <div class="empty">
+        `
+          <div class="empty">
 
-              <strong>
-                ⚠ ${escapeHtml(titulo)}
-              </strong>
+            <strong>
+              ⚠ ${escapeHtml(titulo)}
+            </strong>
 
-              ${escapeHtml(mensagem)}
+            ${escapeHtml(mensagem)}
 
-              <br><br>
+            <br><br>
 
-              <a
-                href="artistas.html"
-                class="btn gold"
-              >
-                VER ARTISTAS
-              </a>
+            <a
+              href="artistas.html"
+              class="btn gold"
+            >
+              VER ARTISTAS
+            </a>
 
-            </div>
-          `;
+          </div>
+        `;
+
+
+      document
+        .querySelector("#videoGrid")
+        .innerHTML =
+        `
+          <div
+            class="empty"
+            style="grid-column:1/-1"
+          >
+
+            <strong>
+              ⚠ ${escapeHtml(titulo)}
+            </strong>
+
+            ${escapeHtml(mensagem)}
+
+          </div>
+        `;
 
     }
 
 
-    /* =========================
+    /* =====================================================
        FORMATAÇÃO
-    ========================= */
+    ===================================================== */
 
     function formatNumber(number){
 
@@ -2771,9 +2971,9 @@
     }
 
 
-    /* =========================
+    /* =====================================================
        INICIAR
-    ========================= */
+    ===================================================== */
 
     if(!requestedUser){
 
