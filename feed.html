@@ -1099,7 +1099,7 @@
     <section>
 
       <h1 class="feed-title">
-        Feed PRIME 👑
+        KUDURO PRIME 👑
       </h1>
 
 
@@ -1759,7 +1759,7 @@
 
 
         loadingText.textContent =
-          "A carregar o Feed PRIME...";
+  "A carregar a Página Pública...";
 
 
         iniciarFeedTempoReal();
@@ -4371,13 +4371,15 @@ const origem = escaparHTML(
 );
 
 const idDoArtista =
-  item.artistaId ||
-  item.artistId ||
-  item.userId ||
-  item.uid ||
-  item.autorId ||
-  item.criadoPor ||
-  "";
+  String(
+    item.artistaId ||
+    item.artistId ||
+    item.userId ||
+    item.uid ||
+    item.autorId ||
+    item.criadoPor ||
+    ""
+  ).trim();
 
 console.log("ID DO ARTISTA:", idDoArtista);
 
