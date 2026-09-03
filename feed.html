@@ -1674,6 +1674,38 @@
         }
       }
 
+      if (item.artistaNome) {
+
+        try {
+
+          const q = query(
+            collection(db, "artistas"),
+            where("nome", "==", item.artistaNome)
+          );
+
+          const snap = await getDocs(q);
+
+          if (!snap.empty) {
+
+            console.log(
+              "✅ ARTISTA ENCONTRADO PELO NOME:",
+              snap.docs[0].id
+            );
+
+            return snap.docs[0].id;
+          }
+
+        } catch (erro) {
+
+          console.warn(
+            "Erro ao procurar artista pelo nome:",
+            erro
+          );
+
+        }
+
+      }
+
       return "";
     }
 
