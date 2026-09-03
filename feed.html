@@ -471,30 +471,30 @@
     }
 
     .post-author{
-  font-weight:900;
-}
+      font-weight:900;
+    }
 
-.post-profile-link{
-  color:inherit;
-  text-decoration:none;
-  cursor:pointer;
-}
+    .post-profile-link{
+      color:inherit;
+      text-decoration:none;
+      cursor:pointer;
+    }
 
-.post-profile-link:hover{
-  color:var(--gold);
-  text-decoration:underline;
-}
+    .post-profile-link:hover{
+      color:var(--gold);
+      text-decoration:underline;
+    }
 
-.post-avatar.post-profile-link{
-  display:flex;
-  text-decoration:none;
-}
+    .post-avatar.post-profile-link{
+      display:flex;
+      text-decoration:none;
+    }
 
-.post-meta{
-  color:var(--muted);
-  font-size:13px;
-  margin-top:3px;
-}
+    .post-meta{
+      color:var(--muted);
+      font-size:13px;
+      margin-top:3px;
+    }
 
     .post-menu{
       margin-left:auto;
@@ -947,23 +947,23 @@
 
     <div class="nav-actions">
 
-  <a
-    href="meu-perfil.html"
-    class="nav-avatar"
-    id="navAvatar"
-    title="Meu Perfil"
-  >
-    👤
-  </a>
+      <a
+        href="meu-perfil.html"
+        class="nav-avatar"
+        id="navAvatar"
+        title="Meu Perfil"
+      >
+        👤
+      </a>
 
-  <button
-    class="logout-btn"
-    onclick="sair(event)"
-  >
-    SAIR
-  </button>
+      <button
+        class="logout-btn"
+        onclick="sair(event)"
+      >
+        SAIR
+      </button>
 
-</div>
+    </div>
 
   </header>
 
@@ -1319,6 +1319,7 @@
       deleteDoc,
       doc,
       query,
+      where,
       orderBy,
       serverTimestamp,
       onSnapshot,
@@ -1608,6 +1609,76 @@
 
 
     /* =========================
+       ENCONTRAR ID REAL DO ARTISTA
+    ========================== */
+
+    async function encontrarIdRealDoArtista(item) {
+
+      const possiveisIds = [
+        item.artistaId,
+        item.artistId,
+        item.userId,
+        item.uid,
+        item.autorId,
+        item.criadoPor,
+        item.autorUID,
+        item.autorUid,
+        item.artistaUID,
+        item.artistaUid
+      ].filter(Boolean);
+
+      for (const possivelId of possiveisIds) {
+
+        try {
+
+          const ref = doc(
+            db,
+            "artistas",
+            possivelId
+          );
+
+          const snap = await getDoc(ref);
+
+          if (snap.exists()) {
+            return snap.id;
+          }
+
+        } catch (erro) {
+          console.warn(
+            "Erro ao procurar artista:",
+            erro
+          );
+        }
+      }
+
+      for (const possivelId of possiveisIds) {
+
+        try {
+
+          const q = query(
+            collection(db, "artistas"),
+            where("uid", "==", possivelId)
+          );
+
+          const snap = await getDocs(q);
+
+          if (!snap.empty) {
+            return snap.docs[0].id;
+          }
+
+        } catch (erro) {
+          console.warn(
+            "Erro ao procurar pelo UID:",
+            erro
+          );
+        }
+      }
+
+      return "";
+    }
+
+
+    /* =========================
        AUTENTICAÇÃO
     ========================== */
 
@@ -1727,6 +1798,39 @@
 
 
     /* =========================
+       SAIR
+    ========================== */
+
+    window.sair =
+      async function(event){
+
+        if(event){
+          event.preventDefault();
+        }
+
+
+        try{
+
+          await signOut(auth);
+
+          window.location.replace(
+            "area-do-artista.html"
+          );
+
+        }
+        catch(erro){
+
+          console.error(
+            "Erro ao sair:",
+            erro
+          );
+
+        }
+
+      };
+
+
+    /* =========================
        ABRIR MÍDIA
     ========================== */
 
@@ -1828,7 +1932,7 @@
 
 
     /* =========================
-       FOTO PREVIEW
+       FOTO PREVIEW / REMOVER
     ========================== */
 
     window.previewPhoto =
@@ -1896,8 +2000,30 @@
       };
 
 
+    window.removerFoto =
+      function(){
+
+        photoFile = null;
+
+        if(photoPreviewURL){
+          URL.revokeObjectURL(photoPreviewURL);
+          photoPreviewURL = "";
+        }
+
+        const input = document.getElementById("photoInput");
+        if(input) input.value = "";
+
+        const prev = document.getElementById("photoPreview");
+        if(prev){
+          prev.innerHTML = "";
+          prev.classList.remove("show");
+        }
+
+      };
+
+
     /* =========================
-       VIDEO PREVIEW
+       VIDEO PREVIEW / REMOVER
     ========================== */
 
     window.previewVideo =
@@ -1970,8 +2096,30 @@
       };
 
 
+    window.removerVideo =
+      function(){
+
+        videoFile = null;
+
+        if(videoPreviewURL){
+          URL.revokeObjectURL(videoPreviewURL);
+          videoPreviewURL = "";
+        }
+
+        const input = document.getElementById("videoInput");
+        if(input) input.value = "";
+
+        const prev = document.getElementById("videoPreview");
+        if(prev){
+          prev.innerHTML = "";
+          prev.classList.remove("show");
+        }
+
+      };
+
+
     /* =========================
-       MÚSICA
+       MÚSICA SELECIONAR / REMOVER / LINK
     ========================== */
 
     window.selecionarMusica =
@@ -1991,6 +2139,16 @@
         removerVideo();
 
 
+        musicFile = file;
+
+        musicData = "";
+
+
+        const linkInput = document.getElementById("musicLink");
+
+        if(linkInput) linkInput.value = "";
+
+
         if(musicPreviewURL){
 
           URL.revokeObjectURL(
@@ -2000,61 +2158,36 @@
         }
 
 
-        musicFile =
-          file;
-
-
-        musicData =
-          "";
-
-
         musicPreviewURL =
           URL.createObjectURL(
             file
           );
 
 
-        document.getElementById(
-          "musicLink"
-        ).value =
-          "";
-
-
-        mostrarMusicaPreview(
-          musicPreviewURL,
-          file.name
+        renderizarPreviewMusica(
+          file.name,
+          musicPreviewURL
         );
 
       };
 
 
-    /* =========================
-       LINK MÚSICA
-    ========================== */
-
     window.usarLinkMusica =
       function(){
 
-        const link =
-          document.getElementById(
-            "musicLink"
-          ).value.trim();
+        const input = document.getElementById("musicLink");
+
+        if(!input) return;
 
 
-        if(!link){
-          return;
-        }
-
-
-        const url =
-          urlSegura(link);
+        const url = urlSegura(input.value);
 
 
         if(!url){
 
-          alert(
-            "Coloca um link válido começando por https://"
-          );
+          if(input.value.trim()){
+            alert("Por favor, insere um link HTTP/HTTPS válido.");
+          }
 
           return;
 
@@ -2066,77 +2199,41 @@
         removerVideo();
 
 
-        musicFile =
-          null;
+        musicFile = null;
+
+        musicData = url;
 
 
-        musicData =
-          url;
+        const fileInput = document.getElementById("musicInput");
+
+        if(fileInput) fileInput.value = "";
 
 
-        document.getElementById(
-          "musicInput"
-        ).value =
-          "";
-
-
-        mostrarMusicaPreview(
-          url,
-          "Música partilhada"
+        renderizarPreviewMusica(
+          "Música por link",
+          url
         );
 
       };
 
 
-    /* =========================
-       PREVIEW MÚSICA
-    ========================== */
+    function renderizarPreviewMusica(nome, src){
 
-    function mostrarMusicaPreview(
-      src,
-      name
-    ){
+      const prev = document.getElementById("musicPreview");
 
-      const url =
-        urlSegura(src);
+      if(!prev) return;
 
 
-      if(
-        !url &&
-        !String(src).startsWith("blob:")
-      ){
-
-        return;
-
-      }
-
-
-      document.getElementById(
-        "musicPreview"
-      ).innerHTML = `
+      prev.innerHTML = `
 
         <div class="music-preview-card">
 
           <div class="music-title">
-            🎵
-            ${escaparHTML(name)}
+            🎵 ${escaparHTML(nome)}
           </div>
 
 
-          <div class="music-artist">
-            ${escaparHTML(
-              artistName
-            )}
-          </div>
-
-
-          <audio controls>
-
-            <source
-              src="${escaparHTML(src)}"
-            >
-
-          </audio>
+          <audio controls src="${src}"></audio>
 
 
           <button
@@ -2152,432 +2249,163 @@
       `;
 
 
-      document.getElementById(
-        "musicPreview"
-      ).classList.add(
-        "show"
-      );
+      prev.classList.add("show");
+
+    }
+
+
+    window.removerMusica =
+      function(){
+
+        musicFile = null;
+
+        musicData = "";
+
+
+        if(musicPreviewURL){
+
+          URL.revokeObjectURL(
+            musicPreviewURL
+          );
+
+          musicPreviewURL = "";
+
+        }
+
+
+        const inputF = document.getElementById("musicInput");
+
+        if(inputF) inputF.value = "";
+
+
+        const inputL = document.getElementById("musicLink");
+
+        if(inputL) inputL.value = "";
+
+
+        const prev = document.getElementById("musicPreview");
+
+        if(prev){
+
+          prev.innerHTML = "";
+
+          prev.classList.remove("show");
+
+        }
+
+      };
+
+
+    /* =========================
+       UPLOAD CLOUDINARY
+    ========================== */
+
+    function uploadCloudinary(file, resourceType, onProgress){
+
+      return new Promise((resolve, reject) => {
+
+        const url = resourceType === "video"
+          ? CLOUDINARY_VIDEO_URL
+          : CLOUDINARY_IMAGE_URL;
+
+
+        const xhr = new XMLHttpRequest();
+
+        const formData = new FormData();
+
+
+        formData.append("file", file);
+
+        formData.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
+
+
+        xhr.open("POST", url, true);
+
+
+        xhr.upload.onprogress = function(e){
+
+          if(e.lengthComputable && onProgress){
+
+            const percent = Math.round((e.loaded / e.total) * 100);
+
+            onProgress(percent);
+
+          }
+
+        };
+
+
+        xhr.onload = function(){
+
+          if(xhr.status >= 200 && xhr.status < 300){
+
+            try{
+
+              const res = JSON.parse(xhr.responseText);
+
+              resolve(res.secure_url || res.url);
+
+            }
+            catch(err){
+
+              reject(err);
+
+            }
+
+          } else {
+
+            reject(new Error("Erro no upload Cloudinary: " + xhr.status));
+
+          }
+
+        };
+
+
+        xhr.onerror = function(){
+
+          reject(new Error("Erro de rede ao enviar arquivo."));
+
+        };
+
+
+        xhr.send(formData);
+
+      });
 
     }
 
 
     /* =========================
-       REMOVER FOTO
+       ATUALIZAR PROGRESSO
     ========================== */
 
-    window.removerFoto =
-      function(){
+    function atualizarProgresso(percent, texto){
 
-        if(photoPreviewURL){
+      const box = document.getElementById("uploadProgress");
 
-          try{
+      const fill = document.getElementById("progressFill");
 
-            URL.revokeObjectURL(
-              photoPreviewURL
-            );
+      const status = document.getElementById("uploadStatus");
 
-          }
-          catch(error){}
+      const perc = document.getElementById("uploadPercent");
 
-        }
 
+      if(box) box.classList.add("show");
 
-        photoFile =
-          null;
+      if(fill) fill.style.width = percent + "%";
 
+      if(status) status.textContent = texto || "A carregar...";
 
-        photoPreviewURL =
-          "";
-
-
-        document.getElementById(
-          "photoInput"
-        ).value =
-          "";
-
-
-        document.getElementById(
-          "photoPreview"
-        ).innerHTML =
-          "";
-
-
-        document.getElementById(
-          "photoPreview"
-        ).classList.remove(
-          "show"
-        );
-
-      };
-
-
-    /* =========================
-       REMOVER VIDEO
-    ========================== */
-
-    window.removerVideo =
-      function(){
-
-        if(videoPreviewURL){
-
-          try{
-
-            URL.revokeObjectURL(
-              videoPreviewURL
-            );
-
-          }
-          catch(error){}
-
-        }
-
-
-        videoFile =
-          null;
-
-
-        videoPreviewURL =
-          "";
-
-
-        document.getElementById(
-          "videoInput"
-        ).value =
-          "";
-
-
-        document.getElementById(
-          "videoPreview"
-        ).innerHTML =
-          "";
-
-
-        document.getElementById(
-          "videoPreview"
-        ).classList.remove(
-          "show"
-        );
-
-      };
-
-
-    /* =========================
-       REMOVER MÚSICA
-    ========================== */
-
-    window.removerMusica =
-      function(){
-
-        if(musicPreviewURL){
-
-          try{
-
-            URL.revokeObjectURL(
-              musicPreviewURL
-            );
-
-          }
-          catch(error){}
-
-        }
-
-
-        musicFile =
-          null;
-
-
-        musicPreviewURL =
-          "";
-
-
-        musicData =
-          "";
-
-
-        document.getElementById(
-          "musicInput"
-        ).value =
-          "";
-
-
-        document.getElementById(
-          "musicLink"
-        ).value =
-          "";
-
-
-        document.getElementById(
-          "musicPreview"
-        ).innerHTML =
-          "";
-
-
-        document.getElementById(
-          "musicPreview"
-        ).classList.remove(
-          "show"
-        );
-
-      };
-
-
-    /* =========================
-       PROGRESSO
-    ========================== */
-
-    function mostrarProgresso(
-      percent,
-      mensagem
-    ){
-
-      const progress =
-        document.getElementById(
-          "uploadProgress"
-        );
-
-
-      const fill =
-        document.getElementById(
-          "progressFill"
-        );
-
-
-      const percentText =
-        document.getElementById(
-          "uploadPercent"
-        );
-
-
-      const status =
-        document.getElementById(
-          "uploadStatus"
-        );
-
-
-      progress.classList.add(
-        "show"
-      );
-
-
-      fill.style.width =
-        percent + "%";
-
-
-      percentText.textContent =
-        percent + "%";
-
-
-      status.textContent =
-        mensagem;
+      if(perc) perc.textContent = percent + "%";
 
     }
 
 
     function esconderProgresso(){
 
-      setTimeout(
-        function(){
+      const box = document.getElementById("uploadProgress");
 
-          document.getElementById(
-            "uploadProgress"
-          ).classList.remove(
-            "show"
-          );
-
-        },
-        1000
-      );
-
-    }
-
-
-    /* =========================
-       CLOUDINARY
-    ========================== */
-
-    function enviarParaCloudinary(
-      file,
-      resourceType
-    ){
-
-      return new Promise(
-        function(
-          resolve,
-          reject
-        ){
-
-          const endpoint =
-            resourceType === "image"
-
-              ? CLOUDINARY_IMAGE_URL
-
-              : CLOUDINARY_VIDEO_URL;
-
-
-          const formData =
-            new FormData();
-
-
-          formData.append(
-            "file",
-            file
-          );
-
-
-          formData.append(
-            "upload_preset",
-            CLOUDINARY_UPLOAD_PRESET
-          );
-
-
-          formData.append(
-            "folder",
-            "kuduro-prime/feed"
-          );
-
-
-          const xhr =
-            new XMLHttpRequest();
-
-
-          xhr.open(
-            "POST",
-            endpoint,
-            true
-          );
-
-
-          xhr.upload.onprogress =
-            function(event){
-
-              if(
-                event.lengthComputable
-              ){
-
-                const percent =
-                  Math.round(
-                    event.loaded /
-                    event.total *
-                    100
-                  );
-
-
-                mostrarProgresso(
-                  percent,
-                  "A enviar para o Cloudinary..."
-                );
-
-              }
-
-            };
-
-
-          xhr.onload =
-            function(){
-
-              if(
-                xhr.status >= 200 &&
-                xhr.status < 300
-              ){
-
-                try{
-
-                  const resposta =
-                    JSON.parse(
-                      xhr.responseText
-                    );
-
-
-                  if(
-                    !resposta.secure_url
-                  ){
-
-                    reject(
-                      new Error(
-                        "Cloudinary não devolveu o URL."
-                      )
-                    );
-
-                    return;
-
-                  }
-
-
-                  mostrarProgresso(
-                    100,
-                    "Upload concluído! 👑"
-                  );
-
-
-                  resolve(
-                    resposta
-                  );
-
-                }
-                catch(error){
-
-                  reject(error);
-
-                }
-
-              }
-              else{
-
-                let mensagem =
-                  "Erro no Cloudinary.";
-
-
-                try{
-
-                  const erro =
-                    JSON.parse(
-                      xhr.responseText
-                    );
-
-
-                  if(
-                    erro.error &&
-                    erro.error.message
-                  ){
-
-                    mensagem =
-                      erro.error.message;
-
-                  }
-
-                }
-                catch(error){}
-
-
-                reject(
-                  new Error(
-                    mensagem
-                  )
-                );
-
-              }
-
-            };
-
-
-          xhr.onerror =
-            function(){
-
-              reject(
-                new Error(
-                  "Não foi possível ligar ao Cloudinary."
-                )
-              );
-
-            };
-
-
-          xhr.send(
-            formData
-          );
-
-        }
-      );
+      if(box) box.classList.remove("show");
 
     }
 
@@ -2589,231 +2417,118 @@
     window.publicar =
       async function(){
 
-        if(isPublishing){
-          return;
-        }
+        if(isPublishing) return;
 
 
-        if(!usuarioAtual){
+        const textEl = document.getElementById("postText");
 
-          alert(
-            "A tua conta ainda está a carregar."
-          );
-
-          return;
-
-        }
+        const texto = textEl ? textEl.value.trim() : "";
 
 
-        const text =
-          document.getElementById(
-            "postText"
-          ).value.trim();
+        if(!texto && !photoFile && !videoFile && !musicFile && !musicData){
 
-
-        if(
-          !text &&
-          !photoFile &&
-          !videoFile &&
-          !musicFile &&
-          !musicData
-        ){
-
-          alert(
-            "Escreve algo ou adiciona uma foto, vídeo ou música."
-          );
+          alert("Escreve algo ou adiciona uma foto, vídeo ou música para publicar!");
 
           return;
 
         }
 
 
-        isPublishing =
-          true;
+        isPublishing = true;
 
-
-        publishBtn.disabled =
-          true;
-
-
-        publishBtn.textContent =
-          "A PUBLICAR...";
-
-
-        let mediaURL =
-          "";
-
-
-        let mediaType =
-          "";
-
-
-        let mediaName =
-          "";
+        if(publishBtn) publishBtn.disabled = true;
 
 
         try{
 
-          /* FOTO */
+          let mediaURL = "";
+
+          let tipoMidia = "texto";
+
 
           if(photoFile){
 
-            mediaType =
-              "photo";
+            tipoMidia = "foto";
 
+            atualizarProgresso(10, "A enviar foto...");
 
-            mostrarProgresso(
-              0,
-              "A preparar foto..."
+            mediaURL = await uploadCloudinary(
+              photoFile,
+              "image",
+              (p) => atualizarProgresso(p, "A enviar foto...")
             );
 
-
-            const resultado =
-              await enviarParaCloudinary(
-                photoFile,
-                "image"
-              );
-
-
-            mediaURL =
-              resultado.secure_url;
-
           }
-
-
-          /* VÍDEO */
-
           else if(videoFile){
 
-            mediaType =
-              "video";
+            tipoMidia = "video";
 
+            atualizarProgresso(10, "A enviar vídeo...");
 
-            mostrarProgresso(
-              0,
-              "A preparar vídeo..."
+            mediaURL = await uploadCloudinary(
+              videoFile,
+              "video",
+              (p) => atualizarProgresso(p, "A enviar vídeo...")
             );
 
-
-            const resultado =
-              await enviarParaCloudinary(
-                videoFile,
-                "video"
-              );
-
-
-            mediaURL =
-              resultado.secure_url;
-
-
-            mediaName =
-              videoFile.name;
-
           }
-
-
-          /* MÚSICA */
-
           else if(musicFile){
 
-            mediaType =
-              "music";
+            tipoMidia = "musica";
 
+            atualizarProgresso(10, "A enviar música...");
 
-            mediaName =
-              musicFile.name;
-
-
-            mostrarProgresso(
-              0,
-              "A preparar música..."
+            mediaURL = await uploadCloudinary(
+              musicFile,
+              "video",
+              (p) => atualizarProgresso(p, "A enviar música...")
             );
 
-
-            const resultado =
-              await enviarParaCloudinary(
-                musicFile,
-                "video"
-              );
-
-
-            mediaURL =
-              resultado.secure_url;
-
           }
-
-
-          /* LINK */
-
           else if(musicData){
 
-            mediaType =
-              "music-link";
+            tipoMidia = "musica";
 
-
-            mediaURL =
-              musicData;
-
-
-            mediaName =
-              "Música partilhada";
+            mediaURL = musicData;
 
           }
 
 
-          /* FIRESTORE */
+          atualizarProgresso(95, "A guardar publicação...");
+
+
+          const novaPublicacao = {
+
+            texto: texto,
+
+            mediaUrl: mediaURL,
+
+            tipo: tipoMidia,
+
+            artistaId: usuarioAtual.uid,
+
+            artistaNome: artistName,
+
+            artistaUser: artistUser,
+
+            artistaFoto: artistPhoto,
+
+            ardeusCount: 0,
+
+            comentariosCount: 0,
+
+            criadoEm: serverTimestamp()
+
+          };
+
 
           await addDoc(
-            collection(
-              db,
-              "publicacoes"
-            ),
-            {
-
-              artistaId:
-                usuarioAtual.uid,
-
-              authorName:
-                artistName,
-
-              authorUsername:
-                artistUser,
-
-              authorPhoto:
-                artistPhoto,
-
-              text:
-                text,
-
-              mediaType:
-                mediaType,
-
-              mediaURL:
-                mediaURL,
-
-              mediaName:
-                mediaName,
-
-              createdAt:
-                serverTimestamp(),
-
-              likes:
-                0,
-
-              ardes:
-                0,
-
-              comments:
-                0
-
-            }
+            collection(db, "publicacoes"),
+            novaPublicacao
           );
 
 
-          document.getElementById(
-            "postText"
-          ).value =
-            "";
+          if(textEl) textEl.value = "";
 
 
           removerFoto();
@@ -2823,78 +2538,36 @@
           removerMusica();
 
 
-          selectedType =
-            "";
+          selectedType = "";
 
 
-          document
-            .querySelectorAll(
-              ".media-box"
-            )
-            .forEach(
-              function(box){
+          const boxes = document.querySelectorAll(".media-box");
 
-                box.classList.remove(
-                  "show"
-                );
-
-              }
-            );
+          boxes.forEach(b => b.classList.remove("show"));
 
 
-          document
-            .querySelectorAll(
-              ".tool-btn"
-            )
-            .forEach(
-              function(button){
+          const buttons = document.querySelectorAll(".tool-btn");
 
-                button.classList.remove(
-                  "active"
-                );
-
-              }
-            );
+          buttons.forEach(b => b.classList.remove("active"));
 
 
           esconderProgresso();
 
-
-          alert(
-            "Publicação enviada com sucesso! 👑"
-          );
-
-
         }
-        catch(error){
+        catch(erro){
 
-          console.error(
-            "Erro ao publicar:",
-            error
-          );
+          console.error("Erro ao publicar:", erro);
 
-
-          alert(
-            "Erro ao publicar: " +
-            error.message
-          );
-
+          alert("Ocorreu um erro ao publicar. Tenta novamente.");
 
           esconderProgresso();
 
         }
         finally{
 
-          isPublishing =
-            false;
+          isPublishing = false;
 
-
-          publishBtn.disabled =
-            false;
-
-
-          publishBtn.textContent =
-            "PUBLICAR";
+          if(publishBtn) publishBtn.disabled = false;
 
         }
 
@@ -2902,1010 +2575,94 @@
 
 
     /* =========================
-       BUSCAR VALOR
-    ========================== */
-
-    function primeiroValor(
-      data,
-      campos
-    ){
-
-      for(
-        const campo of campos
-      ){
-
-        const valor =
-          data[campo];
-
-
-        if(
-          valor !== undefined &&
-          valor !== null &&
-          String(valor).trim() !== ""
-        ){
-
-          return valor;
-
-        }
-
-      }
-
-
-      return "";
-
-    }
-
-
-    /* =========================
-       ARTISTA DO CONTEÚDO
-    ========================== */
-
-    function artistaDoConteudo(
-      data
-    ){
-
-      return primeiroValor(
-        data,
-        [
-          "artistaId",
-          "artistId",
-          "userId",
-          "uid",
-          "artistaUID",
-          "artistaUid"
-        ]
-      );
-
-    }
-
-
-    /* =========================
-       NOME DO ARTISTA
-    ========================== */
-
-    function nomeDoConteudo(
-      data
-    ){
-
-      return primeiroValor(
-        data,
-        [
-          "artistName",
-          "nomeArtista",
-          "artista",
-          "authorName",
-          "nome",
-          "stageName"
-        ]
-      ) ||
-      "Artista Prime";
-
-    }
-
-
-    /* =========================
-       USERNAME
-    ========================== */
-
-    function usernameDoConteudo(
-      data
-    ){
-
-      return primeiroValor(
-        data,
-        [
-          "authorUsername",
-          "username",
-          "userName",
-          "artistaUsername",
-          "nomeUsuario",
-          "usuario"
-        ]
-      ) ||
-      "artista";
-
-    }
-
-
-    /* =========================
-       FOTO
-    ========================== */
-
-    function fotoDoConteudo(
-      data
-    ){
-
-      return primeiroValor(
-        data,
-        [
-          "authorPhoto",
-          "artistPhoto",
-          "foto",
-          "photo",
-          "photoURL",
-          "fotoPerfil",
-          "imagem",
-          "image",
-          "avatar",
-          "profilePhoto"
-        ]
-      );
-
-    }
-
-
-    /* =========================
-       TÍTULO
-    ========================== */
-
-    function tituloDoConteudo(
-      data,
-      tipo
-    ){
-
-      if(
-        tipo === "music"
-      ){
-
-        return primeiroValor(
-          data,
-          [
-            "titulo",
-            "title",
-            "nomeMusica",
-            "nome",
-            "musicName"
-          ]
-        ) ||
-        "Música sem título";
-
-      }
-
-
-      return primeiroValor(
-        data,
-        [
-          "titulo",
-          "title",
-          "nome",
-          "videoName",
-          "nomeVideo"
-        ]
-      ) ||
-      "Vídeo sem título";
-
-    }
-
-
-    /* =========================
-       URL DA MÚSICA
-    ========================== */
-
-    function urlDaMusica(
-      data
-    ){
-
-      return primeiroValor(
-        data,
-        [
-          "audioUrl",
-          "audioURL",
-          "audio",
-          "musicUrl",
-          "musicURL",
-          "url",
-          "file",
-          "fileUrl",
-          "src",
-          "mediaURL"
-        ]
-      );
-
-    }
-
-
-    /* =========================
-       URL DO VÍDEO
-    ========================== */
-
-    function urlDoVideo(
-      data
-    ){
-
-      return primeiroValor(
-        data,
-        [
-          "videoUrl",
-          "videoURL",
-          "video",
-          "urlVideo",
-          "url",
-          "file",
-          "fileUrl",
-          "src",
-          "mediaURL"
-        ]
-      );
-
-    }
-
-
-    /* =========================
-       CAPA DA MÚSICA
-    ========================== */
-
-    function capaDaMusica(
-      data
-    ){
-
-      return primeiroValor(
-        data,
-        [
-          "cover",
-          "coverUrl",
-          "capa",
-          "capaUrl",
-          "image",
-          "imageUrl",
-          "imagem",
-          "foto"
-        ]
-      );
-
-    }
-
-
-    /* =========================
-       CAPA DO VÍDEO
-    ========================== */
-
-    function capaDoVideo(
-      data
-    ){
-
-      return primeiroValor(
-        data,
-        [
-          "thumbnail",
-          "thumbnailUrl",
-          "capa",
-          "cover",
-          "coverUrl",
-          "image",
-          "imageUrl",
-          "imagem"
-        ]
-      );
-
-    }
-
-
-    /* =========================
-       DATA
-    ========================== */
-
-    function dataDoConteudo(
-      data
-    ){
-
-      const campos = [
-
-        data.createdAt,
-        data.criadoEm,
-        data.dataCriacao,
-        data.created_at,
-        data.timestamp,
-        data.data
-
-      ];
-
-
-      for(
-        const campo of campos
-      ){
-
-        if(!campo){
-          continue;
-        }
-
-
-        if(
-          typeof campo.toMillis ===
-          "function"
-        ){
-
-          return campo.toMillis();
-
-        }
-
-
-        if(
-          campo.seconds !== undefined
-        ){
-
-          return Number(
-            campo.seconds
-          ) * 1000;
-
-        }
-
-
-        const date =
-          new Date(
-            campo
-          );
-
-
-        if(
-          !isNaN(
-            date.getTime()
-          )
-        ){
-
-          return date.getTime();
-
-        }
-
-      }
-
-
-      return 0;
-
-    }
-
-
-    /* =========================
-       STATUS
-    ========================== */
-
-    function estaPublicado(
-      data
-    ){
-
-      const status =
-        String(
-          data.status ||
-          ""
-        )
-        .trim()
-        .toLowerCase();
-
-
-      return (
-
-        status === "" ||
-
-        status === "publicado" ||
-
-        status === "publicada" ||
-
-        status === "public" ||
-
-        status === "ativo" ||
-
-        status === "ativa"
-
-      );
-
-    }
-
-
-    /* =========================
-       CARREGAR MÚSICAS
-    ========================== */
-
-    async function buscarMusicas(){
-
-      const lista =
-        [];
-
-
-      try{
-
-        const snapshot =
-          await getDocs(
-            collection(
-              db,
-              "musicas"
-            )
-          );
-
-
-        snapshot.forEach(
-          function(docSnap){
-
-            const data =
-              docSnap.data();
-
-
-            if(
-              !estaPublicado(
-                data
-              )
-            ){
-
-              return;
-
-            }
-
-
-            const artistId =
-              String(
-                artistaDoConteudo(
-                  data
-                ) ||
-                ""
-              );
-
-
-            if(
-              !artistId
-            ){
-
-              return;
-
-            }
-
-
-            const url =
-              urlSegura(
-                urlDaMusica(
-                  data
-                )
-              );
-
-
-            if(!url){
-
-              return;
-
-            }
-
-
-            lista.push({
-
-              id:
-                docSnap.id,
-
-              origem:
-                "musicas",
-
-              tipo:
-                "music",
-
-              artistaId:
-                artistId,
-
-              nome:
-                nomeDoConteudo(
-                  data
-                ),
-
-              username:
-                usernameDoConteudo(
-                  data
-                ),
-
-              foto:
-                fotoDoConteudo(
-                  data
-                ),
-
-              titulo:
-                tituloDoConteudo(
-                  data,
-                  "music"
-                ),
-
-              url:
-                url,
-
-              capa:
-                capaDaMusica(
-                  data
-                ),
-
-              timestamp:
-                dataDoConteudo(
-                  data
-                ),
-
-              likes:
-                Number(
-                  data.likes ||
-                  0
-                ),
-
-              ardes:
-                Number(
-                  data.ardes ||
-                  0
-                ),
-
-              comments:
-                Number(
-                  data.comments ||
-                  data.comentarios ||
-                  0
-                )
-
-            });
-
-          }
-        );
-
-      }
-      catch(error){
-
-        console.error(
-          "Erro ao buscar músicas:",
-          error
-        );
-
-      }
-
-
-      return lista;
-
-    }
-
-
-    /* =========================
-       CARREGAR VÍDEOS
-    ========================== */
-
-    async function buscarVideos(){
-
-      const lista =
-        [];
-
-
-      try{
-
-        const snapshot =
-          await getDocs(
-            collection(
-              db,
-              "videos"
-            )
-          );
-
-
-        snapshot.forEach(
-          function(docSnap){
-
-            const data =
-              docSnap.data();
-
-
-            if(
-              !estaPublicado(
-                data
-              )
-            ){
-
-              return;
-
-            }
-
-
-            const artistId =
-              String(
-                artistaDoConteudo(
-                  data
-                ) ||
-                ""
-              );
-
-
-            if(
-              !artistId
-            ){
-
-              return;
-
-            }
-
-
-            const url =
-              urlSegura(
-                urlDoVideo(
-                  data
-                )
-              );
-
-
-            if(!url){
-
-              return;
-
-            }
-
-
-            lista.push({
-
-              id:
-                docSnap.id,
-
-              origem:
-                "videos",
-
-              tipo:
-                "video",
-
-              artistaId:
-                artistId,
-
-              nome:
-                nomeDoConteudo(
-                  data
-                ),
-
-              username:
-                usernameDoConteudo(
-                  data
-                ),
-
-              foto:
-                fotoDoConteudo(
-                  data
-                ),
-
-              titulo:
-                tituloDoConteudo(
-                  data,
-                  "video"
-                ),
-
-              url:
-                url,
-
-              capa:
-                capaDoVideo(
-                  data
-                ),
-
-              timestamp:
-                dataDoConteudo(
-                  data
-                ),
-
-              likes:
-                Number(
-                  data.likes ||
-                  0
-                ),
-
-              ardes:
-                Number(
-                  data.ardes ||
-                  0
-                ),
-
-              comments:
-                Number(
-                  data.comments ||
-                  data.comentarios ||
-                  0
-                )
-
-            });
-
-          }
-        );
-
-      }
-      catch(error){
-
-        console.error(
-          "Erro ao buscar vídeos:",
-          error
-        );
-
-      }
-
-
-      return lista;
-
-    }
-
-
-    /* =========================
-       CARREGAR PUBLICAÇÕES
-    ========================== */
-
-    function buscarPublicacoesSnapshot(
-      snapshot
-    ){
-
-      const lista =
-        [];
-
-
-      snapshot.forEach(
-        function(docSnap){
-
-          const data =
-            docSnap.data();
-
-
-          lista.push({
-
-            id:
-              docSnap.id,
-
-            origem:
-              "publicacoes",
-
-            tipo:
-              "post",
-
-            artistaId:
-              String(
-                data.artistaId ||
-                ""
-              ),
-
-            nome:
-              data.authorName ||
-              "Artista Prime",
-
-            username:
-              data.authorUsername ||
-              "artista",
-
-            foto:
-              data.authorPhoto ||
-              "",
-
-            texto:
-              data.text ||
-              "",
-
-            mediaType:
-              data.mediaType ||
-              "",
-
-            url:
-              urlSegura(
-                data.mediaURL ||
-                ""
-              ),
-
-            mediaName:
-              data.mediaName ||
-              "",
-
-            timestamp:
-              dataDoConteudo(
-                data
-              ),
-
-            likes:
-              Number(
-                data.likes ||
-                0
-              ),
-
-            ardes:
-              Number(
-                data.ardes ||
-                0
-              ),
-
-            comments:
-              Number(
-                data.comments ||
-                0
-              )
-
-          });
-
-        }
-      );
-
-
-      return lista;
-
-    }
-
-
-    /* =========================
-       FEED TEMPO REAL
+       INICIAR FEED TEMPO REAL
     ========================== */
 
     function iniciarFeedTempoReal(){
 
-      if(
-        feedListenerIniciado
-      ){
+      if(feedListenerIniciado) return;
 
-        return;
-
-      }
+      feedListenerIniciado = true;
 
 
-      feedListenerIniciado =
-        true;
+      const q = query(
+        collection(db, "publicacoes"),
+        orderBy("criadoEm", "desc")
+      );
 
 
-      feedPosts.innerHTML = `
+      unsubscribePublicacoes = onSnapshot(
+        q,
+        async function(snapshot){
 
-        <div class="empty-feed">
-
-          <strong>
-            🔥 A carregar o Feed PRIME...
-          </strong>
-
-          A procurar músicas, vídeos e publicações dos artistas.
-
-        </div>
-
-      `;
-
-
-      const publicacoesRef =
-        collection(
-          db,
-          "publicacoes"
-        );
-
-
-      const q =
-        query(
-          publicacoesRef,
-          orderBy(
-            "createdAt",
-            "desc"
-          )
-        );
-
-
-      unsubscribePublicacoes =
-        onSnapshot(
-          q,
-          async function(snapshot){
-
-            try{
-
-              const publicacoes =
-                buscarPublicacoesSnapshot(
-                  snapshot
-                );
-
-
-              const musicas =
-                await buscarMusicas();
-
-
-              const videos =
-                await buscarVideos();
-
-
-              const tudo =
-                [
-                  ...publicacoes,
-                  ...musicas,
-                  ...videos
-                ];
-
-
-              tudo.sort(
-                function(a,b){
-
-                  return (
-                    b.timestamp -
-                    a.timestamp
-                  );
-
-                }
-              );
-
-
-              renderizarFeed(
-                tudo
-              );
-
-            }
-            catch(error){
-
-              console.error(
-                "Erro ao montar feed:",
-                error
-              );
-
-
-              feedPosts.innerHTML = `
-
-                <div class="empty-feed">
-
-                  <strong>
-                    ⚠️ Erro ao carregar o feed
-                  </strong>
-
-                  ${escaparHTML(
-                    error.message ||
-                    "Não foi possível carregar o conteúdo."
-                  )}
-
-                </div>
-
-              `;
-
-            }
-
-          },
-          function(error){
-
-            console.error(
-              "Erro no listener do feed:",
-              error
-            );
-
+          if(snapshot.empty){
 
             feedPosts.innerHTML = `
 
               <div class="empty-feed">
 
-                <strong>
-                  ⚠️ Erro ao carregar
-                </strong>
+                <strong>Nenhuma publicação ainda!</strong>
 
-                Verifica as regras do Firestore
-                e tenta novamente.
+                Sê o primeiro a publicar algo no Feed PRIME 🔥
 
               </div>
 
             `;
 
+            return;
+
           }
-        );
-
-    }
 
 
-    /* =========================
-       RENDERIZAR FEED
-    ========================== */
-
-    function renderizarFeed(
-      lista
-    ){
-
-      feedPosts.innerHTML =
-        "";
+          const postsHTML = [];
 
 
-      if(
-        !lista.length
-      ){
+          for(const docSnap of snapshot.docs){
 
-        feedPosts.innerHTML = `
+            const data = docSnap.data();
 
-          <div class="empty-feed">
-
-            <strong>
-              👑 Ainda não há publicações
-            </strong>
-
-            Sê o primeiro artista a publicar
-            no KUDURO PRIME.
-
-          </div>
-
-        `;
-
-        return;
-
-      }
+            data.id = docSnap.id;
 
 
-      lista.forEach(
-        function(item){
+            const postEl = await criarItemFeed(data);
 
-          criarItemFeed(
-            item
-          );
+            postsHTML.push(postEl);
+
+          }
+
+
+          feedPosts.innerHTML = "";
+
+
+          postsHTML.forEach(el => {
+
+            feedPosts.appendChild(el);
+
+
+            if(comentariosAbertos.has(el.dataset.id)){
+
+              ouvirComentarios(el.dataset.id);
+
+            }
+
+          });
+
+        },
+        function(erro){
+
+          console.error("Erro no feed em tempo real:", erro);
+
+          feedPosts.innerHTML = `
+
+            <div class="empty-feed">
+
+              <strong>Erro ao carregar o feed.</strong>
+
+              Por favor, recarrega a página.
+
+            </div>
+
+          `;
 
         }
       );
@@ -3914,48 +2671,37 @@
 
 
     /* =========================
-       CRIAR ITEM
+       CRIAR ITEM DO FEED
     ========================== */
 
-    function criarItemFeed(
-      item
-    ){
+    async function criarItemFeed(item){
 
-      const article =
-        document.createElement(
-          "article"
-        );
+      const idDoArtista = await encontrarIdRealDoArtista(item);
 
 
-      article.className =
-        "post";
+      const article = document.createElement("article");
+
+      article.className = "post";
+
+      article.dataset.id = item.id;
 
 
-      const nome =
-        item.nome ||
-        "Artista Prime";
+      const nome = item.artistaNome || "Artista PRIME";
+
+      const foto = item.artistaFoto || "";
+
+      const texto = item.texto || "";
+
+      const media = item.mediaUrl || "";
+
+      const tipo = item.tipo || "texto";
+
+      const ardeusCount = item.ardeusCount || 0;
+
+      const comentariosCount = item.comentariosCount || 0;
 
 
-      const username =
-        String(
-          item.username ||
-          "artista"
-        )
-        .replace(
-          /^@/,
-          ""
-        );
-
-
-      const foto =
-        urlSegura(
-          item.foto
-        );
-
-
-      let avatarHTML =
-        "👤";
-
+      let avatarHTML = "👤";
 
       if(foto){
 
@@ -3963,8 +2709,8 @@
 
           <img
             src="${escaparHTML(foto)}"
-            alt="Foto do artista"
-            onerror="this.style.display='none'"
+            alt="${escaparHTML(nome)}"
+            onerror="this.parentNode.innerHTML='👤'"
           >
 
         `;
@@ -3972,337 +2718,61 @@
       }
 
 
-      let tipoHTML =
-        "";
+      let mediaHTML = "";
 
 
-      if(
-        item.tipo ===
-        "music"
-      ){
+      if(tipo === "foto" && media){
 
-        tipoHTML =
-          `<span class="post-type">🎵 NOVA MÚSICA</span>`;
+        mediaHTML = `
 
-      }
-
-
-      else if(
-        item.tipo ===
-        "video"
-      ){
-
-        tipoHTML =
-          `<span class="post-type">🎬 NOVO VÍDEO</span>`;
-
-      }
-
-
-      else if(
-        item.tipo ===
-        "post"
-      ){
-
-        if(
-          item.mediaType ===
-          "music"
-          ||
-          item.mediaType ===
-          "music-link"
-        ){
-
-          tipoHTML =
-            `<span class="post-type">🎵 MÚSICA</span>`;
-
-        }
-
-
-        else if(
-          item.mediaType ===
-          "video"
-        ){
-
-          tipoHTML =
-            `<span class="post-type">🎬 VÍDEO</span>`;
-
-        }
-
-
-        else if(
-          item.mediaType ===
-          "photo"
-        ){
-
-          tipoHTML =
-            `<span class="post-type">🖼️ FOTO</span>`;
-
-        }
-
-      }
-
-
-      let conteudo =
-        "";
-
-
-      /* =========================
-         POST NORMAL
-      ========================== */
-
-      if(
-        item.tipo ===
-        "post"
-      ){
-
-        if(item.texto){
-
-          conteudo += `
-
-            <div class="post-text">
-
-              ${escaparHTML(
-                item.texto
-              )}
-
-            </div>
-
-          `;
-
-        }
-
-
-        if(
-          item.mediaType ===
-          "photo" &&
-          item.url
-        ){
-
-          conteudo += `
-
-            <img
-              class="post-image"
-              src="${escaparHTML(item.url)}"
-              alt="Publicação"
-              loading="lazy"
-            >
-
-          `;
-
-        }
-
-
-        else if(
-          item.mediaType ===
-          "video" &&
-          item.url
-        ){
-
-          conteudo += `
-
-            <video
-              class="post-video"
-              controls
-              preload="metadata"
-              playsinline
-            >
-
-              <source
-                src="${escaparHTML(item.url)}"
-              >
-
-              O teu navegador não suporta vídeo.
-
-            </video>
-
-          `;
-
-        }
-
-
-        else if(
-          (
-            item.mediaType ===
-            "music" ||
-
-            item.mediaType ===
-            "music-link"
-          ) &&
-          item.url
-        ){
-
-          conteudo += `
-
-            <div class="post-music">
-
-              <div class="music-icon">
-                🎵
-              </div>
-
-
-              <div class="music-title">
-
-                ${escaparHTML(
-                  item.mediaName ||
-                  "Música"
-                )}
-
-              </div>
-
-
-              <div class="music-artist">
-
-                ${escaparHTML(
-                  nome
-                )}
-
-              </div>
-
-
-              <audio
-                controls
-                preload="none"
-              >
-
-                <source
-                  src="${escaparHTML(item.url)}"
-                >
-
-                O teu navegador não suporta áudio.
-
-              </audio>
-
-            </div>
-
-          `;
-
-        }
-
-      }
-
-
-      /* =========================
-         MÚSICA DA COLEÇÃO MÚSICAS
-      ========================== */
-
-      else if(
-        item.tipo ===
-        "music"
-      ){
-
-        conteudo = `
-
-          <div class="content-badge">
-            👑 PUBLICADO NO KUDURO PRIME
-          </div>
-
-
-          <div class="post-music">
-
-            <div class="music-icon">
-              🎵
-            </div>
-
-
-            <div class="music-title">
-
-              ${escaparHTML(
-                item.titulo
-              )}
-
-            </div>
-
-
-            <div class="music-artist">
-
-              ${escaparHTML(
-                nome
-              )}
-
-            </div>
-
-
-            <audio
-              controls
-              preload="none"
-            >
-
-              <source
-                src="${escaparHTML(item.url)}"
-              >
-
-              O teu navegador não suporta áudio.
-
-            </audio>
-
-          </div>
+          <img
+            class="post-image"
+            src="${escaparHTML(media)}"
+            alt="Foto da publicação"
+            loading="lazy"
+          >
 
         `;
 
       }
+      else if(tipo === "video" && media){
 
-
-      /* =========================
-         VÍDEO DA COLEÇÃO VIDEOS
-      ========================== */
-
-      else if(
-        item.tipo ===
-        "video"
-      ){
-
-        const capaSegura =
-          urlSegura(
-            item.capa
-          );
-
-
-        conteudo = `
-
-          <div class="content-badge">
-            👑 PUBLICADO NO KUDURO PRIME
-          </div>
-
+        mediaHTML = `
 
           <video
             class="post-video"
             controls
             preload="metadata"
-            playsinline
-            ${
-              capaSegura
-                ? `poster="${escaparHTML(capaSegura)}"`
-                : ""
-            }
           >
 
-            <source
-              src="${escaparHTML(item.url)}"
-            >
-
-            O teu navegador não suporta vídeo.
+            <source src="${escaparHTML(media)}">
 
           </video>
 
+        `;
 
-          <div class="video-feed-info">
+      }
+      else if(tipo === "musica" && media){
 
-            <div class="video-feed-title">
+        mediaHTML = `
 
-              ${escaparHTML(
-                item.titulo
-              )}
+          <div class="post-music">
+
+            <div class="music-icon">🎵</div>
+
+            <div class="music-title">
+
+              ${escaparHTML(texto || "Música PRIME")}
+
+            </div>
+
+            <div class="music-artist">
+
+              Por ${escaparHTML(nome)}
 
             </div>
 
-
-            <div class="video-feed-meta">
-
-              🎬 Vídeo de
-              ${escaparHTML(
-                nome
-              )}
-
-            </div>
+            <audio controls src="${escaparHTML(media)}"></audio>
 
           </div>
 
@@ -4311,110 +2781,102 @@
       }
 
 
-      const postId = escaparHTML(item.id);
+      let badgeHTML = "";
 
-const origem = escaparHTML(
-  item.origem || "publicacoes"
-);
-
-const idDoArtista =
-  item.artistaId ||
-  item.artistId ||
-  item.userId ||
-  item.uid ||
-  item.autorId ||
-  item.criadoPor ||
-  "";
-
-console.log("ID DO ARTISTA:", idDoArtista);
-
-article.innerHTML = `
-
-  <div class="post-header">
-
-    <a
-      href="perfil.html?id=${encodeURIComponent(idDoArtista)}"
-      class="post-avatar post-profile-link"
-      title="Ver perfil de ${escaparHTML(nome)}"
-    >
-      ${avatarHTML}
-    </a>
-
-    <div>
-
-      <div class="post-author">
-
-        <a
-          href="perfil.html?id=${encodeURIComponent(idDoArtista)}"
-          class="post-profile-link"
-          title="Ver perfil de ${escaparHTML(nome)}"
-        >
-          ${escaparHTML(nome)}
-        </a>
-
-        <span style="color:#4eb8ff;">
-          ✓
-        </span>
-
-        ${tipoHTML}
-
-      </div>
+      if(tipo === "foto"){
+        badgeHTML = `<div class="content-badge">🖼️ FOTO</div>`;
+      }
+      else if(tipo === "video"){
+        badgeHTML = `<div class="content-badge">🎥 VÍDEO</div>`;
+      }
+      else if(tipo === "musica"){
+        badgeHTML = `<div class="content-badge">🎵 MÚSICA</div>`;
+      }
 
 
-            <div class="post-meta">
+      let dataFormatada = "";
 
-              @${escaparHTML(
-                username
-              )}
+      if(item.criadoEm && item.criadoEm.toDate){
 
-              ·
+        const d = item.criadoEm.toDate();
 
-              ${tempoPublicacao(
-                item.timestamp
-              )}
+        dataFormatada = d.toLocaleDateString("pt-PT", {
+          day: "2-digit",
+          month: "2-digit",
+          year: "numeric",
+          hour: "2-digit",
+          minute: "2-digit"
+        });
+
+      } else {
+
+        dataFormatada = "Agora mesmo";
+
+      }
+
+
+      const linkPerfilUrl = idDoArtista 
+        ? `perfil.html?id=${encodeURIComponent(idDoArtista)}` 
+        : `#`;
+
+
+      article.innerHTML = `
+
+        <div class="post-header">
+
+          <a
+            href="${linkPerfilUrl}"
+            class="post-avatar post-profile-link"
+          >
+            ${avatarHTML}
+          </a>
+
+          <div>
+
+            <div class="post-author">
+
+              <a
+                href="${linkPerfilUrl}"
+                class="post-profile-link"
+              >
+                ${escaparHTML(nome)}
+              </a>
+
+              <span class="post-type">
+                ${tipo.toUpperCase()}
+              </span>
 
             </div>
 
-          </div>
+            <div class="post-meta">
+              ${escaparHTML(dataFormatada)}
+            </div>
 
-
-          <div class="post-menu">
-            ⋯
           </div>
 
         </div>
 
 
-        ${conteudo}
+        ${badgeHTML}
+
+
+        ${texto && tipo !== "musica" ? `<div class="post-text">${escaparHTML(texto)}</div>` : ""}
+
+
+        ${mediaHTML}
 
 
         <div class="post-stats">
 
-          🔥
-
-          <span class="ardes-count">
-
-            ${Number(
-              item.ardes ||
-              0
-            )}
-
+          <span class="ardes-count" id="ardes-${item.id}">
+            🔥 ${ardeusCount} Ardeu
           </span>
 
-          Ardeu
+          &nbsp;•&nbsp;
 
-          ·
-
-          <span class="comments-count">
-
-            ${Number(
-              item.comments ||
-              0
-            )}
-
+          <span class="comments-count" id="comments-count-${item.id}">
+            💬 ${comentariosCount} Comentários
           </span>
-
-          comentários
 
         </div>
 
@@ -4423,9 +2885,9 @@ article.innerHTML = `
 
           <button
             class="post-action ardeu"
+            id="btn-ardeu-${item.id}"
             type="button"
-            data-ardeu="false"
-            onclick="arder(this, '${postId}', '${origem}')"
+            onclick="toggleArdeu('${item.id}')"
           >
             🔥 ARDEU
           </button>
@@ -4434,59 +2896,54 @@ article.innerHTML = `
           <button
             class="post-action"
             type="button"
-            onclick="abrirComentarios('${postId}', '${origem}')"
+            onclick="toggleComentarios('${item.id}')"
           >
-            💬 COMENTÁRIOS
+            💬 COMENTAR
           </button>
 
 
           <button
             class="post-action"
             type="button"
-            onclick="partilhar('${postId}', '${origem}')"
+            onclick="partilhar('${item.id}')"
           >
-            ↗ PARTILHAR
+            🔗 PARTILHAR
           </button>
 
         </div>
 
 
         <div
-          class="comments-box"
-          id="comments-${postId}-${origem}"
+          class="comments-box ${comentariosAbertos.has(item.id) ? 'show' : ''}"
+          id="comments-box-${item.id}"
         >
 
           <div
             class="comments-list"
-            id="comments-list-${postId}-${origem}"
+            id="comments-list-${item.id}"
           >
-
-            <div class="no-comments">
-              A carregar comentários...
-            </div>
-
+            <div class="no-comments">A carregar comentários...</div>
           </div>
 
 
           <form
             class="comment-form"
-            onsubmit="enviarComentario(event, '${postId}', '${origem}')"
+            onkeydown="if(event.key==='Enter'){event.preventDefault(); enviarComentario('${item.id}');}"
+            onsubmit="event.preventDefault(); enviarComentario('${item.id}');"
           >
 
             <input
               class="comment-input"
-              id="comment-input-${postId}-${origem}"
+              id="comment-input-${item.id}"
               type="text"
-              maxlength="500"
               placeholder="Escreve um comentário..."
               autocomplete="off"
             >
 
-
             <button
               class="comment-send"
-              type="submit"
-              id="comment-send-${postId}-${origem}"
+              type="button"
+              onclick="enviarComentario('${item.id}')"
             >
               ➤
             </button>
@@ -4498,594 +2955,134 @@ article.innerHTML = `
       `;
 
 
-      feedPosts.appendChild(
-        article
-      );
+      verificarSeArdeu(item.id);
 
 
-      inicializarEstadoArdeu(
-        article,
-        item.id,
-        item.origem ||
-        "publicacoes"
-      );
-
-
-      const chave =
-        criarChaveComentario(
-          item.id,
-          item.origem ||
-          "publicacoes"
-        );
-
-
-      if(
-        comentariosAbertos.has(
-          chave
-        )
-      ){
-
-        const box =
-          article.querySelector(
-            ".comments-box"
-          );
-
-
-        if(box){
-
-          box.classList.add(
-            "show"
-          );
-
-        }
-
-
-        carregarComentarios(
-          item.id,
-          item.origem ||
-          "publicacoes"
-        );
-
-      }
+      return article;
 
     }
 
 
     /* =========================
-       TEMPO
+       VERIFICAR E TOGGLE ARDEU
     ========================== */
 
-    function tempoPublicacao(
-      timestamp
-    ){
+    async function verificarSeArdeu(postId){
 
-      if(!timestamp){
-
-        return "agora";
-
-      }
-
-
-      const data =
-        new Date(
-          timestamp
-        );
-
-
-      if(
-        isNaN(
-          data.getTime()
-        )
-      ){
-
-        return "agora";
-
-      }
-
-
-      const agora =
-        new Date();
-
-
-      const diferenca =
-        agora -
-        data;
-
-
-      const minutos =
-        Math.floor(
-          diferenca /
-          60000
-        );
-
-
-      if(
-        minutos < 1
-      ){
-
-        return "agora";
-
-      }
-
-
-      if(
-        minutos < 60
-      ){
-
-        return (
-          minutos +
-          " min"
-        );
-
-      }
-
-
-      const horas =
-        Math.floor(
-          minutos /
-          60
-        );
-
-
-      if(
-        horas < 24
-      ){
-
-        return (
-          horas +
-          " h"
-        );
-
-      }
-
-
-      const dias =
-        Math.floor(
-          horas /
-          24
-        );
-
-
-      if(
-        dias < 30
-      ){
-
-        return (
-          dias +
-          " d"
-        );
-
-      }
-
-
-      const meses =
-        Math.floor(
-          dias /
-          30
-        );
-
-
-      if(
-        meses < 12
-      ){
-
-        return (
-          meses +
-          " mês" +
-          (
-            meses > 1
-              ? "es"
-              : ""
-          )
-        );
-
-      }
-
-
-      const anos =
-        Math.floor(
-          meses /
-          12
-        );
-
-
-      return (
-        anos +
-        " ano" +
-        (
-          anos > 1
-            ? "s"
-            : ""
-        )
-      );
-
-    }
-
-
-    /* =========================
-       REFERÊNCIA DO CONTEÚDO
-    ========================== */
-
-    function referenciaConteudo(
-      postId,
-      origem
-    ){
-
-      const colecao =
-        origem ||
-        "publicacoes";
-
-
-      return doc(
-        db,
-        colecao,
-        postId
-      );
-
-    }
-
-
-    /* =========================
-       CHAVE DOS COMENTÁRIOS
-    ========================== */
-
-    function criarChaveComentario(
-      postId,
-      origem
-    ){
-
-      return (
-        origem +
-        "__" +
-        postId
-      );
-
-    }
-
-
-    /* =========================
-       ESTADO ARDEU
-    ========================== */
-
-    async function inicializarEstadoArdeu(
-      article,
-      postId,
-      origem
-    ){
-
-      if(
-        !usuarioAtual ||
-        !postId ||
-        !article
-      ){
-
-        return;
-
-      }
-
-
-      const button =
-        article.querySelector(
-          ".post-action.ardeu"
-        );
-
-
-      if(!button){
-        return;
-      }
+      if(!usuarioAtual) return;
 
 
       try{
 
-        const ardeRef =
-          doc(
-            db,
-            origem,
-            postId,
-            "ardes",
-            usuarioAtual.uid
-          );
+        const ardeuRef = doc(
+          db,
+          "publicacoes",
+          postId,
+          "ardeus",
+          usuarioAtual.uid
+        );
+
+        const snap = await getDoc(ardeuRef);
 
 
-        const snapshot =
-          await getDoc(
-            ardeRef
-          );
+        const btn = document.getElementById("btn-ardeu-" + postId);
+
+        if(!btn) return;
 
 
-        if(
-          snapshot.exists()
-        ){
+        if(snap.exists()){
 
-          button.dataset.ardeu =
-            "true";
+          btn.classList.add("liked");
 
-          button.classList.add(
-            "liked"
-          );
+          btn.innerHTML = "🔥 ARDEU!";
 
-        }
-        else{
+        } else {
 
-          button.dataset.ardeu =
-            "false";
+          btn.classList.remove("liked");
 
-          button.classList.remove(
-            "liked"
-          );
+          btn.innerHTML = "🔥 ARDEU";
 
         }
 
       }
-      catch(error){
+      catch(erro){
 
-        console.error(
-          "Erro ao verificar ARDEU:",
-          error
-        );
+        console.error("Erro ao verificar Ardeu:", erro);
 
       }
 
     }
 
 
-    /* =========================
-       ARDEU 🔥
-    ========================== */
-
-    window.arder =
-      async function(
-        button,
-        postId,
-        origem
-      ){
+    window.toggleArdeu =
+      async function(postId){
 
         if(!usuarioAtual){
 
-          alert(
-            "Precisas estar conectado para usar ARDEU 🔥."
-          );
+          alert("Precisas de ter sessão iniciada para dar Ardeu!");
 
           return;
 
         }
 
 
-        if(
-          !postId ||
-          !origem
-        ){
+        const btn = document.getElementById("btn-ardeu-" + postId);
 
-          return;
-
-        }
-
-
-        if(
-          button.dataset.processando ===
-          "true"
-        ){
-
-          return;
-
-        }
-
-
-        button.dataset.processando =
-          "true";
-
-
-        button.disabled =
-          true;
+        if(btn) btn.disabled = true;
 
 
         try{
 
-          const resultado =
-            await runTransaction(
-              db,
-              async function(transaction){
+          const postRef = doc(db, "publicacoes", postId);
 
-                const parentRef =
-                  referenciaConteudo(
-                    postId,
-                    origem
-                  );
+          const ardeuRef = doc(db, "publicacoes", postId, "ardeus", usuarioAtual.uid);
 
 
-                const ardeRef =
-                  doc(
-                    db,
-                    origem,
-                    postId,
-                    "ardes",
-                    usuarioAtual.uid
-                  );
+          await runTransaction(db, async (transaction) => {
+
+            const ardeuSnap = await transaction.get(ardeuRef);
 
 
-                const parentSnap =
-                  await transaction.get(
-                    parentRef
-                  );
+            if(ardeuSnap.exists()){
 
+              transaction.delete(ardeuRef);
 
-                const ardeSnap =
-                  await transaction.get(
-                    ardeRef
-                  );
+              transaction.update(postRef, {
 
+                ardeusCount: increment(-1)
 
-                if(
-                  !parentSnap.exists()
-                ){
+              });
 
-                  throw new Error(
-                    "Esta publicação já não existe."
-                  );
+            } else {
 
-                }
+              transaction.set(ardeuRef, {
 
+                criadoEm: serverTimestamp()
 
-                const dados =
-                  parentSnap.data() ||
-                  {};
+              });
 
+              transaction.update(postRef, {
 
-                const contadorAtual =
-                  Math.max(
-                    0,
-                    Number(
-                      dados.ardes ||
-                      0
-                    )
-                  );
+                ardeusCount: increment(1)
 
-
-                if(
-                  ardeSnap.exists()
-                ){
-
-                  const novoTotal =
-                    Math.max(
-                      0,
-                      contadorAtual - 1
-                    );
-
-
-                  transaction.delete(
-                    ardeRef
-                  );
-
-
-                  transaction.update(
-                    parentRef,
-                    {
-                      ardes:
-                        novoTotal
-                    }
-                  );
-
-
-                  return {
-                    ardeu:
-                      false,
-
-                    total:
-                      novoTotal
-                  };
-
-                }
-                else{
-
-                  const novoTotal =
-                    contadorAtual + 1;
-
-
-                  transaction.set(
-                    ardeRef,
-                    {
-
-                      artistaId:
-                        usuarioAtual.uid,
-
-                      createdAt:
-                        serverTimestamp()
-
-                    }
-                  );
-
-
-                  transaction.update(
-                    parentRef,
-                    {
-                      ardes:
-                        novoTotal
-                    }
-                  );
-
-
-                  return {
-                    ardeu:
-                      true,
-
-                    total:
-                      novoTotal
-                  };
-
-                }
-
-              }
-            );
-
-
-          button.dataset.ardeu =
-            resultado.ardeu
-              ? "true"
-              : "false";
-
-
-          if(
-            resultado.ardeu
-          ){
-
-            button.classList.add(
-              "liked"
-            );
-
-          }
-          else{
-
-            button.classList.remove(
-              "liked"
-            );
-
-          }
-
-
-          const article =
-            button.closest(
-              ".post"
-            );
-
-
-          if(article){
-
-            const count =
-              article.querySelector(
-                ".ardes-count"
-              );
-
-
-            if(count){
-
-              count.textContent =
-                resultado.total;
+              });
 
             }
 
-          }
+          });
+
+
+          await verificarSeArdeu(postId);
 
         }
-        catch(error){
+        catch(erro){
 
-          console.error(
-            "Erro no ARDEU:",
-            error
-          );
-
-
-          alert(
-            "Não foi possível atualizar o ARDEU. Verifica as regras do Firestore."
-          );
+          console.error("Erro ao alternar Ardeu:", erro);
 
         }
         finally{
 
-          button.dataset.processando =
-            "false";
-
-          button.disabled =
-            false;
+          if(btn) btn.disabled = false;
 
         }
 
@@ -5093,358 +3090,175 @@ article.innerHTML = `
 
 
     /* =========================
-       ABRIR / FECHAR COMENTÁRIOS
+       TOGGLE E OUVR COMENTÁRIOS
     ========================== */
 
-    window.abrirComentarios =
-      function(
-        postId,
-        origem
-      ){
+    window.toggleComentarios =
+      function(postId){
 
-        const box =
-          document.getElementById(
-            "comments-" +
-            postId +
-            "-" +
-            origem
-          );
+        const box = document.getElementById("comments-box-" + postId);
+
+        if(!box) return;
 
 
-        if(!box){
-          return;
-        }
+        if(comentariosAbertos.has(postId)){
 
+          comentariosAbertos.delete(postId);
 
-        const chave =
-          criarChaveComentario(
-            postId,
-            origem
-          );
+          box.classList.remove("show");
 
+          pararOuvirComentarios(postId);
 
-        const aberto =
-          box.classList.contains(
-            "show"
-          );
+        } else {
 
+          comentariosAbertos.add(postId);
 
-        if(aberto){
+          box.classList.add("show");
 
-          box.classList.remove(
-            "show"
-          );
-
-
-          comentariosAbertos.delete(
-            chave
-          );
-
-        }
-        else{
-
-          box.classList.add(
-            "show"
-          );
-
-
-          comentariosAbertos.add(
-            chave
-          );
-
-
-          carregarComentarios(
-            postId,
-            origem
-          );
-
-
-          setTimeout(
-            function(){
-
-              const input =
-                document.getElementById(
-                  "comment-input-" +
-                  postId +
-                  "-" +
-                  origem
-                );
-
-
-              if(input){
-
-                input.focus();
-
-              }
-
-            },
-            100
-          );
+          ouvirComentarios(postId);
 
         }
 
       };
 
 
-    /* =========================
-       CARREGAR COMENTÁRIOS
-    ========================== */
+    function ouvirComentarios(postId){
 
-    function carregarComentarios(
-      postId,
-      origem
-    ){
+      if(listenersComentarios[postId]) return;
 
-      const chave =
-        criarChaveComentario(
-          postId,
-          origem
-        );
 
+      const q = query(
+        collection(db, "publicacoes", postId, "comentarios"),
+        orderBy("criadoEm", "asc")
+      );
 
-      const listaElemento =
-        document.getElementById(
-          "comments-list-" +
-          postId +
-          "-" +
-          origem
-        );
 
+      listenersComentarios[postId] = onSnapshot(
+        q,
+        function(snapshot){
 
-      if(!listaElemento){
-        return;
-      }
+          const listEl = document.getElementById("comments-list-" + postId);
 
+          if(!listEl) return;
 
-      if(
-        listenersComentarios[chave]
-      ){
 
-        return;
+          if(snapshot.empty){
 
-      }
+            listEl.innerHTML = `
 
+              <div class="no-comments">
 
-      listaElemento.innerHTML = `
+                Sê o primeiro a comentar! 💬
 
-        <div class="no-comments">
-          A carregar comentários...
-        </div>
+              </div>
 
-      `;
+            `;
 
-
-      const comentariosRef =
-        collection(
-          db,
-          origem,
-          postId,
-          "comentarios"
-        );
-
-
-      const q =
-        query(
-          comentariosRef,
-          orderBy(
-            "createdAt",
-            "asc"
-          )
-        );
-
-
-      listenersComentarios[chave] =
-        onSnapshot(
-          q,
-          function(snapshot){
-
-            const elementoAtual =
-              document.getElementById(
-                "comments-list-" +
-                postId +
-                "-" +
-                origem
-              );
-
-
-            if(!elementoAtual){
-              return;
-            }
-
-
-            if(
-              snapshot.empty
-            ){
-
-              elementoAtual.innerHTML = `
-
-                <div class="no-comments">
-
-                  Ainda não há comentários.
-                  Sê o primeiro a comentar! 🔥
-
-                </div>
-
-              `;
-
-              return;
-
-            }
-
-
-            elementoAtual.innerHTML =
-              "";
-
-
-            snapshot.forEach(
-              function(docSnap){
-
-                const data =
-                  docSnap.data();
-
-
-                const nome =
-                  data.authorName ||
-                  "Artista Prime";
-
-
-                const texto =
-                  data.text ||
-                  "";
-
-
-                const foto =
-                  urlSegura(
-                    data.authorPhoto ||
-                    ""
-                  );
-
-
-                const tempo =
-                  tempoPublicacao(
-                    dataDoConteudo(
-                      data
-                    )
-                  );
-
-
-                let avatar =
-                  "👤";
-
-
-                if(foto){
-
-                  avatar = `
-
-                    <img
-                      src="${escaparHTML(foto)}"
-                      alt="Foto"
-                      onerror="this.style.display='none'"
-                    >
-
-                  `;
-
-                }
-
-
-                const item =
-                  document.createElement(
-                    "div"
-                  );
-
-
-                item.className =
-                  "comment-item";
-
-
-                item.innerHTML = `
-
-                  <div class="comment-avatar">
-
-                    ${avatar}
-
-                  </div>
-
-
-                  <div class="comment-content">
-
-                    <div class="comment-name">
-
-                      ${escaparHTML(
-                        nome
-                      )}
-
-                    </div>
-
-
-                    <div class="comment-text">
-
-                      ${escaparHTML(
-                        texto
-                      )}
-
-                    </div>
-
-
-                    <div class="comment-time">
-
-                      ${escaparHTML(
-                        tempo
-                      )}
-
-                    </div>
-
-                  </div>
-
-                `;
-
-
-                elementoAtual.appendChild(
-                  item
-                );
-
-              }
-            );
-
-
-            elementoAtual.scrollTop =
-              elementoAtual.scrollHeight;
-
-          },
-          function(error){
-
-            console.error(
-              "Erro nos comentários:",
-              error
-            );
-
-
-            const elementoAtual =
-              document.getElementById(
-                "comments-list-" +
-                postId +
-                "-" +
-                origem
-              );
-
-
-            if(elementoAtual){
-
-              elementoAtual.innerHTML = `
-
-                <div class="no-comments">
-
-                  ⚠️ Não foi possível carregar
-                  os comentários.
-
-                </div>
-
-              `;
-
-            }
+            return;
 
           }
-        );
+
+
+          let html = "";
+
+
+          snapshot.docs.forEach(docSnap => {
+
+            const c = docSnap.data();
+
+            const cNome = c.artistaNome || "Anónimo";
+
+            const cFoto = c.artistaFoto || "";
+
+            const cTexto = c.texto || "";
+
+
+            let avatarC = "👤";
+
+            if(cFoto){
+
+              avatarC = `
+
+                <img
+                  src="${escaparHTML(cFoto)}"
+                  alt="${escaparHTML(cNome)}"
+                  onerror="this.parentNode.innerHTML='👤'"
+                >
+
+              `;
+
+            }
+
+
+            let cDataFormatada = "";
+
+            if(c.criadoEm && c.criadoEm.toDate){
+
+              const d = c.criadoEm.toDate();
+
+              cDataFormatada = d.toLocaleDateString("pt-PT", {
+                day: "2-digit",
+                month: "2-digit",
+                hour: "2-digit",
+                minute: "2-digit"
+              });
+
+            }
+
+
+            html += `
+
+              <div class="comment-item">
+
+                <div class="comment-avatar">
+                  ${avatarC}
+                </div>
+
+                <div class="comment-content">
+
+                  <div class="comment-name">
+                    ${escaparHTML(cNome)}
+                  </div>
+
+                  <div class="comment-text">
+                    ${escaparHTML(cTexto)}
+                  </div>
+
+                  ${cDataFormatada ? `<div class="comment-time">${escaparHTML(cDataFormatada)}</div>` : ""}
+
+                </div>
+
+              </div>
+
+            `;
+
+          });
+
+
+          listEl.innerHTML = html;
+
+          listEl.scrollTop = listEl.scrollHeight;
+
+        },
+        function(erro){
+
+          console.error("Erro ao carregar comentários:", erro);
+
+        }
+      );
+
+    }
+
+
+    function pararOuvirComentarios(postId){
+
+      if(listenersComentarios[postId]){
+
+        listenersComentarios[postId]();
+
+        delete listenersComentarios[postId];
+
+      }
 
     }
 
@@ -5454,181 +3268,72 @@ article.innerHTML = `
     ========================== */
 
     window.enviarComentario =
-      async function(
-        event,
-        postId,
-        origem
-      ){
-
-        event.preventDefault();
-
+      async function(postId){
 
         if(!usuarioAtual){
 
-          alert(
-            "Precisas estar conectado para comentar."
-          );
+          alert("Precisas de ter sessão iniciada para comentar!");
 
           return;
 
         }
 
 
-        const input =
-          document.getElementById(
-            "comment-input-" +
-            postId +
-            "-" +
-            origem
-          );
+        const inputEl = document.getElementById("comment-input-" + postId);
+
+        if(!inputEl) return;
 
 
-        const button =
-          document.getElementById(
-            "comment-send-" +
-            postId +
-            "-" +
-            origem
-          );
+        const texto = inputEl.value.trim();
+
+        if(!texto) return;
 
 
-        if(
-          !input ||
-          !button
-        ){
-
-          return;
-
-        }
-
-
-        const texto =
-          input.value.trim();
-
-
-        if(!texto){
-
-          return;
-
-        }
-
-
-        if(texto.length > 500){
-
-          alert(
-            "O comentário pode ter no máximo 500 caracteres."
-          );
-
-          return;
-
-        }
-
-
-        button.disabled =
-          true;
-
-
-        input.disabled =
-          true;
+        inputEl.value = "";
 
 
         try{
 
-          const parentRef =
-            referenciaConteudo(
-              postId,
-              origem
-            );
+          const batch = writeBatch(db);
 
 
-          const comentariosRef =
-            collection(
-              db,
-              origem,
-              postId,
-              "comentarios"
-            );
-
-
-          const comentarioRef =
-            doc(
-              comentariosRef
-            );
-
-
-          const batch =
-            writeBatch(
-              db
-            );
-
-
-          batch.set(
-            comentarioRef,
-            {
-
-              artistaId:
-                usuarioAtual.uid,
-
-              authorName:
-                artistName,
-
-              authorUsername:
-                artistUser,
-
-              authorPhoto:
-                artistPhoto,
-
-              text:
-                texto,
-
-              createdAt:
-                serverTimestamp()
-
-            }
+          const novoComentarioRef = doc(
+            collection(db, "publicacoes", postId, "comentarios")
           );
 
 
-          batch.update(
-            parentRef,
-            {
+          batch.set(novoComentarioRef, {
 
-              comments:
-                increment(1)
+            texto: texto,
 
-            }
-          );
+            artistaId: usuarioAtual.uid,
+
+            artistaNome: artistName,
+
+            artistaFoto: artistPhoto,
+
+            criadoEm: serverTimestamp()
+
+          });
+
+
+          const postRef = doc(db, "publicacoes", postId);
+
+          batch.update(postRef, {
+
+            comentariosCount: increment(1)
+
+          });
 
 
           await batch.commit();
 
-
-          input.value =
-            "";
-
-
         }
-        catch(error){
+        catch(erro){
 
-          console.error(
-            "Erro ao enviar comentário:",
-            error
-          );
+          console.error("Erro ao enviar comentário:", erro);
 
-
-          alert(
-            "Não foi possível publicar o comentário. Verifica as regras do Firestore."
-          );
-
-        }
-        finally{
-
-          button.disabled =
-            false;
-
-          input.disabled =
-            false;
-
-          input.focus();
+          alert("Erro ao enviar comentário. Tenta novamente.");
 
         }
 
@@ -5640,176 +3345,34 @@ article.innerHTML = `
     ========================== */
 
     window.partilhar =
-      async function(
-        postId,
-        origem
-      ){
+      function(postId){
 
-        const url =
-          window.location.origin +
-          window.location.pathname +
-          "?post=" +
-          encodeURIComponent(
-            postId
-          ) +
-          "&origem=" +
-          encodeURIComponent(
-            origem
-          );
+        const url = window.location.origin + window.location.pathname + "#post-" + postId;
 
 
-        if(
-          navigator.share
-        ){
+        if(navigator.clipboard && navigator.clipboard.writeText){
 
-          try{
+          navigator.clipboard.writeText(url)
 
-            await navigator.share({
+            .then(() => {
 
-              title:
-                "KUDURO PRIME",
+              alert("Link da publicação copiado para a área de transferência! 🔗");
 
-              text:
-                "Vê esta publicação no KUDURO PRIME! 🔥👑",
+            })
 
-              url:
-                url
+            .catch(() => {
+
+              prompt("Copia o link abaixo:", url);
 
             });
 
-          }
-          catch(error){}
+        } else {
 
-        }
-        else{
-
-          try{
-
-            await navigator.clipboard.writeText(
-              url
-            );
-
-
-            alert(
-              "Link da publicação copiado! 👑"
-            );
-
-          }
-          catch(error){
-
-            alert(
-              "Publicação pronta para ser partilhada!"
-            );
-
-          }
+          prompt("Copia o link abaixo:", url);
 
         }
 
       };
-
-
-    /* =========================
-       SAIR
-    ========================== */
-
-    window.sair =
-      async function(event){
-
-        if(event){
-
-          event.preventDefault();
-
-        }
-
-
-        try{
-
-          await signOut(
-            auth
-          );
-
-        }
-        catch(error){
-
-          console.error(
-            "Erro ao sair:",
-            error
-          );
-
-        }
-
-
-        localStorage.removeItem(
-          "kpLoggedIn"
-        );
-
-
-        localStorage.removeItem(
-          "kpArtistLoggedIn"
-        );
-
-
-        localStorage.removeItem(
-          "kpArtistUID"
-        );
-
-
-        localStorage.removeItem(
-          "kpArtistEmail"
-        );
-
-
-        window.location.replace(
-          "index.html"
-        );
-
-      };
-
-
-    /* =========================
-       LIMPAR LISTENERS
-    ========================== */
-
-    window.addEventListener(
-      "beforeunload",
-      function(){
-
-        if(
-          typeof unsubscribePublicacoes ===
-          "function"
-        ){
-
-          unsubscribePublicacoes();
-
-        }
-
-
-        Object.keys(
-          listenersComentarios
-        )
-        .forEach(
-          function(chave){
-
-            const unsubscribe =
-              listenersComentarios[
-                chave
-              ];
-
-
-            if(
-              typeof unsubscribe ===
-              "function"
-            ){
-
-              unsubscribe();
-
-            }
-
-          }
-        );
-
-      }
-    );
 
   </script>
 
