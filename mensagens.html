@@ -2461,119 +2461,140 @@
        START NEW CONVERSATION
     =============================== */
 
-    async function startNewConversation(
+    async function startNewConversation(artist){
+
+  if(!artist || !artist.uid){
+    showToast(
+      "Artista inválido.",
+      "error"
+    );
+    return;
+  }
+
+
+  if(
+    artist.uid ===
+    firebaseUser.uid
+  ){
+
+    showToast(
+      "Não podes enviar mensagem para ti mesmo.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  const chatID =
+    createChatID(
+      firebaseUser.uid,
+      artist.uid
+    );
+
+
+  const conversationRef =
+    doc(
+      db,
+      "conversas",
+      chatID
+    );
+
+
+  /*
+   * Primeiro tentamos criar.
+   *
+   * Não usamos getDoc(), porque uma conversa
+   * inexistente não pode ser lida pelas Rules.
+   */
+
+  const participantNames = {};
+
+  participantNames[
+    firebaseUser.uid
+  ] =
+    getArtistName(
+      currentUserProfile
+    );
+
+  participantNames[
+    artist.uid
+  ] =
+    getArtistName(
       artist
-    ){
-
-      if(!artist?.uid){
-        return;
-      }
+    );
 
 
-      if(
-        artist.uid ===
-        firebaseUser.uid
-      ){
+  try{
 
-        showToast(
-          "Não podes enviar mensagem para ti mesmo.",
-          "error"
-        );
+    await setDoc(
+      conversationRef,
+      {
 
-        return;
-
-      }
-
-
-      const chatID =
-        createChatID(
+        participants:[
           firebaseUser.uid,
           artist.uid
-        );
+        ],
 
+        participantNames,
 
-      const conversationRef =
-        doc(
-          db,
-          "conversas",
-          chatID
-        );
+        createdAt:
+          serverTimestamp(),
 
+        lastMessage:
+          "",
 
-      try{
+        lastMessageType:
+          "",
 
-        const existing =
-          await getDoc(
-            conversationRef
-          );
+        lastMessageAt:
+          serverTimestamp(),
 
+        temporaryMode:
+          "off",
 
-        if(!existing.exists()){
+        unreadCount:{
 
-          const participantNames = {};
+          [firebaseUser.uid]:
+            0,
 
-          participantNames[
-            firebaseUser.uid
-          ] =
-            getArtistName(
-              currentUserProfile
-            );
-
-
-          participantNames[
-            artist.uid
-          ] =
-            getArtistName(
-              artist
-            );
-
-
-          await setDoc(
-            conversationRef,
-            {
-
-              participants:[
-                firebaseUser.uid,
-                artist.uid
-              ],
-
-              participantNames,
-
-              createdAt:
-                serverTimestamp(),
-
-              lastMessage:
-                "",
-
-              lastMessageType:
-                "",
-
-              lastMessageAt:
-                serverTimestamp(),
-
-              temporaryMode:
-                "off",
-
-              unreadCount:{
-
-                [firebaseUser.uid]:
-                  0,
-
-                [artist.uid]:
-                  0
-
-              }
-
-            }
-          );
+          [artist.uid]:
+            0
 
         }
 
+      }
+    );
 
-        await openRealChat(
-          artist,
-          chatID
-        );
+
+    console.log(
+      "Nova conversa criada:",
+      chatID
+    );
+
+
+  }catch(error){
+
+    /*
+     * Se já existe, não tentamos recriá-la.
+     * Apenas abrimos a conversa.
+     */
+
+    console.warn(
+      "Conversa provavelmente já existe:",
+      error.message
+    );
+
+  }
+
+
+  await openRealChat(
+    artist,
+    chatID
+  );
+
+}
 
 
       }catch(error){
