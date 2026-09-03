@@ -4324,19 +4324,23 @@
 
             <div class="post-author">
 
-              ${escaparHTML(
-                nome
-              )}
+  <a
+    href="perfil.html?id=${encodeURIComponent(item.artistaId || '')}"
+    class="post-profile-link"
+    title="Ver perfil de ${escaparHTML(nome)}"
+  >
+    ${escaparHTML(nome)}
+  </a>
 
-              <span
-                style="color:#4eb8ff;"
-              >
-                ✓
-              </span>
+  <span
+    style="color:#4eb8ff;"
+  >
+    ✓
+  </span>
 
-              ${tipoHTML}
+  ${tipoHTML}
 
-            </div>
+</div>
 
 
             <div class="post-meta">
