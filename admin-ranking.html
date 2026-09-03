@@ -1,0 +1,2417 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Administração do TOP 10 — KUDURO PRIME</title>
+
+  <style>
+
+    :root{
+      --bg:#070707;
+      --panel:#111111;
+      --panel2:#181818;
+      --gold:#f4bf31;
+      --gold2:#ffdc6b;
+      --text:#f7f4ed;
+      --muted:#aaa59a;
+      --line:#292929;
+      --danger:#ff563f;
+      --success:#42d67a;
+      --blue:#4eb8ff;
+    }
+
+    *{
+      box-sizing:border-box;
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      margin:0;
+      background:
+        radial-gradient(
+          circle at top right,
+          #2a1c07 0,
+          transparent 30%
+        ),
+        var(--bg);
+
+      color:var(--text);
+
+      font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+    }
+
+    button,
+    input,
+    select{
+      font:inherit;
+    }
+
+    button{
+      cursor:pointer;
+    }
+
+    /* =========================
+       NAV
+    ========================= */
+
+    .nav{
+      position:sticky;
+      top:0;
+
+      z-index:100;
+
+      height:75px;
+
+      display:flex;
+      align-items:center;
+
+      background:
+        rgba(7,7,7,.94);
+
+      backdrop-filter:
+        blur(12px);
+
+      border-bottom:
+        1px solid var(--line);
+    }
+
+    .nav-in{
+      width:min(1180px,92%);
+      margin:auto;
+
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+
+      gap:20px;
+    }
+
+    .brand{
+      color:#fff;
+
+      font-size:21px;
+      font-weight:900;
+
+      line-height:.8;
+
+      text-decoration:none;
+    }
+
+    .brand b{
+      display:block;
+
+      color:var(--gold);
+    }
+
+    .crown{
+      display:block;
+
+      color:var(--gold);
+
+      text-align:center;
+
+      font-size:21px;
+
+      line-height:.7;
+    }
+
+    .back-btn{
+      text-decoration:none;
+
+      color:#fff;
+
+      padding:11px 16px;
+
+      border:
+        1px solid var(--line);
+
+      border-radius:8px;
+
+      font-size:12px;
+
+      font-weight:900;
+
+      transition:.25s;
+    }
+
+    .back-btn:hover{
+      border-color:var(--gold);
+
+      color:var(--gold);
+    }
+
+    /* =========================
+       CONTAINER
+    ========================= */
+
+    .container{
+      width:min(1180px,92%);
+
+      margin:auto;
+
+      padding:45px 0 70px;
+    }
+
+    /* =========================
+       HEADER
+    ========================= */
+
+    .page-head{
+      display:flex;
+
+      justify-content:space-between;
+
+      align-items:end;
+
+      gap:25px;
+
+      margin-bottom:30px;
+    }
+
+    .eyebrow{
+      color:var(--gold);
+
+      font-size:11px;
+
+      font-weight:900;
+
+      letter-spacing:2px;
+
+      margin-bottom:10px;
+    }
+
+    h1{
+      margin:0;
+
+      font-size:
+        clamp(
+          35px,
+          6vw,
+          62px
+        );
+
+      font-weight:950;
+
+      letter-spacing:-2px;
+    }
+
+    h1 span{
+      color:var(--gold);
+    }
+
+    .page-head p{
+      color:var(--muted);
+
+      margin:
+        10px 0 0;
+
+      font-size:14px;
+    }
+
+    /* =========================
+       MENSAGEM
+    ========================= */
+
+    .message{
+      display:none;
+
+      margin-bottom:20px;
+
+      padding:14px;
+
+      border-radius:9px;
+
+      font-size:13px;
+
+      font-weight:700;
+    }
+
+    .message.show{
+      display:block;
+    }
+
+    .message.success{
+      color:#dfffea;
+
+      border:
+        1px solid rgba(66,214,122,.4);
+
+      background:
+        rgba(66,214,122,.1);
+    }
+
+    .message.error{
+      color:#ffd5cf;
+
+      border:
+        1px solid rgba(255,86,63,.4);
+
+      background:
+        rgba(255,86,63,.1);
+    }
+
+    /* =========================
+       GRID
+    ========================= */
+
+    .admin-grid{
+      display:grid;
+
+      grid-template-columns:
+        minmax(0,1fr)
+        340px;
+
+      gap:22px;
+    }
+
+    .panel{
+      background:
+        linear-gradient(
+          145deg,
+          #151515,
+          #0d0d0d
+        );
+
+      border:
+        1px solid var(--line);
+
+      border-radius:15px;
+
+      padding:22px;
+    }
+
+    .panel-title{
+      margin:0;
+
+      font-size:19px;
+
+      font-weight:900;
+    }
+
+    .panel-subtitle{
+      margin:
+        7px 0 20px;
+
+      color:var(--muted);
+
+      font-size:13px;
+
+      line-height:1.5;
+    }
+
+    /* =========================
+       MÊS
+    ========================= */
+
+    .form-grid{
+      display:grid;
+
+      grid-template-columns:
+        1fr 1fr;
+
+      gap:12px;
+
+      margin-bottom:20px;
+    }
+
+    .field label{
+      display:block;
+
+      color:var(--muted);
+
+      font-size:11px;
+
+      font-weight:900;
+
+      margin-bottom:7px;
+    }
+
+    select,
+    input{
+      width:100%;
+
+      background:#0c0c0c;
+
+      color:#fff;
+
+      border:
+        1px solid var(--line);
+
+      border-radius:8px;
+
+      padding:13px;
+    }
+
+    select:focus,
+    input:focus{
+      outline:none;
+
+      border-color:var(--gold);
+    }
+
+    /* =========================
+       POSIÇÕES
+    ========================= */
+
+    .ranking-editor{
+      display:flex;
+
+      flex-direction:column;
+
+      gap:9px;
+    }
+
+    .ranking-item{
+      display:grid;
+
+      grid-template-columns:
+        42px
+        55px
+        minmax(0,1fr)
+        100px;
+
+      align-items:center;
+
+      gap:10px;
+
+      min-height:68px;
+
+      padding:7px 10px;
+
+      border:
+        1px solid var(--line);
+
+      border-radius:10px;
+
+      background:#101010;
+    }
+
+    .position{
+      font-size:20px;
+
+      font-weight:950;
+
+      color:var(--gold);
+
+      text-align:center;
+    }
+
+    .ranking-cover{
+      width:50px;
+
+      height:50px;
+
+      border-radius:7px;
+
+      background:#1d1d1d;
+
+      border:
+        1px solid var(--line);
+
+      background-size:cover;
+
+      background-position:center;
+
+      display:flex;
+
+      align-items:center;
+
+      justify-content:center;
+
+      overflow:hidden;
+
+      color:#777;
+    }
+
+    .ranking-info{
+      min-width:0;
+    }
+
+    .ranking-title{
+      font-size:13px;
+
+      font-weight:900;
+
+      white-space:nowrap;
+
+      overflow:hidden;
+
+      text-overflow:ellipsis;
+    }
+
+    .ranking-artist{
+      color:var(--muted);
+
+      font-size:11px;
+
+      margin-top:4px;
+
+      white-space:nowrap;
+
+      overflow:hidden;
+
+      text-overflow:ellipsis;
+    }
+
+    .choose-btn{
+      border:
+        1px solid var(--gold);
+
+      background:
+        transparent;
+
+      color:var(--gold);
+
+      padding:9px 10px;
+
+      border-radius:7px;
+
+      font-size:10px;
+
+      font-weight:900;
+
+      transition:.2s;
+    }
+
+    .choose-btn:hover{
+      background:var(--gold);
+
+      color:#111;
+    }
+
+    /* =========================
+       BUSCA
+    ========================= */
+
+    .search-box{
+      position:sticky;
+
+      top:95px;
+    }
+
+    .search{
+      margin-bottom:12px;
+    }
+
+    .music-list{
+      max-height:600px;
+
+      overflow-y:auto;
+
+      display:flex;
+
+      flex-direction:column;
+
+      gap:7px;
+    }
+
+    .music-option{
+      display:flex;
+
+      align-items:center;
+
+      gap:10px;
+
+      width:100%;
+
+      padding:9px;
+
+      text-align:left;
+
+      color:#fff;
+
+      border:
+        1px solid var(--line);
+
+      background:#101010;
+
+      border-radius:9px;
+
+      transition:.2s;
+    }
+
+    .music-option:hover{
+      border-color:var(--gold);
+
+      background:#171717;
+    }
+
+    .music-cover{
+      width:45px;
+
+      height:45px;
+
+      flex:
+        0 0 45px;
+
+      border-radius:7px;
+
+      background:#222;
+
+      background-size:cover;
+
+      background-position:center;
+    }
+
+    .music-info{
+      min-width:0;
+
+      flex:1;
+    }
+
+    .music-name{
+      font-size:13px;
+
+      font-weight:900;
+
+      white-space:nowrap;
+
+      overflow:hidden;
+
+      text-overflow:ellipsis;
+    }
+
+    .music-artist{
+      margin-top:4px;
+
+      color:var(--muted);
+
+      font-size:11px;
+    }
+
+    .select-icon{
+      color:var(--gold);
+
+      font-size:20px;
+    }
+
+    /* =========================
+       BOTÕES
+    ========================= */
+
+    .actions{
+      display:grid;
+
+      grid-template-columns:
+        1fr;
+
+      gap:10px;
+
+      margin-top:20px;
+    }
+
+    .btn{
+      border:0;
+
+      border-radius:8px;
+
+      padding:14px;
+
+      font-weight:900;
+
+      font-size:12px;
+
+      transition:.25s;
+    }
+
+    .btn:hover{
+      transform:
+        translateY(-2px);
+    }
+
+    .btn.gold{
+      background:
+        linear-gradient(
+          135deg,
+          var(--gold2),
+          var(--gold)
+        );
+
+      color:#17120a;
+    }
+
+    .btn.dark{
+      background:#151515;
+
+      color:#fff;
+
+      border:
+        1px solid var(--line);
+    }
+
+    .btn.danger{
+      background:
+        rgba(255,86,63,.1);
+
+      color:
+        var(--danger);
+
+      border:
+        1px solid rgba(255,86,63,.3);
+    }
+
+    .btn:disabled{
+      opacity:.5;
+
+      cursor:not-allowed;
+
+      transform:none;
+    }
+
+    /* =========================
+       HISTÓRICO
+    ========================= */
+
+    .history{
+      margin-top:22px;
+    }
+
+    .history-item{
+      display:flex;
+
+      justify-content:space-between;
+
+      align-items:center;
+
+      gap:10px;
+
+      padding:13px 0;
+
+      border-bottom:
+        1px solid var(--line);
+    }
+
+    .history-title{
+      font-size:13px;
+
+      font-weight:900;
+    }
+
+    .history-date{
+      font-size:10px;
+
+      color:var(--muted);
+
+      margin-top:4px;
+    }
+
+    .load-history{
+      border:
+        1px solid var(--line);
+
+      background:transparent;
+
+      color:var(--gold);
+
+      padding:8px 10px;
+
+      border-radius:7px;
+
+      font-size:10px;
+
+      font-weight:900;
+    }
+
+    .loading{
+      padding:30px;
+
+      text-align:center;
+
+      color:var(--muted);
+
+      font-size:13px;
+    }
+
+    /* =========================
+       RESPONSIVO
+    ========================= */
+
+    @media(max-width:900px){
+
+      .admin-grid{
+        grid-template-columns:1fr;
+      }
+
+      .search-box{
+        position:static;
+      }
+
+      .music-list{
+        max-height:400px;
+      }
+
+    }
+
+    @media(max-width:600px){
+
+      .container{
+        width:min(94%,1180px);
+
+        padding-top:30px;
+      }
+
+      .page-head{
+        align-items:start;
+
+        flex-direction:column;
+      }
+
+      .form-grid{
+        grid-template-columns:1fr;
+      }
+
+      .ranking-item{
+        grid-template-columns:
+          34px
+          48px
+          minmax(0,1fr)
+          80px;
+      }
+
+      .ranking-cover{
+        width:44px;
+
+        height:44px;
+      }
+
+      .choose-btn{
+        padding:8px 5px;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+
+  <!-- =========================
+       NAV
+  ========================== -->
+
+  <nav class="nav">
+
+    <div class="nav-in">
+
+      <a
+        class="brand"
+        href="index.html"
+      >
+        <span class="crown">♕</span>
+
+        KUDURO
+
+        <b>PRIME</b>
+      </a>
+
+
+      <a
+        class="back-btn"
+        href="admin.html"
+      >
+        ← VOLTAR AO ADMIN
+      </a>
+
+    </div>
+
+  </nav>
+
+
+
+  <!-- =========================
+       CONTEÚDO
+  ========================== -->
+
+  <main class="container">
+
+
+    <div class="page-head">
+
+      <div>
+
+        <div class="eyebrow">
+          ADMINISTRAÇÃO
+        </div>
+
+        <h1>
+          TOP 10
+          <span>PRIME</span>
+        </h1>
+
+        <p>
+          Atualiza manualmente o ranking mensal do KUDURO PRIME.
+        </p>
+
+      </div>
+
+    </div>
+
+
+
+    <div
+      class="message"
+      id="messageBox"
+    ></div>
+
+
+
+    <div class="admin-grid">
+
+
+      <!-- =========================
+           EDITOR
+      ========================== -->
+
+      <section class="panel">
+
+        <h2 class="panel-title">
+          👑 EDITAR RANKING
+        </h2>
+
+        <p class="panel-subtitle">
+          Escolhe o mês e depois clica em cada posição para selecionar uma música.
+        </p>
+
+
+
+        <div class="form-grid">
+
+          <div class="field">
+
+            <label for="monthSelect">
+              MÊS
+            </label>
+
+            <select id="monthSelect">
+
+              <option value="1">
+                JANEIRO
+              </option>
+
+              <option value="2">
+                FEVEREIRO
+              </option>
+
+              <option value="3">
+                MARÇO
+              </option>
+
+              <option value="4">
+                ABRIL
+              </option>
+
+              <option value="5">
+                MAIO
+              </option>
+
+              <option value="6">
+                JUNHO
+              </option>
+
+              <option value="7">
+                JULHO
+              </option>
+
+              <option value="8">
+                AGOSTO
+              </option>
+
+              <option value="9">
+                SETEMBRO
+              </option>
+
+              <option value="10">
+                OUTUBRO
+              </option>
+
+              <option value="11">
+                NOVEMBRO
+              </option>
+
+              <option value="12">
+                DEZEMBRO
+              </option>
+
+            </select>
+
+          </div>
+
+
+
+          <div class="field">
+
+            <label for="yearInput">
+              ANO
+            </label>
+
+            <input
+              id="yearInput"
+              type="number"
+              min="2020"
+              max="2100"
+            >
+
+          </div>
+
+        </div>
+
+
+
+        <div
+          class="ranking-editor"
+          id="rankingEditor"
+        ></div>
+
+
+
+        <div class="actions">
+
+          <button
+            class="btn gold"
+            id="saveRankingBtn"
+            type="button"
+          >
+            👑 PUBLICAR TOP 10 PRIME
+          </button>
+
+
+          <button
+            class="btn dark"
+            id="clearRankingBtn"
+            type="button"
+          >
+            LIMPAR RANKING ATUAL
+          </button>
+
+        </div>
+
+      </section>
+
+
+
+      <!-- =========================
+           ESCOLHER MÚSICA
+      ========================== -->
+
+      <aside class="panel search-box">
+
+        <h2 class="panel-title">
+          🎵 ESCOLHER MÚSICAS
+        </h2>
+
+        <p class="panel-subtitle">
+          Escolhe uma posição no TOP 10 e depois seleciona uma música.
+        </p>
+
+
+        <input
+          class="search"
+          id="musicSearch"
+          type="search"
+          placeholder="Pesquisar música ou artista..."
+        >
+
+
+        <div
+          class="music-list"
+          id="musicList"
+        >
+
+          <div class="loading">
+            A carregar músicas...
+          </div>
+
+        </div>
+
+      </aside>
+
+
+    </div>
+
+
+
+    <!-- =========================
+         HISTÓRICO
+    ========================== -->
+
+    <section class="panel history">
+
+      <h2 class="panel-title">
+        📚 HISTÓRICO DE RANKINGS
+      </h2>
+
+      <p class="panel-subtitle">
+        Carrega rapidamente um ranking anterior.
+      </p>
+
+
+      <div
+        id="historyList"
+      >
+
+        <div class="loading">
+          A carregar histórico...
+        </div>
+
+      </div>
+
+    </section>
+
+
+  </main>
+
+
+
+  <!-- =========================
+       FIREBASE
+  ========================== -->
+
+  <script type="module">
+
+
+    import {
+
+      initializeApp
+
+    }
+
+    from
+
+      "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+
+
+    import {
+
+      getAuth,
+      onAuthStateChanged
+
+    }
+
+    from
+
+      "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+
+
+    import {
+
+      getFirestore,
+      collection,
+      doc,
+      getDoc,
+      getDocs,
+      setDoc,
+      query,
+      orderBy,
+      limit,
+      serverTimestamp
+
+    }
+
+    from
+
+      "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+
+
+
+    /* =========================
+       FIREBASE CONFIG
+    ========================== */
+
+    const firebaseConfig = {
+
+      apiKey:
+        "AIzaSyDoitCcLeLDNBNPCP6fG1s_xbHr4UmohSo",
+
+      authDomain:
+        "kuduro-prime.firebaseapp.com",
+
+      projectId:
+        "kuduro-prime",
+
+      storageBucket:
+        "kuduro-prime.firebasestorage.app",
+
+      messagingSenderId:
+        "299776559545",
+
+      appId:
+        "1:299776559545:web:04aced1ba25391eb3fce68"
+
+    };
+
+
+    const app =
+      initializeApp(
+        firebaseConfig
+      );
+
+
+    const auth =
+      getAuth(
+        app
+      );
+
+
+    const db =
+      getFirestore(
+        app
+      );
+
+
+
+    /* =========================
+       ELEMENTOS
+    ========================== */
+
+    const rankingEditor =
+      document.querySelector(
+        "#rankingEditor"
+      );
+
+
+    const musicList =
+      document.querySelector(
+        "#musicList"
+      );
+
+
+    const musicSearch =
+      document.querySelector(
+        "#musicSearch"
+      );
+
+
+    const monthSelect =
+      document.querySelector(
+        "#monthSelect"
+      );
+
+
+    const yearInput =
+      document.querySelector(
+        "#yearInput"
+      );
+
+
+    const saveRankingBtn =
+      document.querySelector(
+        "#saveRankingBtn"
+      );
+
+
+    const clearRankingBtn =
+      document.querySelector(
+        "#clearRankingBtn"
+      );
+
+
+    const messageBox =
+      document.querySelector(
+        "#messageBox"
+      );
+
+
+    const historyList =
+      document.querySelector(
+        "#historyList"
+      );
+
+
+
+    /* =========================
+       ESTADO
+    ========================== */
+
+    let todasMusicas = [];
+
+
+    let rankingAtual =
+      new Array(10)
+        .fill(null);
+
+
+    let posicaoSelecionada =
+      0;
+
+
+
+    /* =========================
+       DATA ATUAL
+    ========================== */
+
+    const dataAtual =
+      new Date();
+
+
+    monthSelect.value =
+      String(
+        dataAtual.getMonth() + 1
+      );
+
+
+    yearInput.value =
+      dataAtual.getFullYear();
+
+
+
+    /* =========================
+       MESES
+    ========================== */
+
+    const nomesMeses = [
+
+      "JANEIRO",
+      "FEVEREIRO",
+      "MARÇO",
+      "ABRIL",
+      "MAIO",
+      "JUNHO",
+      "JULHO",
+      "AGOSTO",
+      "SETEMBRO",
+      "OUTUBRO",
+      "NOVEMBRO",
+      "DEZEMBRO"
+
+    ];
+
+
+
+    /* =========================
+       SEGURANÇA HTML
+    ========================== */
+
+    function escaparHTML(valor){
+
+      return String(
+        valor ?? ""
+      )
+
+        .replace(
+          /&/g,
+          "&amp;"
+        )
+
+        .replace(
+          /</g,
+          "&lt;"
+        )
+
+        .replace(
+          />/g,
+          "&gt;"
+        )
+
+        .replace(
+          /"/g,
+          "&quot;"
+        )
+
+        .replace(
+          /'/g,
+          "&#039;"
+        );
+
+    }
+
+
+
+    /* =========================
+       MENSAGENS
+    ========================== */
+
+    function mostrarMensagem(
+      texto,
+      tipo = "success"
+    ){
+
+      messageBox.textContent =
+        texto;
+
+
+      messageBox.className =
+        `message show ${tipo}`;
+
+
+      setTimeout(
+        () => {
+
+          messageBox.className =
+            "message";
+
+        },
+        5000
+      );
+
+    }
+
+
+
+    /* =========================
+       NORMALIZAR MÚSICA
+    ========================== */
+
+    function obterDadosMusica(
+      musica,
+      musicaId
+    ){
+
+      return {
+
+        id:
+          musicaId,
+
+
+        titulo:
+
+          musica.titulo ||
+
+          musica.nome ||
+
+          "Música sem título",
+
+
+        artistaNome:
+
+          musica.artistaNome ||
+
+          musica.artista ||
+
+          musica.nomeArtista ||
+
+          "Artista KUDURO PRIME",
+
+
+        capa:
+
+          musica.capaUrl ||
+
+          musica.capa ||
+
+          musica.imagem ||
+
+          musica.foto ||
+
+          "images/artista-1.jpg"
+
+      };
+
+    }
+
+
+
+    /* =========================
+       CARREGAR MÚSICAS
+    ========================== */
+
+    async function carregarMusicas(){
+
+      musicList.innerHTML =
+        `
+          <div class="loading">
+            A carregar músicas...
+          </div>
+        `;
+
+
+      try{
+
+        const snapshot =
+          await getDocs(
+            collection(
+              db,
+              "musicas"
+            )
+          );
+
+
+        todasMusicas =
+          snapshot.docs.map(
+            (docMusica) => {
+
+              return obterDadosMusica(
+                docMusica.data(),
+                docMusica.id
+              );
+
+            }
+          );
+
+
+        if(
+          todasMusicas.length === 0
+        ){
+
+          musicList.innerHTML =
+            `
+              <div class="loading">
+                Ainda não existem músicas publicadas.
+              </div>
+            `;
+
+          return;
+
+        }
+
+
+        renderizarListaMusicas();
+
+      }
+
+      catch(error){
+
+        console.error(
+          "Erro ao carregar músicas:",
+          error
+        );
+
+
+        musicList.innerHTML =
+          `
+            <div class="loading">
+              Erro ao carregar músicas.
+            </div>
+          `;
+
+      }
+
+    }
+
+
+
+    /* =========================
+       RENDERIZAR LISTA
+    ========================== */
+
+    function renderizarListaMusicas(){
+
+      const termo =
+        musicSearch.value
+          .trim()
+          .toLowerCase();
+
+
+      const musicasFiltradas =
+        todasMusicas.filter(
+          (musica) => {
+
+            return
+
+              musica.titulo
+                .toLowerCase()
+                .includes(
+                  termo
+                )
+
+              ||
+
+              musica.artistaNome
+                .toLowerCase()
+                .includes(
+                  termo
+                );
+
+          }
+        );
+
+
+      if(
+        musicasFiltradas.length === 0
+      ){
+
+        musicList.innerHTML =
+          `
+            <div class="loading">
+              Nenhuma música encontrada.
+            </div>
+          `;
+
+        return;
+
+      }
+
+
+      musicList.innerHTML =
+        musicasFiltradas.map(
+          (musica) => `
+
+            <button
+              class="music-option"
+              type="button"
+              data-id="${escaparHTML(musica.id)}"
+            >
+
+              <div
+                class="music-cover"
+                style="
+                  background-image:
+                  url('${escaparHTML(musica.capa)}')
+                "
+              ></div>
+
+
+              <div class="music-info">
+
+                <div class="music-name">
+                  ${escaparHTML(musica.titulo)}
+                </div>
+
+
+                <div class="music-artist">
+                  ${escaparHTML(musica.artistaNome)}
+                </div>
+
+              </div>
+
+
+              <div class="select-icon">
+                ＋
+              </div>
+
+            </button>
+
+          `
+        ).join(
+          ""
+        );
+
+    }
+
+
+
+    /* =========================
+       RENDERIZAR TOP 10
+    ========================== */
+
+    function renderizarRanking(){
+
+      rankingEditor.innerHTML =
+        rankingAtual.map(
+          (musica, index) => {
+
+            const posicao =
+              index + 1;
+
+
+            if(!musica){
+
+              return `
+
+                <div
+                  class="ranking-item"
+                  data-position="${index}"
+                >
+
+                  <div class="position">
+                    ${String(posicao).padStart(2,"0")}
+                  </div>
+
+
+                  <div class="ranking-cover">
+                    🎵
+                  </div>
+
+
+                  <div class="ranking-info">
+
+                    <div class="ranking-title">
+                      Posição vazia
+                    </div>
+
+
+                    <div class="ranking-artist">
+                      Clica em ESCOLHER
+                    </div>
+
+                  </div>
+
+
+                  <button
+                    class="choose-btn"
+                    type="button"
+                    data-position="${index}"
+                  >
+                    ESCOLHER
+                  </button>
+
+                </div>
+
+              `;
+
+            }
+
+
+            return `
+
+              <div
+                class="ranking-item"
+                data-position="${index}"
+              >
+
+                <div class="position">
+                  ${String(posicao).padStart(2,"0")}
+                </div>
+
+
+                <div
+                  class="ranking-cover"
+                  style="
+                    background-image:
+                    url('${escaparHTML(musica.capa)}')
+                  "
+                ></div>
+
+
+                <div class="ranking-info">
+
+                  <div class="ranking-title">
+                    ${escaparHTML(musica.titulo)}
+                  </div>
+
+
+                  <div class="ranking-artist">
+                    ${escaparHTML(musica.artistaNome)}
+                  </div>
+
+                </div>
+
+
+                <button
+                  class="choose-btn"
+                  type="button"
+                  data-position="${index}"
+                >
+                  ALTERAR
+                </button>
+
+              </div>
+
+            `;
+
+          }
+        ).join(
+          ""
+        );
+
+    }
+
+
+
+    /* =========================
+       SELECIONAR POSIÇÃO
+    ========================== */
+
+    rankingEditor.addEventListener(
+      "click",
+      (event) => {
+
+        const botao =
+          event.target.closest(
+            ".choose-btn"
+          );
+
+
+        if(!botao){
+          return;
+        }
+
+
+        posicaoSelecionada =
+          Number(
+            botao.dataset.position
+          );
+
+
+        document
+          .querySelectorAll(
+            ".ranking-item"
+          )
+
+          .forEach(
+            (item) => {
+
+              item.style.borderColor =
+                "var(--line)";
+
+            }
+          );
+
+
+        const itemAtual =
+          document.querySelector(
+            `.ranking-item[data-position="${posicaoSelecionada}"]`
+          );
+
+
+        if(itemAtual){
+
+          itemAtual.style.borderColor =
+            "var(--gold)";
+
+        }
+
+
+        mostrarMensagem(
+          `Seleciona agora a música para a posição ${posicaoSelecionada + 1}.`
+        );
+
+      }
+    );
+
+
+
+    /* =========================
+       SELECIONAR MÚSICA
+    ========================== */
+
+    musicList.addEventListener(
+      "click",
+      (event) => {
+
+        const botao =
+          event.target.closest(
+            ".music-option"
+          );
+
+
+        if(!botao){
+          return;
+        }
+
+
+        const musicaId =
+          botao.dataset.id;
+
+
+        const musica =
+          todasMusicas.find(
+            (item) =>
+              item.id === musicaId
+          );
+
+
+        if(!musica){
+          return;
+        }
+
+
+        const jaExiste =
+          rankingAtual.findIndex(
+            (item) =>
+              item &&
+              item.id === musica.id
+          );
+
+
+        if(
+          jaExiste !== -1
+        ){
+
+          rankingAtual[
+            jaExiste
+          ] = null;
+
+        }
+
+
+        rankingAtual[
+          posicaoSelecionada
+        ] = musica;
+
+
+        renderizarRanking();
+
+
+        mostrarMensagem(
+          `"${musica.titulo}" foi colocada na posição ${posicaoSelecionada + 1}.`
+        );
+
+      }
+    );
+
+
+
+    /* =========================
+       PESQUISAR
+    ========================== */
+
+    musicSearch.addEventListener(
+      "input",
+      renderizarListaMusicas
+    );
+
+
+
+    /* =========================
+       PUBLICAR TOP 10
+    ========================== */
+
+    saveRankingBtn.addEventListener(
+      "click",
+      async () => {
+
+        const rankingCompleto =
+          rankingAtual.filter(
+            Boolean
+          );
+
+
+        if(
+          rankingCompleto.length !== 10
+        ){
+
+          mostrarMensagem(
+            "Seleciona as 10 músicas antes de publicar o ranking.",
+            "error"
+          );
+
+          return;
+
+        }
+
+
+        const mes =
+          Number(
+            monthSelect.value
+          );
+
+
+        const ano =
+          Number(
+            yearInput.value
+          );
+
+
+        if(
+          !mes ||
+          !ano
+        ){
+
+          mostrarMensagem(
+            "Seleciona um mês e um ano válidos.",
+            "error"
+          );
+
+          return;
+
+        }
+
+
+        const titulo =
+          `TOP 10 PRIME — ${nomesMeses[mes - 1]} ${ano}`;
+
+
+        saveRankingBtn.disabled =
+          true;
+
+
+        saveRankingBtn.textContent =
+          "A PUBLICAR...";
+
+
+        try{
+
+          const rankingData = {
+
+            titulo:
+              titulo,
+
+
+            mes:
+              mes,
+
+
+            ano:
+              ano,
+
+
+            musicas:
+
+              rankingAtual.map(
+                (musica, index) => ({
+
+                  posicao:
+                    index + 1,
+
+
+                  musicaId:
+                    musica.id,
+
+
+                  titulo:
+                    musica.titulo,
+
+
+                  artistaNome:
+                    musica.artistaNome,
+
+
+                  capa:
+                    musica.capa
+
+                })
+              ),
+
+
+            atualizadoPor:
+              auth.currentUser
+                ? auth.currentUser.uid
+                : null,
+
+
+            atualizadoEm:
+              serverTimestamp()
+
+          };
+
+
+          /* RANKING ATUAL */
+
+          await setDoc(
+
+            doc(
+              db,
+              "rankings",
+              "mensal"
+            ),
+
+            rankingData
+
+          );
+
+
+          /* HISTÓRICO DO MÊS */
+
+          const historicoId =
+            `${ano}-${String(mes).padStart(2,"0")}`;
+
+
+          await setDoc(
+
+            doc(
+              db,
+              "historicoRankings",
+              historicoId
+            ),
+
+            rankingData
+
+          );
+
+
+          mostrarMensagem(
+            `${titulo} foi publicado com sucesso! 👑`
+          );
+
+
+          carregarHistorico();
+
+        }
+
+        catch(error){
+
+          console.error(
+            "Erro ao publicar ranking:",
+            error
+          );
+
+
+          mostrarMensagem(
+            "Não foi possível publicar o ranking.",
+            "error"
+          );
+
+        }
+
+        finally{
+
+          saveRankingBtn.disabled =
+            false;
+
+
+          saveRankingBtn.textContent =
+            "👑 PUBLICAR TOP 10 PRIME";
+
+        }
+
+      }
+    );
+
+
+
+    /* =========================
+       LIMPAR RANKING
+    ========================== */
+
+    clearRankingBtn.addEventListener(
+      "click",
+      () => {
+
+        const confirmar =
+          confirm(
+            "Queres limpar as 10 posições?"
+          );
+
+
+        if(!confirmar){
+          return;
+        }
+
+
+        rankingAtual =
+          new Array(10)
+            .fill(null);
+
+
+        posicaoSelecionada =
+          0;
+
+
+        renderizarRanking();
+
+
+        mostrarMensagem(
+          "Ranking limpo."
+        );
+
+      }
+    );
+
+
+
+    /* =========================
+       HISTÓRICO
+    ========================== */
+
+    async function carregarHistorico(){
+
+      historyList.innerHTML =
+        `
+          <div class="loading">
+            A carregar histórico...
+          </div>
+        `;
+
+
+      try{
+
+        const q =
+          query(
+            collection(
+              db,
+              "historicoRankings"
+            ),
+            orderBy(
+              "ano",
+              "desc"
+            ),
+            limit(20)
+          );
+
+
+        const snapshot =
+          await getDocs(
+            q
+          );
+
+
+        const rankings =
+          snapshot.docs.map(
+            (item) => ({
+
+              id:
+                item.id,
+
+              ...item.data()
+
+            })
+          );
+
+
+        rankings.sort(
+          (a,b) => {
+
+            const dataA =
+              (a.ano * 100) +
+              a.mes;
+
+
+            const dataB =
+              (b.ano * 100) +
+              b.mes;
+
+
+            return (
+              dataB -
+              dataA
+            );
+
+          }
+        );
+
+
+        if(
+          rankings.length === 0
+        ){
+
+          historyList.innerHTML =
+            `
+              <div class="loading">
+                Ainda não existe histórico.
+              </div>
+            `;
+
+          return;
+
+        }
+
+
+        historyList.innerHTML =
+          rankings.map(
+            (ranking) => `
+
+              <div class="history-item">
+
+                <div>
+
+                  <div class="history-title">
+                    ${escaparHTML(ranking.titulo)}
+                  </div>
+
+
+                  <div class="history-date">
+                    ${ranking.musicas?.length || 0} músicas no TOP 10
+                  </div>
+
+                </div>
+
+
+                <button
+                  class="load-history"
+                  type="button"
+                  data-id="${escaparHTML(ranking.id)}"
+                >
+                  CARREGAR
+                </button>
+
+              </div>
+
+            `
+          ).join(
+            ""
+          );
+
+      }
+
+      catch(error){
+
+        console.error(
+          "Erro ao carregar histórico:",
+          error
+        );
+
+
+        historyList.innerHTML =
+          `
+            <div class="loading">
+              Não foi possível carregar o histórico.
+            </div>
+          `;
+
+      }
+
+    }
+
+
+
+    /* =========================
+       CARREGAR RANKING
+    ========================== */
+
+    historyList.addEventListener(
+      "click",
+      async (event) => {
+
+        const botao =
+          event.target.closest(
+            ".load-history"
+          );
+
+
+        if(!botao){
+          return;
+        }
+
+
+        try{
+
+          const rankingRef =
+            doc(
+              db,
+              "historicoRankings",
+              botao.dataset.id
+            );
+
+
+          const snapshot =
+            await getDoc(
+              rankingRef
+            );
+
+
+          if(
+            !snapshot.exists()
+          ){
+
+            mostrarMensagem(
+              "Ranking não encontrado.",
+              "error"
+            );
+
+            return;
+
+          }
+
+
+          const ranking =
+            snapshot.data();
+
+
+          monthSelect.value =
+            String(
+              ranking.mes
+            );
+
+
+          yearInput.value =
+            ranking.ano;
+
+
+          rankingAtual =
+            new Array(10)
+              .fill(null);
+
+
+          ranking.musicas.forEach(
+            (musica) => {
+
+              const index =
+                musica.posicao - 1;
+
+
+              rankingAtual[
+                index
+              ] = {
+
+                id:
+                  musica.musicaId,
+
+
+                titulo:
+                  musica.titulo,
+
+
+                artistaNome:
+                  musica.artistaNome,
+
+
+                capa:
+                  musica.capa
+
+              };
+
+            }
+          );
+
+
+          renderizarRanking();
+
+
+          mostrarMensagem(
+            `${ranking.titulo} carregado para edição.`
+          );
+
+
+          window.scrollTo({
+
+            top:0,
+
+            behavior:"smooth"
+
+          });
+
+        }
+
+        catch(error){
+
+          console.error(
+            "Erro ao carregar ranking:",
+            error
+          );
+
+
+          mostrarMensagem(
+            "Não foi possível carregar este ranking.",
+            "error"
+          );
+
+        }
+
+      }
+    );
+
+
+
+    /* =========================
+       PROTEGER ADMIN
+    ========================== */
+
+    onAuthStateChanged(
+      auth,
+      (user) => {
+
+        if(!user){
+
+          window.location.href =
+            "area-do-artista.html";
+
+          return;
+
+        }
+
+
+        carregarMusicas();
+
+        carregarHistorico();
+
+      }
+    );
+
+
+
+    /* =========================
+       INICIAR
+    ========================== */
+
+    renderizarRanking();
+
+
+  </script>
+
+</body>
+</html>
