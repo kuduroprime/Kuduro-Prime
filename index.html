@@ -2377,61 +2377,49 @@ content="A plataforma dedicada ao Kuduro: artistas, músicas, ranking, batalhas 
         "criadoEm",
         "desc"
       ),
-      limit(6)
+      limit(5)
     );
 
- onSnapshot(
-  q,
-  (snapshot) => {
+  onSnapshot(
 
-    console.log(
-      "Músicas encontradas:",
-      snapshot.size
-    );
+    q,
 
-    console.log(
-      "Dados das músicas:",
-      snapshot.docs.map(
-        docMusica => ({
-          id: docMusica.id,
-          ...docMusica.data()
-        })
-      )
-    );
+    (snapshot) => {
 
-    if(snapshot.empty){
+      if(snapshot.empty){
 
-      releasesContainer.innerHTML = `
-        <div
-          style="
-            padding:20px 0;
-            color:#aaa59a;
-            font-size:13px
-          "
-        >
-          Ainda não existem lançamentos.
-        </div>
-      `;
+        releasesContainer.innerHTML = `
+          <div
+            style="
+              padding:20px 0;
+              color:#aaa59a;
+              font-size:13px
+            "
+          >
+            Ainda não existem lançamentos.
+          </div>
+        `;
 
-      return;
-    }
-
-
-    const musicas = [];
-
-
-    snapshot.forEach(
-      (docMusica) => {
-
-        musicas.push(
-          obterDadosMusica(
-            docMusica.data(),
-            docMusica.id
-          )
-        );
-
+        return;
       }
-    );
+
+
+      const musicas = [];
+
+
+      snapshot.forEach(
+        (docMusica) => {
+
+          musicas.push(
+            obterDadosMusica(
+              docMusica.data(),
+              docMusica.id
+            )
+          );
+
+        }
+      );
+
 
       releasesContainer.innerHTML =
         "";
@@ -2540,7 +2528,9 @@ content="A plataforma dedicada ao Kuduro: artistas, músicas, ranking, batalhas 
 
 
           item.appendChild(capa);
+
           item.appendChild(info);
+
           item.appendChild(playButton);
 
 
@@ -2575,6 +2565,7 @@ content="A plataforma dedicada ao Kuduro: artistas, músicas, ranking, batalhas 
       `;
 
     }
+
   );
 
 }
