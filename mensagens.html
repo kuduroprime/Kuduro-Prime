@@ -1,0 +1,2410 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Mensagens — KUDURO PRIME</title>
+
+<style>
+:root{
+  --bg:#070707;
+  --panel:#101010;
+  --panel2:#151515;
+  --panel3:#1b1b1b;
+  --gold:#f4bf31;
+  --gold2:#ffdc6b;
+  --text:#f7f4ed;
+  --muted:#aaa59a;
+  --line:#292929;
+  --green:#35d46f;
+  --danger:#ff563f;
+}
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:Arial,Helvetica,sans-serif;
+  height:100vh;
+  overflow:hidden;
+}
+
+/* =========================
+   APP
+========================= */
+
+.app{
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.header{
+  height:64px;
+  background:#0b0b0b;
+  border-bottom:1px solid var(--line);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 22px;
+  flex-shrink:0;
+}
+
+.logo{
+  color:var(--gold);
+  font-size:21px;
+  font-weight:900;
+  letter-spacing:.5px;
+}
+
+.logo span{
+  color:#fff;
+}
+
+.header-right{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.header-btn{
+  width:42px;
+  height:42px;
+  border:1px solid var(--line);
+  background:#151515;
+  color:#fff;
+  border-radius:50%;
+  cursor:pointer;
+  font-size:18px;
+  transition:.2s;
+}
+
+.header-btn:hover{
+  border-color:var(--gold);
+  color:var(--gold);
+}
+
+/* =========================
+   MAIN
+========================= */
+
+.main{
+  flex:1;
+  min-height:0;
+  display:grid;
+  grid-template-columns:340px minmax(0,1fr);
+}
+
+/* =========================
+   SIDEBAR
+========================= */
+
+.sidebar{
+  background:var(--panel);
+  border-right:1px solid var(--line);
+  display:flex;
+  flex-direction:column;
+  min-width:0;
+}
+
+.sidebar-top{
+  padding:18px;
+  border-bottom:1px solid var(--line);
+}
+
+.sidebar-title{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:15px;
+}
+
+.sidebar-title h1{
+  font-size:21px;
+}
+
+.new-message{
+  width:38px;
+  height:38px;
+  border-radius:50%;
+  border:none;
+  background:var(--gold);
+  color:#000;
+  font-size:21px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.search{
+  position:relative;
+}
+
+.search input{
+  width:100%;
+  height:42px;
+  border-radius:10px;
+  border:1px solid var(--line);
+  background:#181818;
+  color:#fff;
+  outline:none;
+  padding:0 15px 0 42px;
+  font-size:14px;
+}
+
+.search input:focus{
+  border-color:var(--gold);
+}
+
+.search-icon{
+  position:absolute;
+  left:14px;
+  top:12px;
+  color:var(--muted);
+}
+
+/* conversations */
+
+.conversations{
+  flex:1;
+  overflow-y:auto;
+}
+
+.conversation{
+  height:78px;
+  padding:11px 15px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  cursor:pointer;
+  border-bottom:1px solid #1e1e1e;
+  transition:.2s;
+}
+
+.conversation:hover{
+  background:#171717;
+}
+
+.conversation.active{
+  background:#1d1b15;
+  border-left:3px solid var(--gold);
+}
+
+.avatar{
+  width:52px;
+  height:52px;
+  border-radius:50%;
+  background:#242424;
+  border:1px solid #383838;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:var(--gold);
+  font-weight:900;
+  font-size:18px;
+  flex-shrink:0;
+  position:relative;
+  overflow:hidden;
+}
+
+.avatar img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.online-dot{
+  position:absolute;
+  width:13px;
+  height:13px;
+  background:var(--green);
+  border:2px solid var(--panel);
+  border-radius:50%;
+  right:0;
+  bottom:1px;
+}
+
+.conversation-info{
+  flex:1;
+  min-width:0;
+}
+
+.conversation-line{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+}
+
+.conversation-name{
+  font-weight:800;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+.time{
+  font-size:11px;
+  color:var(--muted);
+  flex-shrink:0;
+}
+
+.last-message{
+  color:var(--muted);
+  font-size:13px;
+  margin-top:6px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+.unread{
+  min-width:20px;
+  height:20px;
+  padding:0 5px;
+  border-radius:20px;
+  background:var(--gold);
+  color:#000;
+  font-size:11px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:bold;
+}
+
+/* =========================
+   CHAT
+========================= */
+
+.chat{
+  min-width:0;
+  display:flex;
+  flex-direction:column;
+  background:#080808;
+}
+
+/* chat header */
+
+.chat-header{
+  height:70px;
+  background:var(--panel);
+  border-bottom:1px solid var(--line);
+  display:flex;
+  align-items:center;
+  padding:0 20px;
+  gap:12px;
+  flex-shrink:0;
+}
+
+.back-btn{
+  display:none;
+  border:none;
+  background:none;
+  color:#fff;
+  font-size:23px;
+  cursor:pointer;
+}
+
+.chat-user{
+  flex:1;
+  min-width:0;
+}
+
+.chat-user-name{
+  font-weight:900;
+  font-size:16px;
+}
+
+.chat-status{
+  font-size:12px;
+  color:var(--muted);
+  margin-top:4px;
+}
+
+.chat-actions{
+  display:flex;
+  gap:8px;
+}
+
+.chat-action{
+  width:38px;
+  height:38px;
+  background:#171717;
+  border:1px solid var(--line);
+  color:#fff;
+  border-radius:50%;
+  cursor:pointer;
+}
+
+.chat-action:hover{
+  color:var(--gold);
+  border-color:var(--gold);
+}
+
+/* =========================
+   MESSAGES
+========================= */
+
+.messages{
+  flex:1;
+  overflow-y:auto;
+  padding:25px 8%;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+
+  background-image:
+    radial-gradient(circle at 20% 20%,rgba(244,191,49,.025),transparent 25%),
+    radial-gradient(circle at 80% 80%,rgba(244,191,49,.02),transparent 25%);
+}
+
+.date-label{
+  align-self:center;
+  background:#191919;
+  color:var(--muted);
+  border:1px solid var(--line);
+  border-radius:15px;
+  padding:5px 12px;
+  font-size:11px;
+  margin:8px 0 12px;
+}
+
+.message-row{
+  display:flex;
+  width:100%;
+}
+
+.message-row.received{
+  justify-content:flex-start;
+}
+
+.message-row.sent{
+  justify-content:flex-end;
+}
+
+.message{
+  max-width:min(560px,75%);
+  padding:10px 13px 7px;
+  border-radius:13px;
+  position:relative;
+  font-size:14px;
+  line-height:1.45;
+  box-shadow:0 2px 8px rgba(0,0,0,.2);
+}
+
+.received .message{
+  background:#181818;
+  border:1px solid #252525;
+  border-top-left-radius:4px;
+}
+
+.sent .message{
+  background:#4b3c16;
+  border:1px solid #66511d;
+  border-top-right-radius:4px;
+}
+
+.message-text{
+  white-space:pre-wrap;
+  word-break:break-word;
+}
+
+.message-meta{
+  display:flex;
+  align-items:center;
+  justify-content:flex-end;
+  gap:5px;
+  margin-top:4px;
+  font-size:10px;
+  color:#aaa;
+}
+
+.sent .message-meta{
+  color:#d4c796;
+}
+
+.check{
+  color:#54bfff;
+  font-size:12px;
+}
+
+/* audio */
+
+.audio-message{
+  min-width:260px;
+}
+
+.audio-player{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.audio-play{
+  width:40px;
+  height:40px;
+  border:none;
+  border-radius:50%;
+  background:var(--gold);
+  color:#000;
+  cursor:pointer;
+  font-size:16px;
+}
+
+.audio-wave{
+  flex:1;
+  height:4px;
+  background:#555;
+  border-radius:10px;
+  position:relative;
+}
+
+.audio-wave::after{
+  content:"";
+  position:absolute;
+  left:0;
+  top:0;
+  width:38%;
+  height:100%;
+  background:var(--gold);
+  border-radius:10px;
+}
+
+.audio-duration{
+  font-size:11px;
+  color:var(--muted);
+}
+
+/* =========================
+   COMPOSER
+========================= */
+
+.composer{
+  min-height:72px;
+  background:var(--panel);
+  border-top:1px solid var(--line);
+  padding:12px 20px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  position:relative;
+  flex-shrink:0;
+}
+
+.composer-btn{
+  width:43px;
+  height:43px;
+  border:1px solid var(--line);
+  background:#181818;
+  color:#fff;
+  border-radius:50%;
+  cursor:pointer;
+  font-size:18px;
+  flex-shrink:0;
+}
+
+.composer-btn:hover{
+  color:var(--gold);
+  border-color:var(--gold);
+}
+
+.message-input{
+  flex:1;
+  min-width:0;
+  height:45px;
+  border:1px solid var(--line);
+  border-radius:23px;
+  background:#181818;
+  color:#fff;
+  outline:none;
+  padding:0 18px;
+  font-size:14px;
+}
+
+.message-input:focus{
+  border-color:var(--gold);
+}
+
+.send-btn{
+  width:45px;
+  height:45px;
+  border:none;
+  border-radius:50%;
+  background:var(--gold);
+  color:#000;
+  font-size:18px;
+  font-weight:bold;
+  cursor:pointer;
+  flex-shrink:0;
+}
+
+.send-btn:hover{
+  background:var(--gold2);
+}
+
+/* recording */
+
+.recording{
+  display:none;
+  align-items:center;
+  gap:10px;
+  flex:1;
+  height:45px;
+  padding:0 15px;
+  background:#181818;
+  border:1px solid var(--danger);
+  border-radius:23px;
+}
+
+.recording.active{
+  display:flex;
+}
+
+.recording-dot{
+  width:10px;
+  height:10px;
+  border-radius:50%;
+  background:var(--danger);
+  animation:pulse 1s infinite;
+}
+
+@keyframes pulse{
+  50%{
+    opacity:.3;
+  }
+}
+
+.recording-text{
+  flex:1;
+  font-size:13px;
+}
+
+.cancel-recording{
+  border:none;
+  background:none;
+  color:#fff;
+  cursor:pointer;
+}
+
+/* =========================
+   EMPTY CHAT
+========================= */
+
+.empty-chat{
+  flex:1;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:30px;
+}
+
+.empty-box{
+  max-width:430px;
+}
+
+.empty-icon{
+  font-size:65px;
+  margin-bottom:15px;
+}
+
+.empty-box h2{
+  font-size:24px;
+  margin-bottom:10px;
+}
+
+.empty-box p{
+  color:var(--muted);
+  line-height:1.6;
+}
+
+/* =========================
+   TEMPORARY MODAL
+========================= */
+
+.modal-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.75);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:1000;
+  padding:20px;
+}
+
+.modal-overlay.show{
+  display:flex;
+}
+
+.modal{
+  width:100%;
+  max-width:430px;
+  background:#111;
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:22px;
+  box-shadow:0 20px 70px rgba(0,0,0,.7);
+}
+
+.modal-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:20px;
+}
+
+.modal-header h2{
+  font-size:19px;
+}
+
+.close-modal{
+  width:35px;
+  height:35px;
+  border-radius:50%;
+  border:1px solid var(--line);
+  background:#181818;
+  color:#fff;
+  cursor:pointer;
+}
+
+.modal-description{
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.5;
+  margin-bottom:18px;
+}
+
+.temp-option{
+  display:flex;
+  align-items:center;
+  gap:13px;
+  padding:14px;
+  border:1px solid var(--line);
+  border-radius:12px;
+  margin-bottom:9px;
+  cursor:pointer;
+  transition:.2s;
+}
+
+.temp-option:hover{
+  background:#191919;
+  border-color:var(--gold);
+}
+
+.temp-option.selected{
+  background:#211d11;
+  border-color:var(--gold);
+}
+
+.temp-radio{
+  width:20px;
+  height:20px;
+  border:2px solid #777;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.temp-option.selected .temp-radio{
+  border-color:var(--gold);
+}
+
+.temp-option.selected .temp-radio::after{
+  content:"";
+  width:9px;
+  height:9px;
+  background:var(--gold);
+  border-radius:50%;
+}
+
+.temp-info{
+  flex:1;
+}
+
+.temp-title{
+  font-weight:bold;
+}
+
+.temp-subtitle{
+  color:var(--muted);
+  font-size:11px;
+  margin-top:3px;
+}
+
+/* =========================
+   ATTACH MENU
+========================= */
+
+.attach-menu{
+  position:absolute;
+  bottom:65px;
+  left:20px;
+  background:#171717;
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:8px;
+  display:none;
+  width:190px;
+  box-shadow:0 15px 40px rgba(0,0,0,.5);
+}
+
+.attach-menu.show{
+  display:block;
+}
+
+.attach-option{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:11px;
+  border-radius:9px;
+  cursor:pointer;
+  font-size:13px;
+}
+
+.attach-option:hover{
+  background:#222;
+  color:var(--gold);
+}
+
+/* =========================
+   TOAST
+========================= */
+
+.toast{
+  position:fixed;
+  left:50%;
+  bottom:95px;
+  transform:translateX(-50%) translateY(20px);
+  background:#1c1c1c;
+  border:1px solid var(--gold);
+  color:#fff;
+  padding:11px 17px;
+  border-radius:10px;
+  font-size:13px;
+  opacity:0;
+  pointer-events:none;
+  transition:.25s;
+  z-index:2000;
+}
+
+.toast.show{
+  opacity:1;
+  transform:translateX(-50%) translateY(0);
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:800px){
+
+  .header{
+    height:58px;
+    padding:0 14px;
+  }
+
+  .logo{
+    font-size:17px;
+  }
+
+  .main{
+    display:block;
+    position:relative;
+  }
+
+  .sidebar{
+    position:absolute;
+    inset:0;
+    z-index:5;
+    width:100%;
+  }
+
+  .chat{
+    position:absolute;
+    inset:0;
+    z-index:10;
+    display:none;
+  }
+
+  .chat.mobile-active{
+    display:flex;
+  }
+
+  .back-btn{
+    display:block;
+  }
+
+  .messages{
+    padding:18px 12px;
+  }
+
+  .message{
+    max-width:85%;
+  }
+
+  .composer{
+    padding:10px;
+    gap:6px;
+  }
+
+  .composer-btn{
+    width:40px;
+    height:40px;
+  }
+
+  .message-input{
+    height:40px;
+  }
+
+  .send-btn{
+    width:40px;
+    height:40px;
+  }
+
+  .chat-header{
+    padding:0 10px;
+  }
+
+  .chat-actions .chat-action:nth-child(1){
+    display:none;
+  }
+}
+
+/* scrollbar */
+
+::-webkit-scrollbar{
+  width:6px;
+}
+
+::-webkit-scrollbar-track{
+  background:#0c0c0c;
+}
+
+::-webkit-scrollbar-thumb{
+  background:#333;
+  border-radius:10px;
+}
+
+::-webkit-scrollbar-thumb:hover{
+  background:#555;
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+  <!-- HEADER -->
+  <header class="header">
+
+    <div class="logo">
+      ♕ KUDURO <span>PRIME</span>
+    </div>
+
+    <div class="header-right">
+
+      <button class="header-btn" onclick="goBack()" title="Voltar">
+        ←
+      </button>
+
+      <button class="header-btn" onclick="goProfile()" title="Meu perfil">
+        👤
+      </button>
+
+    </div>
+
+  </header>
+
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <!-- =========================
+         SIDEBAR
+    ========================== -->
+
+    <aside class="sidebar" id="sidebar">
+
+      <div class="sidebar-top">
+
+        <div class="sidebar-title">
+
+          <h1>Mensagens</h1>
+
+          <button
+            class="new-message"
+            onclick="newMessage()"
+            title="Nova mensagem">
+            +
+          </button>
+
+        </div>
+
+        <div class="search">
+
+          <span class="search-icon">🔎</span>
+
+          <input
+            id="searchInput"
+            type="text"
+            placeholder="Pesquisar conversas..."
+            oninput="searchChats()">
+
+        </div>
+
+      </div>
+
+
+      <div class="conversations" id="conversationList">
+
+        <!-- CONVERSA 1 -->
+
+        <div
+          class="conversation active"
+          data-name="Figura do Adoço"
+          onclick="openChat(
+            'Figura do Adoço',
+            'FA',
+            true
+          )">
+
+          <div class="avatar">
+            FA
+            <div class="online-dot"></div>
+          </div>
+
+          <div class="conversation-info">
+
+            <div class="conversation-line">
+
+              <div class="conversation-name">
+                Figura do Adoço
+              </div>
+
+              <div class="time">
+                10:32
+              </div>
+
+            </div>
+
+            <div class="last-message">
+              Vamos gravar hoje 🔥
+            </div>
+
+          </div>
+
+          <div class="unread">
+            2
+          </div>
+
+        </div>
+
+
+        <!-- CONVERSA 2 -->
+
+        <div
+          class="conversation"
+          data-name="Dabay"
+          onclick="openChat(
+            'Dabay',
+            'DB',
+            false
+          )">
+
+          <div class="avatar">
+            DB
+          </div>
+
+          <div class="conversation-info">
+
+            <div class="conversation-line">
+
+              <div class="conversation-name">
+                Dabay
+              </div>
+
+              <div class="time">
+                09:15
+              </div>
+
+            </div>
+
+            <div class="last-message">
+              Ouve esta música 🎵
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- CONVERSA 3 -->
+
+        <div
+          class="conversation"
+          data-name="Jamaicano"
+          onclick="openChat(
+            'Jamaicano',
+            'JA',
+            true
+          )">
+
+          <div class="avatar">
+            JA
+            <div class="online-dot"></div>
+          </div>
+
+          <div class="conversation-info">
+
+            <div class="conversation-line">
+
+              <div class="conversation-name">
+                Jamaicano
+              </div>
+
+              <div class="time">
+                Ontem
+              </div>
+
+            </div>
+
+            <div class="last-message">
+              Envia o beat 🔥
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- CONVERSA 4 -->
+
+        <div
+          class="conversation"
+          data-name="T Djonera"
+          onclick="openChat(
+            'T Djonera',
+            'TD',
+            false
+          )">
+
+          <div class="avatar">
+            TD
+          </div>
+
+          <div class="conversation-info">
+
+            <div class="conversation-line">
+
+              <div class="conversation-name">
+                T Djonera
+              </div>
+
+              <div class="time">
+                02/09
+              </div>
+
+            </div>
+
+            <div class="last-message">
+              Grande trabalho 👑
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </aside>
+
+
+    <!-- =========================
+         CHAT
+    ========================== -->
+
+    <section class="chat" id="chat">
+
+      <!-- CHAT HEADER -->
+
+      <div class="chat-header">
+
+        <button
+          class="back-btn"
+          onclick="closeChat()">
+          ←
+        </button>
+
+        <div class="avatar" id="chatAvatar">
+          FA
+          <div class="online-dot" id="chatOnline"></div>
+        </div>
+
+        <div class="chat-user">
+
+          <div
+            class="chat-user-name"
+            id="chatUserName">
+            Figura do Adoço
+          </div>
+
+          <div
+            class="chat-status"
+            id="chatStatus">
+            online
+          </div>
+
+        </div>
+
+        <div class="chat-actions">
+
+          <button
+            class="chat-action"
+            onclick="showToast('Chamada de voz será ligada ao Firebase')">
+            📞
+          </button>
+
+          <button
+            class="chat-action"
+            onclick="showToast('Chamada de vídeo será ligada ao Firebase')">
+            📹
+          </button>
+
+          <button
+            class="chat-action"
+            onclick="openTemporary()"
+            title="Mensagens temporárias">
+            ⏱
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- MESSAGES -->
+
+      <div
+        class="messages"
+        id="messages">
+
+        <div class="date-label">
+          HOJE
+        </div>
+
+
+        <!-- RECEIVED -->
+
+        <div class="message-row received">
+
+          <div class="message">
+
+            <div class="message-text">
+              Mano, estás disponível hoje?
+            </div>
+
+            <div class="message-meta">
+              10:25
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- SENT -->
+
+        <div class="message-row sent">
+
+          <div class="message">
+
+            <div class="message-text">
+              Sim 🔥 Estou disponível.
+            </div>
+
+            <div class="message-meta">
+              10:27
+              <span class="check">✓✓</span>
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- RECEIVED -->
+
+        <div class="message-row received">
+
+          <div class="message">
+
+            <div class="message-text">
+              Vamos gravar hoje então.
+            </div>
+
+            <div class="message-meta">
+              10:30
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- AUDIO -->
+
+        <div class="message-row received">
+
+          <div class="message audio-message">
+
+            <div class="audio-player">
+
+              <button
+                class="audio-play"
+                onclick="playDemoAudio(this)">
+                ▶
+              </button>
+
+              <div class="audio-wave"></div>
+
+              <div class="audio-duration">
+                0:18
+              </div>
+
+            </div>
+
+            <div class="message-meta">
+              áudio
+              10:31
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- SENT -->
+
+        <div class="message-row sent">
+
+          <div class="message">
+
+            <div class="message-text">
+              Perfeito. 🔥👑
+            </div>
+
+            <div class="message-meta">
+              10:32
+              <span class="check">✓✓</span>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- COMPOSER -->
+
+      <div class="composer">
+
+        <!-- ATTACH MENU -->
+
+        <div
+          class="attach-menu"
+          id="attachMenu">
+
+          <div
+            class="attach-option"
+            onclick="selectAttachment('foto')">
+            📷
+            Foto
+          </div>
+
+          <div
+            class="attach-option"
+            onclick="selectAttachment('video')">
+            🎬
+            Vídeo
+          </div>
+
+          <div
+            class="attach-option"
+            onclick="selectAttachment('audio')">
+            🎵
+            Áudio
+          </div>
+
+          <div
+            class="attach-option"
+            onclick="selectAttachment('documento')">
+            📄
+            Documento
+          </div>
+
+        </div>
+
+
+        <button
+          class="composer-btn"
+          onclick="toggleAttach()"
+          title="Anexar">
+          📎
+        </button>
+
+
+        <input
+          type="file"
+          id="fileInput"
+          hidden
+          onchange="fileSelected()">
+
+
+        <!-- INPUT -->
+
+        <input
+          class="message-input"
+          id="messageInput"
+          type="text"
+          placeholder="Escreve uma mensagem..."
+          autocomplete="off"
+          onkeydown="handleEnter(event)">
+
+
+        <!-- RECORDING -->
+
+        <div
+          class="recording"
+          id="recording">
+
+          <div class="recording-dot"></div>
+
+          <div class="recording-text">
+            A gravar áudio...
+            <span id="recordTime">
+              0:00
+            </span>
+          </div>
+
+          <button
+            class="cancel-recording"
+            onclick="cancelRecording()">
+            ✕
+          </button>
+
+        </div>
+
+
+        <!-- MICROPHONE -->
+
+        <button
+          class="composer-btn"
+          id="micBtn"
+          onclick="toggleRecording()"
+          title="Gravar áudio">
+          🎙️
+        </button>
+
+
+        <!-- SEND -->
+
+        <button
+          class="send-btn"
+          onclick="sendMessage()"
+          title="Enviar">
+          ➤
+        </button>
+
+      </div>
+
+    </section>
+
+  </main>
+
+</div>
+
+
+<!-- =========================
+     TEMPORARY MESSAGE MODAL
+========================== -->
+
+<div
+  class="modal-overlay"
+  id="temporaryModal">
+
+  <div class="modal">
+
+    <div class="modal-header">
+
+      <h2>
+        ⏱ Mensagens temporárias
+      </h2>
+
+      <button
+        class="close-modal"
+        onclick="closeTemporary()">
+        ✕
+      </button>
+
+    </div>
+
+    <div class="modal-description">
+      Escolhe por quanto tempo as novas mensagens
+      desta conversa ficarão disponíveis.
+    </div>
+
+
+    <div
+      class="temp-option selected"
+      data-value="off"
+      onclick="selectTemporary(this,'off')">
+
+      <div class="temp-radio"></div>
+
+      <div class="temp-info">
+
+        <div class="temp-title">
+          Desativado
+        </div>
+
+        <div class="temp-subtitle">
+          As mensagens permanecem normalmente
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div
+      class="temp-option"
+      data-value="24h"
+      onclick="selectTemporary(this,'24h')">
+
+      <div class="temp-radio"></div>
+
+      <div class="temp-info">
+
+        <div class="temp-title">
+          24 horas
+        </div>
+
+        <div class="temp-subtitle">
+          As mensagens desaparecem após 24 horas
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div
+      class="temp-option"
+      data-value="7d"
+      onclick="selectTemporary(this,'7d')">
+
+      <div class="temp-radio"></div>
+
+      <div class="temp-info">
+
+        <div class="temp-title">
+          7 dias
+        </div>
+
+        <div class="temp-subtitle">
+          As mensagens desaparecem após 7 dias
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div
+      class="temp-option"
+      data-value="90d"
+      onclick="selectTemporary(this,'90d')">
+
+      <div class="temp-radio"></div>
+
+      <div class="temp-info">
+
+        <div class="temp-title">
+          90 dias
+        </div>
+
+        <div class="temp-subtitle">
+          As mensagens desaparecem após 90 dias
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- TOAST -->
+
+<div
+  class="toast"
+  id="toast">
+</div>
+
+
+<script>
+
+/* =====================================
+   ESTADO
+===================================== */
+
+let currentChat = "Figura do Adoço";
+let temporaryMode = "off";
+
+let mediaRecorder = null;
+let audioChunks = [];
+let recordingTimer = null;
+let recordingSeconds = 0;
+
+
+/* =====================================
+   ABRIR CONVERSA
+===================================== */
+
+function openChat(name, initials, online){
+
+  currentChat = name;
+
+  document
+    .querySelectorAll(".conversation")
+    .forEach(item => {
+      item.classList.remove("active");
+    });
+
+  const selected =
+    [...document.querySelectorAll(".conversation")]
+    .find(item =>
+      item.dataset.name === name
+    );
+
+  if(selected){
+    selected.classList.add("active");
+  }
+
+  document.getElementById("chatUserName")
+    .textContent = name;
+
+  document.getElementById("chatAvatar")
+    .childNodes[0]
+    .textContent = initials;
+
+  document.getElementById("chatStatus")
+    .textContent = online
+      ? "online"
+      : "offline";
+
+  document.getElementById("chatOnline")
+    .style.display = online
+      ? "block"
+      : "none";
+
+  document
+    .getElementById("chat")
+    .classList.add("mobile-active");
+
+  showToast("Conversa aberta com " + name);
+}
+
+
+/* =====================================
+   FECHAR CHAT MOBILE
+===================================== */
+
+function closeChat(){
+
+  document
+    .getElementById("chat")
+    .classList.remove("mobile-active");
+
+}
+
+
+/* =====================================
+   ENVIAR MENSAGEM
+===================================== */
+
+function sendMessage(){
+
+  const input =
+    document.getElementById("messageInput");
+
+  const text =
+    input.value.trim();
+
+  if(!text){
+    return;
+  }
+
+  const messages =
+    document.getElementById("messages");
+
+  const row =
+    document.createElement("div");
+
+  row.className =
+    "message-row sent";
+
+  const expiration =
+    temporaryMode !== "off"
+      ? `<div style="
+          color:#d9c57a;
+          font-size:9px;
+          margin-top:3px;
+        ">
+          ⏱ ${temporaryLabel()}
+        </div>`
+      : "";
+
+  row.innerHTML = `
+
+    <div class="message">
+
+      <div class="message-text">
+        ${escapeHTML(text)}
+      </div>
+
+      ${expiration}
+
+      <div class="message-meta">
+        ${getTime()}
+        <span class="check">✓</span>
+      </div>
+
+    </div>
+
+  `;
+
+  messages.appendChild(row);
+
+  input.value = "";
+
+  messages.scrollTop =
+    messages.scrollHeight;
+
+  /* guardar localmente */
+  saveLocalMessage({
+    chat:currentChat,
+    text:text,
+    type:"text",
+    temporary:temporaryMode,
+    createdAt:Date.now()
+  });
+
+}
+
+
+/* =====================================
+   ENTER
+===================================== */
+
+function handleEnter(event){
+
+  if(event.key === "Enter"){
+    event.preventDefault();
+    sendMessage();
+  }
+
+}
+
+
+/* =====================================
+   ESCAPAR HTML
+===================================== */
+
+function escapeHTML(text){
+
+  const div =
+    document.createElement("div");
+
+  div.textContent = text;
+
+  return div.innerHTML;
+}
+
+
+/* =====================================
+   HORA
+===================================== */
+
+function getTime(){
+
+  return new Date()
+    .toLocaleTimeString(
+      "pt-PT",
+      {
+        hour:"2-digit",
+        minute:"2-digit"
+      }
+    );
+
+}
+
+
+/* =====================================
+   PESQUISA
+===================================== */
+
+function searchChats(){
+
+  const value =
+    document
+      .getElementById("searchInput")
+      .value
+      .toLowerCase();
+
+  document
+    .querySelectorAll(".conversation")
+    .forEach(item => {
+
+      const name =
+        item.dataset.name.toLowerCase();
+
+      item.style.display =
+        name.includes(value)
+          ? "flex"
+          : "none";
+
+    });
+
+}
+
+
+/* =====================================
+   ANEXOS
+===================================== */
+
+function toggleAttach(){
+
+  document
+    .getElementById("attachMenu")
+    .classList.toggle("show");
+
+}
+
+
+function selectAttachment(type){
+
+  document
+    .getElementById("attachMenu")
+    .classList.remove("show");
+
+  showToast(
+    "Selecionar " + type
+  );
+
+  document
+    .getElementById("fileInput")
+    .click();
+
+}
+
+
+function fileSelected(){
+
+  const file =
+    document
+      .getElementById("fileInput")
+      .files[0];
+
+  if(!file){
+    return;
+  }
+
+  showToast(
+    "Ficheiro selecionado: " +
+    file.name
+  );
+
+}
+
+
+/* =====================================
+   ÁUDIO
+===================================== */
+
+async function toggleRecording(){
+
+  if(mediaRecorder &&
+     mediaRecorder.state === "recording"){
+
+    stopRecording();
+    return;
+  }
+
+  try{
+
+    const stream =
+      await navigator.mediaDevices
+        .getUserMedia({
+          audio:true
+        });
+
+    audioChunks = [];
+
+    mediaRecorder =
+      new MediaRecorder(stream);
+
+    mediaRecorder.ondataavailable =
+      event => {
+
+        if(event.data.size > 0){
+          audioChunks.push(event.data);
+        }
+
+      };
+
+    mediaRecorder.onstop =
+      saveRecordedAudio;
+
+    mediaRecorder.start();
+
+    recordingSeconds = 0;
+
+    document
+      .getElementById("recording")
+      .classList.add("active");
+
+    document
+      .getElementById("messageInput")
+      .style.display = "none";
+
+    document
+      .getElementById("micBtn")
+      .textContent = "⏹";
+
+    recordingTimer =
+      setInterval(() => {
+
+        recordingSeconds++;
+
+        const min =
+          Math.floor(
+            recordingSeconds / 60
+          );
+
+        const sec =
+          recordingSeconds % 60;
+
+        document
+          .getElementById("recordTime")
+          .textContent =
+            min + ":" +
+            String(sec).padStart(2,"0");
+
+      },1000);
+
+  }catch(error){
+
+    showToast(
+      "Não foi possível usar o microfone."
+    );
+
+  }
+
+}
+
+
+function stopRecording(){
+
+  if(mediaRecorder){
+
+    mediaRecorder.stop();
+
+    mediaRecorder
+      .stream
+      .getTracks()
+      .forEach(track =>
+        track.stop()
+      );
+
+  }
+
+  clearInterval(recordingTimer);
+
+  document
+    .getElementById("recording")
+    .classList.remove("active");
+
+  document
+    .getElementById("messageInput")
+    .style.display = "block";
+
+  document
+    .getElementById("micBtn")
+    .textContent = "🎙️";
+
+}
+
+
+function cancelRecording(){
+
+  audioChunks = [];
+
+  if(mediaRecorder){
+
+    mediaRecorder.stop();
+
+    mediaRecorder
+      .stream
+      .getTracks()
+      .forEach(track =>
+        track.stop()
+      );
+
+  }
+
+  clearInterval(recordingTimer);
+
+  document
+    .getElementById("recording")
+    .classList.remove("active");
+
+  document
+    .getElementById("messageInput")
+    .style.display = "block";
+
+  document
+    .getElementById("micBtn")
+    .textContent = "🎙️";
+
+}
+
+
+function saveRecordedAudio(){
+
+  if(audioChunks.length === 0){
+    return;
+  }
+
+  const blob =
+    new Blob(
+      audioChunks,
+      {
+        type:"audio/webm"
+      }
+    );
+
+  const url =
+    URL.createObjectURL(blob);
+
+  addAudioMessage(
+    url,
+    recordingSeconds
+  );
+
+  /*
+    Na próxima etapa:
+    guardar este Blob no IndexedDB
+    e enviar o áudio para Firebase Storage.
+  */
+
+  audioChunks = [];
+
+}
+
+
+function addAudioMessage(url,duration){
+
+  const messages =
+    document.getElementById("messages");
+
+  const row =
+    document.createElement("div");
+
+  row.className =
+    "message-row sent";
+
+  row.innerHTML = `
+
+    <div class="message audio-message">
+
+      <div class="audio-player">
+
+        <button
+          class="audio-play"
+          onclick="playAudioUrl(
+            '${url}',
+            this
+          )">
+          ▶
+        </button>
+
+        <div class="audio-wave"></div>
+
+        <div class="audio-duration">
+          ${formatDuration(duration)}
+        </div>
+
+      </div>
+
+      <div class="message-meta">
+        ${getTime()}
+        <span class="check">✓</span>
+      </div>
+
+    </div>
+
+  `;
+
+  messages.appendChild(row);
+
+  messages.scrollTop =
+    messages.scrollHeight;
+
+}
+
+
+function formatDuration(seconds){
+
+  const min =
+    Math.floor(seconds / 60);
+
+  const sec =
+    seconds % 60;
+
+  return min + ":" +
+    String(sec).padStart(2,"0");
+
+}
+
+
+let currentAudio = null;
+
+
+function playAudioUrl(url,button){
+
+  if(currentAudio){
+
+    currentAudio.pause();
+
+    currentAudio = null;
+
+  }
+
+  const audio =
+    new Audio(url);
+
+  currentAudio = audio;
+
+  button.textContent = "⏸";
+
+  audio.play();
+
+  audio.onended = () => {
+    button.textContent = "▶";
+  };
+
+}
+
+
+function playDemoAudio(button){
+
+  showToast(
+    "Este áudio será ligado ao armazenamento real."
+  );
+
+}
+
+
+/* =====================================
+   MENSAGENS TEMPORÁRIAS
+===================================== */
+
+function openTemporary(){
+
+  document
+    .getElementById("temporaryModal")
+    .classList.add("show");
+
+}
+
+
+function closeTemporary(){
+
+  document
+    .getElementById("temporaryModal")
+    .classList.remove("show");
+
+}
+
+
+function selectTemporary(element,value){
+
+  document
+    .querySelectorAll(".temp-option")
+    .forEach(option =>
+      option.classList.remove("selected")
+    );
+
+  element.classList.add("selected");
+
+  temporaryMode = value;
+
+  localStorage.setItem(
+    "kpTemporaryMessages",
+    value
+  );
+
+  closeTemporary();
+
+  showToast(
+    "Mensagens temporárias: " +
+    temporaryLabel()
+  );
+
+}
+
+
+function temporaryLabel(){
+
+  if(temporaryMode === "24h"){
+    return "24 horas";
+  }
+
+  if(temporaryMode === "7d"){
+    return "7 dias";
+  }
+
+  if(temporaryMode === "90d"){
+    return "90 dias";
+  }
+
+  return "desativadas";
+
+}
+
+
+/* =====================================
+   NOVA MENSAGEM
+===================================== */
+
+function newMessage(){
+
+  showToast(
+    "Aqui vamos pesquisar qualquer artista do KUDURO PRIME."
+  );
+
+}
+
+
+/* =====================================
+   LOCAL STORAGE
+===================================== */
+
+function saveLocalMessage(message){
+
+  let messages = [];
+
+  try{
+
+    messages =
+      JSON.parse(
+        localStorage.getItem(
+          "kpMessages"
+        )
+      ) || [];
+
+  }catch(e){
+
+    messages = [];
+
+  }
+
+  messages.push(message);
+
+  localStorage.setItem(
+    "kpMessages",
+    JSON.stringify(messages)
+  );
+
+}
+
+
+/* =====================================
+   LIMPAR TEMPORÁRIAS LOCAIS
+===================================== */
+
+function cleanupTemporaryMessages(){
+
+  let messages = [];
+
+  try{
+
+    messages =
+      JSON.parse(
+        localStorage.getItem(
+          "kpMessages"
+        )
+      ) || [];
+
+  }catch(e){
+
+    return;
+
+  }
+
+  const now = Date.now();
+
+  messages =
+    messages.filter(message => {
+
+      if(message.temporary === "off"){
+        return true;
+      }
+
+      let duration = 0;
+
+      if(message.temporary === "24h"){
+        duration = 24 * 60 * 60 * 1000;
+      }
+
+      if(message.temporary === "7d"){
+        duration = 7 * 24 * 60 * 60 * 1000;
+      }
+
+      if(message.temporary === "90d"){
+        duration = 90 * 24 * 60 * 60 * 1000;
+      }
+
+      return (
+        now - message.createdAt
+      ) < duration;
+
+    });
+
+  localStorage.setItem(
+    "kpMessages",
+    JSON.stringify(messages)
+  );
+
+}
+
+
+/* =====================================
+   TOAST
+===================================== */
+
+let toastTimer;
+
+function showToast(text){
+
+  const toast =
+    document.getElementById("toast");
+
+  toast.textContent = text;
+
+  toast.classList.add("show");
+
+  clearTimeout(toastTimer);
+
+  toastTimer =
+    setTimeout(() => {
+
+      toast.classList.remove("show");
+
+    },2500);
+
+}
+
+
+/* =====================================
+   NAVEGAÇÃO
+===================================== */
+
+function goBack(){
+
+  window.location.href =
+    "feed.html";
+
+}
+
+
+function goProfile(){
+
+  window.location.href =
+    "meu-perfil.html";
+
+}
+
+
+/* =====================================
+   FECHAR MENUS AO CLICAR FORA
+===================================== */
+
+document.addEventListener(
+  "click",
+  function(event){
+
+    const menu =
+      document.getElementById(
+        "attachMenu"
+      );
+
+    const button =
+      event.target.closest(
+        ".composer-btn"
+      );
+
+    if(
+      menu.classList.contains("show") &&
+      !menu.contains(event.target) &&
+      !button
+    ){
+
+      menu.classList.remove("show");
+
+    }
+
+  }
+);
+
+
+/* =====================================
+   CARREGAR CONFIGURAÇÃO
+===================================== */
+
+(function(){
+
+  const saved =
+    localStorage.getItem(
+      "kpTemporaryMessages"
+    );
+
+  if(saved){
+    temporaryMode = saved;
+  }
+
+  cleanupTemporaryMessages();
+
+})();
+
+</script>
+
+</body>
+</html>
