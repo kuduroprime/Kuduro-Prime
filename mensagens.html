@@ -1406,12 +1406,14 @@ body{
 /* =====================================
    ESTADO GLOBAL
 ===================================== */
-
 let temporaryMode = "off";
 
 let currentChatUID = null;
 let currentChatName = null;
 let currentChatID = null;
+
+/* CONTROLAR STATUS ONLINE */
+let onlineStatusUnsubscribe = null;
 
 let mediaRecorder = null;
 let audioChunks = [];
@@ -1423,10 +1425,10 @@ let currentAudio = null;
 
 let firebaseReady = false;
 
+/* BLOQUEAR ENVIO DUPLICADO */
 let isSendingMessage = false;
 
 let toastTimer = null;
-
 /* =====================================
    TOAST
 ===================================== */
