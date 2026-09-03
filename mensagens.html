@@ -3229,9 +3229,7 @@ async function openRealChat(
 
     );
 
-  /* continua o resto
-     do teu código daqui para baixo */
-
+  
   /*
     Mantém compatibilidade
     com funções globais antigas.
@@ -3319,11 +3317,20 @@ async function openRealChat(
 
   }
 
-  document
-    .getElementById("chatOnline")
-    .style.display =
-    "none";
+  const chatOnline =
+  document.getElementById(
+    "chatOnline"
+  );
 
+if(chatOnline){
+
+  chatOnline.style.display =
+    "block";
+
+  chatOnline.id =
+    "onlineLamp";
+
+}
   document
     .getElementById("chat")
     .classList.add("mobile-active");
