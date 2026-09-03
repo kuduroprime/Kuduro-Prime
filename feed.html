@@ -1319,6 +1319,7 @@
       deleteDoc,
       doc,
       query,
+      where,
       orderBy,
       serverTimestamp,
       onSnapshot,
@@ -3802,7 +3803,7 @@
               );
 
 
-              renderizarFeed(
+              await renderizarFeed(
                 tudo
               );
 
@@ -3868,7 +3869,7 @@
        RENDERIZAR FEED
     ========================== */
 
-    function renderizarFeed(
+    async function renderizarFeed(
       lista
     ){
 
@@ -3900,11 +3901,25 @@
       }
 
 
-      lista.forEach(
-        function(item){
+      const artigos =
+        await Promise.all(
+          lista.map(
+            function(item){
 
-          criarItemFeed(
-            item
+              return criarItemFeed(
+                item
+              );
+
+            }
+          )
+        );
+
+
+      artigos.forEach(
+        function(article){
+
+          feedPosts.appendChild(
+            article
           );
 
         }
@@ -3914,10 +3929,168 @@
 
 
     /* =========================
+       RESOLVER PERFIL DO ARTISTA
+       Alguns conteúdos guardam o UID do Auth,
+       enquanto perfil.html usa o ID do documento
+       na coleção artistas.
+    ========================== */
+
+    const cachePerfisArtistas =
+      new Map();
+
+
+    async function resolverIdPerfilArtista(
+      item
+    ){
+
+      const ids =
+        [
+          item.perfilId,
+          item.artistaId,
+          item.artistId,
+          item.userId,
+          item.uid,
+          item.autorId,
+          item.criadoPor,
+          item.artistaUID,
+          item.artistaUid
+        ]
+        .filter(
+          Boolean
+        )
+        .map(
+          function(id){
+
+            return String(id);
+
+          }
+        );
+
+
+      for(
+        const id of ids
+      ){
+
+        if(
+          cachePerfisArtistas.has(
+            id
+          )
+        ){
+
+          return cachePerfisArtistas.get(
+            id
+          );
+
+        }
+
+
+        try{
+
+          const artistaRef =
+            doc(
+              db,
+              "artistas",
+              id
+            );
+
+
+          const artistaSnap =
+            await getDoc(
+              artistaRef
+            );
+
+
+          if(
+            artistaSnap.exists()
+          ){
+
+            cachePerfisArtistas.set(
+              id,
+              artistaSnap.id
+            );
+
+
+            return artistaSnap.id;
+
+          }
+
+        }
+        catch(error){
+
+          console.warn(
+            "Erro ao verificar perfil:",
+            error
+          );
+
+        }
+
+
+        try{
+
+          const artistaQuery =
+            query(
+              collection(
+                db,
+                "artistas"
+              ),
+              where(
+                "uid",
+                "==",
+                id
+              )
+            );
+
+
+          const artistaSnap =
+            await getDocs(
+              artistaQuery
+            );
+
+
+          if(
+            !artistaSnap.empty
+          ){
+
+            const perfilId =
+              artistaSnap.docs[0].id;
+
+
+            cachePerfisArtistas.set(
+              id,
+              perfilId
+            );
+
+
+            return perfilId;
+
+          }
+
+        }
+        catch(error){
+
+          console.warn(
+            "Erro ao procurar perfil pelo UID:",
+            error
+          );
+
+        }
+
+      }
+
+
+      return (
+        ids[0] ||
+        ""
+      );
+
+    }
+
+
+    /* =========================
        CRIAR ITEM
     ========================== */
 
-    function criarItemFeed(
+    async function criarItemFeed(
       item
     ){
 
@@ -4318,22 +4491,22 @@ const origem = escaparHTML(
 );
 
 const idDoArtista =
-  item.artistaId ||
-  item.artistId ||
-  item.userId ||
-  item.uid ||
-  item.autorId ||
-  item.criadoPor ||
-  "";
+  await resolverIdPerfilArtista(
+    item
+  );
 
-console.log("ID DO ARTISTA:", idDoArtista);
+
+const linkPerfil =
+  idDoArtista
+    ? `perfil.html?id=${encodeURIComponent(idDoArtista)}`
+    : "artistas.html";
 
 article.innerHTML = `
 
   <div class="post-header">
 
     <a
-      href="perfil.html?id=${encodeURIComponent(idDoArtista)}"
+      href="${linkPerfil}"
       class="post-avatar post-profile-link"
       title="Ver perfil de ${escaparHTML(nome)}"
     >
@@ -4345,7 +4518,7 @@ article.innerHTML = `
       <div class="post-author">
 
         <a
-          href="perfil.html?id=${encodeURIComponent(idDoArtista)}"
+          href="${linkPerfil}"
           class="post-profile-link"
           title="Ver perfil de ${escaparHTML(nome)}"
         >
