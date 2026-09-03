@@ -28,20 +28,18 @@ content="width=device-width, initial-scale=1.0"
       --green:#39d98a;
     }
 
-
     *{
       box-sizing:border-box;
     }
-
 
     html{
       scroll-behavior:smooth;
     }
 
-
     body{
       margin:0;
       min-height:100vh;
+
       background:
         radial-gradient(
           circle at 80% 0,
@@ -58,19 +56,16 @@ content="width=device-width, initial-scale=1.0"
         sans-serif;
     }
 
-
     a{
       color:inherit;
       text-decoration:none;
     }
-
 
     button,
     input,
     select{
       font:inherit;
     }
-
 
     button{
       cursor:pointer;
@@ -83,7 +78,9 @@ content="width=device-width, initial-scale=1.0"
 
     .nav{
       height:82px;
-      border-bottom:1px solid var(--line);
+
+      border-bottom:
+        1px solid var(--line);
 
       display:flex;
       align-items:center;
@@ -100,7 +97,6 @@ content="width=device-width, initial-scale=1.0"
       z-index:100;
     }
 
-
     .nav-in{
       width:min(1180px,92%);
       margin:auto;
@@ -112,7 +108,6 @@ content="width=device-width, initial-scale=1.0"
       gap:20px;
     }
 
-
     .brand{
       font-size:23px;
       font-weight:900;
@@ -123,12 +118,10 @@ content="width=device-width, initial-scale=1.0"
       letter-spacing:-1px;
     }
 
-
     .brand b{
       display:block;
       color:var(--gold);
     }
-
 
     .crown{
       color:var(--gold);
@@ -140,13 +133,11 @@ content="width=device-width, initial-scale=1.0"
       line-height:.6;
     }
 
-
     .nav-actions{
       display:flex;
       gap:10px;
       align-items:center;
     }
-
 
     .nav-btn{
       display:inline-flex;
@@ -168,7 +159,6 @@ content="width=device-width, initial-scale=1.0"
       transition:.25s;
     }
 
-
     .nav-btn:hover{
       border-color:var(--gold);
       color:var(--gold);
@@ -184,11 +174,9 @@ content="width=device-width, initial-scale=1.0"
       margin:auto;
     }
 
-
     main{
       padding:45px 0 70px;
     }
-
 
     .page-head{
       display:flex;
@@ -200,7 +188,6 @@ content="width=device-width, initial-scale=1.0"
       margin-bottom:30px;
     }
 
-
     .eyebrow{
       color:var(--gold);
 
@@ -209,7 +196,6 @@ content="width=device-width, initial-scale=1.0"
 
       letter-spacing:2px;
     }
-
 
     h1{
       margin:8px 0 10px;
@@ -225,7 +211,6 @@ content="width=device-width, initial-scale=1.0"
 
       letter-spacing:-2px;
     }
-
 
     .subtitle{
       margin:0;
@@ -252,7 +237,6 @@ content="width=device-width, initial-scale=1.0"
       gap:22px;
     }
 
-
     .panel{
       background:
         linear-gradient(
@@ -269,7 +253,6 @@ content="width=device-width, initial-scale=1.0"
       overflow:hidden;
     }
 
-
     .panel-head{
       padding:20px;
 
@@ -277,14 +260,12 @@ content="width=device-width, initial-scale=1.0"
         1px solid var(--line);
     }
 
-
     .panel-title{
       margin:0;
 
       font-size:19px;
       font-weight:900;
     }
-
 
     .panel-subtitle{
       margin:6px 0 0;
@@ -316,13 +297,11 @@ content="width=device-width, initial-scale=1.0"
         1px solid var(--line);
     }
 
-
     .field{
       display:flex;
       flex-direction:column;
       gap:7px;
     }
-
 
     .field label{
       color:var(--muted);
@@ -332,7 +311,6 @@ content="width=device-width, initial-scale=1.0"
 
       letter-spacing:.7px;
     }
-
 
     .field input,
     .field select{
@@ -349,7 +327,6 @@ content="width=device-width, initial-scale=1.0"
 
       padding:12px;
     }
-
 
     .field input:focus,
     .field select:focus{
@@ -378,12 +355,16 @@ content="width=device-width, initial-scale=1.0"
       transition:.25s;
     }
 
-
     .btn:hover{
       transform:
         translateY(-2px);
     }
 
+    .btn:disabled{
+      opacity:.6;
+      cursor:not-allowed;
+      transform:none;
+    }
 
     .btn.gold{
       border:0;
@@ -398,18 +379,10 @@ content="width=device-width, initial-scale=1.0"
       color:#17120a;
     }
 
-
     .btn.dark{
       background:#111;
       color:#fff;
     }
-
-
-    .btn.dark:hover{
-      background:
-        rgba(244,191,49,.08);
-    }
-
 
     .btn.red{
       border-color:
@@ -421,7 +394,6 @@ content="width=device-width, initial-scale=1.0"
       color:
         #ff8b7b;
     }
-
 
     .btn.red:hover{
       background:
@@ -442,7 +414,6 @@ content="width=device-width, initial-scale=1.0"
         1px solid var(--line);
     }
 
-
     .search-input{
       width:100%;
 
@@ -457,7 +428,6 @@ content="width=device-width, initial-scale=1.0"
 
       padding:13px;
     }
-
 
     .search-input:focus{
       outline:none;
@@ -477,7 +447,6 @@ content="width=device-width, initial-scale=1.0"
       overflow-y:auto;
     }
 
-
     .music-item{
       display:flex;
 
@@ -493,11 +462,9 @@ content="width=device-width, initial-scale=1.0"
       transition:.2s;
     }
 
-
     .music-item:hover{
       background:#171717;
     }
-
 
     .music-cover{
       width:55px;
@@ -520,23 +487,15 @@ content="width=device-width, initial-scale=1.0"
       overflow:hidden;
     }
 
-
-    .music-cover img{
-      width:100%;
-      height:100%;
-
-      object-fit:cover;
-    }
-
-
     .music-info{
       flex:1;
 
       min-width:0;
     }
 
+    .music-info strong{
+      display:block;
 
-    .music-title{
       font-size:14px;
       font-weight:900;
 
@@ -545,8 +504,9 @@ content="width=device-width, initial-scale=1.0"
       text-overflow:ellipsis;
     }
 
+    .music-info span{
+      display:block;
 
-    .music-artist{
       margin-top:5px;
 
       font-size:11px;
@@ -558,18 +518,8 @@ content="width=device-width, initial-scale=1.0"
       text-overflow:ellipsis;
     }
 
-
-    .music-views{
-      margin-top:5px;
-
-      font-size:10px;
-
-      color:#777;
-    }
-
-
     .add-btn{
-      min-width:78px;
+      min-width:88px;
 
       border:
         1px solid var(--gold);
@@ -590,12 +540,16 @@ content="width=device-width, initial-scale=1.0"
       transition:.2s;
     }
 
-
-    .add-btn:hover{
+    .add-btn:hover:not(:disabled){
       background:
         var(--gold);
 
       color:#111;
+    }
+
+    .add-btn:disabled{
+      opacity:.55;
+      cursor:default;
     }
 
 
@@ -609,7 +563,6 @@ content="width=device-width, initial-scale=1.0"
       padding:10px;
     }
 
-
     .ranking-item{
       display:grid;
 
@@ -617,7 +570,7 @@ content="width=device-width, initial-scale=1.0"
         42px
         52px
         minmax(0,1fr)
-        38px;
+        92px;
 
       align-items:center;
 
@@ -631,11 +584,9 @@ content="width=device-width, initial-scale=1.0"
       transition:.2s;
     }
 
-
     .ranking-item:hover{
       background:#171717;
     }
-
 
     .ranking-position{
       width:38px;
@@ -661,7 +612,6 @@ content="width=device-width, initial-scale=1.0"
       font-weight:950;
     }
 
-
     .ranking-cover{
       width:52px;
       height:52px;
@@ -670,24 +620,24 @@ content="width=device-width, initial-scale=1.0"
 
       overflow:hidden;
 
-      background:#111;
+      background:
+        linear-gradient(
+          135deg,
+          #2a210b,
+          #111
+        );
+
+      background-size:cover;
+      background-position:center;
     }
-
-
-    .ranking-cover img{
-      width:100%;
-      height:100%;
-
-      object-fit:cover;
-    }
-
 
     .ranking-info{
       min-width:0;
     }
 
+    .ranking-info strong{
+      display:block;
 
-    .ranking-song{
       font-size:13px;
       font-weight:900;
 
@@ -696,8 +646,9 @@ content="width=device-width, initial-scale=1.0"
       text-overflow:ellipsis;
     }
 
+    .ranking-info span{
+      display:block;
 
-    .ranking-artist{
       margin-top:5px;
 
       color:var(--muted);
@@ -709,27 +660,48 @@ content="width=device-width, initial-scale=1.0"
       text-overflow:ellipsis;
     }
 
+    .ranking-actions{
+      display:flex;
+      gap:4px;
+    }
 
+    .move-btn,
     .remove-btn{
-      width:36px;
-      height:36px;
+      width:28px;
+      height:32px;
 
       border:0;
 
-      background:
-        rgba(255,86,63,.1);
+      border-radius:6px;
 
-      border-radius:7px;
-
-      color:
-        #ff8b7b;
-
-      font-size:17px;
+      font-size:12px;
       font-weight:900;
 
       transition:.2s;
     }
 
+    .move-btn{
+      background:#242424;
+      color:var(--gold);
+    }
+
+    .move-btn:hover:not(:disabled){
+      background:var(--gold);
+      color:#111;
+    }
+
+    .move-btn:disabled{
+      opacity:.3;
+      cursor:not-allowed;
+    }
+
+    .remove-btn{
+      background:
+        rgba(255,86,63,.1);
+
+      color:
+        #ff8b7b;
+    }
 
     .remove-btn:hover{
       background:
@@ -753,7 +725,6 @@ content="width=device-width, initial-scale=1.0"
       font-size:13px;
       line-height:1.6;
     }
-
 
     .empty strong{
       display:block;
@@ -781,7 +752,6 @@ content="width=device-width, initial-scale=1.0"
         1px solid var(--line);
     }
 
-
     .actions .btn{
       flex:1;
     }
@@ -804,11 +774,9 @@ content="width=device-width, initial-scale=1.0"
       font-weight:700;
     }
 
-
     .status.show{
       display:block;
     }
-
 
     .status.success{
       background:
@@ -822,7 +790,6 @@ content="width=device-width, initial-scale=1.0"
         var(--green);
     }
 
-
     .status.error{
       background:
         rgba(255,86,63,.1);
@@ -834,7 +801,6 @@ content="width=device-width, initial-scale=1.0"
       color:
         #ff8b7b;
     }
-
 
     .status.info{
       background:
@@ -880,50 +846,41 @@ content="width=device-width, initial-scale=1.0"
 
     }
 
-
     @media(max-width:560px){
 
       .nav{
         height:70px;
       }
 
-
       .brand{
         font-size:18px;
       }
-
 
       .crown{
         font-size:18px;
       }
 
-
       main{
         padding-top:30px;
       }
-
 
       .page-head{
         align-items:start;
         flex-direction:column;
       }
 
-
       .nav-btn{
         padding:9px 11px;
         font-size:10px;
       }
 
-
       .controls{
         grid-template-columns:1fr;
       }
 
-
       .music-item{
         padding:10px 12px;
       }
-
 
       .ranking-item{
         padding:9px 5px;
@@ -932,21 +889,18 @@ content="width=device-width, initial-scale=1.0"
           36px
           45px
           minmax(0,1fr)
-          36px;
+          84px;
       }
-
 
       .ranking-position{
         width:34px;
         height:34px;
       }
 
-
       .ranking-cover{
         width:45px;
         height:45px;
       }
-
 
       .actions{
         flex-direction:column;
@@ -959,10 +913,6 @@ content="width=device-width, initial-scale=1.0"
 </head>
 
 <body>
-
-  <!-- =========================
-       NAVEGAÇÃO
-  ========================== -->
 
   <nav class="nav">
 
@@ -982,7 +932,6 @@ content="width=device-width, initial-scale=1.0"
 
   </a>
 
-
   <div class="nav-actions">
 
     <a
@@ -991,7 +940,6 @@ content="width=device-width, initial-scale=1.0"
     >
       ← ADMIN
     </a>
-
 
     <a
       href="ranking.html"
@@ -1007,15 +955,10 @@ content="width=device-width, initial-scale=1.0"
 
   </nav>
 
-  <!-- =========================
-       CONTEÚDO
-  ========================== -->
-
   <main>
 
 ```
 <div class="container">
-
 
   <div class="page-head">
 
@@ -1025,11 +968,9 @@ content="width=device-width, initial-scale=1.0"
         ADMINISTRAÇÃO KUDURO PRIME
       </div>
 
-
       <h1>
         🏆 TOP 10 PRIME
       </h1>
-
 
       <p class="subtitle">
         Seleciona e organiza manualmente
@@ -1038,18 +979,13 @@ content="width=device-width, initial-scale=1.0"
 
     </div>
 
-
   </div>
 
-
-
-  <!-- STATUS -->
 
   <div
     class="status"
     id="statusMessage"
   ></div>
-
 
 
   <!-- PERÍODO -->
@@ -1064,7 +1000,6 @@ content="width=device-width, initial-scale=1.0"
       <h2 class="panel-title">
         📅 PERÍODO DO RANKING
       </h2>
-
 
       <p class="panel-subtitle">
         Define o mês e o ano
@@ -1082,56 +1017,20 @@ content="width=device-width, initial-scale=1.0"
           MÊS
         </label>
 
-
         <select id="rankingMonth">
 
-          <option value="JANEIRO">
-            JANEIRO
-          </option>
-
-          <option value="FEVEREIRO">
-            FEVEREIRO
-          </option>
-
-          <option value="MARÇO">
-            MARÇO
-          </option>
-
-          <option value="ABRIL">
-            ABRIL
-          </option>
-
-          <option value="MAIO">
-            MAIO
-          </option>
-
-          <option value="JUNHO">
-            JUNHO
-          </option>
-
-          <option value="JULHO">
-            JULHO
-          </option>
-
-          <option value="AGOSTO">
-            AGOSTO
-          </option>
-
-          <option value="SETEMBRO">
-            SETEMBRO
-          </option>
-
-          <option value="OUTUBRO">
-            OUTUBRO
-          </option>
-
-          <option value="NOVEMBRO">
-            NOVEMBRO
-          </option>
-
-          <option value="DEZEMBRO">
-            DEZEMBRO
-          </option>
+          <option value="JANEIRO">JANEIRO</option>
+          <option value="FEVEREIRO">FEVEREIRO</option>
+          <option value="MARÇO">MARÇO</option>
+          <option value="ABRIL">ABRIL</option>
+          <option value="MAIO">MAIO</option>
+          <option value="JUNHO">JUNHO</option>
+          <option value="JULHO">JULHO</option>
+          <option value="AGOSTO">AGOSTO</option>
+          <option value="SETEMBRO">SETEMBRO</option>
+          <option value="OUTUBRO">OUTUBRO</option>
+          <option value="NOVEMBRO">NOVEMBRO</option>
+          <option value="DEZEMBRO">DEZEMBRO</option>
 
         </select>
 
@@ -1143,7 +1042,6 @@ content="width=device-width, initial-scale=1.0"
         <label for="rankingYear">
           ANO
         </label>
-
 
         <input
           id="rankingYear"
@@ -1160,15 +1058,10 @@ content="width=device-width, initial-scale=1.0"
   </div>
 
 
-
-  <!-- GRID PRINCIPAL -->
-
   <div class="admin-grid">
 
 
-    <!-- =========================
-         MÚSICAS DISPONÍVEIS
-    ========================== -->
+    <!-- MÚSICAS -->
 
     <section class="panel">
 
@@ -1177,7 +1070,6 @@ content="width=device-width, initial-scale=1.0"
         <h2 class="panel-title">
           🎵 MÚSICAS PUBLICADAS
         </h2>
-
 
         <p class="panel-subtitle">
           Procura uma música e adiciona ao ranking.
@@ -1212,10 +1104,7 @@ content="width=device-width, initial-scale=1.0"
     </section>
 
 
-
-    <!-- =========================
-         TOP 10
-    ========================== -->
+    <!-- RANKING -->
 
     <section class="panel">
 
@@ -1224,7 +1113,6 @@ content="width=device-width, initial-scale=1.0"
         <h2 class="panel-title">
           🏆 RANKING ATUAL
         </h2>
-
 
         <p
           class="panel-subtitle"
@@ -1265,7 +1153,6 @@ content="width=device-width, initial-scale=1.0"
           🗑 LIMPAR
         </button>
 
-
         <button
           class="btn gold"
           type="button"
@@ -1278,9 +1165,7 @@ content="width=device-width, initial-scale=1.0"
 
     </section>
 
-
   </div>
-
 
 </div>
 ```
@@ -1289,895 +1174,698 @@ content="width=device-width, initial-scale=1.0"
 
   <script type="module">
 
-  import {
-    initializeApp
-  } from
-    "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+    import {
+      initializeApp
+    } from
+      "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
 
 
-  import {
-    getAuth,
-    onAuthStateChanged
-  } from
-    "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+    import {
+      getAuth,
+      onAuthStateChanged
+    } from
+      "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
 
 
-  import {
-    getFirestore,
-    collection,
-    doc,
-    getDocs,
-    getDoc,
-    setDoc,
-    deleteDoc,
-    query,
-    orderBy
-  } from
-    "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+    import {
+      getFirestore,
+      collection,
+      doc,
+      getDocs,
+      getDoc,
+      setDoc,
+      deleteDoc,
+      serverTimestamp
+    } from
+      "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 
 
-  /* =========================
-     FIREBASE
-  ========================= */
+    /* =========================
+       FIREBASE
+    ========================= */
 
-  const firebaseConfig = {
+    const firebaseConfig = {
 
-    apiKey:
-      "AIzaSyDoitCcLeLDNBNPCP6fG1s_xbHr4UmohSo",
+      apiKey:
+        "AIzaSyDoitCcLeLDNBNPCP6fG1s_xbHr4UmohSo",
 
-    authDomain:
-      "kuduro-prime.firebaseapp.com",
+      authDomain:
+        "kuduro-prime.firebaseapp.com",
 
-    projectId:
-      "kuduro-prime",
+      projectId:
+        "kuduro-prime",
 
-    storageBucket:
-      "kuduro-prime.firebasestorage.app",
+      storageBucket:
+        "kuduro-prime.firebasestorage.app",
 
-    messagingSenderId:
-      "299776559545",
+      messagingSenderId:
+        "299776559545",
 
-    appId:
-      "1:299776559545:web:04aced1ba25391eb3fce68"
+      appId:
+        "1:299776559545:web:04aced1ba25391eb3fce68"
 
-  };
-
-
-  const app =
-    initializeApp(firebaseConfig);
+    };
 
 
-  const auth =
-    getAuth(app);
+    const app =
+      initializeApp(firebaseConfig);
 
 
-  const db =
-    getFirestore(app);
+    const auth =
+      getAuth(app);
 
 
-  /* =========================
-     ELEMENTOS
-  ========================= */
-
-  const musicList =
-    document.querySelector("#musicList");
+    const db =
+      getFirestore(app);
 
 
-  const rankingList =
-    document.querySelector("#rankingList");
+    /* =========================
+       ELEMENTOS
+    ========================= */
+
+    const musicList =
+      document.querySelector("#musicList");
 
 
-  const rankingCounter =
-    document.querySelector("#rankingCounter");
+    const rankingList =
+      document.querySelector("#rankingList");
 
 
-  const searchMusic =
-    document.querySelector("#searchMusic");
+    const rankingCounter =
+      document.querySelector("#rankingCounter");
 
 
-  const rankingMonth =
-    document.querySelector("#rankingMonth");
+    const searchMusic =
+      document.querySelector("#searchMusic");
 
 
-  const rankingYear =
-    document.querySelector("#rankingYear");
+    const rankingMonth =
+      document.querySelector("#rankingMonth");
 
 
-  const saveRankingBtn =
-    document.querySelector("#saveRankingBtn");
+    const rankingYear =
+      document.querySelector("#rankingYear");
 
 
-  const clearRankingBtn =
-    document.querySelector("#clearRankingBtn");
+    const saveRankingBtn =
+      document.querySelector("#saveRankingBtn");
 
 
-  const statusMessage =
-    document.querySelector("#statusMessage");
+    const clearRankingBtn =
+      document.querySelector("#clearRankingBtn");
 
 
-  /* =========================
-     DADOS
-  ========================= */
-
-  let todasMusicas = [];
+    const statusMessage =
+      document.querySelector("#statusMessage");
 
 
-  let rankingAtual = [];
+    /* =========================
+       DADOS
+    ========================= */
+
+    let todasMusicas = [];
 
 
-  /* =========================
-     AUTENTICAÇÃO
-  ========================= */
+    let rankingAtual = [];
 
-  onAuthStateChanged(
-    auth,
-    (user) => {
 
-      if(!user){
+    let carregamentoRankingAtual = 0;
 
-        window.location.href =
-          "area-do-artista.html";
+
+    /* =========================
+       MESES
+    ========================= */
+
+    const meses = {
+
+      JANEIRO:"01",
+      FEVEREIRO:"02",
+      MARÇO:"03",
+      ABRIL:"04",
+      MAIO:"05",
+      JUNHO:"06",
+      JULHO:"07",
+      AGOSTO:"08",
+      SETEMBRO:"09",
+      OUTUBRO:"10",
+      NOVEMBRO:"11",
+      DEZEMBRO:"12"
+
+    };
+
+
+    const nomesMeses = [
+      "JANEIRO",
+      "FEVEREIRO",
+      "MARÇO",
+      "ABRIL",
+      "MAIO",
+      "JUNHO",
+      "JULHO",
+      "AGOSTO",
+      "SETEMBRO",
+      "OUTUBRO",
+      "NOVEMBRO",
+      "DEZEMBRO"
+    ];
+
+
+    function definirPeriodoAtual(){
+
+      const hoje =
+        new Date();
+
+
+      rankingMonth.value =
+        nomesMeses[
+          hoje.getMonth()
+        ];
+
+
+      rankingYear.value =
+        hoje.getFullYear();
+
+    }
+
+
+    definirPeriodoAtual();
+
+
+    /* =========================
+       AUTENTICAÇÃO
+    ========================= */
+
+    onAuthStateChanged(
+      auth,
+      async (user) => {
+
+        if(!user){
+
+          window.location.href =
+            "area-do-artista.html";
+
+          return;
+
+        }
+
+
+        await carregarMusicas();
+
+
+        await carregarRankingGuardado();
+
+      }
+    );
+
+
+    /* =========================
+       PERÍODO
+    ========================= */
+
+    function obterIdRanking(){
+
+      const mes =
+        rankingMonth.value;
+
+
+      const ano =
+        rankingYear.value;
+
+
+      return `${ano}-${meses[mes]}`;
+
+    }
+
+
+    function obterTituloRanking(){
+
+      return `${rankingMonth.value} ${rankingYear.value}`;
+
+    }
+
+
+    /* =========================
+       MENSAGENS
+    ========================= */
+
+    let timeoutStatus;
+
+
+    function mostrarStatus(
+      mensagem,
+      tipo = "success"
+    ){
+
+      clearTimeout(
+        timeoutStatus
+      );
+
+
+      statusMessage.textContent =
+        mensagem;
+
+
+      statusMessage.className =
+        `status show ${tipo}`;
+
+
+      timeoutStatus =
+        setTimeout(
+          () => {
+
+            statusMessage.className =
+              "status";
+
+          },
+          5000
+        );
+
+    }
+
+
+    /* =========================
+       ESCAPAR HTML
+    ========================= */
+
+    function escaparHTML(valor){
+
+      return String(
+        valor ?? ""
+      )
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+
+    }
+
+
+    /* =========================
+       OBTER DADOS
+    ========================= */
+
+    function obterDadosMusica(
+      dados,
+      id
+    ){
+
+      return {
+
+        id:id,
+
+        titulo:
+          dados.titulo ||
+          dados.nome ||
+          dados.tituloMusica ||
+          "Música sem título",
+
+
+        nomeArtista:
+          dados.artistaNome ||
+          dados.artista ||
+          dados.nomeArtista ||
+          dados.autor ||
+          "Artista KUDURO PRIME",
+
+
+        capa:
+          dados.capaUrl ||
+          dados.capa ||
+          dados.imagem ||
+          dados.imagemUrl ||
+          dados.foto ||
+          "",
+
+
+        audioUrl:
+          dados.audioUrl ||
+          dados.audio ||
+          dados.musicaUrl ||
+          dados.url ||
+          dados.arquivoUrl ||
+          "",
+
+
+        criadoEm:
+          dados.criadoEm ||
+          dados.createdAt ||
+          null
+
+      };
+
+    }
+
+
+    /* =========================
+       CARREGAR MÚSICAS
+    ========================= */
+
+    async function carregarMusicas(){
+
+      musicList.innerHTML = `
+
+        <div class="loading">
+          A carregar músicas do Firestore...
+        </div>
+
+      `;
+
+
+      try{
+
+        const musicasRef =
+          collection(
+            db,
+            "musicas"
+          );
+
+
+        const snapshot =
+          await getDocs(
+            musicasRef
+          );
+
+
+        todasMusicas =
+          snapshot.docs.map(
+            docMusica => {
+
+              return obterDadosMusica(
+                docMusica.data(),
+                docMusica.id
+              );
+
+            }
+          );
+
+
+        todasMusicas.sort(
+          (a,b) => {
+
+            const dataA =
+              converterData(
+                a.criadoEm
+              );
+
+
+            const dataB =
+              converterData(
+                b.criadoEm
+              );
+
+
+            return dataB - dataA;
+
+          }
+        );
+
+
+        renderizarMusicas();
+
+
+      }catch(error){
+
+        console.error(
+          "Erro ao carregar músicas:",
+          error
+        );
+
+
+        const codigo =
+          error.code || "";
+
+
+        let mensagem =
+          "Não foi possível carregar as músicas publicadas.";
+
+
+        if(
+          codigo.includes(
+            "permission-denied"
+          )
+        ){
+
+          mensagem =
+            "O Firestore bloqueou o acesso à coleção músicas. Verifica as regras.";
+
+        }
+
+
+        musicList.innerHTML = `
+
+          <div class="empty">
+
+            <strong>
+              ❌ Erro ao carregar
+            </strong>
+
+            ${escaparHTML(mensagem)}
+
+          </div>
+
+        `;
+
+
+        mostrarStatus(
+          mensagem,
+          "error"
+        );
+
+      }
+
+    }
+
+
+    function converterData(valor){
+
+      if(!valor){
+        return 0;
+      }
+
+
+      if(
+        typeof valor.toDate ===
+        "function"
+      ){
+
+        return valor
+          .toDate()
+          .getTime();
+
+      }
+
+
+      if(
+        valor instanceof Date
+      ){
+
+        return valor.getTime();
+
+      }
+
+
+      if(
+        typeof valor.seconds ===
+        "number"
+      ){
+
+        return valor.seconds *
+          1000;
+
+      }
+
+
+      const data =
+        new Date(
+          valor
+        ).getTime();
+
+
+      return isNaN(data)
+        ? 0
+        : data;
+
+    }
+
+
+    /* =========================
+       RENDERIZAR MÚSICAS
+    ========================= */
+
+    function renderizarMusicas(){
+
+      const pesquisa =
+        searchMusic.value
+          .trim()
+          .toLowerCase();
+
+
+      const musicasFiltradas =
+        todasMusicas.filter(
+          musica => {
+
+            return (
+
+              String(
+                musica.titulo
+              )
+                .toLowerCase()
+                .includes(
+                  pesquisa
+                )
+
+              ||
+
+              String(
+                musica.nomeArtista
+              )
+                .toLowerCase()
+                .includes(
+                  pesquisa
+                )
+
+            );
+
+          }
+        );
+
+
+      if(
+        musicasFiltradas.length === 0
+      ){
+
+        musicList.innerHTML = `
+
+          <div class="empty">
+
+            <strong>
+              🎵 Nenhuma música encontrada
+            </strong>
+
+            Ainda não existem músicas publicadas
+            ou tenta procurar outro nome.
+
+          </div>
+
+        `;
 
         return;
 
       }
 
 
-      carregarMusicas();
+      musicList.innerHTML =
+        "";
 
-      carregarRankingGuardado();
 
-    }
-  );
+      musicasFiltradas.forEach(
+        musica => {
 
+          const jaSelecionada =
+            rankingAtual.some(
+              item =>
+                item.id === musica.id
+            );
 
-  /* =========================
-     PERÍODO
-  ========================= */
 
-  const meses = {
+          const item =
+            document.createElement(
+              "div"
+            );
 
-    JANEIRO:"01",
 
-    FEVEREIRO:"02",
+          item.className =
+            "music-item";
 
-    MARÇO:"03",
 
-    ABRIL:"04",
+          const capaStyle =
+            musica.capa
+              ? `style="background-image:url('${escaparHTML(musica.capa)}')"`
+              : "";
 
-    MAIO:"05",
 
-    JUNHO:"06",
+          item.innerHTML = `
 
-    JULHO:"07",
+            <div
+              class="music-cover"
+              ${capaStyle}
+            ></div>
 
-    AGOSTO:"08",
 
-    SETEMBRO:"09",
+            <div class="music-info">
 
-    OUTUBRO:"10",
+              <strong>
+                ${escaparHTML(musica.titulo)}
+              </strong>
 
-    NOVEMBRO:"11",
 
-    DEZEMBRO:"12"
+              <span>
+                ${escaparHTML(musica.nomeArtista)}
+              </span>
 
-  };
+            </div>
 
 
-  function obterIdRanking(){
+            <button
+              class="add-btn"
+              type="button"
+              ${jaSelecionada ? "disabled" : ""}
+            >
 
-    const mes =
-      rankingMonth.value;
+              ${
+                jaSelecionada
+                  ? "✓ ADICIONADA"
+                  : "+ ADICIONAR"
+              }
 
+            </button>
 
-    const ano =
-      rankingYear.value;
+          `;
 
 
-    return `${ano}-${meses[mes]}`;
+          const addButton =
+            item.querySelector(
+              ".add-btn"
+            );
 
-  }
 
+          addButton.addEventListener(
+            "click",
+            () => {
 
-  function obterTituloRanking(){
+              adicionarAoRanking(
+                musica
+              );
 
-    return `${rankingMonth.value} ${rankingYear.value}`;
-
-  }
-
-
-  /* =========================
-     MENSAGENS
-  ========================= */
-
-  function mostrarStatus(
-    mensagem,
-    tipo = "success"
-  ){
-
-    statusMessage.textContent =
-      mensagem;
-
-
-    statusMessage.className =
-      `status show ${tipo}`;
-
-
-    setTimeout(
-      () => {
-
-        statusMessage.className =
-          "status";
-
-      },
-      4000
-    );
-
-  }
-
-
-  /* =========================
-     ESCAPAR HTML
-  ========================= */
-
-  function escaparHTML(valor){
-
-    return String(
-      valor ?? ""
-    )
-      .replace(/&/g,"&amp;")
-      .replace(/</g,"&lt;")
-      .replace(/>/g,"&gt;")
-      .replace(/"/g,"&quot;")
-      .replace(/'/g,"&#039;");
-
-  }
-
-
-  /* =========================
-     OBTER DADOS DA MÚSICA
-  ========================= */
-
-  function obterDadosMusica(
-    dados,
-    id
-  ){
-
-    return {
-
-      id:id,
-
-      titulo:
-
-        dados.titulo ||
-
-        dados.nome ||
-
-        "Música sem título",
-
-
-      nomeArtista:
-
-        dados.artistaNome ||
-
-        dados.artista ||
-
-        dados.nomeArtista ||
-
-        "Artista KUDURO PRIME",
-
-
-      capa:
-
-        dados.capaUrl ||
-
-        dados.capa ||
-
-        dados.imagem ||
-
-        dados.foto ||
-
-        "images/artista-1.jpg",
-
-
-      audioUrl:
-
-        dados.audioUrl ||
-
-        dados.audio ||
-
-        dados.musicaUrl ||
-
-        dados.url ||
-
-        dados.arquivoUrl ||
-
-        "",
-
-
-      criadoEm:
-
-        dados.criadoEm ||
-
-        null
-
-    };
-
-  }
-
-
-  /* =========================
-     CARREGAR MÚSICAS
-  ========================= */
-
-  async function carregarMusicas(){
-
-    musicList.innerHTML = `
-
-      <div class="loading">
-
-        A carregar músicas do Firestore...
-
-      </div>
-
-    `;
-
-
-    try{
-
-      const musicasRef =
-        collection(
-          db,
-          "musicas"
-        );
-
-
-      let snapshot;
-
-
-      try{
-
-        const q =
-          query(
-            musicasRef,
-            orderBy(
-              "criadoEm",
-              "desc"
-            )
+            }
           );
 
 
-        snapshot =
-          await getDocs(q);
-
-
-      }catch(errorOrdenacao){
-
-        console.warn(
-          "Não foi possível ordenar:",
-          errorOrdenacao
-        );
-
-
-        snapshot =
-          await getDocs(
-            musicasRef
-          );
-
-      }
-
-
-      todasMusicas =
-        [];
-
-
-      snapshot.forEach(
-        (docMusica) => {
-
-          todasMusicas.push(
-
-            obterDadosMusica(
-              docMusica.data(),
-              docMusica.id
-            )
-
+          musicList.appendChild(
+            item
           );
 
         }
       );
 
-
-      renderizarMusicas();
-
-    }catch(error){
-
-      console.error(
-        "Erro ao carregar músicas:",
-        error
-      );
-
-
-      musicList.innerHTML = `
-
-        <div class="empty">
-
-          <strong>
-            ❌ Erro ao carregar
-          </strong>
-
-          Não foi possível carregar
-          as músicas publicadas.
-
-        </div>
-
-      `;
-
-    }
-
-  }
-
-
-  /* =========================
-     RENDERIZAR MÚSICAS
-  ========================= */
-
-  function renderizarMusicas(){
-
-    const pesquisa =
-      searchMusic.value
-        .trim()
-        .toLowerCase();
-
-
-    const musicasFiltradas =
-      todasMusicas.filter(
-        (musica) => {
-
-          return (
-
-            musica.titulo
-              .toLowerCase()
-              .includes(pesquisa)
-
-            ||
-
-            musica.nomeArtista
-              .toLowerCase()
-              .includes(pesquisa)
-
-          );
-
-        }
-      );
-
-
-    if(
-      musicasFiltradas.length === 0
-    ){
-
-      musicList.innerHTML = `
-
-        <div class="empty">
-
-          <strong>
-            🎵 Nenhuma música encontrada
-          </strong>
-
-          Tenta procurar por outro nome.
-
-        </div>
-
-      `;
-
-      return;
-
     }
 
 
-    musicList.innerHTML =
-      "";
+    /* =========================
+       ADICIONAR
+    ========================= */
 
-
-    musicasFiltradas.forEach(
-      (musica) => {
-
-        const jaSelecionada =
-          rankingAtual.some(
-            item =>
-              item.id === musica.id
-          );
-
-
-        const item =
-          document.createElement(
-            "div"
-          );
-
-
-        item.className =
-          "music-item";
-
-
-        item.innerHTML = `
-
-          <div
-            class="music-cover"
-            style="
-              background-image:url('${escaparHTML(musica.capa)}')
-            "
-          ></div>
-
-
-          <div class="music-info">
-
-            <strong>
-
-              ${escaparHTML(musica.titulo)}
-
-            </strong>
-
-
-            <span>
-
-              ${escaparHTML(musica.nomeArtista)}
-
-            </span>
-
-          </div>
-
-
-          <button
-            class="add-btn ${jaSelecionada ? "added" : ""}"
-            type="button"
-            ${jaSelecionada ? "disabled" : ""}
-          >
-
-            ${jaSelecionada ? "✓ ADICIONADA" : "+ ADICIONAR"}
-
-          </button>
-
-        `;
-
-
-        const addButton =
-          item.querySelector(
-            ".add-btn"
-          );
-
-
-        addButton.addEventListener(
-          "click",
-          () => {
-
-            adicionarAoRanking(
-              musica
-            );
-
-          }
-        );
-
-
-        musicList.appendChild(
-          item
-        );
-
-      }
-    );
-
-  }
-
-
-  /* =========================
-     ADICIONAR AO RANKING
-  ========================= */
-
-  function adicionarAoRanking(
-    musica
-  ){
-
-    if(
-      rankingAtual.length >= 10
-    ){
-
-      mostrarStatus(
-        "O TOP 10 já está completo.",
-        "error"
-      );
-
-      return;
-
-    }
-
-
-    const jaExiste =
-      rankingAtual.some(
-        item =>
-          item.id === musica.id
-      );
-
-
-    if(jaExiste){
-
-      return;
-
-    }
-
-
-    rankingAtual.push(
+    function adicionarAoRanking(
       musica
-    );
-
-
-    renderizarRanking();
-
-    renderizarMusicas();
-
-  }
-
-
-  /* =========================
-     RENDERIZAR RANKING
-  ========================= */
-
-  function renderizarRanking(){
-
-    rankingCounter.textContent =
-      `${rankingAtual.length} de 10 músicas selecionadas.`;
-
-
-    if(
-      rankingAtual.length === 0
     ){
-
-      rankingList.innerHTML = `
-
-        <div class="empty">
-
-          <strong>
-            🏆 O ranking está vazio
-          </strong>
-
-          Seleciona até 10 músicas
-          para criar o TOP 10 PRIME.
-
-        </div>
-
-      `;
-
-      return;
-
-    }
-
-
-    rankingList.innerHTML =
-      "";
-
-
-    rankingAtual.forEach(
-      (musica, index) => {
-
-        const item =
-          document.createElement(
-            "div"
-          );
-
-
-        item.className =
-          "ranking-item";
-
-
-        item.innerHTML = `
-
-          <div class="position">
-
-            ${index + 1}
-
-          </div>
-
-
-          <div
-            class="ranking-cover"
-            style="
-              background-image:url('${escaparHTML(musica.capa)}')
-            "
-          ></div>
-
-
-          <div class="ranking-info">
-
-            <strong>
-
-              ${escaparHTML(musica.titulo)}
-
-            </strong>
-
-
-            <span>
-
-              ${escaparHTML(musica.nomeArtista)}
-
-            </span>
-
-          </div>
-
-
-          <div class="ranking-actions">
-
-
-            <button
-              class="move-btn"
-              type="button"
-              title="Subir"
-              ${index === 0 ? "disabled" : ""}
-            >
-              ▲
-            </button>
-
-
-            <button
-              class="move-btn"
-              type="button"
-              title="Descer"
-              ${index === rankingAtual.length - 1 ? "disabled" : ""}
-            >
-              ▼
-            </button>
-
-
-            <button
-              class="remove-btn"
-              type="button"
-              title="Remover"
-            >
-              ✕
-            </button>
-
-
-          </div>
-
-        `;
-
-
-        const botoes =
-          item.querySelectorAll(
-            "button"
-          );
-
-
-        const subirBtn =
-          botoes[0];
-
-
-        const descerBtn =
-          botoes[1];
-
-
-        const removerBtn =
-          botoes[2];
-
-
-        subirBtn.addEventListener(
-          "click",
-          () => {
-
-            moverMusica(
-              index,
-              index - 1
-            );
-
-          }
-        );
-
-
-        descerBtn.addEventListener(
-          "click",
-          () => {
-
-            moverMusica(
-              index,
-              index + 1
-            );
-
-          }
-        );
-
-
-        removerBtn.addEventListener(
-          "click",
-          () => {
-
-            removerMusica(
-              index
-            );
-
-          }
-        );
-
-
-        rankingList.appendChild(
-          item
-        );
-
-      }
-    );
-
-  }
-
-
-  /* =========================
-     MOVER MÚSICA
-  ========================= */
-
-  function moverMusica(
-    origem,
-    destino
-  ){
-
-    if(
-      destino < 0 ||
-
-      destino >= rankingAtual.length
-    ){
-
-      return;
-
-    }
-
-
-    const musica =
-      rankingAtual.splice(
-        origem,
-        1
-      )[0];
-
-
-    rankingAtual.splice(
-      destino,
-      0,
-      musica
-    );
-
-
-    renderizarRanking();
-
-  }
-
-
-  /* =========================
-     REMOVER
-  ========================= */
-
-  function removerMusica(
-    index
-  ){
-
-    rankingAtual.splice(
-      index,
-      1
-    );
-
-
-    renderizarRanking();
-
-    renderizarMusicas();
-
-  }
-
-
-  /* =========================
-     GUARDAR RANKING
-  ========================= */
-
-  saveRankingBtn.addEventListener(
-    "click",
-    async () => {
 
       if(
-        rankingAtual.length === 0
+        rankingAtual.length >= 10
       ){
 
         mostrarStatus(
-          "Adiciona pelo menos uma música ao ranking.",
+          "O TOP 10 já está completo.",
           "error"
         );
 
@@ -2186,16 +1874,443 @@ content="width=device-width, initial-scale=1.0"
       }
 
 
+      const jaExiste =
+        rankingAtual.some(
+          item =>
+            item.id === musica.id
+        );
+
+
+      if(jaExiste){
+        return;
+      }
+
+
+      rankingAtual.push(
+        {
+          ...musica
+        }
+      );
+
+
+      renderizarRanking();
+
+      renderizarMusicas();
+
+    }
+
+
+    /* =========================
+       RENDERIZAR RANKING
+    ========================= */
+
+    function renderizarRanking(){
+
+      rankingCounter.textContent =
+        `${rankingAtual.length} de 10 músicas selecionadas.`;
+
+
+      if(
+        rankingAtual.length === 0
+      ){
+
+        rankingList.innerHTML = `
+
+          <div class="empty">
+
+            <strong>
+              🏆 O ranking está vazio
+            </strong>
+
+            Seleciona até 10 músicas
+            para criar o TOP 10 PRIME.
+
+          </div>
+
+        `;
+
+        return;
+
+      }
+
+
+      rankingList.innerHTML =
+        "";
+
+
+      rankingAtual.forEach(
+        (musica,index) => {
+
+          const item =
+            document.createElement(
+              "div"
+            );
+
+
+          item.className =
+            "ranking-item";
+
+
+          const capaStyle =
+            musica.capa
+              ? `style="background-image:url('${escaparHTML(musica.capa)}')"`
+              : "";
+
+
+          item.innerHTML = `
+
+            <div class="ranking-position">
+
+              ${index + 1}
+
+            </div>
+
+
+            <div
+              class="ranking-cover"
+              ${capaStyle}
+            ></div>
+
+
+            <div class="ranking-info">
+
+              <strong>
+                ${escaparHTML(musica.titulo)}
+              </strong>
+
+
+              <span>
+                ${escaparHTML(musica.nomeArtista)}
+              </span>
+
+            </div>
+
+
+            <div class="ranking-actions">
+
+              <button
+                class="move-btn subir-btn"
+                type="button"
+                title="Subir"
+                ${index === 0 ? "disabled" : ""}
+              >
+                ▲
+              </button>
+
+
+              <button
+                class="move-btn descer-btn"
+                type="button"
+                title="Descer"
+                ${
+                  index ===
+                  rankingAtual.length - 1
+                    ? "disabled"
+                    : ""
+                }
+              >
+                ▼
+              </button>
+
+
+              <button
+                class="remove-btn remover-btn"
+                type="button"
+                title="Remover"
+              >
+                ✕
+              </button>
+
+            </div>
+
+          `;
+
+
+          item.querySelector(
+            ".subir-btn"
+          )
+            .addEventListener(
+              "click",
+              () => {
+
+                moverMusica(
+                  index,
+                  index - 1
+                );
+
+              }
+            );
+
+
+          item.querySelector(
+            ".descer-btn"
+          )
+            .addEventListener(
+              "click",
+              () => {
+
+                moverMusica(
+                  index,
+                  index + 1
+                );
+
+              }
+            );
+
+
+          item.querySelector(
+            ".remover-btn"
+          )
+            .addEventListener(
+              "click",
+              () => {
+
+                removerMusica(
+                  index
+                );
+
+              }
+            );
+
+
+          rankingList.appendChild(
+            item
+          );
+
+        }
+      );
+
+    }
+
+
+    /* =========================
+       MOVER
+    ========================= */
+
+    function moverMusica(
+      origem,
+      destino
+    ){
+
+      if(
+        destino < 0 ||
+        destino >= rankingAtual.length
+      ){
+
+        return;
+
+      }
+
+
+      const musica =
+        rankingAtual.splice(
+          origem,
+          1
+        )[0];
+
+
+      rankingAtual.splice(
+        destino,
+        0,
+        musica
+      );
+
+
+      renderizarRanking();
+
+    }
+
+
+    /* =========================
+       REMOVER
+    ========================= */
+
+    function removerMusica(
+      index
+    ){
+
+      rankingAtual.splice(
+        index,
+        1
+      );
+
+
+      renderizarRanking();
+
+      renderizarMusicas();
+
+    }
+
+
+    /* =========================
+       GUARDAR
+    ========================= */
+
+    saveRankingBtn.addEventListener(
+      "click",
+      async () => {
+
+        if(
+          rankingAtual.length === 0
+        ){
+
+          mostrarStatus(
+            "Adiciona pelo menos uma música ao ranking.",
+            "error"
+          );
+
+          return;
+
+        }
+
+
+        const rankingId =
+          obterIdRanking();
+
+
+        saveRankingBtn.disabled =
+          true;
+
+
+        saveRankingBtn.textContent =
+          "⏳ A GUARDAR...";
+
+
+        try{
+
+          const rankingRef =
+            doc(
+              db,
+              "rankingMensal",
+              rankingId
+            );
+
+
+          const musicasParaGuardar =
+            rankingAtual.map(
+              (musica,index) => ({
+
+                id:
+                  musica.id,
+
+                posicao:
+                  index + 1,
+
+                titulo:
+                  musica.titulo,
+
+                nomeArtista:
+                  musica.nomeArtista,
+
+                capa:
+                  musica.capa || "",
+
+                audioUrl:
+                  musica.audioUrl || ""
+
+              })
+            );
+
+
+          await setDoc(
+            rankingRef,
+            {
+
+              periodo:
+                obterTituloRanking(),
+
+              mes:
+                rankingMonth.value,
+
+              ano:
+                Number(
+                  rankingYear.value
+                ),
+
+              musicas:
+                musicasParaGuardar,
+
+              total:
+                rankingAtual.length,
+
+              atualizadoEm:
+                serverTimestamp()
+
+            }
+          );
+
+
+          mostrarStatus(
+            `TOP ${rankingAtual.length} PRIME de ${obterTituloRanking()} guardado com sucesso! 👑`,
+            "success"
+          );
+
+
+        }catch(error){
+
+          console.error(
+            "Erro ao guardar ranking:",
+            error
+          );
+
+
+          let mensagem =
+            "Erro ao guardar o ranking.";
+
+
+          if(
+            error.code ===
+            "permission-denied"
+          ){
+
+            mensagem =
+              "O Firestore bloqueou a gravação do ranking. Verifica as regras.";
+
+          }
+
+
+          mostrarStatus(
+            mensagem,
+            "error"
+          );
+
+
+        }finally{
+
+          saveRankingBtn.disabled =
+            false;
+
+
+          saveRankingBtn.textContent =
+            "💾 GUARDAR RANKING";
+
+        }
+
+      }
+    );
+
+
+    /* =========================
+       CARREGAR RANKING
+    ========================= */
+
+    async function carregarRankingGuardado(){
+
+      const carregamentoId =
+        ++carregamentoRankingAtual;
+
+
       const rankingId =
         obterIdRanking();
 
 
-      saveRankingBtn.disabled =
-        true;
+      rankingList.innerHTML = `
 
+        <div class="loading">
+          A carregar ranking...
+        </div>
 
-      saveRankingBtn.textContent =
-        "⏳ A GUARDAR...";
+      `;
 
 
       try{
@@ -2208,135 +2323,80 @@ content="width=device-width, initial-scale=1.0"
           );
 
 
-        const musicasParaGuardar =
-          rankingAtual.map(
-            (musica,index) => ({
-
-              id:
-                musica.id,
-
-              posicao:
-                index + 1,
-
-              titulo:
-                musica.titulo,
-
-              nomeArtista:
-                musica.nomeArtista,
-
-              capa:
-                musica.capa,
-
-              audioUrl:
-                musica.audioUrl
-
-            })
+        const snapshot =
+          await getDoc(
+            rankingRef
           );
 
 
-        await setDoc(
-          rankingRef,
-          {
+        if(
+          carregamentoId !==
+          carregamentoRankingAtual
+        ){
 
-            periodo:
-              obterTituloRanking(),
+          return;
 
-            mes:
-              rankingMonth.value,
-
-            ano:
-              Number(
-                rankingYear.value
-              ),
-
-            musicas:
-              musicasParaGuardar,
-
-            atualizadoEm:
-              new Date(),
-
-            total:
-              rankingAtual.length
-
-          }
-        );
+        }
 
 
-        mostrarStatus(
-          `TOP ${rankingAtual.length} PRIME de ${obterTituloRanking()} guardado com sucesso! 👑`,
-          "success"
-        );
+        if(
+          !snapshot.exists()
+        ){
+
+          rankingAtual =
+            [];
+
+
+          renderizarRanking();
+
+          renderizarMusicas();
+
+          return;
+
+        }
+
+
+        const dados =
+          snapshot.data();
+
+
+        rankingAtual =
+          Array.isArray(
+            dados.musicas
+          )
+
+            ? [...dados.musicas]
+                .sort(
+                  (a,b) =>
+                    (a.posicao || 0) -
+                    (b.posicao || 0)
+                )
+
+            : [];
+
+
+        renderizarRanking();
+
+        renderizarMusicas();
 
 
       }catch(error){
 
         console.error(
-          "Erro ao guardar ranking:",
+          "Erro ao carregar ranking:",
           error
         );
 
 
-        mostrarStatus(
-          "Erro ao guardar o ranking.",
-          "error"
-        );
+        if(
+          carregamentoId !==
+          carregamentoRankingAtual
+        ){
 
+          return;
 
-      }finally{
+        }
 
-        saveRankingBtn.disabled =
-          false;
-
-
-        saveRankingBtn.textContent =
-          "💾 GUARDAR RANKING";
-
-      }
-
-    }
-  );
-
-
-  /* =========================
-     CARREGAR RANKING GUARDADO
-  ========================= */
-
-  async function carregarRankingGuardado(){
-
-    const rankingId =
-      obterIdRanking();
-
-
-    rankingList.innerHTML = `
-
-      <div class="loading">
-
-        A carregar ranking...
-
-      </div>
-
-    `;
-
-
-    try{
-
-      const rankingRef =
-        doc(
-          db,
-          "rankingMensal",
-          rankingId
-        );
-
-
-      const snapshot =
-        await getDoc(
-          rankingRef
-        );
-
-
-      if(
-        !snapshot.exists()
-      ){
 
         rankingAtual =
           [];
@@ -2344,142 +2404,157 @@ content="width=device-width, initial-scale=1.0"
 
         renderizarRanking();
 
+
+        if(
+          error.code ===
+          "permission-denied"
+        ){
+
+          mostrarStatus(
+            "O Firestore bloqueou o acesso ao ranking. Verifica as regras.",
+            "error"
+          );
+
+        }
+
+      }
+
+    }
+
+
+    /* =========================
+       PESQUISA
+    ========================= */
+
+    searchMusic.addEventListener(
+      "input",
+      () => {
+
         renderizarMusicas();
 
-        return;
+      }
+    );
+
+
+    /* =========================
+       MUDAR PERÍODO
+    ========================= */
+
+    rankingMonth.addEventListener(
+      "change",
+      () => {
+
+        carregarRankingGuardado();
 
       }
+    );
 
 
-      const dados =
-        snapshot.data();
+    rankingYear.addEventListener(
+      "change",
+      () => {
 
-
-      rankingAtual =
-        Array.isArray(
-          dados.musicas
-        )
-
-          ? dados.musicas
-              .sort(
-                (a,b) =>
-                  (a.posicao || 0) -
-                  (b.posicao || 0)
-              )
-
-          : [];
-
-
-      renderizarRanking();
-
-      renderizarMusicas();
-
-
-    }catch(error){
-
-      console.error(
-        "Erro ao carregar ranking:",
-        error
-      );
-
-
-      rankingAtual =
-        [];
-
-
-      renderizarRanking();
-
-    }
-
-  }
-
-
-  /* =========================
-     PESQUISA
-  ========================= */
-
-  searchMusic.addEventListener(
-    "input",
-    () => {
-
-      renderizarMusicas();
-
-    }
-  );
-
-
-  /* =========================
-     MUDAR PERÍODO
-  ========================= */
-
-  rankingMonth.addEventListener(
-    "change",
-    () => {
-
-      carregarRankingGuardado();
-
-    }
-  );
-
-
-  rankingYear.addEventListener(
-    "change",
-    () => {
-
-      carregarRankingGuardado();
-
-    }
-  );
-
-
-  /* =========================
-     LIMPAR
-  ========================= */
-
-  clearRankingBtn.addEventListener(
-    "click",
-    () => {
-
-      if(
-        rankingAtual.length === 0
-      ){
-
-        return;
+        carregarRankingGuardado();
 
       }
+    );
 
 
-      const confirmar =
-        confirm(
-          "Tens a certeza que queres limpar todas as músicas deste ranking?"
-        );
+    /* =========================
+       LIMPAR
+    ========================= */
+
+    clearRankingBtn.addEventListener(
+      "click",
+      async () => {
+
+        if(
+          rankingAtual.length === 0
+        ){
+
+          return;
+
+        }
 
 
-      if(!confirmar){
+        const confirmar =
+          confirm(
+            "Tens a certeza que queres limpar todas as músicas deste ranking?"
+          );
 
-        return;
+
+        if(!confirmar){
+          return;
+        }
+
+
+        clearRankingBtn.disabled =
+          true;
+
+
+        clearRankingBtn.textContent =
+          "⏳ A LIMPAR...";
+
+
+        try{
+
+          const rankingId =
+            obterIdRanking();
+
+
+          await deleteDoc(
+            doc(
+              db,
+              "rankingMensal",
+              rankingId
+            )
+          );
+
+
+          rankingAtual =
+            [];
+
+
+          renderizarRanking();
+
+          renderizarMusicas();
+
+
+          mostrarStatus(
+            "Ranking apagado do Firestore com sucesso.",
+            "success"
+          );
+
+
+        }catch(error){
+
+          console.error(
+            "Erro ao limpar ranking:",
+            error
+          );
+
+
+          mostrarStatus(
+            "Erro ao apagar o ranking.",
+            "error"
+          );
+
+
+        }finally{
+
+          clearRankingBtn.disabled =
+            false;
+
+
+          clearRankingBtn.textContent =
+            "🗑 LIMPAR";
+
+        }
 
       }
+    );
 
-
-      rankingAtual =
-        [];
-
-
-      renderizarRanking();
-
-      renderizarMusicas();
-
-
-      mostrarStatus(
-        "O ranking foi limpo. Clica em GUARDAR RANKING para atualizar o Firestore.",
-        "success"
-      );
-
-    }
-  );
-
-</script>
+  </script>
 
 </body>
 </html>
