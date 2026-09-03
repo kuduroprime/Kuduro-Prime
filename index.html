@@ -1805,29 +1805,187 @@
        MÚSICAS
     ========================= */
 
-    const songs = [
+    /* =========================
+   MÚSICAS - LANÇAMENTOS
+========================= */
 
-      [
-        "Mim Faz Só Broxe",
-        "Figura do Adoço"
-      ],
+const releasesContainer =
+  document.querySelector("#releases");
 
-      [
-        "Vida de Artista",
-        "Ready Neutro"
-      ],
 
-      [
-        "Zona Quente",
-        "DJ Tafinha"
-      ],
+async function carregarLancamentos(){
 
-      [
-        "Kuduro é Vida",
-        "Yuri da Cunha"
-      ]
+  if(!releasesContainer){
+    return;
+  }
 
-    ];
+  releasesContainer.innerHTML = `
+    <div
+      style="
+        padding:20px 0;
+        color:#aaa59a;
+        font-size:13px
+      "
+    >
+      A carregar lançamentos...
+    </div>
+  `;
+
+
+  try{
+
+    const {
+      getFirestore,
+      collection,
+      query,
+      orderBy,
+      limit,
+      getDocs
+    } = await import(
+      "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js"
+    );
+
+
+    const db =
+      getFirestore(app);
+
+
+    const musicasRef =
+      collection(db, "musicas");
+
+
+    const q =
+      query(
+        musicasRef,
+        orderBy(
+          "criadoEm",
+          "desc"
+        ),
+        limit(6)
+      );
+
+
+    const snapshot =
+      await getDocs(q);
+
+
+    if(snapshot.empty){
+
+      releasesContainer.innerHTML = `
+        <div
+          style="
+            padding:20px 0;
+            color:#aaa59a;
+            font-size:13px
+          "
+        >
+          Ainda não existem lançamentos.
+        </div>
+      `;
+
+      return;
+
+    }
+
+
+    releasesContainer.innerHTML = "";
+
+
+    snapshot.forEach((docMusica) => {
+
+      const musica =
+        docMusica.data();
+
+
+      const titulo =
+        musica.titulo ||
+        musica.nome ||
+        "Música sem título";
+
+
+      const nomeArtista =
+        musica.artistaNome ||
+        musica.artista ||
+        musica.nomeArtista ||
+        "Artista KUDURO PRIME";
+
+
+      const capa =
+        musica.capaUrl ||
+        musica.capa ||
+        musica.imagem ||
+        "images/artista-1.jpg";
+
+
+      const musicaId =
+        docMusica.id;
+
+
+      releasesContainer.innerHTML += `
+
+        <a
+          class="release"
+          href="musicas.html?musica=${encodeURIComponent(musicaId)}"
+        >
+
+          <div
+            class="cover"
+            style="
+              --img:url('${capa}')
+            "
+          ></div>
+
+
+          <div>
+
+            <div class="song">
+              ${titulo}
+            </div>
+
+            <div class="artist">
+              ${nomeArtista}
+            </div>
+
+          </div>
+
+
+          <div class="play">
+            ▶
+          </div>
+
+        </a>
+
+      `;
+
+    });
+
+
+  }catch(error){
+
+    console.error(
+      "Erro ao carregar lançamentos:",
+      error
+    );
+
+
+    releasesContainer.innerHTML = `
+      <div
+        style="
+          padding:20px 0;
+          color:#ff563f;
+          font-size:13px
+        "
+      >
+        Não foi possível carregar os lançamentos.
+      </div>
+    `;
+
+  }
+
+}
+
+
+carregarLancamentos();
 
 
     const pics =
