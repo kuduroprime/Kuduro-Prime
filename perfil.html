@@ -1427,8 +1427,13 @@
 
 
     const requestedUser =
-      (params.get("user") || "")
-        .trim();
+  (
+    params.get("id") ||
+    params.get("user") ||
+    params.get("artistaId") ||
+    ""
+  )
+  .trim();
 
 
     let profileData = null;
