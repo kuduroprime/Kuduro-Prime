@@ -17,7 +17,6 @@
       --muted:#aaa59a;
       --line:#2a271f;
       --blue:#4eb8ff;
-      --red:#ff4b4b;
     }
 
     *{
@@ -45,10 +44,6 @@
     button{
       font:inherit;
     }
-
-    /* =========================
-       NAVEGAÇÃO
-    ========================= */
 
     .nav{
       height:82px;
@@ -123,27 +118,18 @@
 
     .btn.gold{
       border:0;
-      background:
-        linear-gradient(
-          135deg,
-          var(--gold2),
-          var(--gold)
-        );
+      background:linear-gradient(
+        135deg,
+        var(--gold2),
+        var(--gold)
+      );
       color:#17120a;
-    }
-
-    .btn.gold:hover{
-      transform:translateY(-2px);
     }
 
     .btn.dark{
       border:1px solid var(--gold);
       background:transparent;
       color:var(--gold);
-    }
-
-    .btn.dark:hover{
-      background:rgba(244,191,49,.08);
     }
 
     .menu{
@@ -154,10 +140,6 @@
       font-size:23px;
       cursor:pointer;
     }
-
-    /* =========================
-       CAPA
-    ========================= */
 
     .cover{
       height:330px;
@@ -186,10 +168,6 @@
       pointer-events:none;
     }
 
-    /* =========================
-       ÁREA DO PERFIL
-    ========================= */
-
     .profile-area{
       width:min(1180px,92%);
       margin:auto;
@@ -212,13 +190,11 @@
       color:var(--muted);
       font-size:11px;
       font-weight:900;
-      transition:.25s;
     }
 
     .back-btn:hover{
       border-color:var(--gold);
       color:var(--gold);
-      transform:translateX(-3px);
     }
 
     .profile-head{
@@ -248,7 +224,8 @@
       font-size:60px;
     }
 
-    .profile-photo img{
+    .profile-photo img,
+    .mini-avatar img{
       width:100%;
       height:100%;
       object-fit:cover;
@@ -286,10 +263,6 @@
       flex-wrap:wrap;
     }
 
-    /* =========================
-       CONTEÚDO
-    ========================= */
-
     .content{
       width:min(1180px,92%);
       margin:35px auto 70px;
@@ -309,10 +282,6 @@
       border:1px solid var(--line);
       border-radius:14px;
     }
-
-    /* =========================
-       ESTATÍSTICAS
-    ========================= */
 
     .stats{
       display:grid;
@@ -344,10 +313,6 @@
       font-size:10px;
       font-weight:800;
     }
-
-    /* =========================
-       TABS
-    ========================= */
 
     .tabs{
       display:flex;
@@ -382,10 +347,6 @@
       display:block;
     }
 
-    /* =========================
-       SOBRE
-    ========================= */
-
     .about{
       padding:22px;
     }
@@ -401,10 +362,6 @@
       line-height:1.7;
       white-space:pre-line;
     }
-
-    /* =========================
-       MÚSICAS
-    ========================= */
 
     .song-list{
       padding:8px 20px;
@@ -475,10 +432,6 @@
       cursor:pointer;
     }
 
-    /* =========================
-       VAZIO
-    ========================= */
-
     .empty{
       padding:35px 20px;
       text-align:center;
@@ -492,10 +445,6 @@
       font-size:15px;
       margin-bottom:8px;
     }
-
-    /* =========================
-       VÍDEOS
-    ========================= */
 
     .video-grid{
       padding:0 20px 20px;
@@ -515,7 +464,6 @@
 
     .video-card:hover{
       border-color:var(--gold);
-      transform:translateY(-2px);
     }
 
     .video-thumb{
@@ -547,18 +495,6 @@
       font-size:22px;
     }
 
-    .video-duration{
-      position:absolute;
-      right:8px;
-      bottom:8px;
-      padding:5px 7px;
-      border-radius:5px;
-      background:rgba(0,0,0,.8);
-      color:white;
-      font-size:10px;
-      font-weight:900;
-    }
-
     .video-info{
       padding:12px;
     }
@@ -566,7 +502,6 @@
     .video-title{
       font-size:13px;
       font-weight:900;
-      line-height:1.4;
     }
 
     .video-meta{
@@ -574,10 +509,6 @@
       font-size:10px;
       margin-top:6px;
     }
-
-    /* =========================
-       PUBLICAÇÕES
-    ========================= */
 
     .post{
       overflow:hidden;
@@ -602,12 +533,6 @@
       color:var(--gold);
     }
 
-    .mini-avatar img{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-    }
-
     .post-name{
       font-size:12px;
       font-weight:900;
@@ -625,10 +550,6 @@
       font-size:13px;
       line-height:1.6;
     }
-
-    /* =========================
-       LATERAL
-    ========================= */
 
     .side-box{
       padding:20px;
@@ -674,17 +595,12 @@
       border-radius:7px;
       color:#ccc;
       font-size:11px;
-      transition:.25s;
     }
 
     .social a:hover{
       border-color:var(--gold);
       color:var(--gold);
     }
-
-    /* =========================
-       LOADING
-    ========================= */
 
     .loading{
       padding:60px 20px;
@@ -705,10 +621,6 @@
       }
     }
 
-    /* =========================
-       FOOTER
-    ========================= */
-
     footer{
       padding:25px 0;
       border-top:1px solid var(--line);
@@ -716,10 +628,6 @@
       text-align:center;
       font-size:11px;
     }
-
-    /* =========================
-       RESPONSIVO
-    ========================= */
 
     @media(max-width:850px){
 
@@ -761,20 +669,8 @@
         font-size:18px;
       }
 
-      .crown{
-        font-size:18px;
-      }
-
-      .nav-actions .dark{
-        display:none;
-      }
-
       .cover{
         height:220px;
-      }
-
-      .back-area{
-        margin-top:14px;
       }
 
       .profile-head{
@@ -799,28 +695,8 @@
         flex:1;
       }
 
-      .stats{
-        grid-template-columns:repeat(3,1fr);
-      }
-
       .stat{
         padding:15px 8px;
-      }
-
-      .stat strong{
-        font-size:18px;
-      }
-
-      .stat span{
-        font-size:8px;
-      }
-
-      .song{
-        align-items:flex-start;
-      }
-
-      .play{
-        margin-top:10px;
       }
 
       .song-cover{
@@ -834,74 +710,41 @@
 
 <body>
 
-  <!-- =========================
-       NAVEGAÇÃO
-  ========================= -->
-
   <nav class="nav">
 
     <div class="nav-in">
 
       <a href="index.html" class="brand">
 
-        <span class="crown">
-          ♕
-        </span>
+        <span class="crown">♕</span>
 
         KUDURO
 
-        <b>
-          PRIME
-        </b>
+        <b>PRIME</b>
 
       </a>
 
-
       <div class="links">
 
-        <a href="index.html">
-          INÍCIO
-        </a>
-
-        <a href="artistas.html">
-          ARTISTAS
-        </a>
-
-        <a href="musicas.html">
-          MÚSICAS
-        </a>
-
-        <a href="ranking.html">
-          RANKING
-        </a>
-
-        <a href="eventos.html">
-          EVENTOS
-        </a>
+        <a href="index.html">INÍCIO</a>
+        <a href="artistas.html">ARTISTAS</a>
+        <a href="musicas.html">MÚSICAS</a>
+        <a href="ranking.html">RANKING</a>
+        <a href="eventos.html">EVENTOS</a>
 
       </div>
 
-
       <div class="nav-actions">
 
-        <a
-          href="area-do-artista.html"
-          class="btn dark"
-        >
+        <a href="area-do-artista.html" class="btn dark">
           ÁREA DO ARTISTA
         </a>
 
-        <a
-          href="juntar-se.html"
-          class="btn gold"
-        >
+        <a href="juntar-se.html" class="btn gold">
           JUNTA-TE 👑
         </a>
 
-        <button
-          class="menu"
-          onclick="abrirMenu()"
-        >
+        <button class="menu" onclick="abrirMenu()">
           ☰
         </button>
 
@@ -912,75 +755,41 @@
   </nav>
 
 
-  <!-- =========================
-       CAPA
-  ========================= -->
+  <section class="cover" id="cover"></section>
 
-  <section
-    class="cover"
-    id="cover"
-  ></section>
-
-
-  <!-- =========================
-       VOLTAR
-  ========================= -->
 
   <div class="back-area">
 
-    <a
-      href="artistas.html"
-      class="back-btn"
-    >
+    <a href="artistas.html" class="back-btn">
       ← VOLTAR AOS ARTISTAS
     </a>
 
   </div>
 
 
-  <!-- =========================
-       PERFIL
-  ========================= -->
-
   <section class="profile-area">
 
     <div class="profile-head">
 
-      <div
-        class="profile-photo"
-        id="profilePhoto"
-      >
+      <div class="profile-photo" id="profilePhoto">
         👤
       </div>
 
-
       <div>
 
-        <h1
-          class="profile-name"
-          id="profileName"
-        >
+        <h1 class="profile-name" id="profileName">
           A carregar...
         </h1>
 
-
-        <div
-          class="profile-user"
-          id="profileUser"
-        >
+        <div class="profile-user" id="profileUser">
           @artista
         </div>
 
-
-        <div
-          class="profile-location"
-          id="profileLocation"
-        >
+        <div class="profile-location" id="profileLocation">
           📍 Angola
         </div>
 
       </div>
-
 
       <div class="profile-actions">
 
@@ -991,7 +800,6 @@
         >
           + SEGUIR
         </button>
-
 
         <button
           class="btn dark"
@@ -1007,60 +815,29 @@
   </section>
 
 
-  <!-- =========================
-       CONTEÚDO PRINCIPAL
-  ========================= -->
-
   <main class="content">
 
     <section>
 
-      <!-- ESTATÍSTICAS -->
-
       <div class="stats panel">
 
         <div class="stat">
-
-          <strong id="musicCount">
-            0
-          </strong>
-
-          <span>
-            MÚSICAS
-          </span>
-
+          <strong id="musicCount">0</strong>
+          <span>MÚSICAS</span>
         </div>
 
-
         <div class="stat">
-
-          <strong id="followers">
-            0
-          </strong>
-
-          <span>
-            SEGUIDORES
-          </span>
-
+          <strong id="followers">0</strong>
+          <span>SEGUIDORES</span>
         </div>
 
-
         <div class="stat">
-
-          <strong id="views">
-            0
-          </strong>
-
-          <span>
-            VISUALIZAÇÕES
-          </span>
-
+          <strong id="views">0</strong>
+          <span>VISUALIZAÇÕES</span>
         </div>
 
       </div>
 
-
-      <!-- TABS -->
 
       <div class="tabs">
 
@@ -1071,14 +848,12 @@
           SOBRE
         </button>
 
-
         <button
           class="tab"
           onclick="abrirTab('musicas',this)"
         >
           MÚSICAS
         </button>
-
 
         <button
           class="tab"
@@ -1087,20 +862,8 @@
           VÍDEOS
         </button>
 
-
-        <button
-          class="tab"
-          onclick="abrirTab('posts',this)"
-        >
-          PUBLICAÇÕES
-        </button>
-
       </div>
 
-
-      <!-- =========================
-           SOBRE
-      ========================= -->
 
       <div
         id="sobre"
@@ -1122,10 +885,6 @@
       </div>
 
 
-      <!-- =========================
-           MÚSICAS
-      ========================= -->
-
       <div
         id="musicas"
         class="tab-content panel"
@@ -1138,7 +897,6 @@
           </h2>
 
         </div>
-
 
         <div
           class="song-list"
@@ -1160,10 +918,6 @@
       </div>
 
 
-      <!-- =========================
-           VÍDEOS
-      ========================= -->
-
       <div
         id="videos"
         class="tab-content panel"
@@ -1176,7 +930,6 @@
           </h2>
 
         </div>
-
 
         <div
           class="video-grid"
@@ -1197,65 +950,8 @@
 
       </div>
 
-
-      <!-- =========================
-           PUBLICAÇÕES
-      ========================= -->
-
-      <div
-        id="posts"
-        class="tab-content"
-      >
-
-        <article class="post panel">
-
-          <div class="post-head">
-
-            <div
-              class="mini-avatar"
-              id="postPhoto"
-            >
-              👤
-            </div>
-
-
-            <div>
-
-              <div
-                class="post-name"
-                id="postName"
-              >
-                Artista Prime
-              </div>
-
-
-              <div class="post-time">
-                Perfil oficial no KUDURO PRIME 👑
-              </div>
-
-            </div>
-
-          </div>
-
-
-          <div
-            class="post-text"
-            id="postText"
-          >
-            Este artista faz parte oficialmente
-            do movimento KUDURO PRIME.
-          </div>
-
-        </article>
-
-      </div>
-
     </section>
 
-
-    <!-- =========================
-         LATERAL
-    ========================= -->
 
     <aside>
 
@@ -1265,12 +961,9 @@
           👑 INFORMAÇÕES PRIME
         </h3>
 
-
         <div class="info">
 
-          <small>
-            ESTILO MUSICAL
-          </small>
+          <small>ESTILO MUSICAL</small>
 
           <strong id="profileGenre">
             Kuduro
@@ -1278,12 +971,9 @@
 
         </div>
 
-
         <div class="info">
 
-          <small>
-            LOCALIZAÇÃO
-          </small>
+          <small>LOCALIZAÇÃO</small>
 
           <strong id="profileCity">
             Angola
@@ -1291,12 +981,9 @@
 
         </div>
 
-
         <div class="info">
 
-          <small>
-            PAÍS
-          </small>
+          <small>PAÍS</small>
 
           <strong id="profileCountry">
             Angola
@@ -1304,12 +991,9 @@
 
         </div>
 
-
         <div class="info">
 
-          <small>
-            CARREIRA DESDE
-          </small>
+          <small>CARREIRA DESDE</small>
 
           <strong id="profileYear">
             —
@@ -1329,7 +1013,6 @@
           🔗 REDES SOCIAIS
         </h3>
 
-
         <div
           class="social"
           id="socialLinks"
@@ -1342,10 +1025,6 @@
   </main>
 
 
-  <!-- =========================
-       FOOTER
-  ========================= -->
-
   <footer>
 
     © 2026 KUDURO PRIME.
@@ -1354,10 +1033,6 @@
 
   </footer>
 
-
-  <!-- =========================
-       FIREBASE / JAVASCRIPT
-  ========================= -->
 
   <script type="module">
 
@@ -1376,10 +1051,6 @@
     } from
       "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 
-
-    /* =========================
-       FIREBASE
-    ========================= */
 
     const firebaseConfig = {
 
@@ -1405,19 +1076,15 @@
 
 
     const app =
-      initializeApp(
-        firebaseConfig
-      );
+      initializeApp(firebaseConfig);
 
 
     const db =
-      getFirestore(
-        app
-      );
+      getFirestore(app);
 
 
     /* =========================
-       PARÂMETRO DO PERFIL
+       ID DO ARTISTA DO LINK
     ========================= */
 
     const params =
@@ -1427,26 +1094,28 @@
 
 
     const requestedUser =
-  (
-    params.get("id") ||
-    params.get("artistaId") ||
-    params.get("artistId") ||
-    params.get("uid") ||
-    params.get("userId") ||
-    params.get("user") ||
-    params.get("username") ||
-    params.get("artista") ||
-    ""
-  )
-  .trim();
+      (
+        params.get("id") ||
+        params.get("artistaId") ||
+        params.get("artistId") ||
+        params.get("uid") ||
+        params.get("userId") ||
+        params.get("user") ||
+        params.get("username") ||
+        ""
+      )
+      .trim();
+
+
+    console.log(
+      "ID RECEBIDO NO PERFIL:",
+      requestedUser
+    );
 
 
     let profileData = null;
-
     let artistId = "";
-
     let artistSongs = [];
-
     let artistVideos = [];
 
 
@@ -1511,10 +1180,28 @@
     }
 
 
+    function escapeHtml(value){
+
+      return String(value ?? "")
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+
+    }
+
+
+    function escapeAttr(value){
+
+      return escapeHtml(value);
+
+    }
+
+
     function nomeArtista(data){
 
       return texto(
-
         data.nome,
         data.artistName,
         data.artistaNome,
@@ -1522,9 +1209,7 @@
         data.nomeArtistico,
         data.nome_artistico,
         data.name,
-
         "Artista Prime"
-
       );
 
     }
@@ -1533,17 +1218,12 @@
     function usernameArtista(data){
 
       return texto(
-
         data.username,
         data.userName,
         data.nomeUsuario,
-        data.artistaUsername,
-        data.usernameArtistico,
         data.usuario,
         data.slug,
-
         ""
-
       );
 
     }
@@ -1552,7 +1232,6 @@
     function fotoArtista(data){
 
       return texto(
-
         data.foto,
         data.photo,
         data.photoURL,
@@ -1560,10 +1239,7 @@
         data.imagem,
         data.image,
         data.avatar,
-        data.profilePhoto,
-
         ""
-
       );
 
     }
@@ -1572,7 +1248,6 @@
     function capaMusica(data){
 
       return texto(
-
         data.cover,
         data.coverUrl,
         data.capa,
@@ -1580,9 +1255,7 @@
         data.image,
         data.imageUrl,
         data.imagem,
-
         ""
-
       );
 
     }
@@ -1591,16 +1264,13 @@
     function audioMusica(data){
 
       return texto(
-
         data.audioUrl,
         data.audio,
         data.url,
         data.musicUrl,
         data.file,
         data.src,
-
         ""
-
       );
 
     }
@@ -1609,14 +1279,11 @@
     function tituloMusica(data){
 
       return texto(
-
         data.titulo,
         data.title,
         data.nome,
         data.nomeMusica,
-
         "Música sem título"
-
       );
 
     }
@@ -1625,13 +1292,10 @@
     function tituloVideo(data){
 
       return texto(
-
         data.titulo,
         data.title,
         data.nome,
-
         "Vídeo sem título"
-
       );
 
     }
@@ -1640,7 +1304,6 @@
     function capaVideo(data){
 
       return texto(
-
         data.capa,
         data.cover,
         data.coverUrl,
@@ -1648,9 +1311,7 @@
         data.thumbnailUrl,
         data.image,
         data.imageUrl,
-
         ""
-
       );
 
     }
@@ -1660,18 +1321,16 @@
 
       const status =
         texto(data.status)
-          .toLowerCase();
+        .toLowerCase();
 
 
       return (
-
+        status === "" ||
         status === "publicado" ||
         status === "publicada" ||
         status === "public" ||
         status === "ativa" ||
-        status === "ativo" ||
-        status === ""
-
+        status === "ativo"
       );
 
     }
@@ -1690,9 +1349,7 @@
       ];
 
 
-      for(
-        const campo of campos
-      ){
+      for(const campo of campos){
 
         if(!campo){
           continue;
@@ -1709,9 +1366,7 @@
         }
 
 
-        if(
-          campo.seconds
-        ){
+        if(campo.seconds){
 
           return campo.seconds * 1000;
 
@@ -1720,7 +1375,7 @@
 
         const valor =
           new Date(campo)
-            .getTime();
+          .getTime();
 
 
         if(
@@ -1745,25 +1400,14 @@
 
     async function procurarArtista(){
 
-      if(
-        !requestedUser
-      ){
-
+      if(!requestedUser){
         return null;
-
       }
 
 
-      const pedido =
-        normalizarParametro(
-          requestedUser
-        );
-
-
       /*
-        1. PRIMEIRO:
-        tenta diretamente pelo ID
-        do documento Firestore.
+        PRIMEIRO PROCURA PELO ID
+        DO DOCUMENTO FIRESTORE
       */
 
       try{
@@ -1777,14 +1421,10 @@
 
 
         const snap =
-          await getDoc(
-            ref
-          );
+          await getDoc(ref);
 
 
-        if(
-          snap.exists()
-        ){
+        if(snap.exists()){
 
           return {
 
@@ -1802,7 +1442,7 @@
       catch(error){
 
         console.warn(
-          "Busca direta do artista:",
+          "Erro na busca pelo ID:",
           error
         );
 
@@ -1810,68 +1450,81 @@
 
 
       /*
-        2. SEGUNDO:
-        procura pelo username.
-
-        Isto mantém compatibilidade
-        com links antigos.
+        SEGUNDO:
+        PROCURA PELO CAMPO UID
       */
 
-      const snapshot =
-        await getDocs(
-          collection(
-            db,
-            "artistas"
-          )
+      try{
+
+        const snapshot =
+          await getDocs(
+            collection(
+              db,
+              "artistas"
+            )
+          );
+
+
+        let encontrado = null;
+
+
+        snapshot.forEach(
+          docSnap => {
+
+            if(encontrado){
+              return;
+            }
+
+
+            const data =
+              docSnap.data();
+
+
+            const uid =
+              texto(
+                data.uid,
+                data.artistaId,
+                data.artistId,
+                data.userId
+              );
+
+
+            if(uid === requestedUser){
+
+              encontrado = {
+
+                id:
+                  docSnap.id,
+
+                ...data
+
+              };
+
+            }
+
+          }
         );
 
 
-      let encontrado = null;
+        if(encontrado){
 
-
-      snapshot.forEach(
-        docSnap => {
-
-          if(
-            encontrado
-          ){
-
-            return;
-
-          }
-
-
-          const data =
-            docSnap.data();
-
-
-          const username =
-            normalizarParametro(
-              usernameArtista(data)
-            );
-
-
-          if(
-            username &&
-            username === pedido
-          ){
-
-            encontrado = {
-
-              id:
-                docSnap.id,
-
-              ...data
-
-            };
-
-          }
+          return encontrado;
 
         }
-      );
+
+      }
+
+      catch(error){
+
+        console.error(
+          "Erro ao procurar UID:",
+          error
+        );
+
+      }
 
 
-      return encontrado;
+      return null;
 
     }
 
@@ -1888,41 +1541,14 @@
       try{
 
         const resultado =
-          await Promise.race([
-
-            procurarArtista(),
-
-            new Promise(
-              (_,reject) =>
-
-                setTimeout(
-                  () =>
-
-                    reject(
-                      new Error(
-                        "Tempo limite excedido."
-                      )
-                    ),
-
-                  15000
-
-                )
-
-            )
-
-          ]);
+          await procurarArtista();
 
 
-        if(
-          !resultado
-        ){
+        if(!resultado){
 
           mostrarErro(
-
             "Artista não encontrado",
-
             "Este perfil não existe no KUDURO PRIME."
-
           );
 
           return;
@@ -1934,6 +1560,13 @@
           resultado.id;
 
 
+        console.log(
+          "ARTISTA ENCONTRADO:",
+          artistId,
+          resultado
+        );
+
+
         profileData = {
 
           id:
@@ -1941,84 +1574,64 @@
 
 
           name:
-            nomeArtista(
-              resultado
-            ),
+            nomeArtista(resultado),
 
 
           username:
-            usernameArtista(
-              resultado
-            ) ||
+            usernameArtista(resultado) ||
+            resultado.uid ||
             "artista",
 
 
           photo:
-            fotoArtista(
-              resultado
-            ),
+            fotoArtista(resultado),
 
 
           bio:
             texto(
-
               resultado.bio,
               resultado.biografia,
               resultado.description,
               resultado.descricao,
-
               "Este artista faz parte do movimento KUDURO PRIME 👑."
-
             ),
 
 
           city:
             texto(
-
+              resultado.provincia,
               resultado.cidade,
               resultado.city,
               resultado.localizacao,
-              resultado.location,
-
               "Luanda"
-
             ),
 
 
           country:
             texto(
-
               resultado.pais,
               resultado.country,
-
               "Angola"
-
             ),
 
 
           genre:
             texto(
-
               resultado.genero,
               resultado.genre,
               resultado.estilo,
               resultado.tipo,
-
               "Kuduro"
-
             ),
 
 
           year:
             texto(
-
               resultado.ano,
               resultado.year,
               resultado.carreiraDesde,
               resultado.anoInicio,
-
               "—"
-
             ),
 
 
@@ -2052,11 +1665,9 @@
 
           followers:
             numero(
-
               resultado.followers,
               resultado.seguidores,
               resultado.followerCount
-
             )
 
         };
@@ -2064,11 +1675,6 @@
 
         mostrarPerfil();
 
-
-        /*
-          Cada parte é carregada
-          separadamente.
-        */
 
         await carregarMusicas();
 
@@ -2085,11 +1691,8 @@
 
 
         mostrarErro(
-
           "Erro ao carregar perfil",
-
-          "Não foi possível carregar este perfil. Verifica a ligação ao Firebase e tenta novamente."
-
+          "Não foi possível carregar este perfil."
         );
 
       }
@@ -2097,24 +1700,16 @@
     }
 
 
-    /* =========================
-       LOADING DO PERFIL
-    ========================= */
-
     function mostrarLoadingPerfil(){
 
       document
-        .querySelector(
-          "#profileName"
-        )
+        .querySelector("#profileName")
         .textContent =
           "A carregar...";
 
 
       document
-        .querySelector(
-          "#profileBio"
-        )
+        .querySelector("#profileBio")
         .textContent =
           "A carregar biografia...";
 
@@ -2128,40 +1723,27 @@
     function mostrarPerfil(){
 
       document
-        .querySelector(
-          "#profileName"
-        )
+        .querySelector("#profileName")
         .innerHTML =
-
-          `${escapeHtml(
-            profileData.name
-          )}
-          <span class="verified">
-            ✓
-          </span>`;
+          `
+            ${escapeHtml(profileData.name)}
+            <span class="verified">✓</span>
+          `;
 
 
       document
-        .querySelector(
-          "#profileUser"
-        )
+        .querySelector("#profileUser")
         .textContent =
-
           "@" +
           String(
             profileData.username
-          ).replace(
-            /^@/,
-            ""
-          );
+          )
+          .replace(/^@/,"");
 
 
       document
-        .querySelector(
-          "#profileLocation"
-        )
+        .querySelector("#profileLocation")
         .textContent =
-
           "📍 " +
           profileData.city +
           ", " +
@@ -2169,131 +1751,60 @@
 
 
       document
-        .querySelector(
-          "#profileBio"
-        )
+        .querySelector("#profileBio")
         .textContent =
           profileData.bio;
 
 
       document
-        .querySelector(
-          "#profileGenre"
-        )
+        .querySelector("#profileGenre")
         .textContent =
           profileData.genre;
 
 
       document
-        .querySelector(
-          "#profileCity"
-        )
+        .querySelector("#profileCity")
         .textContent =
           profileData.city;
 
 
       document
-        .querySelector(
-          "#profileCountry"
-        )
+        .querySelector("#profileCountry")
         .textContent =
           profileData.country;
 
 
       document
-        .querySelector(
-          "#profileYear"
-        )
+        .querySelector("#profileYear")
         .textContent =
           profileData.year;
 
 
       document
-        .querySelector(
-          "#postName"
-        )
-        .textContent =
-          profileData.name;
-
-
-      document
-        .querySelector(
-          "#postText"
-        )
-        .textContent =
-          profileData.bio;
-
-
-      document
-        .querySelector(
-          "#followers"
-        )
+        .querySelector("#followers")
         .textContent =
           formatNumber(
             profileData.followers
           );
 
 
-      /*
-        FOTO DO PERFIL
-      */
-
-      if(
-        profileData.photo
-      ){
+      if(profileData.photo){
 
         document
-          .querySelector(
-            "#profilePhoto"
-          )
+          .querySelector("#profilePhoto")
           .innerHTML =
-
             `
               <img
-                src="${escapeAttr(
-                  profileData.photo
-                )}"
-                alt="${escapeAttr(
-                  profileData.name
-                )}"
+                src="${escapeAttr(profileData.photo)}"
+                alt="${escapeAttr(profileData.name)}"
               >
             `;
 
 
         document
-          .querySelector(
-            "#postPhoto"
-          )
-          .innerHTML =
-
-            `
-              <img
-                src="${escapeAttr(
-                  profileData.photo
-                )}"
-                alt="${escapeAttr(
-                  profileData.name
-                )}"
-              >
-            `;
-
-
-        document
-          .querySelector(
-            "#cover"
-          )
+          .querySelector("#cover")
           .style.backgroundImage =
-
-            `
-              linear-gradient(
-                0deg,
-                #070707,
-                rgba(0,0,0,.15)
-              ),
-              url("${escapeCssUrl(
-                profileData.photo
-              )}")
-            `;
+            `url("${profileData.photo}")`;
 
       }
 
@@ -2338,54 +1849,24 @@
 
             const idArtista =
               texto(
-
                 data.artistaId,
                 data.artistId,
                 data.userId,
                 data.uid,
                 data.artistaUID,
                 data.artistaUid
-
               );
 
 
-            /*
-              Aceita também alguns
-              formatos antigos.
-            */
-
-            const nomeDono =
-              texto(
-
-                data.artista,
-                data.nomeArtista,
-                data.artistName
-
-              );
-
-
-            const pertenceAoArtista =
-
+            const pertence =
               idArtista === artistId ||
-
-
-              (
-                nomeDono &&
-                normalizarParametro(
-                  nomeDono
-                ) ===
-                normalizarParametro(
-                  profileData.name
-                )
-              );
+              idArtista === profileData.username ||
+              idArtista === requestedUser;
 
 
             if(
-
-              pertenceAoArtista &&
-
+              pertence &&
               isPublicado(data)
-
             ){
 
               artistSongs.push({
@@ -2405,27 +1886,20 @@
 
         artistSongs.sort(
           (a,b) =>
-
             dataCriacao(b) -
             dataCriacao(a)
-
         );
 
 
         document
-          .querySelector(
-            "#musicCount"
-          )
+          .querySelector("#musicCount")
           .textContent =
             artistSongs.length;
 
 
-        if(
-          !artistSongs.length
-        ){
+        if(!artistSongs.length){
 
           list.innerHTML =
-
             `
               <div class="empty">
 
@@ -2439,6 +1913,7 @@
               </div>
             `;
 
+
           atualizarVisualizacoes();
 
           return;
@@ -2447,115 +1922,75 @@
 
 
         list.innerHTML =
-
           artistSongs
-            .map(
-              song => {
+          .map(
+            song => {
 
-                const cover =
-                  capaMusica(
-                    song
-                  ) ||
-                  profileData.photo;
+              const cover =
+                capaMusica(song) ||
+                profileData.photo;
 
 
-                const audio =
-                  audioMusica(
-                    song
-                  );
+              const audio =
+                audioMusica(song);
 
 
-                const views =
-                  numero(
-
-                    song.views,
-                    song.visualizacoes,
-                    song.viewCount
-
-                  );
+              const views =
+                numero(
+                  song.views,
+                  song.visualizacoes,
+                  song.viewCount
+                );
 
 
-                return `
+              return `
 
-                  <div class="song">
+                <div class="song">
 
-                    <div class="song-cover">
+                  <div class="song-cover">
 
-                      ${
-                        cover
+                    ${
+                      cover
 
-                        ?
+                      ?
 
-                        `
-                          <img
-                            src="${escapeAttr(
-                              cover
-                            )}"
-                            alt=""
-                            onerror="this.style.display='none'"
-                          >
-                        `
+                      `
+                        <img
+                          src="${escapeAttr(cover)}"
+                          alt=""
+                        >
+                      `
 
-                        :
+                      :
 
-                        "🎵"
-                      }
+                      "🎵"
+                    }
+
+                  </div>
+
+
+                  <div class="song-info">
+
+                    <div class="song-name">
+
+                      ${escapeHtml(
+                        tituloMusica(song)
+                      )}
 
                     </div>
 
 
-                    <div class="song-info">
+                    <div class="song-meta">
 
-                      <div class="song-name">
+                      ${escapeHtml(
+                        profileData.name
+                      )}
 
-                        ${escapeHtml(
-                          tituloMusica(song)
-                        )}
+                      • 👁
 
-                      </div>
+                      ${formatNumber(views)}
 
-
-                      <div class="song-meta">
-
-                        ${escapeHtml(
-                          profileData.name
-                        )}
-
-                        • 👁
-
-                        ${formatNumber(
-                          views
-                        )}
-
-                        visualizações
-
-                      </div>
-
-
-                      ${
-                        audio
-
-                        ?
-
-                        `
-                          <audio
-                            class="song-audio"
-                            controls
-                            preload="none"
-                            src="${escapeAttr(
-                              audio
-                            )}"
-                          ></audio>
-                        `
-
-                        :
-
-                        `
-                          <div class="song-meta">
-                            Áudio indisponível
-                          </div>
-                        `
-                      }
+                      visualizações
 
                     </div>
 
@@ -2566,27 +2001,52 @@
                       ?
 
                       `
-                        <button
-                          class="play"
-                          onclick="tocarMusica(this)"
-                          title="Ouvir"
-                        >
-                          ▶
-                        </button>
+                        <audio
+                          class="song-audio"
+                          controls
+                          preload="none"
+                          src="${escapeAttr(audio)}"
+                        ></audio>
                       `
 
                       :
 
-                      ""
+                      `
+                        <div class="song-meta">
+                          Áudio indisponível
+                        </div>
+                      `
                     }
 
                   </div>
 
-                `;
 
-              }
-            )
-            .join("");
+                  ${
+                    audio
+
+                    ?
+
+                    `
+                      <button
+                        class="play"
+                        onclick="tocarMusica(this)"
+                      >
+                        ▶
+                      </button>
+                    `
+
+                    :
+
+                    ""
+                  }
+
+                </div>
+
+              `;
+
+            }
+          )
+          .join("");
 
 
         atualizarVisualizacoes();
@@ -2602,7 +2062,6 @@
 
 
         list.innerHTML =
-
           `
             <div class="empty">
 
@@ -2655,63 +2114,16 @@
 
             const idArtista =
               texto(
-
                 data.artistaId,
                 data.artistId,
                 data.userId,
-                data.uid,
-                data.artistaUID,
-                data.artistaUid
-
+                data.uid
               );
-
-
-            const nomeDono =
-              texto(
-
-                data.artista,
-                data.nomeArtista,
-                data.artistName
-
-              );
-
-
-            const pertenceAoArtista =
-
-              idArtista === artistId ||
-
-
-              (
-                nomeDono &&
-                normalizarParametro(
-                  nomeDono
-                ) ===
-                normalizarParametro(
-                  profileData.name
-                )
-              );
-
-
-            const status =
-              texto(
-                data.status
-              ).toLowerCase();
-
-
-            const videoPublicado =
-
-              status === "" ||
-              status === "publicado" ||
-              status === "publicada" ||
-              status === "public";
 
 
             if(
-
-              pertenceAoArtista &&
-
-              videoPublicado
-
+              idArtista === artistId ||
+              idArtista === requestedUser
             ){
 
               artistVideos.push({
@@ -2731,19 +2143,14 @@
 
         artistVideos.sort(
           (a,b) =>
-
             dataCriacao(b) -
             dataCriacao(a)
-
         );
 
 
-        if(
-          !artistVideos.length
-        ){
+        if(!artistVideos.length){
 
           grid.innerHTML =
-
             `
               <div
                 class="empty"
@@ -2754,159 +2161,102 @@
                   🎬 Nenhum vídeo publicado
                 </strong>
 
-                Este artista ainda não publicou
-                vídeos.
+                Este artista ainda não publicou vídeos.
 
               </div>
             `;
 
+
+          atualizarVisualizacoes();
+
+          return;
+
         }
 
-        else{
 
-          grid.innerHTML =
+        grid.innerHTML =
+          artistVideos
+          .map(
+            video => {
 
-            artistVideos
-              .map(
-                video => {
-
-                  const cover =
-                    capaVideo(
-                      video
-                    );
+              const cover =
+                capaVideo(video);
 
 
-                  const views =
-                    numero(
-
-                      video.views,
-                      video.visualizacoes,
-                      video.viewCount
-
-                    );
+              const views =
+                numero(
+                  video.views,
+                  video.visualizacoes,
+                  video.viewCount
+                );
 
 
-                  const duration =
-                    texto(
+              return `
 
-                      video.duracaoFormatada,
-                      video.duracao,
-                      video.duration,
+                <a
+                  class="video-card"
+                  href="assistir-video.html?id=${encodeURIComponent(video.id)}"
+                >
+
+                  <div class="video-thumb">
+
+                    ${
+                      cover
+
+                      ?
+
+                      `
+                        <img
+                          src="${escapeAttr(cover)}"
+                          alt=""
+                        >
+                      `
+
+                      :
 
                       ""
-
-                    );
-
-
-                  return `
-
-                    <a
-                      class="video-card"
-                      href="assistir-video.html?id=${encodeURIComponent(
-                        video.id
-                      )}"
-                    >
-
-                      <div
-                        class="video-thumb"
-                        ${
-                          cover
-
-                          ?
-
-                          `style="background-image:url('${escapeCssUrl(
-                            cover
-                          )}')"`
-
-                          :
-
-                          ""
-                        }
-                      >
-
-                        ${
-                          cover
-
-                          ?
-
-                          `
-                            <img
-                              src="${escapeAttr(
-                                cover
-                              )}"
-                              alt=""
-                              onerror="this.style.display='none'"
-                            >
-                          `
-
-                          :
-
-                          ""
-                        }
+                    }
 
 
-                        <div class="video-play">
-                          ▶
-                        </div>
+                    <div class="video-play">
+                      ▶
+                    </div>
+
+                  </div>
 
 
-                        ${
-                          duration
+                  <div class="video-info">
 
-                          ?
+                    <div class="video-title">
 
-                          `
-                            <div class="video-duration">
-                              ${escapeHtml(
-                                duration
-                              )}
-                            </div>
-                          `
+                      ${escapeHtml(
+                        tituloVideo(video)
+                      )}
 
-                          :
-
-                          ""
-                        }
-
-                      </div>
+                    </div>
 
 
-                      <div class="video-info">
+                    <div class="video-meta">
 
-                        <div class="video-title">
+                      ${escapeHtml(
+                        profileData.name
+                      )}
 
-                          ${escapeHtml(
-                            tituloVideo(video)
-                          )}
+                      • 👁
 
-                        </div>
+                      ${formatNumber(views)}
 
+                    </div>
 
-                        <div class="video-meta">
+                  </div>
 
-                          ${escapeHtml(
-                            profileData.name
-                          )}
+                </a>
 
-                          • 👁
+              `;
 
-                          ${formatNumber(
-                            views
-                          )}
-
-                        </div>
-
-                      </div>
-
-                    </a>
-
-                  `;
-
-                }
-              )
-              .join("");
-
-        }
+            }
+          )
+          .join("");
 
 
         atualizarVisualizacoes();
@@ -2922,7 +2272,6 @@
 
 
         grid.innerHTML =
-
           `
             <div
               class="empty"
@@ -2933,8 +2282,6 @@
                 ⚠ Erro ao carregar vídeos
               </strong>
 
-              Tenta atualizar a página.
-
             </div>
           `;
 
@@ -2944,66 +2291,43 @@
 
 
     /* =========================
-       TOTAL DE VISUALIZAÇÕES
+       VISUALIZAÇÕES
     ========================= */
 
     function atualizarVisualizacoes(){
 
       const musicViews =
         artistSongs.reduce(
-
-          (
-            total,
-            song
-          ) =>
-
+          (total,song) =>
             total +
             numero(
-
               song.views,
               song.visualizacoes,
               song.viewCount
-
             ),
-
           0
-
         );
 
 
       const videoViews =
         artistVideos.reduce(
-
-          (
-            total,
-            video
-          ) =>
-
+          (total,video) =>
             total +
             numero(
-
               video.views,
               video.visualizacoes,
               video.viewCount
-
             ),
-
           0
-
         );
 
 
       document
-        .querySelector(
-          "#views"
-        )
+        .querySelector("#views")
         .textContent =
-
           formatNumber(
-
             musicViews +
             videoViews
-
           );
 
     }
@@ -3053,14 +2377,10 @@
         );
 
 
-      if(
-        !active.length
-      ){
+      if(!active.length){
 
         document
-          .querySelector(
-            "#socialBox"
-          )
+          .querySelector("#socialBox")
           .style.display =
             "none";
 
@@ -3070,70 +2390,62 @@
 
 
       socialLinks.innerHTML =
-
         active
-          .map(
-            network => {
+        .map(
+          network => {
 
-              const url =
-                prepararUrl(
-                  network[1]
-                );
+            let url =
+              String(
+                network[1]
+              )
+              .trim();
 
 
-              return `
+            if(
+              !/^https?:\/\//i.test(url)
+            ){
 
-                <a
-                  href="${escapeAttr(
-                    url
-                  )}"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-
-                  ${network[0]}
-
-                  <br>
-
-                  <small>
-                    ${escapeHtml(
-                      network[1]
-                    )}
-                  </small>
-
-                </a>
-
-              `;
+              url =
+                "https://" +
+                url;
 
             }
-          )
-          .join("");
+
+
+            return `
+
+              <a
+                href="${escapeAttr(url)}"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+
+                ${network[0]}
+
+              </a>
+
+            `;
+
+          }
+        )
+        .join("");
 
     }
 
 
     /* =========================
-       PLAYER
+       TOCAR MÚSICA
     ========================= */
 
     window.tocarMusica =
       function(button){
 
         const song =
-          button.closest(
-            ".song"
-          );
-
-
-        if(!song){
-          return;
-        }
+          button.closest(".song");
 
 
         const audio =
-          song.querySelector(
-            "audio"
-          );
+          song?.querySelector("audio");
 
 
         if(!audio){
@@ -3142,32 +2454,21 @@
 
 
         document
-          .querySelectorAll(
-            ".song audio"
-          )
+          .querySelectorAll(".song audio")
           .forEach(
             other => {
 
-              if(
-                other !== audio
-              ){
+              if(other !== audio){
 
                 other.pause();
 
-
                 const otherButton =
                   other
-                    .closest(
-                      ".song"
-                    )
-                    ?.querySelector(
-                      ".play"
-                    );
+                  .closest(".song")
+                  ?.querySelector(".play");
 
 
-                if(
-                  otherButton
-                ){
+                if(otherButton){
 
                   otherButton.textContent =
                     "▶";
@@ -3180,28 +2481,12 @@
           );
 
 
-        if(
-          audio.paused
-        ){
+        if(audio.paused){
 
-          audio
-            .play()
-            .then(
-              () => {
+          audio.play();
 
-                button.textContent =
-                  "❚❚";
-
-              }
-            )
-            .catch(
-              () => {
-
-                button.textContent =
-                  "▶";
-
-              }
-            );
+          button.textContent =
+            "❚❚";
 
         }
 
@@ -3213,15 +2498,6 @@
             "▶";
 
         }
-
-
-        audio.onended =
-          function(){
-
-            button.textContent =
-              "▶";
-
-          };
 
       };
 
@@ -3267,39 +2543,22 @@
     window.partilharPerfil =
       async function(){
 
-        if(
-          !profileData
-        ){
-
-          return;
-
-        }
-
-
         const url =
           window.location.href;
 
 
-        if(
-          navigator.share
-        ){
+        try{
 
-          try{
+          if(navigator.share){
 
             await navigator.share({
 
               title:
-
                 profileData.name +
                 " — KUDURO PRIME",
 
-
               text:
-
-                "Vê o perfil de " +
-                profileData.name +
-                " no KUDURO PRIME 👑",
-
+                "Vê o perfil deste artista no KUDURO PRIME 👑",
 
               url:url
 
@@ -3307,25 +2566,10 @@
 
           }
 
-          catch(error){
-
-            console.log(
-              "Partilha cancelada."
-            );
-
-          }
-
-        }
-
-        else{
-
-          try{
+          else{
 
             await navigator.clipboard
-              .writeText(
-                url
-              );
-
+              .writeText(url);
 
             alert(
               "Link do perfil copiado!"
@@ -3333,16 +2577,13 @@
 
           }
 
-          catch(error){
+        }
 
-            alert(
+        catch(error){
 
-              "Link do perfil:\n" +
-              url
-
-            );
-
-          }
+          console.log(
+            "Partilha cancelada."
+          );
 
         }
 
@@ -3360,16 +2601,12 @@
       ){
 
         document
-          .querySelectorAll(
-            ".tab"
-          )
+          .querySelectorAll(".tab")
           .forEach(
             tab =>
-
               tab.classList.remove(
                 "active"
               )
-
           );
 
 
@@ -3379,11 +2616,9 @@
           )
           .forEach(
             content =>
-
               content.classList.remove(
                 "active"
               )
-
           );
 
 
@@ -3392,27 +2627,19 @@
         );
 
 
-        const content =
-          document.querySelector(
+        document
+          .querySelector(
             "#" + tabId
-          );
-
-
-        if(
-          content
-        ){
-
-          content.classList.add(
+          )
+          ?.classList.add(
             "active"
           );
-
-        }
 
       };
 
 
     /* =========================
-       MENU MOBILE
+       MENU
     ========================= */
 
     window.abrirMenu =
@@ -3474,79 +2701,40 @@
     ){
 
       document
-        .querySelector(
-          "#profileName"
-        )
+        .querySelector("#profileName")
         .textContent =
           titulo;
 
 
       document
-        .querySelector(
-          "#profileUser"
-        )
+        .querySelector("#profileUser")
         .textContent =
           "";
 
 
       document
-        .querySelector(
-          "#profileLocation"
-        )
+        .querySelector("#profileLocation")
         .textContent =
           "";
 
 
       document
-        .querySelector(
-          "#profileBio"
-        )
+        .querySelector("#profileBio")
         .textContent =
           mensagem;
 
 
       document
-        .querySelector(
-          "#musicCount"
-        )
-        .textContent =
-          "0";
-
-
-      document
-        .querySelector(
-          "#followers"
-        )
-        .textContent =
-          "0";
-
-
-      document
-        .querySelector(
-          "#views"
-        )
-        .textContent =
-          "0";
-
-
-      document
-        .querySelector(
-          "#songList"
-        )
+        .querySelector("#songList")
         .innerHTML =
-
           `
             <div class="empty">
 
               <strong>
-                ⚠ ${escapeHtml(
-                  titulo
-                )}
+                ⚠ ${escapeHtml(titulo)}
               </strong>
 
-              ${escapeHtml(
-                mensagem
-              )}
+              ${escapeHtml(mensagem)}
 
               <br><br>
 
@@ -3560,30 +2748,6 @@
             </div>
           `;
 
-
-      document
-        .querySelector(
-          "#videoGrid"
-        )
-        .innerHTML =
-
-          `
-            <div
-              class="empty"
-              style="grid-column:1/-1"
-            >
-
-              <strong>
-                ⚠ Perfil indisponível
-              </strong>
-
-              ${escapeHtml(
-                mensagem
-              )}
-
-            </div>
-          `;
-
     }
 
 
@@ -3591,9 +2755,7 @@
        FORMATAÇÃO
     ========================= */
 
-    function formatNumber(
-      number
-    ){
+    function formatNumber(number){
 
       return new Intl.NumberFormat(
         "pt-PT",
@@ -3601,7 +2763,8 @@
           notation:"compact",
           maximumFractionDigits:1
         }
-      ).format(
+      )
+      .format(
         Number(number) || 0
       );
 
@@ -3609,148 +2772,14 @@
 
 
     /* =========================
-       PREPARAR URL
+       INICIAR
     ========================= */
 
-    function prepararUrl(
-      value
-    ){
-
-      let url =
-        String(value || "")
-          .trim();
-
-
-      if(!url){
-        return "#";
-      }
-
-
-      if(
-        !/^https?:\/\//i.test(
-          url
-        )
-      ){
-
-        if(
-          url.startsWith("@")
-        ){
-
-          return
-            "https://instagram.com/" +
-            url.substring(1);
-
-        }
-
-
-        if(
-          !url.includes(" ") &&
-          !url.includes("/")
-        ){
-
-          return
-            "https://www.tiktok.com/@" +
-            url.replace(
-              "@",
-              ""
-            );
-
-        }
-
-      }
-
-
-      return url;
-
-    }
-
-
-    /* =========================
-       SEGURANÇA HTML
-    ========================= */
-
-    function escapeHtml(
-      value
-    ){
-
-      return String(
-        value ?? ""
-      )
-
-        .replace(
-          /&/g,
-          "&amp;"
-        )
-
-        .replace(
-          /</g,
-          "&lt;"
-        )
-
-        .replace(
-          />/g,
-          "&gt;"
-        )
-
-        .replace(
-          /"/g,
-          "&quot;"
-        )
-
-        .replace(
-          /'/g,
-          "&#039;"
-        );
-
-    }
-
-
-    function escapeAttr(
-      value
-    ){
-
-      return escapeHtml(
-        value
-      );
-
-    }
-
-
-    function escapeCssUrl(
-      value
-    ){
-
-      return String(
-        value ?? ""
-      )
-
-        .replace(
-          /\\/g,
-          "\\\\"
-        )
-
-        .replace(
-          /'/g,
-          "\\'"
-        );
-
-    }
-
-
-    /* =========================
-       INICIAR PERFIL
-    ========================= */
-
-    if(
-      !requestedUser
-    ){
+    if(!requestedUser){
 
       mostrarErro(
-
         "Perfil não encontrado",
-
         "Nenhum artista foi selecionado."
-
       );
 
     }
