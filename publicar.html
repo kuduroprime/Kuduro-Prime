@@ -475,6 +475,9 @@
       getDoc,
       collection,
       addDoc,
+      getDocs,
+      query,
+      where,
       serverTimestamp
     } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 
@@ -565,9 +568,14 @@
     let selectedType = "foto";
     let currentUser = null;
     let artistData = null;
+    let artistDocumentId = null;
     let selectedFile = null;
     let previewUrl = null;
 
+
+    // =========================================================
+    // CARREGAR O PERFIL DO ARTISTA
+    // =========================================================
 
     onAuthStateChanged(
       auth,
@@ -586,17 +594,127 @@
 
         try{
 
+          /*
+           * A coleção correta é "artistas".
+           *
+           * Primeiro tentamos encontrar o artista cujo
+           * ID do documento é igual ao UID.
+           */
+
           const artistRef =
             doc(
               db,
-              "artists",
+              "artistas",
               user.uid
             );
 
           const artistSnap =
             await getDoc(artistRef);
 
-          if(!artistSnap.exists()){
+
+          if(artistSnap.exists()){
+
+            artistDocumentId =
+              artistSnap.id;
+
+            artistData =
+              artistSnap.data();
+
+          }
+          else{
+
+            /*
+             * Se o documento não tiver o UID como ID,
+             * procuramos pelo campo "uid".
+             */
+
+            const artistQuery =
+              query(
+                collection(
+                  db,
+                  "artistas"
+                ),
+                where(
+                  "uid",
+                  "==",
+                  user.uid
+                )
+              );
+
+            const artistQuerySnap =
+              await getDocs(
+                artistQuery
+              );
+
+
+            if(!artistQuerySnap.empty){
+
+              const artistDoc =
+                artistQuerySnap.docs[0];
+
+              artistDocumentId =
+                artistDoc.id;
+
+              artistData =
+                artistDoc.data();
+
+            }
+
+          }
+
+
+          /*
+           * Última tentativa pelo email,
+           * caso o perfil tenha sido criado com outro
+           * documento mas mantenha o mesmo email.
+           */
+
+          if(
+            !artistData &&
+            user.email
+          ){
+
+            const emailQuery =
+              query(
+                collection(
+                  db,
+                  "artistas"
+                ),
+                where(
+                  "email",
+                  "==",
+                  user.email
+                )
+              );
+
+            const emailSnap =
+              await getDocs(
+                emailQuery
+              );
+
+
+            if(!emailSnap.empty){
+
+              const artistDoc =
+                emailSnap.docs[0];
+
+              artistDocumentId =
+                artistDoc.id;
+
+              artistData =
+                artistDoc.data();
+
+            }
+
+          }
+
+
+          if(!artistData){
+
+            console.error(
+              "ARTISTA NÃO ENCONTRADO PARA UID:",
+              user.uid
+            );
 
             showMessage(
               "Perfil de artista não encontrado.",
@@ -607,13 +725,29 @@
 
           }
 
-          artistData =
-            artistSnap.data();
+
+          console.log(
+            "ARTISTA CARREGADO:",
+            artistData
+          );
+
+          console.log(
+            "ID DO DOCUMENTO DO ARTISTA:",
+            artistDocumentId
+          );
+
+          console.log(
+            "UID DO ARTISTA:",
+            currentUser.uid
+          );
 
         }
         catch(error){
 
-          console.error(error);
+          console.error(
+            "ERRO AO CARREGAR ARTISTA:",
+            error
+          );
 
           showMessage(
             "Erro ao carregar o teu perfil: "
@@ -626,6 +760,10 @@
       }
     );
 
+
+    // =========================================================
+    // TIPOS DE PUBLICAÇÃO
+    // =========================================================
 
     types.forEach(type => {
 
@@ -721,6 +859,10 @@
     }
 
 
+    // =========================================================
+    // SELEÇÃO DO ARQUIVO
+    // =========================================================
+
     fileInput.addEventListener(
       "change",
       () => {
@@ -812,6 +954,10 @@
     );
 
 
+    // =========================================================
+    // LIMPAR PREVIEW
+    // =========================================================
+
     function clearPreview(){
 
       if(previewUrl){
@@ -837,6 +983,10 @@
     }
 
 
+    // =========================================================
+    // PUBLICAR
+    // =========================================================
+
     publishBtn.addEventListener(
       "click",
       async () => {
@@ -860,6 +1010,18 @@
 
           showMessage(
             "O teu perfil ainda não foi carregado.",
+            "error"
+          );
+
+          return;
+
+        }
+
+
+        if(!artistDocumentId){
+
+          showMessage(
+            "Não foi possível identificar o teu perfil de artista.",
             "error"
           );
 
@@ -1005,6 +1167,10 @@
             "A guardar publicação...";
 
 
+          // =====================================================
+          // GUARDAR PUBLICAÇÃO
+          // =====================================================
+
           await addDoc(
             collection(
               db,
@@ -1013,23 +1179,49 @@
 
             {
 
+              /*
+               * UID da conta Firebase
+               */
               uid:
                 currentUser.uid,
+
+
+              /*
+               * ID REAL DO DOCUMENTO NA COLEÇÃO "artistas".
+               *
+               * É este campo que o Feed deverá usar
+               * para abrir perfil.html?id=...
+               */
+              artistaId:
+                artistDocumentId,
+
+
+              /*
+               * Guardamos também o UID separadamente.
+               */
+              artistaUid:
+                currentUser.uid,
+
 
               tipo:
                 selectedType,
 
+
               titulo:
                 title.value.trim(),
+
 
               legenda:
                 caption.value.trim(),
 
+
               arquivoUrl:
                 fileUrl,
 
+
               arquivoNome:
                 selectedFile.name,
+
 
               nomeArtista:
                 artistData.artistName
@@ -1038,9 +1230,16 @@
                 ||
                 "Artista",
 
+
               username:
                 artistData.username
-                || "",
+                ||
+                artistData.userName
+                ||
+                artistData.nomeUsuario
+                ||
+                "",
+
 
               fotoArtista:
                 artistData.photo
@@ -1048,6 +1247,7 @@
                 artistData.foto
                 ||
                 "",
+
 
               createdAt:
                 serverTimestamp()
@@ -1146,6 +1346,10 @@
       }
     );
 
+
+    // =========================================================
+    // MENSAGENS
+    // =========================================================
 
     function showMessage(
       text,
