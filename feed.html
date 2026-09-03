@@ -4329,7 +4329,9 @@
         <div class="post-header">
 
           <a
-  href="perfil.html?artistaId=${encodeURIComponent(item.artistaId || '')}"
+  href="perfil.html?id=${encodeURIComponent(
+    item.artistaId || item.artistId || item.userId || item.uid || ''
+  )}"
   class="post-avatar post-profile-link"
   title="Ver perfil de ${escaparHTML(nome)}"
 >
@@ -4342,7 +4344,9 @@
             <div class="post-author">
 
   <a
-  href="perfil.html?artistaId=${encodeURIComponent(item.artistaId || '')}"
+  href="perfil.html?id=${encodeURIComponent(
+    item.artistaId || item.artistId || item.userId || item.uid || ''
+  )}"
   class="post-profile-link"
   title="Ver perfil de ${escaparHTML(nome)}"
 >
