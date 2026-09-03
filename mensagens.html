@@ -4937,6 +4937,30 @@ window.addEventListener(
   "beforeunload",
   () => {
 
+    /* MARCAR UTILIZADOR COMO OFFLINE */
+
+    if(firebaseUser){
+
+      const profileRef =
+        doc(
+          db,
+          "perfis",
+          firebaseUser.uid
+        );
+
+      setDoc(
+        profileRef,
+        {
+          online:false,
+          lastSeen:serverTimestamp()
+        },
+        {
+          merge:true
+        }
+      );
+
+    }
+
     if(unsubscribeMessages){
       unsubscribeMessages();
     }
@@ -4947,7 +4971,6 @@ window.addEventListener(
 
   }
 );
-
 </script>
 
 </body>
