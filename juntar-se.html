@@ -834,427 +834,697 @@
 
   <script type="module">
 
-    import {
+  import {
+    initializeApp
+  } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
 
-      initializeApp
+  import {
+    getAuth,
+    createUserWithEmailAndPassword,
+    updateProfile
+  } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
 
-    }
-
-    from
-
-    "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
-
-
-    import {
-
-      getAuth,
-      createUserWithEmailAndPassword,
-      updateProfile
-
-    }
-
-    from
-
-    "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+  import {
+    getFirestore,
+    doc,
+    setDoc,
+    serverTimestamp,
+    getDocs,
+    collection,
+    query,
+    where
+  } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 
 
-    /* CONFIGURAÇÃO FIREBASE */
+  /* =========================
+     CONFIGURAÇÃO FIREBASE
+  ========================= */
 
-    const firebaseConfig = {
+  const firebaseConfig = {
 
-      apiKey:
-        "AIzaSyDoitCcLeLDNBNPCP6fG1s_xbHr4UmohSo",
+    apiKey:
+      "AIzaSyDoitCcLeLDNBNPCP6fG1s_xbHr4UmohSo",
 
-      authDomain:
-        "kuduro-prime.firebaseapp.com",
+    authDomain:
+      "kuduro-prime.firebaseapp.com",
 
-      projectId:
-        "kuduro-prime",
+    projectId:
+      "kuduro-prime",
 
-      storageBucket:
-        "kuduro-prime.firebasestorage.app",
+    storageBucket:
+      "kuduro-prime.firebasestorage.app",
 
-      messagingSenderId:
-        "299776559545",
+    messagingSenderId:
+      "299776559545",
 
-      appId:
-        "1:299776559545:web:04aced1ba25391eb3fce68"
+    appId:
+      "1:299776559545:web:04aced1ba25391eb3fce68"
 
-    };
-
-
-    /* INICIAR FIREBASE */
-
-    const app =
-      initializeApp(firebaseConfig);
+  };
 
 
-    const auth =
-      getAuth(app);
+  /* =========================
+     INICIAR FIREBASE
+  ========================= */
+
+  const app =
+    initializeApp(firebaseConfig);
+
+  const auth =
+    getAuth(app);
+
+  const db =
+    getFirestore(app);
 
 
-    /* ELEMENTOS */
+  /* =========================
+     ELEMENTOS
+  ========================= */
 
-    const form =
-      document.querySelector("#registerForm");
+  const form =
+    document.querySelector("#registerForm");
 
+  const message =
+    document.querySelector("#message");
 
-    const message =
-      document.querySelector("#message");
+  const registerBtn =
+    document.querySelector("#registerBtn");
 
+  const password =
+    document.querySelector("#password");
 
-    const registerBtn =
-      document.querySelector("#registerBtn");
-
-
-    const password =
-      document.querySelector("#password");
-
-
-    const togglePassword =
-      document.querySelector("#togglePassword");
+  const togglePassword =
+    document.querySelector("#togglePassword");
 
 
-    /* MOSTRAR / ESCONDER PASSWORD */
+  /* =========================
+     MOSTRAR / ESCONDER PASSWORD
+  ========================= */
 
-    togglePassword.addEventListener(
-      "click",
-      () => {
+  togglePassword.addEventListener(
+    "click",
+    () => {
 
-        if(password.type === "password"){
+      if (
+        password.type === "password"
+      ) {
 
-          password.type = "text";
+        password.type =
+          "text";
 
-          togglePassword.textContent =
-            "🙈";
+        togglePassword.textContent =
+          "🙈";
 
-        }
-        else{
+      } else {
 
-          password.type = "password";
+        password.type =
+          "password";
 
-          togglePassword.textContent =
-            "👁";
-
-        }
+        togglePassword.textContent =
+          "👁";
 
       }
-    );
-
-
-    /* MENSAGEM */
-
-    function showMessage(
-      text,
-      type
-    ){
-
-      message.textContent =
-        text;
-
-      message.className =
-        "message " + type;
 
     }
+  );
 
 
-    /* CRIAR CONTA */
+  /* =========================
+     MOSTRAR MENSAGEM
+  ========================= */
 
-    form.addEventListener(
-      "submit",
-      async event => {
+  function showMessage(
+    text,
+    type
+  ) {
 
-        event.preventDefault();
+    message.textContent =
+      text;
 
+    message.className =
+      "message " + type;
 
-        const firstName =
-          document
-            .querySelector("#firstName")
-            .value
-            .trim();
-
-
-        const lastName =
-          document
-            .querySelector("#lastName")
-            .value
-            .trim();
+  }
 
 
-        const artistName =
-          document
-            .querySelector("#artistName")
-            .value
-            .trim();
+  /* =========================
+     LIMPAR USERNAME
+  ========================= */
+
+  function cleanUsername(
+    value
+  ) {
+
+    return value
+      .trim()
+      .toLowerCase()
+      .replace(/^@+/, "")
+      .replace(/\s+/g, "_");
+
+  }
 
 
-        const username =
+  /* =========================
+     VERIFICAR USERNAME
+  ========================= */
+
+  async function usernameExists(
+    username
+  ) {
+
+    const artistsQuery =
+      query(
+        collection(
+          db,
+          "artistas"
+        ),
+        where(
+          "username",
+          "==",
+          username
+        )
+      );
+
+    const snapshot =
+      await getDocs(
+        artistsQuery
+      );
+
+    return !snapshot.empty;
+
+  }
+
+
+  /* =========================
+     CRIAR CONTA
+  ========================= */
+
+  form.addEventListener(
+    "submit",
+    async event => {
+
+      event.preventDefault();
+
+
+      /* DADOS */
+
+      const firstName =
+        document
+          .querySelector("#firstName")
+          .value
+          .trim();
+
+
+      const lastName =
+        document
+          .querySelector("#lastName")
+          .value
+          .trim();
+
+
+      const artistName =
+        document
+          .querySelector("#artistName")
+          .value
+          .trim();
+
+
+      const username =
+        cleanUsername(
           document
             .querySelector("#username")
             .value
-            .trim()
-            .toLowerCase();
+        );
 
 
-        const email =
-          document
-            .querySelector("#email")
-            .value
-            .trim();
+      const email =
+        document
+          .querySelector("#email")
+          .value
+          .trim()
+          .toLowerCase();
 
 
-        const phone =
-          document
-            .querySelector("#phone")
-            .value
-            .trim();
+      const phone =
+        document
+          .querySelector("#phone")
+          .value
+          .trim();
 
 
-        const pass =
-          document
-            .querySelector("#password")
-            .value;
+      const pass =
+        document
+          .querySelector("#password")
+          .value;
 
 
-        const confirmPass =
-          document
-            .querySelector("#confirmPassword")
-            .value;
+      const confirmPass =
+        document
+          .querySelector("#confirmPassword")
+          .value;
 
 
-        if(
-          pass !== confirmPass
-        ){
+      /* =========================
+         VALIDAÇÕES
+      ========================= */
+
+      if (
+        !firstName ||
+        !lastName ||
+        !artistName ||
+        !username ||
+        !email ||
+        !phone
+      ) {
+
+        showMessage(
+          "Preenche todos os campos.",
+          "error"
+        );
+
+        return;
+
+      }
+
+
+      if (
+        pass !== confirmPass
+      ) {
+
+        showMessage(
+          "As palavras-passe não são iguais.",
+          "error"
+        );
+
+        return;
+
+      }
+
+
+      if (
+        pass.length < 6
+      ) {
+
+        showMessage(
+          "A palavra-passe deve ter pelo menos 6 caracteres.",
+          "error"
+        );
+
+        return;
+
+      }
+
+
+      if (
+        username.length < 3
+      ) {
+
+        showMessage(
+          "O nome de utilizador deve ter pelo menos 3 caracteres.",
+          "error"
+        );
+
+        return;
+
+      }
+
+
+      /* =========================
+         BLOQUEAR BOTÃO
+      ========================= */
+
+      registerBtn.disabled =
+        true;
+
+      registerBtn.textContent =
+        "A VERIFICAR...";
+
+
+      try {
+
+
+        /* =========================
+           VERIFICAR USERNAME
+        ========================= */
+
+        const exists =
+          await usernameExists(
+            username
+          );
+
+
+        if (
+          exists
+        ) {
 
           showMessage(
-            "As palavras-passe não são iguais.",
+            "Este nome de utilizador já está em uso.",
             "error"
           );
+
+          registerBtn.disabled =
+            false;
+
+          registerBtn.textContent =
+            "CRIAR A MINHA CONTA 👑";
 
           return;
 
         }
 
 
-        if(
-          pass.length < 6
-        ){
-
-          showMessage(
-            "A palavra-passe deve ter pelo menos 6 caracteres.",
-            "error"
-          );
-
-          return;
-
-        }
-
-
-        registerBtn.disabled =
-          true;
-
+        /* =========================
+           CRIAR CONTA FIREBASE AUTH
+        ========================= */
 
         registerBtn.textContent =
           "A CRIAR CONTA...";
 
 
-        try{
+        const resultado =
 
-
-          /* CRIAR CONTA NO FIREBASE */
-
-          const resultado =
-
-            await createUserWithEmailAndPassword(
-              auth,
-              email,
-              pass
-            );
-
-
-          const user =
-            resultado.user;
-
-
-          /* GUARDAR NOME ARTÍSTICO NO PERFIL FIREBASE */
-
-          await updateProfile(
-            user,
-            {
-              displayName:
-                artistName
-            }
+          await createUserWithEmailAndPassword(
+            auth,
+            email,
+            pass
           );
 
 
-          /*
-            GUARDAR DADOS PARA AS OUTRAS PÁGINAS
-          */
-
-          localStorage.setItem(
-            "kpArtistFirstName",
-            firstName
-          );
+        const user =
+          resultado.user;
 
 
-          localStorage.setItem(
-            "kpArtistLastName",
-            lastName
-          );
+        /* =========================
+           ATUALIZAR PERFIL AUTH
+        ========================= */
+
+        await updateProfile(
+          user,
+          {
+            displayName:
+              artistName
+          }
+        );
 
 
-          /*
-            ESTE É O NOME OFICIAL
-            DO ARTISTA
-          */
+        /* =========================
+           CRIAR ARTISTA NO FIRESTORE
+           
+           ESTA É A PARTE PRINCIPAL.
+           
+           O UID DO FIREBASE É USADO
+           COMO ID DO DOCUMENTO.
+           
+           artistas.html VAI ENCONTRAR
+           TODOS ESTES ARTISTAS.
+        ========================= */
 
-          localStorage.setItem(
-            "kpArtistStageName",
-            artistName
-          );
-
-
-          localStorage.setItem(
-            "kpArtistName",
-            artistName
-          );
-
-
-          localStorage.setItem(
-            "kpArtistUsername",
-            username
-          );
-
-
-          localStorage.setItem(
-            "kpArtistEmail",
-            email
-          );
-
-
-          localStorage.setItem(
-            "kpArtistPhone",
-            phone
-          );
-
-
-          localStorage.setItem(
-            "kpArtistLoggedIn",
-            "true"
-          );
-
-
-          localStorage.setItem(
-            "kpArtistUID",
+        await setDoc(
+          doc(
+            db,
+            "artistas",
             user.uid
-          );
+          ),
+          {
+
+            /* IDENTIFICAÇÃO */
+
+            uid:
+              user.uid,
+
+            nome:
+              artistName,
+
+            artistName:
+              artistName,
+
+            username:
+              username,
+
+            primeiroNome:
+              firstName,
+
+            ultimoNome:
+              lastName,
+
+            email:
+              email,
+
+            telefone:
+              phone,
 
 
-          showMessage(
-            "Conta criada com sucesso! 👑 Agora cria o teu perfil.",
-            "success"
-          );
+            /* PERFIL PADRÃO */
+
+            foto:
+              "",
+
+            photoURL:
+              "",
+
+            fotoPerfil:
+              "",
+
+            bio:
+              "",
+
+            descricao:
+              "",
+
+            genero:
+              "Kuduro",
+
+            cidade:
+              "",
+
+            pais:
+              "Angola",
+
+            instagram:
+              "",
+
+            facebook:
+              "",
+
+            youtube:
+              "",
+
+            tiktok:
+              "",
 
 
-          setTimeout(
-            () => {
+            /* ESTADO */
 
-              window.location.href =
-                "criar-perfil.html";
+            perfilCriado:
+              false,
 
-            },
-            1000
-          );
+            verificado:
+              false,
 
+            ativo:
+              true,
 
-        }
-        catch(erro){
+            totalMusicas:
+              0,
 
+            totalSeguidores:
+              0,
 
-          console.error(
-            "ERRO NO CADASTRO:",
-            erro
-          );
+            criadoEm:
+              serverTimestamp(),
 
-
-          let textoErro =
-            "Não foi possível criar a conta.";
-
-
-          if(
-            erro.code ===
-            "auth/email-already-in-use"
-          ){
-
-            textoErro =
-              "Este email já possui uma conta.";
+            atualizadoEm:
+              serverTimestamp()
 
           }
+        );
 
 
-          if(
-            erro.code ===
-            "auth/invalid-email"
-          ){
+        /* =========================
+           GUARDAR LOCALMENTE
+        ========================= */
 
-            textoErro =
-              "O email introduzido não é válido.";
-
-          }
-
-
-          if(
-            erro.code ===
-            "auth/weak-password"
-          ){
-
-            textoErro =
-              "A palavra-passe é muito fraca.";
-
-          }
+        localStorage.setItem(
+          "kpArtistFirstName",
+          firstName
+        );
 
 
-          if(
-            erro.code ===
-            "auth/network-request-failed"
-          ){
-
-            textoErro =
-              "Sem ligação à internet. Verifica a tua conexão.";
-
-          }
+        localStorage.setItem(
+          "kpArtistLastName",
+          lastName
+        );
 
 
-          if(
-            erro.code ===
-            "auth/operation-not-allowed"
-          ){
-
-            textoErro =
-              "O cadastro por email não está ativado no Firebase.";
-
-          }
+        localStorage.setItem(
+          "kpArtistStageName",
+          artistName
+        );
 
 
-          showMessage(
-            textoErro,
-            "error"
-          );
+        localStorage.setItem(
+          "kpArtistName",
+          artistName
+        );
 
 
-          registerBtn.disabled =
-            false;
+        localStorage.setItem(
+          "kpArtistUsername",
+          username
+        );
 
 
-          registerBtn.textContent =
-            "CRIAR A MINHA CONTA 👑";
+        localStorage.setItem(
+          "kpArtistEmail",
+          email
+        );
 
-        }
+
+        localStorage.setItem(
+          "kpArtistPhone",
+          phone
+        );
+
+
+        localStorage.setItem(
+          "kpArtistLoggedIn",
+          "true"
+        );
+
+
+        localStorage.setItem(
+          "kpArtistUID",
+          user.uid
+        );
+
+
+        /* =========================
+           SUCESSO
+        ========================= */
+
+        showMessage(
+          "Conta criada com sucesso! 👑 Agora cria o teu perfil.",
+          "success"
+        );
+
+
+        registerBtn.textContent =
+          "CONTA CRIADA 👑";
+
+
+        setTimeout(
+          () => {
+
+            window.location.href =
+              "criar-perfil.html";
+
+          },
+          1000
+        );
+
 
       }
-    );
+      catch (
+        erro
+      ) {
 
-  </script>
+
+        console.error(
+          "ERRO NO CADASTRO:",
+          erro
+        );
+
+
+        let textoErro =
+          "Não foi possível criar a conta.";
+
+
+        if (
+          erro.code ===
+          "auth/email-already-in-use"
+        ) {
+
+          textoErro =
+            "Este email já possui uma conta.";
+
+        }
+
+
+        if (
+          erro.code ===
+          "auth/invalid-email"
+        ) {
+
+          textoErro =
+            "O email introduzido não é válido.";
+
+        }
+
+
+        if (
+          erro.code ===
+          "auth/weak-password"
+        ) {
+
+          textoErro =
+            "A palavra-passe é muito fraca.";
+
+        }
+
+
+        if (
+          erro.code ===
+          "auth/network-request-failed"
+        ) {
+
+          textoErro =
+            "Sem ligação à internet. Verifica a tua conexão.";
+
+        }
+
+
+        if (
+          erro.code ===
+          "auth/operation-not-allowed"
+        ) {
+
+          textoErro =
+            "O cadastro por email não está ativado no Firebase.";
+
+        }
+
+
+        if (
+          erro.code ===
+          "permission-denied"
+        ) {
+
+          textoErro =
+            "O Firebase não tem permissão para guardar o artista. Verifica as regras do Firestore.";
+
+        }
+
+
+        showMessage(
+          textoErro,
+          "error"
+        );
+
+
+        registerBtn.disabled =
+          false;
+
+
+        registerBtn.textContent =
+          "CRIAR A MINHA CONTA 👑";
+
+      }
+
+    }
+  );
+
+</script>
+
 
 </body>
 </html>
