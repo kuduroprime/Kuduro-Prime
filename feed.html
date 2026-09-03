@@ -115,23 +115,44 @@
     }
 
     .nav-actions{
-      display:flex;
-      align-items:center;
-      gap:12px;
-    }
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
 
-    .nav-avatar{
-      width:42px;
-      height:42px;
-      border-radius:50%;
-      overflow:hidden;
-      border:2px solid var(--gold);
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      background:#222;
-      font-weight:bold;
-    }
+.messages-btn{
+  width:42px;
+  height:42px;
+  border-radius:50%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  text-decoration:none;
+  background:#222;
+  border:2px solid var(--gold);
+  color:#fff;
+  font-size:19px;
+  transition:.2s;
+}
+
+.messages-btn:hover{
+  background:var(--gold);
+  color:#000;
+  transform:scale(1.05);
+}
+
+.nav-avatar{
+  width:42px;
+  height:42px;
+  border-radius:50%;
+  overflow:hidden;
+  border:2px solid var(--gold);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:#222;
+  font-weight:bold;
+}
 
     .nav-avatar img{
       width:100%;
@@ -935,37 +956,50 @@
 
   <header>
 
+  <a
+    href="index.html"
+    class="brand"
+  >
+    👑
+    <span>KUDURO</span>
+    PRIME
+  </a>
+
+
+  <div class="nav-actions">
+
+    <!-- MENSAGENS -->
     <a
-      href="index.html"
-      class="brand"
+      href="mensagens.html"
+      class="messages-btn"
+      title="Mensagens"
     >
-      👑
-      <span>KUDURO</span>
-      PRIME
+      💬
     </a>
 
 
-    <div class="nav-actions">
+    <!-- MEU PERFIL -->
+    <a
+      href="meu-perfil.html"
+      class="nav-avatar"
+      id="navAvatar"
+      title="Meu Perfil"
+    >
+      👤
+    </a>
 
-  <a
-    href="meu-perfil.html"
-    class="nav-avatar"
-    id="navAvatar"
-    title="Meu Perfil"
-  >
-    👤
-  </a>
 
-  <button
-    class="logout-btn"
-    onclick="sair(event)"
-  >
-    SAIR
-  </button>
+    <!-- SAIR -->
+    <button
+      class="logout-btn"
+      onclick="sair(event)"
+    >
+      SAIR
+    </button>
 
-</div>
+  </div>
 
-  </header>
+</header>
 
 
   <!-- =========================
