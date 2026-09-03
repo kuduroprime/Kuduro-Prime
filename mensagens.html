@@ -1,12 +1,10 @@
 <!DOCTYPE html>
+
 <html lang="pt">
 <head>
-
 <meta charset="UTF-8">
 
-<meta
-  name="viewport"
-  content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Mensagens — KUDURO PRIME</title>
 
@@ -31,7 +29,6 @@
   --blue:#54bfff;
 }
 
-
 /* =========================
    RESET
 ========================= */
@@ -42,15 +39,18 @@
   padding:0;
 }
 
+html,
+body{
+  width:100%;
+  height:100%;
+}
 
 body{
   background:var(--bg);
   color:var(--text);
   font-family:Arial,Helvetica,sans-serif;
-  height:100vh;
   overflow:hidden;
 }
-
 
 /* =========================
    APP
@@ -61,7 +61,6 @@ body{
   display:flex;
   flex-direction:column;
 }
-
 
 /* =========================
    HEADER
@@ -78,7 +77,6 @@ body{
   flex-shrink:0;
 }
 
-
 .logo{
   color:var(--gold);
   font-size:21px;
@@ -86,18 +84,15 @@ body{
   letter-spacing:.5px;
 }
 
-
 .logo span{
   color:#fff;
 }
-
 
 .header-right{
   display:flex;
   align-items:center;
   gap:10px;
 }
-
 
 .header-btn{
   width:42px;
@@ -111,12 +106,10 @@ body{
   transition:.2s;
 }
 
-
 .header-btn:hover{
   border-color:var(--gold);
   color:var(--gold);
 }
-
 
 /* =========================
    MAIN
@@ -128,7 +121,6 @@ body{
   display:grid;
   grid-template-columns:340px minmax(0,1fr);
 }
-
 
 /* =========================
    SIDEBAR
@@ -142,12 +134,10 @@ body{
   min-width:0;
 }
 
-
 .sidebar-top{
   padding:18px;
   border-bottom:1px solid var(--line);
 }
-
 
 .sidebar-title{
   display:flex;
@@ -156,11 +146,9 @@ body{
   margin-bottom:15px;
 }
 
-
 .sidebar-title h1{
   font-size:21px;
 }
-
 
 .new-message{
   width:38px;
@@ -174,11 +162,9 @@ body{
   cursor:pointer;
 }
 
-
 .search{
   position:relative;
 }
-
 
 .search input{
   width:100%;
@@ -192,19 +178,16 @@ body{
   font-size:14px;
 }
 
-
 .search input:focus{
   border-color:var(--gold);
 }
 
-
 .search-icon{
   position:absolute;
   left:14px;
-  top:12px;
+  top:11px;
   color:var(--muted);
 }
-
 
 /* =========================
    CONVERSAS
@@ -214,7 +197,6 @@ body{
   flex:1;
   overflow-y:auto;
 }
-
 
 .conversation{
   min-height:78px;
@@ -227,17 +209,14 @@ body{
   transition:.2s;
 }
 
-
 .conversation:hover{
   background:#171717;
 }
-
 
 .conversation.active{
   background:#1d1b15;
   border-left:3px solid var(--gold);
 }
-
 
 .avatar{
   width:52px;
@@ -256,13 +235,11 @@ body{
   overflow:hidden;
 }
 
-
 .avatar img{
   width:100%;
   height:100%;
   object-fit:cover;
 }
-
 
 .online-dot{
   position:absolute;
@@ -275,12 +252,10 @@ body{
   bottom:1px;
 }
 
-
 .conversation-info{
   flex:1;
   min-width:0;
 }
-
 
 .conversation-line{
   display:flex;
@@ -289,7 +264,6 @@ body{
   gap:10px;
 }
 
-
 .conversation-name{
   font-weight:800;
   white-space:nowrap;
@@ -297,13 +271,11 @@ body{
   text-overflow:ellipsis;
 }
 
-
 .time{
   font-size:11px;
   color:var(--muted);
   flex-shrink:0;
 }
-
 
 .last-message{
   color:var(--muted);
@@ -313,7 +285,6 @@ body{
   overflow:hidden;
   text-overflow:ellipsis;
 }
-
 
 .unread{
   min-width:20px;
@@ -327,8 +298,8 @@ body{
   align-items:center;
   justify-content:center;
   font-weight:bold;
+  flex-shrink:0;
 }
-
 
 /* =========================
    CHAT
@@ -340,7 +311,6 @@ body{
   flex-direction:column;
   background:#080808;
 }
-
 
 /* =========================
    CHAT HEADER
@@ -357,7 +327,6 @@ body{
   flex-shrink:0;
 }
 
-
 .back-btn{
   display:none;
   border:none;
@@ -367,18 +336,18 @@ body{
   cursor:pointer;
 }
 
-
 .chat-user{
   flex:1;
   min-width:0;
 }
 
-
 .chat-user-name{
   font-weight:900;
   font-size:16px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
 }
-
 
 .chat-status{
   font-size:12px;
@@ -386,12 +355,10 @@ body{
   margin-top:4px;
 }
 
-
 .chat-actions{
   display:flex;
   gap:8px;
 }
-
 
 .chat-action{
   width:38px;
@@ -403,12 +370,10 @@ body{
   cursor:pointer;
 }
 
-
 .chat-action:hover{
   color:var(--gold);
   border-color:var(--gold);
 }
-
 
 /* =========================
    MENSAGENS
@@ -421,7 +386,6 @@ body{
   display:flex;
   flex-direction:column;
   gap:8px;
-
   background-image:
     radial-gradient(
       circle at 20% 20%,
@@ -435,7 +399,6 @@ body{
     );
 }
 
-
 .date-label{
   align-self:center;
   background:#191919;
@@ -447,22 +410,18 @@ body{
   margin:8px 0 12px;
 }
 
-
 .message-row{
   display:flex;
   width:100%;
 }
 
-
 .message-row.received{
   justify-content:flex-start;
 }
 
-
 .message-row.sent{
   justify-content:flex-end;
 }
-
 
 .message{
   max-width:min(560px,75%);
@@ -474,13 +433,11 @@ body{
   box-shadow:0 2px 8px rgba(0,0,0,.2);
 }
 
-
 .received .message{
   background:#181818;
   border:1px solid #252525;
   border-top-left-radius:4px;
 }
-
 
 .sent .message{
   background:#4b3c16;
@@ -488,12 +445,14 @@ body{
   border-top-right-radius:4px;
 }
 
-
 .message-text{
   white-space:pre-wrap;
   word-break:break-word;
 }
 
+/* =========================
+   META
+========================= */
 
 .message-meta{
   display:flex;
@@ -505,17 +464,14 @@ body{
   color:#aaa;
 }
 
-
 .sent .message-meta{
   color:#d4c796;
 }
-
 
 .check{
   color:var(--blue);
   font-size:12px;
 }
-
 
 /* =========================
    MÍDIA
@@ -531,7 +487,6 @@ body{
   cursor:pointer;
 }
 
-
 .message-video{
   width:100%;
   max-width:430px;
@@ -540,14 +495,12 @@ body{
   background:#000;
 }
 
-
 .document-message{
   display:flex;
   align-items:center;
   gap:10px;
   min-width:220px;
 }
-
 
 .document-icon{
   width:44px;
@@ -558,13 +511,12 @@ body{
   align-items:center;
   justify-content:center;
   font-size:22px;
+  flex-shrink:0;
 }
-
 
 .document-info{
   min-width:0;
 }
-
 
 .document-name{
   font-weight:bold;
@@ -574,13 +526,11 @@ body{
   max-width:240px;
 }
 
-
 .document-link{
   color:var(--gold);
   font-size:11px;
   text-decoration:none;
 }
-
 
 /* =========================
    ÁUDIO
@@ -590,13 +540,11 @@ body{
   min-width:260px;
 }
 
-
 .audio-player{
   display:flex;
   align-items:center;
   gap:10px;
 }
-
 
 .audio-play{
   width:40px;
@@ -607,22 +555,13 @@ body{
   color:#000;
   cursor:pointer;
   font-size:16px;
+  flex-shrink:0;
 }
-
-
-.audio-progress{
-  flex:1;
-  height:5px;
-  appearance:none;
-  cursor:pointer;
-}
-
 
 .audio-duration{
   font-size:11px;
   color:var(--muted);
 }
-
 
 /* =========================
    COMPOSER
@@ -640,7 +579,6 @@ body{
   flex-shrink:0;
 }
 
-
 .composer-btn{
   width:43px;
   height:43px;
@@ -653,12 +591,10 @@ body{
   flex-shrink:0;
 }
 
-
 .composer-btn:hover{
   color:var(--gold);
   border-color:var(--gold);
 }
-
 
 .message-input{
   flex:1;
@@ -673,11 +609,9 @@ body{
   font-size:14px;
 }
 
-
 .message-input:focus{
   border-color:var(--gold);
 }
-
 
 .send-btn{
   width:45px;
@@ -692,17 +626,14 @@ body{
   flex-shrink:0;
 }
 
-
 .send-btn:hover{
   background:var(--gold2);
 }
-
 
 .send-btn:disabled{
   opacity:.5;
   cursor:not-allowed;
 }
-
 
 /* =========================
    GRAVAÇÃO
@@ -720,11 +651,9 @@ body{
   border-radius:23px;
 }
 
-
 .recording.active{
   display:flex;
 }
-
 
 .recording-dot{
   width:10px;
@@ -734,21 +663,16 @@ body{
   animation:pulse 1s infinite;
 }
 
-
 @keyframes pulse{
-
   50%{
     opacity:.3;
   }
-
 }
-
 
 .recording-text{
   flex:1;
   font-size:13px;
 }
-
 
 .cancel-recording{
   border:none;
@@ -756,7 +680,6 @@ body{
   color:#fff;
   cursor:pointer;
 }
-
 
 /* =========================
    EMPTY
@@ -771,29 +694,24 @@ body{
   padding:30px;
 }
 
-
 .empty-box{
   max-width:430px;
 }
-
 
 .empty-icon{
   font-size:65px;
   margin-bottom:15px;
 }
 
-
 .empty-box h2{
   font-size:24px;
   margin-bottom:10px;
 }
 
-
 .empty-box p{
   color:var(--muted);
   line-height:1.6;
 }
-
 
 /* =========================
    MODAL
@@ -810,11 +728,9 @@ body{
   padding:20px;
 }
 
-
 .modal-overlay.show{
   display:flex;
 }
-
 
 .modal{
   width:100%;
@@ -826,7 +742,6 @@ body{
   box-shadow:0 20px 70px rgba(0,0,0,.7);
 }
 
-
 .modal-header{
   display:flex;
   align-items:center;
@@ -834,11 +749,9 @@ body{
   margin-bottom:20px;
 }
 
-
 .modal-header h2{
   font-size:19px;
 }
-
 
 .close-modal{
   width:35px;
@@ -850,14 +763,12 @@ body{
   cursor:pointer;
 }
 
-
 .modal-description{
   color:var(--muted);
   font-size:13px;
   line-height:1.5;
   margin-bottom:18px;
 }
-
 
 .temp-option{
   display:flex;
@@ -870,18 +781,15 @@ body{
   cursor:pointer;
 }
 
-
 .temp-option:hover{
   background:#191919;
   border-color:var(--gold);
 }
 
-
 .temp-option.selected{
   background:#211d11;
   border-color:var(--gold);
 }
-
 
 .temp-radio{
   width:20px;
@@ -891,13 +799,12 @@ body{
   display:flex;
   align-items:center;
   justify-content:center;
+  flex-shrink:0;
 }
-
 
 .temp-option.selected .temp-radio{
   border-color:var(--gold);
 }
-
 
 .temp-option.selected .temp-radio::after{
   content:"";
@@ -907,6 +814,11 @@ body{
   border-radius:50%;
 }
 
+.temp-subtitle{
+  font-size:11px;
+  color:var(--muted);
+  margin-top:4px;
+}
 
 /* =========================
    ANEXOS
@@ -923,13 +835,12 @@ body{
   display:none;
   width:190px;
   box-shadow:0 15px 40px rgba(0,0,0,.5);
+  z-index:20;
 }
-
 
 .attach-menu.show{
   display:block;
 }
-
 
 .attach-option{
   display:flex;
@@ -941,12 +852,10 @@ body{
   font-size:13px;
 }
 
-
 .attach-option:hover{
   background:#222;
   color:var(--gold);
 }
-
 
 /* =========================
    TOAST
@@ -967,14 +876,14 @@ body{
   pointer-events:none;
   transition:.25s;
   z-index:2000;
+  max-width:90%;
+  text-align:center;
 }
-
 
 .toast.show{
   opacity:1;
   transform:translateX(-50%) translateY(0);
 }
-
 
 /* =========================
    MOBILE
@@ -1049,12 +958,17 @@ body{
     padding:0 10px;
   }
 
-  .chat-actions .chat-action:nth-child(1){
+  .chat-actions .chat-action:nth-child(1),
+  .chat-actions .chat-action:nth-child(2){
     display:none;
   }
 
-}
+  .attach-menu{
+    left:10px;
+    bottom:60px;
+  }
 
+}
 
 /* =========================
    SCROLL
@@ -1064,17 +978,14 @@ body{
   width:6px;
 }
 
-
 ::-webkit-scrollbar-track{
   background:#0c0c0c;
 }
-
 
 ::-webkit-scrollbar-thumb{
   background:#333;
   border-radius:10px;
 }
-
 
 ::-webkit-scrollbar-thumb:hover{
   background:#555;
@@ -1086,13 +997,7 @@ body{
 
 <body>
 
-
 <div class="app">
-
-
-<!-- =========================
-     HEADER
-========================= -->
 
 <header class="header">
 
@@ -1102,376 +1007,265 @@ body{
 
   <div class="header-right">
 
-    <button
-      class="header-btn"
-      onclick="goBack()"
-      title="Voltar">
-      ←
-    </button>
+```
+<button
+  class="header-btn"
+  id="backHeaderBtn"
+  title="Voltar">
+  ←
+</button>
 
-    <button
-      class="header-btn"
-      onclick="goProfile()"
-      title="Meu perfil">
-      👤
-    </button>
+<button
+  class="header-btn"
+  id="profileHeaderBtn"
+  title="Meu perfil">
+  👤
+</button>
+```
 
   </div>
 
 </header>
 
-
-
-<!-- =========================
-     MAIN
-========================= -->
-
 <main class="main">
 
-
-<!-- =========================
-     SIDEBAR
-========================= -->
-
-<aside
-  class="sidebar"
-  id="sidebar">
-
+<aside class="sidebar" id="sidebar">
 
   <div class="sidebar-top">
 
-    <div class="sidebar-title">
+```
+<div class="sidebar-title">
 
-      <h1>
-        Mensagens
-      </h1>
+  <h1>Mensagens</h1>
 
-      <button
-        class="new-message"
-        onclick="newMessage()"
-        title="Nova mensagem">
-        +
-      </button>
+  <button
+    class="new-message"
+    id="newMessageBtn"
+    title="Nova mensagem">
+    +
+  </button>
 
-    </div>
+</div>
 
+<div class="search">
 
-    <div class="search">
+  <span class="search-icon">🔎</span>
 
-      <span class="search-icon">
-        🔎
-      </span>
+  <input
+    id="searchInput"
+    type="text"
+    placeholder="Pesquisar conversas..."
+    autocomplete="off">
 
-      <input
-        id="searchInput"
-        type="text"
-        placeholder="Pesquisar conversas..."
-        autocomplete="off"
-        oninput="searchChats()">
-
-    </div>
+</div>
+```
 
   </div>
-
 
   <div
     class="conversations"
     id="conversationList">
 
-    <div
-      style="
-        padding:30px 20px;
-        text-align:center;
-        color:#aaa59a;
-        font-size:13px;
-      ">
-
-      A carregar conversas...
-
-    </div>
+```
+<div style="
+  padding:30px 20px;
+  text-align:center;
+  color:#aaa59a;
+  font-size:13px;
+">
+  A carregar conversas...
+</div>
+```
 
   </div>
-
 
 </aside>
 
-
-
-<!-- =========================
-     CHAT
-========================= -->
-
-<section
-  class="chat"
-  id="chat">
-
-
-<!-- CHAT HEADER -->
+<section class="chat" id="chat">
 
 <div class="chat-header">
 
-  <button
-    class="back-btn"
-    onclick="closeChat()">
-    ←
-  </button>
+<button
+ class="back-btn"
+ id="closeChatBtn">
+← </button>
 
+  <div class="avatar" id="chatAvatar">
 
-  <div
-    class="avatar"
-    id="chatAvatar">
+```
+<span id="chatAvatarText">♕</span>
 
-    <span id="chatAvatarText">
-      ♕
-    </span>
+<img
+  id="chatAvatarImage"
+  style="display:none"
+  alt="Foto do artista">
 
-    <img
-      id="chatAvatarImage"
-      style="display:none"
-      alt="Foto do artista">
-
-    <div
-      class="online-dot"
-      id="chatOnline"
-      style="display:none">
-    </div>
+<div
+  class="online-dot"
+  id="chatOnline"
+  style="display:none">
+</div>
+```
 
   </div>
-
 
   <div class="chat-user">
 
-    <div
-      class="chat-user-name"
-      id="chatUserName">
+```
+<div
+  class="chat-user-name"
+  id="chatUserName">
+  Seleciona uma conversa
+</div>
 
-      Seleciona uma conversa
-
-    </div>
-
-
-    <div
-      class="chat-status"
-      id="chatStatus">
-
-      KUDURO PRIME
-
-    </div>
+<div
+  class="chat-status"
+  id="chatStatus">
+  KUDURO PRIME
+</div>
+```
 
   </div>
 
-
   <div class="chat-actions">
 
-    <button
-      class="chat-action"
-      onclick="showToast('As chamadas serão adicionadas numa próxima versão.')">
-      📞
-    </button>
+```
+<button
+  class="chat-action"
+  id="callBtn"
+  title="Chamada">
+  📞
+</button>
 
+<button
+  class="chat-action"
+  id="videoBtn"
+  title="Vídeo">
+  📹
+</button>
 
-    <button
-      class="chat-action"
-      onclick="showToast('As chamadas de vídeo serão adicionadas numa próxima versão.')">
-      📹
-    </button>
-
-
-    <button
-      class="chat-action"
-      onclick="openTemporary()"
-      title="Mensagens temporárias">
-      ⏱
-    </button>
+<button
+  class="chat-action"
+  id="temporaryBtn"
+  title="Mensagens temporárias">
+  ⏱
+</button>
+```
 
   </div>
 
 </div>
-
-
-
-<!-- =========================
-     MESSAGES
-========================= -->
 
 <div
   class="messages"
   id="messages">
 
-
   <div class="empty-chat">
 
-    <div class="empty-box">
+```
+<div class="empty-box">
 
-      <div class="empty-icon">
-        💬
-      </div>
+  <div class="empty-icon">💬</div>
 
-      <h2>
-        As tuas mensagens
-      </h2>
+  <h2>As tuas mensagens</h2>
 
-      <p>
-        Escolhe um artista ou inicia uma nova conversa.
-      </p>
+  <p>
+    Escolhe um artista ou inicia uma nova conversa.
+  </p>
 
-    </div>
+</div>
+```
 
   </div>
 
-
 </div>
 
-
-
-<!-- =========================
-     COMPOSER
-========================= -->
-
 <div class="composer">
-
-
-  <!-- MENU -->
 
   <div
     class="attach-menu"
     id="attachMenu">
 
+```
+<div
+  class="attach-option"
+  data-accept="image/*">
+  📷 Foto
+</div>
 
-    <div
-      class="attach-option"
-      onclick="selectAttachment('image/*')">
+<div
+  class="attach-option"
+  data-accept="video/*">
+  🎬 Vídeo
+</div>
 
-      📷 Foto
+<div
+  class="attach-option"
+  data-accept="audio/*">
+  🎵 Áudio
+</div>
 
-    </div>
-
-
-    <div
-      class="attach-option"
-      onclick="selectAttachment('video/*')">
-
-      🎬 Vídeo
-
-    </div>
-
-
-    <div
-      class="attach-option"
-      onclick="selectAttachment('audio/*')">
-
-      🎵 Áudio
-
-    </div>
-
-
-    <div
-      class="attach-option"
-      onclick="selectAttachment('*/*')">
-
-      📄 Documento
-
-    </div>
+<div
+  class="attach-option"
+  data-accept="*/*">
+  📄 Documento
+</div>
+```
 
   </div>
 
+<button
+ class="composer-btn"
+ id="attachBtn"
+ title="Anexar">
+📎 </button>
 
+<input
+ type="file"
+ id="fileInput"
+ hidden>
 
-  <!-- ATTACH -->
-
-  <button
-    class="composer-btn"
-    onclick="toggleAttach()"
-    title="Anexar">
-
-    📎
-
-  </button>
-
-
-
-  <!-- FILE -->
-
-  <input
-    type="file"
-    id="fileInput"
-    hidden
-    onchange="fileSelected()">
-
-
-
-  <!-- INPUT -->
-
-  <input
-    class="message-input"
-    id="messageInput"
-    type="text"
-    placeholder="Escreve uma mensagem..."
-    autocomplete="off"
-    onkeydown="handleEnter(event)">
-
-
-
-  <!-- RECORDING -->
+<input
+ class="message-input"
+ id="messageInput"
+ type="text"
+ placeholder="Escreve uma mensagem..."
+ autocomplete="off">
 
   <div
     class="recording"
     id="recording">
 
-    <div class="recording-dot"></div>
+```
+<div class="recording-dot"></div>
 
-    <div class="recording-text">
+<div class="recording-text">
+  A gravar áudio...
+  <span id="recordTime">0:00</span>
+</div>
 
-      A gravar áudio...
-
-      <span id="recordTime">
-        0:00
-      </span>
-
-    </div>
-
-
-    <button
-      class="cancel-recording"
-      onclick="cancelRecording()">
-
-      ✕
-
-    </button>
+<button
+  class="cancel-recording"
+  id="cancelRecordingBtn">
+  ✕
+</button>
+```
 
   </div>
 
+<button
+ class="composer-btn"
+ id="micBtn"
+ title="Gravar áudio">
+🎙️ </button>
 
-
-  <!-- MICROPHONE -->
-
-  <button
-    class="composer-btn"
-    id="micBtn"
-    onclick="toggleRecording()"
-    title="Gravar áudio">
-
-    🎙️
-
-  </button>
-
-
-
-  <!-- SEND -->
-
-  <button
-    class="send-btn"
-    id="sendBtn"
-    onclick="sendMessage()"
-    title="Enviar">
-
-    ➤
-
-  </button>
-
+<button
+ class="send-btn"
+ id="sendBtn"
+ title="Enviar">
+➤ </button>
 
 </div>
-
 
 </section>
 
@@ -1479,210 +1273,132 @@ body{
 
 </div>
 
-
-
-<!-- =========================
-     TEMPORARY MODAL
-========================= -->
+<!-- TEMPORÁRIAS -->
 
 <div
   class="modal-overlay"
   id="temporaryModal">
 
-
   <div class="modal">
 
+```
+<div class="modal-header">
 
-    <div class="modal-header">
+  <h2>⏱ Mensagens temporárias</h2>
 
-      <h2>
-        ⏱ Mensagens temporárias
-      </h2>
+  <button
+    class="close-modal"
+    id="closeTemporaryBtn">
+    ✕
+  </button>
 
-      <button
-        class="close-modal"
-        onclick="closeTemporary()">
+</div>
 
-        ✕
+<div class="modal-description">
+  As novas mensagens desta conversa poderão desaparecer automaticamente.
+</div>
 
-      </button>
+<div class="temp-option selected" data-value="off">
+  <div class="temp-radio"></div>
 
+  <div>
+    <strong>Desativado</strong>
+    <div class="temp-subtitle">
+      As mensagens permanecem normalmente
     </div>
+  </div>
+</div>
 
+<div class="temp-option" data-value="24h">
+  <div class="temp-radio"></div>
 
-    <div class="modal-description">
-
-      As novas mensagens desta conversa poderão
-      desaparecer automaticamente.
-
+  <div>
+    <strong>24 horas</strong>
+    <div class="temp-subtitle">
+      As mensagens desaparecem após 24 horas
     </div>
+  </div>
+</div>
 
+<div class="temp-option" data-value="7d">
+  <div class="temp-radio"></div>
 
-    <div
-      class="temp-option selected"
-      data-value="off"
-      onclick="selectTemporary(this,'off')">
-
-      <div class="temp-radio"></div>
-
-      <div>
-
-        <strong>
-          Desativado
-        </strong>
-
-        <div class="temp-subtitle">
-          As mensagens permanecem normalmente
-        </div>
-
-      </div>
-
+  <div>
+    <strong>7 dias</strong>
+    <div class="temp-subtitle">
+      As mensagens desaparecem após 7 dias
     </div>
+  </div>
+</div>
 
+<div class="temp-option" data-value="90d">
+  <div class="temp-radio"></div>
 
-    <div
-      class="temp-option"
-      data-value="24h"
-      onclick="selectTemporary(this,'24h')">
-
-      <div class="temp-radio"></div>
-
-      <div>
-
-        <strong>
-          24 horas
-        </strong>
-
-        <div class="temp-subtitle">
-          As mensagens desaparecem após 24 horas
-        </div>
-
-      </div>
-
+  <div>
+    <strong>90 dias</strong>
+    <div class="temp-subtitle">
+      As mensagens desaparecem após 90 dias
     </div>
-
-
-    <div
-      class="temp-option"
-      data-value="7d"
-      onclick="selectTemporary(this,'7d')">
-
-      <div class="temp-radio"></div>
-
-      <div>
-
-        <strong>
-          7 dias
-        </strong>
-
-        <div class="temp-subtitle">
-          As mensagens desaparecem após 7 dias
-        </div>
-
-      </div>
-
-    </div>
-
-
-    <div
-      class="temp-option"
-      data-value="90d"
-      onclick="selectTemporary(this,'90d')">
-
-      <div class="temp-radio"></div>
-
-      <div>
-
-        <strong>
-          90 dias
-        </strong>
-
-        <div class="temp-subtitle">
-          As mensagens desaparecem após 90 dias
-        </div>
-
-      </div>
-
-    </div>
-
+  </div>
+</div>
+```
 
   </div>
 
 </div>
 
-
-
-<!-- =========================
-     NEW MESSAGE MODAL
-========================= -->
+<!-- NOVA MENSAGEM -->
 
 <div
   class="modal-overlay"
   id="newMessageModal">
 
-
   <div class="modal">
 
+```
+<div class="modal-header">
 
-    <div class="modal-header">
+  <h2>✉ Nova mensagem</h2>
 
-      <h2>
-        ✉ Nova mensagem
-      </h2>
+  <button
+    class="close-modal"
+    id="closeNewMessageBtn">
+    ✕
+  </button>
 
-      <button
-        class="close-modal"
-        onclick="closeNewMessage()">
+</div>
 
-        ✕
+<div class="search">
 
-      </button>
+  <span class="search-icon">🔎</span>
 
-    </div>
+  <input
+    id="artistSearchInput"
+    type="text"
+    placeholder="Pesquisar artista..."
+    autocomplete="off">
 
+</div>
 
-    <div class="search">
+<div
+  id="artistSearchResults"
+  style="
+    margin-top:15px;
+    max-height:400px;
+    overflow-y:auto;
+  ">
 
-      <span class="search-icon">
-        🔎
-      </span>
-
-      <input
-        id="artistSearchInput"
-        type="text"
-        placeholder="Pesquisar artista..."
-        oninput="searchNewArtists()">
-
-    </div>
-
-
-    <div
-      id="artistSearchResults"
-      style="
-        margin-top:15px;
-        max-height:400px;
-        overflow-y:auto;
-      ">
-
-    </div>
-
+</div>
+```
 
   </div>
 
 </div>
 
-
-
-<!-- =========================
-     TOAST
-========================= -->
-
 <div
   class="toast"
   id="toast">
 </div>
-
-
 
 <script>
 
@@ -1700,88 +1416,88 @@ let mediaRecorder = null;
 let audioChunks = [];
 let recordingTimer = null;
 let recordingSeconds = 0;
+let cancelCurrentRecording = false;
 
 let currentAudio = null;
+let currentAudioButton = null;
 
-let firebaseReady = false;
-
+let toastTimer = null;
 
 /* =====================================
    TOAST
 ===================================== */
-
-let toastTimer;
-
 
 function showToast(text){
 
   const toast =
     document.getElementById("toast");
 
-  toast.textContent =
-    text;
+  toast.textContent = text;
 
   toast.classList.add("show");
 
   clearTimeout(toastTimer);
 
-  toastTimer =
-    setTimeout(() => {
-
-      toast.classList.remove("show");
-
-    },2500);
+  toastTimer = setTimeout(() => {
+    toast.classList.remove("show");
+  },2500);
 
 }
-
 
 /* =====================================
    ESCAPAR HTML
 ===================================== */
 
-function escapeHTML(text){
+function escapeHTML(value){
 
   const div =
     document.createElement("div");
 
   div.textContent =
-    text || "";
+    value == null ? "" : String(value);
 
   return div.innerHTML;
 
 }
 
-
 /* =====================================
-   HORA
+   DATA
 ===================================== */
 
-function formatTime(timestamp){
+function toDateSafe(timestamp){
 
   if(!timestamp){
-    return "";
+    return null;
   }
-
-  let date;
 
   if(
     typeof timestamp.toDate === "function"
   ){
-
-    date =
-      timestamp.toDate();
-
-  }
-  else{
-
-    date =
-      new Date(timestamp);
-
+    return timestamp.toDate();
   }
 
   if(
-    isNaN(date.getTime())
+    timestamp instanceof Date
   ){
+    return timestamp;
+  }
+
+  const date = new Date(timestamp);
+
+  if(isNaN(date.getTime())){
+    return null;
+  }
+
+  return date;
+
+}
+
+function formatTime(timestamp){
+
+  const date =
+    toDateSafe(timestamp);
+
+  if(!date){
     return "";
   }
 
@@ -1795,40 +1511,17 @@ function formatTime(timestamp){
 
 }
 
-
-function getTime(){
-
-  return new Date()
-    .toLocaleTimeString(
-      "pt-PT",
-      {
-        hour:"2-digit",
-        minute:"2-digit"
-      }
-    );
-
-}
-
-
 /* =====================================
    NAVEGAÇÃO
 ===================================== */
 
 function goBack(){
-
-  window.location.href =
-    "feed.html";
-
+  window.location.href = "feed.html";
 }
-
 
 function goProfile(){
-
-  window.location.href =
-    "meu-perfil.html";
-
+  window.location.href = "meu-perfil.html";
 }
-
 
 /* =====================================
    MOBILE
@@ -1838,15 +1531,12 @@ function closeChat(){
 
   document
     .getElementById("chat")
-    .classList.remove(
-      "mobile-active"
-    );
+    .classList.remove("mobile-active");
 
 }
 
-
 /* =====================================
-   PESQUISA CONVERSAS
+   PESQUISAR CONVERSAS
 ===================================== */
 
 function searchChats(){
@@ -1875,19 +1565,22 @@ function searchChats(){
 
 }
 
-
 /* =====================================
    ANEXOS
 ===================================== */
 
 function toggleAttach(){
 
+  if(!currentChatID){
+    showToast("Seleciona primeiro uma conversa.");
+    return;
+  }
+
   document
     .getElementById("attachMenu")
     .classList.toggle("show");
 
 }
-
 
 function selectAttachment(accept){
 
@@ -1898,7 +1591,6 @@ function selectAttachment(accept){
     );
 
     return;
-
   }
 
   const input =
@@ -1906,8 +1598,7 @@ function selectAttachment(accept){
 
   input.value = "";
 
-  input.accept =
-    accept;
+  input.accept = accept;
 
   document
     .getElementById("attachMenu")
@@ -1917,14 +1608,16 @@ function selectAttachment(accept){
 
 }
 
-
 /* =====================================
    ENTER
 ===================================== */
 
 function handleEnter(event){
 
-  if(event.key === "Enter"){
+  if(
+    event.key === "Enter" &&
+    !event.shiftKey
+  ){
 
     event.preventDefault();
 
@@ -1934,9 +1627,8 @@ function handleEnter(event){
 
 }
 
-
 /* =====================================
-   MENSAGENS TEMPORÁRIAS
+   TEMPORÁRIAS
 ===================================== */
 
 function openTemporary(){
@@ -1957,7 +1649,6 @@ function openTemporary(){
 
 }
 
-
 function closeTemporary(){
 
   document
@@ -1965,7 +1656,6 @@ function closeTemporary(){
     .classList.remove("show");
 
 }
-
 
 function selectTemporary(
   element,
@@ -1976,18 +1666,13 @@ function selectTemporary(
     .querySelectorAll(".temp-option")
     .forEach(option => {
 
-      option.classList.remove(
-        "selected"
-      );
+      option.classList.remove("selected");
 
     });
 
-  element.classList.add(
-    "selected"
-  );
+  element.classList.add("selected");
 
-  temporaryMode =
-    value;
+  temporaryMode = value;
 
   closeTemporary();
 
@@ -1998,31 +1683,18 @@ function selectTemporary(
 
 }
 
-
 function temporaryLabel(){
 
-  if(
-    temporaryMode === "24h"
-  ){
-    return "24 horas";
-  }
+  const labels = {
+    off:"desativadas",
+    "24h":"24 horas",
+    "7d":"7 dias",
+    "90d":"90 dias"
+  };
 
-  if(
-    temporaryMode === "7d"
-  ){
-    return "7 dias";
-  }
-
-  if(
-    temporaryMode === "90d"
-  ){
-    return "90 dias";
-  }
-
-  return "desativadas";
+  return labels[temporaryMode] || "desativadas";
 
 }
-
 
 /* =====================================
    ÁUDIO
@@ -2034,6 +1706,19 @@ async function toggleRecording(){
 
     showToast(
       "Seleciona primeiro uma conversa."
+    );
+
+    return;
+
+  }
+
+  if(
+    !navigator.mediaDevices ||
+    !navigator.mediaDevices.getUserMedia
+  ){
+
+    showToast(
+      "O teu navegador não suporta gravação de áudio."
     );
 
     return;
@@ -2054,12 +1739,13 @@ async function toggleRecording(){
   try{
 
     const stream =
-      await navigator.mediaDevices
-        .getUserMedia({
-          audio:true
-        });
+      await navigator.mediaDevices.getUserMedia({
+        audio:true
+      });
 
     audioChunks = [];
+
+    cancelCurrentRecording = false;
 
     mediaRecorder =
       new MediaRecorder(stream);
@@ -2070,67 +1756,88 @@ async function toggleRecording(){
         if(
           event.data.size > 0
         ){
-
-          audioChunks.push(
-            event.data
-          );
-
+          audioChunks.push(event.data);
         }
 
       };
 
-
     mediaRecorder.onstop =
       async () => {
 
+        const chunks =
+          [...audioChunks];
+
+        const duration =
+          recordingSeconds;
+
+        const cancelled =
+          cancelCurrentRecording;
+
+        stream
+          .getTracks()
+          .forEach(track => track.stop());
+
+        finishRecordingUI();
+
+        mediaRecorder = null;
+        audioChunks = [];
+
         if(
-          audioChunks.length === 0
+          cancelled ||
+          chunks.length === 0
         ){
           return;
         }
 
         const blob =
           new Blob(
-            audioChunks,
+            chunks,
             {
               type:
-                mediaRecorder.mimeType ||
+                chunks[0]?.type ||
                 "audio/webm"
             }
           );
 
-        await window.sendAudioToFirebase(
-          blob,
-          recordingSeconds
-        );
+        try{
 
-        audioChunks = [];
+          await window.sendAudioToFirebase(
+            blob,
+            duration
+          );
+
+        }
+        catch(error){
+
+          console.error(error);
+
+          showToast(
+            "Erro ao enviar áudio."
+          );
+
+        }
 
       };
 
-
     mediaRecorder.start();
 
-    recordingSeconds =
-      0;
+    recordingSeconds = 0;
 
+    document
+      .getElementById("recordTime")
+      .textContent = "0:00";
 
     document
       .getElementById("recording")
       .classList.add("active");
 
-
     document
       .getElementById("messageInput")
-      .style.display =
-      "none";
-
+      .style.display = "none";
 
     document
       .getElementById("micBtn")
-      .textContent =
-      "⏹";
-
+      .textContent = "⏹";
 
     recordingTimer =
       setInterval(() => {
@@ -2138,9 +1845,7 @@ async function toggleRecording(){
         recordingSeconds++;
 
         const min =
-          Math.floor(
-            recordingSeconds / 60
-          );
+          Math.floor(recordingSeconds / 60);
 
         const sec =
           recordingSeconds % 60;
@@ -2149,10 +1854,7 @@ async function toggleRecording(){
           .getElementById("recordTime")
           .textContent =
           min + ":" +
-          String(sec).padStart(
-            2,
-            "0"
-          );
+          String(sec).padStart(2,"0");
 
       },1000);
 
@@ -2169,8 +1871,9 @@ async function toggleRecording(){
 
 }
 
-
 function stopRecording(){
+
+  cancelCurrentRecording = false;
 
   if(
     mediaRecorder &&
@@ -2179,75 +1882,52 @@ function stopRecording(){
 
     mediaRecorder.stop();
 
-    mediaRecorder
-      .stream
-      .getTracks()
-      .forEach(track =>
-        track.stop()
-      );
-
   }
 
-  finishRecordingUI();
-
 }
-
 
 function cancelRecording(){
 
-  audioChunks = [];
+  cancelCurrentRecording = true;
 
   if(
     mediaRecorder &&
     mediaRecorder.state === "recording"
   ){
 
-    mediaRecorder.onstop =
-      null;
-
     mediaRecorder.stop();
 
-    mediaRecorder
-      .stream
-      .getTracks()
-      .forEach(track =>
-        track.stop()
-      );
+  }
+  else{
+
+    finishRecordingUI();
 
   }
 
-  finishRecordingUI();
-
 }
-
 
 function finishRecordingUI(){
 
-  clearInterval(
-    recordingTimer
-  );
+  clearInterval(recordingTimer);
+
+  recordingTimer = null;
 
   document
     .getElementById("recording")
     .classList.remove("active");
 
-
   document
     .getElementById("messageInput")
-    .style.display =
-    "block";
-
+    .style.display = "block";
 
   document
     .getElementById("micBtn")
-    .textContent =
-    "🎙️";
+    .textContent = "🎙️";
 
 }
 
-
 /* =====================================
-   AUDIO PLAYER
+   PLAYER ÁUDIO
 ===================================== */
 
 function playAudioUrl(
@@ -2256,51 +1936,65 @@ function playAudioUrl(
 ){
 
   if(
-    currentAudio
+    currentAudio &&
+    currentAudio.src === url
   ){
 
-    if(
-      currentAudio.src === url &&
-      !currentAudio.paused
-    ){
+    if(!currentAudio.paused){
 
       currentAudio.pause();
 
-      button.textContent =
-        "▶";
+      button.textContent = "▶";
 
       return;
 
     }
 
+  }
+
+  if(currentAudio){
+
     currentAudio.pause();
+
+    if(currentAudioButton){
+      currentAudioButton.textContent = "▶";
+    }
 
   }
 
-  const audio =
-    new Audio(url);
+  const audio = new Audio(url);
 
-  currentAudio =
-    audio;
+  currentAudio = audio;
 
-  button.textContent =
-    "⏸";
+  currentAudioButton = button;
 
-  audio.play();
+  button.textContent = "⏸";
 
-  audio.onended =
-    () => {
+  audio.play().catch(error => {
 
-      button.textContent =
-        "▶";
+    console.error(error);
 
-    };
+    button.textContent = "▶";
+
+    showToast(
+      "Não foi possível reproduzir o áudio."
+    );
+
+  });
+
+  audio.onended = () => {
+
+    button.textContent = "▶";
+
+    currentAudio = null;
+    currentAudioButton = null;
+
+  };
 
 }
 
-
 /* =====================================
-   FORMATAÇÃO
+   DURAÇÃO
 ===================================== */
 
 function formatDuration(seconds){
@@ -2309,9 +2003,7 @@ function formatDuration(seconds){
     Number(seconds || 0);
 
   const min =
-    Math.floor(
-      seconds / 60
-    );
+    Math.floor(seconds / 60);
 
   const sec =
     seconds % 60;
@@ -2319,17 +2011,13 @@ function formatDuration(seconds){
   return (
     min +
     ":" +
-    String(sec).padStart(
-      2,
-      "0"
-    )
+    String(sec).padStart(2,"0")
   );
 
 }
 
-
 /* =====================================
-   MODAL NOVA MENSAGEM
+   NOVA MENSAGEM
 ===================================== */
 
 function newMessage(){
@@ -2337,7 +2025,6 @@ function newMessage(){
   document
     .getElementById("newMessageModal")
     .classList.add("show");
-
 
   if(
     window.loadArtistsForNewMessage
@@ -2349,7 +2036,6 @@ function newMessage(){
 
 }
 
-
 function closeNewMessage(){
 
   document
@@ -2357,7 +2043,6 @@ function closeNewMessage(){
     .classList.remove("show");
 
 }
-
 
 function searchNewArtists(){
 
@@ -2371,56 +2056,183 @@ function searchNewArtists(){
 
 }
 
-
 /* =====================================
-   CLICAR FORA
+   EVENTS
 ===================================== */
+
+document
+  .getElementById("backHeaderBtn")
+  .addEventListener("click",goBack);
+
+document
+  .getElementById("profileHeaderBtn")
+  .addEventListener("click",goProfile);
+
+document
+  .getElementById("closeChatBtn")
+  .addEventListener("click",closeChat);
+
+document
+  .getElementById("newMessageBtn")
+  .addEventListener("click",newMessage);
+
+document
+  .getElementById("searchInput")
+  .addEventListener("input",searchChats);
+
+document
+  .getElementById("artistSearchInput")
+  .addEventListener("input",searchNewArtists);
+
+document
+  .getElementById("attachBtn")
+  .addEventListener("click",toggleAttach);
+
+document
+  .getElementById("micBtn")
+  .addEventListener("click",toggleRecording);
+
+document
+  .getElementById("cancelRecordingBtn")
+  .addEventListener("click",cancelRecording);
+
+document
+  .getElementById("sendBtn")
+  .addEventListener("click",() => {
+    if(window.sendMessage){
+      window.sendMessage();
+    }
+  });
+
+document
+  .getElementById("messageInput")
+  .addEventListener("keydown",handleEnter);
+
+document
+  .getElementById("fileInput")
+  .addEventListener("change",() => {
+    if(window.fileSelected){
+      window.fileSelected();
+    }
+  });
+
+document
+  .getElementById("closeTemporaryBtn")
+  .addEventListener("click",closeTemporary);
+
+document
+  .getElementById("temporaryBtn")
+  .addEventListener("click",openTemporary);
+
+document
+  .getElementById("closeNewMessageBtn")
+  .addEventListener("click",closeNewMessage);
+
+document
+  .getElementById("callBtn")
+  .addEventListener("click",() => {
+    showToast(
+      "As chamadas serão adicionadas numa próxima versão."
+    );
+  });
+
+document
+  .getElementById("videoBtn")
+  .addEventListener("click",() => {
+    showToast(
+      "As chamadas de vídeo serão adicionadas numa próxima versão."
+    );
+  });
+
+document
+  .querySelectorAll(".temp-option")
+  .forEach(element => {
+
+    element.addEventListener("click",() => {
+
+      selectTemporary(
+        element,
+        element.dataset.value
+      );
+
+    });
+
+  });
+
+document
+  .querySelectorAll(".attach-option")
+  .forEach(element => {
+
+    element.addEventListener("click",() => {
+
+      selectAttachment(
+        element.dataset.accept
+      );
+
+    });
+
+  });
 
 document.addEventListener(
   "click",
   function(event){
 
     const menu =
-      document.getElementById(
-        "attachMenu"
-      );
+      document.getElementById("attachMenu");
 
     const attachButton =
-      event.target.closest(
-        ".composer-btn"
-      );
+      document.getElementById("attachBtn");
 
     if(
       menu.classList.contains("show") &&
       !menu.contains(event.target) &&
-      !attachButton
+      !attachButton.contains(event.target)
     ){
 
-      menu.classList.remove(
-        "show"
-      );
+      menu.classList.remove("show");
 
     }
 
   }
 );
 
+document
+  .getElementById("temporaryModal")
+  .addEventListener("click",event => {
+
+    if(
+      event.target.id === "temporaryModal"
+    ){
+      closeTemporary();
+    }
+
+  });
+
+document
+  .getElementById("newMessageModal")
+  .addEventListener("click",event => {
+
+    if(
+      event.target.id === "newMessageModal"
+    ){
+      closeNewMessage();
+    }
+
+  });
+
 </script>
 
-
-
-<!-- =====================================
-     FIREBASE
-===================================== -->
-
 <script type="module">
+
+/* =====================================
+   FIREBASE IMPORTS
+===================================== */
 
 import {
   initializeApp
 }
 from
 "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
-
 
 import {
   getAuth,
@@ -2429,61 +2241,35 @@ import {
 from
 "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
 
-
 import {
   getFirestore,
-
   collection,
-
   doc,
-
   getDoc,
-
   getDocs,
-
   query,
-
   where,
-
   orderBy,
-
   onSnapshot,
-
   addDoc,
-
   setDoc,
-
   updateDoc,
-
   serverTimestamp,
-
-  arrayUnion,
-
   increment,
-
   writeBatch,
-
-  limit
-
+  deleteDoc
 }
 from
 "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 
-
 import {
   getStorage,
-
   ref,
-
   uploadBytesResumable,
-
   getDownloadURL
-
 }
 from
 "https://www.gstatic.com/firebasejs/12.18.0/firebase-storage.js";
-
-
 
 /* =====================================
    CONFIGURAÇÃO FIREBASE
@@ -2511,58 +2297,35 @@ const firebaseConfig = {
 
 };
 
-
 const app =
-  initializeApp(
-    firebaseConfig
-  );
-
+  initializeApp(firebaseConfig);
 
 const auth =
   getAuth(app);
 
-
 const db =
   getFirestore(app);
 
-
 const storage =
   getStorage(app);
-
-
 
 /* =====================================
    ESTADO FIREBASE
 ===================================== */
 
-let firebaseUser =
-  null;
+let firebaseUser = null;
 
+let currentArtistData = null;
 
-let currentArtistData =
-  null;
+let allArtists = [];
 
+let conversations = [];
 
-let allArtists =
-  [];
+let unsubscribeMessages = null;
 
+let unsubscribeConversations = null;
 
-let conversations =
-  [];
-
-
-let unsubscribeMessages =
-  null;
-
-
-let unsubscribeConversations =
-  null;
-
-
-let currentChatArtist =
-  null;
-
-
+let currentChatArtist = null;
 
 /* =====================================
    AUTH
@@ -2581,10 +2344,7 @@ onAuthStateChanged(
 
     }
 
-
-    firebaseUser =
-      user;
-
+    firebaseUser = user;
 
     try{
 
@@ -2595,16 +2355,10 @@ onAuthStateChanged(
           user.uid
         );
 
-
       const profileSnap =
-        await getDoc(
-          profileRef
-        );
+        await getDoc(profileRef);
 
-
-      if(
-        profileSnap.exists()
-      ){
+      if(profileSnap.exists()){
 
         currentArtistData =
           profileSnap.data();
@@ -2612,15 +2366,23 @@ onAuthStateChanged(
       }
       else{
 
+        /*
+          PERFIL LOCAL DE SEGURANÇA
+          Não bloqueia utilizadores antigos
+          que ainda não têm documento.
+        */
+
         currentArtistData = {
+
+          uid:user.uid,
 
           nome:
             user.displayName ||
+            user.email?.split("@")[0] ||
             "Artista",
 
           username:
-            user.email
-            ?.split("@")[0] ||
+            user.email?.split("@")[0] ||
             "artista",
 
           foto:
@@ -2631,18 +2393,9 @@ onAuthStateChanged(
 
       }
 
-
-      window.firebaseReady =
-        true;
-
-
       await loadArtists();
 
-
       listenConversations();
-
-
-      loadTemporaryPreference();
 
     }
     catch(error){
@@ -2661,8 +2414,6 @@ onAuthStateChanged(
   }
 );
 
-
-
 /* =====================================
    CARREGAR ARTISTAS
 ===================================== */
@@ -2679,45 +2430,36 @@ async function loadArtists(){
         )
       );
 
+    allArtists = [];
 
-    allArtists =
-      [];
+    snapshot.forEach(artistDoc => {
 
-
-    snapshot.forEach(
-      artistDoc => {
-
-        if(
-          artistDoc.id ===
-          firebaseUser.uid
-        ){
-          return;
-        }
-
-
-        const artist =
-          artistDoc.data();
-
-
-        if(
-          artist.ativo === false
-        ){
-          return;
-        }
-
-
-        allArtists.push({
-
-          uid:
-            artistDoc.id,
-
-          ...artist
-
-        });
-
+      if(
+        artistDoc.id ===
+        firebaseUser.uid
+      ){
+        return;
       }
-    );
 
+      const artist =
+        artistDoc.data();
+
+      if(
+        artist.ativo === false
+      ){
+        return;
+      }
+
+      allArtists.push({
+
+        uid:
+          artistDoc.id,
+
+        ...artist
+
+      });
+
+    });
 
   }
   catch(error){
@@ -2730,8 +2472,6 @@ async function loadArtists(){
   }
 
 }
-
-
 
 /* =====================================
    OUVIR CONVERSAS
@@ -2747,13 +2487,9 @@ function listenConversations(){
 
   }
 
-
   const conversationsQuery =
     query(
-      collection(
-        db,
-        "conversas"
-      ),
+      collection(db,"conversas"),
 
       where(
         "participants",
@@ -2762,16 +2498,13 @@ function listenConversations(){
       )
     );
 
-
   unsubscribeConversations =
     onSnapshot(
       conversationsQuery,
 
       async snapshot => {
 
-        const loaded =
-          [];
-
+        const loaded = [];
 
         for(
           const conversationDoc
@@ -2781,78 +2514,86 @@ function listenConversations(){
           const data =
             conversationDoc.data();
 
-
           const otherUID =
-            data.participants.find(
-              uid =>
-                uid !== firebaseUser.uid
-            );
-
+            Array.isArray(data.participants)
+              ? data.participants.find(
+                  uid =>
+                    uid !== firebaseUser.uid
+                )
+              : null;
 
           if(!otherUID){
             continue;
           }
 
-
           let artist =
-            null;
+            allArtists.find(
+              item =>
+                item.uid === otherUID
+            );
 
+          /*
+            Se não estiver no cache,
+            tenta buscar diretamente.
+          */
 
-          try{
+          if(!artist){
 
-            const artistSnap =
-              await getDoc(
-                doc(
-                  db,
-                  "artistas",
-                  otherUID
-                )
-              );
+            try{
 
+              const artistSnap =
+                await getDoc(
+                  doc(
+                    db,
+                    "artistas",
+                    otherUID
+                  )
+                );
 
-            if(
-              artistSnap.exists()
-            ){
+              if(
+                artistSnap.exists()
+              ){
 
-              artist = {
+                artist = {
 
-                uid:
-                  otherUID,
+                  uid:otherUID,
 
-                ...artistSnap.data()
+                  ...artistSnap.data()
 
-              };
+                };
+
+              }
+
+            }
+            catch(error){
+
+              console.error(error);
 
             }
 
           }
-          catch(error){
 
-            console.error(
-              error
-            );
-
-          }
-
+          /*
+            NÃO ESCONDE A CONVERSA
+            se o perfil antigo estiver
+            incompleto.
+          */
 
           if(!artist){
 
-            artist =
-              allArtists.find(
-                item =>
-                  item.uid ===
+            artist = {
+
+              uid:otherUID,
+
+              nome:
+                data.participantNames?.[
                   otherUID
-              );
+                ] ||
+                "Artista"
+
+            };
 
           }
-
-
-          if(!artist){
-
-            continue;
-
-          }
-
 
           loaded.push({
 
@@ -2867,28 +2608,26 @@ function listenConversations(){
 
         }
 
-
         conversations =
           loaded.sort(
             (a,b) => {
 
               const timeA =
                 getTimestampValue(
-                  a.lastMessageAt
+                  a.lastMessageAt ||
+                  a.createdAt
                 );
 
               const timeB =
                 getTimestampValue(
-                  b.lastMessageAt
+                  b.lastMessageAt ||
+                  b.createdAt
                 );
 
-              return (
-                timeB - timeA
-              );
+              return timeB - timeA;
 
             }
           );
-
 
         renderConversationList();
 
@@ -2911,8 +2650,6 @@ function listenConversations(){
 
 }
 
-
-
 /* =====================================
    RENDER CONVERSAS
 ===================================== */
@@ -2924,13 +2661,11 @@ function renderConversationList(){
       "conversationList"
     );
 
-
   if(
     conversations.length === 0
   ){
 
     list.innerHTML = `
-
       <div
         style="
           padding:35px 20px;
@@ -2939,27 +2674,19 @@ function renderConversationList(){
           font-size:13px;
           line-height:1.6;
         ">
-
         Ainda não tens conversas.
-
         <br><br>
-
         Carrega no <strong>+</strong>
         para enviar uma mensagem
         a um artista.
-
       </div>
-
     `;
 
     return;
 
   }
 
-
-  list.innerHTML =
-    "";
-
+  list.innerHTML = "";
 
   conversations.forEach(
     conversation => {
@@ -2967,136 +2694,135 @@ function renderConversationList(){
       const artist =
         conversation.artist;
 
-
       const name =
-        getArtistName(
-          artist
-        );
-
+        getArtistName(artist);
 
       const photo =
-        getArtistPhoto(
-          artist
-        );
-
+        getArtistPhoto(artist);
 
       const initials =
-        getInitials(
-          name
-        );
-
+        getInitials(name);
 
       const unreadCount =
-        conversation.unreadCount?.[
-          firebaseUser.uid
-        ] || 0;
-
+        Number(
+          conversation.unreadCount?.[
+            firebaseUser.uid
+          ] || 0
+        );
 
       const lastText =
         getConversationPreview(
           conversation
         );
 
-
       const item =
-        document.createElement(
-          "div"
-        );
-
+        document.createElement("div");
 
       item.className =
         "conversation";
-
 
       if(
         currentChatID ===
         conversation.id
       ){
 
-        item.classList.add(
-          "active"
-        );
+        item.classList.add("active");
 
       }
 
+      item.dataset.name = name;
 
-      item.dataset.name =
+      item.dataset.uid = artist.uid;
+
+      const avatar =
+        document.createElement("div");
+
+      avatar.className = "avatar";
+
+      if(photo){
+
+        const image =
+          document.createElement("img");
+
+        image.src = photo;
+
+        image.alt = name;
+
+        avatar.appendChild(image);
+
+      }
+      else{
+
+        avatar.textContent =
+          initials;
+
+      }
+
+      const info =
+        document.createElement("div");
+
+      info.className =
+        "conversation-info";
+
+      const line =
+        document.createElement("div");
+
+      line.className =
+        "conversation-line";
+
+      const nameElement =
+        document.createElement("div");
+
+      nameElement.className =
+        "conversation-name";
+
+      nameElement.textContent =
         name;
 
+      const time =
+        document.createElement("div");
 
-      item.dataset.uid =
-        artist.uid;
+      time.className = "time";
 
+      time.textContent =
+        formatConversationTime(
+          conversation.lastMessageAt ||
+          conversation.createdAt
+        );
 
-      item.innerHTML = `
+      line.appendChild(nameElement);
+      line.appendChild(time);
 
-        <div class="avatar">
+      const preview =
+        document.createElement("div");
 
-          ${
-            photo
-              ?
+      preview.className =
+        "last-message";
 
-              `<img
-                src="${escapeHTML(photo)}"
-                alt="${escapeHTML(name)}">`
+      preview.textContent =
+        lastText;
 
-              :
+      info.appendChild(line);
+      info.appendChild(preview);
 
-              escapeHTML(initials)
-          }
+      item.appendChild(avatar);
+      item.appendChild(info);
 
-        </div>
+      if(unreadCount > 0){
 
+        const unread =
+          document.createElement("div");
 
-        <div class="conversation-info">
+        unread.className = "unread";
 
-          <div class="conversation-line">
+        unread.textContent =
+          unreadCount > 99
+            ? "99+"
+            : unreadCount;
 
-            <div class="conversation-name">
+        item.appendChild(unread);
 
-              ${escapeHTML(name)}
-
-            </div>
-
-
-            <div class="time">
-
-              ${formatConversationTime(
-                conversation.lastMessageAt
-              )}
-
-            </div>
-
-          </div>
-
-
-          <div class="last-message">
-
-            ${escapeHTML(lastText)}
-
-          </div>
-
-        </div>
-
-
-        ${
-          unreadCount > 0
-
-            ?
-
-            `<div class="unread">
-              ${unreadCount > 99
-                ? "99+"
-                : unreadCount}
-            </div>`
-
-            :
-
-            ""
-        }
-
-      `;
-
+      }
 
       item.addEventListener(
         "click",
@@ -3110,58 +2836,31 @@ function renderConversationList(){
         }
       );
 
-
-      list.appendChild(
-        item
-      );
+      list.appendChild(item);
 
     }
   );
 
+  searchChats();
+
 }
 
-
-
 /* =====================================
-   NOVA CONVERSA
+   ARTISTAS NOVA MENSAGEM
 ===================================== */
 
 window.loadArtistsForNewMessage =
   function(){
 
-    if(
-      allArtists.length === 0
-    ){
-
-      document
-        .getElementById(
-          "artistSearchResults"
-        )
-        .innerHTML = `
-
-          <div
-            style="
-              padding:20px;
-              text-align:center;
-              color:#aaa59a;
-              font-size:13px;
-            ">
-
-            Nenhum artista encontrado.
-
-          </div>
-
-        `;
-
-      return;
-
-    }
-
+    document
+      .getElementById(
+        "artistSearchInput"
+      )
+      .value = "";
 
     window.renderNewMessageArtists();
 
   };
-
 
 window.renderNewMessageArtists =
   function(){
@@ -3170,7 +2869,6 @@ window.renderNewMessageArtists =
       document.getElementById(
         "artistSearchResults"
       );
-
 
     const search =
       document
@@ -3181,7 +2879,6 @@ window.renderNewMessageArtists =
         .trim()
         .toLowerCase();
 
-
     const filtered =
       allArtists.filter(
         artist => {
@@ -3191,13 +2888,11 @@ window.renderNewMessageArtists =
               artist
             ).toLowerCase();
 
-
           const username =
             (
               artist.username ||
               ""
             ).toLowerCase();
-
 
           return (
             name.includes(search) ||
@@ -3207,13 +2902,11 @@ window.renderNewMessageArtists =
         }
       );
 
-
     if(
       filtered.length === 0
     ){
 
       container.innerHTML = `
-
         <div
           style="
             padding:25px;
@@ -3221,117 +2914,105 @@ window.renderNewMessageArtists =
             color:#aaa59a;
             font-size:13px;
           ">
-
           Nenhum artista encontrado.
-
         </div>
-
       `;
 
       return;
 
     }
 
-
-    container.innerHTML =
-      "";
-
+    container.innerHTML = "";
 
     filtered.forEach(
       artist => {
 
         const name =
-          getArtistName(
-            artist
-          );
-
+          getArtistName(artist);
 
         const photo =
-          getArtistPhoto(
-            artist
-          );
-
+          getArtistPhoto(artist);
 
         const initials =
-          getInitials(
-            name
-          );
-
+          getInitials(name);
 
         const item =
-          document.createElement(
-            "div"
-          );
-
+          document.createElement("div");
 
         item.className =
           "conversation";
 
-
         item.style.border =
           "1px solid #292929";
-
 
         item.style.borderRadius =
           "12px";
 
-
         item.style.marginBottom =
           "8px";
 
+        const avatar =
+          document.createElement("div");
 
-        item.innerHTML = `
+        avatar.className =
+          "avatar";
 
-          <div class="avatar">
+        if(photo){
 
-            ${
-              photo
+          const image =
+            document.createElement("img");
 
-                ?
+          image.src = photo;
 
-                `<img
-                  src="${escapeHTML(photo)}"
-                  alt="${escapeHTML(name)}">`
+          image.alt = name;
 
-                :
+          avatar.appendChild(image);
 
-                escapeHTML(initials)
-            }
+        }
+        else{
 
-          </div>
+          avatar.textContent =
+            initials;
 
+        }
 
-          <div class="conversation-info">
+        const info =
+          document.createElement("div");
 
-            <div class="conversation-name">
+        info.className =
+          "conversation-info";
 
-              ${escapeHTML(name)}
+        const artistName =
+          document.createElement("div");
 
-            </div>
+        artistName.className =
+          "conversation-name";
 
+        artistName.textContent =
+          name;
 
-            <div class="last-message">
+        const username =
+          document.createElement("div");
 
-              ${
-                artist.username
-                  ?
+        username.className =
+          "last-message";
 
-                  "@" +
-                  escapeHTML(
-                    artist.username
-                  )
+        username.textContent =
+          artist.username
+            ? "@" + artist.username
+            : "Artista KUDURO PRIME";
 
-                  :
+        info.appendChild(
+          artistName
+        );
 
-                  "Artista KUDURO PRIME"
-              }
+        info.appendChild(
+          username
+        );
 
-            </div>
+        item.appendChild(avatar);
 
-          </div>
-
-        `;
-
+        item.appendChild(info);
 
         item.addEventListener(
           "click",
@@ -3344,20 +3025,15 @@ window.renderNewMessageArtists =
           }
         );
 
-
-        container.appendChild(
-          item
-        );
+        container.appendChild(item);
 
       }
     );
 
   };
 
-
-
 /* =====================================
-   CRIAR / ABRIR CONVERSA
+   CRIAR CONVERSA
 ===================================== */
 
 async function startNewConversation(
@@ -3368,13 +3044,11 @@ async function startNewConversation(
 
     closeNewMessage();
 
-
     const chatID =
       createChatID(
         firebaseUser.uid,
         artist.uid
       );
-
 
     const conversationRef =
       doc(
@@ -3383,22 +3057,16 @@ async function startNewConversation(
         chatID
       );
 
-
     const conversationSnap =
       await getDoc(
         conversationRef
       );
 
-
     if(
       !conversationSnap.exists()
     ){
 
-      const batch =
-        writeBatch(db);
-
-
-      batch.set(
+      await setDoc(
         conversationRef,
         {
 
@@ -3407,36 +3075,40 @@ async function startNewConversation(
             artist.uid
           ],
 
+          participantNames:{
+            [firebaseUser.uid]:
+              getArtistName(
+                currentArtistData || {}
+              ),
+
+            [artist.uid]:
+              getArtistName(artist)
+          },
+
           createdAt:
             serverTimestamp(),
 
-          lastMessage:
-            "",
+          lastMessage:"",
 
-          lastMessageType:
-            "",
+          lastMessageType:"",
 
           lastMessageAt:
             serverTimestamp(),
 
+          temporaryMode:"off",
+
           unreadCount:{
 
-            [firebaseUser.uid]:
-              0,
+            [firebaseUser.uid]:0,
 
-            [artist.uid]:
-              0
+            [artist.uid]:0
 
           }
 
         }
       );
 
-
-      await batch.commit();
-
     }
-
 
     openRealChat(
       artist,
@@ -3459,8 +3131,6 @@ async function startNewConversation(
 
 }
 
-
-
 /* =====================================
    ABRIR CHAT
 ===================================== */
@@ -3473,120 +3143,84 @@ async function openRealChat(
   currentChatArtist =
     artist;
 
-
-  window.currentChatUID =
-    artist.uid;
-
-
-  window.currentChatName =
-    getArtistName(
-      artist
-    );
-
-
-  window.currentChatID =
-    chatID;
-
-
   currentChatUID =
     artist.uid;
 
-
   currentChatName =
-    getArtistName(
-      artist
-    );
-
+    getArtistName(artist);
 
   currentChatID =
     chatID;
 
+  /*
+    Mantém compatibilidade
+    com funções globais antigas.
+  */
+
+  window.currentChatUID =
+    currentChatUID;
+
+  window.currentChatName =
+    currentChatName;
+
+  window.currentChatID =
+    currentChatID;
 
   document
-    .querySelectorAll(
-      ".conversation"
-    )
-    .forEach(
-      item => {
+    .querySelectorAll(".conversation")
+    .forEach(item => {
 
-        item.classList.remove(
-          "active"
-        );
+      item.classList.remove("active");
 
-      }
-    );
-
+    });
 
   const selected =
     document.querySelector(
       `[data-uid="${artist.uid}"]`
     );
 
-
   if(selected){
 
-    selected.classList.add(
-      "active"
-    );
+    selected.classList.add("active");
 
   }
 
-
   const name =
-    getArtistName(
-      artist
-    );
-
+    getArtistName(artist);
 
   const photo =
-    getArtistPhoto(
-      artist
-    );
-
+    getArtistPhoto(artist);
 
   const initials =
-    getInitials(
-      name
-    );
-
+    getInitials(name);
 
   document
-    .getElementById(
-      "chatUserName"
-    )
+    .getElementById("chatUserName")
     .textContent =
     name;
 
-
   document
-    .getElementById(
-      "chatStatus"
-    )
+    .getElementById("chatStatus")
     .textContent =
     "Artista do KUDURO PRIME";
-
 
   const avatarText =
     document.getElementById(
       "chatAvatarText"
     );
 
-
   const avatarImage =
     document.getElementById(
       "chatAvatarImage"
     );
-
 
   if(photo){
 
     avatarText.style.display =
       "none";
 
-
     avatarImage.style.display =
       "block";
-
 
     avatarImage.src =
       photo;
@@ -3597,49 +3231,42 @@ async function openRealChat(
     avatarImage.style.display =
       "none";
 
-
     avatarText.style.display =
       "block";
-
 
     avatarText.textContent =
       initials;
 
   }
 
-
   document
-    .getElementById(
-      "chatOnline"
-    )
+    .getElementById("chatOnline")
     .style.display =
     "none";
 
-
   document
-    .getElementById(
-      "chat"
-    )
-    .classList.add(
-      "mobile-active"
-    );
+    .getElementById("chat")
+    .classList.add("mobile-active");
 
+  /*
+    Carrega preferência temporária
+    DESTA conversa.
+  */
+
+  await loadTemporaryPreference(
+    chatID
+  );
 
   await markConversationAsRead(
     chatID
   );
 
-
-  listenMessages(
-    chatID
-  );
+  listenMessages(chatID);
 
 }
 
-
-
 /* =====================================
-   OUVIR MENSAGENS
+   MENSAGENS
 ===================================== */
 
 function listenMessages(chatID){
@@ -3655,7 +3282,6 @@ function listenMessages(chatID){
 
   }
 
-
   const messagesRef =
     collection(
       db,
@@ -3663,7 +3289,6 @@ function listenMessages(chatID){
       chatID,
       "mensagens"
     );
-
 
   const messagesQuery =
     query(
@@ -3674,62 +3299,35 @@ function listenMessages(chatID){
       )
     );
 
-
   unsubscribeMessages =
     onSnapshot(
       messagesQuery,
 
       async snapshot => {
 
-        const messages =
+        /*
+          Se o utilizador abriu
+          outra conversa enquanto
+          esta carregava.
+        */
+
+        if(
+          currentChatID !== chatID
+        ){
+          return;
+        }
+
+        const messagesContainer =
           document.getElementById(
             "messages"
           );
 
-
-        messages.innerHTML =
+        messagesContainer.innerHTML =
           "";
 
+        let visibleCount = 0;
 
-        if(
-          snapshot.empty
-        ){
-
-          messages.innerHTML = `
-
-            <div class="empty-chat">
-
-              <div class="empty-box">
-
-                <div class="empty-icon">
-                  👋
-                </div>
-
-                <h2>
-                  Nova conversa
-                </h2>
-
-                <p>
-                  Envia a primeira mensagem
-                  para ${escapeHTML(
-                    currentChatName
-                  )}.
-                </p>
-
-              </div>
-
-            </div>
-
-          `;
-
-          return;
-
-        }
-
-
-        let lastDate =
-          "";
-
+        let lastDate = "";
 
         snapshot.forEach(
           messageDoc => {
@@ -3737,23 +3335,31 @@ function listenMessages(chatID){
             const message =
               messageDoc.data();
 
-
             if(
               isExpiredMessage(
                 message
               )
             ){
 
+              /*
+                Apaga mensagens expiradas
+                em segundo plano.
+              */
+
+              deleteDoc(
+                messageDoc.ref
+              ).catch(() => {});
+
               return;
 
             }
 
+            visibleCount++;
 
             const messageDate =
               getDateLabel(
                 message.createdAt
               );
-
 
             if(
               messageDate !==
@@ -3765,25 +3371,20 @@ function listenMessages(chatID){
                   "div"
                 );
 
-
               dateElement.className =
                 "date-label";
-
 
               dateElement.textContent =
                 messageDate;
 
-
-              messages.appendChild(
+              messagesContainer.appendChild(
                 dateElement
               );
-
 
               lastDate =
                 messageDate;
 
             }
-
 
             renderMessage(
               message,
@@ -3793,10 +3394,29 @@ function listenMessages(chatID){
           }
         );
 
+        if(
+          visibleCount === 0
+        ){
 
-        messages.scrollTop =
-          messages.scrollHeight;
+          messagesContainer.innerHTML = `
+            <div class="empty-chat">
+              <div class="empty-box">
+                <div class="empty-icon">👋</div>
+                <h2>Nova conversa</h2>
+                <p>
+                  Envia a primeira mensagem
+                  para ${escapeHTML(
+                    currentChatName
+                  )}.
+                </p>
+              </div>
+            </div>
+          `;
 
+        }
+
+        messagesContainer.scrollTop =
+          messagesContainer.scrollHeight;
 
         await markConversationAsRead(
           chatID
@@ -3811,25 +3431,15 @@ function listenMessages(chatID){
           error
         );
 
-
-        if(
-          error.code ===
-          "failed-precondition"
-        ){
-
-          showToast(
-            "É necessário criar o índice do Firestore."
-          );
-
-        }
+        showToast(
+          "Erro ao carregar mensagens."
+        );
 
       }
 
     );
 
 }
-
-
 
 /* =====================================
    RENDER MENSAGEM
@@ -3845,97 +3455,64 @@ function renderMessage(
       "messages"
     );
 
-
   const row =
-    document.createElement(
-      "div"
-    );
-
+    document.createElement("div");
 
   const isMine =
     message.senderId ===
     firebaseUser.uid;
 
-
   row.className =
     isMine
-      ?
-
-      "message-row sent"
-
-      :
-
-      "message-row received";
-
+      ? "message-row sent"
+      : "message-row received";
 
   const messageBox =
-    document.createElement(
-      "div"
-    );
-
+    document.createElement("div");
 
   messageBox.className =
     "message";
 
-
   /* TEXTO */
 
   if(
-    message.type ===
-    "text"
+    message.type === "text"
   ){
 
     const text =
-      document.createElement(
-        "div"
-      );
-
+      document.createElement("div");
 
     text.className =
       "message-text";
 
-
     text.textContent =
-      message.text ||
-      "";
+      message.text || "";
 
-
-    messageBox.appendChild(
-      text
-    );
+    messageBox.appendChild(text);
 
   }
-
 
   /* IMAGEM */
 
   else if(
-    message.type ===
-    "image"
+    message.type === "image"
   ){
 
     const image =
-      document.createElement(
-        "img"
-      );
-
+      document.createElement("img");
 
     image.className =
       "message-image";
 
-
     image.src =
       message.fileURL;
-
 
     image.alt =
       message.fileName ||
       "Imagem";
 
-
     image.loading =
       "lazy";
-
 
     image.addEventListener(
       "click",
@@ -3943,86 +3520,68 @@ function renderMessage(
 
         window.open(
           message.fileURL,
-          "_blank"
+          "_blank",
+          "noopener"
         );
 
       }
     );
 
-
-    messageBox.appendChild(
-      image
-    );
+    messageBox.appendChild(image);
 
   }
 
-
-  /* VIDEO */
+  /* VÍDEO */
 
   else if(
-    message.type ===
-    "video"
+    message.type === "video"
   ){
 
     const video =
-      document.createElement(
-        "video"
-      );
-
+      document.createElement("video");
 
     video.className =
       "message-video";
 
-
     video.src =
       message.fileURL;
-
 
     video.controls =
       true;
 
-
     video.preload =
       "metadata";
 
-
-    messageBox.appendChild(
-      video
-    );
+    messageBox.appendChild(video);
 
   }
 
-
-  /* AUDIO */
+  /* ÁUDIO */
 
   else if(
-    message.type ===
-    "audio"
+    message.type === "audio"
   ){
 
-    const player =
-      document.createElement(
-        "div"
-      );
+    const audioMessage =
+      document.createElement("div");
 
+    audioMessage.className =
+      "audio-message";
+
+    const player =
+      document.createElement("div");
 
     player.className =
       "audio-player";
 
-
     const playButton =
-      document.createElement(
-        "button"
-      );
-
+      document.createElement("button");
 
     playButton.className =
       "audio-play";
 
-
     playButton.textContent =
       "▶";
-
 
     playButton.addEventListener(
       "click",
@@ -4036,90 +3595,89 @@ function renderMessage(
       }
     );
 
-
     const duration =
-      document.createElement(
-        "div"
-      );
-
+      document.createElement("div");
 
     duration.className =
       "audio-duration";
-
 
     duration.textContent =
       formatDuration(
         message.duration
       );
 
+    player.appendChild(playButton);
 
-    player.appendChild(
-      playButton
-    );
+    player.appendChild(duration);
 
+    audioMessage.appendChild(player);
 
-    player.appendChild(
-      duration
-    );
-
-
-    messageBox.appendChild(
-      player
-    );
+    messageBox.appendChild(audioMessage);
 
   }
-
 
   /* DOCUMENTO */
 
   else if(
-    message.type ===
-    "document"
+    message.type === "document"
   ){
 
     const documentBox =
-      document.createElement(
-        "div"
-      );
-
+      document.createElement("div");
 
     documentBox.className =
       "document-message";
 
+    const icon =
+      document.createElement("div");
 
-    documentBox.innerHTML = `
+    icon.className =
+      "document-icon";
 
-      <div class="document-icon">
-        📄
-      </div>
+    icon.textContent =
+      "📄";
 
-      <div class="document-info">
+    const info =
+      document.createElement("div");
 
-        <div class="document-name">
+    info.className =
+      "document-info";
 
-          ${escapeHTML(
-            message.fileName ||
-            "Documento"
-          )}
+    const name =
+      document.createElement("div");
 
-        </div>
+    name.className =
+      "document-name";
 
-        <a
-          class="document-link"
-          href="${escapeHTML(
-            message.fileURL
-          )}"
-          target="_blank"
-          rel="noopener">
+    name.textContent =
+      message.fileName ||
+      "Documento";
 
-          Abrir documento
+    const link =
+      document.createElement("a");
 
-        </a>
+    link.className =
+      "document-link";
 
-      </div>
+    link.href =
+      message.fileURL;
 
-    `;
+    link.target =
+      "_blank";
 
+    link.rel =
+      "noopener";
+
+    link.textContent =
+      "Abrir documento";
+
+    info.appendChild(name);
+
+    info.appendChild(link);
+
+    documentBox.appendChild(icon);
+
+    documentBox.appendChild(info);
 
     messageBox.appendChild(
       documentBox
@@ -4127,20 +3685,15 @@ function renderMessage(
 
   }
 
-
   /* TEMPORÁRIA */
 
   if(
     message.temporary &&
-    message.temporary !==
-    "off"
+    message.temporary !== "off"
   ){
 
     const temporary =
-      document.createElement(
-        "div"
-      );
-
+      document.createElement("div");
 
     temporary.style.cssText =
       `
@@ -4149,10 +3702,8 @@ function renderMessage(
         margin-top:5px;
       `;
 
-
     temporary.textContent =
       "⏱ Mensagem temporária";
-
 
     messageBox.appendChild(
       temporary
@@ -4160,59 +3711,46 @@ function renderMessage(
 
   }
 
-
   /* META */
 
   const meta =
-    document.createElement(
-      "div"
-    );
-
+    document.createElement("div");
 
   meta.className =
     "message-meta";
 
+  const time =
+    document.createElement("span");
 
-  meta.innerHTML = `
-
-    ${formatTime(
+  time.textContent =
+    formatTime(
       message.createdAt
-    )}
+    );
 
-    ${
-      isMine
+  meta.appendChild(time);
 
-        ?
+  if(isMine){
 
-        `<span class="check">
-          ✓✓
-        </span>`
+    const check =
+      document.createElement("span");
 
-        :
+    check.className =
+      "check";
 
-        ""
-    }
+    check.textContent =
+      "✓✓";
 
-  `;
+    meta.appendChild(check);
 
+  }
 
-  messageBox.appendChild(
-    meta
-  );
+  messageBox.appendChild(meta);
 
+  row.appendChild(messageBox);
 
-  row.appendChild(
-    messageBox
-  );
-
-
-  messages.appendChild(
-    row
-  );
+  messages.appendChild(row);
 
 }
-
-
 
 /* =====================================
    ENVIAR TEXTO
@@ -4226,17 +3764,12 @@ window.sendMessage =
         "messageInput"
       );
 
-
     const text =
       input.value.trim();
 
-
     if(!text){
-
       return;
-
     }
-
 
     if(!currentChatID){
 
@@ -4248,34 +3781,24 @@ window.sendMessage =
 
     }
 
-
-    input.disabled =
-      true;
-
+    input.disabled = true;
 
     try{
 
       await sendFirebaseMessage({
 
-        type:
-          "text",
+        type:"text",
 
-        text:
-          text
+        text:text
 
       });
 
-
-      input.value =
-        "";
+      input.value = "";
 
     }
     catch(error){
 
-      console.error(
-        error
-      );
-
+      console.error(error);
 
       showToast(
         "Não foi possível enviar a mensagem."
@@ -4284,17 +3807,13 @@ window.sendMessage =
     }
     finally{
 
-      input.disabled =
-        false;
-
+      input.disabled = false;
 
       input.focus();
 
     }
 
   };
-
-
 
 /* =====================================
    GUARDAR MENSAGEM
@@ -4316,49 +3835,43 @@ async function sendFirebaseMessage(
 
   }
 
+  const chatID =
+    currentChatID;
+
+  const receiverID =
+    currentChatUID;
 
   const messageRef =
     collection(
       db,
       "conversas",
-      currentChatID,
+      chatID,
       "mensagens"
     );
-
 
   const conversationRef =
     doc(
       db,
       "conversas",
-      currentChatID
+      chatID
     );
-
 
   const preview =
-    getMessagePreview(
-      data
-    );
-
-
-  const unreadUpdate = {
-
-    [firebaseUser.uid]:
-      0,
-
-    [currentChatUID]:
-      increment(1)
-
-  };
-
+    getMessagePreview(data);
 
   const expirationAt =
     getExpirationTimestamp(
       temporaryMode
     );
 
+  const batch =
+    writeBatch(db);
 
-  await addDoc(
-    messageRef,
+  const newMessageRef =
+    doc(messageRef);
+
+  batch.set(
+    newMessageRef,
     {
 
       ...data,
@@ -4367,7 +3880,7 @@ async function sendFirebaseMessage(
         firebaseUser.uid,
 
       receiverId:
-        currentChatUID,
+        receiverID,
 
       temporary:
         temporaryMode,
@@ -4376,13 +3889,12 @@ async function sendFirebaseMessage(
         serverTimestamp(),
 
       expirationAt:
-        expirationAt
+        expirationAt || null
 
     }
   );
 
-
-  await updateDoc(
+  batch.set(
     conversationRef,
     {
 
@@ -4395,15 +3907,21 @@ async function sendFirebaseMessage(
       lastMessageAt:
         serverTimestamp(),
 
-      unreadCount:
-        unreadUpdate
+      [`unreadCount.${firebaseUser.uid}`]:
+        0,
 
+      [`unreadCount.${receiverID}`]:
+        increment(1)
+
+    },
+    {
+      merge:true
     }
   );
 
+  await batch.commit();
+
 }
-
-
 
 /* =====================================
    UPLOAD FICHEIRO
@@ -4417,71 +3935,56 @@ window.fileSelected =
         "fileInput"
       );
 
-
     const file =
-      input.files[0];
-
+      input.files?.[0];
 
     if(!file){
-
       return;
-
     }
 
-
-    if(
-      !currentChatID
-    ){
+    if(!currentChatID){
 
       showToast(
         "Seleciona primeiro uma conversa."
       );
 
+      input.value = "";
+
       return;
 
     }
 
-
     const maxSize =
       100 * 1024 * 1024;
 
-
     if(
-      file.size >
-      maxSize
+      file.size > maxSize
     ){
 
       showToast(
         "O ficheiro é muito grande. Máximo: 100 MB."
       );
 
+      input.value = "";
+
       return;
 
     }
 
-
     try{
 
-      showToast(
-        "A enviar ficheiro..."
-      );
-
-
       const type =
-        getFileMessageType(
-          file
+        getFileMessageType(file);
+
+      const safeName =
+        file.name
+        .replace(
+          /[^a-zA-Z0-9._-]/g,
+          "_"
         );
 
-
-      const extension =
-        file.name
-        .split(".")
-        .pop();
-
-
       const filePath =
-        `mensagens/${currentChatID}/${Date.now()}-${crypto.randomUUID()}.${extension}`;
-
+        `mensagens/${currentChatID}/${Date.now()}-${randomID()}-${safeName}`;
 
       const fileRef =
         ref(
@@ -4489,23 +3992,19 @@ window.fileSelected =
           filePath
         );
 
-
       const uploadTask =
         uploadBytesResumable(
           fileRef,
           file,
           {
             contentType:
-              file.type
+              file.type ||
+              "application/octet-stream"
           }
         );
 
-
       await new Promise(
-        (
-          resolve,
-          reject
-        ) => {
+        (resolve,reject) => {
 
           uploadTask.on(
 
@@ -4514,13 +4013,14 @@ window.fileSelected =
             snapshot => {
 
               const progress =
-                Math.round(
-                  (
-                    snapshot.bytesTransferred /
-                    snapshot.totalBytes
-                  ) * 100
-                );
-
+                snapshot.totalBytes
+                  ? Math.round(
+                      (
+                        snapshot.bytesTransferred /
+                        snapshot.totalBytes
+                      ) * 100
+                    )
+                  : 0;
 
               showToast(
                 "A enviar: " +
@@ -4539,32 +4039,24 @@ window.fileSelected =
         }
       );
 
-
       const fileURL =
         await getDownloadURL(
           fileRef
         );
 
-
       await sendFirebaseMessage({
 
-        type:
-          type,
+        type:type,
 
-        fileURL:
-          fileURL,
+        fileURL:fileURL,
 
-        fileName:
-          file.name,
+        fileName:file.name,
 
-        fileSize:
-          file.size,
+        fileSize:file.size,
 
-        storagePath:
-          filePath
+        storagePath:filePath
 
       });
-
 
       showToast(
         "Ficheiro enviado."
@@ -4578,7 +4070,6 @@ window.fileSelected =
         error
       );
 
-
       showToast(
         "Erro ao enviar ficheiro."
       );
@@ -4586,17 +4077,14 @@ window.fileSelected =
     }
     finally{
 
-      input.value =
-        "";
+      input.value = "";
 
     }
 
   };
 
-
-
 /* =====================================
-   ENVIAR ÁUDIO GRAVADO
+   ENVIAR ÁUDIO
 ===================================== */
 
 window.sendAudioToFirebase =
@@ -4605,25 +4093,14 @@ window.sendAudioToFirebase =
     duration
   ){
 
-    if(
-      !currentChatID
-    ){
-
+    if(!currentChatID){
       return;
-
     }
-
 
     try{
 
-      showToast(
-        "A enviar áudio..."
-      );
-
-
       const filePath =
-        `mensagens/${currentChatID}/audio-${Date.now()}-${crypto.randomUUID()}.webm`;
-
+        `mensagens/${currentChatID}/audio-${Date.now()}-${randomID()}.webm`;
 
       const fileRef =
         ref(
@@ -4631,43 +4108,49 @@ window.sendAudioToFirebase =
           filePath
         );
 
+      const uploadTask =
+        uploadBytesResumable(
+          fileRef,
+          blob,
+          {
+            contentType:
+              blob.type ||
+              "audio/webm"
+          }
+        );
 
-      await uploadBytesResumable(
-        fileRef,
-        blob,
-        {
-          contentType:
-            blob.type ||
-            "audio/webm"
+      await new Promise(
+        (resolve,reject) => {
+
+          uploadTask.on(
+            "state_changed",
+            null,
+            reject,
+            resolve
+          );
+
         }
       );
-
 
       const fileURL =
         await getDownloadURL(
           fileRef
         );
 
-
       await sendFirebaseMessage({
 
-        type:
-          "audio",
+        type:"audio",
 
-        fileURL:
-          fileURL,
+        fileURL:fileURL,
 
         fileName:
           "Mensagem de áudio",
 
-        duration:
-          duration,
+        duration:duration,
 
-        storagePath:
-          filePath
+        storagePath:filePath
 
       });
-
 
       showToast(
         "Áudio enviado."
@@ -4681,16 +4164,11 @@ window.sendAudioToFirebase =
         error
       );
 
-
-      showToast(
-        "Erro ao enviar áudio."
-      );
+      throw error;
 
     }
 
   };
-
-
 
 /* =====================================
    MARCAR COMO LIDA
@@ -4701,17 +4179,15 @@ async function markConversationAsRead(
 ){
 
   if(
-    !firebaseUser
+    !firebaseUser ||
+    !chatID
   ){
-
     return;
-
   }
-
 
   try{
 
-    await updateDoc(
+    await setDoc(
 
       doc(
         db,
@@ -4724,6 +4200,10 @@ async function markConversationAsRead(
         [`unreadCount.${firebaseUser.uid}`]:
           0
 
+      },
+
+      {
+        merge:true
       }
 
     );
@@ -4731,15 +4211,173 @@ async function markConversationAsRead(
   }
   catch(error){
 
-    console.error(
-      error
-    );
+    console.error(error);
 
   }
 
 }
 
+/* =====================================
+   PREFERÊNCIA TEMPORÁRIA
+===================================== */
 
+async function loadTemporaryPreference(
+  chatID
+){
+
+  temporaryMode = "off";
+
+  try{
+
+    const snap =
+      await getDoc(
+        doc(
+          db,
+          "conversas",
+          chatID
+        )
+      );
+
+    if(
+      snap.exists()
+    ){
+
+      const value =
+        snap.data().temporaryMode;
+
+      if(
+        [
+          "off",
+          "24h",
+          "7d",
+          "90d"
+        ].includes(value)
+      ){
+
+        temporaryMode =
+          value;
+
+      }
+
+    }
+
+  }
+  catch(error){
+
+    console.error(
+      "Erro preferência temporária:",
+      error
+    );
+
+  }
+
+  updateTemporaryUI();
+
+}
+
+function updateTemporaryUI(){
+
+  document
+    .querySelectorAll(".temp-option")
+    .forEach(element => {
+
+      element.classList.toggle(
+        "selected",
+        element.dataset.value ===
+        temporaryMode
+      );
+
+    });
+
+}
+
+/* =====================================
+   ALTERAR TEMPORÁRIA
+===================================== */
+
+const oldSelectTemporary =
+  window.selectTemporary;
+
+window.selectTemporary =
+  async function(
+    element,
+    value
+  ){
+
+    if(!currentChatID){
+      return;
+    }
+
+    temporaryMode =
+      value;
+
+    updateTemporaryUI();
+
+    closeTemporary();
+
+    try{
+
+      await setDoc(
+
+        doc(
+          db,
+          "conversas",
+          currentChatID
+        ),
+
+        {
+
+          temporaryMode:value
+
+        },
+
+        {
+          merge:true
+        }
+
+      );
+
+      showToast(
+        "Mensagens temporárias: " +
+        temporaryLabel()
+      );
+
+    }
+    catch(error){
+
+      console.error(error);
+
+      showToast(
+        "Não foi possível guardar a definição."
+      );
+
+    }
+
+  };
+
+/*
+  Reaplica os eventos
+  porque esta função é
+  substituída pelo Firebase.
+*/
+
+document
+  .querySelectorAll(".temp-option")
+  .forEach(element => {
+
+    element.addEventListener(
+      "click",
+      async () => {
+
+        await window.selectTemporary(
+          element,
+          element.dataset.value
+        );
+
+      }
+    );
+
+  });
 
 /* =====================================
    UTILITÁRIOS
@@ -4759,42 +4397,61 @@ function createChatID(
 
 }
 
+function randomID(){
+
+  if(
+    window.crypto &&
+    typeof crypto.randomUUID === "function"
+  ){
+    return crypto.randomUUID();
+  }
+
+  return (
+    Math.random()
+    .toString(36)
+    .slice(2) +
+    Date.now()
+    .toString(36)
+  );
+
+}
 
 function getArtistName(
   artist
 ){
 
   return (
-    artist.nome ||
-    artist.artistName ||
-    artist.nomeArtistico ||
-    artist.username ||
+    artist?.nome ||
+    artist?.artistName ||
+    artist?.nomeArtistico ||
+    artist?.nomeArtista ||
+    artist?.name ||
+    artist?.username ||
     "Artista"
   );
 
 }
-
 
 function getArtistPhoto(
   artist
 ){
 
   return (
-    artist.foto ||
-    artist.photoURL ||
-    artist.avatar ||
-    artist.imagem ||
+    artist?.foto ||
+    artist?.photoURL ||
+    artist?.avatar ||
+    artist?.imagem ||
+    artist?.fotoPerfil ||
+    artist?.profilePicture ||
     ""
   );
 
 }
 
+function getInitials(name){
 
-function getInitials(
-  name
-){
-
-  return name
+  const initials =
+    String(name || "A")
     .split(" ")
     .filter(
       word =>
@@ -4808,61 +4465,40 @@ function getInitials(
     )
     .join("");
 
-}
+  return initials || "A";
 
+}
 
 function getTimestampValue(
   timestamp
 ){
 
-  if(!timestamp){
-    return 0;
-  }
+  const date =
+    toDateSafe(timestamp);
 
-  if(
-    typeof timestamp.toMillis ===
-    "function"
-  ){
-
-    return timestamp.toMillis();
-
-  }
-
-  return new Date(
-    timestamp
-  ).getTime() || 0;
+  return date
+    ? date.getTime()
+    : 0;
 
 }
-
 
 function formatConversationTime(
   timestamp
 ){
 
-  if(!timestamp){
+  const date =
+    toDateSafe(timestamp);
+
+  if(!date){
     return "";
   }
-
-
-  const date =
-    timestamp.toDate
-      ?
-
-      timestamp.toDate()
-
-      :
-
-      new Date(timestamp);
-
 
   const now =
     new Date();
 
-
   const sameDay =
     date.toDateString() ===
     now.toDateString();
-
 
   if(sameDay){
 
@@ -4876,7 +4512,6 @@ function formatConversationTime(
 
   }
 
-
   return date.toLocaleDateString(
     "pt-PT",
     {
@@ -4886,7 +4521,6 @@ function formatConversationTime(
   );
 
 }
-
 
 function getConversationPreview(
   conversation
@@ -4900,7 +4534,6 @@ function getConversationPreview(
 
   }
 
-
   if(
     conversation.lastMessageType ===
     "image"
@@ -4909,7 +4542,6 @@ function getConversationPreview(
     return "📷 Foto";
 
   }
-
 
   if(
     conversation.lastMessageType ===
@@ -4920,7 +4552,6 @@ function getConversationPreview(
 
   }
 
-
   if(
     conversation.lastMessageType ===
     "audio"
@@ -4930,7 +4561,6 @@ function getConversationPreview(
 
   }
 
-
   if(
     conversation.lastMessageType ===
     "document"
@@ -4939,113 +4569,74 @@ function getConversationPreview(
     return "📄 Documento";
 
   }
-
 
   return "Iniciar conversa";
 
 }
 
-
 function getMessagePreview(
   data
 ){
 
+  const previews = {
+
+    image:"📷 Foto",
+
+    video:"🎬 Vídeo",
+
+    audio:"🎙️ Mensagem de áudio",
+
+    document:"📄 Documento"
+
+  };
+
   if(
-    data.type ===
-    "text"
+    data.type === "text"
   ){
 
-    return data.text;
+    return (
+      data.text || ""
+    )
+    .slice(0,300);
 
   }
 
-
-  if(
-    data.type ===
-    "image"
-  ){
-
-    return "📷 Foto";
-
-  }
-
-
-  if(
-    data.type ===
-    "video"
-  ){
-
-    return "🎬 Vídeo";
-
-  }
-
-
-  if(
-    data.type ===
-    "audio"
-  ){
-
-    return "🎙️ Mensagem de áudio";
-
-  }
-
-
-  if(
-    data.type ===
-    "document"
-  ){
-
-    return "📄 Documento";
-
-  }
-
-
-  return "Nova mensagem";
+  return (
+    previews[data.type] ||
+    "Nova mensagem"
+  );
 
 }
-
 
 function getFileMessageType(
   file
 ){
 
-  if(
-    file.type.startsWith(
-      "image/"
-    )
-  ){
+  const type =
+    file.type ||
+    "";
 
+  if(
+    type.startsWith("image/")
+  ){
     return "image";
-
   }
 
-
   if(
-    file.type.startsWith(
-      "video/"
-    )
+    type.startsWith("video/")
   ){
-
     return "video";
-
   }
-
 
   if(
-    file.type.startsWith(
-      "audio/"
-    )
+    type.startsWith("audio/")
   ){
-
     return "audio";
-
   }
-
 
   return "document";
 
 }
-
 
 function getExpirationTimestamp(
   mode
@@ -5059,51 +4650,25 @@ function getExpirationTimestamp(
 
   }
 
+  const durations = {
 
-  let milliseconds =
-    0;
+    "24h":
+      24 * 60 * 60 * 1000,
 
+    "7d":
+      7 * 24 * 60 * 60 * 1000,
 
-  if(
-    mode === "24h"
-  ){
+    "90d":
+      90 * 24 * 60 * 60 * 1000
 
-    milliseconds =
-      24 *
-      60 *
-      60 *
-      1000;
+  };
 
+  const milliseconds =
+    durations[mode] || 0;
+
+  if(!milliseconds){
+    return null;
   }
-
-
-  if(
-    mode === "7d"
-  ){
-
-    milliseconds =
-      7 *
-      24 *
-      60 *
-      60 *
-      1000;
-
-  }
-
-
-  if(
-    mode === "90d"
-  ){
-
-    milliseconds =
-      90 *
-      24 *
-      60 *
-      60 *
-      1000;
-
-  }
-
 
   return new Date(
     Date.now() +
@@ -5112,7 +4677,6 @@ function getExpirationTimestamp(
 
 }
 
-
 function isExpiredMessage(
   message
 ){
@@ -5120,24 +4684,17 @@ function isExpiredMessage(
   if(
     !message.expirationAt
   ){
-
     return false;
-
   }
 
-
   const expiration =
-    message.expirationAt.toDate
-      ?
+    toDateSafe(
+      message.expirationAt
+    );
 
-      message.expirationAt.toDate()
-
-      :
-
-      new Date(
-        message.expirationAt
-      );
-
+  if(!expiration){
+    return false;
+  }
 
   return (
     Date.now() >
@@ -5146,34 +4703,19 @@ function isExpiredMessage(
 
 }
 
-
 function getDateLabel(
   timestamp
 ){
 
-  if(!timestamp){
-
-    return "AGORA";
-
-  }
-
-
   const date =
-    timestamp.toDate
-      ?
+    toDateSafe(timestamp);
 
-      timestamp.toDate()
-
-      :
-
-      new Date(
-        timestamp
-      );
-
+  if(!date){
+    return "AGORA";
+  }
 
   const now =
     new Date();
-
 
   const today =
     new Date(
@@ -5182,13 +4724,11 @@ function getDateLabel(
       now.getDate()
     );
 
-
   const yesterday =
     new Date(
       today.getTime() -
       86400000
     );
-
 
   const target =
     new Date(
@@ -5197,26 +4737,19 @@ function getDateLabel(
       date.getDate()
     );
 
-
   if(
     target.getTime() ===
     today.getTime()
   ){
-
     return "HOJE";
-
   }
-
 
   if(
     target.getTime() ===
     yesterday.getTime()
   ){
-
     return "ONTEM";
-
   }
-
 
   return date.toLocaleDateString(
     "pt-PT",
@@ -5229,46 +4762,26 @@ function getDateLabel(
 
 }
 
+/* =====================================
+   LIMPEZA
+===================================== */
 
-function loadTemporaryPreference(){
+window.addEventListener(
+  "beforeunload",
+  () => {
 
-  temporaryMode =
-    "off";
+    if(unsubscribeMessages){
+      unsubscribeMessages();
+    }
 
-
-  document
-    .querySelectorAll(
-      ".temp-option"
-    )
-    .forEach(
-      element => {
-
-        element.classList.remove(
-          "selected"
-        );
-
-      }
-    );
-
-
-  const active =
-    document.querySelector(
-      `[data-value="${temporaryMode}"]`
-    );
-
-
-  if(active){
-
-    active.classList.add(
-      "selected"
-    );
+    if(unsubscribeConversations){
+      unsubscribeConversations();
+    }
 
   }
-
-}
+);
 
 </script>
-
 
 </body>
 </html>
