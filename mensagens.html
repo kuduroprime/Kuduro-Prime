@@ -3159,6 +3159,79 @@ async function openRealChat(
   currentChatID =
     chatID;
 
+  /* ================================
+     STATUS ONLINE / OFFLINE
+  ================================ */
+
+  if(
+    onlineStatusUnsubscribe
+  ){
+
+    onlineStatusUnsubscribe();
+
+    onlineStatusUnsubscribe =
+      null;
+
+  }
+
+  onlineStatusUnsubscribe =
+    onSnapshot(
+
+      doc(
+        db,
+        "perfis",
+        artist.uid
+      ),
+
+      function(snapshot){
+
+        const lamp =
+          document.getElementById(
+            "onlineLamp"
+          );
+
+        if(!lamp){
+
+          return;
+
+        }
+
+        const data =
+          snapshot.data() || {};
+
+        const isOnline =
+          data.online === true;
+
+        if(isOnline){
+
+          lamp.classList.add(
+            "online"
+          );
+
+          lamp.classList.remove(
+            "offline"
+          );
+
+        }
+        else{
+
+          lamp.classList.add(
+            "offline"
+          );
+
+          lamp.classList.remove(
+            "online"
+          );
+
+        }
+
+      }
+
+    );
+
+  /* continua o resto
+     do teu código daqui para baixo */
+
   /*
     Mantém compatibilidade
     com funções globais antigas.
