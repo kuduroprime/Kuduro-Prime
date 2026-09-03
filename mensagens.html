@@ -2400,11 +2400,561 @@ document.addEventListener(
     temporaryMode = saved;
   }
 
-  cleanupTemporaryMessages();
+    cleanupTemporaryMessages();
 
 })();
 
 </script>
+
+
+<!-- FIREBASE MENSAGENS -->
+
+<script type="module">
+
+import {
+  initializeApp
+}
+from
+  "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+
+import {
+  getAuth,
+  onAuthStateChanged
+}
+from
+  "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+
+import {
+  getFirestore,
+  collection,
+  getDocs,
+  doc,
+  getDoc
+}
+from
+  "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+
+from
+  "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+
+
+/* =====================================
+   FIREBASE
+===================================== */
+
+const firebaseConfig = {
+
+  apiKey:
+    "AIzaSyDoitCcLeLDNBNPCP6fG1s_xbHr4UmohSo",
+
+  authDomain:
+    "kuduro-prime.firebaseapp.com",
+
+  projectId:
+    "kuduro-prime",
+
+  storageBucket:
+    "kuduro-prime.firebasestorage.app",
+
+  messagingSenderId:
+    "299776559545",
+
+  appId:
+    "1:299776559545:web:04aced1ba25391eb3fce68"
+
+};
+
+
+const app =
+  initializeApp(
+    firebaseConfig
+  );
+
+
+const auth =
+  getAuth(app);
+
+
+const db =
+  getFirestore(app);
+
+
+/* =====================================
+   UTILIZADOR ATUAL
+===================================== */
+
+let firebaseUser = null;
+
+let currentArtistData = null;
+
+
+/* =====================================
+   AUTH
+===================================== */
+
+onAuthStateChanged(
+  auth,
+  async user => {
+
+    if(!user){
+
+      window.location.href =
+        "area-do-artista.html";
+
+      return;
+
+    }
+
+    firebaseUser =
+      user;
+
+
+    try{
+
+      const myProfileRef =
+        doc(
+          db,
+          "artistas",
+          user.uid
+        );
+
+
+      const myProfileSnap =
+        await getDoc(
+          myProfileRef
+        );
+
+
+      if(myProfileSnap.exists()){
+
+        currentArtistData =
+          myProfileSnap.data();
+
+      }
+
+
+      loadRealArtists();
+
+    }
+    catch(error){
+
+      console.error(
+        "Erro ao carregar utilizador:",
+        error
+      );
+
+      showToast(
+        "Erro ao ligar às mensagens."
+      );
+
+    }
+
+  }
+);
+
+
+/* =====================================
+   CARREGAR ARTISTAS REAIS
+===================================== */
+
+async function loadRealArtists(){
+
+  const list =
+    document.getElementById(
+      "conversationList"
+    );
+
+
+  list.innerHTML = `
+
+    <div
+      style="
+        padding:30px 20px;
+        text-align:center;
+        color:#aaa59a;
+        font-size:13px;
+      "
+    >
+
+      A carregar artistas...
+
+    </div>
+
+  `;
+
+
+  try{
+
+    const artistsRef =
+      collection(
+        db,
+        "artistas"
+      );
+
+
+    const snapshot =
+      await getDocs(
+        artistsRef
+      );
+
+
+    const artists = [];
+
+
+    snapshot.forEach(
+      documentArtist => {
+
+        const artist =
+          documentArtist.data();
+
+
+        if(
+          documentArtist.id ===
+          firebaseUser.uid
+        ){
+
+          return;
+
+        }
+
+
+        if(
+          artist.ativo === false
+        ){
+
+          return;
+
+        }
+
+
+        artists.push({
+
+          uid:
+            documentArtist.id,
+
+          ...artist
+
+        });
+
+      }
+    );
+
+
+    if(
+      artists.length === 0
+    ){
+
+      list.innerHTML = `
+
+        <div
+          style="
+            padding:30px 20px;
+            text-align:center;
+            color:#aaa59a;
+            font-size:13px;
+            line-height:1.6;
+          "
+        >
+
+          Ainda não existem outros artistas disponíveis.
+
+        </div>
+
+      `;
+
+      return;
+
+    }
+
+
+    list.innerHTML = "";
+
+
+    artists.forEach(
+      artist => {
+
+        const name =
+          artist.nome ||
+          artist.artistName ||
+          artist.username ||
+          "Artista";
+
+
+        const username =
+          artist.username ||
+          "";
+
+
+        const photo =
+          artist.foto ||
+          artist.photoURL ||
+          artist.avatar ||
+          "";
+
+
+        const initials =
+          getInitials(
+            name
+          );
+
+
+        const conversation =
+          document.createElement(
+            "div"
+          );
+
+
+        conversation.className =
+          "conversation";
+
+
+        conversation.dataset.name =
+          name;
+
+
+        conversation.dataset.uid =
+          artist.uid;
+
+
+        conversation.innerHTML = `
+
+          <div class="avatar">
+
+            ${
+              photo
+
+              ? `
+
+                <img
+                  src="${escapeHTML(photo)}"
+                  alt="${escapeHTML(name)}"
+                >
+
+              `
+
+              : escapeHTML(initials)
+            }
+
+          </div>
+
+
+          <div class="conversation-info">
+
+            <div class="conversation-line">
+
+              <div class="conversation-name">
+
+                ${escapeHTML(name)}
+
+              </div>
+
+            </div>
+
+
+            <div class="last-message">
+
+              ${
+                username
+
+                ? "@" +
+                  escapeHTML(username)
+
+                : "Iniciar conversa"
+              }
+
+            </div>
+
+          </div>
+
+        `;
+
+
+        conversation.addEventListener(
+          "click",
+          () => {
+
+            openRealChat(
+              artist
+            );
+
+          }
+        );
+
+
+        list.appendChild(
+          conversation
+        );
+
+      }
+    );
+
+
+  }
+  catch(error){
+
+    console.error(
+      "Erro ao carregar artistas:",
+      error
+    );
+
+
+    list.innerHTML = `
+
+      <div
+        style="
+          padding:30px 20px;
+          text-align:center;
+          color:#ff9587;
+          font-size:13px;
+        "
+      >
+
+        Não foi possível carregar os artistas.
+
+      </div>
+
+    `;
+
+  }
+
+}
+
+
+/* =====================================
+   ABRIR CHAT REAL
+===================================== */
+
+function openRealChat(
+  artist
+){
+
+  const name =
+    artist.nome ||
+    artist.artistName ||
+    artist.username ||
+    "Artista";
+
+
+  const initials =
+    getInitials(
+      name
+    );
+
+
+  window.currentChat =
+    name;
+
+
+  window.currentChatUID =
+    artist.uid;
+
+
+  document
+    .querySelectorAll(
+      ".conversation"
+    )
+    .forEach(
+      item => {
+
+        item.classList.remove(
+          "active"
+        );
+
+      }
+    );
+
+
+  const selected =
+    document.querySelector(
+      `[data-uid="${artist.uid}"]`
+    );
+
+
+  if(selected){
+
+    selected.classList.add(
+      "active"
+    );
+
+  }
+
+
+  document
+    .getElementById(
+      "chatUserName"
+    )
+    .textContent =
+      name;
+
+
+  document
+    .getElementById(
+      "chatAvatar"
+    )
+    .childNodes[0]
+    .textContent =
+      initials;
+
+
+  document
+    .getElementById(
+      "chatStatus"
+    )
+    .textContent =
+      "Artista do KUDURO PRIME";
+
+
+  document
+    .getElementById(
+      "chatOnline"
+    )
+    .style.display =
+      "none";
+
+
+  document
+    .getElementById(
+      "chat"
+    )
+    .classList.add(
+      "mobile-active"
+    );
+
+
+  showToast(
+    "Conversa aberta com " +
+    name
+  );
+
+}
+
+
+/* =====================================
+   INICIAIS
+===================================== */
+
+function getInitials(
+  name
+){
+
+  return name
+    .split(" ")
+    .filter(
+      word =>
+        word.length > 0
+    )
+    .slice(0,2)
+    .map(
+      word =>
+        word[0]
+          .toUpperCase()
+    )
+    .join("");
+
+}
+
+</script>
+
 
 </body>
 </html>
