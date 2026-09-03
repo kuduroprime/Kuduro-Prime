@@ -4311,11 +4311,13 @@
 
         <div class="post-header">
 
-          <div class="post-avatar">
-
-            ${avatarHTML}
-
-          </div>
+          <a
+  href="perfil.html?id=${encodeURIComponent(item.artistaId || '')}"
+  class="post-avatar post-profile-link"
+  title="Ver perfil de ${escaparHTML(nome)}"
+>
+  ${avatarHTML}
+</a>
 
 
           <div>
