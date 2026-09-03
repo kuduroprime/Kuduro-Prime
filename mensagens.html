@@ -4082,7 +4082,7 @@ async function sendFirebaseMessage(
     }
   );
 
-  batch.update(
+  batch.set(
   conversationRef,
   {
 
@@ -4101,6 +4101,9 @@ async function sendFirebaseMessage(
     [`unreadCount.${receiverID}`]:
       increment(1)
 
+  },
+  {
+    merge:true
   }
 );
 
