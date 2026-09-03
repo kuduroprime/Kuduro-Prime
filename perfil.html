@@ -258,10 +258,32 @@
     }
 
     .profile-actions{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-    }
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+.message-profile-btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  min-height:42px;
+  padding:0 16px;
+  border-radius:8px;
+  background:transparent;
+  border:1px solid var(--gold);
+  color:var(--gold);
+  font-size:11px;
+  font-weight:900;
+  cursor:pointer;
+  transition:.25s;
+}
+
+.message-profile-btn:hover{
+  background:var(--gold);
+  color:#17120a;
+}
 
     .content{
       width:min(1180px,92%);
@@ -791,20 +813,30 @@
 
       </div>
 
-      <div class="profile-actions">
+     <div class="profile-actions">
 
-        <button
-          class="btn gold"
-          id="followBtn"
-          onclick="seguir()"
-        >
-          + SEGUIR
-        </button>
+  <button
+    class="btn gold"
+    id="followBtn"
+    onclick="seguir()"
+  >
+    + SEGUIR
+  </button>
 
-        <button
-          class="btn dark"
-          onclick="partilharPerfil()"
-        >
+  <a
+    href="mensagens.html"
+    class="message-profile-btn"
+    id="messageProfileBtn"
+  >
+    💬 Dar Uma Dica
+  </a>
+
+  <button
+    class="btn dark"
+    onclick="partilharPerfil()"
+  >
+    Partilhar
+  </button>
           ↗ PARTILHAR
         </button>
 
