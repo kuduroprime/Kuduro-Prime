@@ -355,24 +355,34 @@ body{
   margin-top:4px;
 }
 
+.chat-status-row{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  margin-top:4px;
+}
+
+.online-lamp{
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  display:inline-block;
+  flex-shrink:0;
+}
+
+.online-lamp.online{
+  background:#22c55e;
+  box-shadow:0 0 8px #22c55e;
+}
+
+.online-lamp.offline{
+  background:#777;
+  box-shadow:none;
+}
+
 .chat-actions{
   display:flex;
   gap:8px;
-}
-
-.chat-action{
-  width:38px;
-  height:38px;
-  background:#171717;
-  border:1px solid var(--line);
-  color:#fff;
-  border-radius:50%;
-  cursor:pointer;
-}
-
-.chat-action:hover{
-  color:var(--gold);
-  border-color:var(--gold);
 }
 
 /* =========================
@@ -1119,10 +1129,19 @@ body{
   Seleciona uma conversa
 </div>
 
-<div
-  class="chat-status"
-  id="chatStatus">
-  KUDURO PRIME
+<div class="chat-status-row">
+
+  <span
+    class="online-lamp offline"
+    id="chatOnline">
+  </span>
+
+  <div
+    class="chat-status"
+    id="chatStatus">
+    KUDURO PRIME
+  </div>
+
 </div>
 
 
@@ -3214,10 +3233,9 @@ async function openRealChat(
       function(snapshot){
 
         const lamp =
-          document.getElementById(
-            "onlineLamp"
-          );
-
+  document.getElementById(
+    "chatOnline"
+  );
         if(!lamp){
 
           return;
@@ -3345,7 +3363,7 @@ async function openRealChat(
 
   }
 
-  cconst chatOnline =
+  const chatOnline =
   document.getElementById(
     "chatOnline"
   );
