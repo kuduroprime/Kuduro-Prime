@@ -2,7 +2,10 @@
 <html lang="pt">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
 
   <title>Artistas | KUDURO PRIME</title>
 
@@ -310,6 +313,7 @@
       color: var(--muted);
       font-size: 10px;
       line-height: 1.5;
+      min-height: 30px;
     }
 
     .botao {
@@ -542,7 +546,6 @@
     </div>
   </header>
 
-
   <!-- =========================
        HERO
   ========================= -->
@@ -558,12 +561,11 @@
     </h1>
 
     <p>
-      Conhece todos os artistas que fazem parte
-      da comunidade KUDURO PRIME.
+      Conhece todos os artistas registados
+      na comunidade KUDURO PRIME.
     </p>
 
   </section>
-
 
   <!-- =========================
        PESQUISA
@@ -588,7 +590,6 @@
 
   </div>
 
-
   <!-- =========================
        CONTADOR
   ========================= -->
@@ -606,7 +607,6 @@
     </div>
 
   </div>
-
 
   <!-- =========================
        LISTA DE ARTISTAS
@@ -629,7 +629,6 @@
 
   </section>
 
-
   <!-- =========================
        FOOTER
   ========================= -->
@@ -641,7 +640,6 @@
 
   </footer>
 
-
   <!-- =========================
        FIREBASE / JAVASCRIPT
   ========================= -->
@@ -650,13 +648,15 @@
 
     import {
       initializeApp
-    } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+    } from
+      "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
 
     import {
       getFirestore,
       collection,
       getDocs
-    } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+    } from
+      "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 
 
     /* =========================
@@ -685,6 +685,10 @@
 
     };
 
+
+    /* =========================
+       INICIAR FIREBASE
+    ========================= */
 
     const app =
       initializeApp(
@@ -721,6 +725,36 @@
 
 
     /* =========================
+       FUNÇÃO PARA PEGAR
+       O PRIMEIRO VALOR VÁLIDO
+    ========================= */
+
+    function getFirstValue(
+      ...values
+    ) {
+
+      for(
+        const value of values
+      ) {
+
+        if(
+          value !== undefined &&
+          value !== null &&
+          String(value).trim() !== ""
+        ) {
+
+          return value;
+
+        }
+
+      }
+
+      return "";
+
+    }
+
+
+    /* =========================
        NORMALIZAR ARTISTA
     ========================= */
 
@@ -729,7 +763,8 @@
     ) {
 
       const data =
-        docSnapshot.data();
+        docSnapshot.data() || {};
+
 
       const artist = {
 
@@ -741,63 +776,115 @@
       };
 
 
+      /* NOME DO ARTISTA */
+
       artist.name =
+        getFirstValue(
 
-        data.nome ||
-        data.artistName ||
-        data.artistaNome ||
-        data.stageName ||
-        data.nomeArtistico ||
-        data.nome_artistico ||
-        data.name ||
-        "Artista Prime";
+          data.nomeArtistico,
+          data.artistaNome,
+          data.nomeArtista,
+          data.nome,
+          data.nomeCompleto,
+          data.artistName,
+          data.stageName,
+          data.nome_artistico,
+          data.name
 
+        ) ||
+        "Artista KUDURO PRIME";
+
+
+      /* USERNAME */
 
       artist.username =
+        getFirstValue(
 
-        data.username ||
-        data.userName ||
-        data.nomeUsuario ||
-        data.artistaUsername ||
-        data.usernameArtistico ||
-        "artista";
+          data.username,
+          data.nomeUsuario,
+          data.userName,
+          data.artistaUsername,
+          data.usernameArtistico
 
+        ) ||
+        artist.name
+          .toLowerCase()
+          .replace(
+            /\s+/g,
+            "_"
+          );
+
+
+      /* FOTO */
 
       artist.photo =
+        getFirstValue(
 
-        data.foto ||
-        data.photo ||
-        data.photoURL ||
-        data.fotoPerfil ||
-        data.imagem ||
-        data.image ||
-        data.avatar ||
-        "";
+          data.fotoUrl,
+          data.fotoPerfil,
+          data.imagemPerfil,
+          data.photoURL,
+          data.photoUrl,
+          data.foto,
+          data.imagem,
+          data.image,
+          data.photo,
+          data.avatar
 
+        );
+
+
+      /* ESTILO */
 
       artist.genre =
+        getFirstValue(
 
-        data.genero ||
-        data.genre ||
-        data.estilo ||
-        data.tipo ||
+          data.genero,
+          data.genre,
+          data.estilo,
+          data.tipo,
+          data.categoria
+
+        ) ||
         "Kuduro";
 
 
+      /* CIDADE */
+
       artist.city =
+        getFirstValue(
 
-        data.cidade ||
-        data.city ||
-        data.localizacao ||
-        data.location ||
-        "Angola";
+          data.cidade,
+          data.city,
+          data.localizacao,
+          data.location
 
+        );
+
+
+      /* PAÍS */
 
       artist.country =
+        getFirstValue(
 
-        data.pais ||
-        data.country ||
+          data.pais,
+          data.country
+
+        ) ||
         "Angola";
+
+
+      /* DESCRIÇÃO */
+
+      artist.bio =
+        getFirstValue(
+
+          data.bio,
+          data.biografia,
+          data.descricao,
+          data.sobre
+
+        );
 
 
       return artist;
@@ -815,13 +902,16 @@
 
       artistsList.innerHTML = "";
 
+
       artistCount.textContent =
         artists.length;
 
 
-      /* NENHUM RESULTADO */
+      /* =========================
+         NENHUM RESULTADO
+      ========================= */
 
-      if (
+      if(
         artists.length === 0
       ) {
 
@@ -851,10 +941,13 @@
       }
 
 
-      /* CRIAR CARTÕES */
+      /* =========================
+         CRIAR CARTÕES
+      ========================= */
 
       artists.forEach(
         artist => {
+
 
           const card =
             document.createElement(
@@ -865,7 +958,9 @@
             "artista";
 
 
-          /* FOTO */
+          /* =========================
+             FOTO
+          ========================= */
 
           const photo =
             document.createElement(
@@ -876,7 +971,7 @@
             "artista-photo";
 
 
-          if (
+          if(
             artist.photo
           ) {
 
@@ -898,11 +993,10 @@
             image.onerror =
               () => {
 
-                image.style.display =
-                  "none";
+                image.remove();
 
 
-                if (
+                if(
                   !photo.querySelector(
                     ".photo-placeholder"
                   )
@@ -936,18 +1030,28 @@
 
           } else {
 
-            photo.innerHTML = `
+            const placeholder =
+              document.createElement(
+                "div"
+              );
 
-              <div class="photo-placeholder">
-                👤
-              </div>
+            placeholder.className =
+              "photo-placeholder";
 
-            `;
+            placeholder.textContent =
+              "👤";
+
+
+            photo.appendChild(
+              placeholder
+            );
 
           }
 
 
-          /* VERIFICADO */
+          /* =========================
+             VERIFICADO
+          ========================= */
 
           const verified =
             document.createElement(
@@ -966,7 +1070,9 @@
           );
 
 
-          /* INFORMAÇÕES */
+          /* =========================
+             INFORMAÇÕES
+          ========================= */
 
           const info =
             document.createElement(
@@ -1009,16 +1115,27 @@
               "p"
             );
 
+
+          let locationText =
+            artist.city
+              ? artist.city +
+                ", " +
+                artist.country
+              : artist.country;
+
+
           description.textContent =
+            artist.bio ||
+            (
+              artist.genre +
+              " • " +
+              locationText
+            );
 
-            artist.genre +
-            " • " +
-            artist.city +
-            ", " +
-            artist.country;
 
-
-          /* BOTÃO VER PERFIL */
+          /* =========================
+             BOTÃO VER PERFIL
+          ========================= */
 
           const button =
             document.createElement(
@@ -1033,18 +1150,12 @@
 
 
           /*
-            CORREÇÃO PRINCIPAL:
+            IMPORTANTE:
 
-            Usamos o ID REAL do documento
-            Firestore.
+            Aqui usamos o ID REAL
+            do documento Firestore.
 
-            Exemplo:
-
-            perfil.html?user=abc123
-
-            Isso evita o erro
-            "Artista não encontrado"
-            causado pelo username.
+            perfil.html?user=ID_DO_ARTISTA
           */
 
           button.href =
@@ -1054,7 +1165,9 @@
             );
 
 
-          /* MONTAR INFORMAÇÕES */
+          /* =========================
+             MONTAR INFO
+          ========================= */
 
           info.appendChild(
             name
@@ -1073,7 +1186,9 @@
           );
 
 
-          /* MONTAR CARTÃO */
+          /* =========================
+             MONTAR CARTÃO
+          ========================= */
 
           card.appendChild(
             photo
@@ -1102,6 +1217,12 @@
 
       try {
 
+
+        /*
+          BUSCAR TODOS OS ARTISTAS
+          DA COLEÇÃO "artistas"
+        */
+
         const snapshot =
           await getDocs(
             collection(
@@ -1127,7 +1248,9 @@
         );
 
 
-        /* ORDENAR POR NOME */
+        /* =========================
+           ORDENAR POR NOME
+        ========================= */
 
         allArtists.sort(
           (
@@ -1144,14 +1267,16 @@
         );
 
 
-        /* MOSTRAR */
+        /* =========================
+           MOSTRAR
+        ========================= */
 
         renderArtists(
           allArtists
         );
 
 
-      } catch (
+      } catch(
         error
       ) {
 
@@ -1159,6 +1284,10 @@
           "Erro ao carregar artistas:",
           error
         );
+
+
+        artistCount.textContent =
+          "0";
 
 
         artistsList.innerHTML = `
@@ -1170,7 +1299,10 @@
 
             <br><br>
 
-            Verifica as regras do Firestore.
+            Verifica se a coleção
+            <b>artistas</b>
+            existe e se as regras
+            do Firestore permitem leitura.
 
           </div>
 
@@ -1189,15 +1321,18 @@
       "input",
       () => {
 
+
         const term =
           searchInput.value
             .trim()
             .toLowerCase();
 
 
-        /* PESQUISA VAZIA */
+        /* =========================
+           PESQUISA VAZIA
+        ========================= */
 
-        if (
+        if(
           !term
         ) {
 
@@ -1210,30 +1345,34 @@
         }
 
 
-        /* FILTRAR */
+        /* =========================
+           FILTRAR ARTISTAS
+        ========================= */
 
         const filtered =
           allArtists.filter(
             artist => {
 
-              const text =
 
-                artist.name +
-                " " +
-                artist.username +
-                " " +
-                artist.genre +
-                " " +
-                artist.city +
-                " " +
-                artist.country;
+              const text = [
+
+                artist.name,
+                artist.username,
+                artist.genre,
+                artist.city,
+                artist.country,
+                artist.bio
+
+              ]
+                .join(
+                  " "
+                )
+                .toLowerCase();
 
 
-              return text
-                .toLowerCase()
-                .includes(
-                  term
-                );
+              return text.includes(
+                term
+              );
 
             }
           );
