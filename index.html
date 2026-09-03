@@ -1686,15 +1686,15 @@ content="A plataforma dedicada ao Kuduro: artistas, músicas, ranking, batalhas 
 
 
     import {
-      getFirestore,
-      collection,
-      query,
-      orderBy,
-      limit,
-      getDocs
-    } from
-      "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
-
+  getFirestore,
+  collection,
+  query,
+  orderBy,
+  limit,
+  getDocs,
+  onSnapshot
+} from
+  "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 
     /* =========================
        FIREBASE
@@ -2358,225 +2358,212 @@ content="A plataforma dedicada ao Kuduro: artistas, músicas, ranking, batalhas 
        LANÇAMENTOS
     ========================= */
 
-    async function carregarLancamentos(){
+    function carregarLancamentos(){
 
-      if(!releasesContainer){
+  if(!releasesContainer){
+    return;
+  }
+
+  const musicasRef =
+    collection(
+      db,
+      "musicas"
+    );
+
+  const q =
+    query(
+      musicasRef,
+      orderBy(
+        "criadoEm",
+        "desc"
+      ),
+      limit(6)
+    );
+
+  onSnapshot(
+    q,
+    (snapshot) => {
+
+      if(snapshot.empty){
+
+        releasesContainer.innerHTML = `
+          <div
+            style="
+              padding:20px 0;
+              color:#aaa59a;
+              font-size:13px
+            "
+          >
+            Ainda não existem lançamentos.
+          </div>
+        `;
+
         return;
       }
 
 
-      try{
-
-        const musicas =
-          await buscarTodasMusicas();
+      const musicas = [];
 
 
-        if(musicas.length === 0){
+      snapshot.forEach(
+        (docMusica) => {
 
-          releasesContainer.innerHTML = `
-
-            <div
-              style="
-                padding:20px 0;
-                color:#aaa59a;
-                font-size:13px
-              "
-            >
-              Ainda não existem lançamentos.
-            </div>
-
-          `;
-
-          return;
+          musicas.push(
+            obterDadosMusica(
+              docMusica.data(),
+              docMusica.id
+            )
+          );
 
         }
+      );
 
 
-        const ultimasMusicas =
-          musicas
+      releasesContainer.innerHTML =
+        "";
 
-            .sort(
-              (a,b) =>
-                b.criadoEm -
-                a.criadoEm
-            )
 
-            .slice(
-              0,
-              6
+      musicas.forEach(
+        (musica) => {
+
+          const item =
+            document.createElement(
+              "div"
             );
 
+          item.className =
+            "release";
 
-        releasesContainer.innerHTML =
-          "";
+
+          const capa =
+            document.createElement(
+              "div"
+            );
+
+          capa.className =
+            "cover";
+
+          capa.style.setProperty(
+            "--img",
+            `url("${musica.capa}")`
+          );
 
 
-        ultimasMusicas.forEach(
-          (musica) => {
+          const info =
+            document.createElement(
+              "div"
+            );
 
-            const item =
-              document.createElement(
-                "div"
+          info.className =
+            "release-info";
+
+          info.innerHTML = `
+            <div class="song">
+              ${escaparHTML(musica.titulo)}
+            </div>
+
+            <div class="artist">
+              ${escaparHTML(musica.nomeArtista)}
+            </div>
+          `;
+
+
+          const playButton =
+            document.createElement(
+              "button"
+            );
+
+          playButton.type =
+            "button";
+
+          playButton.className =
+            "play";
+
+          playButton.textContent =
+            "▶";
+
+          playButton.title =
+            "Tocar música";
+
+
+          playButton.addEventListener(
+            "click",
+            () => {
+
+              tocarMusica(
+                musica,
+                playButton
               );
 
+            }
+          );
 
-            item.className =
-              "release";
 
+          info.addEventListener(
+            "click",
+            () => {
 
-            const capa =
-              document.createElement(
-                "div"
+              tocarMusica(
+                musica,
+                playButton
               );
 
-
-            capa.className =
-              "cover";
-
-
-            capa.style.setProperty(
-              "--img",
-              `url("${musica.capa}")`
-            );
+            }
+          );
 
 
-            const info =
-              document.createElement(
-                "div"
+          capa.addEventListener(
+            "click",
+            () => {
+
+              tocarMusica(
+                musica,
+                playButton
               );
 
-
-            info.className =
-              "release-info";
-
-
-            info.innerHTML = `
-
-              <div class="song">
-
-                ${escaparHTML(musica.titulo)}
-
-              </div>
+            }
+          );
 
 
-              <div class="artist">
-
-                ${escaparHTML(musica.nomeArtista)}
-
-              </div>
-
-            `;
+          item.appendChild(capa);
+          item.appendChild(info);
+          item.appendChild(playButton);
 
 
-            const playButton =
-              document.createElement(
-                "button"
-              );
+          releasesContainer.appendChild(
+            item
+          );
+
+        }
+      );
+
+    },
 
 
-            playButton.type =
-              "button";
+    (error) => {
+
+      console.error(
+        "Erro ao atualizar lançamentos:",
+        error
+      );
 
 
-            playButton.className =
-              "play";
-
-
-            playButton.textContent =
-              "▶";
-
-
-            playButton.title =
-              "Tocar música";
-
-
-            playButton.addEventListener(
-              "click",
-              () => {
-
-                tocarMusica(
-                  musica,
-                  playButton
-                );
-
-              }
-            );
-
-
-            info.addEventListener(
-              "click",
-              () => {
-
-                tocarMusica(
-                  musica,
-                  playButton
-                );
-
-              }
-            );
-
-
-            capa.addEventListener(
-              "click",
-              () => {
-
-                tocarMusica(
-                  musica,
-                  playButton
-                );
-
-              }
-            );
-
-
-            item.appendChild(
-              capa
-            );
-
-
-            item.appendChild(
-              info
-            );
-
-
-            item.appendChild(
-              playButton
-            );
-
-
-            releasesContainer.appendChild(
-              item
-            );
-
-          }
-        );
-
-
-      }catch(error){
-
-        console.error(
-          "Erro ao carregar lançamentos:",
-          error
-        );
-
-
-        releasesContainer.innerHTML = `
-
-          <div
-            style="
-              padding:20px 0;
-              color:#ff563f;
-              font-size:13px
-            "
-          >
-            Não foi possível carregar os lançamentos.
-          </div>
-
-        `;
-
-      }
+      releasesContainer.innerHTML = `
+        <div
+          style="
+            padding:20px 0;
+            color:#ff563f;
+            font-size:13px
+          "
+        >
+          Não foi possível carregar os lançamentos.
+        </div>
+      `;
 
     }
+  );
+
+}
 
 
 
