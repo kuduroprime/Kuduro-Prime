@@ -3914,13 +3914,7 @@ from
     }
 
 
-    /* =========================
-       CRIAR ITEM
-    ========================== */
-
-    function criarItemFeed(
-      item
-    ){
+    
 
       const article =
         document.createElement(
@@ -4317,400 +4311,641 @@ from
 const origem = escaparHTML(
   item.origem || "publicacoes"
 );
-
-const idDoArtista =
-  item.artistaId ||
-  item.artistId ||
-  item.userId ||
-  item.uid ||
-  item.autorId ||
-  item.criadoPor ||
-  item.autorUID ||
-  item.autorUid ||
-  item.artistaUID ||
-  item.artistaUid ||
-  "";
-
-console.log("ID DO ARTISTA:", idDoArtista);
-
-article.innerHTML = `
-
- const idDoArtista = await encontrarIdRealDoArtista(item);
-
-console.log("🔗 ID REAL DO ARTISTA:", idDoArtista);
-
-article.innerHTML = `
-
-  <div class="post-header">
-
-    <a
-      href="perfil.html?id=${encodeURIComponent(idDoArtista)}"
-      class="post-avatar post-profile-link"
-      title="Ver perfil de ${escaparHTML(nome)}"
-    >
-      ${avatarHTML}
-    </a>
-
-    <div>
-
-      <div class="post-author">
-
-        <a
-          href="perfil.html?id=${encodeURIComponent(idDoArtista)}"
-          class="post-profile-link"
-          title="Ver perfil de ${escaparHTML(nome)}"
-        >
-          ${escaparHTML(nome)}
-        </a>
-
-        <span style="color:#4eb8ff;">
-          ✓
-        </span>
-
-        ${tipoHTML}
-
-      </div>
-
-      <div class="post-meta">
-
-        @${escaparHTML(
-          username
-        )}
-
-        ·
-
-        ${tempoPublicacao(
-          item.timestamp
-        )}
-
-      </div>
-
-    </div>
-
-    <div class="post-menu">
-      ⋯
-    </div>
-
-  </div>
-`;
-
-
-        ${conteudo}
-
-
-        <div class="post-stats">
-
-          🔥
-
-          <span class="ardes-count">
-
-            ${Number(
-              item.ardes ||
-              0
-            )}
-
-          </span>
-
-          Ardeu
-
-          ·
-
-          <span class="comments-count">
-
-            ${Number(
-              item.comments ||
-              0
-            )}
-
-          </span>
-
-          comentários
-
-        </div>
-
-
-        <div class="post-actions">
-
-          <button
-            class="post-action ardeu"
-            type="button"
-            data-ardeu="false"
-            onclick="arder(this, '${postId}', '${origem}')"
-          >
-            🔥 ARDEU
-          </button>
-
-
-          <button
-            class="post-action"
-            type="button"
-            onclick="abrirComentarios('${postId}', '${origem}')"
-          >
-            💬 COMENTÁRIOS
-          </button>
-
-
-          <button
-            class="post-action"
-            type="button"
-            onclick="partilhar('${postId}', '${origem}')"
-          >
-            ↗ PARTILHAR
-          </button>
-
-        </div>
-
-
-        <div
-          class="comments-box"
-          id="comments-${postId}-${origem}"
-        >
-
-          <div
-            class="comments-list"
-            id="comments-list-${postId}-${origem}"
-          >
-
-            <div class="no-comments">
-              A carregar comentários...
-            </div>
-
-          </div>
-
-
-          <form
-            class="comment-form"
-            onsubmit="enviarComentario(event, '${postId}', '${origem}')"
-          >
-
-            <input
-              class="comment-input"
-              id="comment-input-${postId}-${origem}"
-              type="text"
-              maxlength="500"
-              placeholder="Escreve um comentário..."
-              autocomplete="off"
-            >
-
-
-            <button
-              class="comment-send"
-              type="submit"
-              id="comment-send-${postId}-${origem}"
-            >
-              ➤
-            </button>
-
-          </form>
-
-        </div>
-
-      `;
-
-
-      feedPosts.appendChild(
-        article
-      );
-
-
-      inicializarEstadoArdeu(
-        article,
-        item.id,
-        item.origem ||
-        "publicacoes"
-      );
-
-
-      const chave =
-        criarChaveComentario(
-          item.id,
-          item.origem ||
-          "publicacoes"
+/* =========================
+   FUNÇÃO ENCONTRAR ARTISTA
+========================= */
+
+async function encontrarIdRealDoArtista(item) {
+
+  const possiveisIds = [
+    item.artistaId,
+    item.artistId,
+    item.userId,
+    item.uid,
+    item.autorId,
+    item.criadoPor,
+    item.autorUID,
+    item.autorUid,
+    item.artistaUID,
+    item.artistaUid
+  ].filter(Boolean);
+
+
+  /* =========================
+     1. PROCURAR PELO ID DO DOCUMENTO
+  ========================= */
+
+  for (const possivelId of possiveisIds) {
+
+    try {
+
+      const ref =
+        doc(
+          db,
+          "artistas",
+          possivelId
         );
 
+      const snap =
+        await getDoc(ref);
 
-      if(
-        comentariosAbertos.has(
-          chave
-        )
-      ){
+      if (snap.exists()) {
 
-        const box =
-          article.querySelector(
-            ".comments-box"
-          );
-
-
-        if(box){
-
-          box.classList.add(
-            "show"
-          );
-
-        }
-
-
-        carregarComentarios(
-          item.id,
-          item.origem ||
-          "publicacoes"
+        console.log(
+          "✅ ARTISTA ENCONTRADO PELO DOCUMENT ID:",
+          snap.id
         );
+
+        return snap.id;
 
       }
+
+    } catch (erro) {
+
+      console.warn(
+        "⚠️ Erro ao procurar artista:",
+        possivelId,
+        erro
+      );
 
     }
 
-
-    /* =========================
-       TEMPO
-    ========================== */
-
-    function tempoPublicacao(
-      timestamp
-    ){
-
-      if(!timestamp){
-
-        return "agora";
-
-      }
+  }
 
 
-      const data =
-        new Date(
-          timestamp
-        );
+  /* =========================
+     2. PROCURAR PELO CAMPO UID
+  ========================= */
 
+  for (const possivelId of possiveisIds) {
 
-      if(
-        isNaN(
-          data.getTime()
-        )
-      ){
+    try {
 
-        return "agora";
-
-      }
-
-
-      const agora =
-        new Date();
-
-
-      const diferenca =
-        agora -
-        data;
-
-
-      const minutos =
-        Math.floor(
-          diferenca /
-          60000
-        );
-
-
-      if(
-        minutos < 1
-      ){
-
-        return "agora";
-
-      }
-
-
-      if(
-        minutos < 60
-      ){
-
-        return (
-          minutos +
-          " min"
-        );
-
-      }
-
-
-      const horas =
-        Math.floor(
-          minutos /
-          60
-        );
-
-
-      if(
-        horas < 24
-      ){
-
-        return (
-          horas +
-          " h"
-        );
-
-      }
-
-
-      const dias =
-        Math.floor(
-          horas /
-          24
-        );
-
-
-      if(
-        dias < 30
-      ){
-
-        return (
-          dias +
-          " d"
-        );
-
-      }
-
-
-      const meses =
-        Math.floor(
-          dias /
-          30
-        );
-
-
-      if(
-        meses < 12
-      ){
-
-        return (
-          meses +
-          " mês" +
-          (
-            meses > 1
-              ? "es"
-              : ""
+      const q =
+        query(
+          collection(
+            db,
+            "artistas"
+          ),
+          where(
+            "uid",
+            "==",
+            possivelId
           )
         );
 
-      }
+      const snap =
+        await getDocs(q);
 
+      if (!snap.empty) {
 
-      const anos =
-        Math.floor(
-          meses /
-          12
+        console.log(
+          "✅ ARTISTA ENCONTRADO PELO UID:",
+          snap.docs[0].id
         );
 
+        return snap.docs[0].id;
 
-      return (
-        anos +
-        " ano" +
-        (
-          anos > 1
-            ? "s"
-            : ""
-        )
+      }
+
+    } catch (erro) {
+
+      console.warn(
+        "⚠️ Erro ao procurar pelo UID:",
+        erro
       );
 
     }
 
+  }
+
+
+  console.error(
+    "❌ NENHUM ARTISTA ENCONTRADO PARA:",
+    possiveisIds
+  );
+
+  return "";
+
+}
+
+
+/* =========================
+   CRIAR ITEM
+========================= */
+
+async function criarItemFeed(
+  item
+){
+
+  const article =
+    document.createElement(
+      "article"
+    );
+
+  article.className =
+    "post";
+
+
+  const nome =
+    item.nome ||
+    "Artista Prime";
+
+
+  const username =
+    String(
+      item.username ||
+      "artista"
+    )
+    .replace(
+      /^@/,
+      ""
+    );
+
+
+  /* =========================
+     FOTO
+  ========================= */
+
+  const foto =
+    urlSegura(
+      item.foto
+    );
+
+
+  let avatarHTML =
+    "👤";
+
+
+  if(foto){
+
+    avatarHTML = `
+      <img
+        src="${escaparHTML(foto)}"
+        alt="Foto do artista"
+        onerror="this.style.display='none'"
+      >
+    `;
+
+  }
+
+
+  /* =========================
+     AQUI CONTINUA O TEU CÓDIGO ORIGINAL
+     DE TIPO / CONTEÚDO
+  ========================= */
+
+
+  let tipoHTML = "";
+
+  /*
+     MANTÉM AQUI O TEU CÓDIGO ORIGINAL
+     QUE JÁ TINHAS PARA tipoHTML
+  */
+
+
+  let conteudo = "";
+
+  /*
+     MANTÉM AQUI TODO O TEU CÓDIGO ORIGINAL
+     QUE MONTA:
+     
+     - publicações
+     - músicas
+     - vídeos
+     - imagens
+     - etc.
+     
+     NÃO APAGUES ESSA PARTE.
+  */
+
+
+  /* =========================
+     ID DO POST
+  ========================= */
+
+  const postId =
+    escaparHTML(
+      item.id
+    );
+
+
+  const origem =
+    escaparHTML(
+      item.origem ||
+      "publicacoes"
+    );
+
+
+  /* =========================
+     ENCONTRAR ID REAL DO ARTISTA
+  ========================= */
+
+  const idDoArtista =
+    await encontrarIdRealDoArtista(
+      item
+    );
+
+
+  console.log(
+    "🔗 ID REAL DO ARTISTA:",
+    idDoArtista
+  );
+
+
+  /* =========================
+     HTML DO POST
+  ========================= */
+
+  article.innerHTML = `
+
+    <div class="post-header">
+
+      <a
+        href="perfil.html?id=${encodeURIComponent(idDoArtista)}"
+        class="post-avatar post-profile-link"
+        title="Ver perfil de ${escaparHTML(nome)}"
+      >
+
+        ${avatarHTML}
+
+      </a>
+
+
+      <div>
+
+        <div class="post-author">
+
+          <a
+            href="perfil.html?id=${encodeURIComponent(idDoArtista)}"
+            class="post-profile-link"
+            title="Ver perfil de ${escaparHTML(nome)}"
+          >
+
+            ${escaparHTML(nome)}
+
+          </a>
+
+
+          <span style="color:#4eb8ff;">
+            ✓
+          </span>
+
+
+          ${tipoHTML}
+
+        </div>
+
+
+        <div class="post-meta">
+
+          @${escaparHTML(username)}
+
+          ·
+
+          ${tempoPublicacao(
+            item.timestamp
+          )}
+
+        </div>
+
+      </div>
+
+
+      <div class="post-menu">
+        ⋯
+      </div>
+
+    </div>
+
+
+    ${conteudo}
+
+
+    <div class="post-stats">
+
+      🔥
+
+      <span class="ardes-count">
+
+        ${Number(
+          item.ardes ||
+          0
+        )}
+
+      </span>
+
+      Ardeu
+
+      ·
+
+      <span class="comments-count">
+
+        ${Number(
+          item.comments ||
+          0
+        )}
+
+      </span>
+
+      comentários
+
+    </div>
+
+
+    <div class="post-actions">
+
+      <button
+        class="post-action ardeu"
+        type="button"
+        data-ardeu="false"
+        onclick="arder(this, '${postId}', '${origem}')"
+      >
+        🔥 ARDEU
+      </button>
+
+
+      <button
+        class="post-action"
+        type="button"
+        onclick="abrirComentarios('${postId}', '${origem}')"
+      >
+        💬 COMENTÁRIOS
+      </button>
+
+
+      <button
+        class="post-action"
+        type="button"
+        onclick="partilhar('${postId}', '${origem}')"
+      >
+        ↗ PARTILHAR
+      </button>
+
+    </div>
+
+
+    <div
+      class="comments-box"
+      id="comments-${postId}-${origem}"
+    >
+
+      <div
+        class="comments-list"
+        id="comments-list-${postId}-${origem}"
+      >
+
+        <div class="no-comments">
+          A carregar comentários...
+        </div>
+
+      </div>
+
+
+      <form
+        class="comment-form"
+        onsubmit="enviarComentario(event, '${postId}', '${origem}')"
+      >
+
+        <input
+          class="comment-input"
+          id="comment-input-${postId}-${origem}"
+          type="text"
+          maxlength="500"
+          placeholder="Escreve um comentário..."
+          autocomplete="off"
+        >
+
+
+        <button
+          class="comment-send"
+          type="submit"
+          id="comment-send-${postId}-${origem}"
+        >
+          ➤
+        </button>
+
+      </form>
+
+    </div>
+
+  `;
+
+
+  /* =========================
+     ADICIONAR AO FEED
+  ========================= */
+
+  feedPosts.appendChild(
+    article
+  );
+
+
+  /* =========================
+     ESTADO ARDEU
+  ========================= */
+
+  inicializarEstadoArdeu(
+    article,
+    item.id,
+    item.origem ||
+    "publicacoes"
+  );
+
+
+  /* =========================
+     COMENTÁRIOS
+  ========================= */
+
+  const chave =
+    criarChaveComentario(
+      item.id,
+      item.origem ||
+      "publicacoes"
+    );
+
+
+  if(
+    comentariosAbertos.has(
+      chave
+    )
+  ){
+
+    const box =
+      article.querySelector(
+        ".comments-box"
+      );
+
+
+    if(box){
+
+      box.classList.add(
+        "show"
+      );
+
+    }
+
+
+    carregarComentarios(
+      item.id,
+      item.origem ||
+      "publicacoes"
+    );
+
+  }
+
+}
+
+
+/* =========================
+   TEMPO
+========================= */
+
+function tempoPublicacao(
+  timestamp
+){
+
+  if(!timestamp){
+
+    return "agora";
+
+  }
+
+
+  const data =
+    new Date(
+      timestamp
+    );
+
+
+  if(
+    isNaN(
+      data.getTime()
+    )
+  ){
+
+    return "agora";
+
+  }
+
+
+  const agora =
+    new Date();
+
+
+  const diferenca =
+    agora -
+    data;
+
+
+  const minutos =
+    Math.floor(
+      diferenca /
+      60000
+    );
+
+
+  if(
+    minutos < 1
+  ){
+
+    return "agora";
+
+  }
+
+
+  if(
+    minutos < 60
+  ){
+
+    return (
+      minutos +
+      " min"
+    );
+
+  }
+
+
+  const horas =
+    Math.floor(
+      minutos /
+      60
+    );
+
+
+  if(
+    horas < 24
+  ){
+
+    return (
+      horas +
+      " h"
+    );
+
+  }
+
+
+  const dias =
+    Math.floor(
+      horas /
+      24
+    );
+
+
+  if(
+    dias < 30
+  ){
+
+    return (
+      dias +
+      " d"
+    );
+
+  }
+
+
+  const meses =
+    Math.floor(
+      dias /
+      30
+    );
+
+
+  if(
+    meses < 12
+  ){
+
+    return (
+      meses +
+      " mês" +
+      (
+        meses > 1
+          ? "es"
+          : ""
+      )
+    );
+
+  }
+
+
+  const anos =
+    Math.floor(
+      meses /
+      12
+    );
+
+
+  return (
+    anos +
+    " ano" +
+    (
+      anos > 1
+        ? "s"
+        : ""
+    )
+  );
+
+}
 
     /* =========================
        REFERÊNCIA DO CONTEÚDO
