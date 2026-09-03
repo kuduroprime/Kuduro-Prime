@@ -1310,24 +1310,25 @@
 
 
     import {
-      getFirestore,
-      collection,
-      addDoc,
-      getDocs,
-      getDoc,
-      setDoc,
-      deleteDoc,
-      doc,
-      query,
-      orderBy,
-      serverTimestamp,
-      onSnapshot,
-      runTransaction,
-      writeBatch,
-      increment
-    }
-    from
-      "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+  getFirestore,
+  collection,
+  addDoc,
+  getDocs,
+  getDoc,
+  setDoc,
+  deleteDoc,
+  doc,
+  query,
+  where,
+  orderBy,
+  serverTimestamp,
+  onSnapshot,
+  runTransaction,
+  writeBatch,
+  increment
+}
+from
+  "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 
 
     /* =========================
@@ -4334,6 +4335,12 @@ console.log("ID DO ARTISTA:", idDoArtista);
 
 article.innerHTML = `
 
+ const idDoArtista = await encontrarIdRealDoArtista(item);
+
+console.log("🔗 ID REAL DO ARTISTA:", idDoArtista);
+
+article.innerHTML = `
+
   <div class="post-header">
 
     <a
@@ -4364,29 +4371,28 @@ article.innerHTML = `
 
       </div>
 
+      <div class="post-meta">
 
-            <div class="post-meta">
+        @${escaparHTML(
+          username
+        )}
 
-              @${escaparHTML(
-                username
-              )}
+        ·
 
-              ·
+        ${tempoPublicacao(
+          item.timestamp
+        )}
 
-              ${tempoPublicacao(
-                item.timestamp
-              )}
+      </div>
 
-            </div>
+    </div>
 
-          </div>
+    <div class="post-menu">
+      ⋯
+    </div>
 
-
-          <div class="post-menu">
-            ⋯
-          </div>
-
-        </div>
+  </div>
+`;
 
 
         ${conteudo}
