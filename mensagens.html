@@ -1136,11 +1136,20 @@ body{
     id="chatOnline">
   </span>
 
+  <div class="chat-status-row">
+
+  <span
+    class="online-lamp offline"
+    id="chatOnline">
+  </span>
+
   <div
     class="chat-status"
     id="chatStatus">
-    KUDURO PRIME
+    Offline
   </div>
+
+</div>
 
 </div>
 
@@ -3222,58 +3231,67 @@ async function openRealChat(
   }
 
   onlineStatusUnsubscribe =
-    onSnapshot(
+  onSnapshot(
 
-      doc(
-        db,
-        "perfis",
-        artist.uid
-      ),
+    doc(
+      db,
+      "perfis",
+      artist.uid
+    ),
 
-      function(snapshot){
+    function(snapshot){
 
-        const lamp =
-  document.getElementById(
-    "chatOnline"
-  );
-        if(!lamp){
+      const lamp =
+        document.getElementById(
+          "chatOnline"
+        );
 
-          return;
+      if(!lamp){
+        return;
+      }
 
-        }
+      const data =
+        snapshot.data() || {};
 
-        const data =
-          snapshot.data() || {};
+      const isOnline =
+        data.online === true;
 
-        const isOnline =
-          data.online === true;
+      if(isOnline){
 
-        if(isOnline){
+        lamp.classList.add(
+          "online"
+        );
 
-          lamp.classList.add(
-            "online"
-          );
+        lamp.classList.remove(
+          "offline"
+        );
 
-          lamp.classList.remove(
-            "offline"
-          );
+        document
+          .getElementById("chatStatus")
+          .textContent =
+          "Online";
 
-        }
-        else{
+      }
+      else{
 
-          lamp.classList.add(
-            "offline"
-          );
+        lamp.classList.add(
+          "offline"
+        );
 
-          lamp.classList.remove(
-            "online"
-          );
+        lamp.classList.remove(
+          "online"
+        );
 
-        }
+        document
+          .getElementById("chatStatus")
+          .textContent =
+          "Offline";
 
       }
 
-    );
+    }
+
+  );
 
   
   /*
