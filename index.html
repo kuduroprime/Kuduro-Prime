@@ -2578,7 +2578,7 @@ content="A plataforma dedicada ao Kuduro: artistas, músicas, ranking, batalhas 
        RANKING
     ========================= */
 
-    /* =========================
+/* =========================
    RANKING TOP 10 PRIME
 ========================= */
 
@@ -2590,14 +2590,12 @@ async function carregarRanking(){
 
 
   rankingsContainer.innerHTML = `
-    <div
-      style="
-        padding:20px 0;
-        color:#aaa59a;
-        font-size:13px;
-        text-align:center
-      "
-    >
+    <div style="
+      padding:20px 0;
+      color:#aaa59a;
+      font-size:13px;
+      text-align:center
+    ">
       A carregar o TOP 10 PRIME...
     </div>
   `;
@@ -2605,38 +2603,165 @@ async function carregarRanking(){
 
   try{
 
-    const rankingRef =
-      doc(
+    const rankingsRef =
+      collection(
         db,
-        "rankingMensal",
-        "2026-09"
+        "rankingMensal"
+      );
+
+
+    const q =
+      query(
+        rankingsRef,
+        orderBy(
+          "atualizadoEm",
+          "desc"
+        ),
+        limit(1)
       );
 
 
     const snapshot =
-      await getDoc(
-        rankingRef
-      );
+      await getDocs(q);
 
 
-    if(
-      !snapshot.exists()
-    ){
+    if(snapshot.empty){
 
       rankingsContainer.innerHTML = `
-
-        <div
-          style="
-            padding:20px 0;
-            color:#aaa59a;
-            font-size:13px;
-            text-align:center
-          "
-        >
+        <div style="
+          padding:20px 0;
+          color:#aaa59a;
+          font-size:13px;
+          text-align:center
+        ">
           Ainda não existe um TOP 10 PRIME.
         </div>
-
       `;
+
+      return;
+
+    }
+
+
+    const docRanking =
+      snapshot.docs[0];
+
+
+    const dados =
+      docRanking.data();
+
+
+    const musicas =
+      Array.isArray(dados.musicas)
+
+        ? [...dados.musicas]
+            .sort(
+              (a,b) =>
+                (a.posicao || 0)
+                -
+                (b.posicao || 0)
+            )
+            .slice(0,10)
+
+        : [];
+
+
+    if(musicas.length === 0){
+
+      rankingsContainer.innerHTML = `
+        <div style="
+          padding:20px 0;
+          color:#aaa59a;
+          font-size:13px;
+          text-align:center
+        ">
+          Ainda não existem músicas no ranking.
+        </div>
+      `;
+
+      return;
+
+    }
+
+
+    rankingsContainer.innerHTML =
+      musicas.map(
+        (musica,index) => `
+
+          <a
+            class="rank"
+            href="musicas.html?musica=${encodeURIComponent(musica.id)}"
+          >
+
+            <div class="rank-num">
+
+              ${String(
+                index + 1
+              ).padStart(2,"0")}
+
+            </div>
+
+
+            <div
+              class="mini"
+              style="--img:url('${musica.capa}')"
+            ></div>
+
+
+            <div>
+
+              <div class="song">
+
+                ${escaparHTML(
+                  musica.titulo
+                )}
+
+              </div>
+
+
+              <div class="artist">
+
+                ${escaparHTML(
+                  musica.nomeArtista
+                )}
+
+              </div>
+
+            </div>
+
+
+            <div class="tag">
+              🏆
+            </div>
+
+          </a>
+
+        `
+      ).join("");
+
+
+  }catch(error){
+
+    console.error(
+      "Erro ao carregar ranking:",
+      error
+    );
+
+
+    rankingsContainer.innerHTML = `
+      <div style="
+        padding:20px 0;
+        color:#ff563f;
+        font-size:13px;
+        text-align:center
+      ">
+        Não foi possível carregar o TOP 10 PRIME.
+      </div>
+    `;
+
+  }
+
+}
 
       return;
 
