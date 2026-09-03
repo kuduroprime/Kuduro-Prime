@@ -4311,18 +4311,11 @@
       }
 
 
-      const postId =
-  escaparHTML(
-    item.id
-  );
+      const postId = escaparHTML(item.id);
 
-
-const origem =
-  escaparHTML(
-    item.origem ||
-    "publicacoes"
-  );
-
+const origem = escaparHTML(
+  item.origem || "publicacoes"
+);
 
 const idDoArtista =
   item.artistaId ||
@@ -4333,12 +4326,7 @@ const idDoArtista =
   item.criadoPor ||
   "";
 
-
-console.log(
-  "ID DO ARTISTA:",
-  idDoArtista
-);
-
+console.log("ID DO ARTISTA:", idDoArtista);
 
 article.innerHTML = `
 
@@ -4352,7 +4340,6 @@ article.innerHTML = `
       ${avatarHTML}
     </a>
 
-
     <div>
 
       <div class="post-author">
@@ -4365,9 +4352,7 @@ article.innerHTML = `
           ${escaparHTML(nome)}
         </a>
 
-        <span
-          style="color:#4eb8ff;"
-        >
+        <span style="color:#4eb8ff;">
           ✓
         </span>
 
