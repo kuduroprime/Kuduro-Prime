@@ -1419,7 +1419,10 @@ let recordingSeconds = 0;
 let cancelCurrentRecording = false;
 
 let currentAudio = null;
-let currentAudioButton = null;
+
+let firebaseReady = false;
+
+let isSendingMessage = false;
 
 let toastTimer = null;
 
@@ -1614,16 +1617,17 @@ function selectAttachment(accept){
 
 function handleEnter(event){
 
-  if(
-    event.key === "Enter" &&
-    !event.shiftKey
-  ){
-
-    event.preventDefault();
-
-    sendMessage();
-
+  if(event.key !== "Enter"){
+    return;
   }
+
+  event.preventDefault();
+
+  if(isSendingMessage){
+    return;
+  }
+
+  sendMessage();
 
 }
 
@@ -3768,7 +3772,9 @@ window.sendMessage =
       input.value.trim();
 
     if(!text){
+
       return;
+
     }
 
     if(!currentChatID){
@@ -3781,7 +3787,27 @@ window.sendMessage =
 
     }
 
-    input.disabled = true;
+    /* BLOQUEAR ENVIO DUPLICADO */
+
+    if(isSendingMessage){
+
+      return;
+
+    }
+
+    isSendingMessage =
+      true;
+
+    const sendBtn =
+      document.getElementById(
+        "sendBtn"
+      );
+
+    sendBtn.disabled =
+      true;
+
+    input.disabled =
+      true;
 
     try{
 
@@ -3793,7 +3819,8 @@ window.sendMessage =
 
       });
 
-      input.value = "";
+      input.value =
+        "";
 
     }
     catch(error){
@@ -3807,7 +3834,16 @@ window.sendMessage =
     }
     finally{
 
-      input.disabled = false;
+      /* DESBLOQUEAR NOVO ENVIO */
+
+      isSendingMessage =
+        false;
+
+      sendBtn.disabled =
+        false;
+
+      input.disabled =
+        false;
 
       input.focus();
 
