@@ -2,6 +2,7 @@
 <html lang="pt">
 <head>
   <meta charset="UTF-8">
+
   <meta
     name="viewport"
     content="width=device-width, initial-scale=1.0"
@@ -10,6 +11,7 @@
   <title>Artistas | KUDURO PRIME</title>
 
   <style>
+
     :root {
       --bg: #070707;
       --panel: #111111;
@@ -28,6 +30,7 @@
 
     body {
       margin: 0;
+
       background:
         radial-gradient(
           circle at 80% 0,
@@ -35,14 +38,20 @@
           transparent 30%
         ),
         var(--bg);
+
       color: var(--text);
-      font-family: Arial, Helvetica, sans-serif;
+
+      font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
     }
 
     a {
       color: inherit;
       text-decoration: none;
     }
+
 
     /* =========================
        HEADER
@@ -52,45 +61,62 @@
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(7, 7, 7, .94);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--line);
+
+      background:
+        rgba(7, 7, 7, .94);
+
+      backdrop-filter:
+        blur(12px);
+
+      border-bottom:
+        1px solid var(--line);
     }
 
     .header-in {
       width: min(1180px, 92%);
       min-height: 82px;
+
       margin: auto;
+
       display: flex;
       align-items: center;
       justify-content: space-between;
+
       gap: 25px;
     }
 
     .logo {
       color: var(--gold);
+
       font-size: 23px;
       font-weight: 900;
+
       letter-spacing: -1px;
     }
 
     .logo span {
       display: block;
+
       text-align: center;
+
       font-size: 22px;
+
       line-height: .7;
     }
 
     nav {
       display: flex;
       align-items: center;
+
       gap: 22px;
     }
 
     nav a {
       color: #ddd;
+
       font-size: 11px;
       font-weight: 900;
+
       transition: .25s;
     }
 
@@ -99,30 +125,43 @@
       color: var(--gold);
     }
 
+
     /* =========================
        HERO
     ========================= */
 
     .hero {
       width: min(1180px, 92%);
+
       margin: 0 auto;
-      padding: 65px 0 35px;
+
+      padding:
+        65px 0 35px;
+
       text-align: center;
     }
 
     .hero-badge {
       display: inline-block;
+
       color: var(--gold);
+
       font-size: 10px;
       font-weight: 900;
+
       letter-spacing: 2px;
+
       margin-bottom: 14px;
     }
 
     .hero h1 {
       margin: 0;
-      font-size: clamp(34px, 6vw, 60px);
+
+      font-size:
+        clamp(34px, 6vw, 60px);
+
       font-weight: 950;
+
       letter-spacing: -3px;
     }
 
@@ -131,12 +170,18 @@
     }
 
     .hero p {
-      margin: 14px auto 0;
+      margin:
+        14px auto 0;
+
       max-width: 600px;
+
       color: var(--muted);
+
       font-size: 13px;
+
       line-height: 1.7;
     }
+
 
     /* =========================
        PESQUISA
@@ -144,7 +189,9 @@
 
     .search-area {
       width: min(700px, 92%);
-      margin: 5px auto 45px;
+
+      margin:
+        5px auto 45px;
     }
 
     .search-box {
@@ -154,29 +201,49 @@
     .search-box input {
       width: 100%;
       height: 52px;
-      padding: 0 20px 0 48px;
-      border: 1px solid var(--line);
+
+      padding:
+        0 20px 0 48px;
+
+      border:
+        1px solid var(--line);
+
       border-radius: 12px;
+
       outline: none;
+
       background: #111;
+
       color: white;
+
       font-size: 13px;
+
       transition: .25s;
     }
 
     .search-box input:focus {
-      border-color: var(--gold);
-      box-shadow: 0 0 0 3px rgba(244, 191, 49, .08);
+      border-color:
+        var(--gold);
+
+      box-shadow:
+        0 0 0 3px
+        rgba(244, 191, 49, .08);
     }
 
     .search-icon {
       position: absolute;
+
       left: 17px;
       top: 50%;
-      transform: translateY(-50%);
+
+      transform:
+        translateY(-50%);
+
       color: var(--gold);
+
       font-size: 18px;
     }
+
 
     /* =========================
        CONTADOR
@@ -184,15 +251,21 @@
 
     .artists-top {
       width: min(1180px, 92%);
-      margin: 0 auto 15px;
+
+      margin:
+        0 auto 15px;
+
       display: flex;
+
       align-items: center;
       justify-content: space-between;
+
       gap: 15px;
     }
 
     .artist-count {
       color: var(--muted);
+
       font-size: 11px;
       font-weight: 900;
     }
@@ -201,15 +274,22 @@
       color: var(--gold);
     }
 
+
     /* =========================
        ARTISTAS
     ========================= */
 
     .artistas {
       width: min(1180px, 92%);
-      margin: 0 auto 80px;
+
+      margin:
+        0 auto 80px;
+
       display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
+
+      grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
       gap: 18px;
     }
 
@@ -220,17 +300,28 @@
           #151515,
           #0c0c0c
         );
-      border: 1px solid var(--line);
+
+      border:
+        1px solid var(--line);
+
       border-radius: 14px;
+
       overflow: hidden;
+
       transition: .25s;
     }
 
     .artista:hover {
-      transform: translateY(-5px);
+      transform:
+        translateY(-5px);
+
       border-color: #806721;
-      box-shadow: 0 15px 35px rgba(0, 0, 0, .35);
+
+      box-shadow:
+        0 15px 35px
+        rgba(0, 0, 0, .35);
     }
+
 
     /* =========================
        FOTO
@@ -238,31 +329,41 @@
 
     .artista-photo {
       position: relative;
+
       height: 270px;
+
       background:
         radial-gradient(
           circle at center,
           #30260f,
           #0d0d0d 70%
         );
+
       overflow: hidden;
     }
 
     .artista-photo img {
       width: 100%;
       height: 100%;
+
       object-fit: cover;
+
       display: block;
     }
 
     .photo-placeholder {
       width: 100%;
       height: 100%;
+
       display: grid;
+
       place-items: center;
+
       color: var(--gold);
+
       font-size: 65px;
     }
+
 
     /* =========================
        VERIFICADO
@@ -270,19 +371,30 @@
 
     .verified {
       position: absolute;
+
       right: 12px;
       top: 12px;
+
       width: 29px;
       height: 29px;
+
       border-radius: 50%;
+
       display: grid;
+
       place-items: center;
+
       background: #080808;
-      border: 1px solid var(--blue);
+
+      border:
+        1px solid var(--blue);
+
       color: var(--blue);
+
       font-size: 13px;
       font-weight: 900;
     }
+
 
     /* =========================
        INFO
@@ -294,227 +406,352 @@
 
     .info h2 {
       margin: 0;
+
       font-size: 17px;
       font-weight: 900;
+
       white-space: nowrap;
+
       overflow: hidden;
+
       text-overflow: ellipsis;
     }
 
     .username {
       margin-top: 5px;
+
       color: var(--gold);
+
       font-size: 10px;
       font-weight: 800;
     }
 
     .info p {
-      margin: 12px 0 16px;
+      margin:
+        12px 0 16px;
+
       color: var(--muted);
+
       font-size: 10px;
+
       line-height: 1.5;
+
       min-height: 30px;
     }
 
     .botao {
       width: 100%;
       min-height: 40px;
+
       display: flex;
+
       align-items: center;
       justify-content: center;
+
       border-radius: 8px;
+
       background:
         linear-gradient(
           135deg,
           var(--gold2),
           var(--gold)
         );
+
       color: #17120a;
+
       font-size: 10px;
       font-weight: 900;
+
       transition: .25s;
     }
 
     .botao:hover {
-      filter: brightness(1.08);
-      transform: translateY(-1px);
+      filter:
+        brightness(1.08);
+
+      transform:
+        translateY(-1px);
     }
+
 
     /* =========================
        LOADING
     ========================= */
 
     .loading {
-      grid-column: 1 / -1;
-      padding: 70px 20px;
+      grid-column:
+        1 / -1;
+
+      padding:
+        70px 20px;
+
       text-align: center;
     }
 
     .spinner {
       width: 40px;
       height: 40px;
-      margin: 0 auto 15px;
+
+      margin:
+        0 auto 15px;
+
       border-radius: 50%;
-      border: 3px solid #29251d;
-      border-top-color: var(--gold);
-      animation: spin .8s linear infinite;
+
+      border:
+        3px solid #29251d;
+
+      border-top-color:
+        var(--gold);
+
+      animation:
+        spin .8s linear infinite;
     }
 
     @keyframes spin {
+
       to {
-        transform: rotate(360deg);
+
+        transform:
+          rotate(360deg);
+
       }
+
     }
 
     .loading-text {
       color: var(--muted);
+
       font-size: 12px;
     }
+
 
     /* =========================
        VAZIO
     ========================= */
 
     .empty {
-      grid-column: 1 / -1;
-      padding: 70px 20px;
+      grid-column:
+        1 / -1;
+
+      padding:
+        70px 20px;
+
       text-align: center;
-      border: 1px solid var(--line);
+
+      border:
+        1px solid var(--line);
+
       border-radius: 14px;
+
       background: #0d0d0d;
     }
 
     .empty-icon {
       font-size: 45px;
+
       margin-bottom: 15px;
     }
 
     .empty h2 {
       margin: 0;
+
       font-size: 18px;
     }
 
     .empty p {
       color: var(--muted);
+
       font-size: 12px;
     }
+
 
     /* =========================
        ERRO
     ========================= */
 
     .error {
-      grid-column: 1 / -1;
+      grid-column:
+        1 / -1;
+
       padding: 30px;
+
       text-align: center;
-      border: 1px solid #422;
+
+      border:
+        1px solid #422;
+
       border-radius: 12px;
+
       background: #160c0c;
+
       color: #ff8585;
+
       font-size: 12px;
     }
+
 
     /* =========================
        FOOTER
     ========================= */
 
     footer {
-      border-top: 1px solid var(--line);
+      border-top:
+        1px solid var(--line);
+
       background: #0b0b0b;
-      padding: 35px 20px;
+
+      padding:
+        35px 20px;
+
       text-align: center;
+
       color: #777;
+
       font-size: 10px;
     }
+
 
     /* =========================
        RESPONSIVO
     ========================= */
 
-    @media (max-width: 1000px) {
+    @media (
+      max-width: 1000px
+    ) {
+
       .artistas {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
+
+        grid-template-columns:
+          repeat(3, minmax(0, 1fr));
+
       }
+
     }
 
-    @media (max-width: 750px) {
+    @media (
+      max-width: 750px
+    ) {
+
       .header-in {
+
         min-height: 70px;
+
       }
 
       nav {
+
         gap: 10px;
+
       }
 
       nav a {
+
         font-size: 9px;
+
       }
 
       nav a:nth-child(n + 4) {
+
         display: none;
+
       }
 
       .artistas {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+
+        grid-template-columns:
+          repeat(2, minmax(0, 1fr));
+
       }
 
       .artista-photo {
+
         height: 230px;
+
       }
+
     }
 
-    @media (max-width: 480px) {
+    @media (
+      max-width: 480px
+    ) {
+
       .logo {
+
         font-size: 18px;
+
       }
 
       .logo span {
+
         font-size: 18px;
+
       }
 
       nav {
+
         gap: 7px;
+
       }
 
       nav a {
+
         font-size: 8px;
+
       }
 
       .hero {
+
         padding-top: 45px;
+
       }
 
       .hero h1 {
+
         letter-spacing: -2px;
+
       }
 
       .artistas {
-        grid-template-columns: 1fr;
+
+        grid-template-columns:
+          1fr;
+
       }
 
       .artista-photo {
+
         height: 300px;
+
       }
+
     }
+
   </style>
+
 </head>
 
 <body>
+
 
   <!-- =========================
        HEADER
   ========================= -->
 
   <header>
+
     <div class="header-in">
 
       <a
         href="index.html"
         class="logo"
       >
+
         <span>♕</span>
+
         KUDURO PRIME
+
       </a>
+
 
       <nav>
 
@@ -544,7 +781,9 @@
       </nav>
 
     </div>
+
   </header>
+
 
   <!-- =========================
        HERO
@@ -557,7 +796,8 @@
     </div>
 
     <h1>
-      ARTISTAS <span>PRIME</span>
+      ARTISTAS
+      <span>PRIME</span>
     </h1>
 
     <p>
@@ -566,6 +806,7 @@
     </p>
 
   </section>
+
 
   <!-- =========================
        PESQUISA
@@ -590,6 +831,7 @@
 
   </div>
 
+
   <!-- =========================
        CONTADOR
   ========================= -->
@@ -608,8 +850,9 @@
 
   </div>
 
+
   <!-- =========================
-       LISTA DE ARTISTAS
+       LISTA
   ========================= -->
 
   <section
@@ -629,6 +872,7 @@
 
   </section>
 
+
   <!-- =========================
        FOOTER
   ========================= -->
@@ -639,6 +883,7 @@
     O KUDURO VIVE AQUI 👑
 
   </footer>
+
 
   <!-- =========================
        FIREBASE / JAVASCRIPT
@@ -651,10 +896,11 @@
     } from
       "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
 
+
     import {
       getFirestore,
       collection,
-      getDocs
+      onSnapshot
     } from
       "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 
@@ -695,6 +941,7 @@
         firebaseConfig
       );
 
+
     const db =
       getFirestore(
         app
@@ -710,10 +957,12 @@
         "#artistsList"
       );
 
+
     const searchInput =
       document.querySelector(
         "#searchInput"
       );
+
 
     const artistCount =
       document.querySelector(
@@ -725,8 +974,7 @@
 
 
     /* =========================
-       FUNÇÃO PARA PEGAR
-       O PRIMEIRO VALOR VÁLIDO
+       PRIMEIRO VALOR VÁLIDO
     ========================= */
 
     function getFirstValue(
@@ -776,7 +1024,7 @@
       };
 
 
-      /* NOME DO ARTISTA */
+      /* NOME */
 
       artist.name =
         getFirstValue(
@@ -834,7 +1082,7 @@
         );
 
 
-      /* ESTILO */
+      /* GÉNERO */
 
       artist.genre =
         getFirstValue(
@@ -874,7 +1122,7 @@
         "Angola";
 
 
-      /* DESCRIÇÃO */
+      /* BIO */
 
       artist.bio =
         getFirstValue(
@@ -907,10 +1155,6 @@
         artists.length;
 
 
-      /* =========================
-         NENHUM RESULTADO
-      ========================= */
-
       if(
         artists.length === 0
       ) {
@@ -941,31 +1185,26 @@
       }
 
 
-      /* =========================
-         CRIAR CARTÕES
-      ========================= */
-
       artists.forEach(
         artist => {
-
 
           const card =
             document.createElement(
               "article"
             );
 
+
           card.className =
             "artista";
 
 
-          /* =========================
-             FOTO
-          ========================= */
+          /* FOTO */
 
           const photo =
             document.createElement(
               "div"
             );
+
 
           photo.className =
             "artista-photo";
@@ -980,11 +1219,14 @@
                 "img"
               );
 
+
             image.src =
               artist.photo;
 
+
             image.alt =
               artist.name;
+
 
             image.loading =
               "lazy";
@@ -1007,16 +1249,17 @@
                       "div"
                     );
 
+
                   placeholder.className =
                     "photo-placeholder";
+
 
                   placeholder.textContent =
                     "👤";
 
 
-                  photo.insertBefore(
-                    placeholder,
-                    photo.firstChild
+                  photo.appendChild(
+                    placeholder
                   );
 
                 }
@@ -1035,8 +1278,10 @@
                 "div"
               );
 
+
             placeholder.className =
               "photo-placeholder";
+
 
             placeholder.textContent =
               "👤";
@@ -1053,21 +1298,29 @@
              VERIFICADO
           ========================= */
 
-          const verified =
-            document.createElement(
-              "div"
+          if(
+            artist.verificado === true
+          ) {
+
+            const verified =
+              document.createElement(
+                "div"
+              );
+
+
+            verified.className =
+              "verified";
+
+
+            verified.textContent =
+              "✓";
+
+
+            photo.appendChild(
+              verified
             );
 
-          verified.className =
-            "verified";
-
-          verified.textContent =
-            "✓";
-
-
-          photo.appendChild(
-            verified
-          );
+          }
 
 
           /* =========================
@@ -1079,6 +1332,7 @@
               "div"
             );
 
+
           info.className =
             "info";
 
@@ -1087,6 +1341,7 @@
             document.createElement(
               "h2"
             );
+
 
           name.textContent =
             artist.name;
@@ -1097,8 +1352,10 @@
               "div"
             );
 
+
           username.className =
             "username";
+
 
           username.textContent =
             "@" +
@@ -1116,7 +1373,7 @@
             );
 
 
-          let locationText =
+          const locationText =
             artist.city
               ? artist.city +
                 ", " +
@@ -1133,30 +1390,21 @@
             );
 
 
-          /* =========================
-             BOTÃO VER PERFIL
-          ========================= */
+          /* BOTÃO */
 
           const button =
             document.createElement(
               "a"
             );
 
+
           button.className =
             "botao";
+
 
           button.textContent =
             "👁 VER PERFIL";
 
-
-          /*
-            IMPORTANTE:
-
-            Aqui usamos o ID REAL
-            do documento Firestore.
-
-            perfil.html?user=ID_DO_ARTISTA
-          */
 
           button.href =
             "perfil.html?user=" +
@@ -1165,34 +1413,30 @@
             );
 
 
-          /* =========================
-             MONTAR INFO
-          ========================= */
-
           info.appendChild(
             name
           );
+
 
           info.appendChild(
             username
           );
 
+
           info.appendChild(
             description
           );
+
 
           info.appendChild(
             button
           );
 
 
-          /* =========================
-             MONTAR CARTÃO
-          ========================= */
-
           card.appendChild(
             photo
           );
+
 
           card.appendChild(
             info
@@ -1210,27 +1454,79 @@
 
 
     /* =========================
-       CARREGAR ARTISTAS
+       APLICAR PESQUISA
     ========================= */
 
-    async function loadArtists() {
+    function applySearch() {
 
-      try {
+      const term =
+        searchInput.value
+          .trim()
+          .toLowerCase();
 
 
-        /*
-          BUSCAR TODOS OS ARTISTAS
-          DA COLEÇÃO "artistas"
-        */
+      if(
+        !term
+      ) {
 
-        const snapshot =
-          await getDocs(
-            collection(
-              db,
-              "artistas"
-            )
-          );
+        renderArtists(
+          allArtists
+        );
 
+        return;
+
+      }
+
+
+      const filtered =
+        allArtists.filter(
+          artist => {
+
+            const text = [
+
+              artist.name,
+              artist.username,
+              artist.genre,
+              artist.city,
+              artist.country,
+              artist.bio
+
+            ]
+              .join(
+                " "
+              )
+              .toLowerCase();
+
+
+            return text.includes(
+              term
+            );
+
+          }
+        );
+
+
+      renderArtists(
+        filtered
+      );
+
+    }
+
+
+    /* =========================
+       OUVIR ARTISTAS
+       EM TEMPO REAL
+    ========================= */
+
+    onSnapshot(
+
+      collection(
+        db,
+        "artistas"
+      ),
+
+
+      snapshot => {
 
         allArtists = [];
 
@@ -1238,47 +1534,62 @@
         snapshot.forEach(
           docSnapshot => {
 
-            allArtists.push(
+            const artist =
               normalizeArtist(
                 docSnapshot
-              )
-            );
+              );
+
+
+            /*
+              IMPORTANTE:
+
+              O artista novo aparece
+              mesmo com:
+
+              perfilCriado: false
+
+              Só será escondido se:
+
+              ativo: false
+            */
+
+            if(
+              artist.ativo !== false
+            ) {
+
+              allArtists.push(
+                artist
+              );
+
+            }
 
           }
         );
 
 
-        /* =========================
-           ORDENAR POR NOME
-        ========================= */
+        /* ORDENAR */
 
         allArtists.sort(
           (
             a,
             b
-          ) => {
+          ) =>
 
-            return a.name.localeCompare(
+            a.name.localeCompare(
               b.name,
               "pt"
-            );
-
-          }
+            )
         );
 
 
-        /* =========================
-           MOSTRAR
-        ========================= */
+        /* MOSTRAR */
 
-        renderArtists(
-          allArtists
-        );
+        applySearch();
+
+      },
 
 
-      } catch(
-        error
-      ) {
+      error => {
 
         console.error(
           "Erro ao carregar artistas:",
@@ -1299,10 +1610,7 @@
 
             <br><br>
 
-            Verifica se a coleção
-            <b>artistas</b>
-            existe e se as regras
-            do Firestore permitem leitura.
+            ${error.message}
 
           </div>
 
@@ -1310,7 +1618,7 @@
 
       }
 
-    }
+    );
 
 
     /* =========================
@@ -1319,78 +1627,8 @@
 
     searchInput.addEventListener(
       "input",
-      () => {
-
-
-        const term =
-          searchInput.value
-            .trim()
-            .toLowerCase();
-
-
-        /* =========================
-           PESQUISA VAZIA
-        ========================= */
-
-        if(
-          !term
-        ) {
-
-          renderArtists(
-            allArtists
-          );
-
-          return;
-
-        }
-
-
-        /* =========================
-           FILTRAR ARTISTAS
-        ========================= */
-
-        const filtered =
-          allArtists.filter(
-            artist => {
-
-
-              const text = [
-
-                artist.name,
-                artist.username,
-                artist.genre,
-                artist.city,
-                artist.country,
-                artist.bio
-
-              ]
-                .join(
-                  " "
-                )
-                .toLowerCase();
-
-
-              return text.includes(
-                term
-              );
-
-            }
-          );
-
-
-        renderArtists(
-          filtered
-        );
-
-      }
+      applySearch
     );
-
-
-    /* =========================
-       INICIAR
-    ========================= */
-
-    loadArtists();
 
   </script>
 
