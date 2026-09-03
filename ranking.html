@@ -1169,6 +1169,18 @@
     );
 
 
+  const rankingPeriod =
+    document.querySelector(
+      "#rankingPeriod"
+    );
+
+
+  const rankingDescription =
+    document.querySelector(
+      "#rankingDescription"
+    );
+
+
   /* =========================
      DADOS
   ========================= */
@@ -1179,6 +1191,10 @@
 
   let currentFilter =
     "all";
+
+
+  let periodoAtual =
+    "";
 
 
   /* =========================
@@ -1211,14 +1227,10 @@
   function formatViews(number){
 
     const value =
-      Number(
-        number || 0
-      );
+      Number(number || 0);
 
 
-    if(
-      value >= 1000000
-    ){
+    if(value >= 1000000){
 
       return (
         value / 1000000
@@ -1231,9 +1243,7 @@
     }
 
 
-    if(
-      value >= 1000
-    ){
+    if(value >= 1000){
 
       return (
         value / 1000
@@ -1281,6 +1291,39 @@
 
 
   /* =========================
+     NOME DO MÊS
+  ========================= */
+
+  function obterNomeMes(){
+
+    const agora =
+      new Date();
+
+
+    const meses = [
+
+      "JANEIRO",
+      "FEVEREIRO",
+      "MARÇO",
+      "ABRIL",
+      "MAIO",
+      "JUNHO",
+      "JULHO",
+      "AGOSTO",
+      "SETEMBRO",
+      "OUTUBRO",
+      "NOVEMBRO",
+      "DEZEMBRO"
+
+    ];
+
+
+    return `${meses[agora.getMonth()]} ${agora.getFullYear()}`;
+
+  }
+
+
+  /* =========================
      NORMALIZAR MÚSICA
   ========================= */
 
@@ -1297,7 +1340,7 @@
 
       posicao:
         Number(
-          dados.posicao ||
+          dados.posicao ??
           index + 1
         ),
 
@@ -1362,6 +1405,50 @@
 
 
   /* =========================
+     LER DOCUMENTO
+  ========================= */
+
+  async function tentarLerRanking(
+    id
+  ){
+
+    const rankingRef =
+      doc(
+        db,
+        "rankingMensal",
+        id
+      );
+
+
+    const snapshot =
+      await getDoc(
+        rankingRef
+      );
+
+
+    if(
+      snapshot.exists()
+    ){
+
+      return {
+
+        id:
+          id,
+
+        dados:
+          snapshot.data()
+
+      };
+
+    }
+
+
+    return null;
+
+  }
+
+
+  /* =========================
      CARREGAR RANKING
   ========================= */
 
@@ -1386,34 +1473,73 @@
 
     try{
 
-      const rankingId =
+      const rankingIdAtual =
         obterIdRankingAtual();
 
 
-      const rankingRef =
-        doc(
-          db,
-          "rankingMensal",
-          rankingId
-        );
+      let resultado =
+        null;
 
 
-      const snapshot =
-        await getDoc(
-          rankingRef
+      /* =========================
+         TENTA O MÊS ATUAL
+      ========================= */
+
+      resultado =
+        await tentarLerRanking(
+          rankingIdAtual
         );
 
 
       /* =========================
-         NÃO EXISTE RANKING
+         TENTA "ATUAL"
       ========================= */
 
       if(
-        !snapshot.exists()
+        !resultado
+      ){
+
+        resultado =
+          await tentarLerRanking(
+            "atual"
+          );
+
+      }
+
+
+      /* =========================
+         TENTA "RANKINGATUAL"
+      ========================= */
+
+      if(
+        !resultado
+      ){
+
+        resultado =
+          await tentarLerRanking(
+            "rankingAtual"
+          );
+
+      }
+
+
+      /* =========================
+         NÃO EXISTE
+      ========================= */
+
+      if(
+        !resultado
       ){
 
         ranking =
           [];
+
+
+        periodoAtual =
+          obterNomeMes();
+
+
+        atualizarInformacoes();
 
 
         renderRanking();
@@ -1424,7 +1550,16 @@
 
 
       const dados =
-        snapshot.data();
+        resultado.dados;
+
+
+      periodoAtual =
+
+        dados.periodo ||
+
+        dados.nomePeriodo ||
+
+        obterNomeMes();
 
 
       /* =========================
@@ -1432,16 +1567,10 @@
       ========================= */
 
       if(
-        !Array.isArray(
+        Array.isArray(
           dados.musicas
         )
       ){
-
-        ranking =
-          [];
-
-      }
-      else{
 
         ranking =
           dados.musicas
@@ -1457,26 +1586,65 @@
                 index
               )
 
-          )
-          .sort(
+          );
 
-            (a,b) =>
+      }
 
-              a.posicao -
-              b.posicao
+
+      else if(
+        Array.isArray(
+          dados.ranking
+        )
+      ){
+
+        ranking =
+          dados.ranking
+          .map(
+
+            (
+              musica,
+              index
+            ) =>
+
+              normalizarMusica(
+                musica,
+                index
+              )
 
           );
 
       }
 
 
+      else{
+
+        ranking =
+          [];
+
+      }
+
+
+      ranking.sort(
+
+        (a,b) =>
+
+          a.posicao -
+          b.posicao
+
+      );
+
+
+      atualizarInformacoes();
+
+
       renderRanking();
 
 
-    }catch(error){
+    }
+    catch(error){
 
       console.error(
-        "Erro ao carregar ranking:",
+        "ERRO COMPLETO DO RANKING:",
         error
       );
 
@@ -1487,6 +1655,16 @@
 
       top3.innerHTML =
         "";
+
+
+      if(
+        rankingPeriod
+      ){
+
+        rankingPeriod.textContent =
+          "● ERRO AO CARREGAR";
+
+      }
 
 
       rankingList.innerHTML = `
@@ -1510,8 +1688,18 @@
 
           <p>
 
-            Ocorreu um erro ao ligar
-            ao ranking do KUDURO PRIME.
+            ${
+              error.code ===
+              "permission-denied"
+
+              ?
+
+              "O Firestore bloqueou a leitura. Verifica as regras da coleção rankingMensal."
+
+              :
+
+              "Ocorreu um erro ao ligar ao ranking do KUDURO PRIME."
+            }
 
           </p>
 
@@ -1536,6 +1724,34 @@
 
 
   /* =========================
+     INFORMAÇÕES DO RANKING
+  ========================= */
+
+  function atualizarInformacoes(){
+
+    if(
+      rankingPeriod
+    ){
+
+      rankingPeriod.textContent =
+        `● RANKING ${periodoAtual}`;
+
+    }
+
+
+    if(
+      rankingDescription
+    ){
+
+      rankingDescription.textContent =
+        "Ranking oficial selecionado pela administração.";
+
+    }
+
+  }
+
+
+  /* =========================
      FILTRAR
   ========================= */
 
@@ -1545,24 +1761,60 @@
       [...ranking];
 
 
-    /*
-      O ranking é manualmente
-      definido pelo administrador.
-    */
+    filtered.sort(
 
-    return filtered
-      .sort(
+      (a,b) =>
 
-        (a,b) =>
+        a.posicao -
+        b.posicao
 
-          a.posicao -
-          b.posicao
+    );
 
-      )
-      .slice(
+
+    /* =========================
+       TOP 3
+    ========================= */
+
+    if(
+      currentFilter ===
+      "top3"
+    ){
+
+      return filtered.slice(
         0,
-        10
+        3
       );
+
+    }
+
+
+    /* =========================
+       INVERTIDO
+    ========================= */
+
+    if(
+      currentFilter ===
+      "novos"
+    ){
+
+      return filtered
+        .slice(
+          0,
+          10
+        )
+        .reverse();
+
+    }
+
+
+    /* =========================
+       GERAL
+    ========================= */
+
+    return filtered.slice(
+      0,
+      10
+    );
 
   }
 
@@ -1609,9 +1861,8 @@
 
           <p>
 
-            O TOP 10 PRIME
-            deste mês ainda não foi
-            guardado pela administração.
+            Ainda não existem músicas
+            guardadas no TOP 10 PRIME.
 
           </p>
 
@@ -1629,12 +1880,24 @@
        TOP 3
     ========================= */
 
-    top3.innerHTML =
-      filteredRanking
+    const rankingParaPodio =
+      [...ranking]
+      .sort(
+
+        (a,b) =>
+
+          a.posicao -
+          b.posicao
+
+      )
       .slice(
         0,
         3
-      )
+      );
+
+
+    top3.innerHTML =
+      rankingParaPodio
       .map(
 
         (
@@ -1652,7 +1915,7 @@
 
             ?
 
-            `--img:url('${image}')`
+            `--img:url("${image}")`
 
             :
 
@@ -1678,7 +1941,6 @@
 
             >
 
-
               <div class="position">
 
                 ${index + 1}
@@ -1688,6 +1950,7 @@
 
               ${
                 index === 0
+
                 ?
 
                 `
@@ -1708,9 +1971,11 @@
 
               <h2>
 
-                ${escapeHTML(
-                  item.nomeArtista
-                )}
+                ${
+                  escapeHTML(
+                    item.nomeArtista
+                  )
+                }
 
               </h2>
 
@@ -1719,9 +1984,11 @@
 
                 🎵
 
-                ${escapeHTML(
-                  item.titulo
-                )}
+                ${
+                  escapeHTML(
+                    item.titulo
+                  )
+                }
 
               </div>
 
@@ -1740,7 +2007,6 @@
 
               </div>
 
-
             </article>
 
           `;
@@ -1754,7 +2020,7 @@
 
 
     /* =========================
-       TOP 10
+       LISTA
     ========================= */
 
     rankingList.innerHTML =
@@ -1810,7 +2076,7 @@
 
 
           if(
-            index === 0
+            item.posicao === 1
           ){
 
             tag =
@@ -1820,7 +2086,7 @@
 
 
           else if(
-            index === 1
+            item.posicao === 2
           ){
 
             tag =
@@ -1830,7 +2096,7 @@
 
 
           else if(
-            index === 2
+            item.posicao === 3
           ){
 
             tag =
@@ -1845,12 +2111,11 @@
               class="rank-item"
             >
 
-
               <div class="rank-number">
 
                 ${
                   String(
-                    index + 1
+                    item.posicao
                   )
                   .padStart(
                     2,
@@ -1866,21 +2131,24 @@
 
               <div class="music-info">
 
-
                 <strong>
 
-                  ${escapeHTML(
-                    item.titulo
-                  )}
+                  ${
+                    escapeHTML(
+                      item.titulo
+                    )
+                  }
 
                 </strong>
 
 
                 <span>
 
-                  ${escapeHTML(
-                    item.nomeArtista
-                  )}
+                  ${
+                    escapeHTML(
+                      item.nomeArtista
+                    )
+                  }
 
                 </span>
 
@@ -1905,12 +2173,10 @@
                   ""
                 }
 
-
               </div>
 
 
               <div class="stats">
-
 
                 <strong>
 
@@ -1927,15 +2193,11 @@
 
                 <span class="trend">
 
-                  🔥
-
-                  POPULAR
+                  🔥 POPULAR
 
                 </span>
 
-
               </div>
-
 
             </article>
 
@@ -1952,7 +2214,7 @@
 
 
   /* =========================
-     FILTROS
+     BOTÕES DE FILTRO
   ========================= */
 
   window.filterRanking =
@@ -1971,15 +2233,13 @@
         )
         .forEach(
 
-          item => {
+          item =>
 
             item
             .classList
             .remove(
               "active"
-            );
-
-          }
+            )
 
         );
 
