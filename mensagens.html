@@ -1,12 +1,21 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0">
 
 <title>Mensagens — KUDURO PRIME</title>
 
 <style>
+
+/* =========================
+   CORES
+========================= */
+
 :root{
   --bg:#070707;
   --panel:#101010;
@@ -19,13 +28,20 @@
   --line:#292929;
   --green:#35d46f;
   --danger:#ff563f;
+  --blue:#54bfff;
 }
+
+
+/* =========================
+   RESET
+========================= */
 
 *{
   box-sizing:border-box;
   margin:0;
   padding:0;
 }
+
 
 body{
   background:var(--bg);
@@ -34,6 +50,7 @@ body{
   height:100vh;
   overflow:hidden;
 }
+
 
 /* =========================
    APP
@@ -44,6 +61,7 @@ body{
   display:flex;
   flex-direction:column;
 }
+
 
 /* =========================
    HEADER
@@ -60,6 +78,7 @@ body{
   flex-shrink:0;
 }
 
+
 .logo{
   color:var(--gold);
   font-size:21px;
@@ -67,15 +86,18 @@ body{
   letter-spacing:.5px;
 }
 
+
 .logo span{
   color:#fff;
 }
+
 
 .header-right{
   display:flex;
   align-items:center;
   gap:10px;
 }
+
 
 .header-btn{
   width:42px;
@@ -89,10 +111,12 @@ body{
   transition:.2s;
 }
 
+
 .header-btn:hover{
   border-color:var(--gold);
   color:var(--gold);
 }
+
 
 /* =========================
    MAIN
@@ -104,6 +128,7 @@ body{
   display:grid;
   grid-template-columns:340px minmax(0,1fr);
 }
+
 
 /* =========================
    SIDEBAR
@@ -117,10 +142,12 @@ body{
   min-width:0;
 }
 
+
 .sidebar-top{
   padding:18px;
   border-bottom:1px solid var(--line);
 }
+
 
 .sidebar-title{
   display:flex;
@@ -129,9 +156,11 @@ body{
   margin-bottom:15px;
 }
 
+
 .sidebar-title h1{
   font-size:21px;
 }
+
 
 .new-message{
   width:38px;
@@ -145,9 +174,11 @@ body{
   cursor:pointer;
 }
 
+
 .search{
   position:relative;
 }
+
 
 .search input{
   width:100%;
@@ -161,9 +192,11 @@ body{
   font-size:14px;
 }
 
+
 .search input:focus{
   border-color:var(--gold);
 }
+
 
 .search-icon{
   position:absolute;
@@ -172,15 +205,19 @@ body{
   color:var(--muted);
 }
 
-/* conversations */
+
+/* =========================
+   CONVERSAS
+========================= */
 
 .conversations{
   flex:1;
   overflow-y:auto;
 }
 
+
 .conversation{
-  height:78px;
+  min-height:78px;
   padding:11px 15px;
   display:flex;
   align-items:center;
@@ -190,14 +227,17 @@ body{
   transition:.2s;
 }
 
+
 .conversation:hover{
   background:#171717;
 }
+
 
 .conversation.active{
   background:#1d1b15;
   border-left:3px solid var(--gold);
 }
+
 
 .avatar{
   width:52px;
@@ -216,11 +256,13 @@ body{
   overflow:hidden;
 }
 
+
 .avatar img{
   width:100%;
   height:100%;
   object-fit:cover;
 }
+
 
 .online-dot{
   position:absolute;
@@ -233,10 +275,12 @@ body{
   bottom:1px;
 }
 
+
 .conversation-info{
   flex:1;
   min-width:0;
 }
+
 
 .conversation-line{
   display:flex;
@@ -245,6 +289,7 @@ body{
   gap:10px;
 }
 
+
 .conversation-name{
   font-weight:800;
   white-space:nowrap;
@@ -252,11 +297,13 @@ body{
   text-overflow:ellipsis;
 }
 
+
 .time{
   font-size:11px;
   color:var(--muted);
   flex-shrink:0;
 }
+
 
 .last-message{
   color:var(--muted);
@@ -266,6 +313,7 @@ body{
   overflow:hidden;
   text-overflow:ellipsis;
 }
+
 
 .unread{
   min-width:20px;
@@ -281,6 +329,7 @@ body{
   font-weight:bold;
 }
 
+
 /* =========================
    CHAT
 ========================= */
@@ -292,7 +341,10 @@ body{
   background:#080808;
 }
 
-/* chat header */
+
+/* =========================
+   CHAT HEADER
+========================= */
 
 .chat-header{
   height:70px;
@@ -305,6 +357,7 @@ body{
   flex-shrink:0;
 }
 
+
 .back-btn{
   display:none;
   border:none;
@@ -314,15 +367,18 @@ body{
   cursor:pointer;
 }
 
+
 .chat-user{
   flex:1;
   min-width:0;
 }
 
+
 .chat-user-name{
   font-weight:900;
   font-size:16px;
 }
+
 
 .chat-status{
   font-size:12px;
@@ -330,10 +386,12 @@ body{
   margin-top:4px;
 }
 
+
 .chat-actions{
   display:flex;
   gap:8px;
 }
+
 
 .chat-action{
   width:38px;
@@ -345,13 +403,15 @@ body{
   cursor:pointer;
 }
 
+
 .chat-action:hover{
   color:var(--gold);
   border-color:var(--gold);
 }
 
+
 /* =========================
-   MESSAGES
+   MENSAGENS
 ========================= */
 
 .messages{
@@ -363,9 +423,18 @@ body{
   gap:8px;
 
   background-image:
-    radial-gradient(circle at 20% 20%,rgba(244,191,49,.025),transparent 25%),
-    radial-gradient(circle at 80% 80%,rgba(244,191,49,.02),transparent 25%);
+    radial-gradient(
+      circle at 20% 20%,
+      rgba(244,191,49,.025),
+      transparent 25%
+    ),
+    radial-gradient(
+      circle at 80% 80%,
+      rgba(244,191,49,.02),
+      transparent 25%
+    );
 }
+
 
 .date-label{
   align-self:center;
@@ -378,18 +447,22 @@ body{
   margin:8px 0 12px;
 }
 
+
 .message-row{
   display:flex;
   width:100%;
 }
 
+
 .message-row.received{
   justify-content:flex-start;
 }
 
+
 .message-row.sent{
   justify-content:flex-end;
 }
+
 
 .message{
   max-width:min(560px,75%);
@@ -401,11 +474,13 @@ body{
   box-shadow:0 2px 8px rgba(0,0,0,.2);
 }
 
+
 .received .message{
   background:#181818;
   border:1px solid #252525;
   border-top-left-radius:4px;
 }
+
 
 .sent .message{
   background:#4b3c16;
@@ -413,41 +488,115 @@ body{
   border-top-right-radius:4px;
 }
 
+
 .message-text{
   white-space:pre-wrap;
   word-break:break-word;
 }
+
 
 .message-meta{
   display:flex;
   align-items:center;
   justify-content:flex-end;
   gap:5px;
-  margin-top:4px;
+  margin-top:5px;
   font-size:10px;
   color:#aaa;
 }
+
 
 .sent .message-meta{
   color:#d4c796;
 }
 
+
 .check{
-  color:#54bfff;
+  color:var(--blue);
   font-size:12px;
 }
 
-/* audio */
+
+/* =========================
+   MÍDIA
+========================= */
+
+.message-image{
+  width:100%;
+  max-width:420px;
+  max-height:420px;
+  display:block;
+  object-fit:cover;
+  border-radius:10px;
+  cursor:pointer;
+}
+
+
+.message-video{
+  width:100%;
+  max-width:430px;
+  border-radius:10px;
+  display:block;
+  background:#000;
+}
+
+
+.document-message{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  min-width:220px;
+}
+
+
+.document-icon{
+  width:44px;
+  height:44px;
+  background:#222;
+  border-radius:10px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:22px;
+}
+
+
+.document-info{
+  min-width:0;
+}
+
+
+.document-name{
+  font-weight:bold;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  max-width:240px;
+}
+
+
+.document-link{
+  color:var(--gold);
+  font-size:11px;
+  text-decoration:none;
+}
+
+
+/* =========================
+   ÁUDIO
+========================= */
 
 .audio-message{
   min-width:260px;
 }
+
 
 .audio-player{
   display:flex;
   align-items:center;
   gap:10px;
 }
+
 
 .audio-play{
   width:40px;
@@ -460,29 +609,20 @@ body{
   font-size:16px;
 }
 
-.audio-wave{
+
+.audio-progress{
   flex:1;
-  height:4px;
-  background:#555;
-  border-radius:10px;
-  position:relative;
+  height:5px;
+  appearance:none;
+  cursor:pointer;
 }
 
-.audio-wave::after{
-  content:"";
-  position:absolute;
-  left:0;
-  top:0;
-  width:38%;
-  height:100%;
-  background:var(--gold);
-  border-radius:10px;
-}
 
 .audio-duration{
   font-size:11px;
   color:var(--muted);
 }
+
 
 /* =========================
    COMPOSER
@@ -500,6 +640,7 @@ body{
   flex-shrink:0;
 }
 
+
 .composer-btn{
   width:43px;
   height:43px;
@@ -512,10 +653,12 @@ body{
   flex-shrink:0;
 }
 
+
 .composer-btn:hover{
   color:var(--gold);
   border-color:var(--gold);
 }
+
 
 .message-input{
   flex:1;
@@ -530,9 +673,11 @@ body{
   font-size:14px;
 }
 
+
 .message-input:focus{
   border-color:var(--gold);
 }
+
 
 .send-btn{
   width:45px;
@@ -547,11 +692,21 @@ body{
   flex-shrink:0;
 }
 
+
 .send-btn:hover{
   background:var(--gold2);
 }
 
-/* recording */
+
+.send-btn:disabled{
+  opacity:.5;
+  cursor:not-allowed;
+}
+
+
+/* =========================
+   GRAVAÇÃO
+========================= */
 
 .recording{
   display:none;
@@ -565,9 +720,11 @@ body{
   border-radius:23px;
 }
 
+
 .recording.active{
   display:flex;
 }
+
 
 .recording-dot{
   width:10px;
@@ -577,16 +734,21 @@ body{
   animation:pulse 1s infinite;
 }
 
+
 @keyframes pulse{
+
   50%{
     opacity:.3;
   }
+
 }
+
 
 .recording-text{
   flex:1;
   font-size:13px;
 }
+
 
 .cancel-recording{
   border:none;
@@ -595,8 +757,9 @@ body{
   cursor:pointer;
 }
 
+
 /* =========================
-   EMPTY CHAT
+   EMPTY
 ========================= */
 
 .empty-chat{
@@ -608,27 +771,32 @@ body{
   padding:30px;
 }
 
+
 .empty-box{
   max-width:430px;
 }
+
 
 .empty-icon{
   font-size:65px;
   margin-bottom:15px;
 }
 
+
 .empty-box h2{
   font-size:24px;
   margin-bottom:10px;
 }
+
 
 .empty-box p{
   color:var(--muted);
   line-height:1.6;
 }
 
+
 /* =========================
-   TEMPORARY MODAL
+   MODAL
 ========================= */
 
 .modal-overlay{
@@ -642,9 +810,11 @@ body{
   padding:20px;
 }
 
+
 .modal-overlay.show{
   display:flex;
 }
+
 
 .modal{
   width:100%;
@@ -656,6 +826,7 @@ body{
   box-shadow:0 20px 70px rgba(0,0,0,.7);
 }
 
+
 .modal-header{
   display:flex;
   align-items:center;
@@ -663,9 +834,11 @@ body{
   margin-bottom:20px;
 }
 
+
 .modal-header h2{
   font-size:19px;
 }
+
 
 .close-modal{
   width:35px;
@@ -677,12 +850,14 @@ body{
   cursor:pointer;
 }
 
+
 .modal-description{
   color:var(--muted);
   font-size:13px;
   line-height:1.5;
   margin-bottom:18px;
 }
+
 
 .temp-option{
   display:flex;
@@ -693,18 +868,20 @@ body{
   border-radius:12px;
   margin-bottom:9px;
   cursor:pointer;
-  transition:.2s;
 }
+
 
 .temp-option:hover{
   background:#191919;
   border-color:var(--gold);
 }
 
+
 .temp-option.selected{
   background:#211d11;
   border-color:var(--gold);
 }
+
 
 .temp-radio{
   width:20px;
@@ -716,9 +893,11 @@ body{
   justify-content:center;
 }
 
+
 .temp-option.selected .temp-radio{
   border-color:var(--gold);
 }
+
 
 .temp-option.selected .temp-radio::after{
   content:"";
@@ -728,22 +907,9 @@ body{
   border-radius:50%;
 }
 
-.temp-info{
-  flex:1;
-}
-
-.temp-title{
-  font-weight:bold;
-}
-
-.temp-subtitle{
-  color:var(--muted);
-  font-size:11px;
-  margin-top:3px;
-}
 
 /* =========================
-   ATTACH MENU
+   ANEXOS
 ========================= */
 
 .attach-menu{
@@ -759,9 +925,11 @@ body{
   box-shadow:0 15px 40px rgba(0,0,0,.5);
 }
 
+
 .attach-menu.show{
   display:block;
 }
+
 
 .attach-option{
   display:flex;
@@ -773,10 +941,12 @@ body{
   font-size:13px;
 }
 
+
 .attach-option:hover{
   background:#222;
   color:var(--gold);
 }
+
 
 /* =========================
    TOAST
@@ -799,10 +969,12 @@ body{
   z-index:2000;
 }
 
+
 .toast.show{
   opacity:1;
   transform:translateX(-50%) translateY(0);
 }
+
 
 /* =========================
    MOBILE
@@ -880,573 +1052,446 @@ body{
   .chat-actions .chat-action:nth-child(1){
     display:none;
   }
+
 }
 
-/* scrollbar */
+
+/* =========================
+   SCROLL
+========================= */
 
 ::-webkit-scrollbar{
   width:6px;
 }
 
+
 ::-webkit-scrollbar-track{
   background:#0c0c0c;
 }
+
 
 ::-webkit-scrollbar-thumb{
   background:#333;
   border-radius:10px;
 }
 
+
 ::-webkit-scrollbar-thumb:hover{
   background:#555;
 }
+
 </style>
+
 </head>
 
 <body>
 
+
 <div class="app">
 
-  <!-- HEADER -->
-  <header class="header">
 
-    <div class="logo">
-      ♕ KUDURO <span>PRIME</span>
-    </div>
+<!-- =========================
+     HEADER
+========================= -->
 
-    <div class="header-right">
+<header class="header">
 
-      <button class="header-btn" onclick="goBack()" title="Voltar">
-        ←
+  <div class="logo">
+    ♕ KUDURO <span>PRIME</span>
+  </div>
+
+  <div class="header-right">
+
+    <button
+      class="header-btn"
+      onclick="goBack()"
+      title="Voltar">
+      ←
+    </button>
+
+    <button
+      class="header-btn"
+      onclick="goProfile()"
+      title="Meu perfil">
+      👤
+    </button>
+
+  </div>
+
+</header>
+
+
+
+<!-- =========================
+     MAIN
+========================= -->
+
+<main class="main">
+
+
+<!-- =========================
+     SIDEBAR
+========================= -->
+
+<aside
+  class="sidebar"
+  id="sidebar">
+
+
+  <div class="sidebar-top">
+
+    <div class="sidebar-title">
+
+      <h1>
+        Mensagens
+      </h1>
+
+      <button
+        class="new-message"
+        onclick="newMessage()"
+        title="Nova mensagem">
+        +
       </button>
 
-      <button class="header-btn" onclick="goProfile()" title="Meu perfil">
-        👤
-      </button>
+    </div>
+
+
+    <div class="search">
+
+      <span class="search-icon">
+        🔎
+      </span>
+
+      <input
+        id="searchInput"
+        type="text"
+        placeholder="Pesquisar conversas..."
+        autocomplete="off"
+        oninput="searchChats()">
 
     </div>
 
-  </header>
+  </div>
 
 
-  <!-- MAIN -->
-  <main class="main">
+  <div
+    class="conversations"
+    id="conversationList">
 
-    <!-- =========================
-         SIDEBAR
-    ========================== -->
+    <div
+      style="
+        padding:30px 20px;
+        text-align:center;
+        color:#aaa59a;
+        font-size:13px;
+      ">
 
-    <aside class="sidebar" id="sidebar">
+      A carregar conversas...
 
-      <div class="sidebar-top">
+    </div>
 
-        <div class="sidebar-title">
+  </div>
 
-          <h1>Mensagens</h1>
 
-          <button
-            class="new-message"
-            onclick="newMessage()"
-            title="Nova mensagem">
-            +
-          </button>
+</aside>
 
-        </div>
 
-        <div class="search">
 
-          <span class="search-icon">🔎</span>
+<!-- =========================
+     CHAT
+========================= -->
 
-          <input
-            id="searchInput"
-            type="text"
-            placeholder="Pesquisar conversas..."
-            oninput="searchChats()">
+<section
+  class="chat"
+  id="chat">
 
-        </div>
 
-      </div>
+<!-- CHAT HEADER -->
 
+<div class="chat-header">
 
-      <div class="conversations" id="conversationList">
+  <button
+    class="back-btn"
+    onclick="closeChat()">
+    ←
+  </button>
 
-        <!-- CONVERSA 1 -->
 
-        <div
-          class="conversation active"
-          data-name="Figura do Adoço"
-          onclick="openChat(
-            'Figura do Adoço',
-            'FA',
-            true
-          )">
+  <div
+    class="avatar"
+    id="chatAvatar">
 
-          <div class="avatar">
-            FA
-            <div class="online-dot"></div>
-          </div>
+    <span id="chatAvatarText">
+      ♕
+    </span>
 
-          <div class="conversation-info">
+    <img
+      id="chatAvatarImage"
+      style="display:none"
+      alt="Foto do artista">
 
-            <div class="conversation-line">
+    <div
+      class="online-dot"
+      id="chatOnline"
+      style="display:none">
+    </div>
 
-              <div class="conversation-name">
-                Figura do Adoço
-              </div>
+  </div>
 
-              <div class="time">
-                10:32
-              </div>
 
-            </div>
+  <div class="chat-user">
 
-            <div class="last-message">
-              Vamos gravar hoje 🔥
-            </div>
+    <div
+      class="chat-user-name"
+      id="chatUserName">
 
-          </div>
+      Seleciona uma conversa
 
-          <div class="unread">
-            2
-          </div>
+    </div>
 
-        </div>
 
+    <div
+      class="chat-status"
+      id="chatStatus">
 
-        <!-- CONVERSA 2 -->
+      KUDURO PRIME
 
-        <div
-          class="conversation"
-          data-name="Dabay"
-          onclick="openChat(
-            'Dabay',
-            'DB',
-            false
-          )">
+    </div>
 
-          <div class="avatar">
-            DB
-          </div>
+  </div>
 
-          <div class="conversation-info">
 
-            <div class="conversation-line">
+  <div class="chat-actions">
 
-              <div class="conversation-name">
-                Dabay
-              </div>
+    <button
+      class="chat-action"
+      onclick="showToast('As chamadas serão adicionadas numa próxima versão.')">
+      📞
+    </button>
 
-              <div class="time">
-                09:15
-              </div>
 
-            </div>
-
-            <div class="last-message">
-              Ouve esta música 🎵
-            </div>
-
-          </div>
-
-        </div>
-
-
-        <!-- CONVERSA 3 -->
-
-        <div
-          class="conversation"
-          data-name="Jamaicano"
-          onclick="openChat(
-            'Jamaicano',
-            'JA',
-            true
-          )">
-
-          <div class="avatar">
-            JA
-            <div class="online-dot"></div>
-          </div>
-
-          <div class="conversation-info">
-
-            <div class="conversation-line">
-
-              <div class="conversation-name">
-                Jamaicano
-              </div>
-
-              <div class="time">
-                Ontem
-              </div>
-
-            </div>
-
-            <div class="last-message">
-              Envia o beat 🔥
-            </div>
-
-          </div>
-
-        </div>
-
-
-        <!-- CONVERSA 4 -->
-
-        <div
-          class="conversation"
-          data-name="T Djonera"
-          onclick="openChat(
-            'T Djonera',
-            'TD',
-            false
-          )">
-
-          <div class="avatar">
-            TD
-          </div>
-
-          <div class="conversation-info">
-
-            <div class="conversation-line">
-
-              <div class="conversation-name">
-                T Djonera
-              </div>
-
-              <div class="time">
-                02/09
-              </div>
-
-            </div>
-
-            <div class="last-message">
-              Grande trabalho 👑
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </aside>
-
-
-    <!-- =========================
-         CHAT
-    ========================== -->
-
-    <section class="chat" id="chat">
-
-      <!-- CHAT HEADER -->
-
-      <div class="chat-header">
-
-        <button
-          class="back-btn"
-          onclick="closeChat()">
-          ←
-        </button>
-
-        <div class="avatar" id="chatAvatar">
-          FA
-          <div class="online-dot" id="chatOnline"></div>
-        </div>
-
-        <div class="chat-user">
-
-          <div
-            class="chat-user-name"
-            id="chatUserName">
-            Figura do Adoço
-          </div>
-
-          <div
-            class="chat-status"
-            id="chatStatus">
-            online
-          </div>
-
-        </div>
-
-        <div class="chat-actions">
-
-          <button
-            class="chat-action"
-            onclick="showToast('Chamada de voz será ligada ao Firebase')">
-            📞
-          </button>
-
-          <button
-            class="chat-action"
-            onclick="showToast('Chamada de vídeo será ligada ao Firebase')">
-            📹
-          </button>
-
-          <button
-            class="chat-action"
-            onclick="openTemporary()"
-            title="Mensagens temporárias">
-            ⏱
-          </button>
-
-        </div>
-
-      </div>
-
-
-      <!-- MESSAGES -->
-
-      <div
-        class="messages"
-        id="messages">
-
-        <div class="date-label">
-          HOJE
-        </div>
-
-
-        <!-- RECEIVED -->
-
-        <div class="message-row received">
-
-          <div class="message">
-
-            <div class="message-text">
-              Mano, estás disponível hoje?
-            </div>
-
-            <div class="message-meta">
-              10:25
-            </div>
-
-          </div>
-
-        </div>
-
-
-        <!-- SENT -->
-
-        <div class="message-row sent">
-
-          <div class="message">
-
-            <div class="message-text">
-              Sim 🔥 Estou disponível.
-            </div>
-
-            <div class="message-meta">
-              10:27
-              <span class="check">✓✓</span>
-            </div>
-
-          </div>
-
-        </div>
-
-
-        <!-- RECEIVED -->
-
-        <div class="message-row received">
-
-          <div class="message">
-
-            <div class="message-text">
-              Vamos gravar hoje então.
-            </div>
-
-            <div class="message-meta">
-              10:30
-            </div>
-
-          </div>
-
-        </div>
-
-
-        <!-- AUDIO -->
-
-        <div class="message-row received">
-
-          <div class="message audio-message">
-
-            <div class="audio-player">
-
-              <button
-                class="audio-play"
-                onclick="playDemoAudio(this)">
-                ▶
-              </button>
-
-              <div class="audio-wave"></div>
-
-              <div class="audio-duration">
-                0:18
-              </div>
-
-            </div>
-
-            <div class="message-meta">
-              áudio
-              10:31
-            </div>
-
-          </div>
-
-        </div>
-
-
-        <!-- SENT -->
-
-        <div class="message-row sent">
-
-          <div class="message">
-
-            <div class="message-text">
-              Perfeito. 🔥👑
-            </div>
-
-            <div class="message-meta">
-              10:32
-              <span class="check">✓✓</span>
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
-
-
-      <!-- COMPOSER -->
-
-      <div class="composer">
-
-        <!-- ATTACH MENU -->
-
-        <div
-          class="attach-menu"
-          id="attachMenu">
-
-          <div
-            class="attach-option"
-            onclick="selectAttachment('foto')">
-            📷
-            Foto
-          </div>
-
-          <div
-            class="attach-option"
-            onclick="selectAttachment('video')">
-            🎬
-            Vídeo
-          </div>
-
-          <div
-            class="attach-option"
-            onclick="selectAttachment('audio')">
-            🎵
-            Áudio
-          </div>
-
-          <div
-            class="attach-option"
-            onclick="selectAttachment('documento')">
-            📄
-            Documento
-          </div>
-
-        </div>
-
-
-        <button
-          class="composer-btn"
-          onclick="toggleAttach()"
-          title="Anexar">
-          📎
-        </button>
-
-
-        <input
-          type="file"
-          id="fileInput"
-          hidden
-          onchange="fileSelected()">
-
-
-        <!-- INPUT -->
-
-        <input
-          class="message-input"
-          id="messageInput"
-          type="text"
-          placeholder="Escreve uma mensagem..."
-          autocomplete="off"
-          onkeydown="handleEnter(event)">
-
-
-        <!-- RECORDING -->
-
-        <div
-          class="recording"
-          id="recording">
-
-          <div class="recording-dot"></div>
-
-          <div class="recording-text">
-            A gravar áudio...
-            <span id="recordTime">
-              0:00
-            </span>
-          </div>
-
-          <button
-            class="cancel-recording"
-            onclick="cancelRecording()">
-            ✕
-          </button>
-
-        </div>
-
-
-        <!-- MICROPHONE -->
-
-        <button
-          class="composer-btn"
-          id="micBtn"
-          onclick="toggleRecording()"
-          title="Gravar áudio">
-          🎙️
-        </button>
-
-
-        <!-- SEND -->
-
-        <button
-          class="send-btn"
-          onclick="sendMessage()"
-          title="Enviar">
-          ➤
-        </button>
-
-      </div>
-
-    </section>
-
-  </main>
+    <button
+      class="chat-action"
+      onclick="showToast('As chamadas de vídeo serão adicionadas numa próxima versão.')">
+      📹
+    </button>
+
+
+    <button
+      class="chat-action"
+      onclick="openTemporary()"
+      title="Mensagens temporárias">
+      ⏱
+    </button>
+
+  </div>
 
 </div>
 
 
+
 <!-- =========================
-     TEMPORARY MESSAGE MODAL
-========================== -->
+     MESSAGES
+========================= -->
+
+<div
+  class="messages"
+  id="messages">
+
+
+  <div class="empty-chat">
+
+    <div class="empty-box">
+
+      <div class="empty-icon">
+        💬
+      </div>
+
+      <h2>
+        As tuas mensagens
+      </h2>
+
+      <p>
+        Escolhe um artista ou inicia uma nova conversa.
+      </p>
+
+    </div>
+
+  </div>
+
+
+</div>
+
+
+
+<!-- =========================
+     COMPOSER
+========================= -->
+
+<div class="composer">
+
+
+  <!-- MENU -->
+
+  <div
+    class="attach-menu"
+    id="attachMenu">
+
+
+    <div
+      class="attach-option"
+      onclick="selectAttachment('image/*')">
+
+      📷 Foto
+
+    </div>
+
+
+    <div
+      class="attach-option"
+      onclick="selectAttachment('video/*')">
+
+      🎬 Vídeo
+
+    </div>
+
+
+    <div
+      class="attach-option"
+      onclick="selectAttachment('audio/*')">
+
+      🎵 Áudio
+
+    </div>
+
+
+    <div
+      class="attach-option"
+      onclick="selectAttachment('*/*')">
+
+      📄 Documento
+
+    </div>
+
+  </div>
+
+
+
+  <!-- ATTACH -->
+
+  <button
+    class="composer-btn"
+    onclick="toggleAttach()"
+    title="Anexar">
+
+    📎
+
+  </button>
+
+
+
+  <!-- FILE -->
+
+  <input
+    type="file"
+    id="fileInput"
+    hidden
+    onchange="fileSelected()">
+
+
+
+  <!-- INPUT -->
+
+  <input
+    class="message-input"
+    id="messageInput"
+    type="text"
+    placeholder="Escreve uma mensagem..."
+    autocomplete="off"
+    onkeydown="handleEnter(event)">
+
+
+
+  <!-- RECORDING -->
+
+  <div
+    class="recording"
+    id="recording">
+
+    <div class="recording-dot"></div>
+
+    <div class="recording-text">
+
+      A gravar áudio...
+
+      <span id="recordTime">
+        0:00
+      </span>
+
+    </div>
+
+
+    <button
+      class="cancel-recording"
+      onclick="cancelRecording()">
+
+      ✕
+
+    </button>
+
+  </div>
+
+
+
+  <!-- MICROPHONE -->
+
+  <button
+    class="composer-btn"
+    id="micBtn"
+    onclick="toggleRecording()"
+    title="Gravar áudio">
+
+    🎙️
+
+  </button>
+
+
+
+  <!-- SEND -->
+
+  <button
+    class="send-btn"
+    id="sendBtn"
+    onclick="sendMessage()"
+    title="Enviar">
+
+    ➤
+
+  </button>
+
+
+</div>
+
+
+</section>
+
+</main>
+
+</div>
+
+
+
+<!-- =========================
+     TEMPORARY MODAL
+========================= -->
 
 <div
   class="modal-overlay"
   id="temporaryModal">
 
+
   <div class="modal">
+
 
     <div class="modal-header">
 
@@ -1457,14 +1502,19 @@ body{
       <button
         class="close-modal"
         onclick="closeTemporary()">
+
         ✕
+
       </button>
 
     </div>
 
+
     <div class="modal-description">
-      Escolhe por quanto tempo as novas mensagens
-      desta conversa ficarão disponíveis.
+
+      As novas mensagens desta conversa poderão
+      desaparecer automaticamente.
+
     </div>
 
 
@@ -1475,11 +1525,11 @@ body{
 
       <div class="temp-radio"></div>
 
-      <div class="temp-info">
+      <div>
 
-        <div class="temp-title">
+        <strong>
           Desativado
-        </div>
+        </strong>
 
         <div class="temp-subtitle">
           As mensagens permanecem normalmente
@@ -1497,11 +1547,11 @@ body{
 
       <div class="temp-radio"></div>
 
-      <div class="temp-info">
+      <div>
 
-        <div class="temp-title">
+        <strong>
           24 horas
-        </div>
+        </strong>
 
         <div class="temp-subtitle">
           As mensagens desaparecem após 24 horas
@@ -1519,11 +1569,11 @@ body{
 
       <div class="temp-radio"></div>
 
-      <div class="temp-info">
+      <div>
 
-        <div class="temp-title">
+        <strong>
           7 dias
-        </div>
+        </strong>
 
         <div class="temp-subtitle">
           As mensagens desaparecem após 7 dias
@@ -1541,11 +1591,11 @@ body{
 
       <div class="temp-radio"></div>
 
-      <div class="temp-info">
+      <div>
 
-        <div class="temp-title">
+        <strong>
           90 dias
-        </div>
+        </strong>
 
         <div class="temp-subtitle">
           As mensagens desaparecem após 90 dias
@@ -1555,12 +1605,77 @@ body{
 
     </div>
 
+
   </div>
 
 </div>
 
 
-<!-- TOAST -->
+
+<!-- =========================
+     NEW MESSAGE MODAL
+========================= -->
+
+<div
+  class="modal-overlay"
+  id="newMessageModal">
+
+
+  <div class="modal">
+
+
+    <div class="modal-header">
+
+      <h2>
+        ✉ Nova mensagem
+      </h2>
+
+      <button
+        class="close-modal"
+        onclick="closeNewMessage()">
+
+        ✕
+
+      </button>
+
+    </div>
+
+
+    <div class="search">
+
+      <span class="search-icon">
+        🔎
+      </span>
+
+      <input
+        id="artistSearchInput"
+        type="text"
+        placeholder="Pesquisar artista..."
+        oninput="searchNewArtists()">
+
+    </div>
+
+
+    <div
+      id="artistSearchResults"
+      style="
+        margin-top:15px;
+        max-height:400px;
+        overflow-y:auto;
+      ">
+
+    </div>
+
+
+  </div>
+
+</div>
+
+
+
+<!-- =========================
+     TOAST
+========================= -->
 
 <div
   class="toast"
@@ -1568,167 +1683,54 @@ body{
 </div>
 
 
+
 <script>
 
 /* =====================================
-   ESTADO
+   ESTADO GLOBAL
 ===================================== */
 
-let currentChat = "Figura do Adoço";
 let temporaryMode = "off";
+
+let currentChatUID = null;
+let currentChatName = null;
+let currentChatID = null;
 
 let mediaRecorder = null;
 let audioChunks = [];
 let recordingTimer = null;
 let recordingSeconds = 0;
 
+let currentAudio = null;
 
-/* =====================================
-   ABRIR CONVERSA
-===================================== */
-
-function openChat(name, initials, online){
-
-  currentChat = name;
-
-  document
-    .querySelectorAll(".conversation")
-    .forEach(item => {
-      item.classList.remove("active");
-    });
-
-  const selected =
-    [...document.querySelectorAll(".conversation")]
-    .find(item =>
-      item.dataset.name === name
-    );
-
-  if(selected){
-    selected.classList.add("active");
-  }
-
-  document.getElementById("chatUserName")
-    .textContent = name;
-
-  document.getElementById("chatAvatar")
-    .childNodes[0]
-    .textContent = initials;
-
-  document.getElementById("chatStatus")
-    .textContent = online
-      ? "online"
-      : "offline";
-
-  document.getElementById("chatOnline")
-    .style.display = online
-      ? "block"
-      : "none";
-
-  document
-    .getElementById("chat")
-    .classList.add("mobile-active");
-
-  showToast("Conversa aberta com " + name);
-}
+let firebaseReady = false;
 
 
 /* =====================================
-   FECHAR CHAT MOBILE
+   TOAST
 ===================================== */
 
-function closeChat(){
-
-  document
-    .getElementById("chat")
-    .classList.remove("mobile-active");
-
-}
+let toastTimer;
 
 
-/* =====================================
-   ENVIAR MENSAGEM
-===================================== */
+function showToast(text){
 
-function sendMessage(){
+  const toast =
+    document.getElementById("toast");
 
-  const input =
-    document.getElementById("messageInput");
+  toast.textContent =
+    text;
 
-  const text =
-    input.value.trim();
+  toast.classList.add("show");
 
-  if(!text){
-    return;
-  }
+  clearTimeout(toastTimer);
 
-  const messages =
-    document.getElementById("messages");
+  toastTimer =
+    setTimeout(() => {
 
-  const row =
-    document.createElement("div");
+      toast.classList.remove("show");
 
-  row.className =
-    "message-row sent";
-
-  const expiration =
-    temporaryMode !== "off"
-      ? `<div style="
-          color:#d9c57a;
-          font-size:9px;
-          margin-top:3px;
-        ">
-          ⏱ ${temporaryLabel()}
-        </div>`
-      : "";
-
-  row.innerHTML = `
-
-    <div class="message">
-
-      <div class="message-text">
-        ${escapeHTML(text)}
-      </div>
-
-      ${expiration}
-
-      <div class="message-meta">
-        ${getTime()}
-        <span class="check">✓</span>
-      </div>
-
-    </div>
-
-  `;
-
-  messages.appendChild(row);
-
-  input.value = "";
-
-  messages.scrollTop =
-    messages.scrollHeight;
-
-  /* guardar localmente */
-  saveLocalMessage({
-    chat:currentChat,
-    text:text,
-    type:"text",
-    temporary:temporaryMode,
-    createdAt:Date.now()
-  });
-
-}
-
-
-/* =====================================
-   ENTER
-===================================== */
-
-function handleEnter(event){
-
-  if(event.key === "Enter"){
-    event.preventDefault();
-    sendMessage();
-  }
+    },2500);
 
 }
 
@@ -1742,15 +1744,57 @@ function escapeHTML(text){
   const div =
     document.createElement("div");
 
-  div.textContent = text;
+  div.textContent =
+    text || "";
 
   return div.innerHTML;
+
 }
 
 
 /* =====================================
    HORA
 ===================================== */
+
+function formatTime(timestamp){
+
+  if(!timestamp){
+    return "";
+  }
+
+  let date;
+
+  if(
+    typeof timestamp.toDate === "function"
+  ){
+
+    date =
+      timestamp.toDate();
+
+  }
+  else{
+
+    date =
+      new Date(timestamp);
+
+  }
+
+  if(
+    isNaN(date.getTime())
+  ){
+    return "";
+  }
+
+  return date.toLocaleTimeString(
+    "pt-PT",
+    {
+      hour:"2-digit",
+      minute:"2-digit"
+    }
+  );
+
+}
+
 
 function getTime(){
 
@@ -1762,573 +1806,6 @@ function getTime(){
         minute:"2-digit"
       }
     );
-
-}
-
-
-/* =====================================
-   PESQUISA
-===================================== */
-
-function searchChats(){
-
-  const value =
-    document
-      .getElementById("searchInput")
-      .value
-      .toLowerCase();
-
-  document
-    .querySelectorAll(".conversation")
-    .forEach(item => {
-
-      const name =
-        item.dataset.name.toLowerCase();
-
-      item.style.display =
-        name.includes(value)
-          ? "flex"
-          : "none";
-
-    });
-
-}
-
-
-/* =====================================
-   ANEXOS
-===================================== */
-
-function toggleAttach(){
-
-  document
-    .getElementById("attachMenu")
-    .classList.toggle("show");
-
-}
-
-
-function selectAttachment(type){
-
-  document
-    .getElementById("attachMenu")
-    .classList.remove("show");
-
-  showToast(
-    "Selecionar " + type
-  );
-
-  document
-    .getElementById("fileInput")
-    .click();
-
-}
-
-
-function fileSelected(){
-
-  const file =
-    document
-      .getElementById("fileInput")
-      .files[0];
-
-  if(!file){
-    return;
-  }
-
-  showToast(
-    "Ficheiro selecionado: " +
-    file.name
-  );
-
-}
-
-
-/* =====================================
-   ÁUDIO
-===================================== */
-
-async function toggleRecording(){
-
-  if(mediaRecorder &&
-     mediaRecorder.state === "recording"){
-
-    stopRecording();
-    return;
-  }
-
-  try{
-
-    const stream =
-      await navigator.mediaDevices
-        .getUserMedia({
-          audio:true
-        });
-
-    audioChunks = [];
-
-    mediaRecorder =
-      new MediaRecorder(stream);
-
-    mediaRecorder.ondataavailable =
-      event => {
-
-        if(event.data.size > 0){
-          audioChunks.push(event.data);
-        }
-
-      };
-
-    mediaRecorder.onstop =
-      saveRecordedAudio;
-
-    mediaRecorder.start();
-
-    recordingSeconds = 0;
-
-    document
-      .getElementById("recording")
-      .classList.add("active");
-
-    document
-      .getElementById("messageInput")
-      .style.display = "none";
-
-    document
-      .getElementById("micBtn")
-      .textContent = "⏹";
-
-    recordingTimer =
-      setInterval(() => {
-
-        recordingSeconds++;
-
-        const min =
-          Math.floor(
-            recordingSeconds / 60
-          );
-
-        const sec =
-          recordingSeconds % 60;
-
-        document
-          .getElementById("recordTime")
-          .textContent =
-            min + ":" +
-            String(sec).padStart(2,"0");
-
-      },1000);
-
-  }catch(error){
-
-    showToast(
-      "Não foi possível usar o microfone."
-    );
-
-  }
-
-}
-
-
-function stopRecording(){
-
-  if(mediaRecorder){
-
-    mediaRecorder.stop();
-
-    mediaRecorder
-      .stream
-      .getTracks()
-      .forEach(track =>
-        track.stop()
-      );
-
-  }
-
-  clearInterval(recordingTimer);
-
-  document
-    .getElementById("recording")
-    .classList.remove("active");
-
-  document
-    .getElementById("messageInput")
-    .style.display = "block";
-
-  document
-    .getElementById("micBtn")
-    .textContent = "🎙️";
-
-}
-
-
-function cancelRecording(){
-
-  audioChunks = [];
-
-  if(mediaRecorder){
-
-    mediaRecorder.stop();
-
-    mediaRecorder
-      .stream
-      .getTracks()
-      .forEach(track =>
-        track.stop()
-      );
-
-  }
-
-  clearInterval(recordingTimer);
-
-  document
-    .getElementById("recording")
-    .classList.remove("active");
-
-  document
-    .getElementById("messageInput")
-    .style.display = "block";
-
-  document
-    .getElementById("micBtn")
-    .textContent = "🎙️";
-
-}
-
-
-function saveRecordedAudio(){
-
-  if(audioChunks.length === 0){
-    return;
-  }
-
-  const blob =
-    new Blob(
-      audioChunks,
-      {
-        type:"audio/webm"
-      }
-    );
-
-  const url =
-    URL.createObjectURL(blob);
-
-  addAudioMessage(
-    url,
-    recordingSeconds
-  );
-
-  /*
-    Na próxima etapa:
-    guardar este Blob no IndexedDB
-    e enviar o áudio para Firebase Storage.
-  */
-
-  audioChunks = [];
-
-}
-
-
-function addAudioMessage(url,duration){
-
-  const messages =
-    document.getElementById("messages");
-
-  const row =
-    document.createElement("div");
-
-  row.className =
-    "message-row sent";
-
-  row.innerHTML = `
-
-    <div class="message audio-message">
-
-      <div class="audio-player">
-
-        <button
-          class="audio-play"
-          onclick="playAudioUrl(
-            '${url}',
-            this
-          )">
-          ▶
-        </button>
-
-        <div class="audio-wave"></div>
-
-        <div class="audio-duration">
-          ${formatDuration(duration)}
-        </div>
-
-      </div>
-
-      <div class="message-meta">
-        ${getTime()}
-        <span class="check">✓</span>
-      </div>
-
-    </div>
-
-  `;
-
-  messages.appendChild(row);
-
-  messages.scrollTop =
-    messages.scrollHeight;
-
-}
-
-
-function formatDuration(seconds){
-
-  const min =
-    Math.floor(seconds / 60);
-
-  const sec =
-    seconds % 60;
-
-  return min + ":" +
-    String(sec).padStart(2,"0");
-
-}
-
-
-let currentAudio = null;
-
-
-function playAudioUrl(url,button){
-
-  if(currentAudio){
-
-    currentAudio.pause();
-
-    currentAudio = null;
-
-  }
-
-  const audio =
-    new Audio(url);
-
-  currentAudio = audio;
-
-  button.textContent = "⏸";
-
-  audio.play();
-
-  audio.onended = () => {
-    button.textContent = "▶";
-  };
-
-}
-
-
-function playDemoAudio(button){
-
-  showToast(
-    "Este áudio será ligado ao armazenamento real."
-  );
-
-}
-
-
-/* =====================================
-   MENSAGENS TEMPORÁRIAS
-===================================== */
-
-function openTemporary(){
-
-  document
-    .getElementById("temporaryModal")
-    .classList.add("show");
-
-}
-
-
-function closeTemporary(){
-
-  document
-    .getElementById("temporaryModal")
-    .classList.remove("show");
-
-}
-
-
-function selectTemporary(element,value){
-
-  document
-    .querySelectorAll(".temp-option")
-    .forEach(option =>
-      option.classList.remove("selected")
-    );
-
-  element.classList.add("selected");
-
-  temporaryMode = value;
-
-  localStorage.setItem(
-    "kpTemporaryMessages",
-    value
-  );
-
-  closeTemporary();
-
-  showToast(
-    "Mensagens temporárias: " +
-    temporaryLabel()
-  );
-
-}
-
-
-function temporaryLabel(){
-
-  if(temporaryMode === "24h"){
-    return "24 horas";
-  }
-
-  if(temporaryMode === "7d"){
-    return "7 dias";
-  }
-
-  if(temporaryMode === "90d"){
-    return "90 dias";
-  }
-
-  return "desativadas";
-
-}
-
-
-/* =====================================
-   NOVA MENSAGEM
-===================================== */
-
-function newMessage(){
-
-  showToast(
-    "Aqui vamos pesquisar qualquer artista do KUDURO PRIME."
-  );
-
-}
-
-
-/* =====================================
-   LOCAL STORAGE
-===================================== */
-
-function saveLocalMessage(message){
-
-  let messages = [];
-
-  try{
-
-    messages =
-      JSON.parse(
-        localStorage.getItem(
-          "kpMessages"
-        )
-      ) || [];
-
-  }catch(e){
-
-    messages = [];
-
-  }
-
-  messages.push(message);
-
-  localStorage.setItem(
-    "kpMessages",
-    JSON.stringify(messages)
-  );
-
-}
-
-
-/* =====================================
-   LIMPAR TEMPORÁRIAS LOCAIS
-===================================== */
-
-function cleanupTemporaryMessages(){
-
-  let messages = [];
-
-  try{
-
-    messages =
-      JSON.parse(
-        localStorage.getItem(
-          "kpMessages"
-        )
-      ) || [];
-
-  }catch(e){
-
-    return;
-
-  }
-
-  const now = Date.now();
-
-  messages =
-    messages.filter(message => {
-
-      if(message.temporary === "off"){
-        return true;
-      }
-
-      let duration = 0;
-
-      if(message.temporary === "24h"){
-        duration = 24 * 60 * 60 * 1000;
-      }
-
-      if(message.temporary === "7d"){
-        duration = 7 * 24 * 60 * 60 * 1000;
-      }
-
-      if(message.temporary === "90d"){
-        duration = 90 * 24 * 60 * 60 * 1000;
-      }
-
-      return (
-        now - message.createdAt
-      ) < duration;
-
-    });
-
-  localStorage.setItem(
-    "kpMessages",
-    JSON.stringify(messages)
-  );
-
-}
-
-
-/* =====================================
-   TOAST
-===================================== */
-
-let toastTimer;
-
-function showToast(text){
-
-  const toast =
-    document.getElementById("toast");
-
-  toast.textContent = text;
-
-  toast.classList.add("show");
-
-  clearTimeout(toastTimer);
-
-  toastTimer =
-    setTimeout(() => {
-
-      toast.classList.remove("show");
-
-    },2500);
 
 }
 
@@ -2354,7 +1831,549 @@ function goProfile(){
 
 
 /* =====================================
-   FECHAR MENUS AO CLICAR FORA
+   MOBILE
+===================================== */
+
+function closeChat(){
+
+  document
+    .getElementById("chat")
+    .classList.remove(
+      "mobile-active"
+    );
+
+}
+
+
+/* =====================================
+   PESQUISA CONVERSAS
+===================================== */
+
+function searchChats(){
+
+  const value =
+    document
+      .getElementById("searchInput")
+      .value
+      .trim()
+      .toLowerCase();
+
+  document
+    .querySelectorAll(".conversation")
+    .forEach(item => {
+
+      const name =
+        (item.dataset.name || "")
+        .toLowerCase();
+
+      item.style.display =
+        name.includes(value)
+          ? "flex"
+          : "none";
+
+    });
+
+}
+
+
+/* =====================================
+   ANEXOS
+===================================== */
+
+function toggleAttach(){
+
+  document
+    .getElementById("attachMenu")
+    .classList.toggle("show");
+
+}
+
+
+function selectAttachment(accept){
+
+  if(!currentChatID){
+
+    showToast(
+      "Seleciona primeiro uma conversa."
+    );
+
+    return;
+
+  }
+
+  const input =
+    document.getElementById("fileInput");
+
+  input.value = "";
+
+  input.accept =
+    accept;
+
+  document
+    .getElementById("attachMenu")
+    .classList.remove("show");
+
+  input.click();
+
+}
+
+
+/* =====================================
+   ENTER
+===================================== */
+
+function handleEnter(event){
+
+  if(event.key === "Enter"){
+
+    event.preventDefault();
+
+    sendMessage();
+
+  }
+
+}
+
+
+/* =====================================
+   MENSAGENS TEMPORÁRIAS
+===================================== */
+
+function openTemporary(){
+
+  if(!currentChatID){
+
+    showToast(
+      "Abre primeiro uma conversa."
+    );
+
+    return;
+
+  }
+
+  document
+    .getElementById("temporaryModal")
+    .classList.add("show");
+
+}
+
+
+function closeTemporary(){
+
+  document
+    .getElementById("temporaryModal")
+    .classList.remove("show");
+
+}
+
+
+function selectTemporary(
+  element,
+  value
+){
+
+  document
+    .querySelectorAll(".temp-option")
+    .forEach(option => {
+
+      option.classList.remove(
+        "selected"
+      );
+
+    });
+
+  element.classList.add(
+    "selected"
+  );
+
+  temporaryMode =
+    value;
+
+  closeTemporary();
+
+  showToast(
+    "Mensagens temporárias: " +
+    temporaryLabel()
+  );
+
+}
+
+
+function temporaryLabel(){
+
+  if(
+    temporaryMode === "24h"
+  ){
+    return "24 horas";
+  }
+
+  if(
+    temporaryMode === "7d"
+  ){
+    return "7 dias";
+  }
+
+  if(
+    temporaryMode === "90d"
+  ){
+    return "90 dias";
+  }
+
+  return "desativadas";
+
+}
+
+
+/* =====================================
+   ÁUDIO
+===================================== */
+
+async function toggleRecording(){
+
+  if(!currentChatID){
+
+    showToast(
+      "Seleciona primeiro uma conversa."
+    );
+
+    return;
+
+  }
+
+  if(
+    mediaRecorder &&
+    mediaRecorder.state === "recording"
+  ){
+
+    stopRecording();
+
+    return;
+
+  }
+
+  try{
+
+    const stream =
+      await navigator.mediaDevices
+        .getUserMedia({
+          audio:true
+        });
+
+    audioChunks = [];
+
+    mediaRecorder =
+      new MediaRecorder(stream);
+
+    mediaRecorder.ondataavailable =
+      event => {
+
+        if(
+          event.data.size > 0
+        ){
+
+          audioChunks.push(
+            event.data
+          );
+
+        }
+
+      };
+
+
+    mediaRecorder.onstop =
+      async () => {
+
+        if(
+          audioChunks.length === 0
+        ){
+          return;
+        }
+
+        const blob =
+          new Blob(
+            audioChunks,
+            {
+              type:
+                mediaRecorder.mimeType ||
+                "audio/webm"
+            }
+          );
+
+        await window.sendAudioToFirebase(
+          blob,
+          recordingSeconds
+        );
+
+        audioChunks = [];
+
+      };
+
+
+    mediaRecorder.start();
+
+    recordingSeconds =
+      0;
+
+
+    document
+      .getElementById("recording")
+      .classList.add("active");
+
+
+    document
+      .getElementById("messageInput")
+      .style.display =
+      "none";
+
+
+    document
+      .getElementById("micBtn")
+      .textContent =
+      "⏹";
+
+
+    recordingTimer =
+      setInterval(() => {
+
+        recordingSeconds++;
+
+        const min =
+          Math.floor(
+            recordingSeconds / 60
+          );
+
+        const sec =
+          recordingSeconds % 60;
+
+        document
+          .getElementById("recordTime")
+          .textContent =
+          min + ":" +
+          String(sec).padStart(
+            2,
+            "0"
+          );
+
+      },1000);
+
+  }
+  catch(error){
+
+    console.error(error);
+
+    showToast(
+      "Não foi possível usar o microfone."
+    );
+
+  }
+
+}
+
+
+function stopRecording(){
+
+  if(
+    mediaRecorder &&
+    mediaRecorder.state === "recording"
+  ){
+
+    mediaRecorder.stop();
+
+    mediaRecorder
+      .stream
+      .getTracks()
+      .forEach(track =>
+        track.stop()
+      );
+
+  }
+
+  finishRecordingUI();
+
+}
+
+
+function cancelRecording(){
+
+  audioChunks = [];
+
+  if(
+    mediaRecorder &&
+    mediaRecorder.state === "recording"
+  ){
+
+    mediaRecorder.onstop =
+      null;
+
+    mediaRecorder.stop();
+
+    mediaRecorder
+      .stream
+      .getTracks()
+      .forEach(track =>
+        track.stop()
+      );
+
+  }
+
+  finishRecordingUI();
+
+}
+
+
+function finishRecordingUI(){
+
+  clearInterval(
+    recordingTimer
+  );
+
+  document
+    .getElementById("recording")
+    .classList.remove("active");
+
+
+  document
+    .getElementById("messageInput")
+    .style.display =
+    "block";
+
+
+  document
+    .getElementById("micBtn")
+    .textContent =
+    "🎙️";
+
+}
+
+
+/* =====================================
+   AUDIO PLAYER
+===================================== */
+
+function playAudioUrl(
+  url,
+  button
+){
+
+  if(
+    currentAudio
+  ){
+
+    if(
+      currentAudio.src === url &&
+      !currentAudio.paused
+    ){
+
+      currentAudio.pause();
+
+      button.textContent =
+        "▶";
+
+      return;
+
+    }
+
+    currentAudio.pause();
+
+  }
+
+  const audio =
+    new Audio(url);
+
+  currentAudio =
+    audio;
+
+  button.textContent =
+    "⏸";
+
+  audio.play();
+
+  audio.onended =
+    () => {
+
+      button.textContent =
+        "▶";
+
+    };
+
+}
+
+
+/* =====================================
+   FORMATAÇÃO
+===================================== */
+
+function formatDuration(seconds){
+
+  seconds =
+    Number(seconds || 0);
+
+  const min =
+    Math.floor(
+      seconds / 60
+    );
+
+  const sec =
+    seconds % 60;
+
+  return (
+    min +
+    ":" +
+    String(sec).padStart(
+      2,
+      "0"
+    )
+  );
+
+}
+
+
+/* =====================================
+   MODAL NOVA MENSAGEM
+===================================== */
+
+function newMessage(){
+
+  document
+    .getElementById("newMessageModal")
+    .classList.add("show");
+
+
+  if(
+    window.loadArtistsForNewMessage
+  ){
+
+    window.loadArtistsForNewMessage();
+
+  }
+
+}
+
+
+function closeNewMessage(){
+
+  document
+    .getElementById("newMessageModal")
+    .classList.remove("show");
+
+}
+
+
+function searchNewArtists(){
+
+  if(
+    window.renderNewMessageArtists
+  ){
+
+    window.renderNewMessageArtists();
+
+  }
+
+}
+
+
+/* =====================================
+   CLICAR FORA
 ===================================== */
 
 document.addEventListener(
@@ -2366,7 +2385,7 @@ document.addEventListener(
         "attachMenu"
       );
 
-    const button =
+    const attachButton =
       event.target.closest(
         ".composer-btn"
       );
@@ -2374,40 +2393,25 @@ document.addEventListener(
     if(
       menu.classList.contains("show") &&
       !menu.contains(event.target) &&
-      !button
+      !attachButton
     ){
 
-      menu.classList.remove("show");
+      menu.classList.remove(
+        "show"
+      );
 
     }
 
   }
 );
 
-
-/* =====================================
-   CARREGAR CONFIGURAÇÃO
-===================================== */
-
-(function(){
-
-  const saved =
-    localStorage.getItem(
-      "kpTemporaryMessages"
-    );
-
-  if(saved){
-    temporaryMode = saved;
-  }
-
-    cleanupTemporaryMessages();
-
-})();
-
 </script>
 
 
-<!-- FIREBASE MENSAGENS -->
+
+<!-- =====================================
+     FIREBASE
+===================================== -->
 
 <script type="module">
 
@@ -2415,30 +2419,74 @@ import {
   initializeApp
 }
 from
-  "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+"https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+
 
 import {
   getAuth,
   onAuthStateChanged
 }
 from
-  "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+"https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+
 
 import {
   getFirestore,
+
   collection,
-  getDocs,
+
   doc,
-  getDoc
+
+  getDoc,
+
+  getDocs,
+
+  query,
+
+  where,
+
+  orderBy,
+
+  onSnapshot,
+
+  addDoc,
+
+  setDoc,
+
+  updateDoc,
+
+  serverTimestamp,
+
+  arrayUnion,
+
+  increment,
+
+  writeBatch,
+
+  limit
+
 }
 from
-  "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+"https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 
+
+import {
+  getStorage,
+
+  ref,
+
+  uploadBytesResumable,
+
+  getDownloadURL
+
+}
+from
+"https://www.gstatic.com/firebasejs/12.18.0/firebase-storage.js";
 
 
 
 /* =====================================
-   FIREBASE
+   CONFIGURAÇÃO FIREBASE
 ===================================== */
 
 const firebaseConfig = {
@@ -2478,13 +2526,42 @@ const db =
   getFirestore(app);
 
 
+const storage =
+  getStorage(app);
+
+
+
 /* =====================================
-   UTILIZADOR ATUAL
+   ESTADO FIREBASE
 ===================================== */
 
-let firebaseUser = null;
+let firebaseUser =
+  null;
 
-let currentArtistData = null;
+
+let currentArtistData =
+  null;
+
+
+let allArtists =
+  [];
+
+
+let conversations =
+  [];
+
+
+let unsubscribeMessages =
+  null;
+
+
+let unsubscribeConversations =
+  null;
+
+
+let currentChatArtist =
+  null;
+
 
 
 /* =====================================
@@ -2504,13 +2581,14 @@ onAuthStateChanged(
 
     }
 
+
     firebaseUser =
       user;
 
 
     try{
 
-      const myProfileRef =
+      const profileRef =
         doc(
           db,
           "artistas",
@@ -2518,32 +2596,64 @@ onAuthStateChanged(
         );
 
 
-      const myProfileSnap =
+      const profileSnap =
         await getDoc(
-          myProfileRef
+          profileRef
         );
 
 
-      if(myProfileSnap.exists()){
+      if(
+        profileSnap.exists()
+      ){
 
         currentArtistData =
-          myProfileSnap.data();
+          profileSnap.data();
+
+      }
+      else{
+
+        currentArtistData = {
+
+          nome:
+            user.displayName ||
+            "Artista",
+
+          username:
+            user.email
+            ?.split("@")[0] ||
+            "artista",
+
+          foto:
+            user.photoURL ||
+            ""
+
+        };
 
       }
 
 
-      loadRealArtists();
+      window.firebaseReady =
+        true;
+
+
+      await loadArtists();
+
+
+      listenConversations();
+
+
+      loadTemporaryPreference();
 
     }
     catch(error){
 
       console.error(
-        "Erro ao carregar utilizador:",
+        "Erro Firebase:",
         error
       );
 
       showToast(
-        "Erro ao ligar às mensagens."
+        "Erro ao carregar mensagens."
       );
 
     }
@@ -2552,84 +2662,54 @@ onAuthStateChanged(
 );
 
 
+
 /* =====================================
-   CARREGAR ARTISTAS REAIS
+   CARREGAR ARTISTAS
 ===================================== */
 
-async function loadRealArtists(){
-
-  const list =
-    document.getElementById(
-      "conversationList"
-    );
-
-
-  list.innerHTML = `
-
-    <div
-      style="
-        padding:30px 20px;
-        text-align:center;
-        color:#aaa59a;
-        font-size:13px;
-      "
-    >
-
-      A carregar artistas...
-
-    </div>
-
-  `;
-
+async function loadArtists(){
 
   try{
 
-    const artistsRef =
-      collection(
-        db,
-        "artistas"
-      );
-
-
     const snapshot =
       await getDocs(
-        artistsRef
+        collection(
+          db,
+          "artistas"
+        )
       );
 
 
-    const artists = [];
+    allArtists =
+      [];
 
 
     snapshot.forEach(
-      documentArtist => {
-
-        const artist =
-          documentArtist.data();
-
+      artistDoc => {
 
         if(
-          documentArtist.id ===
+          artistDoc.id ===
           firebaseUser.uid
         ){
-
           return;
-
         }
+
+
+        const artist =
+          artistDoc.data();
 
 
         if(
           artist.ativo === false
         ){
-
           return;
-
         }
 
 
-        artists.push({
+        allArtists.push({
 
           uid:
-            documentArtist.id,
+            artistDoc.id,
 
           ...artist
 
@@ -2639,23 +2719,510 @@ async function loadRealArtists(){
     );
 
 
+  }
+  catch(error){
+
+    console.error(
+      "Erro artistas:",
+      error
+    );
+
+  }
+
+}
+
+
+
+/* =====================================
+   OUVIR CONVERSAS
+===================================== */
+
+function listenConversations(){
+
+  if(
+    unsubscribeConversations
+  ){
+
+    unsubscribeConversations();
+
+  }
+
+
+  const conversationsQuery =
+    query(
+      collection(
+        db,
+        "conversas"
+      ),
+
+      where(
+        "participants",
+        "array-contains",
+        firebaseUser.uid
+      )
+    );
+
+
+  unsubscribeConversations =
+    onSnapshot(
+      conversationsQuery,
+
+      async snapshot => {
+
+        const loaded =
+          [];
+
+
+        for(
+          const conversationDoc
+          of snapshot.docs
+        ){
+
+          const data =
+            conversationDoc.data();
+
+
+          const otherUID =
+            data.participants.find(
+              uid =>
+                uid !== firebaseUser.uid
+            );
+
+
+          if(!otherUID){
+            continue;
+          }
+
+
+          let artist =
+            null;
+
+
+          try{
+
+            const artistSnap =
+              await getDoc(
+                doc(
+                  db,
+                  "artistas",
+                  otherUID
+                )
+              );
+
+
+            if(
+              artistSnap.exists()
+            ){
+
+              artist = {
+
+                uid:
+                  otherUID,
+
+                ...artistSnap.data()
+
+              };
+
+            }
+
+          }
+          catch(error){
+
+            console.error(
+              error
+            );
+
+          }
+
+
+          if(!artist){
+
+            artist =
+              allArtists.find(
+                item =>
+                  item.uid ===
+                  otherUID
+              );
+
+          }
+
+
+          if(!artist){
+
+            continue;
+
+          }
+
+
+          loaded.push({
+
+            id:
+              conversationDoc.id,
+
+            ...data,
+
+            artist
+
+          });
+
+        }
+
+
+        conversations =
+          loaded.sort(
+            (a,b) => {
+
+              const timeA =
+                getTimestampValue(
+                  a.lastMessageAt
+                );
+
+              const timeB =
+                getTimestampValue(
+                  b.lastMessageAt
+                );
+
+              return (
+                timeB - timeA
+              );
+
+            }
+          );
+
+
+        renderConversationList();
+
+      },
+
+      error => {
+
+        console.error(
+          "Erro ao ouvir conversas:",
+          error
+        );
+
+        showToast(
+          "Erro ao atualizar conversas."
+        );
+
+      }
+
+    );
+
+}
+
+
+
+/* =====================================
+   RENDER CONVERSAS
+===================================== */
+
+function renderConversationList(){
+
+  const list =
+    document.getElementById(
+      "conversationList"
+    );
+
+
+  if(
+    conversations.length === 0
+  ){
+
+    list.innerHTML = `
+
+      <div
+        style="
+          padding:35px 20px;
+          text-align:center;
+          color:#aaa59a;
+          font-size:13px;
+          line-height:1.6;
+        ">
+
+        Ainda não tens conversas.
+
+        <br><br>
+
+        Carrega no <strong>+</strong>
+        para enviar uma mensagem
+        a um artista.
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  list.innerHTML =
+    "";
+
+
+  conversations.forEach(
+    conversation => {
+
+      const artist =
+        conversation.artist;
+
+
+      const name =
+        getArtistName(
+          artist
+        );
+
+
+      const photo =
+        getArtistPhoto(
+          artist
+        );
+
+
+      const initials =
+        getInitials(
+          name
+        );
+
+
+      const unreadCount =
+        conversation.unreadCount?.[
+          firebaseUser.uid
+        ] || 0;
+
+
+      const lastText =
+        getConversationPreview(
+          conversation
+        );
+
+
+      const item =
+        document.createElement(
+          "div"
+        );
+
+
+      item.className =
+        "conversation";
+
+
+      if(
+        currentChatID ===
+        conversation.id
+      ){
+
+        item.classList.add(
+          "active"
+        );
+
+      }
+
+
+      item.dataset.name =
+        name;
+
+
+      item.dataset.uid =
+        artist.uid;
+
+
+      item.innerHTML = `
+
+        <div class="avatar">
+
+          ${
+            photo
+              ?
+
+              `<img
+                src="${escapeHTML(photo)}"
+                alt="${escapeHTML(name)}">`
+
+              :
+
+              escapeHTML(initials)
+          }
+
+        </div>
+
+
+        <div class="conversation-info">
+
+          <div class="conversation-line">
+
+            <div class="conversation-name">
+
+              ${escapeHTML(name)}
+
+            </div>
+
+
+            <div class="time">
+
+              ${formatConversationTime(
+                conversation.lastMessageAt
+              )}
+
+            </div>
+
+          </div>
+
+
+          <div class="last-message">
+
+            ${escapeHTML(lastText)}
+
+          </div>
+
+        </div>
+
+
+        ${
+          unreadCount > 0
+
+            ?
+
+            `<div class="unread">
+              ${unreadCount > 99
+                ? "99+"
+                : unreadCount}
+            </div>`
+
+            :
+
+            ""
+        }
+
+      `;
+
+
+      item.addEventListener(
+        "click",
+        () => {
+
+          openRealChat(
+            artist,
+            conversation.id
+          );
+
+        }
+      );
+
+
+      list.appendChild(
+        item
+      );
+
+    }
+  );
+
+}
+
+
+
+/* =====================================
+   NOVA CONVERSA
+===================================== */
+
+window.loadArtistsForNewMessage =
+  function(){
+
     if(
-      artists.length === 0
+      allArtists.length === 0
     ){
 
-      list.innerHTML = `
+      document
+        .getElementById(
+          "artistSearchResults"
+        )
+        .innerHTML = `
+
+          <div
+            style="
+              padding:20px;
+              text-align:center;
+              color:#aaa59a;
+              font-size:13px;
+            ">
+
+            Nenhum artista encontrado.
+
+          </div>
+
+        `;
+
+      return;
+
+    }
+
+
+    window.renderNewMessageArtists();
+
+  };
+
+
+window.renderNewMessageArtists =
+  function(){
+
+    const container =
+      document.getElementById(
+        "artistSearchResults"
+      );
+
+
+    const search =
+      document
+        .getElementById(
+          "artistSearchInput"
+        )
+        .value
+        .trim()
+        .toLowerCase();
+
+
+    const filtered =
+      allArtists.filter(
+        artist => {
+
+          const name =
+            getArtistName(
+              artist
+            ).toLowerCase();
+
+
+          const username =
+            (
+              artist.username ||
+              ""
+            ).toLowerCase();
+
+
+          return (
+            name.includes(search) ||
+            username.includes(search)
+          );
+
+        }
+      );
+
+
+    if(
+      filtered.length === 0
+    ){
+
+      container.innerHTML = `
 
         <div
           style="
-            padding:30px 20px;
+            padding:25px;
             text-align:center;
             color:#aaa59a;
             font-size:13px;
-            line-height:1.6;
-          "
-        >
+          ">
 
-          Ainda não existem outros artistas disponíveis.
+          Nenhum artista encontrado.
 
         </div>
 
@@ -2666,29 +3233,23 @@ async function loadRealArtists(){
     }
 
 
-    list.innerHTML = "";
+    container.innerHTML =
+      "";
 
 
-    artists.forEach(
+    filtered.forEach(
       artist => {
 
         const name =
-          artist.nome ||
-          artist.artistName ||
-          artist.username ||
-          "Artista";
-
-
-        const username =
-          artist.username ||
-          "";
+          getArtistName(
+            artist
+          );
 
 
         const photo =
-          artist.foto ||
-          artist.photoURL ||
-          artist.avatar ||
-          "";
+          getArtistPhoto(
+            artist
+          );
 
 
         const initials =
@@ -2697,41 +3258,44 @@ async function loadRealArtists(){
           );
 
 
-        const conversation =
+        const item =
           document.createElement(
             "div"
           );
 
 
-        conversation.className =
+        item.className =
           "conversation";
 
 
-        conversation.dataset.name =
-          name;
+        item.style.border =
+          "1px solid #292929";
 
 
-        conversation.dataset.uid =
-          artist.uid;
+        item.style.borderRadius =
+          "12px";
 
 
-        conversation.innerHTML = `
+        item.style.marginBottom =
+          "8px";
+
+
+        item.innerHTML = `
 
           <div class="avatar">
 
             ${
               photo
 
-              ? `
+                ?
 
-                <img
+                `<img
                   src="${escapeHTML(photo)}"
-                  alt="${escapeHTML(name)}"
-                >
+                  alt="${escapeHTML(name)}">`
 
-              `
+                :
 
-              : escapeHTML(initials)
+                escapeHTML(initials)
             }
 
           </div>
@@ -2739,13 +3303,9 @@ async function loadRealArtists(){
 
           <div class="conversation-info">
 
-            <div class="conversation-line">
+            <div class="conversation-name">
 
-              <div class="conversation-name">
-
-                ${escapeHTML(name)}
-
-              </div>
+              ${escapeHTML(name)}
 
             </div>
 
@@ -2753,12 +3313,17 @@ async function loadRealArtists(){
             <div class="last-message">
 
               ${
-                username
+                artist.username
+                  ?
 
-                ? "@" +
-                  escapeHTML(username)
+                  "@" +
+                  escapeHTML(
+                    artist.username
+                  )
 
-                : "Iniciar conversa"
+                  :
+
+                  "Artista KUDURO PRIME"
               }
 
             </div>
@@ -2768,11 +3333,11 @@ async function loadRealArtists(){
         `;
 
 
-        conversation.addEventListener(
+        item.addEventListener(
           "click",
-          () => {
+          async () => {
 
-            openRealChat(
+            await startNewConversation(
               artist
             );
 
@@ -2780,72 +3345,161 @@ async function loadRealArtists(){
         );
 
 
-        list.appendChild(
-          conversation
+        container.appendChild(
+          item
         );
 
       }
     );
 
+  };
+
+
+
+/* =====================================
+   CRIAR / ABRIR CONVERSA
+===================================== */
+
+async function startNewConversation(
+  artist
+){
+
+  try{
+
+    closeNewMessage();
+
+
+    const chatID =
+      createChatID(
+        firebaseUser.uid,
+        artist.uid
+      );
+
+
+    const conversationRef =
+      doc(
+        db,
+        "conversas",
+        chatID
+      );
+
+
+    const conversationSnap =
+      await getDoc(
+        conversationRef
+      );
+
+
+    if(
+      !conversationSnap.exists()
+    ){
+
+      const batch =
+        writeBatch(db);
+
+
+      batch.set(
+        conversationRef,
+        {
+
+          participants:[
+            firebaseUser.uid,
+            artist.uid
+          ],
+
+          createdAt:
+            serverTimestamp(),
+
+          lastMessage:
+            "",
+
+          lastMessageType:
+            "",
+
+          lastMessageAt:
+            serverTimestamp(),
+
+          unreadCount:{
+
+            [firebaseUser.uid]:
+              0,
+
+            [artist.uid]:
+              0
+
+          }
+
+        }
+      );
+
+
+      await batch.commit();
+
+    }
+
+
+    openRealChat(
+      artist,
+      chatID
+    );
 
   }
   catch(error){
 
     console.error(
-      "Erro ao carregar artistas:",
+      "Erro nova conversa:",
       error
     );
 
-
-    list.innerHTML = `
-
-      <div
-        style="
-          padding:30px 20px;
-          text-align:center;
-          color:#ff9587;
-          font-size:13px;
-        "
-      >
-
-        Não foi possível carregar os artistas.
-
-      </div>
-
-    `;
+    showToast(
+      "Não foi possível iniciar a conversa."
+    );
 
   }
 
 }
 
 
+
 /* =====================================
-   ABRIR CHAT REAL
+   ABRIR CHAT
 ===================================== */
 
-function openRealChat(
-  artist
+async function openRealChat(
+  artist,
+  chatID
 ){
 
-  const name =
-    artist.nome ||
-    artist.artistName ||
-    artist.username ||
-    "Artista";
-
-
-  const initials =
-    getInitials(
-      name
-    );
-
-
-  window.currentChat =
-    name;
+  currentChatArtist =
+    artist;
 
 
   window.currentChatUID =
     artist.uid;
+
+
+  window.currentChatName =
+    getArtistName(
+      artist
+    );
+
+
+  window.currentChatID =
+    chatID;
+
+
+  currentChatUID =
+    artist.uid;
+
+
+  currentChatName =
+    getArtistName(
+      artist
+    );
+
+
+  currentChatID =
+    chatID;
 
 
   document
@@ -2878,21 +3532,30 @@ function openRealChat(
   }
 
 
+  const name =
+    getArtistName(
+      artist
+    );
+
+
+  const photo =
+    getArtistPhoto(
+      artist
+    );
+
+
+  const initials =
+    getInitials(
+      name
+    );
+
+
   document
     .getElementById(
       "chatUserName"
     )
     .textContent =
-      name;
-
-
-  document
-    .getElementById(
-      "chatAvatar"
-    )
-    .childNodes[0]
-    .textContent =
-      initials;
+    name;
 
 
   document
@@ -2900,7 +3563,49 @@ function openRealChat(
       "chatStatus"
     )
     .textContent =
-      "Artista do KUDURO PRIME";
+    "Artista do KUDURO PRIME";
+
+
+  const avatarText =
+    document.getElementById(
+      "chatAvatarText"
+    );
+
+
+  const avatarImage =
+    document.getElementById(
+      "chatAvatarImage"
+    );
+
+
+  if(photo){
+
+    avatarText.style.display =
+      "none";
+
+
+    avatarImage.style.display =
+      "block";
+
+
+    avatarImage.src =
+      photo;
+
+  }
+  else{
+
+    avatarImage.style.display =
+      "none";
+
+
+    avatarText.style.display =
+      "block";
+
+
+    avatarText.textContent =
+      initials;
+
+  }
 
 
   document
@@ -2908,7 +3613,7 @@ function openRealChat(
       "chatOnline"
     )
     .style.display =
-      "none";
+    "none";
 
 
   document
@@ -2920,17 +3625,1170 @@ function openRealChat(
     );
 
 
-  showToast(
-    "Conversa aberta com " +
-    name
+  await markConversationAsRead(
+    chatID
+  );
+
+
+  listenMessages(
+    chatID
   );
 
 }
 
 
+
 /* =====================================
-   INICIAIS
+   OUVIR MENSAGENS
 ===================================== */
+
+function listenMessages(chatID){
+
+  if(
+    unsubscribeMessages
+  ){
+
+    unsubscribeMessages();
+
+    unsubscribeMessages =
+      null;
+
+  }
+
+
+  const messagesRef =
+    collection(
+      db,
+      "conversas",
+      chatID,
+      "mensagens"
+    );
+
+
+  const messagesQuery =
+    query(
+      messagesRef,
+      orderBy(
+        "createdAt",
+        "asc"
+      )
+    );
+
+
+  unsubscribeMessages =
+    onSnapshot(
+      messagesQuery,
+
+      async snapshot => {
+
+        const messages =
+          document.getElementById(
+            "messages"
+          );
+
+
+        messages.innerHTML =
+          "";
+
+
+        if(
+          snapshot.empty
+        ){
+
+          messages.innerHTML = `
+
+            <div class="empty-chat">
+
+              <div class="empty-box">
+
+                <div class="empty-icon">
+                  👋
+                </div>
+
+                <h2>
+                  Nova conversa
+                </h2>
+
+                <p>
+                  Envia a primeira mensagem
+                  para ${escapeHTML(
+                    currentChatName
+                  )}.
+                </p>
+
+              </div>
+
+            </div>
+
+          `;
+
+          return;
+
+        }
+
+
+        let lastDate =
+          "";
+
+
+        snapshot.forEach(
+          messageDoc => {
+
+            const message =
+              messageDoc.data();
+
+
+            if(
+              isExpiredMessage(
+                message
+              )
+            ){
+
+              return;
+
+            }
+
+
+            const messageDate =
+              getDateLabel(
+                message.createdAt
+              );
+
+
+            if(
+              messageDate !==
+              lastDate
+            ){
+
+              const dateElement =
+                document.createElement(
+                  "div"
+                );
+
+
+              dateElement.className =
+                "date-label";
+
+
+              dateElement.textContent =
+                messageDate;
+
+
+              messages.appendChild(
+                dateElement
+              );
+
+
+              lastDate =
+                messageDate;
+
+            }
+
+
+            renderMessage(
+              message,
+              messageDoc.id
+            );
+
+          }
+        );
+
+
+        messages.scrollTop =
+          messages.scrollHeight;
+
+
+        await markConversationAsRead(
+          chatID
+        );
+
+      },
+
+      error => {
+
+        console.error(
+          "Erro mensagens:",
+          error
+        );
+
+
+        if(
+          error.code ===
+          "failed-precondition"
+        ){
+
+          showToast(
+            "É necessário criar o índice do Firestore."
+          );
+
+        }
+
+      }
+
+    );
+
+}
+
+
+
+/* =====================================
+   RENDER MENSAGEM
+===================================== */
+
+function renderMessage(
+  message,
+  messageID
+){
+
+  const messages =
+    document.getElementById(
+      "messages"
+    );
+
+
+  const row =
+    document.createElement(
+      "div"
+    );
+
+
+  const isMine =
+    message.senderId ===
+    firebaseUser.uid;
+
+
+  row.className =
+    isMine
+      ?
+
+      "message-row sent"
+
+      :
+
+      "message-row received";
+
+
+  const messageBox =
+    document.createElement(
+      "div"
+    );
+
+
+  messageBox.className =
+    "message";
+
+
+  /* TEXTO */
+
+  if(
+    message.type ===
+    "text"
+  ){
+
+    const text =
+      document.createElement(
+        "div"
+      );
+
+
+    text.className =
+      "message-text";
+
+
+    text.textContent =
+      message.text ||
+      "";
+
+
+    messageBox.appendChild(
+      text
+    );
+
+  }
+
+
+  /* IMAGEM */
+
+  else if(
+    message.type ===
+    "image"
+  ){
+
+    const image =
+      document.createElement(
+        "img"
+      );
+
+
+    image.className =
+      "message-image";
+
+
+    image.src =
+      message.fileURL;
+
+
+    image.alt =
+      message.fileName ||
+      "Imagem";
+
+
+    image.loading =
+      "lazy";
+
+
+    image.addEventListener(
+      "click",
+      () => {
+
+        window.open(
+          message.fileURL,
+          "_blank"
+        );
+
+      }
+    );
+
+
+    messageBox.appendChild(
+      image
+    );
+
+  }
+
+
+  /* VIDEO */
+
+  else if(
+    message.type ===
+    "video"
+  ){
+
+    const video =
+      document.createElement(
+        "video"
+      );
+
+
+    video.className =
+      "message-video";
+
+
+    video.src =
+      message.fileURL;
+
+
+    video.controls =
+      true;
+
+
+    video.preload =
+      "metadata";
+
+
+    messageBox.appendChild(
+      video
+    );
+
+  }
+
+
+  /* AUDIO */
+
+  else if(
+    message.type ===
+    "audio"
+  ){
+
+    const player =
+      document.createElement(
+        "div"
+      );
+
+
+    player.className =
+      "audio-player";
+
+
+    const playButton =
+      document.createElement(
+        "button"
+      );
+
+
+    playButton.className =
+      "audio-play";
+
+
+    playButton.textContent =
+      "▶";
+
+
+    playButton.addEventListener(
+      "click",
+      () => {
+
+        playAudioUrl(
+          message.fileURL,
+          playButton
+        );
+
+      }
+    );
+
+
+    const duration =
+      document.createElement(
+        "div"
+      );
+
+
+    duration.className =
+      "audio-duration";
+
+
+    duration.textContent =
+      formatDuration(
+        message.duration
+      );
+
+
+    player.appendChild(
+      playButton
+    );
+
+
+    player.appendChild(
+      duration
+    );
+
+
+    messageBox.appendChild(
+      player
+    );
+
+  }
+
+
+  /* DOCUMENTO */
+
+  else if(
+    message.type ===
+    "document"
+  ){
+
+    const documentBox =
+      document.createElement(
+        "div"
+      );
+
+
+    documentBox.className =
+      "document-message";
+
+
+    documentBox.innerHTML = `
+
+      <div class="document-icon">
+        📄
+      </div>
+
+      <div class="document-info">
+
+        <div class="document-name">
+
+          ${escapeHTML(
+            message.fileName ||
+            "Documento"
+          )}
+
+        </div>
+
+        <a
+          class="document-link"
+          href="${escapeHTML(
+            message.fileURL
+          )}"
+          target="_blank"
+          rel="noopener">
+
+          Abrir documento
+
+        </a>
+
+      </div>
+
+    `;
+
+
+    messageBox.appendChild(
+      documentBox
+    );
+
+  }
+
+
+  /* TEMPORÁRIA */
+
+  if(
+    message.temporary &&
+    message.temporary !==
+    "off"
+  ){
+
+    const temporary =
+      document.createElement(
+        "div"
+      );
+
+
+    temporary.style.cssText =
+      `
+        color:#d9c57a;
+        font-size:9px;
+        margin-top:5px;
+      `;
+
+
+    temporary.textContent =
+      "⏱ Mensagem temporária";
+
+
+    messageBox.appendChild(
+      temporary
+    );
+
+  }
+
+
+  /* META */
+
+  const meta =
+    document.createElement(
+      "div"
+    );
+
+
+  meta.className =
+    "message-meta";
+
+
+  meta.innerHTML = `
+
+    ${formatTime(
+      message.createdAt
+    )}
+
+    ${
+      isMine
+
+        ?
+
+        `<span class="check">
+          ✓✓
+        </span>`
+
+        :
+
+        ""
+    }
+
+  `;
+
+
+  messageBox.appendChild(
+    meta
+  );
+
+
+  row.appendChild(
+    messageBox
+  );
+
+
+  messages.appendChild(
+    row
+  );
+
+}
+
+
+
+/* =====================================
+   ENVIAR TEXTO
+===================================== */
+
+window.sendMessage =
+  async function(){
+
+    const input =
+      document.getElementById(
+        "messageInput"
+      );
+
+
+    const text =
+      input.value.trim();
+
+
+    if(!text){
+
+      return;
+
+    }
+
+
+    if(!currentChatID){
+
+      showToast(
+        "Seleciona uma conversa."
+      );
+
+      return;
+
+    }
+
+
+    input.disabled =
+      true;
+
+
+    try{
+
+      await sendFirebaseMessage({
+
+        type:
+          "text",
+
+        text:
+          text
+
+      });
+
+
+      input.value =
+        "";
+
+    }
+    catch(error){
+
+      console.error(
+        error
+      );
+
+
+      showToast(
+        "Não foi possível enviar a mensagem."
+      );
+
+    }
+    finally{
+
+      input.disabled =
+        false;
+
+
+      input.focus();
+
+    }
+
+  };
+
+
+
+/* =====================================
+   GUARDAR MENSAGEM
+===================================== */
+
+async function sendFirebaseMessage(
+  data
+){
+
+  if(
+    !firebaseUser ||
+    !currentChatID ||
+    !currentChatUID
+  ){
+
+    throw new Error(
+      "Conversa não selecionada."
+    );
+
+  }
+
+
+  const messageRef =
+    collection(
+      db,
+      "conversas",
+      currentChatID,
+      "mensagens"
+    );
+
+
+  const conversationRef =
+    doc(
+      db,
+      "conversas",
+      currentChatID
+    );
+
+
+  const preview =
+    getMessagePreview(
+      data
+    );
+
+
+  const unreadUpdate = {
+
+    [firebaseUser.uid]:
+      0,
+
+    [currentChatUID]:
+      increment(1)
+
+  };
+
+
+  const expirationAt =
+    getExpirationTimestamp(
+      temporaryMode
+    );
+
+
+  await addDoc(
+    messageRef,
+    {
+
+      ...data,
+
+      senderId:
+        firebaseUser.uid,
+
+      receiverId:
+        currentChatUID,
+
+      temporary:
+        temporaryMode,
+
+      createdAt:
+        serverTimestamp(),
+
+      expirationAt:
+        expirationAt
+
+    }
+  );
+
+
+  await updateDoc(
+    conversationRef,
+    {
+
+      lastMessage:
+        preview,
+
+      lastMessageType:
+        data.type,
+
+      lastMessageAt:
+        serverTimestamp(),
+
+      unreadCount:
+        unreadUpdate
+
+    }
+  );
+
+}
+
+
+
+/* =====================================
+   UPLOAD FICHEIRO
+===================================== */
+
+window.fileSelected =
+  async function(){
+
+    const input =
+      document.getElementById(
+        "fileInput"
+      );
+
+
+    const file =
+      input.files[0];
+
+
+    if(!file){
+
+      return;
+
+    }
+
+
+    if(
+      !currentChatID
+    ){
+
+      showToast(
+        "Seleciona primeiro uma conversa."
+      );
+
+      return;
+
+    }
+
+
+    const maxSize =
+      100 * 1024 * 1024;
+
+
+    if(
+      file.size >
+      maxSize
+    ){
+
+      showToast(
+        "O ficheiro é muito grande. Máximo: 100 MB."
+      );
+
+      return;
+
+    }
+
+
+    try{
+
+      showToast(
+        "A enviar ficheiro..."
+      );
+
+
+      const type =
+        getFileMessageType(
+          file
+        );
+
+
+      const extension =
+        file.name
+        .split(".")
+        .pop();
+
+
+      const filePath =
+        `mensagens/${currentChatID}/${Date.now()}-${crypto.randomUUID()}.${extension}`;
+
+
+      const fileRef =
+        ref(
+          storage,
+          filePath
+        );
+
+
+      const uploadTask =
+        uploadBytesResumable(
+          fileRef,
+          file,
+          {
+            contentType:
+              file.type
+          }
+        );
+
+
+      await new Promise(
+        (
+          resolve,
+          reject
+        ) => {
+
+          uploadTask.on(
+
+            "state_changed",
+
+            snapshot => {
+
+              const progress =
+                Math.round(
+                  (
+                    snapshot.bytesTransferred /
+                    snapshot.totalBytes
+                  ) * 100
+                );
+
+
+              showToast(
+                "A enviar: " +
+                progress +
+                "%"
+              );
+
+            },
+
+            reject,
+
+            resolve
+
+          );
+
+        }
+      );
+
+
+      const fileURL =
+        await getDownloadURL(
+          fileRef
+        );
+
+
+      await sendFirebaseMessage({
+
+        type:
+          type,
+
+        fileURL:
+          fileURL,
+
+        fileName:
+          file.name,
+
+        fileSize:
+          file.size,
+
+        storagePath:
+          filePath
+
+      });
+
+
+      showToast(
+        "Ficheiro enviado."
+      );
+
+    }
+    catch(error){
+
+      console.error(
+        "Erro upload:",
+        error
+      );
+
+
+      showToast(
+        "Erro ao enviar ficheiro."
+      );
+
+    }
+    finally{
+
+      input.value =
+        "";
+
+    }
+
+  };
+
+
+
+/* =====================================
+   ENVIAR ÁUDIO GRAVADO
+===================================== */
+
+window.sendAudioToFirebase =
+  async function(
+    blob,
+    duration
+  ){
+
+    if(
+      !currentChatID
+    ){
+
+      return;
+
+    }
+
+
+    try{
+
+      showToast(
+        "A enviar áudio..."
+      );
+
+
+      const filePath =
+        `mensagens/${currentChatID}/audio-${Date.now()}-${crypto.randomUUID()}.webm`;
+
+
+      const fileRef =
+        ref(
+          storage,
+          filePath
+        );
+
+
+      await uploadBytesResumable(
+        fileRef,
+        blob,
+        {
+          contentType:
+            blob.type ||
+            "audio/webm"
+        }
+      );
+
+
+      const fileURL =
+        await getDownloadURL(
+          fileRef
+        );
+
+
+      await sendFirebaseMessage({
+
+        type:
+          "audio",
+
+        fileURL:
+          fileURL,
+
+        fileName:
+          "Mensagem de áudio",
+
+        duration:
+          duration,
+
+        storagePath:
+          filePath
+
+      });
+
+
+      showToast(
+        "Áudio enviado."
+      );
+
+    }
+    catch(error){
+
+      console.error(
+        "Erro áudio:",
+        error
+      );
+
+
+      showToast(
+        "Erro ao enviar áudio."
+      );
+
+    }
+
+  };
+
+
+
+/* =====================================
+   MARCAR COMO LIDA
+===================================== */
+
+async function markConversationAsRead(
+  chatID
+){
+
+  if(
+    !firebaseUser
+  ){
+
+    return;
+
+  }
+
+
+  try{
+
+    await updateDoc(
+
+      doc(
+        db,
+        "conversas",
+        chatID
+      ),
+
+      {
+
+        [`unreadCount.${firebaseUser.uid}`]:
+          0
+
+      }
+
+    );
+
+  }
+  catch(error){
+
+    console.error(
+      error
+    );
+
+  }
+
+}
+
+
+
+/* =====================================
+   UTILITÁRIOS
+===================================== */
+
+function createChatID(
+  uid1,
+  uid2
+){
+
+  return [
+    uid1,
+    uid2
+  ]
+  .sort()
+  .join("_");
+
+}
+
+
+function getArtistName(
+  artist
+){
+
+  return (
+    artist.nome ||
+    artist.artistName ||
+    artist.nomeArtistico ||
+    artist.username ||
+    "Artista"
+  );
+
+}
+
+
+function getArtistPhoto(
+  artist
+){
+
+  return (
+    artist.foto ||
+    artist.photoURL ||
+    artist.avatar ||
+    artist.imagem ||
+    ""
+  );
+
+}
+
 
 function getInitials(
   name
@@ -2946,9 +4804,466 @@ function getInitials(
     .map(
       word =>
         word[0]
-          .toUpperCase()
+        .toUpperCase()
     )
     .join("");
+
+}
+
+
+function getTimestampValue(
+  timestamp
+){
+
+  if(!timestamp){
+    return 0;
+  }
+
+  if(
+    typeof timestamp.toMillis ===
+    "function"
+  ){
+
+    return timestamp.toMillis();
+
+  }
+
+  return new Date(
+    timestamp
+  ).getTime() || 0;
+
+}
+
+
+function formatConversationTime(
+  timestamp
+){
+
+  if(!timestamp){
+    return "";
+  }
+
+
+  const date =
+    timestamp.toDate
+      ?
+
+      timestamp.toDate()
+
+      :
+
+      new Date(timestamp);
+
+
+  const now =
+    new Date();
+
+
+  const sameDay =
+    date.toDateString() ===
+    now.toDateString();
+
+
+  if(sameDay){
+
+    return date.toLocaleTimeString(
+      "pt-PT",
+      {
+        hour:"2-digit",
+        minute:"2-digit"
+      }
+    );
+
+  }
+
+
+  return date.toLocaleDateString(
+    "pt-PT",
+    {
+      day:"2-digit",
+      month:"2-digit"
+    }
+  );
+
+}
+
+
+function getConversationPreview(
+  conversation
+){
+
+  if(
+    conversation.lastMessage
+  ){
+
+    return conversation.lastMessage;
+
+  }
+
+
+  if(
+    conversation.lastMessageType ===
+    "image"
+  ){
+
+    return "📷 Foto";
+
+  }
+
+
+  if(
+    conversation.lastMessageType ===
+    "video"
+  ){
+
+    return "🎬 Vídeo";
+
+  }
+
+
+  if(
+    conversation.lastMessageType ===
+    "audio"
+  ){
+
+    return "🎙️ Mensagem de áudio";
+
+  }
+
+
+  if(
+    conversation.lastMessageType ===
+    "document"
+  ){
+
+    return "📄 Documento";
+
+  }
+
+
+  return "Iniciar conversa";
+
+}
+
+
+function getMessagePreview(
+  data
+){
+
+  if(
+    data.type ===
+    "text"
+  ){
+
+    return data.text;
+
+  }
+
+
+  if(
+    data.type ===
+    "image"
+  ){
+
+    return "📷 Foto";
+
+  }
+
+
+  if(
+    data.type ===
+    "video"
+  ){
+
+    return "🎬 Vídeo";
+
+  }
+
+
+  if(
+    data.type ===
+    "audio"
+  ){
+
+    return "🎙️ Mensagem de áudio";
+
+  }
+
+
+  if(
+    data.type ===
+    "document"
+  ){
+
+    return "📄 Documento";
+
+  }
+
+
+  return "Nova mensagem";
+
+}
+
+
+function getFileMessageType(
+  file
+){
+
+  if(
+    file.type.startsWith(
+      "image/"
+    )
+  ){
+
+    return "image";
+
+  }
+
+
+  if(
+    file.type.startsWith(
+      "video/"
+    )
+  ){
+
+    return "video";
+
+  }
+
+
+  if(
+    file.type.startsWith(
+      "audio/"
+    )
+  ){
+
+    return "audio";
+
+  }
+
+
+  return "document";
+
+}
+
+
+function getExpirationTimestamp(
+  mode
+){
+
+  if(
+    mode === "off"
+  ){
+
+    return null;
+
+  }
+
+
+  let milliseconds =
+    0;
+
+
+  if(
+    mode === "24h"
+  ){
+
+    milliseconds =
+      24 *
+      60 *
+      60 *
+      1000;
+
+  }
+
+
+  if(
+    mode === "7d"
+  ){
+
+    milliseconds =
+      7 *
+      24 *
+      60 *
+      60 *
+      1000;
+
+  }
+
+
+  if(
+    mode === "90d"
+  ){
+
+    milliseconds =
+      90 *
+      24 *
+      60 *
+      60 *
+      1000;
+
+  }
+
+
+  return new Date(
+    Date.now() +
+    milliseconds
+  );
+
+}
+
+
+function isExpiredMessage(
+  message
+){
+
+  if(
+    !message.expirationAt
+  ){
+
+    return false;
+
+  }
+
+
+  const expiration =
+    message.expirationAt.toDate
+      ?
+
+      message.expirationAt.toDate()
+
+      :
+
+      new Date(
+        message.expirationAt
+      );
+
+
+  return (
+    Date.now() >
+    expiration.getTime()
+  );
+
+}
+
+
+function getDateLabel(
+  timestamp
+){
+
+  if(!timestamp){
+
+    return "AGORA";
+
+  }
+
+
+  const date =
+    timestamp.toDate
+      ?
+
+      timestamp.toDate()
+
+      :
+
+      new Date(
+        timestamp
+      );
+
+
+  const now =
+    new Date();
+
+
+  const today =
+    new Date(
+      now.getFullYear(),
+      now.getMonth(),
+      now.getDate()
+    );
+
+
+  const yesterday =
+    new Date(
+      today.getTime() -
+      86400000
+    );
+
+
+  const target =
+    new Date(
+      date.getFullYear(),
+      date.getMonth(),
+      date.getDate()
+    );
+
+
+  if(
+    target.getTime() ===
+    today.getTime()
+  ){
+
+    return "HOJE";
+
+  }
+
+
+  if(
+    target.getTime() ===
+    yesterday.getTime()
+  ){
+
+    return "ONTEM";
+
+  }
+
+
+  return date.toLocaleDateString(
+    "pt-PT",
+    {
+      day:"2-digit",
+      month:"long",
+      year:"numeric"
+    }
+  );
+
+}
+
+
+function loadTemporaryPreference(){
+
+  temporaryMode =
+    "off";
+
+
+  document
+    .querySelectorAll(
+      ".temp-option"
+    )
+    .forEach(
+      element => {
+
+        element.classList.remove(
+          "selected"
+        );
+
+      }
+    );
+
+
+  const active =
+    document.querySelector(
+      `[data-value="${temporaryMode}"]`
+    );
+
+
+  if(active){
+
+    active.classList.add(
+      "selected"
+    );
+
+  }
 
 }
 
