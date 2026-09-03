@@ -4312,56 +4312,68 @@
 
 
       const postId =
-        escaparHTML(
-          item.id
-        );
+  escaparHTML(
+    item.id
+  );
 
 
-      const origem =
-        escaparHTML(
-          item.origem ||
-          "publicacoes"
-        );
+const origem =
+  escaparHTML(
+    item.origem ||
+    "publicacoes"
+  );
 
 
-      article.innerHTML = `
-
-        <div class="post-header">
-
-          <a
-  href="perfil.html?id=${encodeURIComponent(
-    item.artistaId || item.artistId || item.userId || item.uid || ''
-  )}"
-  class="post-avatar post-profile-link"
-  title="Ver perfil de ${escaparHTML(nome)}"
->
-  ${avatarHTML}
-</a>
+const idDoArtista =
+  item.artistaId ||
+  item.artistId ||
+  item.userId ||
+  item.uid ||
+  item.autorId ||
+  item.criadoPor ||
+  "";
 
 
-          <div>
+console.log(
+  "ID DO ARTISTA:",
+  idDoArtista
+);
 
-            <div class="post-author">
 
-  <a
-  href="perfil.html?id=${encodeURIComponent(
-    item.artistaId || item.artistId || item.userId || item.uid || ''
-  )}"
-  class="post-profile-link"
-  title="Ver perfil de ${escaparHTML(nome)}"
->
-  ${escaparHTML(nome)}
-</a>
+article.innerHTML = `
 
-  <span
-    style="color:#4eb8ff;"
-  >
-    ✓
-  </span>
+  <div class="post-header">
 
-  ${tipoHTML}
+    <a
+      href="perfil.html?id=${encodeURIComponent(idDoArtista)}"
+      class="post-avatar post-profile-link"
+      title="Ver perfil de ${escaparHTML(nome)}"
+    >
+      ${avatarHTML}
+    </a>
 
-</div>
+
+    <div>
+
+      <div class="post-author">
+
+        <a
+          href="perfil.html?id=${encodeURIComponent(idDoArtista)}"
+          class="post-profile-link"
+          title="Ver perfil de ${escaparHTML(nome)}"
+        >
+          ${escaparHTML(nome)}
+        </a>
+
+        <span
+          style="color:#4eb8ff;"
+        >
+          ✓
+        </span>
+
+        ${tipoHTML}
+
+      </div>
 
 
             <div class="post-meta">
