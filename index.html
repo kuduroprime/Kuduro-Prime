@@ -2,15 +2,16 @@
 
 <html lang="pt">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>KUDURO PRIME — O Palco dos Grandes</title>
 
 <meta
- name="description"
- content="A plataforma dedicada ao Kuduro: artistas, músicas, ranking, batalhas e eventos."
-/>
+name="description"
+content="A plataforma dedicada ao Kuduro: artistas, músicas, ranking, batalhas e eventos."
+
+>
 
   <style>
     :root{
@@ -36,11 +37,7 @@
     body{
       margin:0;
       background:
-        radial-gradient(
-          circle at 80% 0,
-          #2a1c07 0,
-          transparent 30%
-        ),
+        radial-gradient(circle at 80% 0,#2a1c07 0,transparent 30%),
         var(--bg);
       color:var(--text);
       font-family:Arial,Helvetica,sans-serif;
@@ -54,6 +51,10 @@
     button,
     input{
       font:inherit;
+    }
+
+    button{
+      cursor:pointer;
     }
 
     .container{
@@ -135,7 +136,7 @@
     }
 
     /* =========================
-       🔔 NOTIFICAÇÕES
+       NOTIFICAÇÕES
     ========================= */
 
     .notification-btn{
@@ -259,8 +260,7 @@
       height:40px;
       flex:0 0 40px;
       border-radius:50%;
-      background:
-        linear-gradient(135deg,#2b210c,#111);
+      background:linear-gradient(135deg,#2b210c,#111);
       border:1px solid #5b481d;
       display:flex;
       align-items:center;
@@ -343,10 +343,11 @@
       display:inline-block;
       padding:12px 18px;
       background:#d4af37;
-      color:black;
+      color:#000;
       font-weight:bold;
       border-radius:8px;
       transition:.25s;
+      white-space:nowrap;
     }
 
     .join-btn:hover{
@@ -379,7 +380,7 @@
 
     .btn.dark{
       background:transparent;
-      color:white;
+      color:#fff;
     }
 
     .btn.dark:hover{
@@ -390,7 +391,7 @@
       display:none;
       background:none;
       border:0;
-      color:white;
+      color:#fff;
       font-size:24px;
       cursor:pointer;
     }
@@ -407,12 +408,7 @@
       position:relative;
       overflow:hidden;
       background:
-        linear-gradient(
-          90deg,
-          #090909 10%,
-          rgba(9,9,9,.4) 52%,
-          rgba(0,0,0,.08)
-        ),
+        linear-gradient(90deg,#090909 10%,rgba(9,9,9,.4) 52%,rgba(0,0,0,.08)),
         url('images/artista-1.jpg') center/cover;
     }
 
@@ -422,11 +418,7 @@
       inset:0;
       pointer-events:none;
       background:
-        radial-gradient(
-          circle at 75% 30%,
-          rgba(244,191,49,.3),
-          transparent 25%
-        );
+        radial-gradient(circle at 75% 30%,rgba(244,191,49,.3),transparent 25%);
     }
 
     .hero-content{
@@ -626,11 +618,19 @@
       margin-top:5px;
     }
 
+    .release-info{
+      min-width:0;
+      flex:1;
+      cursor:pointer;
+    }
+
     .play{
       margin-left:auto;
       width:38px;
       height:38px;
+      min-width:38px;
       border:1px solid var(--gold);
+      background:transparent;
       border-radius:50%;
       display:grid;
       place-items:center;
@@ -639,7 +639,8 @@
       transition:.25s;
     }
 
-    .release:hover .play{
+    .play:hover,
+    .play.playing{
       background:var(--gold);
       color:#111;
     }
@@ -1016,52 +1017,22 @@
 <body>
 
   <nav class="nav">
+    <div class="nav-in">
 
 ```
-<div class="nav-in">
-
-  <a
-    class="brand"
-    href="index.html"
-    aria-label="Kuduro Prime"
-  >
+  <a class="brand" href="index.html" aria-label="Kuduro Prime">
     <span class="crown">♕</span>
     KUDURO
     <b>PRIME</b>
   </a>
 
-  <div
-    class="links"
-    id="mobileLinks"
-  >
-
-    <a
-      class="active"
-      href="index.html"
-    >
-      INÍCIO
-    </a>
-
-    <a href="artistas.html">
-      ARTISTAS
-    </a>
-
-    <a href="musicas.html">
-      MÚSICAS
-    </a>
-
-    <a href="ranking.html">
-      RANKING
-    </a>
-
-    <a href="#batalhas">
-      BATALHAS
-    </a>
-
-    <a href="eventos.html">
-      EVENTOS
-    </a>
-
+  <div class="links" id="mobileLinks">
+    <a class="active" href="index.html">INÍCIO</a>
+    <a href="artistas.html">ARTISTAS</a>
+    <a href="musicas.html">MÚSICAS</a>
+    <a href="ranking.html">RANKING</a>
+    <a href="#batalhas">BATALHAS</a>
+    <a href="eventos.html">EVENTOS</a>
   </div>
 
   <div class="nav-actions">
@@ -1074,34 +1045,17 @@
       title="Notificações"
     >
       🔔
-
-      <span
-        class="notification-badge"
-        id="notificationBadge"
-      >
-        0
-      </span>
-
+      <span class="notification-badge" id="notificationBadge">0</span>
     </button>
 
-    <div
-      class="notification-panel"
-      id="notificationPanel"
-    >
+    <div class="notification-panel" id="notificationPanel">
 
       <div class="notification-head">
+        <strong>🔔 Notificações</strong>
 
-        <strong>
-          🔔 Notificações
-        </strong>
-
-        <button
-          type="button"
-          id="markAllReadBtn"
-        >
+        <button type="button" id="markAllReadBtn">
           MARCAR TODAS COMO LIDAS
         </button>
-
       </div>
 
       <button
@@ -1112,15 +1066,10 @@
         🔔 ATIVAR NOTIFICAÇÕES
       </button>
 
-      <div
-        class="notification-list"
-        id="notificationList"
-      >
-
+      <div class="notification-list" id="notificationList">
         <div class="notification-empty">
           Ainda não tens notificações.
         </div>
-
       </div>
 
     </div>
@@ -1133,23 +1082,20 @@
       👤 ÁREA DO ARTISTA
     </a>
 
-    <a
-      href="juntar-se.html"
-      class="join-btn"
-    >
+    <a href="juntar-se.html" class="join-btn">
       JUNTA-TE 👑
     </a>
 
     <button
       class="menu"
       id="menuBtn"
+      type="button"
       aria-label="Abrir menu"
     >
       ☰
     </button>
 
   </div>
-
 </div>
 ```
 
@@ -1159,7 +1105,6 @@
 
 ```
 <section class="hero">
-
   <div class="container hero-content">
 
     <div class="eyebrow">
@@ -1168,9 +1113,7 @@
 
     <h1>
       O KUDURO<br>
-      <span class="gold-text">
-        NÃO PARA.
-      </span>
+      <span class="gold-text">NÃO PARA.</span>
     </h1>
 
     <p>
@@ -1179,132 +1122,72 @@
     </p>
 
     <div class="hero-buttons">
-
-      <a
-        href="area-do-artista.html"
-        class="btn gold"
-      >
+      <a href="area-do-artista.html" class="btn gold">
         ♕ ENTRAR NO MOVIMENTO
       </a>
 
-      <a
-        href="#musicas"
-        class="btn dark"
-      >
+      <a href="#musicas" class="btn dark">
         ▶ VER LANÇAMENTOS
       </a>
-
     </div>
 
     <div class="stats">
 
       <div class="stat">
-
-        <strong>
-          2.8M
-        </strong>
-
-        <span>
-          VISITAS MENSAIS
-        </span>
-
+        <strong>2.8M</strong>
+        <span>VISITAS MENSAIS</span>
       </div>
 
       <div class="stat">
-
-        <strong>
-          1.5K
-        </strong>
-
-        <span>
-          ARTISTAS CADASTRADOS
-        </span>
-
+        <strong>1.5K</strong>
+        <span>ARTISTAS CADASTRADOS</span>
       </div>
 
       <div class="stat">
-
-        <strong>
-          10K+
-        </strong>
-
-        <span>
-          MÚSICAS PUBLICADAS
-        </span>
-
+        <strong>10K+</strong>
+        <span>MÚSICAS PUBLICADAS</span>
       </div>
 
     </div>
-
   </div>
-
 </section>
 
 <section id="artistas">
-
   <div class="container">
 
     <div class="section-head">
-
       <div>
-
-        <h2 class="title">
-          👑 ARTISTAS PRIME
-        </h2>
-
+        <h2 class="title">👑 ARTISTAS PRIME</h2>
         <p class="subtitle">
           Os grandes nomes e as novas revelações do Kuduro.
         </p>
-
       </div>
 
-      <a
-        class="btn dark"
-        href="artistas.html"
-      >
+      <a class="btn dark" href="artistas.html">
         VER TODOS ›
       </a>
-
     </div>
 
-    <div
-      class="artists"
-      id="artistGrid"
-    ></div>
+    <div class="artists" id="artistGrid"></div>
 
   </div>
-
 </section>
 
-<section
-  id="musicas"
-  style="padding-top:0"
->
-
+<section id="musicas" style="padding-top:0">
   <div class="container grid-3">
 
     <div class="panel">
 
-      <h2 class="title">
-        🎵 LANÇAMENTOS
-      </h2>
+      <h2 class="title">🎵 LANÇAMENTOS</h2>
 
       <p class="subtitle">
         O que está a tocar no movimento.
       </p>
 
       <div id="releases">
-
-        <div
-          style="
-            padding:20px 0;
-            color:#aaa59a;
-            font-size:13px
-          "
-        >
+        <div style="padding:20px 0;color:#aaa59a;font-size:13px">
           A carregar lançamentos...
         </div>
-
       </div>
 
     </div>
@@ -1312,13 +1195,8 @@
     <div class="panel">
 
       <div class="rank-title">
-
         TOP 10
-
-        <span style="color:#fff">
-          PRIME
-        </span>
-
+        <span style="color:#fff">PRIME</span>
       </div>
 
       <p
@@ -1329,7 +1207,6 @@
       </p>
 
       <div id="rankings">
-
         <div
           style="
             padding:20px 0;
@@ -1340,7 +1217,6 @@
         >
           A carregar ranking...
         </div>
-
       </div>
 
       <a
@@ -1353,92 +1229,57 @@
 
     </div>
 
-    <div
-      class="panel battle"
-      id="batalhas"
-    >
+    <div class="panel battle" id="batalhas">
 
-      <h2 class="title">
-        🔥 PRIME BATTLES
-      </h2>
+      <h2 class="title">🔥 PRIME BATTLES</h2>
 
       <p class="subtitle">
         O público escolhe o melhor!
       </p>
 
-      <a
-        class="btn gold"
-        href="feed.html"
-      >
+      <a class="btn gold" href="feed.html">
         VOTAR AGORA ›
       </a>
 
     </div>
 
   </div>
-
 </section>
 
-<section
-  id="eventos"
-  style="padding-top:0"
->
-
+<section id="eventos" style="padding-top:0">
   <div class="container">
 
     <div class="section-head">
 
       <div>
-
-        <h2 class="title">
-          📅 PRIME EVENTS
-        </h2>
-
+        <h2 class="title">📅 PRIME EVENTS</h2>
         <p class="subtitle">
           Os próximos eventos do Kuduro.
         </p>
-
       </div>
 
-      <a
-        class="btn dark"
-        href="eventos.html"
-      >
+      <a class="btn dark" href="eventos.html">
         VER TODOS ›
       </a>
 
     </div>
 
-    <div
-      class="events"
-      id="eventGrid"
-    ></div>
+    <div class="events" id="eventGrid"></div>
 
   </div>
-
 </section>
 
-<section
-  class="cta"
-  id="perfil"
->
-
+<section class="cta" id="perfil">
   <div class="container cta-in">
 
     <div>
-
-      <h2>
-        O TEU TALENTO MERECE SER VISTO.
-      </h2>
+      <h2>O TEU TALENTO MERECE SER VISTO.</h2>
 
       <p>
         Cria o teu perfil no
-        <b style="color:var(--gold)">
-          KUDURO PRIME
-        </b>
+        <b style="color:var(--gold)">KUDURO PRIME</b>
         e entra no movimento.
       </p>
-
     </div>
 
     <a
@@ -1450,36 +1291,23 @@
     </a>
 
   </div>
-
 </section>
 ```
 
   </main>
 
   <footer>
+    <div class="container">
 
 ```
-<div class="container">
-
   <div class="footer-grid">
 
     <div>
 
-      <a
-        class="brand"
-        href="index.html"
-      >
-
-        <span class="crown">
-          ♕
-        </span>
-
+      <a class="brand" href="index.html">
+        <span class="crown">♕</span>
         KUDURO
-
-        <b>
-          PRIME
-        </b>
-
+        <b>PRIME</b>
       </a>
 
       <p>
@@ -1491,69 +1319,36 @@
 
     <div>
 
-      <h4>
-        NAVEGAÇÃO
-      </h4>
+      <h4>NAVEGAÇÃO</h4>
 
-      <a href="#inicio">
-        Início
-      </a>
-
-      <a href="artistas.html">
-        Artistas
-      </a>
-
-      <a href="musicas.html">
-        Músicas
-      </a>
-
-      <a href="ranking.html">
-        Ranking
-      </a>
-
-      <a href="eventos.html">
-        Eventos
-      </a>
+      <a href="#inicio">Início</a>
+      <a href="artistas.html">Artistas</a>
+      <a href="musicas.html">Músicas</a>
+      <a href="ranking.html">Ranking</a>
+      <a href="eventos.html">Eventos</a>
 
     </div>
 
     <div>
 
-      <h4>
-        SOBRE
-      </h4>
+      <h4>SOBRE</h4>
 
-      <a href="#">
-        Quem Somos
-      </a>
-
-      <a href="#">
-        Termos de Uso
-      </a>
-
-      <a href="#">
-        Privacidade
-      </a>
-
-      <a href="#">
-        Ajuda
-      </a>
+      <a href="#">Quem Somos</a>
+      <a href="#">Termos de Uso</a>
+      <a href="#">Privacidade</a>
+      <a href="#">Ajuda</a>
 
     </div>
 
     <div>
 
-      <h4>
-        RECEBE AS NOVIDADES PRIME
-      </h4>
+      <h4>RECEBE AS NOVIDADES PRIME</h4>
 
       <p>
         Fica por dentro dos lançamentos e eventos.
       </p>
 
-      <div
-        style="display:flex;gap:8px"
-      >
+      <div style="display:flex;gap:8px">
 
         <input
           type="email"
@@ -1570,10 +1365,7 @@
           "
         >
 
-        <button
-          class="btn gold"
-          type="button"
-        >
+        <button class="btn gold" type="button">
           RECEBER
         </button>
 
@@ -1584,17 +1376,19 @@
   </div>
 
   <div class="copy">
-
     © 2026 KUDURO PRIME.
     Todos os direitos reservados.
     — O KUDURO VIVE AQUI. 👑
-
   </div>
 
 </div>
 ```
 
   </footer>
+
+  <!-- PLAYER GLOBAL -->
+
+<audio id="globalAudio"></audio>
 
   <script type="module">
 
@@ -1621,25 +1415,12 @@
 
 
     const firebaseConfig = {
-
-      apiKey:
-        "AIzaSyDoitCcLeLDNBNPCP6fG1s_xbHr4UmohSo",
-
-      authDomain:
-        "kuduro-prime.firebaseapp.com",
-
-      projectId:
-        "kuduro-prime",
-
-      storageBucket:
-        "kuduro-prime.firebasestorage.app",
-
-      messagingSenderId:
-        "299776559545",
-
-      appId:
-        "1:299776559545:web:04aced1ba25391eb3fce68"
-
+      apiKey:"AIzaSyDoitCcLeLDNBNPCP6fG1s_xbHr4UmohSo",
+      authDomain:"kuduro-prime.firebaseapp.com",
+      projectId:"kuduro-prime",
+      storageBucket:"kuduro-prime.firebasestorage.app",
+      messagingSenderId:"299776559545",
+      appId:"1:299776559545:web:04aced1ba25391eb3fce68"
     };
 
 
@@ -1671,6 +1452,31 @@
 
     const rankingsContainer =
       document.querySelector("#rankings");
+
+    const globalAudio =
+      document.querySelector("#globalAudio");
+
+
+    let musicaAtualId = null;
+    let botaoAtual = null;
+
+
+    /* =========================
+       PROTEGER HTML
+    ========================= */
+
+    function escaparHTML(valor){
+
+      return String(
+        valor ?? ""
+      )
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+
+    }
 
 
     /* =========================
@@ -1818,17 +1624,15 @@
           <div class="artist-info">
 
             <b>
-
-              ${a[0]}
+              ${escaparHTML(a[0])}
 
               <span class="verified">
                 ●
               </span>
-
             </b>
 
             <div class="tag">
-              ${a[1]}
+              ${escaparHTML(a[1])}
             </div>
 
           </div>
@@ -1839,8 +1643,7 @@
 
 
     /* =========================
-       FUNÇÃO PARA PEGAR DADOS
-       DA MÚSICA
+       DADOS DA MÚSICA
     ========================= */
 
     function obterDadosMusica(
@@ -1869,6 +1672,17 @@
         "images/artista-1.jpg";
 
 
+      const audioUrl =
+        musica.audioUrl ||
+        musica.audio ||
+        musica.musicaUrl ||
+        musica.url ||
+        musica.arquivoUrl ||
+        musica.fileUrl ||
+        musica.urlMusica ||
+        "";
+
+
       const views =
         Number(
           musica.visualizacoes ||
@@ -1881,16 +1695,198 @@
 
 
       return {
-
         id:musicaId,
         titulo,
         nomeArtista,
         capa,
+        audioUrl,
         views
-
       };
 
     }
+
+
+    /* =========================
+       TOCAR MÚSICA
+    ========================= */
+
+    async function tocarMusica(
+      musica,
+      botao
+    ){
+
+      if(!musica.audioUrl){
+
+        alert(
+          "Esta música ainda não possui um ficheiro de áudio válido."
+        );
+
+        return;
+
+      }
+
+
+      /* Se for a mesma música */
+      if(
+        musicaAtualId === musica.id &&
+        globalAudio.src
+      ){
+
+        if(globalAudio.paused){
+
+          try{
+
+            await globalAudio.play();
+
+          }catch(error){
+
+            console.error(
+              "Erro ao reproduzir:",
+              error
+            );
+
+          }
+
+        }else{
+
+          globalAudio.pause();
+
+        }
+
+        return;
+
+      }
+
+
+      /* Parar botão anterior */
+      if(botaoAtual){
+
+        botaoAtual.textContent =
+          "▶";
+
+        botaoAtual.classList.remove(
+          "playing"
+        );
+
+      }
+
+
+      musicaAtualId =
+        musica.id;
+
+      botaoAtual =
+        botao;
+
+      globalAudio.src =
+        musica.audioUrl;
+
+
+      try{
+
+        await globalAudio.play();
+
+      }catch(error){
+
+        console.error(
+          "Erro ao tocar a música:",
+          error
+        );
+
+        alert(
+          "Não foi possível tocar esta música. Verifica se o URL do áudio no Firebase está correto e é público."
+        );
+
+      }
+
+    }
+
+
+    /* =========================
+       EVENTOS DO PLAYER
+    ========================= */
+
+    globalAudio.addEventListener(
+      "play",
+      () => {
+
+        if(botaoAtual){
+
+          botaoAtual.textContent =
+            "❚❚";
+
+          botaoAtual.classList.add(
+            "playing"
+          );
+
+        }
+
+      }
+    );
+
+
+    globalAudio.addEventListener(
+      "pause",
+      () => {
+
+        if(botaoAtual){
+
+          botaoAtual.textContent =
+            "▶";
+
+          botaoAtual.classList.remove(
+            "playing"
+          );
+
+        }
+
+      }
+    );
+
+
+    globalAudio.addEventListener(
+      "ended",
+      () => {
+
+        if(botaoAtual){
+
+          botaoAtual.textContent =
+            "▶";
+
+          botaoAtual.classList.remove(
+            "playing"
+          );
+
+        }
+
+        musicaAtualId =
+          null;
+
+      }
+    );
+
+
+    globalAudio.addEventListener(
+      "error",
+      () => {
+
+        console.error(
+          "Erro no ficheiro de áudio:",
+          globalAudio.error
+        );
+
+        if(botaoAtual){
+
+          botaoAtual.textContent =
+            "▶";
+
+          botaoAtual.classList.remove(
+            "playing"
+          );
+
+        }
+
+      }
+    );
 
 
     /* =========================
@@ -1913,19 +1909,36 @@
           );
 
 
-        const q =
-          query(
-            musicasRef,
-            orderBy(
-              "criadoEm",
-              "desc"
-            ),
-            limit(6)
+        let snapshot;
+
+        try{
+
+          const q =
+            query(
+              musicasRef,
+              orderBy(
+                "criadoEm",
+                "desc"
+              ),
+              limit(6)
+            );
+
+          snapshot =
+            await getDocs(q);
+
+        }catch(errorOrdenacao){
+
+          console.warn(
+            "Não foi possível ordenar por criadoEm. A carregar músicas sem ordenação:",
+            errorOrdenacao
           );
 
+          snapshot =
+            await getDocs(
+              musicasRef
+            );
 
-        const snapshot =
-          await getDocs(q);
+        }
 
 
         if(snapshot.empty){
@@ -1949,53 +1962,155 @@
         }
 
 
-        releasesContainer.innerHTML = "";
+        const musicas = [];
 
 
         snapshot.forEach((docMusica) => {
 
-          const musica =
+          musicas.push(
+
             obterDadosMusica(
               docMusica.data(),
               docMusica.id
+            )
+
+          );
+
+        });
+
+
+        const ultimasMusicas =
+          musicas.slice(
+            0,
+            6
+          );
+
+
+        releasesContainer.innerHTML =
+          "";
+
+
+        ultimasMusicas.forEach(
+          (musica) => {
+
+            const item =
+              document.createElement(
+                "div"
+              );
+
+            item.className =
+              "release";
+
+
+            const capa =
+              document.createElement(
+                "div"
+              );
+
+            capa.className =
+              "cover";
+
+            capa.style.setProperty(
+              "--img",
+              `url("${musica.capa}")`
             );
 
 
-          releasesContainer.innerHTML += `
+            const info =
+              document.createElement(
+                "div"
+              );
 
-            <a
-              class="release"
-              href="musicas.html?musica=${encodeURIComponent(musica.id)}"
-            >
+            info.className =
+              "release-info";
 
-              <div
-                class="cover"
-                style="--img:url('${musica.capa}')"
-              ></div>
-
-
-              <div>
-
-                <div class="song">
-                  ${musica.titulo}
-                </div>
-
-                <div class="artist">
-                  ${musica.nomeArtista}
-                </div>
-
+            info.innerHTML = `
+              <div class="song">
+                ${escaparHTML(musica.titulo)}
               </div>
 
-
-              <div class="play">
-                ▶
+              <div class="artist">
+                ${escaparHTML(musica.nomeArtista)}
               </div>
+            `;
 
-            </a>
 
-          `;
+            const playButton =
+              document.createElement(
+                "button"
+              );
 
-        });
+            playButton.type =
+              "button";
+
+            playButton.className =
+              "play";
+
+            playButton.textContent =
+              "▶";
+
+            playButton.title =
+              "Tocar música";
+
+
+            playButton.addEventListener(
+              "click",
+              () => {
+
+                tocarMusica(
+                  musica,
+                  playButton
+                );
+
+              }
+            );
+
+
+            info.addEventListener(
+              "click",
+              () => {
+
+                tocarMusica(
+                  musica,
+                  playButton
+                );
+
+              }
+            );
+
+
+            capa.addEventListener(
+              "click",
+              () => {
+
+                tocarMusica(
+                  musica,
+                  playButton
+                );
+
+              }
+            );
+
+
+            item.appendChild(
+              capa
+            );
+
+            item.appendChild(
+              info
+            );
+
+            item.appendChild(
+              playButton
+            );
+
+
+            releasesContainer.appendChild(
+              item
+            );
+
+          }
+        );
 
 
       }catch(error){
@@ -2092,9 +2207,7 @@
 
         ranking.sort(
           (a, b) =>
-
-            b.views -
-            a.views
+            b.views - a.views
         );
 
 
@@ -2116,35 +2229,30 @@
               >
 
                 <div class="rank-num">
-
                   ${String(
                     index + 1
                   ).padStart(
                     2,
                     "0"
                   )}
-
                 </div>
-
 
                 <div
                   class="mini"
                   style="--img:url('${musica.capa}')"
                 ></div>
 
-
                 <div>
 
                   <div class="song">
-                    ${musica.titulo}
+                    ${escaparHTML(musica.titulo)}
                   </div>
 
                   <div class="artist">
-                    ${musica.nomeArtista}
+                    ${escaparHTML(musica.nomeArtista)}
                   </div>
 
                 </div>
-
 
                 <div class="tag">
                   ▲
@@ -2288,7 +2396,6 @@
             mobileLinks.classList.remove(
               "open"
             );
-
 
             menuBtn.textContent =
               "☰";
