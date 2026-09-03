@@ -353,7 +353,8 @@
           rgba(9,9,9,.25) 70%
         ),
         var(--img)
-        center/cover;
+        center/cover,
+        #111;
     }
 
     .podium.first{
@@ -714,6 +715,8 @@
     .btn{
       padding:14px 22px;
 
+      border:0;
+
       border-radius:8px;
 
       background:var(--gold);
@@ -724,6 +727,8 @@
       font-weight:900;
 
       white-space:nowrap;
+
+      cursor:pointer;
     }
 
     /* =========================
@@ -917,6 +922,7 @@
 
         <button
           class="menu"
+          type="button"
           onclick="toggleMenu()"
         >
           ☰
@@ -947,10 +953,9 @@
         </h1>
 
         <p>
-          As músicas mais ouvidas
-          no KUDURO PRIME.
-          O ranking é atualizado
-          automaticamente.
+          As músicas selecionadas
+          para o ranking oficial
+          do KUDURO PRIME.
         </p>
 
       </div>
@@ -966,6 +971,7 @@
 
         <button
           class="filter active"
+          type="button"
           onclick="filterRanking('all',this)"
         >
           🔥 GERAL
@@ -973,23 +979,18 @@
 
         <button
           class="filter"
-          onclick="filterRanking('semana',this)"
+          type="button"
+          onclick="filterRanking('top3',this)"
         >
-          ESTA SEMANA
+          🏆 TOP 3
         </button>
 
         <button
           class="filter"
-          onclick="filterRanking('mes',this)"
-        >
-          ESTE MÊS
-        </button>
-
-        <button
-          class="filter"
+          type="button"
           onclick="filterRanking('novos',this)"
         >
-          🆕 NOVIDADES
+          🆕 INVERTIDO
         </button>
 
       </div>
@@ -1015,15 +1016,20 @@
               🏆 CLASSIFICAÇÃO
             </h2>
 
-            <p>
-              Top 10 das músicas
-              mais ouvidas.
+            <p
+              id="rankingDescription"
+            >
+              Ranking oficial
+              do KUDURO PRIME.
             </p>
 
           </div>
 
-          <div class="updated">
-            ● ATUALIZADO AUTOMATICAMENTE
+          <div
+            class="updated"
+            id="rankingPeriod"
+          >
+            ● A CARREGAR...
           </div>
 
         </div>
@@ -1106,11 +1112,8 @@
 
     import {
       getFirestore,
-      collection,
-      getDocs,
-      query,
-      orderBy,
-      limit
+      doc,
+      getDoc
     } from
     "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 
@@ -1151,6 +1154,34 @@
 
 
     /* =========================
+       ELEMENTOS
+    ========================= */
+
+    const rankingList =
+      document.querySelector(
+        "#rankingList"
+      );
+
+
+    const top3 =
+      document.querySelector(
+        "#top3"
+      );
+
+
+    const rankingPeriod =
+      document.querySelector(
+        "#rankingPeriod"
+      );
+
+
+    const rankingDescription =
+      document.querySelector(
+        "#rankingDescription"
+      );
+
+
+    /* =========================
        DADOS
     ========================= */
 
@@ -1162,18 +1193,26 @@
       "all";
 
 
+    let periodoAtual =
+      "";
+
+
     /* =========================
-       SEGURANÇA
+       ESCAPAR HTML
     ========================= */
 
     function escapeHTML(text){
 
       const div =
-        document.createElement("div");
+        document.createElement(
+          "div"
+        );
 
 
       div.textContent =
-        text || "";
+        String(
+          text ?? ""
+        );
 
 
       return div.innerHTML;
@@ -1182,155 +1221,235 @@
 
 
     /* =========================
-       FORMATAR AUDIÇÕES
+       ID DO RANKING ATUAL
     ========================= */
 
-    function formatViews(number){
+    function obterIdRankingAtual(){
 
-      const value =
-        Number(number || 0);
+      const agora =
+        new Date();
 
 
-      if(value >= 1000000){
+      const ano =
+        agora.getFullYear();
 
-        return (
-          value / 1000000
+
+      const mes =
+        String(
+          agora.getMonth() + 1
         )
-        .toFixed(1)
-        .replace(".0","")
-        +
-        "M";
-
-      }
+        .padStart(
+          2,
+          "0"
+        );
 
 
-      if(value >= 1000){
-
-        return (
-          value / 1000
-        )
-        .toFixed(1)
-        .replace(".0","")
-        +
-        "K";
-
-      }
-
-
-      return value.toString();
+      return `${ano}-${mes}`;
 
     }
 
 
     /* =========================
-       DATA
+       FORMATAR MÚSICA
     ========================= */
 
-    function getSongDate(song){
+    function normalizarMusica(
+      dados,
+      index
+    ){
 
-      if(
-        song.createdAt
-        &&
-        typeof song.createdAt.toDate
-        ===
-        "function"
-      ){
+      return {
 
-        return
-          song.createdAt.toDate();
+        id:
 
-      }
+          dados.id ||
+
+          "",
 
 
-      if(song.date){
+        posicao:
 
-        const date =
-          new Date(song.date);
-
-
-        if(
-          !isNaN(date.getTime())
-        ){
-
-          return date;
-
-        }
-
-      }
+          Number(
+            dados.posicao ||
+            index + 1
+          ),
 
 
-      return new Date(0);
+        titulo:
+
+          dados.titulo ||
+
+          dados.title ||
+
+          dados.nome ||
+
+          "Sem título",
+
+
+        nomeArtista:
+
+          dados.nomeArtista ||
+
+          dados.artistaNome ||
+
+          dados.artistName ||
+
+          dados.artista ||
+
+          "Artista Prime",
+
+
+        capa:
+
+          dados.capa ||
+
+          dados.capaUrl ||
+
+          dados.cover ||
+
+          dados.imagem ||
+
+          dados.artistPhoto ||
+
+          "",
+
+
+        audioUrl:
+
+          dados.audioUrl ||
+
+          dados.audio ||
+
+          "",
+
+
+        views:
+
+          Number(
+            dados.views || 0
+          )
+
+      };
 
     }
 
 
     /* =========================
-       CARREGAR MÚSICAS
+       CARREGAR RANKING
     ========================= */
 
     async function loadRanking(){
 
-      const rankingList =
-        document.querySelector(
-          "#rankingList"
-        );
+      rankingList.innerHTML = `
 
+        <div class="loading">
 
-      rankingList.innerHTML =
-        `
-          <div class="loading">
+          <div class="spinner"></div>
 
-            <div class="spinner"></div>
+          A carregar o ranking...
 
-            A carregar o ranking...
+        </div>
 
-          </div>
-        `;
+      `;
 
 
       try{
 
-        const songsRef =
-          collection(
+        const rankingId =
+          obterIdRankingAtual();
+
+
+        const rankingRef =
+          doc(
             db,
-            "musicas"
-          );
-
-
-        const songsQuery =
-          query(
-            songsRef,
-            orderBy(
-              "views",
-              "desc"
-            ),
-            limit(50)
+            "rankingMensal",
+            rankingId
           );
 
 
         const snapshot =
-          await getDocs(
-            songsQuery
+          await getDoc(
+            rankingRef
           );
+
+
+        if(
+          !snapshot.exists()
+        ){
+
+          ranking =
+            [];
+
+
+          periodoAtual =
+            "";
+
+
+          renderRanking();
+
+          return;
+
+        }
+
+
+        const dados =
+          snapshot.data();
+
+
+        const musicas =
+          Array.isArray(
+            dados.musicas
+          )
+
+            ?
+
+            dados.musicas
+
+            :
+
+            [];
 
 
         ranking =
-          snapshot.docs.map(
+          musicas
+            .map(
 
-            documentItem => ({
+              (
+                musica,
+                index
+              ) =>
 
-              id:
-                documentItem.id,
+                normalizarMusica(
+                  musica,
+                  index
+                )
 
-              ...documentItem.data()
+            )
+            .sort(
 
-            })
+              (a,b) =>
 
-          );
+                a.posicao -
+                b.posicao
+
+            );
+
+
+        periodoAtual =
+          dados.periodo ||
+
+          "RANKING PRIME";
+
+
+        rankingPeriod.textContent =
+          `● ${periodoAtual}`;
+
+
+        rankingDescription.textContent =
+          `${ranking.length} músicas no ranking oficial de ${periodoAtual}.`;
 
 
         renderRanking();
-
 
       }
       catch(error){
@@ -1341,34 +1460,51 @@
         );
 
 
-        rankingList.innerHTML =
-          `
-            <div class="empty">
+        ranking =
+          [];
 
-              <div class="empty-icon">
-                ⚠
-              </div>
 
-              <h3>
-                Não foi possível
-                carregar o ranking
-              </h3>
+        periodoAtual =
+          "";
 
-              <p>
-                Verifica a coleção
-                "musicas" no Firebase
-                e tenta novamente.
-              </p>
 
-              <button
-                class="btn"
-                onclick="location.reload()"
-              >
-                TENTAR NOVAMENTE
-              </button>
+        top3.innerHTML =
+          "";
 
+
+        rankingPeriod.textContent =
+          "● ERRO AO CARREGAR";
+
+
+        rankingList.innerHTML = `
+
+          <div class="empty">
+
+            <div class="empty-icon">
+              ⚠
             </div>
-          `;
+
+            <h3>
+              Não foi possível
+              carregar o ranking
+            </h3>
+
+            <p>
+              Não foi possível aceder
+              ao ranking do KUDURO PRIME.
+            </p>
+
+            <button
+              class="btn"
+              type="button"
+              onclick="location.reload()"
+            >
+              TENTAR NOVAMENTE
+            </button>
+
+          </div>
+
+        `;
 
       }
 
@@ -1376,66 +1512,24 @@
 
 
     /* =========================
-       FILTRAR
+       OBTER FILTRO
     ========================= */
 
     function getFilteredRanking(){
 
-      let filtered =
+      let resultado =
         [...ranking];
 
 
-      const now =
-        new Date();
-
-
       if(
         currentFilter ===
-        "semana"
+        "top3"
       ){
 
-        const weekAgo =
-          new Date();
-
-        weekAgo.setDate(
-          now.getDate() - 7
-        );
-
-
-        filtered =
-          filtered.filter(
-
-            song =>
-              getSongDate(song)
-              >=
-              weekAgo
-
-          );
-
-      }
-
-
-      if(
-        currentFilter ===
-        "mes"
-      ){
-
-        const monthAgo =
-          new Date();
-
-        monthAgo.setDate(
-          now.getDate() - 30
-        );
-
-
-        filtered =
-          filtered.filter(
-
-            song =>
-              getSongDate(song)
-              >=
-              monthAgo
-
+        resultado =
+          resultado.slice(
+            0,
+            3
           );
 
       }
@@ -1446,60 +1540,25 @@
         "novos"
       ){
 
-        filtered =
-          filtered
-          .sort(
-
-            (a,b) =>
-              getSongDate(b)
-              -
-              getSongDate(a)
-
-          );
-
-      }
-      else{
-
-        filtered =
-          filtered
-          .sort(
-
-            (a,b) =>
-              Number(b.views || 0)
-              -
-              Number(a.views || 0)
-
-          );
+        resultado =
+          resultado.reverse();
 
       }
 
 
-      return
-        filtered.slice(0,10);
+      return resultado;
 
     }
 
 
     /* =========================
-       MOSTRAR RANKING
+       RENDERIZAR
     ========================= */
 
     function renderRanking(){
 
       const filteredRanking =
         getFilteredRanking();
-
-
-      const top3 =
-        document.querySelector(
-          "#top3"
-        );
-
-
-      const rankingList =
-        document.querySelector(
-          "#rankingList"
-        );
 
 
       if(
@@ -1510,32 +1569,43 @@
           "";
 
 
-        rankingList.innerHTML =
-          `
-            <div class="empty">
+        rankingPeriod.textContent =
+          periodoAtual
 
-              <div class="empty-icon">
-                🎵
-              </div>
+            ?
 
-              <h3>
-                Ainda não existem músicas
-              </h3>
+            `● ${periodoAtual}`
 
-              <p>
-                Quando os artistas publicarem
-                músicas, elas aparecerão aqui.
-              </p>
+            :
 
-              <a
-                href="juntar-se.html"
-                class="btn"
-              >
-                PUBLICAR MÚSICA
-              </a>
+            "● RANKING NÃO DISPONÍVEL";
 
+
+        rankingDescription.textContent =
+          "Ainda não existe um ranking publicado para este período.";
+
+
+        rankingList.innerHTML = `
+
+          <div class="empty">
+
+            <div class="empty-icon">
+              🏆
             </div>
-          `;
+
+            <h3>
+              Ranking ainda não publicado
+            </h3>
+
+            <p>
+              O administrador ainda não
+              criou o TOP 10 PRIME
+              deste mês.
+            </p>
+
+          </div>
+
+        `;
 
 
         return;
@@ -1543,11 +1613,19 @@
       }
 
 
-      /* TOP 3 */
+      /* =========================
+         TOP 3
+      ========================= */
+
+      const top3Original =
+        ranking.slice(
+          0,
+          3
+        );
+
 
       top3.innerHTML =
-        filteredRanking
-        .slice(0,3)
+        top3Original
         .map(
 
           (
@@ -1555,101 +1633,111 @@
             index
           ) => {
 
-            const image =
-              item.cover
-              ||
-              item.artistPhoto
-              ||
-              "";
+            const imagem =
+              item.capa;
+
+
+            const imagemSegura =
+              imagem
+                ?
+                imagem
+                  .replace(
+                    /'/g,
+                    "%27"
+                  )
+                :
+                "";
 
 
             const imageStyle =
-              image
-              ?
-              `--img:url('${image}')`
-              :
-              "";
+              imagemSegura
+                ?
+                `--img:url('${imagemSegura}')`
+                :
+                "";
 
 
-            return
-              `
+            return `
 
-                <article
-                  class="
-                    podium
-                    ${
-                      index === 0
+              <article
+                class="
+                  podium
+                  ${
+                    index === 0
                       ?
                       "first"
                       :
                       ""
-                    }
-                  "
-                  style="${imageStyle}"
-                >
+                  }
+                "
+                style="${imageStyle}"
+              >
 
-                  <div class="position">
+                <div class="position">
 
-                    ${index + 1}
+                  ${index + 1}
 
-                  </div>
+                </div>
 
+
+                ${
+                  index === 0
+                    ?
+
+                    `
+
+                      <div class="crown-big">
+
+                        👑
+
+                      </div>
+
+                    `
+
+                    :
+
+                    ""
+
+                }
+
+
+                <h2>
 
                   ${
-                    index === 0
-                    ?
-                    `
-                      <div class="crown-big">
-                        👑
-                      </div>
-                    `
-                    :
-                    ""
+                    escapeHTML(
+                      item.nomeArtista
+                    )
                   }
 
-
-                  <h2>
-
-                    ${
-                      escapeHTML(
-                        item.artistName
-                        ||
-                        "Artista Prime"
-                      )
-                    }
-
-                  </h2>
+                </h2>
 
 
-                  <div class="song">
+                <div class="song">
 
-                    🎵
-                    ${
-                      escapeHTML(
-                        item.title
-                        ||
-                        "Sem título"
-                      )
-                    }
+                  🎵
 
-                  </div>
+                  ${
+                    escapeHTML(
+                      item.titulo
+                    )
+                  }
+
+                </div>
 
 
-                  <div class="views">
+                <div class="views">
 
-                    ▶
-                    ${
-                      formatViews(
-                        item.views
-                      )
-                    }
-                    AUDIÇÕES
+                  🏆 POSIÇÃO
 
-                  </div>
+                  ${index + 1}
 
-                </article>
+                  NO TOP 10
 
-              `;
+                </div>
+
+              </article>
+
+            `;
 
           }
 
@@ -1657,7 +1745,9 @@
         .join("");
 
 
-      /* TOP 10 */
+      /* =========================
+         TOP 10
+      ========================= */
 
       rankingList.innerHTML =
         filteredRanking
@@ -1668,56 +1758,89 @@
             index
           ) => {
 
-            const image =
-              item.cover
-              ||
-              item.artistPhoto
-              ||
-              "";
+            const imagem =
+              item.capa;
+
+
+            const imagemSegura =
+              imagem
+                ?
+                imagem
+                  .replace(
+                    /'/g,
+                    "%27"
+                  )
+                :
+                "";
 
 
             const coverHTML =
-              image
-              ?
-              `
-                <div
-                  class="cover"
-                  style="
-                    --img:
-                    url('${image}')
-                  "
-                ></div>
-              `
-              :
-              `
-                <div
-                  class="
-                    cover
-                    empty
-                  "
-                >
-                  🎵
-                </div>
-              `;
+              imagemSegura
+
+                ?
+
+                `
+
+                  <div
+                    class="cover"
+                    style="
+                      --img:
+                      url('${imagemSegura}')
+                    "
+                  ></div>
+
+                `
+
+                :
+
+                `
+
+                  <div
+                    class="
+                      cover
+                      empty
+                    "
+                  >
+
+                    🎵
+
+                  </div>
+
+                `;
 
 
             let tag =
               "";
 
 
-            if(index === 0){
+            const posicaoReal =
+              Number(
+                item.posicao ||
+                index + 1
+              );
+
+
+            if(
+              posicaoReal === 1
+            ){
 
               tag =
                 "N.º 1";
 
             }
-            else if(index === 1){
+
+            else if(
+              posicaoReal <= 3
+            ){
 
               tag =
                 "TOP 3";
 
             }
-            else if(index === 2){
+
+            else if(
+              posicaoReal <= 5
+            ){
 
               tag =
                 "EM ALTA";
@@ -1725,111 +1848,102 @@
             }
 
 
-            if(
-              currentFilter ===
-              "novos"
-              &&
-              index < 3
-            ){
+            return `
 
-              tag =
-                "NOVA";
+              <article class="rank-item">
 
-            }
+                <div class="rank-number">
+
+                  ${
+                    String(
+                      posicaoReal
+                    )
+                    .padStart(
+                      2,
+                      "0"
+                    )
+                  }
+
+                </div>
 
 
-            return
-              `
+                ${coverHTML}
 
-                <article class="rank-item">
 
-                  <div class="rank-number">
+                <div class="music-info">
+
+                  <strong>
 
                     ${
-                      String(
-                        index + 1
-                      )
-                      .padStart(
-                        2,
-                        "0"
+                      escapeHTML(
+                        item.titulo
                       )
                     }
 
-                  </div>
+                  </strong>
 
 
-                  ${coverHTML}
-
-
-                  <div class="music-info">
-
-                    <strong>
-
-                      ${
-                        escapeHTML(
-                          item.title
-                          ||
-                          "Sem título"
-                        )
-                      }
-
-                    </strong>
-
-
-                    <span>
-
-                      ${
-                        escapeHTML(
-                          item.artistName
-                          ||
-                          "Artista Prime"
-                        )
-                      }
-
-                    </span>
-
+                  <span>
 
                     ${
-                      tag
+                      escapeHTML(
+                        item.nomeArtista
+                      )
+                    }
+
+                  </span>
+
+
+                  ${
+                    tag
+
                       ?
+
                       `
+
                         <small>
+
                           ${tag}
+
                         </small>
+
                       `
+
                       :
+
                       ""
-                    }
 
-                  </div>
+                  }
 
-
-                  <div class="stats">
-
-                    <strong>
-
-                      ▶
-                      ${
-                        formatViews(
-                          item.views
-                        )
-                      }
-
-                    </strong>
+                </div>
 
 
-                    <span class="trend">
+                <div class="stats">
 
-                      🔥
-                      POPULAR
+                  <strong>
 
-                    </span>
+                    🏆
 
-                  </div>
+                    TOP
 
-                </article>
+                    ${posicaoReal}
 
-              `;
+                  </strong>
+
+
+                  <span class="trend">
+
+                    🔥
+
+                    KUDURO PRIME
+
+                  </span>
+
+                </div>
+
+              </article>
+
+            `;
 
           }
 
@@ -1840,7 +1954,7 @@
 
 
     /* =========================
-       BOTÕES DE FILTRO
+       FILTROS
     ========================= */
 
     window.filterRanking =
@@ -1863,14 +1977,18 @@
 
               item
               .classList
-              .remove("active")
+              .remove(
+                "active"
+              )
 
           );
 
 
         button
           .classList
-          .add("active");
+          .add(
+            "active"
+          );
 
 
         renderRanking();
