@@ -1104,919 +1104,916 @@
 
   <script type="module">
 
-    import {
-      initializeApp
-    } from
+  import {
+    initializeApp
+  } from
     "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
 
 
-    import {
-      getFirestore,
-      doc,
-      getDoc
-    } from
+  import {
+    getFirestore,
+    doc,
+    getDoc
+  } from
     "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 
 
-    /* =========================
-       FIREBASE
-    ========================= */
+  /* =========================
+     FIREBASE
+  ========================= */
 
-    const firebaseConfig = {
+  const firebaseConfig = {
 
-      apiKey:
-        "AIzaSyDoitCcLeLDNBNPCP6fG1s_xbHr4UmohSo",
+    apiKey:
+      "AIzaSyDoitCcLeLDNBNPCP6fG1s_xbHr4UmohSo",
 
-      authDomain:
-        "kuduro-prime.firebaseapp.com",
+    authDomain:
+      "kuduro-prime.firebaseapp.com",
 
-      projectId:
-        "kuduro-prime",
+    projectId:
+      "kuduro-prime",
 
-      storageBucket:
-        "kuduro-prime.firebasestorage.app",
+    storageBucket:
+      "kuduro-prime.firebasestorage.app",
 
-      messagingSenderId:
-        "299776559545",
+    messagingSenderId:
+      "299776559545",
 
-      appId:
-        "1:299776559545:web:04aced1ba25391eb3fce68"
+    appId:
+      "1:299776559545:web:04aced1ba25391eb3fce68"
+
+  };
+
+
+  const app =
+    initializeApp(firebaseConfig);
+
+
+  const db =
+    getFirestore(app);
+
+
+  /* =========================
+     ELEMENTOS
+  ========================= */
+
+  const rankingList =
+    document.querySelector(
+      "#rankingList"
+    );
+
+
+  const top3 =
+    document.querySelector(
+      "#top3"
+    );
+
+
+  /* =========================
+     DADOS
+  ========================= */
+
+  let ranking =
+    [];
+
+
+  let currentFilter =
+    "all";
+
+
+  /* =========================
+     ESCAPAR HTML
+  ========================= */
+
+  function escapeHTML(text){
+
+    const div =
+      document.createElement(
+        "div"
+      );
+
+
+    div.textContent =
+      String(
+        text ?? ""
+      );
+
+
+    return div.innerHTML;
+
+  }
+
+
+  /* =========================
+     FORMATAR AUDIÇÕES
+  ========================= */
+
+  function formatViews(number){
+
+    const value =
+      Number(
+        number || 0
+      );
+
+
+    if(
+      value >= 1000000
+    ){
+
+      return (
+        value / 1000000
+      )
+      .toFixed(1)
+      .replace(".0","")
+      +
+      "M";
+
+    }
+
+
+    if(
+      value >= 1000
+    ){
+
+      return (
+        value / 1000
+      )
+      .toFixed(1)
+      .replace(".0","")
+      +
+      "K";
+
+    }
+
+
+    return value.toString();
+
+  }
+
+
+  /* =========================
+     ID DO RANKING ATUAL
+  ========================= */
+
+  function obterIdRankingAtual(){
+
+    const agora =
+      new Date();
+
+
+    const ano =
+      agora.getFullYear();
+
+
+    const mes =
+      String(
+        agora.getMonth() + 1
+      )
+      .padStart(
+        2,
+        "0"
+      );
+
+
+    return `${ano}-${mes}`;
+
+  }
+
+
+  /* =========================
+     NORMALIZAR MÚSICA
+  ========================= */
+
+  function normalizarMusica(
+    dados,
+    index
+  ){
+
+    return {
+
+      id:
+        dados.id || "",
+
+
+      posicao:
+        Number(
+          dados.posicao ||
+          index + 1
+        ),
+
+
+      titulo:
+
+        dados.titulo ||
+
+        dados.title ||
+
+        dados.nome ||
+
+        "Sem título",
+
+
+      nomeArtista:
+
+        dados.nomeArtista ||
+
+        dados.artistaNome ||
+
+        dados.artistName ||
+
+        dados.artista ||
+
+        "Artista Prime",
+
+
+      capa:
+
+        dados.capa ||
+
+        dados.capaUrl ||
+
+        dados.cover ||
+
+        dados.imagem ||
+
+        dados.artistPhoto ||
+
+        "",
+
+
+      audioUrl:
+
+        dados.audioUrl ||
+
+        dados.audio ||
+
+        "",
+
+
+      views:
+
+        Number(
+          dados.views || 0
+        )
 
     };
 
-
-    const app =
-      initializeApp(firebaseConfig);
+  }
 
 
-    const db =
-      getFirestore(app);
+  /* =========================
+     CARREGAR RANKING
+  ========================= */
+
+  async function loadRanking(){
+
+    rankingList.innerHTML = `
+
+      <div class="loading">
+
+        <div class="spinner"></div>
+
+        A carregar o ranking...
+
+      </div>
+
+    `;
 
 
-    /* =========================
-       ELEMENTOS
-    ========================= */
-
-    const rankingList =
-      document.querySelector(
-        "#rankingList"
-      );
-
-
-    const top3 =
-      document.querySelector(
-        "#top3"
-      );
-
-
-    const rankingPeriod =
-      document.querySelector(
-        "#rankingPeriod"
-      );
-
-
-    const rankingDescription =
-      document.querySelector(
-        "#rankingDescription"
-      );
-
-
-    /* =========================
-       DADOS
-    ========================= */
-
-    let ranking =
-      [];
-
-
-    let currentFilter =
-      "all";
-
-
-    let periodoAtual =
+    top3.innerHTML =
       "";
 
 
-    /* =========================
-       ESCAPAR HTML
-    ========================= */
+    try{
 
-    function escapeHTML(text){
+      const rankingId =
+        obterIdRankingAtual();
 
-      const div =
-        document.createElement(
-          "div"
+
+      const rankingRef =
+        doc(
+          db,
+          "rankingMensal",
+          rankingId
         );
 
 
-      div.textContent =
-        String(
-          text ?? ""
+      const snapshot =
+        await getDoc(
+          rankingRef
         );
 
 
-      return div.innerHTML;
-
-    }
-
-
-    /* =========================
-       ID DO RANKING ATUAL
-    ========================= */
-
-    function obterIdRankingAtual(){
-
-      const agora =
-        new Date();
-
-
-      const ano =
-        agora.getFullYear();
-
-
-      const mes =
-        String(
-          agora.getMonth() + 1
-        )
-        .padStart(
-          2,
-          "0"
-        );
-
-
-      return `${ano}-${mes}`;
-
-    }
-
-
-    /* =========================
-       FORMATAR MÚSICA
-    ========================= */
-
-    function normalizarMusica(
-      dados,
-      index
-    ){
-
-      return {
-
-        id:
-
-          dados.id ||
-
-          "",
-
-
-        posicao:
-
-          Number(
-            dados.posicao ||
-            index + 1
-          ),
-
-
-        titulo:
-
-          dados.titulo ||
-
-          dados.title ||
-
-          dados.nome ||
-
-          "Sem título",
-
-
-        nomeArtista:
-
-          dados.nomeArtista ||
-
-          dados.artistaNome ||
-
-          dados.artistName ||
-
-          dados.artista ||
-
-          "Artista Prime",
-
-
-        capa:
-
-          dados.capa ||
-
-          dados.capaUrl ||
-
-          dados.cover ||
-
-          dados.imagem ||
-
-          dados.artistPhoto ||
-
-          "",
-
-
-        audioUrl:
-
-          dados.audioUrl ||
-
-          dados.audio ||
-
-          "",
-
-
-        views:
-
-          Number(
-            dados.views || 0
-          )
-
-      };
-
-    }
-
-
-    /* =========================
-       CARREGAR RANKING
-    ========================= */
-
-    async function loadRanking(){
-
-      rankingList.innerHTML = `
-
-        <div class="loading">
-
-          <div class="spinner"></div>
-
-          A carregar o ranking...
-
-        </div>
-
-      `;
-
-
-      try{
-
-        const rankingId =
-          obterIdRankingAtual();
-
-
-        const rankingRef =
-          doc(
-            db,
-            "rankingMensal",
-            rankingId
-          );
-
-
-        const snapshot =
-          await getDoc(
-            rankingRef
-          );
-
-
-        if(
-          !snapshot.exists()
-        ){
-
-          ranking =
-            [];
-
-
-          periodoAtual =
-            "";
-
-
-          renderRanking();
-
-          return;
-
-        }
-
-
-        const dados =
-          snapshot.data();
-
-
-        const musicas =
-          Array.isArray(
-            dados.musicas
-          )
-
-            ?
-
-            dados.musicas
-
-            :
-
-            [];
-
-
-        ranking =
-          musicas
-            .map(
-
-              (
-                musica,
-                index
-              ) =>
-
-                normalizarMusica(
-                  musica,
-                  index
-                )
-
-            )
-            .sort(
-
-              (a,b) =>
-
-                a.posicao -
-                b.posicao
-
-            );
-
-
-        periodoAtual =
-          dados.periodo ||
-
-          "RANKING PRIME";
-
-
-        rankingPeriod.textContent =
-          `● ${periodoAtual}`;
-
-
-        rankingDescription.textContent =
-          `${ranking.length} músicas no ranking oficial de ${periodoAtual}.`;
-
-
-        renderRanking();
-
-      }
-      catch(error){
-
-        console.error(
-          "Erro ao carregar ranking:",
-          error
-        );
-
+      /* =========================
+         NÃO EXISTE RANKING
+      ========================= */
+
+      if(
+        !snapshot.exists()
+      ){
 
         ranking =
           [];
 
 
-        periodoAtual =
-          "";
-
-
-        top3.innerHTML =
-          "";
-
-
-        rankingPeriod.textContent =
-          "● ERRO AO CARREGAR";
-
-
-        rankingList.innerHTML = `
-
-          <div class="empty">
-
-            <div class="empty-icon">
-              ⚠
-            </div>
-
-            <h3>
-              Não foi possível
-              carregar o ranking
-            </h3>
-
-            <p>
-              Não foi possível aceder
-              ao ranking do KUDURO PRIME.
-            </p>
-
-            <button
-              class="btn"
-              type="button"
-              onclick="location.reload()"
-            >
-              TENTAR NOVAMENTE
-            </button>
-
-          </div>
-
-        `;
-
-      }
-
-    }
-
-
-    /* =========================
-       OBTER FILTRO
-    ========================= */
-
-    function getFilteredRanking(){
-
-      let resultado =
-        [...ranking];
-
-
-      if(
-        currentFilter ===
-        "top3"
-      ){
-
-        resultado =
-          resultado.slice(
-            0,
-            3
-          );
-
-      }
-
-
-      if(
-        currentFilter ===
-        "novos"
-      ){
-
-        resultado =
-          resultado.reverse();
-
-      }
-
-
-      return resultado;
-
-    }
-
-
-    /* =========================
-       RENDERIZAR
-    ========================= */
-
-    function renderRanking(){
-
-      const filteredRanking =
-        getFilteredRanking();
-
-
-      if(
-        filteredRanking.length === 0
-      ){
-
-        top3.innerHTML =
-          "";
-
-
-        rankingPeriod.textContent =
-          periodoAtual
-
-            ?
-
-            `● ${periodoAtual}`
-
-            :
-
-            "● RANKING NÃO DISPONÍVEL";
-
-
-        rankingDescription.textContent =
-          "Ainda não existe um ranking publicado para este período.";
-
-
-        rankingList.innerHTML = `
-
-          <div class="empty">
-
-            <div class="empty-icon">
-              🏆
-            </div>
-
-            <h3>
-              Ranking ainda não publicado
-            </h3>
-
-            <p>
-              O administrador ainda não
-              criou o TOP 10 PRIME
-              deste mês.
-            </p>
-
-          </div>
-
-        `;
-
+        renderRanking();
 
         return;
 
       }
 
 
+      const dados =
+        snapshot.data();
+
+
       /* =========================
-         TOP 3
+         OBTER MÚSICAS
       ========================= */
 
-      const top3Original =
-        ranking.slice(
-          0,
-          3
-        );
+      if(
+        !Array.isArray(
+          dados.musicas
+        )
+      ){
+
+        ranking =
+          [];
+
+      }
+      else{
+
+        ranking =
+          dados.musicas
+          .map(
+
+            (
+              musica,
+              index
+            ) =>
+
+              normalizarMusica(
+                musica,
+                index
+              )
+
+          )
+          .sort(
+
+            (a,b) =>
+
+              a.posicao -
+              b.posicao
+
+          );
+
+      }
+
+
+      renderRanking();
+
+
+    }catch(error){
+
+      console.error(
+        "Erro ao carregar ranking:",
+        error
+      );
+
+
+      ranking =
+        [];
 
 
       top3.innerHTML =
-        top3Original
-        .map(
+        "";
 
-          (
-            item,
-            index
-          ) => {
 
-            const imagem =
-              item.capa;
+      rankingList.innerHTML = `
 
+        <div class="empty">
 
-            const imagemSegura =
-              imagem
-                ?
-                imagem
-                  .replace(
-                    /'/g,
-                    "%27"
-                  )
-                :
-                "";
+          <div class="empty-icon">
 
+            ⚠
 
-            const imageStyle =
-              imagemSegura
-                ?
-                `--img:url('${imagemSegura}')`
-                :
-                "";
+          </div>
 
 
-            return `
+          <h3>
 
-              <article
-                class="
-                  podium
-                  ${
-                    index === 0
-                      ?
-                      "first"
-                      :
-                      ""
-                  }
-                "
-                style="${imageStyle}"
-              >
+            Não foi possível
+            carregar o ranking
 
-                <div class="position">
+          </h3>
 
-                  ${index + 1}
 
-                </div>
+          <p>
 
+            Ocorreu um erro ao ligar
+            ao ranking do KUDURO PRIME.
 
-                ${
-                  index === 0
-                    ?
+          </p>
 
-                    `
 
-                      <div class="crown-big">
+          <button
+            class="btn"
+            type="button"
+            onclick="location.reload()"
+          >
 
-                        👑
+            TENTAR NOVAMENTE
 
-                      </div>
+          </button>
 
-                    `
+        </div>
 
-                    :
+      `;
 
-                    ""
+    }
 
-                }
+  }
 
 
-                <h2>
+  /* =========================
+     FILTRAR
+  ========================= */
 
-                  ${
-                    escapeHTML(
-                      item.nomeArtista
-                    )
-                  }
+  function getFilteredRanking(){
 
-                </h2>
+    let filtered =
+      [...ranking];
 
 
-                <div class="song">
+    /*
+      O ranking é manualmente
+      definido pelo administrador.
+    */
 
-                  🎵
+    return filtered
+      .sort(
 
-                  ${
-                    escapeHTML(
-                      item.titulo
-                    )
-                  }
+        (a,b) =>
 
-                </div>
+          a.posicao -
+          b.posicao
 
+      )
+      .slice(
+        0,
+        10
+      );
 
-                <div class="views">
+  }
 
-                  🏆 POSIÇÃO
 
-                  ${index + 1}
+  /* =========================
+     RENDERIZAR RANKING
+  ========================= */
 
-                  NO TOP 10
+  function renderRanking(){
 
-                </div>
+    const filteredRanking =
+      getFilteredRanking();
 
-              </article>
 
-            `;
+    /* =========================
+       RANKING VAZIO
+    ========================= */
 
-          }
+    if(
+      filteredRanking.length === 0
+    ){
 
-        )
-        .join("");
+      top3.innerHTML =
+        "";
 
 
-      /* =========================
-         TOP 10
-      ========================= */
+      rankingList.innerHTML = `
 
-      rankingList.innerHTML =
-        filteredRanking
-        .map(
+        <div class="empty">
 
-          (
-            item,
-            index
-          ) => {
+          <div class="empty-icon">
 
-            const imagem =
-              item.capa;
+            🏆
 
+          </div>
 
-            const imagemSegura =
-              imagem
-                ?
-                imagem
-                  .replace(
-                    /'/g,
-                    "%27"
-                  )
-                :
-                "";
 
+          <h3>
 
-            const coverHTML =
-              imagemSegura
+            O ranking ainda não foi publicado
 
-                ?
+          </h3>
 
-                `
 
-                  <div
-                    class="cover"
-                    style="
-                      --img:
-                      url('${imagemSegura}')
-                    "
-                  ></div>
+          <p>
 
-                `
+            O TOP 10 PRIME
+            deste mês ainda não foi
+            guardado pela administração.
 
-                :
+          </p>
 
-                `
+        </div>
 
-                  <div
-                    class="
-                      cover
-                      empty
-                    "
-                  >
+      `;
 
-                    🎵
 
-                  </div>
-
-                `;
-
-
-            let tag =
-              "";
-
-
-            const posicaoReal =
-              Number(
-                item.posicao ||
-                index + 1
-              );
-
-
-            if(
-              posicaoReal === 1
-            ){
-
-              tag =
-                "N.º 1";
-
-            }
-
-            else if(
-              posicaoReal <= 3
-            ){
-
-              tag =
-                "TOP 3";
-
-            }
-
-            else if(
-              posicaoReal <= 5
-            ){
-
-              tag =
-                "EM ALTA";
-
-            }
-
-
-            return `
-
-              <article class="rank-item">
-
-                <div class="rank-number">
-
-                  ${
-                    String(
-                      posicaoReal
-                    )
-                    .padStart(
-                      2,
-                      "0"
-                    )
-                  }
-
-                </div>
-
-
-                ${coverHTML}
-
-
-                <div class="music-info">
-
-                  <strong>
-
-                    ${
-                      escapeHTML(
-                        item.titulo
-                      )
-                    }
-
-                  </strong>
-
-
-                  <span>
-
-                    ${
-                      escapeHTML(
-                        item.nomeArtista
-                      )
-                    }
-
-                  </span>
-
-
-                  ${
-                    tag
-
-                      ?
-
-                      `
-
-                        <small>
-
-                          ${tag}
-
-                        </small>
-
-                      `
-
-                      :
-
-                      ""
-
-                  }
-
-                </div>
-
-
-                <div class="stats">
-
-                  <strong>
-
-                    🏆
-
-                    TOP
-
-                    ${posicaoReal}
-
-                  </strong>
-
-
-                  <span class="trend">
-
-                    🔥
-
-                    KUDURO PRIME
-
-                  </span>
-
-                </div>
-
-              </article>
-
-            `;
-
-          }
-
-        )
-        .join("");
+      return;
 
     }
 
 
     /* =========================
-       FILTROS
+       TOP 3
     ========================= */
 
-    window.filterRanking =
-      function(
-        filter,
-        button
-      ){
+    top3.innerHTML =
+      filteredRanking
+      .slice(
+        0,
+        3
+      )
+      .map(
 
-        currentFilter =
-          filter;
+        (
+          item,
+          index
+        ) => {
 
-
-        document
-          .querySelectorAll(
-            ".filter"
-          )
-          .forEach(
-
-            item =>
-
-              item
-              .classList
-              .remove(
-                "active"
-              )
-
-          );
+          const image =
+            item.capa ||
+            "";
 
 
-        button
-          .classList
-          .add(
-            "active"
-          );
+          const imageStyle =
+            image
+
+            ?
+
+            `--img:url('${image}')`
+
+            :
+
+            "";
 
 
-        renderRanking();
+          return `
 
-      };
+            <article
+
+              class="
+                podium
+                ${
+                  index === 0
+                  ?
+                  "first"
+                  :
+                  ""
+                }
+              "
+
+              style="${imageStyle}"
+
+            >
+
+
+              <div class="position">
+
+                ${index + 1}
+
+              </div>
+
+
+              ${
+                index === 0
+                ?
+
+                `
+
+                  <div class="crown-big">
+
+                    👑
+
+                  </div>
+
+                `
+
+                :
+
+                ""
+              }
+
+
+              <h2>
+
+                ${escapeHTML(
+                  item.nomeArtista
+                )}
+
+              </h2>
+
+
+              <div class="song">
+
+                🎵
+
+                ${escapeHTML(
+                  item.titulo
+                )}
+
+              </div>
+
+
+              <div class="views">
+
+                ▶
+
+                ${
+                  formatViews(
+                    item.views
+                  )
+                }
+
+                AUDIÇÕES
+
+              </div>
+
+
+            </article>
+
+          `;
+
+        }
+
+      )
+      .join(
+        ""
+      );
 
 
     /* =========================
-       MENU
+       TOP 10
     ========================= */
 
-    window.toggleMenu =
-      function(){
+    rankingList.innerHTML =
+      filteredRanking
+      .map(
 
-        alert(
-          "Menu mobile em desenvolvimento."
+        (
+          item,
+          index
+        ) => {
+
+          const image =
+            item.capa ||
+            "";
+
+
+          const coverHTML =
+            image
+
+            ?
+
+            `
+
+              <div
+
+                class="cover"
+
+                style="
+                  --img:url('${image}')
+                "
+
+              ></div>
+
+            `
+
+            :
+
+            `
+
+              <div
+                class="cover empty"
+              >
+
+                🎵
+
+              </div>
+
+            `;
+
+
+          let tag =
+            "";
+
+
+          if(
+            index === 0
+          ){
+
+            tag =
+              "N.º 1";
+
+          }
+
+
+          else if(
+            index === 1
+          ){
+
+            tag =
+              "TOP 3";
+
+          }
+
+
+          else if(
+            index === 2
+          ){
+
+            tag =
+              "EM ALTA";
+
+          }
+
+
+          return `
+
+            <article
+              class="rank-item"
+            >
+
+
+              <div class="rank-number">
+
+                ${
+                  String(
+                    index + 1
+                  )
+                  .padStart(
+                    2,
+                    "0"
+                  )
+                }
+
+              </div>
+
+
+              ${coverHTML}
+
+
+              <div class="music-info">
+
+
+                <strong>
+
+                  ${escapeHTML(
+                    item.titulo
+                  )}
+
+                </strong>
+
+
+                <span>
+
+                  ${escapeHTML(
+                    item.nomeArtista
+                  )}
+
+                </span>
+
+
+                ${
+                  tag
+
+                  ?
+
+                  `
+
+                    <small>
+
+                      ${tag}
+
+                    </small>
+
+                  `
+
+                  :
+
+                  ""
+                }
+
+
+              </div>
+
+
+              <div class="stats">
+
+
+                <strong>
+
+                  ▶
+
+                  ${
+                    formatViews(
+                      item.views
+                    )
+                  }
+
+                </strong>
+
+
+                <span class="trend">
+
+                  🔥
+
+                  POPULAR
+
+                </span>
+
+
+              </div>
+
+
+            </article>
+
+          `;
+
+        }
+
+      )
+      .join(
+        ""
+      );
+
+  }
+
+
+  /* =========================
+     FILTROS
+  ========================= */
+
+  window.filterRanking =
+    function(
+      filter,
+      button
+    ){
+
+      currentFilter =
+        filter;
+
+
+      document
+        .querySelectorAll(
+          ".filter"
+        )
+        .forEach(
+
+          item => {
+
+            item
+            .classList
+            .remove(
+              "active"
+            );
+
+          }
+
         );
 
-      };
+
+      button
+      .classList
+      .add(
+        "active"
+      );
 
 
-    /* =========================
-       INICIAR
-    ========================= */
+      renderRanking();
 
-    loadRanking();
+    };
 
-  </script>
 
-</body>
-</html>
+  /* =========================
+     MENU MOBILE
+  ========================= */
+
+  window.toggleMenu =
+    function(){
+
+      alert(
+        "Menu mobile em desenvolvimento."
+      );
+
+    };
+
+
+  /* =========================
+     INICIAR
+  ========================= */
+
+  loadRanking();
+
+</script>
