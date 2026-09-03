@@ -2544,14 +2544,20 @@
 
               /* CAPA */
 
-              capa:
-                coverData.secure_url,
+capa:
+  coverData.secure_url,
 
-              cover:
-                coverData.secure_url,
+cover:
+  coverData.secure_url,
 
-              coverUrl:
-                coverData.secure_url,
+coverUrl:
+  coverData.secure_url,
+
+imagem:
+  coverData.secure_url,
+
+imageUrl:
+  coverData.secure_url,
 
               coverPublicId:
                 coverData.public_id,
@@ -2605,8 +2611,14 @@
 
               /* DATA */
 
-              criadoEm:
-                serverTimestamp()
+criadoEm:
+  serverTimestamp(),
+
+createdAt:
+  new Date(),
+
+timestamp:
+  Date.now()
 
             }
           );
