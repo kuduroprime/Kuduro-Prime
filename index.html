@@ -2380,44 +2380,58 @@ content="A plataforma dedicada ao Kuduro: artistas, músicas, ranking, batalhas 
       limit(6)
     );
 
-  onSnapshot(
-    q,
-    (snapshot) => {
+ onSnapshot(
+  q,
+  (snapshot) => {
 
-      if(snapshot.empty){
+    console.log(
+      "Músicas encontradas:",
+      snapshot.size
+    );
 
-        releasesContainer.innerHTML = `
-          <div
-            style="
-              padding:20px 0;
-              color:#aaa59a;
-              font-size:13px
-            "
-          >
-            Ainda não existem lançamentos.
-          </div>
-        `;
+    console.log(
+      "Dados das músicas:",
+      snapshot.docs.map(
+        docMusica => ({
+          id: docMusica.id,
+          ...docMusica.data()
+        })
+      )
+    );
 
-        return;
+    if(snapshot.empty){
+
+      releasesContainer.innerHTML = `
+        <div
+          style="
+            padding:20px 0;
+            color:#aaa59a;
+            font-size:13px
+          "
+        >
+          Ainda não existem lançamentos.
+        </div>
+      `;
+
+      return;
+    }
+
+
+    const musicas = [];
+
+
+    snapshot.forEach(
+      (docMusica) => {
+
+        musicas.push(
+          obterDadosMusica(
+            docMusica.data(),
+            docMusica.id
+          )
+        );
+
       }
-
-
-      const musicas = [];
-
-
-      snapshot.forEach(
-        (docMusica) => {
-
-          musicas.push(
-            obterDadosMusica(
-              docMusica.data(),
-              docMusica.id
-            )
-          );
-
-        }
-      );
-
+    );
 
       releasesContainer.innerHTML =
         "";
