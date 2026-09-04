@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Tarefas Remuneradas — KUDURO PRIME</title>
+
+  <style>
+
+    :root{
+      --bg:#070707;
+      --panel:#101010;
+      --panel2:#181818;
+      --gold:#f4bf31;
+      --gold2:#ffdc6b;
+      --text:#f7f4ed;
+      --muted:#aaa59a;
+      --line:#292929;
+      --green:#31c96b;
+      --red:#ff563f;
+    }
+
+    *{
+      box-sizing:border-box;
+    }
+
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--text);
+      font-family:Arial,Helvetica,sans-serif;
+    }
+
+    a{
+      color:inherit;
+      text-decoration:none;
+    }
+
+    /* =========================
+       HEADER
+    ========================= */
+
+    header{
+      position:sticky;
+      top:0;
+      z-index:100;
+      background:rgba(7,7,7,.96);
+      border-bottom:1px solid var(--line);
+    }
+
+    .header-inner{
+      width:min(1200px,94%);
+      margin:auto;
+
+      min-height:70px;
+
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+
+      gap:20px;
+    }
+
+    .logo{
+      color:var(--gold);
+      font-size:20px;
+      font-weight:900;
+      letter-spacing:1px;
+    }
+
+    .logo span{
+      color:var(--text);
+    }
+
+    nav{
+      display:flex;
+      align-items:center;
+      gap:20px;
+    }
+
+    nav a{
+      color:var(--muted);
+      font-size:13px;
+      font-weight:800;
+    }
+
+    nav a:hover{
+      color:var(--gold);
+    }
+
+    /* =========================
+       CONTEÚDO
+    ========================= */
+
+    main{
+      width:min(1000px,94%);
+      margin:0 auto;
+      padding:50px 0 80px;
+    }
+
+    .hero{
+      margin-bottom:35px;
+    }
+
+    .eyebrow{
+      color:var(--gold);
+      font-size:13px;
+      font-weight:900;
+      letter-spacing:1.5px;
+      margin-bottom:10px;
+    }
+
+    h1{
+      margin:0;
+      font-size:clamp(30px,6vw,52px);
+      line-height:1;
+    }
+
+    .hero p{
+      max-width:650px;
+      color:var(--muted);
+      line-height:1.6;
+      margin-top:16px;
+    }
+
+    /* =========================
+       ESTATÍSTICAS
+    ========================= */
+
+    .stats{
+      display:grid;
+      grid-template-columns:
+        repeat(3,1fr);
+
+      gap:15px;
+      margin-bottom:35px;
+    }
+
+    .stat{
+      background:var(--panel);
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:20px;
+    }
+
+    .stat-number{
+      color:var(--gold);
+      font-size:25px;
+      font-weight:900;
+    }
+
+    .stat-label{
+      margin-top:7px;
+      color:var(--muted);
+      font-size:13px;
+    }
+
+    /* =========================
+       TÍTULO
+    ========================= */
+
+    .section-title{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+
+      margin-bottom:20px;
+    }
+
+    .section-title h2{
+      margin:0;
+      font-size:24px;
+    }
+
+    /* =========================
+       LISTA DE TAREFAS
+    ========================= */
+
+    .tasks{
+      display:grid;
+      gap:18px;
+    }
+
+    .task-card{
+      background:var(--panel);
+      border:1px solid var(--line);
+      border-radius:20px;
+      padding:25px;
+
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+
+      gap:25px;
+
+      transition:.2s;
+    }
+
+    .task-card:hover{
+      border-color:var(--gold);
+      transform:translateY(-2px);
+    }
+
+    .task-info{
+      flex:1;
+    }
+
+    .task-top{
+      display:flex;
+      align-items:center;
+      gap:10px;
+
+      margin-bottom:12px;
+    }
+
+    .task-type{
+      padding:6px 10px;
+      border-radius:999px;
+
+      background:rgba(244,191,49,.12);
+      color:var(--gold);
+
+      font-size:11px;
+      font-weight:900;
+    }
+
+    .task-status{
+      color:var(--green);
+      font-size:12px;
+      font-weight:800;
+    }
+
+    .task-title{
+      font-size:21px;
+      font-weight:900;
+      margin-bottom:10px;
+    }
+
+    .task-description{
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.6;
+    }
+
+    .task-footer{
+      display:flex;
+      gap:18px;
+      margin-top:18px;
+
+      color:var(--muted);
+      font-size:13px;
+    }
+
+    /* =========================
+       RECOMPENSA
+    ========================= */
+
+    .reward-box{
+      min-width:170px;
+
+      background:var(--panel2);
+      border-radius:16px;
+
+      padding:20px;
+      text-align:center;
+    }
+
+    .reward-label{
+      color:var(--muted);
+      font-size:11px;
+      font-weight:800;
+
+      margin-bottom:8px;
+    }
+
+    .reward-value{
+      color:var(--gold);
+      font-size:26px;
+      font-weight:900;
+    }
+
+    .reward-currency{
+      color:var(--muted);
+      font-size:12px;
+      margin-top:5px;
+    }
+
+    .participate-btn{
+      width:100%;
+      margin-top:15px;
+
+      border:none;
+      border-radius:10px;
+
+      padding:12px;
+
+      background:var(--gold);
+      color:#080808;
+
+      font-weight:900;
+      cursor:pointer;
+    }
+
+    .participate-btn:hover{
+      background:var(--gold2);
+    }
+
+    /* =========================
+       LOADING
+    ========================= */
+
+    .loading{
+      background:var(--panel);
+      border:1px solid var(--line);
+
+      border-radius:16px;
+      padding:30px;
+
+      text-align:center;
+      color:var(--muted);
+    }
+
+    /* =========================
+       VAZIO
+    ========================= */
+
+    .empty{
+      display:none;
+
+      background:var(--panel);
+      border:1px solid var(--line);
+
+      border-radius:16px;
+      padding:40px;
+
+      text-align:center;
+      color:var(--muted);
+    }
+
+    /* =========================
+       MOBILE
+    ========================= */
+
+    @media(max-width:700px){
+
+      nav{
+        display:none;
+      }
+
+      .stats{
+        grid-template-columns:1fr;
+      }
+
+      .task-card{
+        flex-direction:column;
+        align-items:stretch;
+      }
+
+      .reward-box{
+        width:100%;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+
+  <!-- =========================
+       HEADER
+  ========================== -->
+
+  <header>
+
+    <div class="header-inner">
+
+      <a
+        href="index.html"
+        class="logo"
+      >
+        KUDURO<span>PRIME</span>
+      </a>
+
+
+      <nav>
+
+        <a href="feed.html">
+          FEED
+        </a>
+
+        <a href="ranking.html">
+          RANKING
+        </a>
+
+        <a href="tarefas.html">
+          TAREFAS
+        </a>
+
+        <a href="meu-perfil.html">
+          MEU PERFIL
+        </a>
+
+      </nav>
+
+    </div>
+
+  </header>
+
+
+  <!-- =========================
+       CONTEÚDO
+  ========================== -->
+
+  <main>
+
+
+    <section class="hero">
+
+      <div class="eyebrow">
+
+        💰 GANHA DINHEIRO COM O KUDURO PRIME
+
+      </div>
+
+
+      <h1>
+
+        TAREFAS REMUNERADAS
+
+      </h1>
+
+
+      <p>
+
+        Participa em tarefas, completa os objetivos
+        e ganha recompensas.
+
+      </p>
+
+    </section>
+
+
+
+    <!-- =========================
+         ESTATÍSTICAS
+    ========================== -->
+
+    <section class="stats">
+
+      <div class="stat">
+
+        <div
+          class="stat-number"
+          id="tarefasDisponiveis"
+        >
+          --
+        </div>
+
+        <div class="stat-label">
+
+          Tarefas disponíveis
+
+        </div>
+
+      </div>
+
+
+      <div class="stat">
+
+        <div
+          class="stat-number"
+          id="minhaParticipacao"
+        >
+          0
+        </div>
+
+        <div class="stat-label">
+
+          Minhas participações
+
+        </div>
+
+      </div>
+
+
+      <div class="stat">
+
+        <div
+          class="stat-number"
+          id="meusGanhos"
+        >
+          0 AOA
+        </div>
+
+        <div class="stat-label">
+
+          Total ganho
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- =========================
+         TAREFAS
+    ========================== -->
+
+    <div class="section-title">
+
+      <h2>
+
+        Tarefas disponíveis 🔥
+
+      </h2>
+
+    </div>
+
+
+
+    <div
+      class="loading"
+      id="loadingTasks"
+    >
+
+      A carregar tarefas...
+
+    </div>
+
+
+
+    <div
+      class="tasks"
+      id="tasksList"
+    >
+
+    </div>
+
+
+
+    <div
+      class="empty"
+      id="emptyTasks"
+    >
+
+      Ainda não existem tarefas disponíveis.
+
+    </div>
+
+
+  </main>
+
+
+  <!-- =========================
+       FIREBASE
+  ========================== -->
+
+  <script type="module">
+
+    import {
+      initializeApp
+    }
+
+    from
+
+    "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+
+    import {
+
+      getAuth,
+      onAuthStateChanged
+
+    }
+
+    from
+
+    "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+
+    import {
+
+      getFirestore,
+
+      collection,
+
+      query,
+
+      where,
+
+      getDocs,
+
+      addDoc,
+
+      serverTimestamp
+
+    }
+
+    from
+
+    "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+
+    // =====================================
+    // CONFIGURAÇÃO FIREBASE
+    // =====================================
+
+    const firebaseConfig = {
+
+      apiKey:
+        "COLOCA_AQUI",
+
+      authDomain:
+        "COLOCA_AQUI",
+
+      projectId:
+        "COLOCA_AQUI",
+
+      storageBucket:
+        "COLOCA_AQUI",
+
+      messagingSenderId:
+        "COLOCA_AQUI",
+
+      appId:
+        "COLOCA_AQUI"
+
+    };
+
+
+    const app =
+      initializeApp(firebaseConfig);
+
+
+    const auth =
+      getAuth(app);
+
+
+    const db =
+      getFirestore(app);
+
+
+
+    // =====================================
+    // ELEMENTOS
+    // =====================================
+
+    const tasksList =
+      document.getElementById(
+        "tasksList"
+      );
+
+
+    const loadingTasks =
+      document.getElementById(
+        "loadingTasks"
+      );
+
+
+    const emptyTasks =
+      document.getElementById(
+        "emptyTasks"
+      );
+
+
+    const tarefasDisponiveis =
+      document.getElementById(
+        "tarefasDisponiveis"
+      );
+
+
+    // =====================================
+    // CARREGAR TAREFAS
+    // =====================================
+
+    async function carregarTarefas(){
+
+      loadingTasks.style.display =
+        "block";
+
+
+      tasksList.innerHTML =
+        "";
+
+
+      emptyTasks.style.display =
+        "none";
+
+
+      try{
+
+
+        const tarefasRef =
+          collection(
+            db,
+            "tarefas"
+          );
+
+
+        const q =
+          query(
+            tarefasRef,
+            where(
+              "status",
+              "==",
+              "ativa"
+            )
+          );
+
+
+        const snapshot =
+          await getDocs(q);
+
+
+        loadingTasks.style.display =
+          "none";
+
+
+        tarefasDisponiveis.textContent =
+          snapshot.size;
+
+
+        if(
+          snapshot.empty
+        ){
+
+          emptyTasks.style.display =
+            "block";
+
+          return;
+
+        }
+
+
+        snapshot.forEach(
+          doc => {
+
+
+            const tarefa =
+              doc.data();
+
+
+            const recompensa =
+              Number(
+                tarefa.recompensa || 0
+              );
+
+
+            const max =
+              Number(
+                tarefa.maxParticipantes || 0
+              );
+
+
+            const atuais =
+              Number(
+                tarefa.participantesAtuais || 0
+              );
+
+
+            const card =
+              document.createElement(
+                "div"
+              );
+
+
+            card.className =
+              "task-card";
+
+
+            card.innerHTML = `
+
+              <div class="task-info">
+
+                <div class="task-top">
+
+                  <div class="task-type">
+
+                    ${tarefa.tipo || "tarefa"}
+
+                  </div>
+
+
+                  <div class="task-status">
+
+                    ● ATIVA
+
+                  </div>
+
+                </div>
+
+
+                <div class="task-title">
+
+                  ${tarefa.titulo || "Sem título"}
+
+                </div>
+
+
+                <div class="task-description">
+
+                  ${tarefa.descricao || ""}
+
+                </div>
+
+
+                <div class="task-footer">
+
+                  <span>
+
+                    👥
+                    ${atuais}/${max}
+
+                  </span>
+
+
+                  <span>
+
+                    ID:
+                    ${doc.id}
+
+                  </span>
+
+                </div>
+
+              </div>
+
+
+
+              <div class="reward-box">
+
+                <div class="reward-label">
+
+                  RECOMPENSA
+
+                </div>
+
+
+                <div class="reward-value">
+
+                  ${recompensa.toLocaleString()}
+
+                </div>
+
+
+                <div class="reward-currency">
+
+                  ${tarefa.moeda || "AOA"}
+
+                </div>
+
+
+                <button
+                  class="participate-btn"
+                >
+
+                  PARTICIPAR
+
+                </button>
+
+              </div>
+
+            `;
+
+
+            const btn =
+              card.querySelector(
+                ".participate-btn"
+              );
+
+
+            btn.addEventListener(
+              "click",
+              () => {
+
+                participarTarefa(
+                  doc.id,
+                  tarefa
+                );
+
+              }
+            );
+
+
+            tasksList.appendChild(
+              card
+            );
+
+
+          }
+        );
+
+
+      }
+
+      catch(error){
+
+        console.error(
+          error
+        );
+
+
+        loadingTasks.textContent =
+          "Erro ao carregar tarefas.";
+
+      }
+
+    }
+
+
+
+    // =====================================
+    // PARTICIPAR
+    // =====================================
+
+    async function participarTarefa(
+      tarefaId,
+      tarefa
+    ){
+
+      const user =
+        auth.currentUser;
+
+
+      if(
+        !user
+      ){
+
+        alert(
+          "Precisas iniciar sessão."
+        );
+
+        return;
+
+      }
+
+
+      try{
+
+
+        await addDoc(
+
+          collection(
+            db,
+            "participacoesTarefas"
+          ),
+
+          {
+
+            tarefaId:
+              tarefaId,
+
+
+            usuarioId:
+              user.uid,
+
+
+            status:
+              "pendente",
+
+
+            valorRecebido:
+              0,
+
+
+            provaURL:
+              "",
+
+
+            createdAt:
+              serverTimestamp()
+
+          }
+
+        );
+
+
+        alert(
+          "Participação criada! Agora completa a tarefa."
+        );
+
+
+      }
+
+      catch(error){
+
+        console.error(
+          error
+        );
+
+
+        alert(
+          "Não foi possível participar na tarefa."
+        );
+
+      }
+
+    }
+
+
+
+    // =====================================
+    // AUTENTICAÇÃO
+    // =====================================
+
+    onAuthStateChanged(
+
+      auth,
+
+      user => {
+
+        if(
+          user
+        ){
+
+          carregarTarefas();
+
+        }
+
+        else{
+
+          window.location.href =
+            "area-do-artista.html";
+
+        }
+
+      }
+
+    );
+
+  </script>
+
+</body>
+
+</html>
