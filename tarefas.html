@@ -360,7 +360,123 @@
       text-align:center;
       color:var(--muted);
     }
+/* =========================
+   PARTICIPAÇÃO
+========================= */
 
+.participacao-card{
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:20px;
+  padding:25px;
+  margin-bottom:18px;
+}
+
+.participacao-title{
+  font-size:20px;
+  font-weight:900;
+  margin-bottom:15px;
+}
+
+.participacao-status{
+  display:inline-block;
+  padding:6px 10px;
+  border-radius:999px;
+  background:rgba(49,201,107,.12);
+  color:var(--green);
+  font-size:11px;
+  font-weight:900;
+  margin-bottom:18px;
+}
+
+.progresso-info{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  color:var(--muted);
+  font-size:13px;
+  margin-bottom:8px;
+}
+
+.progresso-barra{
+  width:100%;
+  height:10px;
+  background:#252525;
+  border-radius:999px;
+  overflow:hidden;
+}
+
+.progresso-barra div{
+  height:100%;
+  width:0%;
+  background:var(--gold);
+  transition:.3s;
+}
+
+.participacao-dados{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+  margin-top:20px;
+}
+
+.participacao-dado{
+  background:var(--panel2);
+  border-radius:12px;
+  padding:15px;
+  text-align:center;
+}
+
+.participacao-dado strong{
+  display:block;
+  color:var(--gold);
+  font-size:20px;
+}
+
+.participacao-dado span{
+  display:block;
+  color:var(--muted);
+  font-size:11px;
+  margin-top:5px;
+}
+
+.link-rastreamento{
+  margin-top:20px;
+}
+
+.link-rastreamento input{
+  width:100%;
+  padding:12px;
+  border:1px solid var(--line);
+  border-radius:10px;
+  background:#080808;
+  color:var(--text);
+}
+
+.btn-copiar{
+  width:100%;
+  margin-top:10px;
+  padding:12px;
+  border:none;
+  border-radius:10px;
+  background:var(--gold);
+  color:#080808;
+  font-weight:900;
+  cursor:pointer;
+}
+
+.btn-copiar:hover{
+  background:var(--gold2);
+}
+
+@media(max-width:700px){
+
+  .participacao-dados{
+    grid-template-columns:1fr;
+  }
+
+}
+    
     /* =========================
        MOBILE
     ========================= */
@@ -586,7 +702,33 @@
 
     </div>
 
+<!-- =========================
+     MINHAS PARTICIPAÇÕES
+========================== -->
 
+<section
+  id="minhasParticipacoes"
+  style="margin-top:40px;"
+>
+
+  <div class="section-title">
+
+    <h2>
+      Minhas participações 🎯
+    </h2>
+
+  </div>
+
+  <div id="participacoesList">
+
+    <div class="loading">
+      A carregar as tuas participações...
+    </div>
+
+  </div>
+
+</section>
+    
   </main>
 
 
@@ -618,32 +760,18 @@
 
 
     import {
-
   getFirestore,
-
   collection,
-
   query,
-
   where,
-
   getDocs,
-
+  getDoc,
   addDoc,
-
   updateDoc,
-
   doc,
-
   increment,
-
   serverTimestamp
-
-}
-
-    from
-
-    "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 
     // =====================================
@@ -713,7 +841,13 @@
         "tarefasDisponiveis"
       );
 
+    
+     const participacoesList =
+       document.getElementById(
+         "participacoesList"
+     );
 
+    
     // =====================================
     // CARREGAR TAREFAS
     // =====================================
@@ -1246,7 +1380,354 @@ async function participarTarefa(
     // =====================================
     // AUTENTICAÇÃO
     // =====================================
+// =====================================
+// CARREGAR MINHAS PARTICIPAÇÕES
+// =====================================
 
+async function carregarMinhasParticipacoes(){
+
+  const user = auth.currentUser;
+
+  if(!user){
+    return;
+  }
+
+  participacoesList.innerHTML = `
+    <div class="loading">
+      A carregar as tuas participações...
+    </div>
+  `;
+
+  try{
+
+    const participacoesRef =
+      collection(
+        db,
+        "participacoesTarefas"
+      );
+
+    const q =
+      query(
+        participacoesRef,
+        where(
+          "usuarioId",
+          "==",
+          user.uid
+        )
+      );
+
+    const snapshot =
+      await getDocs(q);
+
+    participacoesList.innerHTML = "";
+
+    if(snapshot.empty){
+
+      participacoesList.innerHTML = `
+        <div class="empty" style="display:block;">
+          Ainda não participaste em nenhuma tarefa.
+        </div>
+      `;
+
+      document.getElementById(
+        "minhaParticipacao"
+      ).textContent = "0";
+
+      return;
+    }
+
+    document.getElementById(
+      "minhaParticipacao"
+    ).textContent = snapshot.size;
+
+
+    for(const participacaoDoc of snapshot.docs){
+
+      const participacao =
+        participacaoDoc.data();
+
+      const tarefaId =
+        participacao.tarefaId;
+
+      if(!tarefaId){
+        continue;
+      }
+
+
+      // ---------------------------------
+      // BUSCAR TAREFA
+      // ---------------------------------
+
+      
+
+      const tarefaSnap =
+  await getDoc(
+    doc(
+      db,
+      "tarefas",
+      tarefaId
+    )
+  );
+
+if(!tarefaSnap.exists()){
+  continue;
+}
+
+const tarefa =
+  tarefaSnap.data();
+
+
+      const titulo =
+        tarefa.titulo ||
+        "Tarefa";
+
+
+      const cliques =
+        Number(
+          participacao.cliques || 0
+        );
+
+
+      const metaCliques =
+        Number(
+          tarefa.metaCliques || 50
+        );
+
+
+      const partilhas =
+        Number(
+          participacao.partilhas || 0
+        );
+
+
+      const progresso =
+        Math.min(
+          100,
+          Math.round(
+            (cliques / metaCliques) * 100
+          )
+        );
+
+
+      let statusTexto =
+        "PENDENTE";
+
+
+      if(participacao.vencedor === true){
+
+        statusTexto =
+          "🏆 VENCEDOR";
+
+      }
+      else if(
+        participacao.status === "concluida"
+      ){
+
+        statusTexto =
+          "✅ CONCLUÍDA";
+
+      }
+
+
+      const card =
+        document.createElement(
+          "div"
+        );
+
+      card.className =
+        "participacao-card";
+
+
+      card.innerHTML = `
+
+        <div class="participacao-title">
+
+          ${titulo}
+
+        </div>
+
+
+        <div class="participacao-status">
+
+          ${statusTexto}
+
+        </div>
+
+
+        <div class="progresso-info">
+
+          <span>
+            Cliques
+          </span>
+
+          <strong>
+            ${cliques}/${metaCliques}
+          </strong>
+
+        </div>
+
+
+        <div class="progresso-barra">
+
+          <div
+            style="width:${progresso}%"
+          ></div>
+
+        </div>
+
+
+        <div class="participacao-dados">
+
+          <div class="participacao-dado">
+
+            <strong>
+              ${cliques}
+            </strong>
+
+            <span>
+              CLIQUES
+            </span>
+
+          </div>
+
+
+          <div class="participacao-dado">
+
+            <strong>
+              ${partilhas}
+            </strong>
+
+            <span>
+              PARTILHAS
+            </span>
+
+          </div>
+
+
+          <div class="participacao-dado">
+
+            <strong>
+              ${participacao.valorRecebido || 0}
+            </strong>
+
+            <span>
+              AOA RECEBIDO
+            </span>
+
+          </div>
+
+        </div>
+
+
+        ${
+          participacao.linkRastreamento
+          ?
+          `
+
+          <div class="link-rastreamento">
+
+            <input
+              type="text"
+              value="${participacao.linkRastreamento}"
+              readonly
+            >
+
+            <button
+              class="btn-copiar"
+              data-link="${participacao.linkRastreamento}"
+            >
+
+              📋 COPIAR LINK
+
+            </button>
+
+          </div>
+
+          `
+          :
+          ""
+        }
+
+      `;
+
+
+      const copiarBtn =
+        card.querySelector(
+          ".btn-copiar"
+        );
+
+
+      if(copiarBtn){
+
+        copiarBtn.addEventListener(
+          "click",
+          async () => {
+
+            const link =
+              copiarBtn.dataset.link;
+
+            try{
+
+              await navigator.clipboard.writeText(
+                link
+              );
+
+              copiarBtn.textContent =
+                "✅ LINK COPIADO!";
+
+              setTimeout(
+                () => {
+
+                  copiarBtn.textContent =
+                    "📋 COPIAR LINK";
+
+                },
+                2000
+              );
+
+            }
+            catch(error){
+
+              alert(
+                "Não foi possível copiar o link."
+              );
+
+            }
+
+          }
+        );
+
+      }
+
+
+      participacoesList.appendChild(
+        card
+      );
+
+    }
+
+  }
+  catch(error){
+
+    console.error(
+      "Erro ao carregar participações:",
+      error
+    );
+
+    participacoesList.innerHTML = `
+
+      <div class="loading">
+
+        Erro ao carregar as tuas participações.
+
+      </div>
+
+    `;
+
+  }
+
+}
+    
     onAuthStateChanged(
 
       auth,
@@ -1254,12 +1735,14 @@ async function participarTarefa(
       user => {
 
         if(
-          user
-        ){
+  user
+){
 
-          carregarTarefas();
+  carregarTarefas();
 
-        }
+  carregarMinhasParticipacoes();
+
+}
 
         else{
 
