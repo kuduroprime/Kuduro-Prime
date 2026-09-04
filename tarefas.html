@@ -1,12 +1,14 @@
 <!DOCTYPE html>
+
 <html lang="pt">
 <head>
   <meta charset="UTF-8">
 
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0"
+
+>
 
   <title>Tarefas Remuneradas — KUDURO PRIME</title>
 
@@ -37,28 +39,30 @@
     }
 
     a{
-    color:inherit;
-    text-decoration:none;
-  }
+      color:inherit;
+      text-decoration:none;
+    }
 
-  .back-feed{
-    font-size:40px;
-    font-weight:900;
-    color:var(--gold);
-    line-height:1;
-    padding:5px 12px;
-    display:inline-flex;
-    align-items:center;
-  }
+    button,
+    input,
+    select{
+      font-family:inherit;
+    }
 
-  .back-feed:hover{
-    color:var(--gold2);
-    transform:translateX(-3px);
-  }
+    .back-feed{
+      font-size:40px;
+      font-weight:900;
+      color:var(--gold);
+      line-height:1;
+      padding:5px 12px;
+      display:inline-flex;
+      align-items:center;
+    }
 
-  /* resto do teu CSS */
-
-
+    .back-feed:hover{
+      color:var(--gold2);
+      transform:translateX(-3px);
+    }
 
     /* =========================
        HEADER
@@ -75,13 +79,10 @@
     .header-inner{
       width:min(1200px,94%);
       margin:auto;
-
       min-height:70px;
-
       display:flex;
       align-items:center;
       justify-content:space-between;
-
       gap:20px;
     }
 
@@ -148,14 +149,285 @@
     }
 
     /* =========================
+       CARTEIRA
+    ========================= */
+
+    .carteira{
+      background:
+        linear-gradient(
+          135deg,
+          rgba(244,191,49,.14),
+          rgba(16,16,16,.96)
+        );
+
+      border:1px solid rgba(244,191,49,.35);
+      border-radius:22px;
+      padding:25px;
+      margin-bottom:35px;
+    }
+
+    .carteira-topo{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:20px;
+      margin-bottom:22px;
+    }
+
+    .carteira-titulo{
+      font-size:13px;
+      color:var(--gold);
+      font-weight:900;
+      letter-spacing:1px;
+    }
+
+    .carteira-saldo{
+      font-size:36px;
+      font-weight:900;
+      margin-top:6px;
+    }
+
+    .carteira-moeda{
+      color:var(--muted);
+      font-size:12px;
+      margin-top:4px;
+    }
+
+    .sacar-btn{
+      border:none;
+      border-radius:12px;
+      padding:13px 20px;
+      background:var(--gold);
+      color:#080808;
+      font-weight:900;
+      cursor:pointer;
+      white-space:nowrap;
+    }
+
+    .sacar-btn:hover{
+      background:var(--gold2);
+    }
+
+    .carteira-info{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:12px;
+    }
+
+    .carteira-dado{
+      background:rgba(0,0,0,.25);
+      border:1px solid var(--line);
+      border-radius:13px;
+      padding:15px;
+    }
+
+    .carteira-dado strong{
+      display:block;
+      color:var(--gold);
+      font-size:20px;
+    }
+
+    .carteira-dado span{
+      display:block;
+      color:var(--muted);
+      font-size:11px;
+      margin-top:5px;
+    }
+
+    /* =========================
+       MODAL SAQUE
+    ========================= */
+
+    .modal{
+      display:none;
+      position:fixed;
+      inset:0;
+      z-index:500;
+      background:rgba(0,0,0,.78);
+      padding:20px;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .modal.ativo{
+      display:flex;
+    }
+
+    .modal-box{
+      width:min(520px,100%);
+      background:var(--panel);
+      border:1px solid var(--line);
+      border-radius:22px;
+      padding:25px;
+      max-height:90vh;
+      overflow:auto;
+    }
+
+    .modal-header{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:15px;
+      margin-bottom:20px;
+    }
+
+    .modal-header h2{
+      margin:0;
+      font-size:24px;
+    }
+
+    .fechar-modal{
+      border:none;
+      background:#222;
+      color:var(--text);
+      width:38px;
+      height:38px;
+      border-radius:50%;
+      cursor:pointer;
+      font-size:18px;
+    }
+
+    .saldo-modal{
+      background:var(--panel2);
+      border-radius:13px;
+      padding:15px;
+      margin-bottom:20px;
+    }
+
+    .saldo-modal span{
+      display:block;
+      color:var(--muted);
+      font-size:12px;
+    }
+
+    .saldo-modal strong{
+      display:block;
+      color:var(--gold);
+      font-size:24px;
+      margin-top:5px;
+    }
+
+    .campo{
+      margin-bottom:16px;
+    }
+
+    .campo label{
+      display:block;
+      color:var(--muted);
+      font-size:12px;
+      font-weight:800;
+      margin-bottom:7px;
+    }
+
+    .campo input,
+    .campo select{
+      width:100%;
+      padding:13px;
+      border:1px solid var(--line);
+      border-radius:10px;
+      background:#080808;
+      color:var(--text);
+      outline:none;
+    }
+
+    .campo input:focus,
+    .campo select:focus{
+      border-color:var(--gold);
+    }
+
+    .aviso-saque{
+      background:rgba(244,191,49,.08);
+      border:1px solid rgba(244,191,49,.2);
+      border-radius:12px;
+      padding:13px;
+      color:var(--muted);
+      font-size:12px;
+      line-height:1.5;
+      margin-bottom:18px;
+    }
+
+    .confirmar-saque{
+      width:100%;
+      border:none;
+      border-radius:11px;
+      padding:14px;
+      background:var(--gold);
+      color:#080808;
+      font-weight:900;
+      cursor:pointer;
+    }
+
+    .confirmar-saque:hover{
+      background:var(--gold2);
+    }
+
+    /* =========================
+       HISTÓRICO DE SAQUES
+    ========================= */
+
+    .saques-section{
+      margin-bottom:40px;
+    }
+
+    .saques-list{
+      display:grid;
+      gap:12px;
+    }
+
+    .saque-card{
+      background:var(--panel);
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:18px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:15px;
+    }
+
+    .saque-valor{
+      color:var(--gold);
+      font-size:20px;
+      font-weight:900;
+    }
+
+    .saque-info{
+      color:var(--muted);
+      font-size:12px;
+      margin-top:5px;
+      line-height:1.5;
+    }
+
+    .saque-status{
+      padding:7px 10px;
+      border-radius:999px;
+      font-size:10px;
+      font-weight:900;
+      white-space:nowrap;
+    }
+
+    .status-pendente{
+      background:rgba(244,191,49,.12);
+      color:var(--gold);
+    }
+
+    .status-pago{
+      background:rgba(49,201,107,.12);
+      color:var(--green);
+    }
+
+    .status-cancelado{
+      background:rgba(255,86,63,.12);
+      color:var(--red);
+    }
+
+    /* =========================
        ESTATÍSTICAS
     ========================= */
 
     .stats{
       display:grid;
-      grid-template-columns:
-        repeat(3,1fr);
-
+      grid-template-columns:repeat(3,1fr);
       gap:15px;
       margin-bottom:35px;
     }
@@ -187,13 +459,29 @@
       display:flex;
       justify-content:space-between;
       align-items:center;
-
+      gap:15px;
       margin-bottom:20px;
     }
 
     .section-title h2{
       margin:0;
       font-size:24px;
+    }
+
+    .dar-tarefa-btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:11px 15px;
+      border-radius:10px;
+      background:var(--gold);
+      color:#080808;
+      font-size:12px;
+      font-weight:900;
+    }
+
+    .dar-tarefa-btn:hover{
+      background:var(--gold2);
     }
 
     /* =========================
@@ -210,13 +498,10 @@
       border:1px solid var(--line);
       border-radius:20px;
       padding:25px;
-
       display:flex;
       justify-content:space-between;
       align-items:center;
-
       gap:25px;
-
       transition:.2s;
     }
 
@@ -233,17 +518,14 @@
       display:flex;
       align-items:center;
       gap:10px;
-
       margin-bottom:12px;
     }
 
     .task-type{
       padding:6px 10px;
       border-radius:999px;
-
       background:rgba(244,191,49,.12);
       color:var(--gold);
-
       font-size:11px;
       font-weight:900;
     }
@@ -270,9 +552,9 @@
       display:flex;
       gap:18px;
       margin-top:18px;
-
       color:var(--muted);
       font-size:13px;
+      flex-wrap:wrap;
     }
 
     /* =========================
@@ -281,10 +563,8 @@
 
     .reward-box{
       min-width:170px;
-
       background:var(--panel2);
       border-radius:16px;
-
       padding:20px;
       text-align:center;
     }
@@ -293,7 +573,6 @@
       color:var(--muted);
       font-size:11px;
       font-weight:800;
-
       margin-bottom:8px;
     }
 
@@ -312,15 +591,11 @@
     .participate-btn{
       width:100%;
       margin-top:15px;
-
       border:none;
       border-radius:10px;
-
       padding:12px;
-
       background:var(--gold);
       color:#080808;
-
       font-weight:900;
       cursor:pointer;
     }
@@ -336,10 +611,8 @@
     .loading{
       background:var(--panel);
       border:1px solid var(--line);
-
       border-radius:16px;
       padding:30px;
-
       text-align:center;
       color:var(--muted);
     }
@@ -350,169 +623,198 @@
 
     .empty{
       display:none;
-
       background:var(--panel);
       border:1px solid var(--line);
-
       border-radius:16px;
       padding:40px;
-
       text-align:center;
       color:var(--muted);
     }
-/* =========================
-   PARTICIPAÇÃO
-========================= */
 
-.participacao-card{
-  background:var(--panel);
-  border:1px solid var(--line);
-  border-radius:20px;
-  padding:25px;
-  margin-bottom:18px;
-}
+    /* =========================
+       PARTICIPAÇÃO
+    ========================= */
 
-.participacao-title{
-  font-size:20px;
-  font-weight:900;
-  margin-bottom:15px;
-}
+    .participacao-card{
+      background:var(--panel);
+      border:1px solid var(--line);
+      border-radius:20px;
+      padding:25px;
+      margin-bottom:18px;
+    }
 
-.participacao-status{
-  display:inline-block;
-  padding:6px 10px;
-  border-radius:999px;
-  background:rgba(49,201,107,.12);
-  color:var(--green);
-  font-size:11px;
-  font-weight:900;
-  margin-bottom:18px;
-}
+    .participacao-title{
+      font-size:20px;
+      font-weight:900;
+      margin-bottom:15px;
+    }
 
-.progresso-info{
-  display:flex;
-  justify-content:space-between;
-  gap:10px;
-  color:var(--muted);
-  font-size:13px;
-  margin-bottom:8px;
-}
+    .participacao-status{
+      display:inline-block;
+      padding:6px 10px;
+      border-radius:999px;
+      background:rgba(49,201,107,.12);
+      color:var(--green);
+      font-size:11px;
+      font-weight:900;
+      margin-bottom:18px;
+    }
 
-.progresso-barra{
-  width:100%;
-  height:10px;
-  background:#252525;
-  border-radius:999px;
-  overflow:hidden;
-}
+    .progresso-info{
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      color:var(--muted);
+      font-size:13px;
+      margin-bottom:8px;
+    }
 
-.progresso-barra div{
-  height:100%;
-  width:0%;
-  background:var(--gold);
-  transition:.3s;
-}
+    .progresso-barra{
+      width:100%;
+      height:10px;
+      background:#252525;
+      border-radius:999px;
+      overflow:hidden;
+    }
 
-.participacao-dados{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:12px;
-  margin-top:20px;
-}
+    .progresso-barra div{
+      height:100%;
+      width:0%;
+      background:var(--gold);
+      transition:.3s;
+    }
 
-.participacao-dado{
-  background:var(--panel2);
-  border-radius:12px;
-  padding:15px;
-  text-align:center;
-}
+    .participacao-dados{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:12px;
+      margin-top:20px;
+    }
 
-.participacao-dado strong{
-  display:block;
-  color:var(--gold);
-  font-size:20px;
-}
+    .participacao-dado{
+      background:var(--panel2);
+      border-radius:12px;
+      padding:15px;
+      text-align:center;
+    }
 
-.participacao-dado span{
-  display:block;
-  color:var(--muted);
-  font-size:11px;
-  margin-top:5px;
-}
+    .participacao-dado strong{
+      display:block;
+      color:var(--gold);
+      font-size:20px;
+    }
 
-.link-rastreamento{
-  margin-top:20px;
-}
+    .participacao-dado span{
+      display:block;
+      color:var(--muted);
+      font-size:11px;
+      margin-top:5px;
+    }
 
-.link-rastreamento input{
-  width:100%;
-  padding:12px;
-  border:1px solid var(--line);
-  border-radius:10px;
-  background:#080808;
-  color:var(--text);
-}
+    .link-rastreamento{
+      margin-top:20px;
+    }
 
-.btn-copiar{
-  width:100%;
-  margin-top:10px;
-  padding:12px;
-  border:none;
-  border-radius:10px;
-  background:var(--gold);
-  color:#080808;
-  font-weight:900;
-  cursor:pointer;
-}
+    .link-rastreamento input{
+      width:100%;
+      padding:12px;
+      border:1px solid var(--line);
+      border-radius:10px;
+      background:#080808;
+      color:var(--text);
+    }
 
-.btn-copiar:hover{
-  background:var(--gold2);
-}
+    .btn-copiar{
+      width:100%;
+      margin-top:10px;
+      padding:12px;
+      border:none;
+      border-radius:10px;
+      background:var(--gold);
+      color:#080808;
+      font-weight:900;
+      cursor:pointer;
+    }
 
-@media(max-width:700px){
+    .btn-copiar:hover{
+      background:var(--gold2);
+    }
 
-  .participacao-dados{
-    grid-template-columns:1fr;
-  }
-
-}
-    
     /* =========================
        MOBILE
     ========================= */
 
     @media(max-width:700px){
 
-  nav{
-    display:flex;
-    align-items:center;
-    gap:8px;
-  }
+      nav{
+        display:flex;
+        align-items:center;
+        gap:8px;
+      }
 
-  nav a:not(.back-feed){
-    display:none;
-  }
+      nav a:not(.back-feed){
+        display:none;
+      }
 
-  .back-feed{
-    display:inline-flex;
-    font-size:36px;
-    padding:5px 10px;
-  }
+      .back-feed{
+        display:inline-flex;
+        font-size:36px;
+        padding:5px 10px;
+      }
 
-  .stats{
-    grid-template-columns:1fr;
-  }
+      main{
+        padding-top:35px;
+      }
 
-  .task-card{
-    flex-direction:column;
-    align-items:stretch;
-  }
+      .stats{
+        grid-template-columns:1fr;
+      }
 
-  .reward-box{
-    width:100%;
-  }
+      .task-card{
+        flex-direction:column;
+        align-items:stretch;
+      }
 
-}
+      .reward-box{
+        width:100%;
+      }
+
+      .participacao-dados{
+        grid-template-columns:1fr;
+      }
+
+      .carteira-topo{
+        flex-direction:column;
+        align-items:stretch;
+      }
+
+      .sacar-btn{
+        width:100%;
+      }
+
+      .carteira-info{
+        grid-template-columns:1fr;
+      }
+
+      .section-title{
+        align-items:stretch;
+        flex-direction:column;
+      }
+
+      .dar-tarefa-btn{
+        width:100%;
+      }
+
+      .saque-card{
+        flex-direction:column;
+        align-items:stretch;
+      }
+
+      .saque-status{
+        text-align:center;
+      }
+
+    }
 
   </style>
 
@@ -520,45 +822,46 @@
 
 <body>
 
-
   <!-- =========================
        HEADER
   ========================== -->
 
   <header>
 
-    <div class="header-inner">
+```
+<div class="header-inner">
 
-      <a
-        href="index.html"
-        class="logo"
-      >
-        KUDURO<span>PRIME</span>
-      </a>
+  <a
+    href="index.html"
+    class="logo"
+  >
+    KUDURO<span>PRIME</span>
+  </a>
 
+  <nav>
 
-      <nav>
+    <a href="meu-perfil.html">
+      MEU PERFIL
+    </a>
 
-        <a href="meu-perfil.html">
-          MEU PERFIL
-        </a>
+    <a href="ranking.html">
+      RANKING
+    </a>
 
-        <a href="ranking.html">
-          RANKING
-        </a>
+    <a
+      href="feed.html"
+      class="back-feed"
+      title="Voltar ao Feed"
+    >
+      ←
+    </a>
 
-        <a href="feed.html" class="back-feed" title="Voltar ao Feed">
-  ←
-</a>
+  </nav>
 
-        
-
-      </nav>
-
-    </div>
+</div>
+```
 
   </header>
-
 
   <!-- =========================
        CONTEÚDO
@@ -566,102 +869,183 @@
 
   <main>
 
+```
+<section class="hero">
 
-    <section class="hero">
+  <div class="eyebrow">
+    💰 GANHA DINHEIRO COM O KUDURO PRIME
+  </div>
 
-      <div class="eyebrow">
+  <h1>
+    TAREFAS REMUNERADAS
+  </h1>
 
-        💰 GANHA DINHEIRO COM O KUDURO PRIME
+  <p>
+    Participa em tarefas, completa os objetivos
+    e ganha recompensas.
+  </p>
 
+</section>
+
+
+<!-- =========================
+     CARTEIRA
+========================== -->
+
+<section class="carteira">
+
+  <div class="carteira-topo">
+
+    <div>
+
+      <div class="carteira-titulo">
+        💰 MINHA CARTEIRA
       </div>
 
-
-      <h1>
-
-        TAREFAS REMUNERADAS
-
-      </h1>
-
-
-      <p>
-
-        Participa em tarefas, completa os objetivos
-        e ganha recompensas.
-
-      </p>
-
-    </section>
-
-
-
-    <!-- =========================
-         ESTATÍSTICAS
-    ========================== -->
-
-    <section class="stats">
-
-      <div class="stat">
-
-        <div
-          class="stat-number"
-          id="tarefasDisponiveis"
-        >
-          --
-        </div>
-
-        <div class="stat-label">
-
-          Tarefas disponíveis
-
-        </div>
-
+      <div
+        class="carteira-saldo"
+        id="saldoDisponivel"
+      >
+        0 Kz
       </div>
 
-
-      <div class="stat">
-
-        <div
-          class="stat-number"
-          id="minhaParticipacao"
-        >
-          0
-        </div>
-
-        <div class="stat-label">
-
-          Minhas participações
-
-        </div>
-
+      <div class="carteira-moeda">
+        Saldo disponível para saque
       </div>
 
+    </div>
 
-      <div class="stat">
+    <button
+      class="sacar-btn"
+      id="abrirSaque"
+    >
+      💸 SACAR
+    </button>
 
-        <div
-          class="stat-number"
-          id="meusGanhos"
-        >
-          0 AOA
-        </div>
-
-        <div class="stat-label">
-
-          Total ganho
-
-        </div>
-
-      </div>
-
-    </section>
+  </div>
 
 
+  <div class="carteira-info">
 
-    <!-- =========================
-         TAREFAS
-    ========================== -->
+    <div class="carteira-dado">
 
-    <div class="section-title">
+      <strong id="totalGanhosCarteira">
+        0 Kz
+      </strong>
+
+      <span>
+        TOTAL GANHO
+      </span>
+
+    </div>
+
+
+    <div class="carteira-dado">
+
+      <strong id="totalSacadoCarteira">
+        0 Kz
+      </strong>
+
+      <span>
+        TOTAL SACADO
+      </span>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     HISTÓRICO DE SAQUES
+========================== -->
+
+<section class="saques-section">
+
+  <div class="section-title">
+
+    <h2>
+      Meus saques 💸
+    </h2>
+
+  </div>
+
+  <div
+    class="saques-list"
+    id="saquesList"
+  >
+
+    <div class="loading">
+      A carregar os teus saques...
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     ESTATÍSTICAS
+========================== -->
+
+<section class="stats">
+
+  <div class="stat">
+
+    <div
+      class="stat-number"
+      id="tarefasDisponiveis"
+    >
+      --
+    </div>
+
+    <div class="stat-label">
+      Tarefas disponíveis
+    </div>
+
+  </div>
+
+
+  <div class="stat">
+
+    <div
+      class="stat-number"
+      id="minhaParticipacao"
+    >
+      0
+    </div>
+
+    <div class="stat-label">
+      Minhas participações
+    </div>
+
+  </div>
+
+
+  <div class="stat">
+
+    <div
+      class="stat-number"
+      id="meusGanhos"
+    >
+      0 AOA
+    </div>
+
+    <div class="stat-label">
+      Total ganho
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     TAREFAS
+========================== -->
+
+<div class="section-title">
 
   <h2>
     Tarefas disponíveis 🔥
@@ -677,35 +1061,28 @@
 </div>
 
 
-
-    <div
-      class="loading"
-      id="loadingTasks"
-    >
-
-      A carregar tarefas...
-
-    </div>
+<div
+  class="loading"
+  id="loadingTasks"
+>
+  A carregar tarefas...
+</div>
 
 
-
-    <div
-      class="tasks"
-      id="tasksList"
-    >
-
-    </div>
+<div
+  class="tasks"
+  id="tasksList"
+>
+</div>
 
 
+<div
+  class="empty"
+  id="emptyTasks"
+>
+  Ainda não existem tarefas disponíveis.
+</div>
 
-    <div
-      class="empty"
-      id="emptyTasks"
-    >
-
-      Ainda não existem tarefas disponíveis.
-
-    </div>
 
 <!-- =========================
      MINHAS PARTICIPAÇÕES
@@ -733,9 +1110,132 @@
   </div>
 
 </section>
-    
+```
+
   </main>
 
+  <!-- =========================
+       MODAL DE SAQUE
+  ========================== -->
+
+  <div
+    class="modal"
+    id="modalSaque"
+  >
+
+```
+<div class="modal-box">
+
+  <div class="modal-header">
+
+    <h2>
+      💸 Solicitar saque
+    </h2>
+
+    <button
+      class="fechar-modal"
+      id="fecharSaque"
+    >
+      ×
+    </button>
+
+  </div>
+
+
+  <div class="saldo-modal">
+
+    <span>
+      Saldo disponível
+    </span>
+
+    <strong id="saldoModal">
+      0 Kz
+    </strong>
+
+  </div>
+
+
+  <div class="campo">
+
+    <label>
+      VALOR DO SAQUE
+    </label>
+
+    <input
+      type="number"
+      id="valorSaque"
+      min="1"
+      step="1"
+      placeholder="Ex: 200"
+    >
+
+  </div>
+
+
+  <div class="campo">
+
+    <label>
+      MÉTODO DE RECEBIMENTO
+    </label>
+
+    <select id="metodoSaque">
+
+      <option value="">
+        Seleciona um método
+      </option>
+
+      <option value="UNITEL Money">
+        UNITEL Money
+      </option>
+
+      <option value="Multicaixa Express">
+        Multicaixa Express
+      </option>
+
+      <option value="Transferência bancária">
+        Transferência bancária
+      </option>
+
+    </select>
+
+  </div>
+
+
+  <div class="campo">
+
+    <label id="labelDestino">
+      NÚMERO / CONTA DE DESTINO
+    </label>
+
+    <input
+      type="text"
+      id="destinoSaque"
+      placeholder="Número ou conta"
+    >
+
+  </div>
+
+
+  <div class="aviso-saque">
+
+    ℹ️ O pedido será enviado para análise.
+    O pagamento será feito manualmente pela
+    administração do KUDURO PRIME.
+
+  </div>
+
+
+  <button
+    class="confirmar-saque"
+    id="confirmarSaque"
+  >
+    SOLICITAR SAQUE
+  </button>
+
+</div>
+```
+
+  </div>
 
   <!-- =========================
        FIREBASE
@@ -748,35 +1248,37 @@
     }
 
     from
-
     "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
 
     import {
-
       getAuth,
       onAuthStateChanged
-
     }
 
     from
-
     "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 
     import {
-  getFirestore,
-  collection,
-  query,
-  where,
-  getDocs,
-  getDoc,
-  addDoc,
-  updateDoc,
-  doc,
-  increment,
-  serverTimestamp
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+      getFirestore,
+      collection,
+      query,
+      where,
+      getDocs,
+      getDoc,
+      addDoc,
+      updateDoc,
+      doc,
+      increment,
+      serverTimestamp,
+      orderBy
+
+    }
+
+    from
+    "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 
     // =====================================
@@ -785,29 +1287,31 @@
 
     const firebaseConfig = {
 
-  apiKey:
-    "AIzaSyDoitCcLeLDNBNPCP6fG1s_xbHr4UmohSo",
+      apiKey:
+        "AIzaSyDoitCcLeLDNBNPCP6fG1s_xbHr4UmohSo",
 
-  authDomain:
-    "kuduro-prime.firebaseapp.com",
+      authDomain:
+        "kuduro-prime.firebaseapp.com",
 
-  projectId:
-    "kuduro-prime",
+      projectId:
+        "kuduro-prime",
 
-  storageBucket:
-    "kuduro-prime.firebasestorage.app",
+      storageBucket:
+        "kuduro-prime.firebasestorage.app",
 
-  messagingSenderId:
-    "299776559545",
+      messagingSenderId:
+        "299776559545",
 
-  appId:
-    "1:299776559545:web:04aced1ba25391eb3fce68"
+      appId:
+        "1:299776559545:web:04aced1ba25391eb3fce68"
 
-};
+    };
 
 
     const app =
-      initializeApp(firebaseConfig);
+      initializeApp(
+        firebaseConfig
+      );
 
 
     const auth =
@@ -816,7 +1320,6 @@
 
     const db =
       getFirestore(app);
-
 
 
     // =====================================
@@ -846,13 +1349,801 @@
         "tarefasDisponiveis"
       );
 
-    
-     const participacoesList =
-       document.getElementById(
-         "participacoesList"
-     );
 
-    
+    const participacoesList =
+      document.getElementById(
+        "participacoesList"
+      );
+
+
+    const saquesList =
+      document.getElementById(
+        "saquesList"
+      );
+
+
+    const saldoDisponivel =
+      document.getElementById(
+        "saldoDisponivel"
+      );
+
+
+    const saldoModal =
+      document.getElementById(
+        "saldoModal"
+      );
+
+
+    const totalGanhosCarteira =
+      document.getElementById(
+        "totalGanhosCarteira"
+      );
+
+
+    const totalSacadoCarteira =
+      document.getElementById(
+        "totalSacadoCarteira"
+      );
+
+
+    const meusGanhos =
+      document.getElementById(
+        "meusGanhos"
+      );
+
+
+    const minhaParticipacao =
+      document.getElementById(
+        "minhaParticipacao"
+      );
+
+
+    // =====================================
+    // VARIÁVEIS
+    // =====================================
+
+    let usuarioAtual = null;
+
+    let carteiraAtual = {
+
+      saldo: 0,
+
+      totalGanhos: 0,
+
+      totalSacado: 0
+
+    };
+
+
+    // =====================================
+    // FORMATAR KZ
+    // =====================================
+
+    function formatarKz(valor){
+
+      return Number(
+        valor || 0
+      ).toLocaleString(
+        "pt-AO"
+      ) + " Kz";
+
+    }
+
+
+    // =====================================
+    // CARREGAR CARTEIRA
+    // =====================================
+
+    async function carregarCarteira(){
+
+      if(!usuarioAtual){
+        return;
+      }
+
+
+      try{
+
+        const carteiraRef =
+          doc(
+            db,
+            "carteiras",
+            usuarioAtual.uid
+          );
+
+
+        const carteiraSnap =
+          await getDoc(
+            carteiraRef
+          );
+
+
+        if(
+          carteiraSnap.exists()
+        ){
+
+          const dados =
+            carteiraSnap.data();
+
+
+          carteiraAtual = {
+
+            saldo:
+              Number(
+                dados.saldo || 0
+              ),
+
+            totalGanhos:
+              Number(
+                dados.totalGanhos || 0
+              ),
+
+            totalSacado:
+              Number(
+                dados.totalSacado || 0
+              )
+
+          };
+
+        }
+        else{
+
+          /*
+            IMPORTANTE:
+
+            Não criamos saldo automaticamente
+            no navegador.
+
+            A carteira deve ser criada pelo
+            sistema de recompensa/admin/backend.
+          */
+
+          carteiraAtual = {
+
+            saldo:0,
+
+            totalGanhos:0,
+
+            totalSacado:0
+
+          };
+
+        }
+
+
+        atualizarCarteiraUI();
+
+      }
+
+      catch(error){
+
+        console.error(
+          "Erro ao carregar carteira:",
+          error
+        );
+
+      }
+
+    }
+
+
+    // =====================================
+    // ATUALIZAR CARTEIRA NA TELA
+    // =====================================
+
+    function atualizarCarteiraUI(){
+
+      saldoDisponivel.textContent =
+        formatarKz(
+          carteiraAtual.saldo
+        );
+
+
+      saldoModal.textContent =
+        formatarKz(
+          carteiraAtual.saldo
+        );
+
+
+      totalGanhosCarteira.textContent =
+        formatarKz(
+          carteiraAtual.totalGanhos
+        );
+
+
+      totalSacadoCarteira.textContent =
+        formatarKz(
+          carteiraAtual.totalSacado
+        );
+
+
+      meusGanhos.textContent =
+        formatarKz(
+          carteiraAtual.totalGanhos
+        );
+
+    }
+
+
+    // =====================================
+    // ABRIR MODAL
+    // =====================================
+
+    document
+      .getElementById(
+        "abrirSaque"
+      )
+      .addEventListener(
+        "click",
+        () => {
+
+          if(
+            carteiraAtual.saldo <= 0
+          ){
+
+            alert(
+              "Ainda não tens saldo disponível para sacar."
+            );
+
+            return;
+
+          }
+
+
+          saldoModal.textContent =
+            formatarKz(
+              carteiraAtual.saldo
+            );
+
+
+          document
+            .getElementById(
+              "modalSaque"
+            )
+            .classList
+            .add(
+              "ativo"
+            );
+
+        }
+      );
+
+
+    // =====================================
+    // FECHAR MODAL
+    // =====================================
+
+    document
+      .getElementById(
+        "fecharSaque"
+      )
+      .addEventListener(
+        "click",
+        fecharModal
+      );
+
+
+    document
+      .getElementById(
+        "modalSaque"
+      )
+      .addEventListener(
+        "click",
+        event => {
+
+          if(
+            event.target.id ===
+            "modalSaque"
+          ){
+
+            fecharModal();
+
+          }
+
+        }
+      );
+
+
+    function fecharModal(){
+
+      document
+        .getElementById(
+          "modalSaque"
+        )
+        .classList
+        .remove(
+          "ativo"
+        );
+
+    }
+
+
+    // =====================================
+    // PEDIR SAQUE
+    // =====================================
+
+    document
+      .getElementById(
+        "confirmarSaque"
+      )
+      .addEventListener(
+        "click",
+        solicitarSaque
+      );
+
+
+    async function solicitarSaque(){
+
+      if(!usuarioAtual){
+
+        alert(
+          "Precisas iniciar sessão."
+        );
+
+        return;
+
+      }
+
+
+      const valorInput =
+        document.getElementById(
+          "valorSaque"
+        );
+
+
+      const metodoInput =
+        document.getElementById(
+          "metodoSaque"
+        );
+
+
+      const destinoInput =
+        document.getElementById(
+          "destinoSaque"
+        );
+
+
+      const valor =
+        Number(
+          valorInput.value
+        );
+
+
+      const metodo =
+        metodoInput.value.trim();
+
+
+      const destino =
+        destinoInput.value.trim();
+
+
+      // -----------------------------------
+      // VALIDAR VALOR
+      // -----------------------------------
+
+      if(
+        !valor ||
+        valor <= 0
+      ){
+
+        alert(
+          "Indica um valor válido."
+        );
+
+        return;
+
+      }
+
+
+      if(
+        valor > carteiraAtual.saldo
+      ){
+
+        alert(
+          "O valor solicitado é superior ao teu saldo disponível."
+        );
+
+        return;
+
+      }
+
+
+      // -----------------------------------
+      // VALIDAR MÉTODO
+      // -----------------------------------
+
+      if(!metodo){
+
+        alert(
+          "Seleciona o método de recebimento."
+        );
+
+        return;
+
+      }
+
+
+      // -----------------------------------
+      // VALIDAR DESTINO
+      // -----------------------------------
+
+      if(!destino){
+
+        alert(
+          "Indica o número ou conta para receber o pagamento."
+        );
+
+        return;
+
+      }
+
+
+      // -----------------------------------
+      // CONFIRMAR
+      // -----------------------------------
+
+      const confirmar =
+        confirm(
+
+          "Confirmar pedido de saque?\n\n" +
+
+          "Valor: " +
+          formatarKz(valor) +
+          "\n" +
+
+          "Método: " +
+          metodo +
+          "\n" +
+
+          "Destino: " +
+          destino
+
+        );
+
+
+      if(!confirmar){
+
+        return;
+
+      }
+
+
+      const botao =
+        document.getElementById(
+          "confirmarSaque"
+        );
+
+
+      botao.disabled =
+        true;
+
+
+      botao.textContent =
+        "A ENVIAR...";
+
+
+      try{
+
+        // ---------------------------------
+        // CRIAR PEDIDO
+        // ---------------------------------
+
+        await addDoc(
+
+          collection(
+            db,
+            "saques"
+          ),
+
+          {
+
+            usuarioId:
+              usuarioAtual.uid,
+
+            usuarioEmail:
+              usuarioAtual.email || "",
+
+            valor:
+              valor,
+
+            moeda:
+              "AOA",
+
+            metodo:
+              metodo,
+
+            destino:
+              destino,
+
+            status:
+              "pendente",
+
+            criadoEm:
+              serverTimestamp(),
+
+            pagoEm:
+              null,
+
+            processadoPor:
+              "",
+
+            observacaoAdmin:
+              ""
+
+          }
+
+        );
+
+
+        alert(
+
+          "Pedido de saque enviado com sucesso!\n\n" +
+
+          "Estado: PENDENTE\n\n" +
+
+          "A administração do KUDURO PRIME irá processar o pagamento."
+
+        );
+
+
+        valorInput.value =
+          "";
+
+        metodoInput.value =
+          "";
+
+        destinoInput.value =
+          "";
+
+
+        fecharModal();
+
+
+        carregarSaques();
+
+      }
+
+      catch(error){
+
+        console.error(
+          "Erro ao criar saque:",
+          error
+        );
+
+
+        alert(
+          "Não foi possível criar o pedido de saque."
+        );
+
+      }
+
+
+      finally{
+
+        botao.disabled =
+          false;
+
+        botao.textContent =
+          "SOLICITAR SAQUE";
+
+      }
+
+    }
+
+
+    // =====================================
+    // CARREGAR SAQUES
+    // =====================================
+
+    async function carregarSaques(){
+
+      if(!usuarioAtual){
+        return;
+      }
+
+
+      saquesList.innerHTML = `
+
+        <div class="loading">
+          A carregar os teus saques...
+        </div>
+
+      `;
+
+
+      try{
+
+        const saquesRef =
+          collection(
+            db,
+            "saques"
+          );
+
+
+        const q =
+          query(
+
+            saquesRef,
+
+            where(
+              "usuarioId",
+              "==",
+              usuarioAtual.uid
+            )
+
+          );
+
+
+        const snapshot =
+          await getDocs(q);
+
+
+        saquesList.innerHTML =
+          "";
+
+
+        if(
+          snapshot.empty
+        ){
+
+          saquesList.innerHTML = `
+
+            <div class="empty" style="display:block;">
+
+              Ainda não tens pedidos de saque.
+
+            </div>
+
+          `;
+
+          return;
+
+        }
+
+
+        const lista =
+          [...snapshot.docs]
+            .sort(
+              (a,b) => {
+
+                const aData =
+                  a.data().criadoEm?.seconds ||
+                  0;
+
+                const bData =
+                  b.data().criadoEm?.seconds ||
+                  0;
+
+                return bData - aData;
+
+              }
+            );
+
+
+        lista.forEach(
+          saqueDoc => {
+
+            const saque =
+              saqueDoc.data();
+
+
+            const valor =
+              Number(
+                saque.valor || 0
+              );
+
+
+            let statusClass =
+              "status-pendente";
+
+
+            let statusTexto =
+              "⏳ PENDENTE";
+
+
+            if(
+              saque.status === "pago"
+            ){
+
+              statusClass =
+                "status-pago";
+
+              statusTexto =
+                "✅ PAGO";
+
+            }
+
+
+            if(
+              saque.status === "cancelado"
+            ){
+
+              statusClass =
+                "status-cancelado";
+
+              statusTexto =
+                "❌ CANCELADO";
+
+            }
+
+
+            const card =
+              document.createElement(
+                "div"
+              );
+
+
+            card.className =
+              "saque-card";
+
+
+            card.innerHTML = `
+
+              <div>
+
+                <div class="saque-valor">
+
+                  ${formatarKz(valor)}
+
+                </div>
+
+                <div class="saque-info">
+
+                  Método:
+                  ${saque.metodo || "—"}
+
+                  <br>
+
+                  Destino:
+                  ${saque.destino || "—"}
+
+                </div>
+
+              </div>
+
+
+              <div
+                class="saque-status ${statusClass}"
+              >
+
+                ${statusTexto}
+
+              </div>
+
+            `;
+
+
+            saquesList.appendChild(
+              card
+            );
+
+          }
+        );
+
+      }
+
+      catch(error){
+
+        console.error(
+          "Erro ao carregar saques:",
+          error
+        );
+
+
+        saquesList.innerHTML = `
+
+          <div class="loading">
+
+            Erro ao carregar os pedidos de saque.
+
+          </div>
+
+        `;
+
+      }
+
+    }
+
+
     // =====================================
     // CARREGAR TAREFAS
     // =====================================
@@ -873,7 +2164,6 @@
 
       try{
 
-
         const tarefasRef =
           collection(
             db,
@@ -883,12 +2173,15 @@
 
         const q =
           query(
+
             tarefasRef,
+
             where(
               "status",
               "==",
               "ativa"
             )
+
           );
 
 
@@ -917,11 +2210,10 @@
 
 
         snapshot.forEach(
-          doc => {
-
+          tarefaDoc => {
 
             const tarefa =
-              doc.data();
+              tarefaDoc.data();
 
 
             const recompensa =
@@ -1001,14 +2293,13 @@
                   <span>
 
                     ID:
-                    ${doc.id}
+                    ${tarefaDoc.id}
 
                   </span>
 
                 </div>
 
               </div>
-
 
 
               <div class="reward-box">
@@ -1058,7 +2349,7 @@
               () => {
 
                 participarTarefa(
-                  doc.id,
+                  tarefaDoc.id,
                   tarefa
                 );
 
@@ -1070,10 +2361,8 @@
               card
             );
 
-
           }
         );
-
 
       }
 
@@ -1092,663 +2381,760 @@
     }
 
 
-
     // =====================================
-// PARTICIPAR NA TAREFA
-// =====================================
+    // PARTICIPAR NA TAREFA
+    // =====================================
 
-async function participarTarefa(
-  tarefaId,
-  tarefa
-){
-
-  const user =
-    auth.currentUser;
-
-
-  // -------------------------------------
-  // VERIFICAR LOGIN
-  // -------------------------------------
-
-  if(!user){
-
-    alert(
-      "Precisas iniciar sessão."
-    );
-
-    return;
-
-  }
-
-
-  try{
-
-
-    // -----------------------------------
-    // VERIFICAR SE JÁ PARTICIPOU
-    // -----------------------------------
-
-    const participacoesRef =
-      collection(
-        db,
-        "participacoesTarefas"
-      );
-
-
-    const verificarQuery =
-      query(
-
-        participacoesRef,
-
-        where(
-          "tarefaId",
-          "==",
-          tarefaId
-        ),
-
-        where(
-          "usuarioId",
-          "==",
-          user.uid
-        )
-
-      );
-
-
-    const participacoesSnapshot =
-      await getDocs(
-        verificarQuery
-      );
-
-
-    if(
-      !participacoesSnapshot.empty
+    async function participarTarefa(
+      tarefaId,
+      tarefa
     ){
 
-      alert(
-        "Já participaste nesta tarefa."
-      );
-
-      return;
-
-    }
+      const user =
+        auth.currentUser;
 
 
-    // -----------------------------------
-    // VERIFICAR LIMITE DE PARTICIPANTES
-    // -----------------------------------
+      if(!user){
 
-    const maxParticipantes =
-      Number(
-        tarefa.maxParticipantes || 0
-      );
+        alert(
+          "Precisas iniciar sessão."
+        );
 
+        return;
 
-    const participantesAtuais =
-      Number(
-        tarefa.participantesAtuais || 0
-      );
+      }
 
 
-    if(
-      maxParticipantes > 0 &&
-      participantesAtuais >= maxParticipantes
-    ){
+      try{
 
-      alert(
-        "Esta tarefa já atingiu o limite de participantes."
-      );
-
-      return;
-
-    }
+        const participacoesRef =
+          collection(
+            db,
+            "participacoesTarefas"
+          );
 
 
-    // -----------------------------------
-    // CRIAR PARTICIPAÇÃO
-    // -----------------------------------
+        const verificarQuery =
+          query(
 
-    const novaParticipacao =
-      await addDoc(
+            participacoesRef,
 
-        participacoesRef,
+            where(
+              "tarefaId",
+              "==",
+              tarefaId
+            ),
 
-        {
+            where(
+              "usuarioId",
+              "==",
+              user.uid
+            )
 
-          // Identificação
-          tarefaId:
-            tarefaId,
-
-          usuarioId:
-            user.uid,
-
-
-          // Estado
-          status:
-            "pendente",
+          );
 
 
-          // Dinheiro
-          valorRecebido:
-            0,
+        const participacoesSnapshot =
+          await getDocs(
+            verificarQuery
+          );
 
 
-          // Prova
-          provaURL:
-            "",
+        if(
+          !participacoesSnapshot.empty
+        ){
 
+          alert(
+            "Já participaste nesta tarefa."
+          );
 
-          // Rastreamento
-          cliques:
-            0,
-
-          partilhas:
-            0,
-
-          facebookGrupos:
-            0,
-
-          whatsappGrupos:
-            0,
-
-
-          // Vitória
-          vencedor:
-            false,
-
-
-          // Conteúdo promovido
-          musicaId:
-            tarefa.musicaId || "",
-
-          videoId:
-            tarefa.videoId || "",
-
-          perfilId:
-            tarefa.perfilId || "",
-
-
-          // Link será preenchido logo abaixo
-          linkRastreamento:
-            "",
-
-
-          // Data
-          createdAt:
-            serverTimestamp(),
-
-          concluidoEm:
-            null
+          return;
 
         }
 
-      );
+
+        const maxParticipantes =
+          Number(
+            tarefa.maxParticipantes || 0
+          );
 
 
-    // -----------------------------------
-    // CRIAR LINK EXCLUSIVO
-    // -----------------------------------
-
-    const linkRastreamento =
-      `${window.location.origin}/Kuduro-Prime/rastrear-tarefa.html?tarefa=${encodeURIComponent(tarefaId)}&participacao=${encodeURIComponent(novaParticipacao.id)}`;
+        const participantesAtuais =
+          Number(
+            tarefa.participantesAtuais || 0
+          );
 
 
-    // -----------------------------------
-    // ATUALIZAR PARTICIPAÇÃO COM LINK
-    // -----------------------------------
+        if(
+          maxParticipantes > 0 &&
+          participantesAtuais >= maxParticipantes
+        ){
 
-    await updateDoc(
+          alert(
+            "Esta tarefa já atingiu o limite de participantes."
+          );
 
-      doc(
-        db,
-        "participacoesTarefas",
-        novaParticipacao.id
-      ),
+          return;
 
-      {
+        }
 
-        linkRastreamento:
+
+        const novaParticipacao =
+          await addDoc(
+
+            participacoesRef,
+
+            {
+
+              tarefaId:
+                tarefaId,
+
+              usuarioId:
+                user.uid,
+
+              status:
+                "pendente",
+
+              valorRecebido:
+                0,
+
+              provaURL:
+                "",
+
+              cliques:
+                0,
+
+              partilhas:
+                0,
+
+              facebookGrupos:
+                0,
+
+              whatsappGrupos:
+                0,
+
+              vencedor:
+                false,
+
+              musicaId:
+                tarefa.musicaId || "",
+
+              videoId:
+                tarefa.videoId || "",
+
+              perfilId:
+                tarefa.perfilId || "",
+
+              linkRastreamento:
+                "",
+
+              createdAt:
+                serverTimestamp(),
+
+              concluidoEm:
+                null
+
+            }
+
+          );
+
+
+        const linkRastreamento =
+          `${window.location.origin}/Kuduro-Prime/rastrear-tarefa.html?tarefa=${encodeURIComponent(tarefaId)}&participacao=${encodeURIComponent(novaParticipacao.id)}`;
+
+
+        await updateDoc(
+
+          doc(
+            db,
+            "participacoesTarefas",
+            novaParticipacao.id
+          ),
+
+          {
+
+            linkRastreamento:
+              linkRastreamento
+
+          }
+
+        );
+
+
+        await updateDoc(
+
+          doc(
+            db,
+            "tarefas",
+            tarefaId
+          ),
+
+          {
+
+            participantesAtuais:
+              increment(1)
+
+          }
+
+        );
+
+
+        alert(
+
+          "Participação criada com sucesso!\n\n" +
+
+          "Agora tens um link exclusivo para divulgar esta tarefa."
+
+        );
+
+
+        console.log(
+          "Participação:",
+          novaParticipacao.id
+        );
+
+
+        console.log(
+          "Link de rastreamento:",
           linkRastreamento
+        );
+
+
+        carregarMinhasParticipacoes();
 
       }
 
-    );
+      catch(error){
+
+        console.error(
+          "Erro ao participar:",
+          error
+        );
 
 
-    // -----------------------------------
-    // ATUALIZAR PARTICIPANTES DA TAREFA
-    // -----------------------------------
-
-    await updateDoc(
-
-      doc(
-        db,
-        "tarefas",
-        tarefaId
-      ),
-
-      {
-
-        participantesAtuais:
-          increment(1)
+        alert(
+          "Não foi possível participar na tarefa."
+        );
 
       }
 
-    );
+    }
 
 
-    // -----------------------------------
-    // MOSTRAR LINK
-    // -----------------------------------
+    // =====================================
+    // CARREGAR MINHAS PARTICIPAÇÕES
+    // =====================================
 
-    alert(
+    async function carregarMinhasParticipacoes(){
 
-      "Participação criada com sucesso!\n\n" +
-
-      "Agora tens um link exclusivo para divulgar esta tarefa."
-
-    );
+      const user =
+        auth.currentUser;
 
 
-    console.log(
-      "Participação:",
-      novaParticipacao.id
-    );
+      if(!user){
+        return;
+      }
 
 
-    console.log(
-      "Link de rastreamento:",
-      linkRastreamento
-    );
+      participacoesList.innerHTML = `
+
+        <div class="loading">
+
+          A carregar as tuas participações...
+
+        </div>
+
+      `;
 
 
-  }
+      try{
 
-  catch(error){
+        const participacoesRef =
+          collection(
+            db,
+            "participacoesTarefas"
+          );
 
-    console.error(
-      "Erro ao participar:",
-      error
-    );
+
+        const q =
+          query(
+
+            participacoesRef,
+
+            where(
+              "usuarioId",
+              "==",
+              user.uid
+            )
+
+          );
 
 
-    alert(
-      "Não foi possível participar na tarefa."
-    );
+        const snapshot =
+          await getDocs(q);
 
-  }
 
-}
+        participacoesList.innerHTML =
+          "";
 
+
+        if(
+          snapshot.empty
+        ){
+
+          participacoesList.innerHTML = `
+
+            <div
+              class="empty"
+              style="display:block;"
+            >
+
+              Ainda não participaste em nenhuma tarefa.
+
+            </div>
+
+          `;
+
+
+          minhaParticipacao.textContent =
+            "0";
+
+
+          return;
+
+        }
+
+
+        minhaParticipacao.textContent =
+          snapshot.size;
+
+
+        let ganhosParticipacoes =
+          0;
+
+
+        for(
+          const participacaoDoc
+          of snapshot.docs
+        ){
+
+          const participacao =
+            participacaoDoc.data();
+
+
+          const tarefaId =
+            participacao.tarefaId;
+
+
+          if(!tarefaId){
+            continue;
+          }
+
+
+          const tarefaSnap =
+            await getDoc(
+
+              doc(
+                db,
+                "tarefas",
+                tarefaId
+              )
+
+            );
+
+
+          if(
+            !tarefaSnap.exists()
+          ){
+
+            continue;
+
+          }
+
+
+          const tarefa =
+            tarefaSnap.data();
+
+
+          const titulo =
+            tarefa.titulo ||
+            "Tarefa";
+
+
+          const cliques =
+            Number(
+              participacao.cliques || 0
+            );
+
+
+          const metaCliques =
+            Number(
+              tarefa.metaCliques || 50
+            );
+
+
+          const partilhas =
+            Number(
+              participacao.partilhas || 0
+            );
+
+
+          const valorRecebido =
+            Number(
+              participacao.valorRecebido || 0
+            );
+
+
+          ganhosParticipacoes +=
+            valorRecebido;
+
+
+          const progresso =
+            metaCliques > 0
+            ?
+            Math.min(
+              100,
+              Math.round(
+                (
+                  cliques /
+                  metaCliques
+                ) * 100
+              )
+            )
+            :
+            0;
+
+
+          let statusTexto =
+            "PENDENTE";
+
+
+          if(
+            participacao.vencedor === true
+          ){
+
+            statusTexto =
+              "🏆 VENCEDOR";
+
+          }
+          else if(
+            participacao.status ===
+            "concluida"
+          ){
+
+            statusTexto =
+              "✅ CONCLUÍDA";
+
+          }
+
+
+          const card =
+            document.createElement(
+              "div"
+            );
+
+
+          card.className =
+            "participacao-card";
+
+
+          card.innerHTML = `
+
+            <div class="participacao-title">
+
+              ${titulo}
+
+            </div>
+
+
+            <div class="participacao-status">
+
+              ${statusTexto}
+
+            </div>
+
+
+            <div class="progresso-info">
+
+              <span>
+                Cliques
+              </span>
+
+              <strong>
+                ${cliques}/${metaCliques}
+              </strong>
+
+            </div>
+
+
+            <div class="progresso-barra">
+
+              <div
+                style="width:${progresso}%"
+              ></div>
+
+            </div>
+
+
+            <div class="participacao-dados">
+
+              <div class="participacao-dado">
+
+                <strong>
+                  ${cliques}
+                </strong>
+
+                <span>
+                  CLIQUES
+                </span>
+
+              </div>
+
+
+              <div class="participacao-dado">
+
+                <strong>
+                  ${partilhas}
+                </strong>
+
+                <span>
+                  PARTILHAS
+                </span>
+
+              </div>
+
+
+              <div class="participacao-dado">
+
+                <strong>
+                  ${valorRecebido}
+                </strong>
+
+                <span>
+                  AOA RECEBIDO
+                </span>
+
+              </div>
+
+            </div>
+
+
+            ${
+              participacao.linkRastreamento
+              ?
+              `
+
+                <div class="link-rastreamento">
+
+                  <input
+                    type="text"
+                    value="${participacao.linkRastreamento}"
+                    readonly
+                  >
+
+                  <button
+                    class="btn-copiar"
+                    data-link="${participacao.linkRastreamento}"
+                  >
+
+                    📋 COPIAR LINK
+
+                  </button>
+
+                </div>
+
+              `
+              :
+              ""
+            }
+
+          `;
+
+
+          const copiarBtn =
+            card.querySelector(
+              ".btn-copiar"
+            );
+
+
+          if(copiarBtn){
+
+            copiarBtn.addEventListener(
+              "click",
+              async () => {
+
+                const link =
+                  copiarBtn.dataset.link;
+
+
+                try{
+
+                  await navigator
+                    .clipboard
+                    .writeText(
+                      link
+                    );
+
+
+                  copiarBtn.textContent =
+                    "✅ LINK COPIADO!";
+
+
+                  setTimeout(
+                    () => {
+
+                      copiarBtn.textContent =
+                        "📋 COPIAR LINK";
+
+                    },
+                    2000
+                  );
+
+                }
+
+                catch(error){
+
+                  alert(
+                    "Não foi possível copiar o link."
+                  );
+
+                }
+
+              }
+            );
+
+          }
+
+
+          participacoesList.appendChild(
+            card
+          );
+
+        }
+
+
+        /*
+          Mostramos os ganhos reais registados
+          nas participações.
+        */
+
+        if(
+          ganhosParticipacoes > 0 &&
+          carteiraAtual.totalGanhos === 0
+        ){
+
+          meusGanhos.textContent =
+            formatarKz(
+              ganhosParticipacoes
+            );
+
+        }
+
+      }
+
+      catch(error){
+
+        console.error(
+          "Erro ao carregar participações:",
+          error
+        );
+
+
+        participacoesList.innerHTML = `
+
+          <div class="loading">
+
+            Erro ao carregar as tuas participações.
+
+          </div>
+
+        `;
+
+      }
+
+    }
+
+
+    // =====================================
+    // MUDAR PLACEHOLDER DO DESTINO
+    // =====================================
+
+    document
+      .getElementById(
+        "metodoSaque"
+      )
+      .addEventListener(
+        "change",
+        () => {
+
+          const metodo =
+            document
+              .getElementById(
+                "metodoSaque"
+              )
+              .value;
+
+
+          const destino =
+            document
+              .getElementById(
+                "destinoSaque"
+              );
+
+
+          if(
+            metodo ===
+            "Transferência bancária"
+          ){
+
+            destino.placeholder =
+              "IBAN ou número da conta";
+
+          }
+          else if(
+            metodo
+          ){
+
+            destino.placeholder =
+              "Número de telemóvel";
+
+          }
+          else{
+
+            destino.placeholder =
+              "Número ou conta";
+
+          }
+
+        }
+      );
 
 
     // =====================================
     // AUTENTICAÇÃO
     // =====================================
-// =====================================
-// CARREGAR MINHAS PARTICIPAÇÕES
-// =====================================
 
-async function carregarMinhasParticipacoes(){
-
-  const user = auth.currentUser;
-
-  if(!user){
-    return;
-  }
-
-  participacoesList.innerHTML = `
-    <div class="loading">
-      A carregar as tuas participações...
-    </div>
-  `;
-
-  try{
-
-    const participacoesRef =
-      collection(
-        db,
-        "participacoesTarefas"
-      );
-
-    const q =
-      query(
-        participacoesRef,
-        where(
-          "usuarioId",
-          "==",
-          user.uid
-        )
-      );
-
-    const snapshot =
-      await getDocs(q);
-
-    participacoesList.innerHTML = "";
-
-    if(snapshot.empty){
-
-      participacoesList.innerHTML = `
-        <div class="empty" style="display:block;">
-          Ainda não participaste em nenhuma tarefa.
-        </div>
-      `;
-
-      document.getElementById(
-        "minhaParticipacao"
-      ).textContent = "0";
-
-      return;
-    }
-
-    document.getElementById(
-      "minhaParticipacao"
-    ).textContent = snapshot.size;
-
-
-    for(const participacaoDoc of snapshot.docs){
-
-      const participacao =
-        participacaoDoc.data();
-
-      const tarefaId =
-        participacao.tarefaId;
-
-      if(!tarefaId){
-        continue;
-      }
-
-
-      // ---------------------------------
-      // BUSCAR TAREFA
-      // ---------------------------------
-
-      
-
-      const tarefaSnap =
-  await getDoc(
-    doc(
-      db,
-      "tarefas",
-      tarefaId
-    )
-  );
-
-if(!tarefaSnap.exists()){
-  continue;
-}
-
-const tarefa =
-  tarefaSnap.data();
-
-
-      const titulo =
-        tarefa.titulo ||
-        "Tarefa";
-
-
-      const cliques =
-        Number(
-          participacao.cliques || 0
-        );
-
-
-      const metaCliques =
-        Number(
-          tarefa.metaCliques || 50
-        );
-
-
-      const partilhas =
-        Number(
-          participacao.partilhas || 0
-        );
-
-
-      const progresso =
-        Math.min(
-          100,
-          Math.round(
-            (cliques / metaCliques) * 100
-          )
-        );
-
-
-      let statusTexto =
-        "PENDENTE";
-
-
-      if(participacao.vencedor === true){
-
-        statusTexto =
-          "🏆 VENCEDOR";
-
-      }
-      else if(
-        participacao.status === "concluida"
-      ){
-
-        statusTexto =
-          "✅ CONCLUÍDA";
-
-      }
-
-
-      const card =
-        document.createElement(
-          "div"
-        );
-
-      card.className =
-        "participacao-card";
-
-
-      card.innerHTML = `
-
-        <div class="participacao-title">
-
-          ${titulo}
-
-        </div>
-
-
-        <div class="participacao-status">
-
-          ${statusTexto}
-
-        </div>
-
-
-        <div class="progresso-info">
-
-          <span>
-            Cliques
-          </span>
-
-          <strong>
-            ${cliques}/${metaCliques}
-          </strong>
-
-        </div>
-
-
-        <div class="progresso-barra">
-
-          <div
-            style="width:${progresso}%"
-          ></div>
-
-        </div>
-
-
-        <div class="participacao-dados">
-
-          <div class="participacao-dado">
-
-            <strong>
-              ${cliques}
-            </strong>
-
-            <span>
-              CLIQUES
-            </span>
-
-          </div>
-
-
-          <div class="participacao-dado">
-
-            <strong>
-              ${partilhas}
-            </strong>
-
-            <span>
-              PARTILHAS
-            </span>
-
-          </div>
-
-
-          <div class="participacao-dado">
-
-            <strong>
-              ${participacao.valorRecebido || 0}
-            </strong>
-
-            <span>
-              AOA RECEBIDO
-            </span>
-
-          </div>
-
-        </div>
-
-
-        ${
-          participacao.linkRastreamento
-          ?
-          `
-
-          <div class="link-rastreamento">
-
-            <input
-              type="text"
-              value="${participacao.linkRastreamento}"
-              readonly
-            >
-
-            <button
-              class="btn-copiar"
-              data-link="${participacao.linkRastreamento}"
-            >
-
-              📋 COPIAR LINK
-
-            </button>
-
-          </div>
-
-          `
-          :
-          ""
-        }
-
-      `;
-
-
-      const copiarBtn =
-        card.querySelector(
-          ".btn-copiar"
-        );
-
-
-      if(copiarBtn){
-
-        copiarBtn.addEventListener(
-          "click",
-          async () => {
-
-            const link =
-              copiarBtn.dataset.link;
-
-            try{
-
-              await navigator.clipboard.writeText(
-                link
-              );
-
-              copiarBtn.textContent =
-                "✅ LINK COPIADO!";
-
-              setTimeout(
-                () => {
-
-                  copiarBtn.textContent =
-                    "📋 COPIAR LINK";
-
-                },
-                2000
-              );
-
-            }
-            catch(error){
-
-              alert(
-                "Não foi possível copiar o link."
-              );
-
-            }
-
-          }
-        );
-
-      }
-
-
-      participacoesList.appendChild(
-        card
-      );
-
-    }
-
-  }
-  catch(error){
-
-    console.error(
-      "Erro ao carregar participações:",
-      error
-    );
-
-    participacoesList.innerHTML = `
-
-      <div class="loading">
-
-        Erro ao carregar as tuas participações.
-
-      </div>
-
-    `;
-
-  }
-
-}
-    
     onAuthStateChanged(
 
       auth,
 
-      user => {
+      async user => {
 
-        if(
-  user
-){
+        if(user){
 
-  carregarTarefas();
+          usuarioAtual =
+            user;
 
-  carregarMinhasParticipacoes();
 
-}
+          await carregarCarteira();
 
+          await carregarSaques();
+
+          await carregarTarefas();
+
+          await carregarMinhasParticipacoes();
+
+        }
         else{
 
           window.location.href =
