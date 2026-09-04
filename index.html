@@ -1111,6 +1111,14 @@ content="A plataforma dedicada ao Kuduro: artistas, músicas, ranking, batalhas 
       👤 ÁREA DO ARTISTA
     </a>
 
+    <a
+  href="admin.html"
+  class="area-artista-btn"
+  id="adminBtn"
+  style="display:none;"
+>
+  ⚙️ ADMIN
+</a>
 
     <a
       href="juntar-se.html"
@@ -1745,7 +1753,11 @@ content="A plataforma dedicada ao Kuduro: artistas, músicas, ranking, batalhas 
     const areaArtistaBtn =
       document.querySelector("#areaArtistaBtn");
 
+    
+    const adminBtn =
+  document.querySelector("#adminBtn");
 
+    
     const notificationBtn =
       document.querySelector("#notificationBtn");
 
@@ -1860,46 +1872,67 @@ content="A plataforma dedicada ao Kuduro: artistas, músicas, ranking, batalhas 
     ========================= */
 
     onAuthStateChanged(
-      auth,
-      (user) => {
+  auth,
+  (user) => {
 
-        if(user){
+    if(user){
 
-          areaArtistaBtn.href =
-            "feed.html";
+      areaArtistaBtn.href =
+        "feed.html";
 
+      areaArtistaBtn.innerHTML =
+        "👤 ENTRAR NO FEED";
 
-          areaArtistaBtn.innerHTML =
-            "👤 ENTRAR NO FEED";
-
-
-          notificationBtn.classList.add(
-            "show"
-          );
-
-        }else{
-
-          areaArtistaBtn.href =
-            "area-do-artista.html";
+      notificationBtn.classList.add(
+        "show"
+      );
 
 
-          areaArtistaBtn.innerHTML =
-            "👤 ÁREA DO ARTISTA";
+      // =========================
+      // ADMIN
+      // =========================
 
+      if(
+        user.uid ===
+        "sFNOO11AEVZ0m6UZngw41pcHvvg2"
+      ){
 
-          notificationBtn.classList.remove(
-            "show"
-          );
+        adminBtn.style.display =
+          "inline-flex";
 
+      }else{
 
-          notificationPanel.classList.remove(
-            "open"
-          );
-
-        }
+        adminBtn.style.display =
+          "none";
 
       }
-    );
+
+
+    }else{
+
+      areaArtistaBtn.href =
+        "area-do-artista.html";
+
+      areaArtistaBtn.innerHTML =
+        "👤 ÁREA DO ARTISTA";
+
+      notificationBtn.classList.remove(
+        "show"
+      );
+
+      notificationPanel.classList.remove(
+        "open"
+      );
+
+
+      // Esconder Admin quando não estiver logado
+      adminBtn.style.display =
+        "none";
+
+    }
+
+  }
+);
 
 
 
