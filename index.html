@@ -1963,14 +1963,19 @@ onAuthStateChanged(
 
         if(!adminSnap.exists()){
 
-          console.log(
-            "❌ Não existe documento em artistas/" +
-            user.uid
-          );
+  console.log(
+    "❌ Não existe documento em artistas/" +
+    user.uid
+  );
 
-          return;
+  adminBtn.style.display = "none";
 
-        }
+}else{
+
+  const dadosAdmin = adminSnap.data();
+
+  
+}
 
 
         const dadosAdmin =
@@ -2056,7 +2061,7 @@ onAuthStateChanged(
          UTILIZADOR DESLOGADO
       ========================= */
 
-          }else{
+       
 
       areaArtistaBtn.href =
         "area-do-artista.html";
