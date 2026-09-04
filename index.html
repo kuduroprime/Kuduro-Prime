@@ -1728,16 +1728,15 @@
     import {
   getFirestore,
   collection,
-  doc,
-  getDoc,
   query,
   orderBy,
   limit,
   getDocs,
+  getDoc,
+  doc,
   onSnapshot
 } from
   "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
-
     /* =========================
        FIREBASE
     ========================== */
@@ -2238,83 +2237,89 @@ onAuthStateChanged(
     ========================== */
 
     function obterDadosMusica(
-      musica,
-      musicaId
-    ){
+  musica,
+  musicaId
+){
 
-      const titulo =
-        musica.titulo ||
-        musica.nome ||
-        "Música sem título";
-
-
-      const nomeArtista =
-        musica.artistaNome ||
-        musica.artista ||
-        musica.nomeArtista ||
-        "Artista KUDURO PRIME";
+  const titulo =
+    musica.titulo ||
+    musica.title ||
+    musica.nome ||
+    "Música sem título";
 
 
-      const capa =
-        musica.capaUrl ||
-        musica.capa ||
-        musica.imagem ||
-        musica.foto ||
-        "images/artista-1.jpg";
+  const nomeArtista =
+    musica.artistaNome ||
+    musica.artistName ||
+    musica.artista ||
+    musica.nomeArtista ||
+    "Artista KUDURO PRIME";
 
 
-      const audioUrl =
-        musica.audioUrl ||
-        musica.audio ||
-        musica.musicaUrl ||
-        musica.url ||
-        musica.arquivoUrl ||
-        musica.fileUrl ||
-        musica.urlMusica ||
-        "";
+  const capa =
+    musica.capaUrl ||
+    musica.capa ||
+    musica.cover ||
+    musica.imagem ||
+    musica.foto ||
+    musica.artistPhoto ||
+    musica.artistaFoto ||
+    "images/artista-1.jpg";
 
 
-      const views =
-        Number(
-          musica.visualizacoes ??
-          musica.views ??
-          musica.playCount ??
-          musica.reproducoes ??
-          musica.ouvintes ??
-          0
-        );
+  const audioUrl =
+    musica.audioUrl ||
+    musica.audio ||
+    musica.musicaUrl ||
+    musica.url ||
+    musica.arquivoUrl ||
+    musica.fileUrl ||
+    musica.urlMusica ||
+    "";
 
 
-      const criadoEm =
-        obterDataSegura(
-          musica.criadoEm ||
-          musica.createdAt ||
-          musica.dataCriacao
-        );
+  const views =
+    Number(
+      musica.audicoes ??
+      musica.visualizacoes ??
+      musica.views ??
+      musica.playCount ??
+      musica.reproducoes ??
+      musica.ouvintes ??
+      0
+    );
 
 
-      return {
+  const criadoEm =
+    obterDataSegura(
+      musica.criadoEm ||
+      musica.createdAt ||
+      musica.dataCriacao
+    );
 
-        id:musicaId,
 
-        titulo,
+  return {
 
-        nomeArtista,
+    id:musicaId,
 
-        capa,
+    titulo,
 
-        audioUrl,
+    nomeArtista,
 
-        views:
-          isNaN(views)
-            ? 0
-            : views,
+    capa,
 
-        criadoEm
+    audioUrl,
 
-      };
+    views:
+      isNaN(views)
+        ? 0
+        : views,
 
-    }
+    criadoEm
+
+  };
+
+}
 
 
 
@@ -2558,242 +2563,282 @@ onAuthStateChanged(
 
     function carregarLancamentos(){
 
-      if(!releasesContainer){
+  if(!releasesContainer){
+    return;
+  }
+
+
+  releasesContainer.innerHTML = `
+
+    <div
+      style="
+        padding:20px 0;
+        color:#aaa59a;
+        font-size:13px
+      "
+    >
+      A carregar lançamentos...
+    </div>
+
+  `;
+
+
+  const musicasRef =
+    collection(
+      db,
+      "musicas"
+    );
+
+
+  const q =
+    query(
+      musicasRef,
+      orderBy(
+        "criadoEm",
+        "desc"
+      ),
+      limit(5)
+    );
+
+
+  onSnapshot(
+
+    q,
+
+    (snapshot) => {
+
+      console.log(
+        "Músicas encontradas:",
+        snapshot.size
+      );
+
+
+      if(snapshot.empty){
+
+        releasesContainer.innerHTML = `
+
+          <div
+            style="
+              padding:20px 0;
+              color:#aaa59a;
+              font-size:13px
+            "
+          >
+            Ainda não existem lançamentos.
+          </div>
+
+        `;
+
         return;
+
       }
 
 
-      const musicasRef =
-        collection(
-          db,
-          "musicas"
-        );
+      const musicas = [];
 
 
-      const q =
-        query(
-          musicasRef,
-          orderBy(
-            "criadoEm",
-            "desc"
-          ),
-          limit(5)
-        );
+      snapshot.forEach(
+        (docMusica) => {
+
+          const dados =
+            obterDadosMusica(
+              docMusica.data(),
+              docMusica.id
+            );
 
 
-      onSnapshot(
-
-        q,
-
-        (snapshot) => {
-
-          if(snapshot.empty){
-
-            releasesContainer.innerHTML = `
-              <div
-                style="
-                  padding:20px 0;
-                  color:#aaa59a;
-                  font-size:13px
-                "
-              >
-                Ainda não existem lançamentos.
-              </div>
-            `;
-
-            return;
-
-          }
-
-
-          const musicas = [];
-
-
-          snapshot.forEach(
-            (docMusica) => {
-
-              musicas.push(
-
-                obterDadosMusica(
-                  docMusica.data(),
-                  docMusica.id
-                )
-
-              );
-
-            }
+          console.log(
+            "Música carregada:",
+            dados
           );
 
 
-          releasesContainer.innerHTML =
-            "";
-
-
-          musicas.forEach(
-            (musica) => {
-
-              const item =
-                document.createElement(
-                  "div"
-                );
-
-
-              item.className =
-                "release";
-
-
-              const capa =
-                document.createElement(
-                  "div"
-                );
-
-
-              capa.className =
-                "cover";
-
-
-              capa.style.setProperty(
-                "--img",
-                `url("${musica.capa}")`
-              );
-
-
-              const info =
-                document.createElement(
-                  "div"
-                );
-
-
-              info.className =
-                "release-info";
-
-
-              info.innerHTML = `
-
-                <div class="song">
-                  ${escaparHTML(musica.titulo)}
-                </div>
-
-                <div class="artist">
-                  ${escaparHTML(musica.nomeArtista)}
-                </div>
-
-              `;
-
-
-              const playButton =
-                document.createElement(
-                  "button"
-                );
-
-
-              playButton.type =
-                "button";
-
-
-              playButton.className =
-                "play";
-
-
-              playButton.textContent =
-                "▶";
-
-
-              playButton.title =
-                "Tocar música";
-
-
-              playButton.addEventListener(
-                "click",
-                () => {
-
-                  tocarMusica(
-                    musica,
-                    playButton
-                  );
-
-                }
-              );
-
-
-              info.addEventListener(
-                "click",
-                () => {
-
-                  tocarMusica(
-                    musica,
-                    playButton
-                  );
-
-                }
-              );
-
-
-              capa.addEventListener(
-                "click",
-                () => {
-
-                  tocarMusica(
-                    musica,
-                    playButton
-                  );
-
-                }
-              );
-
-
-              item.appendChild(
-                capa
-              );
-
-
-              item.appendChild(
-                info
-              );
-
-
-              item.appendChild(
-                playButton
-              );
-
-
-              releasesContainer.appendChild(
-                item
-              );
-
-            }
+          musicas.push(
+            dados
           );
 
-        },
+        }
+      );
 
 
-        (error) => {
-
-          console.error(
-            "Erro ao atualizar lançamentos:",
-            error
-          );
+      releasesContainer.innerHTML =
+        "";
 
 
-          releasesContainer.innerHTML = `
+      musicas.forEach(
+        (musica) => {
 
-            <div
-              style="
-                padding:20px 0;
-                color:#ff563f;
-                font-size:13px
-              "
-            >
-              Não foi possível carregar os lançamentos.
+          const item =
+            document.createElement(
+              "div"
+            );
+
+
+          item.className =
+            "release";
+
+
+          const capa =
+            document.createElement(
+              "div"
+            );
+
+
+          capa.className =
+            "cover";
+
+
+          const imagemSegura =
+            musica.capa ||
+            "images/artista-1.jpg";
+
+
+          capa.style.backgroundImage =
+            `url("${imagemSegura}")`;
+
+
+          const info =
+            document.createElement(
+              "div"
+            );
+
+
+          info.className =
+            "release-info";
+
+
+          info.innerHTML = `
+
+            <div class="song">
+              ${escaparHTML(
+                musica.titulo
+              )}
+            </div>
+
+            <div class="artist">
+              ${escaparHTML(
+                musica.nomeArtista
+              )}
             </div>
 
           `;
 
-        }
 
+          const playButton =
+            document.createElement(
+              "button"
+            );
+
+
+          playButton.type =
+            "button";
+
+
+          playButton.className =
+            "play";
+
+
+          playButton.textContent =
+            "▶";
+
+
+          playButton.title =
+            "Tocar música";
+
+
+          playButton.addEventListener(
+            "click",
+            () => {
+
+              tocarMusica(
+                musica,
+                playButton
+              );
+
+            }
+          );
+
+
+          info.addEventListener(
+            "click",
+            () => {
+
+              tocarMusica(
+                musica,
+                playButton
+              );
+
+            }
+          );
+
+
+          capa.addEventListener(
+            "click",
+            () => {
+
+              tocarMusica(
+                musica,
+                playButton
+              );
+
+            }
+          );
+
+
+          item.appendChild(
+            capa
+          );
+
+
+          item.appendChild(
+            info
+          );
+
+
+          item.appendChild(
+            playButton
+          );
+
+
+          releasesContainer.appendChild(
+            item
+          );
+
+        }
       );
 
+    },
+
+
+    (error) => {
+
+      console.error(
+        "ERRO FIRESTORE:",
+        error
+      );
+
+
+      releasesContainer.innerHTML = `
+
+        <div
+          style="
+            padding:20px 0;
+            color:#ff563f;
+            font-size:13px
+          "
+        >
+          ❌ Erro ao carregar lançamentos: ${escaparHTML(
+            error.message
+          )}
+        </div>
+
+      `;
+
     }
+
+  );
+
+}
 
 
 
