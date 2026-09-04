@@ -7,11 +7,10 @@
 
   <title>KUDURO PRIME — O Palco dos Grandes</title>
 
-<meta
-name="description"
-content="A plataforma dedicada ao Kuduro: artistas, músicas, ranking, batalhas e eventos."
-
->
+  <meta
+    name="description"
+    content="A plataforma dedicada ao Kuduro: artistas, músicas, ranking, batalhas e eventos."
+  >
 
   <style>
 
@@ -996,538 +995,15 @@ content="A plataforma dedicada ao Kuduro: artistas, músicas, ranking, batalhas 
 
   <nav class="nav">
 
-
-<div class="nav-in">
-
-  <a class="brand" href="index.html" aria-label="Kuduro Prime">
-
-    <span class="crown">♕</span>
-
-    KUDURO
-
-    <b>PRIME</b>
-
-  </a>
-
-
-  <div class="links" id="mobileLinks">
-
-    <a class="active" href="index.html">
-      INÍCIO
-    </a>
-
-    <a href="artistas.html">
-      ARTISTAS
-    </a>
-
-    <a href="musicas.html">
-      MÚSICAS
-    </a>
-
-    <a href="ranking.html">
-      RANKING
-    </a>
-
-    <a href="#batalhas">
-      BATALHAS
-    </a>
-
-    <a href="eventos.html">
-      EVENTOS
-    </a>
-
-  </div>
-
-
-  <div class="nav-actions">
-
-    <button
-      class="notification-btn"
-      id="notificationBtn"
-      type="button"
-      aria-label="Notificações"
-    >
-      🔔
-
-      <span
-        class="notification-badge"
-        id="notificationBadge"
-      >
-        0
-      </span>
-
-    </button>
-
-
-    <div
-      class="notification-panel"
-      id="notificationPanel"
-    >
-
-      <div class="notification-head">
-
-        <strong>
-          🔔 Notificações
-        </strong>
-
-        <button
-          type="button"
-          id="markAllReadBtn"
-        >
-          MARCAR TODAS COMO LIDAS
-        </button>
-
-      </div>
-
-
-      <button
-        class="notification-enable"
-        id="enableNotificationsBtn"
-        type="button"
-      >
-        🔔 ATIVAR NOTIFICAÇÕES
-      </button>
-
-
-      <div
-        class="notification-list"
-        id="notificationList"
-      >
-
-        <div class="notification-empty">
-          Ainda não tens notificações.
-        </div>
-
-      </div>
-
-    </div>
-
-
-    <a
-      href="area-do-artista.html"
-      class="area-artista-btn"
-      id="areaArtistaBtn"
-    >
-      👤 ÁREA DO ARTISTA
-    </a>
-
-    <a
-  href="admin.html"
-  class="area-artista-btn"
-  id="adminBtn"
-  style="display:none;"
->
-  ⚙️ ADMIN
-</a>
-
-    <a
-      href="juntar-se.html"
-      class="join-btn"
-    >
-      JUNTA-TE 👑
-    </a>
-
-
-    <button
-      class="menu"
-      id="menuBtn"
-      type="button"
-      aria-label="Abrir menu"
-    >
-      ☰
-    </button>
-
-  </div>
-
-</div>
-
-
-  </nav>
-
-  <main id="inicio">
-
-
-<!-- HERO -->
-
-<section class="hero">
-
-  <div class="container hero-content">
-
-    <div class="eyebrow">
-      ♕ O PALCO DOS GRANDES
-    </div>
-
-
-    <h1>
-
-      O KUDURO
-
-      <br>
-
-      <span class="gold-text">
-        NÃO PARA.
-      </span>
-
-    </h1>
-
-
-    <p>
-
-      A maior plataforma dedicada aos artistas,
-      à música, à dança e ao movimento Kuduro.
-
-    </p>
-
-
-    <div class="hero-buttons">
-
-      <a
-        href="area-do-artista.html"
-        class="btn gold"
-      >
-        ♕ ENTRAR NO MOVIMENTO
-      </a>
-
-
-      <a
-        href="#musicas"
-        class="btn dark"
-      >
-        ▶ VER LANÇAMENTOS
-      </a>
-
-    </div>
-
-
-    <div class="stats">
-
-      <div class="stat">
-
-        <strong>2.8M</strong>
-
-        <span>
-          VISITAS MENSAIS
-        </span>
-
-      </div>
-
-
-      <div class="stat">
-
-        <strong>1.5K</strong>
-
-        <span>
-          ARTISTAS CADASTRADOS
-        </span>
-
-      </div>
-
-
-      <div class="stat">
-
-        <strong>10K+</strong>
-
-        <span>
-          MÚSICAS PUBLICADAS
-        </span>
-
-      </div>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-
-<!-- ARTISTAS -->
-
-<section id="artistas">
-
-  <div class="container">
-
-    <div class="section-head">
-
-      <div>
-
-        <h2 class="title">
-          👑 ARTISTAS PRIME
-        </h2>
-
-        <p class="subtitle">
-          Os grandes nomes e as novas revelações do Kuduro.
-        </p>
-
-      </div>
-
-
-      <a
-        class="btn dark"
-        href="artistas.html"
-      >
-        VER TODOS ›
-      </a>
-
-    </div>
-
-
-    <div
-      class="artists"
-      id="artistGrid"
-    ></div>
-
-  </div>
-
-</section>
-
-
-
-<!-- MÚSICAS -->
-
-<section
-  id="musicas"
-  style="padding-top:0"
->
-
-  <div class="container grid-3">
-
-
-    <!-- LANÇAMENTOS -->
-
-    <div class="panel">
-
-      <h2 class="title">
-        🎵 LANÇAMENTOS
-      </h2>
-
-      <p class="subtitle">
-        O que está a tocar no movimento.
-      </p>
-
-
-      <div id="releases">
-
-        <div
-          style="
-            padding:20px 0;
-            color:#aaa59a;
-            font-size:13px
-          "
-        >
-          A carregar lançamentos...
-        </div>
-
-      </div>
-
-    </div>
-
-
-
-    <!-- RANKING -->
-
-    <div class="panel">
-
-      <div class="rank-title">
-
-        TOP 10
-
-        <span style="color:#fff">
-          PRIME
-        </span>
-
-      </div>
-
-
-      <p
-        class="subtitle"
-        style="
-          text-align:center;
-          margin-bottom:12px
-        "
-      >
-        As músicas mais ouvidas da semana.
-      </p>
-
-
-      <div id="rankings">
-
-        <div
-          style="
-            padding:20px 0;
-            color:#aaa59a;
-            font-size:13px;
-            text-align:center
-          "
-        >
-          A carregar ranking...
-        </div>
-
-      </div>
-
-
-      <a
-        class="btn dark"
-        style="
-          width:100%;
-          margin-top:15px
-        "
-        href="ranking.html"
-      >
-        VER RANKING COMPLETO ›
-      </a>
-
-    </div>
-
-
-
-    <!-- BATALHAS -->
-
-    <div
-      class="panel battle"
-      id="batalhas"
-    >
-
-      <h2 class="title">
-        🔥 PRIME BATTLES
-      </h2>
-
-
-      <p class="subtitle">
-        O público escolhe o melhor!
-      </p>
-
-
-      <a
-        class="btn gold"
-        href="feed.html"
-      >
-        VOTAR AGORA ›
-      </a>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-
-<!-- EVENTOS -->
-
-<section
-  id="eventos"
-  style="padding-top:0"
->
-
-  <div class="container">
-
-    <div class="section-head">
-
-      <div>
-
-        <h2 class="title">
-          📅 PRIME EVENTS
-        </h2>
-
-        <p class="subtitle">
-          Os próximos eventos do Kuduro.
-        </p>
-
-      </div>
-
-
-      <a
-        class="btn dark"
-        href="eventos.html"
-      >
-        VER TODOS ›
-      </a>
-
-    </div>
-
-
-    <div
-      class="events"
-      id="eventGrid"
-    ></div>
-
-  </div>
-
-</section>
-
-
-
-<!-- CTA -->
-
-<section
-  class="cta"
-  id="perfil"
->
-
-  <div class="container cta-in">
-
-    <div>
-
-      <h2>
-        O TEU TALENTO MERECE SER VISTO.
-      </h2>
-
-
-      <p>
-
-        Cria o teu perfil no
-
-        <b style="color:var(--gold)">
-          KUDURO PRIME
-        </b>
-
-        e entra no movimento.
-
-      </p>
-
-    </div>
-
-
-    <a
-      href="criar-perfil.html"
-      class="btn gold"
-      style="
-        font-size:14px;
-        padding:17px 28px
-      "
-    >
-      👤 CRIAR PERFIL DE ARTISTA
-    </a>
-
-  </div>
-
-</section>
-
-
-  </main>
-
-  <!-- FOOTER -->
-
-  <footer>
-
-
-<div class="container">
-
-
-  <div class="footer-grid">
-
-
-    <div>
+    <div class="nav-in">
 
       <a
         class="brand"
         href="index.html"
+        aria-label="Kuduro Prime"
       >
 
-        <span class="crown">
-          ♕
-        </span>
+        <span class="crown">♕</span>
 
         KUDURO
 
@@ -1536,147 +1012,703 @@ content="A plataforma dedicada ao Kuduro: artistas, músicas, ranking, batalhas 
       </a>
 
 
-      <p>
-
-        A plataforma oficial dedicada à música,
-        aos artistas, à dança e à cultura do Kuduro.
-
-      </p>
-
-    </div>
-
-
-
-    <div>
-
-      <h4>
-        NAVEGAÇÃO
-      </h4>
-
-      <a href="#inicio">
-        Início
-      </a>
-
-      <a href="artistas.html">
-        Artistas
-      </a>
-
-      <a href="musicas.html">
-        Músicas
-      </a>
-
-      <a href="ranking.html">
-        Ranking
-      </a>
-
-      <a href="eventos.html">
-        Eventos
-      </a>
-
-    </div>
-
-
-
-    <div>
-
-      <h4>
-        SOBRE
-      </h4>
-
-      <a href="#">
-        Quem Somos
-      </a>
-
-      <a href="#">
-        Termos de Uso
-      </a>
-
-      <a href="#">
-        Privacidade
-      </a>
-
-      <a href="#">
-        Ajuda
-      </a>
-
-    </div>
-
-
-
-    <div>
-
-      <h4>
-        RECEBE AS NOVIDADES PRIME
-      </h4>
-
-
-      <p>
-        Fica por dentro dos lançamentos e eventos.
-      </p>
-
-
       <div
-        style="
-          display:flex;
-          gap:8px
-        "
+        class="links"
+        id="mobileLinks"
       >
 
-        <input
-          id="newsletterEmail"
-          type="email"
-          placeholder="O teu e-mail"
-          aria-label="O teu e-mail"
-          style="
-            min-width:0;
-            width:100%;
-            padding:13px;
-            background:#111;
-            border:1px solid var(--line);
-            border-radius:7px;
-            color:white
-          "
+        <a
+          class="active"
+          href="index.html"
         >
+          INÍCIO
+        </a>
+
+        <a href="artistas.html">
+          ARTISTAS
+        </a>
+
+        <a href="musicas.html">
+          MÚSICAS
+        </a>
+
+        <a href="ranking.html">
+          RANKING
+        </a>
+
+        <a href="#batalhas">
+          BATALHAS
+        </a>
+
+        <a href="eventos.html">
+          EVENTOS
+        </a>
+
+      </div>
+
+
+      <div class="nav-actions">
+
+        <button
+          class="notification-btn"
+          id="notificationBtn"
+          type="button"
+          aria-label="Notificações"
+        >
+
+          🔔
+
+          <span
+            class="notification-badge"
+            id="notificationBadge"
+          >
+            0
+          </span>
+
+        </button>
+
+
+        <div
+          class="notification-panel"
+          id="notificationPanel"
+        >
+
+          <div class="notification-head">
+
+            <strong>
+              🔔 Notificações
+            </strong>
+
+            <button
+              type="button"
+              id="markAllReadBtn"
+            >
+              MARCAR TODAS COMO LIDAS
+            </button>
+
+          </div>
+
+
+          <button
+            class="notification-enable"
+            id="enableNotificationsBtn"
+            type="button"
+          >
+            🔔 ATIVAR NOTIFICAÇÕES
+          </button>
+
+
+          <div
+            class="notification-list"
+            id="notificationList"
+          >
+
+            <div class="notification-empty">
+              Ainda não tens notificações.
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <a
+          href="area-do-artista.html"
+          class="area-artista-btn"
+          id="areaArtistaBtn"
+        >
+          👤 ÁREA DO ARTISTA
+        </a>
+
+
+        <!-- =========================
+             ADMIN
+        ========================== -->
+
+        <a
+          href="admin.html"
+          class="area-artista-btn"
+          id="adminBtn"
+          style="display:none;"
+        >
+          ⚙️ ADMIN
+        </a>
+
+
+        <a
+          href="juntar-se.html"
+          class="join-btn"
+        >
+          JUNTA-TE 👑
+        </a>
 
 
         <button
-          class="btn gold"
-          id="newsletterBtn"
+          class="menu"
+          id="menuBtn"
           type="button"
+          aria-label="Abrir menu"
         >
-          RECEBER
+          ☰
         </button>
 
       </div>
 
     </div>
 
-
-  </div>
-
+  </nav>
 
 
-  <div class="copy">
-
-    © 2026 KUDURO PRIME.
-
-    Todos os direitos reservados.
-
-    — O KUDURO VIVE AQUI. 👑
-
-  </div>
+  <main id="inicio">
 
 
-</div>
+    <!-- =========================
+         HERO
+    ========================== -->
 
+    <section class="hero">
+
+      <div class="container hero-content">
+
+        <div class="eyebrow">
+          ♕ O PALCO DOS GRANDES
+        </div>
+
+
+        <h1>
+
+          O KUDURO
+
+          <br>
+
+          <span class="gold-text">
+            NÃO PARA.
+          </span>
+
+        </h1>
+
+
+        <p>
+
+          A maior plataforma dedicada aos artistas,
+          à música, à dança e ao movimento Kuduro.
+
+        </p>
+
+
+        <div class="hero-buttons">
+
+          <a
+            href="area-do-artista.html"
+            class="btn gold"
+          >
+            ♕ ENTRAR NO MOVIMENTO
+          </a>
+
+
+          <a
+            href="#musicas"
+            class="btn dark"
+          >
+            ▶ VER LANÇAMENTOS
+          </a>
+
+        </div>
+
+
+        <div class="stats">
+
+          <div class="stat">
+
+            <strong>2.8M</strong>
+
+            <span>
+              VISITAS MENSAIS
+            </span>
+
+          </div>
+
+
+          <div class="stat">
+
+            <strong>1.5K</strong>
+
+            <span>
+              ARTISTAS CADASTRADOS
+            </span>
+
+          </div>
+
+
+          <div class="stat">
+
+            <strong>10K+</strong>
+
+            <span>
+              MÚSICAS PUBLICADAS
+            </span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- =========================
+         ARTISTAS
+    ========================== -->
+
+    <section id="artistas">
+
+      <div class="container">
+
+        <div class="section-head">
+
+          <div>
+
+            <h2 class="title">
+              👑 ARTISTAS PRIME
+            </h2>
+
+            <p class="subtitle">
+              Os grandes nomes e as novas revelações do Kuduro.
+            </p>
+
+          </div>
+
+
+          <a
+            class="btn dark"
+            href="artistas.html"
+          >
+            VER TODOS ›
+          </a>
+
+        </div>
+
+
+        <div
+          class="artists"
+          id="artistGrid"
+        ></div>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- =========================
+         MÚSICAS
+    ========================== -->
+
+    <section
+      id="musicas"
+      style="padding-top:0"
+    >
+
+      <div class="container grid-3">
+
+
+        <!-- LANÇAMENTOS -->
+
+        <div class="panel">
+
+          <h2 class="title">
+            🎵 LANÇAMENTOS
+          </h2>
+
+          <p class="subtitle">
+            O que está a tocar no movimento.
+          </p>
+
+
+          <div id="releases">
+
+            <div
+              style="
+                padding:20px 0;
+                color:#aaa59a;
+                font-size:13px
+              "
+            >
+              A carregar lançamentos...
+            </div>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- RANKING -->
+
+        <div class="panel">
+
+          <div class="rank-title">
+
+            TOP 10
+
+            <span style="color:#fff">
+              PRIME
+            </span>
+
+          </div>
+
+
+          <p
+            class="subtitle"
+            style="
+              text-align:center;
+              margin-bottom:12px
+            "
+          >
+            As músicas mais ouvidas da semana.
+          </p>
+
+
+          <div id="rankings">
+
+            <div
+              style="
+                padding:20px 0;
+                color:#aaa59a;
+                font-size:13px;
+                text-align:center
+              "
+            >
+              A carregar ranking...
+            </div>
+
+          </div>
+
+
+          <a
+            class="btn dark"
+            style="
+              width:100%;
+              margin-top:15px
+            "
+            href="ranking.html"
+          >
+            VER RANKING COMPLETO ›
+          </a>
+
+        </div>
+
+
+
+        <!-- BATALHAS -->
+
+        <div
+          class="panel battle"
+          id="batalhas"
+        >
+
+          <h2 class="title">
+            🔥 PRIME BATTLES
+          </h2>
+
+
+          <p class="subtitle">
+            O público escolhe o melhor!
+          </p>
+
+
+          <a
+            class="btn gold"
+            href="feed.html"
+          >
+            VOTAR AGORA ›
+          </a>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- =========================
+         EVENTOS
+    ========================== -->
+
+    <section
+      id="eventos"
+      style="padding-top:0"
+    >
+
+      <div class="container">
+
+        <div class="section-head">
+
+          <div>
+
+            <h2 class="title">
+              📅 PRIME EVENTS
+            </h2>
+
+            <p class="subtitle">
+              Os próximos eventos do Kuduro.
+            </p>
+
+          </div>
+
+
+          <a
+            class="btn dark"
+            href="eventos.html"
+          >
+            VER TODOS ›
+          </a>
+
+        </div>
+
+
+        <div
+          class="events"
+          id="eventGrid"
+        ></div>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- =========================
+         CTA
+    ========================== -->
+
+    <section
+      class="cta"
+      id="perfil"
+    >
+
+      <div class="container cta-in">
+
+        <div>
+
+          <h2>
+            O TEU TALENTO MERECE SER VISTO.
+          </h2>
+
+
+          <p>
+
+            Cria o teu perfil no
+
+            <b style="color:var(--gold)">
+              KUDURO PRIME
+            </b>
+
+            e entra no movimento.
+
+          </p>
+
+        </div>
+
+
+        <a
+          href="criar-perfil.html"
+          class="btn gold"
+          style="
+            font-size:14px;
+            padding:17px 28px
+          "
+        >
+          👤 CRIAR PERFIL DE ARTISTA
+        </a>
+
+      </div>
+
+    </section>
+
+
+  </main>
+
+
+
+  <!-- =========================
+       FOOTER
+  ========================== -->
+
+  <footer>
+
+    <div class="container">
+
+      <div class="footer-grid">
+
+
+        <div>
+
+          <a
+            class="brand"
+            href="index.html"
+          >
+
+            <span class="crown">
+              ♕
+            </span>
+
+            KUDURO
+
+            <b>PRIME</b>
+
+          </a>
+
+
+          <p>
+
+            A plataforma oficial dedicada à música,
+            aos artistas, à dança e à cultura do Kuduro.
+
+          </p>
+
+        </div>
+
+
+
+        <div>
+
+          <h4>
+            NAVEGAÇÃO
+          </h4>
+
+          <a href="#inicio">
+            Início
+          </a>
+
+          <a href="artistas.html">
+            Artistas
+          </a>
+
+          <a href="musicas.html">
+            Músicas
+          </a>
+
+          <a href="ranking.html">
+            Ranking
+          </a>
+
+          <a href="eventos.html">
+            Eventos
+          </a>
+
+        </div>
+
+
+
+        <div>
+
+          <h4>
+            SOBRE
+          </h4>
+
+          <a href="#">
+            Quem Somos
+          </a>
+
+          <a href="#">
+            Termos de Uso
+          </a>
+
+          <a href="#">
+            Privacidade
+          </a>
+
+          <a href="#">
+            Ajuda
+          </a>
+
+        </div>
+
+
+
+        <div>
+
+          <h4>
+            RECEBE AS NOVIDADES PRIME
+          </h4>
+
+
+          <p>
+            Fica por dentro dos lançamentos e eventos.
+          </p>
+
+
+          <div
+            style="
+              display:flex;
+              gap:8px
+            "
+          >
+
+            <input
+              id="newsletterEmail"
+              type="email"
+              placeholder="O teu e-mail"
+              aria-label="O teu e-mail"
+              style="
+                min-width:0;
+                width:100%;
+                padding:13px;
+                background:#111;
+                border:1px solid var(--line);
+                border-radius:7px;
+                color:white
+              "
+            >
+
+
+            <button
+              class="btn gold"
+              id="newsletterBtn"
+              type="button"
+            >
+              RECEBER
+            </button>
+
+          </div>
+
+        </div>
+
+
+      </div>
+
+
+
+      <div class="copy">
+
+        © 2026 KUDURO PRIME.
+
+        Todos os direitos reservados.
+
+        — O KUDURO VIVE AQUI. 👑
+
+      </div>
+
+
+    </div>
 
   </footer>
 
+
+
   <!-- PLAYER GLOBAL -->
 
-<audio id="globalAudio"></audio>
+  <audio id="globalAudio"></audio>
 
-  <!-- FIREBASE -->
+
+
+  <!-- =========================
+       FIREBASE
+  ========================== -->
 
   <script type="module">
 
@@ -1694,21 +1726,20 @@ content="A plataforma dedicada ao Kuduro: artistas, músicas, ranking, batalhas 
 
 
     import {
-  getFirestore,
-  collection,
-  query,
-  orderBy,
-  limit,
-  getDocs,
-  onSnapshot,
-  doc,
-  getDoc
-} from
-"https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+      getFirestore,
+      collection,
+      query,
+      orderBy,
+      limit,
+      getDocs,
+      onSnapshot
+    } from
+      "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+
 
     /* =========================
        FIREBASE
-    ========================= */
+    ========================== */
 
     const firebaseConfig = {
 
@@ -1748,16 +1779,16 @@ content="A plataforma dedicada ao Kuduro: artistas, músicas, ranking, batalhas 
 
     /* =========================
        ELEMENTOS
-    ========================= */
+    ========================== */
 
     const areaArtistaBtn =
       document.querySelector("#areaArtistaBtn");
 
-    
-    const adminBtn =
-  document.querySelector("#adminBtn");
 
-    
+    const adminBtn =
+      document.querySelector("#adminBtn");
+
+
     const notificationBtn =
       document.querySelector("#notificationBtn");
 
@@ -1805,7 +1836,7 @@ content="A plataforma dedicada ao Kuduro: artistas, músicas, ranking, batalhas 
 
     /* =========================
        ESCAPAR HTML
-    ========================= */
+    ========================== */
 
     function escaparHTML(valor){
 
@@ -1823,7 +1854,7 @@ content="A plataforma dedicada ao Kuduro: artistas, músicas, ranking, batalhas 
 
     /* =========================
        DATA
-    ========================= */
+    ========================== */
 
     function obterDataSegura(valor){
 
@@ -1869,76 +1900,78 @@ content="A plataforma dedicada ao Kuduro: artistas, músicas, ranking, batalhas 
 
     /* =========================
        AUTENTICAÇÃO
-    ========================= */
+    ========================== */
 
     onAuthStateChanged(
-  auth,
-  (user) => {
+      auth,
+      (user) => {
 
-    if(user){
+        if(user){
 
-      areaArtistaBtn.href =
-        "feed.html";
+          areaArtistaBtn.href =
+            "feed.html";
 
-      areaArtistaBtn.innerHTML =
-        "👤 ENTRAR NO FEED";
-
-      notificationBtn.classList.add(
-        "show"
-      );
+          areaArtistaBtn.innerHTML =
+            "👤 ENTRAR NO FEED";
 
 
-      // =========================
-      // ADMIN
-      // =========================
+          notificationBtn.classList.add(
+            "show"
+          );
 
-      if(
-        user.uid ===
-        "sFNOO11AEVZ0m6UZngw41pcHvvg2"
-      ){
 
-        adminBtn.style.display =
-          "inline-flex";
+          /* =========================
+             ADMIN
+          ========================== */
 
-      }else{
+          if(
+            user.uid ===
+            "sFNOO11AEVZ0m6UZngw41pcHvvg2"
+          ){
 
-        adminBtn.style.display =
-          "none";
+            adminBtn.style.display =
+              "inline-flex";
+
+          }else{
+
+            adminBtn.style.display =
+              "none";
+
+          }
+
+
+        }else{
+
+          areaArtistaBtn.href =
+            "area-do-artista.html";
+
+          areaArtistaBtn.innerHTML =
+            "👤 ÁREA DO ARTISTA";
+
+
+          notificationBtn.classList.remove(
+            "show"
+          );
+
+
+          notificationPanel.classList.remove(
+            "open"
+          );
+
+
+          adminBtn.style.display =
+            "none";
+
+        }
 
       }
-
-
-    }else{
-
-      areaArtistaBtn.href =
-        "area-do-artista.html";
-
-      areaArtistaBtn.innerHTML =
-        "👤 ÁREA DO ARTISTA";
-
-      notificationBtn.classList.remove(
-        "show"
-      );
-
-      notificationPanel.classList.remove(
-        "open"
-      );
-
-
-      // Esconder Admin quando não estiver logado
-      adminBtn.style.display =
-        "none";
-
-    }
-
-  }
-);
+    );
 
 
 
     /* =========================
        NOTIFICAÇÕES
-    ========================= */
+    ========================== */
 
     notificationBtn.addEventListener(
       "click",
@@ -1979,7 +2012,7 @@ content="A plataforma dedicada ao Kuduro: artistas, músicas, ranking, batalhas 
 
     /* =========================
        ARTISTAS
-    ========================= */
+    ========================== */
 
     const artists = [
 
@@ -2072,7 +2105,7 @@ content="A plataforma dedicada ao Kuduro: artistas, músicas, ranking, batalhas 
 
     /* =========================
        DADOS DA MÚSICA
-    ========================= */
+    ========================== */
 
     function obterDadosMusica(
       musica,
@@ -2157,7 +2190,7 @@ content="A plataforma dedicada ao Kuduro: artistas, músicas, ranking, batalhas 
 
     /* =========================
        TOCAR MÚSICA
-    ========================= */
+    ========================== */
 
     async function tocarMusica(
       musica,
@@ -2256,7 +2289,7 @@ content="A plataforma dedicada ao Kuduro: artistas, músicas, ranking, batalhas 
 
     /* =========================
        PLAYER
-    ========================= */
+    ========================== */
 
     globalAudio.addEventListener(
       "play",
@@ -2347,7 +2380,7 @@ content="A plataforma dedicada ao Kuduro: artistas, músicas, ranking, batalhas 
 
     /* =========================
        BUSCAR MÚSICAS
-    ========================= */
+    ========================== */
 
     async function buscarTodasMusicas(){
 
@@ -2391,443 +2424,259 @@ content="A plataforma dedicada ao Kuduro: artistas, músicas, ranking, batalhas 
 
     /* =========================
        LANÇAMENTOS
-    ========================= */
+    ========================== */
 
     function carregarLancamentos(){
 
-  if(!releasesContainer){
-    return;
-  }
-
-  const musicasRef =
-    collection(
-      db,
-      "musicas"
-    );
-
-  const q =
-    query(
-      musicasRef,
-      orderBy(
-        "criadoEm",
-        "desc"
-      ),
-      limit(5)
-    );
-
-  onSnapshot(
-
-    q,
-
-    (snapshot) => {
-
-      if(snapshot.empty){
-
-        releasesContainer.innerHTML = `
-          <div
-            style="
-              padding:20px 0;
-              color:#aaa59a;
-              font-size:13px
-            "
-          >
-            Ainda não existem lançamentos.
-          </div>
-        `;
-
+      if(!releasesContainer){
         return;
       }
 
 
-      const musicas = [];
+      const musicasRef =
+        collection(
+          db,
+          "musicas"
+        );
 
 
-      snapshot.forEach(
-        (docMusica) => {
+      const q =
+        query(
+          musicasRef,
+          orderBy(
+            "criadoEm",
+            "desc"
+          ),
+          limit(5)
+        );
 
-          musicas.push(
-            obterDadosMusica(
-              docMusica.data(),
-              docMusica.id
-            )
+
+      onSnapshot(
+
+        q,
+
+        (snapshot) => {
+
+          if(snapshot.empty){
+
+            releasesContainer.innerHTML = `
+              <div
+                style="
+                  padding:20px 0;
+                  color:#aaa59a;
+                  font-size:13px
+                "
+              >
+                Ainda não existem lançamentos.
+              </div>
+            `;
+
+            return;
+
+          }
+
+
+          const musicas = [];
+
+
+          snapshot.forEach(
+            (docMusica) => {
+
+              musicas.push(
+
+                obterDadosMusica(
+                  docMusica.data(),
+                  docMusica.id
+                )
+
+              );
+
+            }
           );
 
-        }
-      );
+
+          releasesContainer.innerHTML =
+            "";
 
 
-      releasesContainer.innerHTML =
-        "";
+          musicas.forEach(
+            (musica) => {
+
+              const item =
+                document.createElement(
+                  "div"
+                );
 
 
-      musicas.forEach(
-        (musica) => {
-
-          const item =
-            document.createElement(
-              "div"
-            );
-
-          item.className =
-            "release";
+              item.className =
+                "release";
 
 
-          const capa =
-            document.createElement(
-              "div"
-            );
+              const capa =
+                document.createElement(
+                  "div"
+                );
 
-          capa.className =
-            "cover";
 
-          capa.style.setProperty(
-            "--img",
-            `url("${musica.capa}")`
+              capa.className =
+                "cover";
+
+
+              capa.style.setProperty(
+                "--img",
+                `url("${musica.capa}")`
+              );
+
+
+              const info =
+                document.createElement(
+                  "div"
+                );
+
+
+              info.className =
+                "release-info";
+
+
+              info.innerHTML = `
+
+                <div class="song">
+                  ${escaparHTML(musica.titulo)}
+                </div>
+
+                <div class="artist">
+                  ${escaparHTML(musica.nomeArtista)}
+                </div>
+
+              `;
+
+
+              const playButton =
+                document.createElement(
+                  "button"
+                );
+
+
+              playButton.type =
+                "button";
+
+
+              playButton.className =
+                "play";
+
+
+              playButton.textContent =
+                "▶";
+
+
+              playButton.title =
+                "Tocar música";
+
+
+              playButton.addEventListener(
+                "click",
+                () => {
+
+                  tocarMusica(
+                    musica,
+                    playButton
+                  );
+
+                }
+              );
+
+
+              info.addEventListener(
+                "click",
+                () => {
+
+                  tocarMusica(
+                    musica,
+                    playButton
+                  );
+
+                }
+              );
+
+
+              capa.addEventListener(
+                "click",
+                () => {
+
+                  tocarMusica(
+                    musica,
+                    playButton
+                  );
+
+                }
+              );
+
+
+              item.appendChild(
+                capa
+              );
+
+
+              item.appendChild(
+                info
+              );
+
+
+              item.appendChild(
+                playButton
+              );
+
+
+              releasesContainer.appendChild(
+                item
+              );
+
+            }
+          );
+
+        },
+
+
+        (error) => {
+
+          console.error(
+            "Erro ao atualizar lançamentos:",
+            error
           );
 
 
-          const info =
-            document.createElement(
-              "div"
-            );
+          releasesContainer.innerHTML = `
 
-          info.className =
-            "release-info";
-
-          info.innerHTML = `
-            <div class="song">
-              ${escaparHTML(musica.titulo)}
+            <div
+              style="
+                padding:20px 0;
+                color:#ff563f;
+                font-size:13px
+              "
+            >
+              Não foi possível carregar os lançamentos.
             </div>
 
-            <div class="artist">
-              ${escaparHTML(musica.nomeArtista)}
-            </div>
           `;
 
-
-          const playButton =
-            document.createElement(
-              "button"
-            );
-
-          playButton.type =
-            "button";
-
-          playButton.className =
-            "play";
-
-          playButton.textContent =
-            "▶";
-
-          playButton.title =
-            "Tocar música";
-
-
-          playButton.addEventListener(
-            "click",
-            () => {
-
-              tocarMusica(
-                musica,
-                playButton
-              );
-
-            }
-          );
-
-
-          info.addEventListener(
-            "click",
-            () => {
-
-              tocarMusica(
-                musica,
-                playButton
-              );
-
-            }
-          );
-
-
-          capa.addEventListener(
-            "click",
-            () => {
-
-              tocarMusica(
-                musica,
-                playButton
-              );
-
-            }
-          );
-
-
-          item.appendChild(capa);
-
-          item.appendChild(info);
-
-          item.appendChild(playButton);
-
-
-          releasesContainer.appendChild(
-            item
-          );
-
         }
+
       );
-
-    },
-
-
-    (error) => {
-
-      console.error(
-        "Erro ao atualizar lançamentos:",
-        error
-      );
-
-
-      releasesContainer.innerHTML = `
-        <div
-          style="
-            padding:20px 0;
-            color:#ff563f;
-            font-size:13px
-          "
-        >
-          Não foi possível carregar os lançamentos.
-        </div>
-      `;
 
     }
-
-  );
-
-}
 
 
 
     /* =========================
-       RANKING
-    ========================= */
+       RANKING TOP 10 PRIME
+    ========================== */
 
-/* =========================
-   RANKING TOP 10 PRIME
-========================= */
+    async function carregarRanking(){
 
-async function carregarRanking(){
+      if(!rankingsContainer){
+        return;
+      }
 
-  if(!rankingsContainer){
-    return;
-  }
-
-
-  rankingsContainer.innerHTML = `
-    <div style="
-      padding:20px 0;
-      color:#aaa59a;
-      font-size:13px;
-      text-align:center
-    ">
-      A carregar o TOP 10 PRIME...
-    </div>
-  `;
-
-
-  try{
-
-    const rankingsRef =
-      collection(
-        db,
-        "rankingMensal"
-      );
-
-
-    const q =
-      query(
-        rankingsRef,
-        orderBy(
-          "atualizadoEm",
-          "desc"
-        ),
-        limit(1)
-      );
-
-
-    const snapshot =
-      await getDocs(q);
-
-
-    if(snapshot.empty){
-
-      rankingsContainer.innerHTML = `
-        <div style="
-          padding:20px 0;
-          color:#aaa59a;
-          font-size:13px;
-          text-align:center
-        ">
-          Ainda não existe um TOP 10 PRIME.
-        </div>
-      `;
-
-      return;
-
-    }
-
-
-    const docRanking =
-      snapshot.docs[0];
-
-
-    const dados =
-      docRanking.data();
-
-
-    const musicas =
-      Array.isArray(dados.musicas)
-
-        ? [...dados.musicas]
-            .sort(
-              (a,b) =>
-                (a.posicao || 0)
-                -
-                (b.posicao || 0)
-            )
-            .slice(0,10)
-
-        : [];
-
-
-    if(musicas.length === 0){
-
-      rankingsContainer.innerHTML = `
-        <div style="
-          padding:20px 0;
-          color:#aaa59a;
-          font-size:13px;
-          text-align:center
-        ">
-          Ainda não existem músicas no ranking.
-        </div>
-      `;
-
-      return;
-
-    }
-
-
-    rankingsContainer.innerHTML =
-      musicas.map(
-        (musica,index) => `
-
-          <a
-            class="rank"
-            href="musicas.html?musica=${encodeURIComponent(musica.id)}"
-          >
-
-            <div class="rank-num">
-
-              ${String(
-                index + 1
-              ).padStart(2,"0")}
-
-            </div>
-
-
-            <div
-              class="mini"
-              style="--img:url('${musica.capa}')"
-            ></div>
-
-
-            <div>
-
-              <div class="song">
-
-                ${escaparHTML(
-                  musica.titulo
-                )}
-
-              </div>
-
-
-              <div class="artist">
-
-                ${escaparHTML(
-                  musica.nomeArtista
-                )}
-
-              </div>
-
-            </div>
-
-
-            <div class="tag">
-              🏆
-            </div>
-
-          </a>
-
-        `
-      ).join("");
-
-
-  }catch(error){
-
-    console.error(
-      "Erro ao carregar ranking:",
-      error
-    );
-
-
-    rankingsContainer.innerHTML = `
-      <div style="
-        padding:20px 0;
-        color:#ff563f;
-        font-size:13px;
-        text-align:center
-      ">
-        Não foi possível carregar o TOP 10 PRIME.
-      </div>
-    `;
-
-  }
-
-}
-
-      return;
-
-    }
-
-
-    const dados =
-      snapshot.data();
-
-
-    const musicas =
-      Array.isArray(
-        dados.musicas
-      )
-
-        ? dados.musicas
-            .sort(
-              (a,b) =>
-                (a.posicao || 0)
-                -
-                (b.posicao || 0)
-            )
-            .slice(
-              0,
-              10
-            )
-
-        : [];
-
-
-    if(
-      musicas.length === 0
-    ){
 
       rankingsContainer.innerHTML = `
 
@@ -2839,139 +2688,139 @@ async function carregarRanking(){
             text-align:center
           "
         >
-          Ainda não existem músicas no ranking.
+          A carregar o TOP 10 PRIME...
         </div>
 
       `;
 
-      return;
 
-    }
+      try{
+
+        const rankingsRef =
+          collection(
+            db,
+            "rankingMensal"
+          );
 
 
-    rankingsContainer.innerHTML =
-      musicas.map(
-        (musica,index) => `
+        const q =
+          query(
+            rankingsRef,
+            orderBy(
+              "atualizadoEm",
+              "desc"
+            ),
+            limit(1)
+          );
 
-          <a
-            class="rank"
-            href="musicas.html?musica=${encodeURIComponent(musica.id)}"
-          >
 
-            <div class="rank-num">
+        const snapshot =
+          await getDocs(
+            q
+          );
 
-              ${String(
-                index + 1
-              ).padStart(2,"0")}
 
-            </div>
+        if(snapshot.empty){
 
+          rankingsContainer.innerHTML = `
 
             <div
-              class="mini"
-              style="--img:url('${musica.capa}')"
-            ></div>
-
-
-            <div>
-
-              <div class="song">
-
-                ${escaparHTML(
-                  musica.titulo
-                )}
-
-              </div>
-
-
-              <div class="artist">
-
-                ${escaparHTML(
-                  musica.nomeArtista
-                )}
-
-              </div>
-
+              style="
+                padding:20px 0;
+                color:#aaa59a;
+                font-size:13px;
+                text-align:center
+              "
+            >
+              Ainda não existe um TOP 10 PRIME.
             </div>
 
-
-            <div class="tag">
-              🏆
-            </div>
-
-          </a>
-
-        `
-      ).join("");
-
-
-  }catch(error){
-
-    console.error(
-      "Erro ao carregar ranking:",
-      error
-    );
-
-
-    rankingsContainer.innerHTML = `
-
-      <div
-        style="
-          padding:20px 0;
-          color:#ff563f;
-          font-size:13px;
-          text-align:center
-        "
-      >
-        Não foi possível carregar o TOP 10 PRIME.
-      </div>
-
-    `;
-
-  }
-
-}
+          `;
 
           return;
 
         }
 
 
-        const top10 =
-          ranking
+        const docRanking =
+          snapshot.docs[0];
 
-            .sort(
-              (a,b) =>
-                b.views -
-                a.views
-            )
 
-            .slice(
-              0,
-              10
-            );
+        const dados =
+          docRanking.data();
+
+
+        const musicas =
+          Array.isArray(
+            dados.musicas
+          )
+
+            ? [...dados.musicas]
+
+                .sort(
+                  (a,b) =>
+                    (a.posicao || 0)
+                    -
+                    (b.posicao || 0)
+                )
+
+                .slice(
+                  0,
+                  10
+                )
+
+            : [];
+
+
+        if(
+          musicas.length === 0
+        ){
+
+          rankingsContainer.innerHTML = `
+
+            <div
+              style="
+                padding:20px 0;
+                color:#aaa59a;
+                font-size:13px;
+                text-align:center
+              "
+            >
+              Ainda não existem músicas no ranking.
+            </div>
+
+          `;
+
+          return;
+
+        }
 
 
         rankingsContainer.innerHTML =
 
-          top10.map(
+          musicas.map(
             (musica,index) => `
 
               <a
                 class="rank"
-                href="musicas.html?musica=${encodeURIComponent(musica.id)}"
+                href="musicas.html?musica=${encodeURIComponent(musica.id || "")}"
               >
 
                 <div class="rank-num">
 
-                  ${String(index + 1).padStart(2,"0")}
+                  ${String(
+                    index + 1
+                  ).padStart(2,"0")}
 
                 </div>
 
 
                 <div
                   class="mini"
-                  style="--img:url('${musica.capa}')"
+                  style="--img:url('${escaparHTML(
+                    musica.capa ||
+                    "images/artista-1.jpg"
+                  )}')"
                 ></div>
 
 
@@ -2979,14 +2828,21 @@ async function carregarRanking(){
 
                   <div class="song">
 
-                    ${escaparHTML(musica.titulo)}
+                    ${escaparHTML(
+                      musica.titulo ||
+                      "Música sem título"
+                    )}
 
                   </div>
 
 
                   <div class="artist">
 
-                    ${escaparHTML(musica.nomeArtista)}
+                    ${escaparHTML(
+                      musica.nomeArtista ||
+                      musica.artista ||
+                      "Artista KUDURO PRIME"
+                    )}
 
                   </div>
 
@@ -2994,7 +2850,7 @@ async function carregarRanking(){
 
 
                 <div class="tag">
-                  ▲
+                  🏆
                 </div>
 
               </a>
@@ -3021,7 +2877,7 @@ async function carregarRanking(){
               text-align:center
             "
           >
-            Não foi possível carregar o ranking.
+            Não foi possível carregar o TOP 10 PRIME.
           </div>
 
         `;
@@ -3034,7 +2890,7 @@ async function carregarRanking(){
 
     /* =========================
        CARREGAR FIREBASE
-    ========================= */
+    ========================== */
 
     carregarLancamentos();
 
@@ -3044,7 +2900,7 @@ async function carregarRanking(){
 
     /* =========================
        EVENTOS
-    ========================= */
+    ========================== */
 
     const events = [
 
@@ -3082,21 +2938,27 @@ async function carregarRanking(){
 
             <span class="date">
 
-              ${escaparHTML(evento.data)} SET
+              ${escaparHTML(
+                evento.data
+              )} SET
 
             </span>
 
 
             <h3>
 
-              ${escaparHTML(evento.titulo)}
+              ${escaparHTML(
+                evento.titulo
+              )}
 
             </h3>
 
 
             <p>
 
-              📍 ${escaparHTML(evento.local)}
+              📍 ${escaparHTML(
+                evento.local
+              )}
 
             </p>
 
@@ -3109,7 +2971,7 @@ async function carregarRanking(){
 
     /* =========================
        NEWSLETTER
-    ========================= */
+    ========================== */
 
     newsletterBtn.addEventListener(
       "click",
@@ -3160,7 +3022,7 @@ async function carregarRanking(){
 
     /* =========================
        MENU MOBILE
-    ========================= */
+    ========================== */
 
     menuBtn.addEventListener(
       "click",
@@ -3210,12 +3072,16 @@ async function carregarRanking(){
 
   </script>
 
-  <!-- SISTEMA DE NOTIFICAÇÕES -->
+
+  <!-- =========================
+       SISTEMA DE NOTIFICAÇÕES
+  ========================== -->
 
   <script
     type="module"
     src="notificacoes.js"
   ></script>
+
 
 </body>
 </html>
