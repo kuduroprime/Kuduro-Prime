@@ -1899,74 +1899,149 @@
 
 
     /* =========================
-       AUTENTICAÇÃO
-    ========================== */
+   AUTENTICAÇÃO
+========================= */
 
-    onAuthStateChanged(
-      auth,
-      (user) => {
+onAuthStateChanged(
+  auth,
+  async (user) => {
 
-        if(user){
+    if(user){
 
-          areaArtistaBtn.href =
-            "feed.html";
+      console.log(
+        "Utilizador logado:",
+        user.uid
+      );
 
-          areaArtistaBtn.innerHTML =
-            "👤 ENTRAR NO FEED";
+
+      /* =========================
+         ÁREA DO ARTISTA
+      ========================= */
+
+      areaArtistaBtn.href =
+        "feed.html";
+
+      areaArtistaBtn.innerHTML =
+        "👤 ENTRAR NO FEED";
 
 
-          notificationBtn.classList.add(
-            "show"
+      /* =========================
+         NOTIFICAÇÕES
+      ========================= */
+
+      notificationBtn.classList.add(
+        "show"
+      );
+
+
+      /* =========================
+         ADMIN
+      ========================= */
+
+      try{
+
+        const adminRef =
+          doc(
+            db,
+            "artistas",
+            user.uid
           );
 
 
-          /* =========================
-             ADMIN
-          ========================== */
+        const adminSnap =
+          await getDoc(
+            adminRef
+          );
 
-          if(
-            user.uid ===
-            "sFNOO11AEVZ0m6UZngw41pcHvvg2"
-          ){
 
-            adminBtn.style.display =
-              "inline-flex";
+        if(!adminSnap.exists()){
 
-          }else{
+          console.log(
+            "Perfil do artista não encontrado."
+          );
 
-            adminBtn.style.display =
-              "none";
+          adminBtn.style.display =
+            "none";
 
-          }
+          return;
 
+        }
+
+
+        const dadosAdmin =
+          adminSnap.data();
+
+
+        console.log(
+          "Dados do perfil:",
+          dadosAdmin
+        );
+
+
+        if(dadosAdmin.admin === true){
+
+          console.log(
+            "ADMIN DETETADO 👑"
+          );
+
+          adminBtn.style.display =
+            "inline-flex";
 
         }else{
 
-          areaArtistaBtn.href =
-            "area-do-artista.html";
-
-          areaArtistaBtn.innerHTML =
-            "👤 ÁREA DO ARTISTA";
-
-
-          notificationBtn.classList.remove(
-            "show"
+          console.log(
+            "Este utilizador não é administrador."
           );
-
-
-          notificationPanel.classList.remove(
-            "open"
-          );
-
 
           adminBtn.style.display =
             "none";
 
         }
 
-      }
-    );
+      }catch(error){
 
+        console.error(
+          "Erro ao verificar administrador:",
+          error
+        );
+
+        adminBtn.style.display =
+          "none";
+
+      }
+
+
+    }else{
+
+
+      /* =========================
+         UTILIZADOR DESLOGADO
+      ========================= */
+
+      areaArtistaBtn.href =
+        "area-do-artista.html";
+
+      areaArtistaBtn.innerHTML =
+        "👤 ÁREA DO ARTISTA";
+
+
+      notificationBtn.classList.remove(
+        "show"
+      );
+
+
+      notificationPanel.classList.remove(
+        "open"
+      );
+
+
+      adminBtn.style.display =
+        "none";
+
+    }
+
+  }
+);
 
 
     /* =========================
