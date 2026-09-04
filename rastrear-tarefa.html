@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>A abrir conteúdo — KUDURO PRIME</title>
+
+  <style>
+
+    :root{
+      --bg:#070707;
+      --panel:#101010;
+      --gold:#f4bf31;
+      --gold2:#ffdc6b;
+      --text:#f7f4ed;
+      --muted:#aaa59a;
+      --red:#ff563f;
+    }
+
+    *{
+      box-sizing:border-box;
+    }
+
+    body{
+      margin:0;
+      min-height:100vh;
+
+      display:flex;
+      align-items:center;
+      justify-content:center;
+
+      background:var(--bg);
+      color:var(--text);
+
+      font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+      padding:20px;
+    }
+
+    .box{
+
+      width:min(500px,100%);
+
+      background:var(--panel);
+
+      border:1px solid #292929;
+
+      border-radius:22px;
+
+      padding:35px 25px;
+
+      text-align:center;
+
+      box-shadow:
+        0 20px 60px rgba(0,0,0,.45);
+
+    }
+
+    .logo{
+
+      color:var(--gold);
+
+      font-size:22px;
+
+      font-weight:900;
+
+      letter-spacing:1px;
+
+      margin-bottom:30px;
+
+    }
+
+    .logo span{
+      color:var(--text);
+    }
+
+    .icon{
+
+      font-size:55px;
+
+      margin-bottom:15px;
+
+    }
+
+    h1{
+
+      margin:0 0 12px;
+
+      font-size:25px;
+
+    }
+
+    p{
+
+      color:var(--muted);
+
+      line-height:1.6;
+
+      margin:0;
+
+    }
+
+    .loading{
+
+      margin:25px auto 0;
+
+      width:42px;
+      height:42px;
+
+      border:4px solid #292929;
+
+      border-top-color:var(--gold);
+
+      border-radius:50%;
+
+      animation:
+        girar
+        1s linear infinite;
+
+    }
+
+    .erro{
+
+      color:var(--red);
+
+      margin-top:20px;
+
+      font-weight:800;
+
+    }
+
+    .btn{
+
+      display:inline-block;
+
+      margin-top:20px;
+
+      padding:12px 18px;
+
+      border-radius:10px;
+
+      background:var(--gold);
+
+      color:#080808;
+
+      font-weight:900;
+
+      text-decoration:none;
+
+    }
+
+    @keyframes girar{
+
+      to{
+        transform:rotate(360deg);
+      }
+
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <div class="box">
+
+    <div class="logo">
+      KUDURO<span>PRIME</span>
+    </div>
+
+    <div
+      class="icon"
+      id="icon"
+    >
+      🔗
+    </div>
+
+    <h1 id="titulo">
+      A preparar conteúdo...
+    </h1>
+
+    <p id="mensagem">
+      Estamos a registar o teu acesso.
+    </p>
+
+    <div
+      class="loading"
+      id="loading"
+    ></div>
+
+    <div
+      class="erro"
+      id="erro"
+    ></div>
+
+  </div>
+
+
+  <script type="module">
+
+    // =====================================
+    // FIREBASE
+    // =====================================
+
+    import {
+      initializeApp
+    }
+    from
+    "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+
+    import {
+      getFirestore,
+      doc,
+      getDoc,
+      updateDoc,
+      increment
+    }
+    from
+    "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+
+    const firebaseConfig = {
+
+      apiKey:
+        "AIzaSyDoitCcLeLDNBNPCP6fG1s_xbHr4UmohSo",
+
+      authDomain:
+        "kuduro-prime.firebaseapp.com",
+
+      projectId:
+        "kuduro-prime",
+
+      storageBucket:
+        "kuduro-prime.firebasestorage.app",
+
+      messagingSenderId:
+        "299776559545",
+
+      appId:
+        "1:299776559545:web:04aced1ba25391eb3fce68"
+
+    };
+
+
+    const app =
+      initializeApp(
+        firebaseConfig
+      );
+
+
+    const db =
+      getFirestore(app);
+
+
+    // =====================================
+    // ELEMENTOS
+    // =====================================
+
+    const titulo =
+      document.getElementById(
+        "titulo"
+      );
+
+
+    const mensagem =
+      document.getElementById(
+        "mensagem"
+      );
+
+
+    const erro =
+      document.getElementById(
+        "erro"
+      );
+
+
+    const loading =
+      document.getElementById(
+        "loading"
+      );
+
+
+    const icon =
+      document.getElementById(
+        "icon"
+      );
+
+
+    // =====================================
+    // PARÂMETROS DO LINK
+    // =====================================
+
+    const params =
+      new URLSearchParams(
+        window.location.search
+      );
+
+
+    const tarefaId =
+      params.get(
+        "tarefa"
+      );
+
+
+    const participacaoId =
+      params.get(
+        "participacao"
+      );
+
+
+    // =====================================
+    // ERRO
+    // =====================================
+
+    function mostrarErro(
+      texto
+    ){
+
+      loading.style.display =
+        "none";
+
+      titulo.textContent =
+        "Não foi possível abrir";
+
+
+      mensagem.textContent =
+        "";
+
+
+      erro.textContent =
+        texto;
+
+    }
+
+
+    // =====================================
+    // PROCESSAR LINK
+    // =====================================
+
+    async function processarLink(){
+
+      try{
+
+        // ---------------------------------
+        // VERIFICAR PARÂMETROS
+        // ---------------------------------
+
+        if(
+          !tarefaId ||
+          !participacaoId
+        ){
+
+          mostrarErro(
+            "Link de tarefa inválido."
+          );
+
+          return;
+
+        }
+
+
+        // ---------------------------------
+        // BUSCAR PARTICIPAÇÃO
+        // ---------------------------------
+
+        const participacaoRef =
+          doc(
+            db,
+            "participacoesTarefas",
+            participacaoId
+          );
+
+
+        const participacaoSnap =
+          await getDoc(
+            participacaoRef
+          );
+
+
+        if(
+          !participacaoSnap.exists()
+        ){
+
+          mostrarErro(
+            "Esta participação não existe."
+          );
+
+          return;
+
+        }
+
+
+        const participacao =
+          participacaoSnap.data();
+
+
+        // ---------------------------------
+        // CONFIRMAR TAREFA
+        // ---------------------------------
+
+        if(
+          participacao.tarefaId !==
+          tarefaId
+        ){
+
+          mostrarErro(
+            "O link não corresponde à tarefa."
+          );
+
+          return;
+
+        }
+
+
+        // ---------------------------------
+        // BUSCAR TAREFA
+        // ---------------------------------
+
+        const tarefaRef =
+          doc(
+            db,
+            "tarefas",
+            tarefaId
+          );
+
+
+        const tarefaSnap =
+          await getDoc(
+            tarefaRef
+          );
+
+
+        if(
+          !tarefaSnap.exists()
+        ){
+
+          mostrarErro(
+            "Esta tarefa não existe."
+          );
+
+          return;
+
+        }
+
+
+        const tarefa =
+          tarefaSnap.data();
+
+
+        // ---------------------------------
+        // VERIFICAR STATUS
+        // ---------------------------------
+
+        if(
+          tarefa.status !==
+          "ativa"
+        ){
+
+          mostrarErro(
+            "Esta tarefa já não está ativa."
+          );
+
+          return;
+
+        }
+
+
+        // ---------------------------------
+        // IDENTIFICAR CONTEÚDO
+        // ---------------------------------
+
+        let destino = "";
+        let tipo = "";
+
+
+        // ================================
+        // MÚSICA
+        // ================================
+
+        if(
+          tarefa.musicaId
+        ){
+
+          const musicaRef =
+            doc(
+              db,
+              "musicas",
+              tarefa.musicaId
+            );
+
+
+          const musicaSnap =
+            await getDoc(
+              musicaRef
+            );
+
+
+          if(
+            !musicaSnap.exists()
+          ){
+
+            mostrarErro(
+              "A música desta tarefa não foi encontrada."
+            );
+
+            return;
+
+          }
+
+
+          const musica =
+            musicaSnap.data();
+
+
+          destino =
+            musica.audioUrl ||
+            musica.audio ||
+            "";
+
+
+          tipo =
+            "musica";
+
+
+          icon.textContent =
+            "🎵";
+
+
+          titulo.textContent =
+            "A abrir a música...";
+
+
+          mensagem.textContent =
+            musica.titulo ||
+            musica.title ||
+            "Música do KUDURO PRIME";
+
+        }
+
+
+        // ================================
+        // VÍDEO
+        // ================================
+
+        else if(
+          tarefa.videoId
+        ){
+
+          const videoRef =
+            doc(
+              db,
+              "videos",
+              tarefa.videoId
+            );
+
+
+          const videoSnap =
+            await getDoc(
+              videoRef
+            );
+
+
+          if(
+            !videoSnap.exists()
+          ){
+
+            mostrarErro(
+              "O vídeo desta tarefa não foi encontrado."
+            );
+
+            return;
+
+          }
+
+
+          const video =
+            videoSnap.data();
+
+
+          destino =
+            video.videoUrl ||
+            video.video ||
+            "";
+
+
+          tipo =
+            "video";
+
+
+          icon.textContent =
+            "🎬";
+
+
+          titulo.textContent =
+            "A abrir o vídeo...";
+
+
+          mensagem.textContent =
+            video.titulo ||
+            video.title ||
+            "Vídeo do KUDURO PRIME";
+
+        }
+
+
+        // ================================
+        // PERFIL
+        // ================================
+
+        else if(
+          tarefa.perfilId
+        ){
+
+          destino =
+            "perfil.html?id=" +
+            encodeURIComponent(
+              tarefa.perfilId
+            );
+
+
+          tipo =
+            "perfil";
+
+
+          icon.textContent =
+            "👤";
+
+
+          titulo.textContent =
+            "A abrir o perfil...";
+
+
+          mensagem.textContent =
+            "Perfil do artista";
+
+        }
+
+
+        // ================================
+        // SEM DESTINO
+        // ================================
+
+        else{
+
+          mostrarErro(
+            "Esta tarefa não possui conteúdo definido."
+          );
+
+          return;
+
+        }
+
+
+        // ---------------------------------
+        // VERIFICAR URL
+        // ---------------------------------
+
+        if(
+          !destino
+        ){
+
+          mostrarErro(
+            "O conteúdo desta tarefa não possui um endereço válido."
+          );
+
+          return;
+
+        }
+
+
+        // ---------------------------------
+        // REGISTAR CLIQUE
+        // ---------------------------------
+
+        await updateDoc(
+
+          participacaoRef,
+
+          {
+
+            cliques:
+              increment(1)
+
+          }
+
+        );
+
+
+        console.log(
+          "Clique registado.",
+          {
+            tarefaId,
+            participacaoId,
+            tipo
+          }
+        );
+
+
+        // ---------------------------------
+        // PEQUENO TEMPO PARA REGISTAR
+        // ---------------------------------
+
+        setTimeout(
+
+          () => {
+
+            window.location.href =
+              destino;
+
+          },
+
+          500
+
+        );
+
+      }
+
+      catch(error){
+
+        console.error(
+          "Erro no rastreamento:",
+          error
+        );
+
+
+        mostrarErro(
+          "Ocorreu um erro ao processar o link."
+        );
+
+      }
+
+    }
+
+
+    // =====================================
+    // INICIAR
+    // =====================================
+
+    processarLink();
+
+  </script>
+
+</body>
+</html>
