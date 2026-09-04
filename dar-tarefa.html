@@ -1,0 +1,2540 @@
+```html
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Dar Tarefas — KUDURO PRIME</title>
+
+  <style>
+
+    :root{
+      --bg:#070707;
+      --panel:#101010;
+      --panel2:#181818;
+      --gold:#f4bf31;
+      --gold2:#ffdc6b;
+      --text:#f7f4ed;
+      --muted:#aaa59a;
+      --line:#292929;
+      --green:#31c96b;
+      --red:#ff563f;
+      --blue:#4eb8ff;
+    }
+
+    *{
+      box-sizing:border-box;
+      margin:0;
+      padding:0;
+    }
+
+    body{
+      background:var(--bg);
+      color:var(--text);
+      font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+      min-height:100vh;
+    }
+
+    a{
+      color:inherit;
+      text-decoration:none;
+    }
+
+    /* =========================
+       HEADER
+    ========================== */
+
+    header{
+      height:70px;
+      border-bottom:1px solid var(--line);
+      background:#090909;
+
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+
+      padding:0 35px;
+
+      position:sticky;
+      top:0;
+      z-index:100;
+    }
+
+    .logo{
+      font-size:23px;
+      font-weight:1000;
+      letter-spacing:-1px;
+    }
+
+    .logo span{
+      color:var(--gold);
+    }
+
+    nav{
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+
+    nav a{
+      padding:10px 14px;
+      border-radius:10px;
+      color:var(--muted);
+      font-size:13px;
+      font-weight:800;
+    }
+
+    nav a:hover{
+      background:var(--panel2);
+      color:var(--text);
+    }
+
+    .voltar{
+      color:var(--gold);
+    }
+
+    /* =========================
+       MAIN
+    ========================== */
+
+    main{
+      width:min(900px, calc(100% - 30px));
+      margin:0 auto;
+      padding:45px 0 80px;
+    }
+
+    /* =========================
+       HERO
+    ========================== */
+
+    .hero{
+      background:
+        linear-gradient(
+          135deg,
+          rgba(244,191,49,.10),
+          rgba(255,255,255,.015)
+        );
+
+      border:1px solid var(--line);
+      border-radius:24px;
+
+      padding:35px;
+      margin-bottom:25px;
+    }
+
+    .hero-badge{
+      display:inline-block;
+
+      background:rgba(244,191,49,.12);
+      color:var(--gold);
+
+      border:1px solid rgba(244,191,49,.25);
+
+      padding:7px 12px;
+      border-radius:999px;
+
+      font-size:11px;
+      font-weight:1000;
+
+      margin-bottom:15px;
+    }
+
+    .hero h1{
+      font-size:34px;
+      line-height:1.05;
+      margin-bottom:12px;
+    }
+
+    .hero h1 span{
+      color:var(--gold);
+    }
+
+    .hero p{
+      color:var(--muted);
+      line-height:1.6;
+      max-width:700px;
+      font-size:15px;
+    }
+
+    /* =========================
+       FORM CARD
+    ========================== */
+
+    .card{
+      background:var(--panel);
+      border:1px solid var(--line);
+      border-radius:22px;
+      padding:30px;
+      margin-bottom:22px;
+    }
+
+    .card h2{
+      font-size:20px;
+      margin-bottom:8px;
+    }
+
+    .card-subtitle{
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.5;
+      margin-bottom:25px;
+    }
+
+    /* =========================
+       FORM
+    ========================== */
+
+    .campo{
+      margin-bottom:22px;
+    }
+
+    .campo label{
+      display:block;
+
+      font-size:12px;
+      font-weight:900;
+
+      margin-bottom:8px;
+    }
+
+    .campo small{
+      display:block;
+
+      color:var(--muted);
+      font-size:11px;
+      line-height:1.4;
+
+      margin-top:7px;
+    }
+
+    select,
+    input,
+    textarea{
+      width:100%;
+
+      background:#080808;
+      color:var(--text);
+
+      border:1px solid var(--line);
+      border-radius:12px;
+
+      padding:14px;
+
+      outline:none;
+
+      font-family:inherit;
+      font-size:14px;
+    }
+
+    select:focus,
+    input:focus,
+    textarea:focus{
+      border-color:var(--gold);
+    }
+
+    textarea{
+      min-height:120px;
+      resize:vertical;
+    }
+
+    /* =========================
+       TASK TYPES
+    ========================== */
+
+    .tipos{
+      display:grid;
+      grid-template-columns:
+        repeat(2, minmax(0,1fr));
+
+      gap:12px;
+    }
+
+    .tipo{
+      position:relative;
+    }
+
+    .tipo input{
+      position:absolute;
+      opacity:0;
+      pointer-events:none;
+    }
+
+    .tipo label{
+      display:block;
+
+      background:#0b0b0b;
+      border:1px solid var(--line);
+
+      border-radius:16px;
+
+      padding:18px;
+
+      cursor:pointer;
+
+      transition:.2s;
+    }
+
+    .tipo label:hover{
+      border-color:#555;
+      transform:translateY(-1px);
+    }
+
+    .tipo input:checked + label{
+      border-color:var(--gold);
+      background:rgba(244,191,49,.08);
+      box-shadow:
+        0 0 0 1px
+        rgba(244,191,49,.15);
+    }
+
+    .tipo-icone{
+      font-size:27px;
+      margin-bottom:9px;
+    }
+
+    .tipo-titulo{
+      font-size:14px;
+      font-weight:1000;
+      margin-bottom:5px;
+    }
+
+    .tipo-info{
+      color:var(--muted);
+      font-size:11px;
+      line-height:1.4;
+    }
+
+    .tipo-premio{
+      margin-top:10px;
+
+      color:var(--gold);
+
+      font-size:13px;
+      font-weight:1000;
+    }
+
+    /* =========================
+       RESUMO
+    ========================== */
+
+    .resumo{
+      background:#090909;
+
+      border:1px solid var(--line);
+      border-radius:16px;
+
+      padding:20px;
+    }
+
+    .resumo-titulo{
+      font-size:13px;
+      font-weight:1000;
+
+      margin-bottom:15px;
+    }
+
+    .resumo-linha{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+
+      gap:15px;
+
+      padding:9px 0;
+
+      border-bottom:1px solid
+        rgba(255,255,255,.05);
+    }
+
+    .resumo-linha:last-child{
+      border-bottom:none;
+    }
+
+    .resumo-linha span:first-child{
+      color:var(--muted);
+      font-size:12px;
+    }
+
+    .resumo-linha strong{
+      font-size:13px;
+      text-align:right;
+    }
+
+    .resumo-premio{
+      color:var(--gold);
+      font-size:20px !important;
+    }
+
+    /* =========================
+       CONTENT SELECT
+    ========================== */
+
+    .conteudo-box{
+      display:none;
+    }
+
+    .conteudo-box.ativo{
+      display:block;
+    }
+
+    .conteudo-preview{
+      background:#090909;
+      border:1px solid var(--line);
+      border-radius:15px;
+
+      padding:15px;
+
+      margin-top:10px;
+
+      color:var(--muted);
+      font-size:12px;
+      line-height:1.5;
+    }
+
+    /* =========================
+       DIVULGACAO
+    ========================== */
+
+    .grupos-box{
+      display:grid;
+
+      grid-template-columns:
+        repeat(2, minmax(0,1fr));
+
+      gap:12px;
+    }
+
+    .grupo-info{
+      background:#090909;
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:18px;
+    }
+
+    .grupo-info strong{
+      display:block;
+      color:var(--gold);
+      font-size:22px;
+      margin-bottom:5px;
+    }
+
+    .grupo-info span{
+      color:var(--muted);
+      font-size:11px;
+    }
+
+    /* =========================
+       WARNING
+    ========================== */
+
+    .aviso{
+      display:flex;
+      gap:12px;
+
+      background:
+        rgba(244,191,49,.06);
+
+      border:1px solid
+        rgba(244,191,49,.20);
+
+      border-radius:15px;
+
+      padding:16px;
+
+      margin-bottom:22px;
+    }
+
+    .aviso-icon{
+      font-size:22px;
+    }
+
+    .aviso-text{
+      color:var(--muted);
+      font-size:12px;
+      line-height:1.6;
+    }
+
+    .aviso-text strong{
+      color:var(--text);
+    }
+
+    /* =========================
+       BUTTON
+    ========================== */
+
+    .acoes{
+      display:flex;
+      gap:12px;
+      margin-top:25px;
+    }
+
+    .btn{
+      border:none;
+      border-radius:13px;
+
+      padding:15px 20px;
+
+      font-size:13px;
+      font-weight:1000;
+
+      cursor:pointer;
+
+      transition:.2s;
+
+      text-align:center;
+    }
+
+    .btn-principal{
+      flex:1;
+
+      background:var(--gold);
+      color:#080808;
+    }
+
+    .btn-principal:hover{
+      background:var(--gold2);
+      transform:translateY(-1px);
+    }
+
+    .btn-principal:disabled{
+      opacity:.5;
+      cursor:not-allowed;
+      transform:none;
+    }
+
+    .btn-voltar{
+      background:var(--panel2);
+      color:var(--text);
+      border:1px solid var(--line);
+    }
+
+    /* =========================
+       LOADING
+    ========================== */
+
+    .loading{
+      display:none;
+
+      text-align:center;
+
+      color:var(--muted);
+
+      font-size:13px;
+
+      padding:15px;
+    }
+
+    /* =========================
+       MENSAGEM
+    ========================== */
+
+    .mensagem{
+      display:none;
+
+      padding:14px;
+
+      border-radius:12px;
+
+      margin-top:18px;
+
+      font-size:13px;
+
+      line-height:1.5;
+    }
+
+    .mensagem.erro{
+      display:block;
+
+      background:
+        rgba(255,86,63,.10);
+
+      border:1px solid
+        rgba(255,86,63,.25);
+
+      color:#ff9b8d;
+    }
+
+    .mensagem.sucesso{
+      display:block;
+
+      background:
+        rgba(49,201,107,.10);
+
+      border:1px solid
+        rgba(49,201,107,.25);
+
+      color:#7ce6a4;
+    }
+
+    /* =========================
+       RESPONSIVO
+    ========================== */
+
+    @media(max-width:700px){
+
+      header{
+        padding:0 15px;
+      }
+
+      header nav a:not(.voltar){
+        display:none;
+      }
+
+      main{
+        width:min(100% - 20px, 900px);
+        padding-top:25px;
+      }
+
+      .hero{
+        padding:25px 20px;
+        border-radius:20px;
+      }
+
+      .hero h1{
+        font-size:27px;
+      }
+
+      .card{
+        padding:20px;
+        border-radius:18px;
+      }
+
+      .tipos{
+        grid-template-columns:1fr;
+      }
+
+      .grupos-box{
+        grid-template-columns:1fr;
+      }
+
+      .acoes{
+        flex-direction:column;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <!-- =========================
+       HEADER
+  ========================== -->
+
+  <header>
+
+    <a
+      href="index.html"
+      class="logo"
+    >
+      KUDURO<span>PRIME</span>
+    </a>
+
+    <nav>
+
+      <a
+        href="tarefas.html"
+        class="voltar"
+      >
+        ← TAREFAS
+      </a>
+
+      <a href="meu-perfil.html">
+        MEU PERFIL
+      </a>
+
+      <a href="ranking.html">
+        RANKING
+      </a>
+
+    </nav>
+
+  </header>
+
+
+  <!-- =========================
+       MAIN
+  ========================== -->
+
+  <main>
+
+
+    <!-- HERO -->
+
+    <section class="hero">
+
+      <div class="hero-badge">
+        👑 KUDURO PRIME
+      </div>
+
+      <h1>
+        DAR <span>TAREFAS</span>
+      </h1>
+
+      <p>
+        Promove a tua música, o teu vídeo ou o teu perfil
+        através da comunidade KUDURO PRIME.
+        Tu crias a tarefa, os artistas participam e
+        quem cumprir corretamente o objetivo pode receber
+        a recompensa.
+      </p>
+
+    </section>
+
+
+    <!-- AVISO -->
+
+    <div class="aviso">
+
+      <div class="aviso-icon">
+        💰
+      </div>
+
+      <div class="aviso-text">
+
+        <strong>
+          Como funciona?
+        </strong>
+
+        <br>
+
+        Escolhe o tipo de divulgação, seleciona o conteúdo
+        que queres promover e cria a tarefa.
+        A recompensa é definida automaticamente pelo
+        KUDURO PRIME conforme o tipo de tarefa.
+
+      </div>
+
+    </div>
+
+
+    <!-- FORMULÁRIO -->
+
+    <form
+      id="formTarefa"
+    >
+
+
+      <!-- TIPO -->
+
+      <section class="card">
+
+        <h2>
+          1. Escolhe o tipo de tarefa
+        </h2>
+
+        <p class="card-subtitle">
+          Cada tipo de tarefa possui uma recompensa e um
+          objetivo definidos.
+        </p>
+
+
+        <div class="tipos">
+
+
+          <!-- MUSICA -->
+
+          <div class="tipo">
+
+            <input
+              type="radio"
+              name="tipo"
+              id="tipoMusica"
+              value="musica"
+            >
+
+            <label for="tipoMusica">
+
+              <div class="tipo-icone">
+                🎵
+              </div>
+
+              <div class="tipo-titulo">
+                Partilhar música
+              </div>
+
+              <div class="tipo-info">
+                Partilha uma música nas tuas redes
+                e gera cliques através do link exclusivo.
+              </div>
+
+              <div class="tipo-premio">
+                200 Kz · 50 cliques
+              </div>
+
+            </label>
+
+          </div>
+
+
+          <!-- VIDEO -->
+
+          <div class="tipo">
+
+            <input
+              type="radio"
+              name="tipo"
+              id="tipoVideo"
+              value="video"
+            >
+
+            <label for="tipoVideo">
+
+              <div class="tipo-icone">
+                🎬
+              </div>
+
+              <div class="tipo-titulo">
+                Partilhar vídeo
+              </div>
+
+              <div class="tipo-info">
+                Divulga um vídeo publicado no
+                KUDURO PRIME.
+              </div>
+
+              <div class="tipo-premio">
+                400 Kz · 50 cliques
+              </div>
+
+            </label>
+
+          </div>
+
+
+          <!-- PERFIL -->
+
+          <div class="tipo">
+
+            <input
+              type="radio"
+              name="tipo"
+              id="tipoPerfil"
+              value="perfil"
+            >
+
+            <label for="tipoPerfil">
+
+              <div class="tipo-icone">
+                👤
+              </div>
+
+              <div class="tipo-titulo">
+                Seguir perfil
+              </div>
+
+              <div class="tipo-info">
+                Ajuda um artista a aumentar o alcance
+                do seu perfil.
+              </div>
+
+              <div class="tipo-premio">
+                50 Kz · 1 ação
+              </div>
+
+            </label>
+
+          </div>
+
+
+          <!-- DIVULGACAO -->
+
+          <div class="tipo">
+
+            <input
+              type="radio"
+              name="tipo"
+              id="tipoDivulgacao"
+              value="divulgacao"
+            >
+
+            <label for="tipoDivulgacao">
+
+              <div class="tipo-icone">
+                📢
+              </div>
+
+              <div class="tipo-titulo">
+                Divulgação
+              </div>
+
+              <div class="tipo-info">
+                Divulga o conteúdo em grupos
+                do Facebook e WhatsApp.
+              </div>
+
+              <div class="tipo-premio">
+                500 Kz · 50 grupos
+              </div>
+
+            </label>
+
+          </div>
+
+
+          <!-- VIDEO COM MUSICA -->
+
+          <div class="tipo">
+
+            <input
+              type="radio"
+              name="tipo"
+              id="tipoCriarVideo"
+              value="criar_video"
+            >
+
+            <label for="tipoCriarVideo">
+
+              <div class="tipo-icone">
+                🎥
+              </div>
+
+              <div class="tipo-titulo">
+                Criar vídeo com a minha música
+              </div>
+
+              <div class="tipo-info">
+                Cria um vídeo original utilizando
+                a música selecionada.
+              </div>
+
+              <div class="tipo-premio">
+                300 Kz · 1 vídeo
+              </div>
+
+            </label>
+
+          </div>
+
+
+        </div>
+
+      </section>
+
+
+      <!-- DADOS -->
+
+      <section class="card">
+
+        <h2>
+          2. Informações da tarefa
+        </h2>
+
+        <p class="card-subtitle">
+          Define o que os participantes precisam fazer.
+        </p>
+
+
+        <!-- TITULO -->
+
+        <div class="campo">
+
+          <label for="titulo">
+            Título da tarefa
+          </label>
+
+          <input
+            type="text"
+            id="titulo"
+            maxlength="100"
+            placeholder="Ex.: Partilha a minha nova música"
+            required
+          >
+
+          <small>
+            Usa um título curto e fácil de entender.
+          </small>
+
+        </div>
+
+
+        <!-- DESCRICAO -->
+
+        <div class="campo">
+
+          <label for="descricao">
+            Descrição
+          </label>
+
+          <textarea
+            id="descricao"
+            maxlength="500"
+            placeholder="Explica aos participantes o que devem fazer..."
+            required
+          ></textarea>
+
+          <small>
+            Explica claramente como a tarefa deve ser realizada.
+          </small>
+
+        </div>
+
+
+        <!-- MAX PARTICIPANTES -->
+
+        <div class="campo">
+
+          <label for="maxParticipantes">
+            Número máximo de participantes
+          </label>
+
+          <input
+            type="number"
+            id="maxParticipantes"
+            min="1"
+            max="1000"
+            value="20"
+            required
+          >
+
+          <small>
+            O valor da recompensa é reservado para um único vencedor.
+            Mais pessoas podem participar, mas apenas a primeira
+            participação corretamente verificada recebe a recompensa.
+          </small>
+
+        </div>
+
+      </section>
+
+
+      <!-- MUSICA -->
+
+      <section
+        class="card conteudo-box"
+        id="boxMusica"
+      >
+
+        <h2>
+          3. Escolhe a música
+        </h2>
+
+        <p class="card-subtitle">
+          Seleciona a música que queres promover.
+        </p>
+
+        <div class="campo">
+
+          <label for="musicaId">
+            Música
+          </label>
+
+          <select id="musicaId">
+
+            <option value="">
+              A carregar músicas...
+            </option>
+
+          </select>
+
+        </div>
+
+      </section>
+
+
+      <!-- VIDEO -->
+
+      <section
+        class="card conteudo-box"
+        id="boxVideo"
+      >
+
+        <h2>
+          3. Escolhe o vídeo
+        </h2>
+
+        <p class="card-subtitle">
+          Seleciona o vídeo que queres divulgar.
+        </p>
+
+        <div class="campo">
+
+          <label for="videoId">
+            Vídeo
+          </label>
+
+          <select id="videoId">
+
+            <option value="">
+              A carregar vídeos...
+            </option>
+
+          </select>
+
+        </div>
+
+      </section>
+
+
+      <!-- PERFIL -->
+
+      <section
+        class="card conteudo-box"
+        id="boxPerfil"
+      >
+
+        <h2>
+          3. Escolhe o perfil
+        </h2>
+
+        <p class="card-subtitle">
+          Seleciona o perfil que queres ajudar a divulgar.
+        </p>
+
+        <div class="campo">
+
+          <label for="perfilId">
+            Perfil
+          </label>
+
+          <select id="perfilId">
+
+            <option value="">
+              A carregar perfis...
+            </option>
+
+          </select>
+
+        </div>
+
+      </section>
+
+
+      <!-- DIVULGACAO -->
+
+      <section
+        class="card conteudo-box"
+        id="boxDivulgacao"
+      >
+
+        <h2>
+          3. Divulgação
+        </h2>
+
+        <p class="card-subtitle">
+          A tarefa exige divulgação em 50 grupos.
+        </p>
+
+
+        <div class="grupos-box">
+
+          <div class="grupo-info">
+
+            <strong>
+              25
+            </strong>
+
+            <span>
+              Grupos do Facebook
+            </span>
+
+          </div>
+
+          <div class="grupo-info">
+
+            <strong>
+              25
+            </strong>
+
+            <span>
+              Grupos do WhatsApp
+            </span>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- CRIAR VIDEO -->
+
+      <section
+        class="card conteudo-box"
+        id="boxCriarVideo"
+      >
+
+        <h2>
+          3. Escolhe a música
+        </h2>
+
+        <p class="card-subtitle">
+          O participante deverá criar um vídeo utilizando
+          a música selecionada.
+        </p>
+
+        <div class="campo">
+
+          <label for="musicaVideoId">
+            Música
+          </label>
+
+          <select id="musicaVideoId">
+
+            <option value="">
+              A carregar músicas...
+            </option>
+
+          </select>
+
+        </div>
+
+      </section>
+
+
+      <!-- RESUMO -->
+
+      <section class="card">
+
+        <h2>
+          4. Resumo
+        </h2>
+
+        <p class="card-subtitle">
+          Confirma os dados antes de criar a tarefa.
+        </p>
+
+
+        <div class="resumo">
+
+          <div class="resumo-titulo">
+            RESUMO DA TAREFA
+          </div>
+
+
+          <div class="resumo-linha">
+
+            <span>
+              Tipo
+            </span>
+
+            <strong id="resumoTipo">
+              —
+            </strong>
+
+          </div>
+
+
+          <div class="resumo-linha">
+
+            <span>
+              Recompensa
+            </span>
+
+            <strong
+              id="resumoPremio"
+              class="resumo-premio"
+            >
+              0 Kz
+            </strong>
+
+          </div>
+
+
+          <div class="resumo-linha">
+
+            <span>
+              Objetivo
+            </span>
+
+            <strong id="resumoMeta">
+              —
+            </strong>
+
+          </div>
+
+
+          <div class="resumo-linha">
+
+            <span>
+              Participantes
+            </span>
+
+            <strong id="resumoParticipantes">
+              20
+            </strong>
+
+          </div>
+
+
+        </div>
+
+
+        <div
+          id="mensagem"
+          class="mensagem"
+        ></div>
+
+
+        <div
+          id="loading"
+          class="loading"
+        >
+          A criar a tua tarefa...
+        </div>
+
+
+        <div class="acoes">
+
+          <a
+            href="tarefas.html"
+            class="btn btn-voltar"
+          >
+            CANCELAR
+          </a>
+
+          <button
+            type="submit"
+            class="btn btn-principal"
+            id="btnCriar"
+          >
+            ➕ CRIAR TAREFA
+          </button>
+
+        </div>
+
+      </section>
+
+
+    </form>
+
+  </main>
+
+
+  <!-- =========================
+       FIREBASE
+  ========================== -->
+
+  <script type="module">
+
+    import {
+      initializeApp
+    } from
+      "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+
+    import {
+      getAuth,
+      onAuthStateChanged
+    } from
+      "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+
+    import {
+      getFirestore,
+      collection,
+      query,
+      where,
+      getDocs,
+      addDoc,
+      serverTimestamp
+    } from
+      "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+
+    /* =========================
+       FIREBASE CONFIG
+    ========================== */
+
+    const firebaseConfig = {
+
+      apiKey:
+        "AIzaSyDoitCcLeLDNBNPCP6fG1s_xbHr4UmohSo",
+
+      authDomain:
+        "kuduro-prime.firebaseapp.com",
+
+      projectId:
+        "kuduro-prime",
+
+      storageBucket:
+        "kuduro-prime.firebasestorage.app",
+
+      messagingSenderId:
+        "299776559545",
+
+      appId:
+        "1:299776559545:web:04aced1ba25391eb3fce68"
+
+    };
+
+
+    const app =
+      initializeApp(firebaseConfig);
+
+
+    const auth =
+      getAuth(app);
+
+
+    const db =
+      getFirestore(app);
+
+
+    /* =========================
+       ELEMENTOS
+    ========================== */
+
+    const form =
+      document.getElementById(
+        "formTarefa"
+      );
+
+    const titulo =
+      document.getElementById(
+        "titulo"
+      );
+
+    const descricao =
+      document.getElementById(
+        "descricao"
+      );
+
+    const maxParticipantes =
+      document.getElementById(
+        "maxParticipantes"
+      );
+
+    const musicaId =
+      document.getElementById(
+        "musicaId"
+      );
+
+    const musicaVideoId =
+      document.getElementById(
+        "musicaVideoId"
+      );
+
+    const videoId =
+      document.getElementById(
+        "videoId"
+      );
+
+    const perfilId =
+      document.getElementById(
+        "perfilId"
+      );
+
+    const resumoTipo =
+      document.getElementById(
+        "resumoTipo"
+      );
+
+    const resumoPremio =
+      document.getElementById(
+        "resumoPremio"
+      );
+
+    const resumoMeta =
+      document.getElementById(
+        "resumoMeta"
+      );
+
+    const resumoParticipantes =
+      document.getElementById(
+        "resumoParticipantes"
+      );
+
+    const mensagem =
+      document.getElementById(
+        "mensagem"
+      );
+
+    const loading =
+      document.getElementById(
+        "loading"
+      );
+
+    const btnCriar =
+      document.getElementById(
+        "btnCriar"
+      );
+
+
+    /* =========================
+       CONFIGURAÇÃO DOS TIPOS
+    ========================== */
+
+    const configuracaoTarefas = {
+
+      musica: {
+
+        nome:
+          "🎵 Partilhar música",
+
+        recompensa:
+          200,
+
+        metaCliques:
+          50
+
+      },
+
+      video: {
+
+        nome:
+          "🎬 Partilhar vídeo",
+
+        recompensa:
+          400,
+
+        metaCliques:
+          50
+
+      },
+
+      perfil: {
+
+        nome:
+          "👤 Seguir perfil",
+
+        recompensa:
+          50,
+
+        metaCliques:
+          1
+
+      },
+
+      divulgacao: {
+
+        nome:
+          "📢 Divulgação",
+
+        recompensa:
+          500,
+
+        metaCliques:
+          0,
+
+        facebookGrupos:
+          25,
+
+        whatsappGrupos:
+          25
+
+      },
+
+      criar_video: {
+
+        nome:
+          "🎥 Criar vídeo com a minha música",
+
+        recompensa:
+          300,
+
+        metaCliques:
+          0
+
+      }
+
+    };
+
+
+    /* =========================
+       USUÁRIO
+    ========================== */
+
+    let usuarioAtual =
+      null;
+
+
+    /* =========================
+       TIPO SELECIONADO
+    ========================== */
+
+    let tipoSelecionado =
+      "";
+
+
+    /* =========================
+       AUTENTICAÇÃO
+    ========================== */
+
+    onAuthStateChanged(
+      auth,
+      async (user) => {
+
+        if(!user){
+
+          window.location.href =
+            "area-do-artista.html";
+
+          return;
+
+        }
+
+
+        usuarioAtual =
+          user;
+
+
+        await Promise.all([
+
+          carregarMusicas(),
+
+          carregarVideos(),
+
+          carregarPerfis()
+
+        ]);
+
+      }
+    );
+
+
+    /* =========================
+       CARREGAR MÚSICAS
+    ========================== */
+
+    async function carregarMusicas(){
+
+      try{
+
+        const q =
+          query(
+            collection(
+              db,
+              "musicas"
+            ),
+            where(
+              "status",
+              "==",
+              "publicada"
+            )
+          );
+
+
+        const snap =
+          await getDocs(q);
+
+
+        preencherSelectMusicas(
+          musicaId,
+          snap
+        );
+
+
+        preencherSelectMusicas(
+          musicaVideoId,
+          snap
+        );
+
+
+      }
+      catch(error){
+
+        console.error(
+          "Erro ao carregar músicas:",
+          error
+        );
+
+        musicaId.innerHTML =
+          `<option value="">
+             Não foi possível carregar
+           </option>`;
+
+        musicaVideoId.innerHTML =
+          `<option value="">
+             Não foi possível carregar
+           </option>`;
+
+      }
+
+    }
+
+
+    /* =========================
+       PREENCHER MÚSICAS
+    ========================== */
+
+    function preencherSelectMusicas(
+      select,
+      snap
+    ){
+
+      select.innerHTML =
+        `<option value="">
+          Escolhe uma música
+        </option>`;
+
+
+      if(snap.empty){
+
+        select.innerHTML =
+          `<option value="">
+            Nenhuma música encontrada
+          </option>`;
+
+        return;
+
+      }
+
+
+      snap.forEach(
+        (docSnap) => {
+
+          const data =
+            docSnap.data();
+
+
+          const nome =
+            data.titulo ||
+            data.title ||
+            "Música sem título";
+
+
+          const artista =
+            data.artistaNome ||
+            data.artistName ||
+            "";
+
+
+          const option =
+            document.createElement(
+              "option"
+            );
+
+
+          option.value =
+            docSnap.id;
+
+
+          option.textContent =
+            artista
+              ? `${nome} — ${artista}`
+              : nome;
+
+
+          select.appendChild(
+            option
+          );
+
+        }
+      );
+
+    }
+
+
+    /* =========================
+       CARREGAR VÍDEOS
+    ========================== */
+
+    async function carregarVideos(){
+
+      try{
+
+        const q =
+          query(
+            collection(
+              db,
+              "videos"
+            ),
+            where(
+              "status",
+              "==",
+              "publicado"
+            )
+          );
+
+
+        const snap =
+          await getDocs(q);
+
+
+        videoId.innerHTML =
+          `<option value="">
+            Escolhe um vídeo
+          </option>`;
+
+
+        if(snap.empty){
+
+          videoId.innerHTML =
+            `<option value="">
+              Nenhum vídeo encontrado
+            </option>`;
+
+          return;
+
+        }
+
+
+        snap.forEach(
+          (docSnap) => {
+
+            const data =
+              docSnap.data();
+
+
+            const nome =
+              data.titulo ||
+              data.title ||
+              "Vídeo sem título";
+
+
+            const artista =
+              data.artistaNome ||
+              data.artistName ||
+              "";
+
+
+            const option =
+              document.createElement(
+                "option"
+              );
+
+
+            option.value =
+              docSnap.id;
+
+
+            option.textContent =
+              artista
+                ? `${nome} — ${artista}`
+                : nome;
+
+
+            videoId.appendChild(
+              option
+            );
+
+          }
+        );
+
+      }
+      catch(error){
+
+        console.error(
+          "Erro ao carregar vídeos:",
+          error
+        );
+
+        videoId.innerHTML =
+          `<option value="">
+            Não foi possível carregar
+          </option>`;
+
+      }
+
+    }
+
+
+    /* =========================
+       CARREGAR PERFIS
+    ========================== */
+
+    async function carregarPerfis(){
+
+      try{
+
+        let snap;
+
+
+        /*
+          Primeiro tentamos a coleção
+          "perfis", que é a coleção
+          utilizada na plataforma.
+        */
+
+        const q =
+          query(
+            collection(
+              db,
+              "perfis"
+            )
+          );
+
+
+        snap =
+          await getDocs(q);
+
+
+        perfilId.innerHTML =
+          `<option value="">
+            Escolhe um perfil
+          </option>`;
+
+
+        if(snap.empty){
+
+          perfilId.innerHTML =
+            `<option value="">
+              Nenhum perfil encontrado
+            </option>`;
+
+          return;
+
+        }
+
+
+        snap.forEach(
+          (docSnap) => {
+
+            const data =
+              docSnap.data();
+
+
+            const nome =
+              data.nomeArtistico ||
+              data.nome ||
+              data.artistaNome ||
+              data.artistName ||
+              "Perfil";
+
+
+            const option =
+              document.createElement(
+                "option"
+              );
+
+
+            option.value =
+              docSnap.id;
+
+
+            option.textContent =
+              nome;
+
+
+            perfilId.appendChild(
+              option
+            );
+
+          }
+        );
+
+      }
+      catch(error){
+
+        console.error(
+          "Erro ao carregar perfis:",
+          error
+        );
+
+        perfilId.innerHTML =
+          `<option value="">
+            Não foi possível carregar
+          </option>`;
+
+      }
+
+    }
+
+
+    /* =========================
+       MOSTRAR BOX
+    ========================== */
+
+    function esconderTodasBoxes(){
+
+      document
+        .querySelectorAll(
+          ".conteudo-box"
+        )
+        .forEach(
+          box => {
+
+            box.classList.remove(
+              "ativo"
+            );
+
+          }
+        );
+
+    }
+
+
+    function mostrarBox(id){
+
+      esconderTodasBoxes();
+
+
+      const box =
+        document.getElementById(id);
+
+
+      if(box){
+
+        box.classList.add(
+          "ativo"
+        );
+
+      }
+
+    }
+
+
+    /* =========================
+       SELEÇÃO DO TIPO
+    ========================== */
+
+    document
+      .querySelectorAll(
+        'input[name="tipo"]'
+      )
+      .forEach(
+        radio => {
+
+          radio.addEventListener(
+            "change",
+            () => {
+
+              tipoSelecionado =
+                radio.value;
+
+
+              atualizarInterface();
+
+            }
+          );
+
+        }
+      );
+
+
+    /* =========================
+       ATUALIZAR INTERFACE
+    ========================== */
+
+    function atualizarInterface(){
+
+      const config =
+        configuracaoTarefas[
+          tipoSelecionado
+        ];
+
+
+      if(!config){
+
+        resumoTipo.textContent =
+          "—";
+
+        resumoPremio.textContent =
+          "0 Kz";
+
+        resumoMeta.textContent =
+          "—";
+
+        esconderTodasBoxes();
+
+        return;
+
+      }
+
+
+      resumoTipo.textContent =
+        config.nome;
+
+
+      resumoPremio.textContent =
+        `${config.recompensa} Kz`;
+
+
+      resumoParticipantes.textContent =
+        maxParticipantes.value;
+
+
+      if(
+        tipoSelecionado ===
+        "musica"
+      ){
+
+        resumoMeta.textContent =
+          "50 cliques";
+
+        mostrarBox(
+          "boxMusica"
+        );
+
+      }
+
+
+      else if(
+        tipoSelecionado ===
+        "video"
+      ){
+
+        resumoMeta.textContent =
+          "50 cliques";
+
+        mostrarBox(
+          "boxVideo"
+        );
+
+      }
+
+
+      else if(
+        tipoSelecionado ===
+        "perfil"
+      ){
+
+        resumoMeta.textContent =
+          "1 ação";
+
+        mostrarBox(
+          "boxPerfil"
+        );
+
+      }
+
+
+      else if(
+        tipoSelecionado ===
+        "divulgacao"
+      ){
+
+        resumoMeta.textContent =
+          "25 Facebook + 25 WhatsApp";
+
+        mostrarBox(
+          "boxDivulgacao"
+        );
+
+      }
+
+
+      else if(
+        tipoSelecionado ===
+        "criar_video"
+      ){
+
+        resumoMeta.textContent =
+          "1 vídeo";
+
+        mostrarBox(
+          "boxCriarVideo"
+        );
+
+      }
+
+    }
+
+
+    /* =========================
+       PARTICIPANTES
+    ========================== */
+
+    maxParticipantes
+      .addEventListener(
+        "input",
+        () => {
+
+          resumoParticipantes.textContent =
+            maxParticipantes.value;
+
+        }
+      );
+
+
+    /* =========================
+       MENSAGEM
+    ========================== */
+
+    function mostrarMensagem(
+      texto,
+      tipo
+    ){
+
+      mensagem.textContent =
+        texto;
+
+      mensagem.className =
+        `mensagem ${tipo}`;
+
+    }
+
+
+    function limparMensagem(){
+
+      mensagem.textContent =
+        "";
+
+      mensagem.className =
+        "mensagem";
+
+    }
+
+
+    /* =========================
+       VALIDAR
+    ========================== */
+
+    function validarFormulario(){
+
+      if(!tipoSelecionado){
+
+        throw new Error(
+          "Escolhe primeiro o tipo de tarefa."
+        );
+
+      }
+
+
+      if(
+        !titulo.value.trim()
+      ){
+
+        throw new Error(
+          "Escreve o título da tarefa."
+        );
+
+      }
+
+
+      if(
+        !descricao.value.trim()
+      ){
+
+        throw new Error(
+          "Escreve a descrição da tarefa."
+        );
+
+      }
+
+
+      const participantes =
+        Number(
+          maxParticipantes.value
+        );
+
+
+      if(
+        !participantes ||
+        participantes < 1
+      ){
+
+        throw new Error(
+          "Indica um número válido de participantes."
+        );
+
+      }
+
+
+      if(
+        tipoSelecionado ===
+        "musica"
+        &&
+        !musicaId.value
+      ){
+
+        throw new Error(
+          "Escolhe a música que queres promover."
+        );
+
+      }
+
+
+      if(
+        tipoSelecionado ===
+        "video"
+        &&
+        !videoId.value
+      ){
+
+        throw new Error(
+          "Escolhe o vídeo que queres promover."
+        );
+
+      }
+
+
+      if(
+        tipoSelecionado ===
+        "perfil"
+        &&
+        !perfilId.value
+      ){
+
+        throw new Error(
+          "Escolhe o perfil que queres promover."
+        );
+
+      }
+
+
+      if(
+        tipoSelecionado ===
+        "criar_video"
+        &&
+        !musicaVideoId.value
+      ){
+
+        throw new Error(
+          "Escolhe a música que deverá ser utilizada no vídeo."
+        );
+
+      }
+
+    }
+
+
+    /* =========================
+       CRIAR TAREFA
+    ========================== */
+
+    form.addEventListener(
+      "submit",
+      async (event) => {
+
+        event.preventDefault();
+
+
+        limparMensagem();
+
+
+        try{
+
+          validarFormulario();
+
+
+          if(!usuarioAtual){
+
+            throw new Error(
+              "A tua sessão expirou. Entra novamente."
+            );
+
+          }
+
+
+          const config =
+            configuracaoTarefas[
+              tipoSelecionado
+            ];
+
+
+          const participantes =
+            Number(
+              maxParticipantes.value
+            );
+
+
+          /*
+            Valores específicos
+          */
+
+          let tarefa = {
+
+            criadoPor:
+              usuarioAtual.uid,
+
+            criadoPorEmail:
+              usuarioAtual.email || "",
+
+            tipo:
+              tipoSelecionado,
+
+            titulo:
+              titulo.value.trim(),
+
+            descricao:
+              descricao.value.trim(),
+
+            recompensa:
+              config.recompensa,
+
+            moeda:
+              "AOA",
+
+            status:
+              "ativa",
+
+            maxParticipantes:
+              participantes,
+
+            participantesAtuais:
+              0,
+
+            vencedorId:
+              "",
+
+            musicaId:
+              "",
+
+            videoId:
+              "",
+
+            perfilId:
+              "",
+
+            metaCliques:
+              config.metaCliques || 0,
+
+            metaPartilhas:
+              0,
+
+            facebookGrupos:
+              config.facebookGrupos || 0,
+
+            whatsappGrupos:
+              config.whatsappGrupos || 0,
+
+            criadoEm:
+              serverTimestamp(),
+
+            createdAt:
+              serverTimestamp()
+
+          };
+
+
+          /*
+            Guardar conteúdo
+          */
+
+          if(
+            tipoSelecionado ===
+            "musica"
+          ){
+
+            tarefa.musicaId =
+              musicaId.value;
+
+          }
+
+
+          if(
+            tipoSelecionado ===
+            "video"
+          ){
+
+            tarefa.videoId =
+              videoId.value;
+
+          }
+
+
+          if(
+            tipoSelecionado ===
+            "perfil"
+          ){
+
+            tarefa.perfilId =
+              perfilId.value;
+
+          }
+
+
+          if(
+            tipoSelecionado ===
+            "criar_video"
+          ){
+
+            tarefa.musicaId =
+              musicaVideoId.value;
+
+          }
+
+
+          /*
+            Desativar botão
+          */
+
+          btnCriar.disabled =
+            true;
+
+          loading.style.display =
+            "block";
+
+
+          /*
+            Criar documento
+          */
+
+          const docRef =
+            await addDoc(
+              collection(
+                db,
+                "tarefas"
+              ),
+              tarefa
+            );
+
+
+          console.log(
+            "Tarefa criada:",
+            docRef.id
+          );
+
+
+          loading.style.display =
+            "none";
+
+
+          mostrarMensagem(
+            `✅ Tarefa criada com sucesso! ID: ${docRef.id}`,
+            "sucesso"
+          );
+
+
+          /*
+            Pequena espera antes
+            de voltar para tarefas
+          */
+
+          setTimeout(
+            () => {
+
+              window.location.href =
+                "tarefas.html";
+
+            },
+            1800
+          );
+
+        }
+        catch(error){
+
+          console.error(
+            "Erro ao criar tarefa:",
+            error
+          );
+
+
+          loading.style.display =
+            "none";
+
+
+          btnCriar.disabled =
+            false;
+
+
+          let texto =
+            "Não foi possível criar a tarefa.";
+
+
+          if(error.message){
+
+            texto =
+              error.message;
+
+          }
+
+
+          mostrarMensagem(
+            `❌ ${texto}`,
+            "erro"
+          );
+
+        }
+
+      }
+    );
+
+  </script>
+
+</body>
+</html>
+```
