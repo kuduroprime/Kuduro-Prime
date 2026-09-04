@@ -63,6 +63,7 @@
       display:flex;
       flex-direction:column;
       z-index:100;
+      overflow-y:auto;
     }
 
     .brand{
@@ -147,6 +148,24 @@
     .side-link.active{
       color:var(--gold);
       background:#18140a;
+    }
+
+    .side-link .menu-count{
+      margin-left:auto;
+      min-width:20px;
+      height:20px;
+      padding:0 6px;
+      display:none;
+      place-items:center;
+      border-radius:20px;
+      background:var(--red);
+      color:white;
+      font-size:8px;
+      font-weight:900;
+    }
+
+    .side-link .menu-count.show{
+      display:grid;
     }
 
     .side-bottom{
@@ -377,6 +396,7 @@
       border-radius:20px;
       font-size:8px;
       font-weight:900;
+      white-space:nowrap;
     }
 
     .badge.pending{
@@ -392,6 +412,11 @@
     .badge.rejected{
       color:var(--red);
       background:#351410;
+    }
+
+    .badge.blue{
+      color:var(--blue);
+      background:#102737;
     }
 
     /* QUICK ACTIONS */
@@ -472,6 +497,7 @@
       padding:15px 18px;
       border-bottom:1px solid var(--line);
       font-size:11px;
+      vertical-align:middle;
     }
 
     tr:last-child td{
@@ -493,6 +519,7 @@
       place-items:center;
       color:var(--gold);
       overflow:hidden;
+      flex:0 0 auto;
     }
 
     .small-avatar img{
@@ -514,6 +541,10 @@
       cursor:pointer;
     }
 
+    .btn:hover{
+      opacity:.85;
+    }
+
     .btn.gold{
       border:0;
       background:var(--gold);
@@ -530,9 +561,107 @@
       color:var(--red);
     }
 
+    .btn.blue{
+      border-color:var(--blue);
+      color:var(--blue);
+    }
+
     .btn.small{
       padding:7px 9px;
       font-size:8px;
+    }
+
+    .btn:disabled{
+      opacity:.45;
+      cursor:not-allowed;
+    }
+
+    /* SAQUES */
+
+    .withdraw-summary{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:15px;
+      margin-bottom:18px;
+    }
+
+    .withdraw-box{
+      padding:18px;
+      border-radius:12px;
+      background:#101010;
+      border:1px solid var(--line);
+    }
+
+    .withdraw-box strong{
+      display:block;
+      font-size:22px;
+      font-weight:900;
+    }
+
+    .withdraw-box span{
+      display:block;
+      margin-top:5px;
+      color:var(--muted);
+      font-size:9px;
+    }
+
+    .withdraw-box.pending-box{
+      border-color:#5e4b18;
+    }
+
+    .withdraw-box.pending-box strong{
+      color:#ffcf57;
+    }
+
+    .withdraw-box.paid-box strong{
+      color:var(--green);
+    }
+
+    .withdraw-box.cancelled-box strong{
+      color:var(--red);
+    }
+
+    .withdraw-destination{
+      max-width:180px;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+    }
+
+    .amount{
+      color:var(--gold);
+      font-weight:900;
+      white-space:nowrap;
+    }
+
+    .loading{
+      padding:35px;
+      text-align:center;
+      color:#777;
+      font-size:11px;
+    }
+
+    .empty{
+      padding:35px;
+      text-align:center;
+      color:#777;
+      font-size:11px;
+    }
+
+    .error-box{
+      margin-bottom:15px;
+      padding:14px;
+      border:1px solid #5a2118;
+      border-radius:10px;
+      background:#21100d;
+      color:#ff8c7d;
+      font-size:10px;
+      line-height:1.5;
+      display:none;
+    }
+
+    .error-box.show{
+      display:block;
     }
 
     /* FORMULÁRIO */
@@ -626,6 +755,10 @@
         grid-template-columns:1fr;
       }
 
+      .withdraw-summary{
+        grid-template-columns:1fr 1fr;
+      }
+
     }
 
     @media(max-width:760px){
@@ -652,6 +785,10 @@
 
       .admin-status{
         display:none;
+      }
+
+      .withdraw-summary{
+        grid-template-columns:1fr;
       }
 
     }
@@ -695,138 +832,195 @@
 
 <body>
 
-  <div class="app">
+<div class="app">
+
+  <!-- SIDEBAR -->
+
+  <aside class="sidebar" id="sidebar">
 
 ```
-<!-- SIDEBAR -->
+<a href="index.html" class="brand">
 
-<aside class="sidebar" id="sidebar">
+  <span class="crown">♕</span>
 
-  <a href="index.html" class="brand">
+  KUDURO
 
-    <span class="crown">♕</span>
+  <b>PRIME</b>
 
-    KUDURO
-
-    <b>PRIME</b>
-
-  </a>
+</a>
 
 
-  <div class="admin-box">
+<div class="admin-box">
 
-    <div class="admin-icon">
-      🛡
-    </div>
+  <div class="admin-icon">
+    🛡
+  </div>
 
-    <div>
+  <div>
 
-      <strong>
-        ADMINISTRADOR
-      </strong>
+    <strong>
+      ADMINISTRADOR
+    </strong>
 
-      <span>
-        ACESSO TOTAL
-      </span>
-
-    </div>
+    <span>
+      ACESSO TOTAL
+    </span>
 
   </div>
 
-
-  <div class="nav-title">
-    ADMINISTRAÇÃO
-  </div>
+</div>
 
 
-  <div
-    class="side-link active"
-    onclick="showSection('dashboard',this)"
+<div class="nav-title">
+  ADMINISTRAÇÃO
+</div>
+
+
+<div
+  class="side-link active"
+  onclick="showSection('dashboard',this)"
+>
+  📊 Dashboard
+</div>
+
+
+<div
+  class="side-link"
+  onclick="showSection('artists',this)"
+>
+  👤 Artistas
+</div>
+
+
+<div
+  class="side-link"
+  onclick="showSection('songs',this)"
+>
+  🎵 Músicas
+</div>
+
+
+<div
+  class="side-link"
+  onclick="showSection('payments',this)"
+>
+  💳 Pagamentos
+</div>
+
+
+<div
+  class="side-link"
+  onclick="showSection('withdrawals',this)"
+>
+  💸 Saques
+
+  <span
+    class="menu-count"
+    id="withdrawMenuCount"
   >
-    📊 Dashboard
-  </div>
+    0
+  </span>
 
-  <div
-    class="side-link"
-    onclick="showSection('artists',this)"
-  >
-    👤 Artistas
-  </div>
-
-  <div
-    class="side-link"
-    onclick="showSection('songs',this)"
-  >
-    🎵 Músicas
-  </div>
-
-  <div
-    class="side-link"
-    onclick="showSection('payments',this)"
-  >
-    💳 Pagamentos
-  </div>
+</div>
 
 
-  <div class="nav-title">
+<div class="nav-title">
   ADMINISTRAÇÃO AVANÇADA
 </div>
+
 
 <a href="admin-ranking.html" class="side-link">
   🏆 GERIR RANKING
 </a>
 
+
 <a href="ranking.html" class="side-link">
   🌐 VER RANKING PÚBLICO
 </a>
+
 
 <a href="eventos.html" class="side-link">
   📅 EVENTOS
 </a>
 
-  <a href="index.html" class="side-link">
-    🌐 Ver Site
-  </a>
+
+<a href="index.html" class="side-link">
+  🌐 Ver Site
+</a>
 
 
-  <div class="side-bottom">
+<div class="side-bottom">
+
+  <button
+    class="logout"
+    onclick="logout()"
+  >
+    ↪ TERMINAR SESSÃO
+  </button>
+
+</div>
+```
+
+  </aside>
+
+  <!-- MAIN -->
+
+  <main class="main">
+
+```
+<header class="topbar">
+
+  <div class="topbar-left">
 
     <button
-      class="logout"
-      onclick="logout()"
+      class="mobile-menu"
+      onclick="toggleMenu()"
     >
-      ↪ TERMINAR SESSÃO
+      ☰
     </button>
+
+    <div>
+
+      <h2>
+        KUDURO PRIME ADMIN
+      </h2>
+
+      <p>
+        Painel de controlo da plataforma
+      </p>
+
+    </div>
 
   </div>
 
-</aside>
+
+  <div class="admin-status">
+    ● SISTEMA ONLINE
+  </div>
+
+</header>
 
 
-<!-- MAIN -->
-
-<main class="main">
+<div class="content">
 
 
-  <header class="topbar">
+  <!-- DASHBOARD -->
 
-    <div class="topbar-left">
+  <section
+    class="section active"
+    id="dashboard"
+  >
 
-      <button
-        class="mobile-menu"
-        onclick="toggleMenu()"
-      >
-        ☰
-      </button>
+    <div class="section-head">
 
       <div>
 
-        <h2>
-          KUDURO PRIME ADMIN
-        </h2>
+        <h1>
+          📊 Dashboard
+        </h1>
 
         <p>
-          Painel de controlo da plataforma
+          Visão geral do KUDURO PRIME.
         </p>
 
       </div>
@@ -834,951 +1028,2399 @@
     </div>
 
 
-    <div class="admin-status">
-      ● SISTEMA ONLINE
+    <div class="stats-grid">
+
+      <div class="stat-card">
+
+        <div class="stat-icon">
+          👤
+        </div>
+
+        <div
+          class="stat-number"
+          id="totalArtists"
+        >
+          0
+        </div>
+
+        <div class="stat-label">
+          ARTISTAS
+        </div>
+
+        <div class="stat-change">
+          ↑ Crescimento da plataforma
+        </div>
+
+      </div>
+
+
+      <div class="stat-card">
+
+        <div class="stat-icon">
+          🎵
+        </div>
+
+        <div
+          class="stat-number"
+          id="totalSongs"
+        >
+          0
+        </div>
+
+        <div class="stat-label">
+          MÚSICAS PUBLICADAS
+        </div>
+
+        <div class="stat-change">
+          ↑ Conteúdo disponível
+        </div>
+
+      </div>
+
+
+      <div class="stat-card">
+
+        <div class="stat-icon">
+          ⏳
+        </div>
+
+        <div
+          class="stat-number"
+          id="pendingCount"
+        >
+          0
+        </div>
+
+        <div class="stat-label">
+          PAGAMENTOS PENDENTES
+        </div>
+
+        <div style="color:#ffcf57" class="stat-change">
+          ● Aguardam confirmação
+        </div>
+
+      </div>
+
+
+      <div class="stat-card">
+
+        <div class="stat-icon">
+          💸
+        </div>
+
+        <div
+          class="stat-number"
+          id="pendingWithdrawals"
+        >
+          0
+        </div>
+
+        <div class="stat-label">
+          SAQUES PENDENTES
+        </div>
+
+        <div style="color:#ffcf57" class="stat-change">
+          ● Aguardam pagamento
+        </div>
+
+      </div>
+
     </div>
 
-  </header>
+
+    <div class="grid-2">
 
 
-  <div class="content">
+      <div class="panel">
 
+        <h3>
+          🕒 Atividade Recente
+        </h3>
 
-    <!-- DASHBOARD -->
+        <p class="panel-subtitle">
+          Últimos artistas, pagamentos e saques.
+        </p>
 
-    <section
-      class="section active"
-      id="dashboard"
-    >
-
-      <div class="section-head">
-
-        <div>
-
-          <h1>
-            📊 Dashboard
-          </h1>
-
-          <p>
-            Visão geral do KUDURO PRIME.
-          </p>
-
-        </div>
+        <div id="recentActivity"></div>
 
       </div>
 
 
-      <div class="stats-grid">
+      <div class="panel">
 
-        <div class="stat-card">
+        <h3>
+          ⚡ Ações Rápidas
+        </h3>
 
-          <div class="stat-icon">
-            👤
-          </div>
+        <p class="panel-subtitle">
+          Acesso direto às principais funções.
+        </p>
 
-          <div
-            class="stat-number"
-            id="totalArtists"
-          >
-            0
-          </div>
-
-          <div class="stat-label">
-            ARTISTAS
-          </div>
-
-          <div class="stat-change">
-            ↑ Crescimento da plataforma
-          </div>
-
-        </div>
-
-
-        <div class="stat-card">
-
-          <div class="stat-icon">
-            🎵
-          </div>
-
-          <div
-            class="stat-number"
-            id="totalSongs"
-          >
-            0
-          </div>
-
-          <div class="stat-label">
-            MÚSICAS PUBLICADAS
-          </div>
-
-          <div class="stat-change">
-            ↑ Conteúdo disponível
-          </div>
-
-        </div>
-
-
-        <div class="stat-card">
-
-          <div class="stat-icon">
-            ⏳
-          </div>
-
-          <div
-            class="stat-number"
-            id="pendingCount"
-          >
-            0
-          </div>
-
-          <div class="stat-label">
-            PAGAMENTOS PENDENTES
-          </div>
-
-          <div style="color:#ffcf57" class="stat-change">
-            ● Aguardam confirmação
-          </div>
-
-        </div>
-
-
-        <div class="stat-card">
-
-          <div class="stat-icon">
-            💰
-          </div>
-
-          <div
-            class="stat-number"
-            id="totalRevenue"
-          >
-            0 Kz
-          </div>
-
-          <div class="stat-label">
-            RECEITA REGISTADA
-          </div>
-
-          <div class="stat-change">
-            ↑ Pagamentos aprovados
-          </div>
-
-        </div>
-
-      </div>
-
-
-      <div class="grid-2">
-
-
-        <div class="panel">
-
-          <h3>
-            🕒 Atividade Recente
-          </h3>
-
-          <p class="panel-subtitle">
-            Últimos artistas e pagamentos.
-          </p>
-
-          <div id="recentActivity"></div>
-
-        </div>
-
-
-        <div class="panel">
-
-          <h3>
-            ⚡ Ações Rápidas
-          </h3>
-
-          <p class="panel-subtitle">
-            Acesso direto às principais funções.
-          </p>
-
-          <div class="quick-actions">
-
-            <button
-              class="quick"
-              onclick="goTo('artists')"
-            >
-              👤<br><br>
-              GERIR ARTISTAS
-            </button>
-
-            <button
-              class="quick"
-              onclick="goTo('songs')"
-            >
-              🎵<br><br>
-              VER MÚSICAS
-            </button>
-
-            <button
-              class="quick"
-              onclick="goTo('payments')"
-            >
-              💳<br><br>
-              CONFIRMAR PAGAMENTOS
-            </button>
-
-            <a
-              href="index.html"
-              class="quick"
-            >
-              🌐<br><br>
-              ABRIR SITE
-            </a>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- ARTISTAS -->
-
-    <section
-      class="section"
-      id="artists"
-    >
-
-      <div class="section-head">
-
-        <div>
-
-          <h1>
-            👤 Artistas
-          </h1>
-
-          <p>
-            Gere todos os artistas registados.
-          </p>
-
-        </div>
-
-      </div>
-
-
-      <div class="table-panel">
-
-        <div class="table-tools">
-
-          <input
-            type="search"
-            class="search"
-            placeholder="Pesquisar artista..."
-            oninput="searchArtists(this.value)"
-          >
+        <div class="quick-actions">
 
           <button
-            class="btn gold"
-            onclick="openArtistModal()"
+            class="quick"
+            onclick="goTo('artists')"
           >
-            + NOVO ARTISTA
+            👤<br><br>
+            GERIR ARTISTAS
           </button>
 
-        </div>
 
-
-        <div class="table-wrap">
-
-          <table>
-
-            <thead>
-
-              <tr>
-                <th>ARTISTA</th>
-                <th>CONTACTO</th>
-                <th>ESTADO</th>
-                <th>AÇÕES</th>
-              </tr>
-
-            </thead>
-
-            <tbody id="artistsTable"></tbody>
-
-          </table>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- MÚSICAS -->
-
-    <section
-      class="section"
-      id="songs"
-    >
-
-      <div class="section-head">
-
-        <div>
-
-          <h1>
-            🎵 Músicas
-          </h1>
-
-          <p>
-            Conteúdo publicado na plataforma.
-          </p>
-
-        </div>
-
-      </div>
-
-
-      <div class="table-panel">
-
-        <div class="table-tools">
-
-          <input
-            type="search"
-            class="search"
-            placeholder="Pesquisar música..."
-            oninput="searchSongs(this.value)"
+          <button
+            class="quick"
+            onclick="goTo('songs')"
           >
-
-        </div>
-
-
-        <div class="table-wrap">
-
-          <table>
-
-            <thead>
-
-              <tr>
-                <th>MÚSICA</th>
-                <th>ARTISTA</th>
-                <th>TIPO</th>
-                <th>ESTADO</th>
-                <th>AÇÕES</th>
-              </tr>
-
-            </thead>
-
-            <tbody id="songsTable"></tbody>
-
-          </table>
-
-        </div>
-
-      </div>
-
-    </section>
+            🎵<br><br>
+            VER MÚSICAS
+          </button>
 
 
-    <!-- PAGAMENTOS -->
-
-    <section
-      class="section"
-      id="payments"
-    >
-
-      <div class="section-head">
-
-        <div>
-
-          <h1>
-            💳 Pagamentos
-          </h1>
-
-          <p>
-            Confirma e gere os pagamentos dos artistas.
-          </p>
-
-        </div>
-
-      </div>
-
-
-      <div class="table-panel">
-
-        <div class="table-tools">
-
-          <input
-            type="search"
-            class="search"
-            placeholder="Pesquisar pagamento..."
-            oninput="searchPayments(this.value)"
+          <button
+            class="quick"
+            onclick="goTo('payments')"
           >
+            💳<br><br>
+            CONFIRMAR PAGAMENTOS
+          </button>
 
-        </div>
+
+          <button
+            class="quick"
+            onclick="goTo('withdrawals')"
+          >
+            💸<br><br>
+            PROCESSAR SAQUES
+          </button>
 
 
-        <div class="table-wrap">
-
-          <table>
-
-            <thead>
-
-              <tr>
-                <th>PLANO</th>
-                <th>VALOR</th>
-                <th>MÉTODO</th>
-                <th>DATA</th>
-                <th>ESTADO</th>
-                <th>AÇÕES</th>
-              </tr>
-
-            </thead>
-
-            <tbody id="paymentsTable"></tbody>
-
-          </table>
+          <a
+            href="index.html"
+            class="quick"
+          >
+            🌐<br><br>
+            ABRIR SITE
+          </a>
 
         </div>
 
       </div>
 
-    </section>
+    </div>
+
+  </section>
 
 
-  </div>
+  <!-- ARTISTAS -->
 
-</main>
-```
-
-  </div>
-
-  <!-- MODAL ARTISTA -->
-
-  <div
-    class="modal"
-    id="artistModal"
+  <section
+    class="section"
+    id="artists"
   >
 
-```
-<div class="modal-box">
+    <div class="section-head">
 
-  <h2>
-    Adicionar Artista
-  </h2>
+      <div>
 
-  <p>
-    Cria um novo registo manualmente.
-  </p>
+        <h1>
+          👤 Artistas
+        </h1>
 
-
-  <form
-    id="artistForm"
-    onsubmit="saveArtist(event)"
-  >
-
-    <div class="form-grid">
-
-      <div class="field">
-
-        <label>
-          Nome do Artista
-        </label>
-
-        <input
-          id="newArtistName"
-          required
-          placeholder="Nome artístico"
-        >
-
-      </div>
-
-
-      <div class="field">
-
-        <label>
-          Contacto
-        </label>
-
-        <input
-          id="newArtistContact"
-          placeholder="Telefone ou e-mail"
-        >
+        <p>
+          Gere todos os artistas registados.
+        </p>
 
       </div>
 
     </div>
 
 
-    <div class="modal-actions">
+    <div class="table-panel">
+
+      <div class="table-tools">
+
+        <input
+          type="search"
+          class="search"
+          placeholder="Pesquisar artista..."
+          oninput="searchArtists(this.value)"
+        >
+
+
+        <button
+          class="btn gold"
+          onclick="openArtistModal()"
+        >
+          + NOVO ARTISTA
+        </button>
+
+      </div>
+
+
+      <div class="table-wrap">
+
+        <table>
+
+          <thead>
+
+            <tr>
+              <th>ARTISTA</th>
+              <th>CONTACTO</th>
+              <th>ESTADO</th>
+              <th>AÇÕES</th>
+            </tr>
+
+          </thead>
+
+          <tbody id="artistsTable"></tbody>
+
+        </table>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- MÚSICAS -->
+
+  <section
+    class="section"
+    id="songs"
+  >
+
+    <div class="section-head">
+
+      <div>
+
+        <h1>
+          🎵 Músicas
+        </h1>
+
+        <p>
+          Conteúdo publicado na plataforma.
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <div class="table-panel">
+
+      <div class="table-tools">
+
+        <input
+          type="search"
+          class="search"
+          placeholder="Pesquisar música..."
+          oninput="searchSongs(this.value)"
+        >
+
+      </div>
+
+
+      <div class="table-wrap">
+
+        <table>
+
+          <thead>
+
+            <tr>
+              <th>MÚSICA</th>
+              <th>ARTISTA</th>
+              <th>TIPO</th>
+              <th>ESTADO</th>
+              <th>AÇÕES</th>
+            </tr>
+
+          </thead>
+
+          <tbody id="songsTable"></tbody>
+
+        </table>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- PAGAMENTOS -->
+
+  <section
+    class="section"
+    id="payments"
+  >
+
+    <div class="section-head">
+
+      <div>
+
+        <h1>
+          💳 Pagamentos
+        </h1>
+
+        <p>
+          Confirma e gere os pagamentos dos artistas.
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <div class="table-panel">
+
+      <div class="table-tools">
+
+        <input
+          type="search"
+          class="search"
+          placeholder="Pesquisar pagamento..."
+          oninput="searchPayments(this.value)"
+        >
+
+      </div>
+
+
+      <div class="table-wrap">
+
+        <table>
+
+          <thead>
+
+            <tr>
+              <th>PLANO</th>
+              <th>VALOR</th>
+              <th>MÉTODO</th>
+              <th>DATA</th>
+              <th>ESTADO</th>
+              <th>AÇÕES</th>
+            </tr>
+
+          </thead>
+
+          <tbody id="paymentsTable"></tbody>
+
+        </table>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- SAQUES -->
+
+  <section
+    class="section"
+    id="withdrawals"
+  >
+
+    <div class="section-head">
+
+      <div>
+
+        <h1>
+          💸 Pedidos de Saque
+        </h1>
+
+        <p>
+          Processa manualmente os pagamentos solicitados pelos artistas.
+        </p>
+
+      </div>
+
 
       <button
-        type="button"
         class="btn"
-        onclick="closeArtistModal()"
+        onclick="carregarSaques()"
       >
-        CANCELAR
-      </button>
-
-      <button
-        type="submit"
-        class="btn gold"
-      >
-        GUARDAR ARTISTA
+        ↻ ATUALIZAR
       </button>
 
     </div>
 
-  </form>
+
+    <div
+      class="error-box"
+      id="withdrawError"
+    ></div>
+
+
+    <div class="withdraw-summary">
+
+      <div class="withdraw-box pending-box">
+
+        <strong id="withdrawPendingAmount">
+          0 Kz
+        </strong>
+
+        <span>
+          VALOR PENDENTE
+        </span>
+
+      </div>
+
+
+      <div class="withdraw-box paid-box">
+
+        <strong id="withdrawPaidAmount">
+          0 Kz
+        </strong>
+
+        <span>
+          VALOR PAGO
+        </span>
+
+      </div>
+
+
+      <div class="withdraw-box cancelled-box">
+
+        <strong id="withdrawCancelledAmount">
+          0 Kz
+        </strong>
+
+        <span>
+          VALOR CANCELADO
+        </span>
+
+      </div>
+
+    </div>
+
+
+    <div class="table-panel">
+
+      <div class="table-tools">
+
+        <input
+          type="search"
+          class="search"
+          id="withdrawSearch"
+          placeholder="Pesquisar e-mail, método ou destino..."
+          oninput="renderWithdrawals(this.value)"
+        >
+
+      </div>
+
+
+      <div class="table-wrap">
+
+        <table>
+
+          <thead>
+
+            <tr>
+              <th>UTILIZADOR</th>
+              <th>VALOR</th>
+              <th>MÉTODO</th>
+              <th>DESTINO</th>
+              <th>DATA</th>
+              <th>ESTADO</th>
+              <th>AÇÕES</th>
+            </tr>
+
+          </thead>
+
+          <tbody id="withdrawalsTable"></tbody>
+
+        </table>
+
+      </div>
+
+    </div>
+
+  </section>
+
 
 </div>
 ```
 
+  </main>
+
+</div>
+
+<!-- MODAL ARTISTA -->
+
+<div
+  class="modal"
+  id="artistModal"
+>
+
+  <div class="modal-box">
+
+```
+<h2>
+  Adicionar Artista
+</h2>
+
+<p>
+  Cria um novo registo manualmente.
+</p>
+
+
+<form
+  id="artistForm"
+  onsubmit="saveArtist(event)"
+>
+
+  <div class="form-grid">
+
+    <div class="field">
+
+      <label>
+        Nome do Artista
+      </label>
+
+      <input
+        id="newArtistName"
+        required
+        placeholder="Nome artístico"
+      >
+
+    </div>
+
+
+    <div class="field">
+
+      <label>
+        Contacto
+      </label>
+
+      <input
+        id="newArtistContact"
+        placeholder="Telefone ou e-mail"
+      >
+
+    </div>
+
   </div>
 
-  <script>
 
-    /*
-      DADOS
-    */
+  <div class="modal-actions">
 
-    const defaultArtists = [
-
-      {
-        id:1,
-        name:"Figura do Adoço",
-        contact:"Artista Prime",
-        status:"Ativo",
-        photo:""
-      },
-
-      {
-        id:2,
-        name:"Dj Jeff Afrozila",
-        contact:"Novo artista",
-        status:"Ativo",
-        photo:""
-      }
-
-    ];
+    <button
+      type="button"
+      class="btn"
+      onclick="closeArtistModal()"
+    >
+      CANCELAR
+    </button>
 
 
-    function getArtists(){
+    <button
+      type="submit"
+      class="btn gold"
+    >
+      GUARDAR ARTISTA
+    </button>
 
-      const saved =
-        JSON.parse(
-          localStorage.getItem(
-            "kpAdminArtists"
-          )
-          ||
-          "[]"
-        );
+  </div>
 
+</form>
+```
 
-      if(
-        saved.length
-      ){
+  </div>
 
-        return saved;
+</div>
 
-      }
+<script type="module">
 
+  /* =========================================================
+     FIREBASE
+  ========================================================== */
 
-      const profileName =
-        localStorage.getItem(
-          "kpArtistStageName"
-        )
-        ||
-        localStorage.getItem(
-          "kpArtistName"
-        );
+  import {
+    initializeApp
+  } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
 
-      if(
-        profileName
-      ){
-
-        const profilePhoto =
-          localStorage.getItem(
-            "kpArtistPhoto"
-          )
-          ||
-          "";
+  import {
+    getAuth,
+    onAuthStateChanged,
+    signOut
+  } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 
-        return [
+  import {
+    getFirestore,
+    collection,
+    query,
+    where,
+    getDocs,
+    getDoc,
+    addDoc,
+    updateDoc,
+    doc,
+    increment,
+    serverTimestamp,
+    runTransaction
+  } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-          ...defaultArtists,
 
-          {
-            id:Date.now(),
-            name:profileName,
-            contact:"Artista registado",
-            status:"Ativo",
-            photo:profilePhoto
-          }
+  const firebaseConfig = {
 
-        ];
+    apiKey:
+      "AIzaSyDoitCcLeLDNBNPCP6fG1s_xbHr4UmohSo",
 
-      }
+    authDomain:
+      "kuduro-prime.firebaseapp.com",
+
+    projectId:
+      "kuduro-prime",
+
+    storageBucket:
+      "kuduro-prime.firebasestorage.app",
+
+    messagingSenderId:
+      "299776559545",
+
+    appId:
+      "1:299776559545:web:04aced1ba25391eb3fce68"
+
+  };
 
 
-      return defaultArtists;
+  const app =
+    initializeApp(
+      firebaseConfig
+    );
 
+
+  const auth =
+    getAuth(app);
+
+
+  const db =
+    getFirestore(app);
+
+
+  let adminAtual = null;
+
+  let todosSaques = [];
+
+
+  /* =========================================================
+     DADOS LOCAIS ANTIGOS
+  ========================================================== */
+
+  const defaultArtists = [
+
+    {
+      id:1,
+      name:"Figura do Adoço",
+      contact:"Artista Prime",
+      status:"Ativo",
+      photo:""
+    },
+
+    {
+      id:2,
+      name:"Dj Jeff Afrozila",
+      contact:"Novo artista",
+      status:"Ativo",
+      photo:""
     }
 
+  ];
 
-    function getSongs(){
 
-      const saved =
-        JSON.parse(
-          localStorage.getItem(
-            "kpSongs"
-          )
-          ||
-          "[]"
-        );
+  function getArtists(){
 
+    const saved =
+      JSON.parse(
+        localStorage.getItem(
+          "kpAdminArtists"
+        )
+        ||
+        "[]"
+      );
+
+
+    if(saved.length){
 
       return saved;
 
     }
 
 
-    function getPayments(){
+    const profileName =
+      localStorage.getItem(
+        "kpArtistStageName"
+      )
+      ||
+      localStorage.getItem(
+        "kpArtistName"
+      );
 
-      return JSON.parse(
+
+    if(profileName){
+
+      const profilePhoto =
         localStorage.getItem(
-          "kpPayments"
+          "kpArtistPhoto"
         )
         ||
-        "[]"
+        "";
+
+
+      return [
+
+        ...defaultArtists,
+
+        {
+          id:Date.now(),
+          name:profileName,
+          contact:"Artista registado",
+          status:"Ativo",
+          photo:profilePhoto
+        }
+
+      ];
+
+    }
+
+
+    return defaultArtists;
+
+  }
+
+
+  function getSongs(){
+
+    return JSON.parse(
+      localStorage.getItem(
+        "kpSongs"
+      )
+      ||
+      "[]"
+    );
+
+  }
+
+
+  function getPayments(){
+
+    return JSON.parse(
+      localStorage.getItem(
+        "kpPayments"
+      )
+      ||
+      "[]"
+    );
+
+  }
+
+
+  /* =========================================================
+     NAVEGAÇÃO
+  ========================================================== */
+
+  window.showSection =
+  function(
+    sectionId,
+    link
+  ){
+
+    document
+      .querySelectorAll(".section")
+      .forEach(
+        section =>
+          section.classList.remove(
+            "active"
+          )
+      );
+
+
+    const section =
+      document.querySelector(
+        "#" + sectionId
+      );
+
+
+    if(section){
+
+      section.classList.add(
+        "active"
       );
 
     }
 
 
-    /*
-      NAVEGAÇÃO
-    */
+    document
+      .querySelectorAll(".side-link")
+      .forEach(
+        item =>
+          item.classList.remove(
+            "active"
+          )
+      );
 
-    function showSection(
-      sectionId,
-      link
+
+    if(link){
+
+      link.classList.add(
+        "active"
+      );
+
+    }
+
+
+    renderAll();
+
+
+    if(
+      sectionId ===
+      "withdrawals"
+    ){
+
+      carregarSaques();
+
+    }
+
+
+    if(
+      window.innerWidth <= 760
     ){
 
       document
-        .querySelectorAll(".section")
-        .forEach(
-          section =>
-            section
-            .classList
-            .remove("active")
-        );
-
-
-      document
-        .querySelector(
-          "#" +
-          sectionId
-        )
-        .classList
-        .add("active");
-
-
-      document
-        .querySelectorAll(".side-link")
-        .forEach(
-          item =>
-            item
-            .classList
-            .remove("active")
-        );
-
-
-      if(link){
-
-        link
-        .classList
-        .add("active");
-
-      }
-
-
-      renderAll();
-
-
-      if(
-        window.innerWidth <= 760
-      ){
-
-        document
         .querySelector("#sidebar")
-        .classList
-        .remove("show");
-
-      }
+        .classList.remove(
+          "show"
+        );
 
     }
 
-
-    function goTo(
-      section
-    ){
-
-      const links =
-        document.querySelectorAll(
-          ".side-link"
-        );
+  };
 
 
-      const target =
-        Array.from(links)
-        .find(
-          link =>
-            link
-            .textContent
-            .toLowerCase()
-            .includes(
-              section === "artists"
-              ? "artistas"
-              : section === "songs"
-              ? "músicas"
-              : "pagamentos"
-            )
-        );
+  window.goTo =
+  function(section){
 
-
-      showSection(
-        section,
-        target
+    const links =
+      document.querySelectorAll(
+        ".side-link"
       );
 
-    }
+
+    const target =
+      Array.from(links)
+      .find(
+        link => {
+
+          const text =
+            link.textContent
+            .toLowerCase();
 
 
-    /*
-      DASHBOARD
-    */
+          if(
+            section ===
+            "artists"
+          ){
 
-    function renderDashboard(){
+            return text.includes(
+              "artistas"
+            );
 
-      const artists =
-        getArtists();
-
-      const songs =
-        getSongs();
-
-      const payments =
-        getPayments();
+          }
 
 
-      const pending =
-        payments.filter(
-          payment =>
-            payment.status ===
-            "Pendente"
-        );
+          if(
+            section ===
+            "songs"
+          ){
+
+            return text.includes(
+              "músicas"
+            );
+
+          }
 
 
-      const approved =
-        payments.filter(
-          payment =>
-            payment.status ===
-            "Aprovado"
-        );
+          if(
+            section ===
+            "payments"
+          ){
+
+            return text.includes(
+              "pagamentos"
+            );
+
+          }
 
 
-      let revenue =
-        0;
+          if(
+            section ===
+            "withdrawals"
+          ){
+
+            return text.includes(
+              "saques"
+            );
+
+          }
 
 
-      approved.forEach(
-        payment => {
-
-          const value =
-            parseInt(
-              String(
-                payment.price
-              )
-              .replace(
-                /\D/g,
-                ""
-              )
-            )
-            ||
-            0;
-
-
-          revenue +=
-            value;
+          return false;
 
         }
       );
 
 
-      document
-        .querySelector("#totalArtists")
-        .textContent =
-          artists.length;
+    showSection(
+      section,
+      target
+    );
+
+  };
 
 
-      document
-        .querySelector("#totalSongs")
-        .textContent =
-          songs.length;
+  /* =========================================================
+     DASHBOARD
+  ========================================================== */
+
+  async function renderDashboard(){
+
+    const artists =
+      getArtists();
 
 
-      document
-        .querySelector("#pendingCount")
-        .textContent =
-          pending.length;
+    const songs =
+      getSongs();
 
 
-      document
-        .querySelector("#totalRevenue")
-        .textContent =
-          revenue
-          .toLocaleString(
-            "pt-PT"
-          )
-          +
-          " Kz";
+    const payments =
+      getPayments();
 
 
-      const activity =
-        document.querySelector(
-          "#recentActivity"
-        );
+    const pending =
+      payments.filter(
+        payment =>
+          payment.status ===
+          "Pendente"
+      );
 
 
-      const recent =
-        [];
+    document
+      .querySelector(
+        "#totalArtists"
+      )
+      .textContent =
+        artists.length;
 
 
-      artists
+    document
+      .querySelector(
+        "#totalSongs"
+      )
+      .textContent =
+        songs.length;
+
+
+    document
+      .querySelector(
+        "#pendingCount"
+      )
+      .textContent =
+        pending.length;
+
+
+    let recent = [];
+
+
+    artists
       .slice(-3)
       .reverse()
       .forEach(
         artist => {
 
-          recent.push(
-            {
-              icon:"👤",
-              title:
-                artist.name +
-                " entrou na plataforma",
-              text:
-                "Artista registado"
-            }
-          );
+          recent.push({
+
+            icon:"👤",
+
+            title:
+              artist.name +
+              " entrou na plataforma",
+
+            text:
+              "Artista registado"
+
+          });
 
         }
       );
 
 
-      payments
+    payments
       .slice(0,3)
       .forEach(
         payment => {
 
-          recent.push(
-            {
-              icon:"💳",
-              title:
-                "Plano " +
-                payment.plan +
-                " — " +
-                payment.price,
-              text:
-                payment.status
-            }
+          recent.push({
+
+            icon:"💳",
+
+            title:
+              "Plano " +
+              (payment.plan || "—") +
+              " — " +
+              (payment.price || "0 Kz"),
+
+            text:
+              payment.status || "—"
+
+          });
+
+        }
+      );
+
+
+    todosSaques
+      .slice(0,3)
+      .forEach(
+        saque => {
+
+          recent.push({
+
+            icon:"💸",
+
+            title:
+              "Saque de " +
+              formatarKz(
+                saque.valor
+              ),
+
+            text:
+              saque.usuarioEmail ||
+              saque.status ||
+              "Pedido de saque"
+
+          });
+
+        }
+      );
+
+
+    const activity =
+      document.querySelector(
+        "#recentActivity"
+      );
+
+
+    if(
+      recent.length === 0
+    ){
+
+      activity.innerHTML =
+        `
+          <div class="empty">
+            Ainda não existe atividade.
+          </div>
+        `;
+
+      return;
+
+    }
+
+
+    activity.innerHTML =
+      recent
+      .slice(0,6)
+      .map(
+        item => `
+
+          <div class="list-item">
+
+            <div class="avatar">
+              ${item.icon}
+            </div>
+
+            <div class="item-info">
+
+              <strong>
+                ${escapeHtml(
+                  item.title
+                )}
+              </strong>
+
+              <span>
+                ${escapeHtml(
+                  item.text
+                )}
+              </span>
+
+            </div>
+
+          </div>
+
+        `
+      )
+      .join("");
+
+  }
+
+
+  /* =========================================================
+     ARTISTAS
+  ========================================================== */
+
+  window.renderArtists =
+  function(filter = ""){
+
+    const artists =
+      getArtists()
+      .filter(
+        artist =>
+          String(
+            artist.name || ""
+          )
+          .toLowerCase()
+          .includes(
+            filter.toLowerCase()
+          )
+      );
+
+
+    const table =
+      document.querySelector(
+        "#artistsTable"
+      );
+
+
+    table.innerHTML =
+      artists
+      .map(
+        artist => `
+
+          <tr>
+
+            <td>
+
+              <div class="table-user">
+
+                <div class="small-avatar">
+
+                  ${
+                    artist.photo
+                    ?
+                    `
+                      <img
+                        src="${escapeAttribute(
+                          artist.photo
+                        )}"
+                        alt=""
+                      >
+                    `
+                    :
+                    "👤"
+                  }
+
+                </div>
+
+                <strong>
+                  ${escapeHtml(
+                    artist.name
+                  )}
+                </strong>
+
+              </div>
+
+            </td>
+
+
+            <td>
+              ${escapeHtml(
+                artist.contact ||
+                "—"
+              )}
+            </td>
+
+
+            <td>
+
+              <span class="badge approved">
+                ● ${escapeHtml(
+                  artist.status ||
+                  "Ativo"
+                )}
+              </span>
+
+            </td>
+
+
+            <td>
+
+              <button
+                class="btn small red"
+                onclick="deleteArtist(${Number(
+                  artist.id
+                )})"
+              >
+                REMOVER
+              </button>
+
+            </td>
+
+          </tr>
+
+        `
+      )
+      .join("");
+
+  };
+
+
+  window.searchArtists =
+  function(value){
+
+    renderArtists(
+      value
+    );
+
+  };
+
+
+  window.openArtistModal =
+  function(){
+
+    document
+      .querySelector(
+        "#artistModal"
+      )
+      .classList.add(
+        "show"
+      );
+
+  };
+
+
+  window.closeArtistModal =
+  function(){
+
+    document
+      .querySelector(
+        "#artistModal"
+      )
+      .classList.remove(
+        "show"
+      );
+
+  };
+
+
+  window.saveArtist =
+  function(event){
+
+    event.preventDefault();
+
+
+    const artists =
+      getArtists();
+
+
+    artists.push({
+
+      id:
+        Date.now(),
+
+      name:
+        document
+        .querySelector(
+          "#newArtistName"
+        )
+        .value,
+
+      contact:
+        document
+        .querySelector(
+          "#newArtistContact"
+        )
+        .value
+        ||
+        "Sem contacto",
+
+      status:
+        "Ativo",
+
+      photo:
+        ""
+
+    });
+
+
+    localStorage.setItem(
+      "kpAdminArtists",
+      JSON.stringify(
+        artists
+      )
+    );
+
+
+    event.target.reset();
+
+
+    closeArtistModal();
+
+
+    renderAll();
+
+  };
+
+
+  window.deleteArtist =
+  function(id){
+
+    if(
+      !confirm(
+        "Remover este artista?"
+      )
+    ){
+
+      return;
+
+    }
+
+
+    const artists =
+      getArtists()
+      .filter(
+        artist =>
+          artist.id !== id
+      );
+
+
+    localStorage.setItem(
+      "kpAdminArtists",
+      JSON.stringify(
+        artists
+      )
+    );
+
+
+    renderAll();
+
+  };
+
+
+  /* =========================================================
+     MÚSICAS
+  ========================================================== */
+
+  window.renderSongs =
+  function(filter = ""){
+
+    const songs =
+      getSongs()
+      .filter(
+        song =>
+          String(
+            song.title ||
+            song.name ||
+            ""
+          )
+          .toLowerCase()
+          .includes(
+            filter.toLowerCase()
+          )
+      );
+
+
+    const table =
+      document.querySelector(
+        "#songsTable"
+      );
+
+
+    if(
+      songs.length === 0
+    ){
+
+      table.innerHTML =
+        `
+          <tr>
+
+            <td
+              colspan="5"
+              style="
+                text-align:center;
+                padding:35px;
+                color:#777
+              "
+            >
+              Ainda não existem músicas publicadas.
+            </td>
+
+          </tr>
+        `;
+
+      return;
+
+    }
+
+
+    table.innerHTML =
+      songs
+      .map(
+        song => `
+
+          <tr>
+
+            <td>
+
+              <strong>
+                ${escapeHtml(
+                  song.title ||
+                  song.name ||
+                  "Sem título"
+                )}
+              </strong>
+
+            </td>
+
+
+            <td>
+              ${escapeHtml(
+                song.artist ||
+                song.artistName ||
+                "Artista"
+              )}
+            </td>
+
+
+            <td>
+              🎵 Música
+            </td>
+
+
+            <td>
+
+              <span class="badge approved">
+                ● Publicada
+              </span>
+
+            </td>
+
+
+            <td>
+
+              <button
+                class="btn small red"
+                onclick="deleteSong('${escapeAttribute(
+                  song.id
+                )}')"
+              >
+                REMOVER
+              </button>
+
+            </td>
+
+          </tr>
+
+        `
+      )
+      .join("");
+
+  };
+
+
+  window.searchSongs =
+  function(value){
+
+    renderSongs(
+      value
+    );
+
+  };
+
+
+  window.deleteSong =
+  function(id){
+
+    if(
+      !confirm(
+        "Remover esta música?"
+      )
+    ){
+
+      return;
+
+    }
+
+
+    const songs =
+      getSongs()
+      .filter(
+        song =>
+          String(
+            song.id
+          )
+          !==
+          String(
+            id
+          )
+      );
+
+
+    localStorage.setItem(
+      "kpSongs",
+      JSON.stringify(
+        songs
+      )
+    );
+
+
+    renderAll();
+
+  };
+
+
+  /* =========================================================
+     PAGAMENTOS
+  ========================================================== */
+
+  window.renderPayments =
+  function(filter = ""){
+
+    const payments =
+      getPayments()
+      .filter(
+        payment =>
+          (
+            String(
+              payment.plan ||
+              ""
+            )
+            +
+            " " +
+            String(
+              payment.method ||
+              ""
+            )
+          )
+          .toLowerCase()
+          .includes(
+            filter.toLowerCase()
+          )
+      );
+
+
+    const table =
+      document.querySelector(
+        "#paymentsTable"
+      );
+
+
+    if(
+      payments.length === 0
+    ){
+
+      table.innerHTML =
+        `
+          <tr>
+
+            <td
+              colspan="6"
+              style="
+                text-align:center;
+                padding:35px;
+                color:#777
+              "
+            >
+              Ainda não existem pagamentos.
+            </td>
+
+          </tr>
+        `;
+
+      return;
+
+    }
+
+
+    table.innerHTML =
+      payments
+      .map(
+        payment => `
+
+          <tr>
+
+            <td>
+              <strong>
+                ${escapeHtml(
+                  payment.plan ||
+                  "—"
+                )}
+              </strong>
+            </td>
+
+
+            <td>
+              ${escapeHtml(
+                payment.price ||
+                "0 Kz"
+              )}
+            </td>
+
+
+            <td>
+              ${escapeHtml(
+                payment.method ||
+                "—"
+              )}
+            </td>
+
+
+            <td>
+              ${escapeHtml(
+                payment.date ||
+                "—"
+              )}
+            </td>
+
+
+            <td>
+
+              <span
+                class="
+                  badge
+                  ${
+                    payment.status ===
+                    "Aprovado"
+                    ?
+                    "approved"
+                    :
+                    payment.status ===
+                    "Rejeitado"
+                    ?
+                    "rejected"
+                    :
+                    "pending"
+                  }
+                "
+              >
+                ● ${escapeHtml(
+                  payment.status ||
+                  "Pendente"
+                )}
+              </span>
+
+            </td>
+
+
+            <td>
+
+              ${
+                payment.status ===
+                "Pendente"
+
+                ?
+
+                `
+
+                  <button
+                    class="btn small green"
+                    onclick="approvePayment(${Number(
+                      payment.id
+                    )})"
+                  >
+                    APROVAR
+                  </button>
+
+
+                  <button
+                    class="btn small red"
+                    onclick="rejectPayment(${Number(
+                      payment.id
+                    )})"
+                  >
+                    RECUSAR
+                  </button>
+
+                `
+
+                :
+
+                "—"
+
+              }
+
+            </td>
+
+          </tr>
+
+        `
+      )
+      .join("");
+
+  };
+
+
+  window.searchPayments =
+  function(value){
+
+    renderPayments(
+      value
+    );
+
+  };
+
+
+  window.approvePayment =
+  function(id){
+
+    updatePayment(
+      id,
+      "Aprovado"
+    );
+
+  };
+
+
+  window.rejectPayment =
+  function(id){
+
+    if(
+      !confirm(
+        "Recusar este pagamento?"
+      )
+    ){
+
+      return;
+
+    }
+
+
+    updatePayment(
+      id,
+      "Rejeitado"
+    );
+
+  };
+
+
+  function updatePayment(
+    id,
+    status
+  ){
+
+    const payments =
+      getPayments();
+
+
+    const payment =
+      payments.find(
+        item =>
+          item.id === id
+      );
+
+
+    if(payment){
+
+      payment.status =
+        status;
+
+    }
+
+
+    localStorage.setItem(
+      "kpPayments",
+      JSON.stringify(
+        payments
+      )
+    );
+
+
+    renderAll();
+
+  }
+
+
+  /* =========================================================
+     SAQUES — FIRESTORE
+  ========================================================== */
+
+  function formatarKz(valor){
+
+    return Number(
+      valor || 0
+    )
+    .toLocaleString(
+      "pt-AO"
+    )
+    +
+    " Kz";
+
+  }
+
+
+  function formatarData(
+    timestamp
+  ){
+
+    if(
+      !timestamp
+    ){
+
+      return "—";
+
+    }
+
+
+    try{
+
+      let date;
+
+
+      if(
+        typeof timestamp.toDate ===
+        "function"
+      ){
+
+        date =
+          timestamp.toDate();
+
+      }
+      else if(
+        timestamp.seconds
+      ){
+
+        date =
+          new Date(
+            Number(
+              timestamp.seconds
+            ) * 1000
+          );
+
+      }
+      else{
+
+        date =
+          new Date(
+            timestamp
+          );
+
+      }
+
+
+      if(
+        isNaN(
+          date.getTime()
+        )
+      ){
+
+        return "—";
+
+      }
+
+
+      return date.toLocaleString(
+        "pt-AO",
+        {
+          day:"2-digit",
+          month:"2-digit",
+          year:"numeric",
+          hour:"2-digit",
+          minute:"2-digit"
+        }
+      );
+
+    }
+    catch(error){
+
+      return "—";
+
+    }
+
+  }
+
+
+  function mostrarErroSaque(
+    mensagem
+  ){
+
+    const box =
+      document.querySelector(
+        "#withdrawError"
+      );
+
+
+    box.textContent =
+      mensagem;
+
+
+    box.classList.add(
+      "show"
+    );
+
+  }
+
+
+  function esconderErroSaque(){
+
+    document
+      .querySelector(
+        "#withdrawError"
+      )
+      .classList.remove(
+        "show"
+      );
+
+  }
+
+
+  async function carregarSaques(){
+
+    esconderErroSaque();
+
+
+    const table =
+      document.querySelector(
+        "#withdrawalsTable"
+      );
+
+
+    table.innerHTML =
+      `
+        <tr>
+
+          <td colspan="7">
+
+            <div class="loading">
+              ⏳ A carregar pedidos de saque...
+            </div>
+
+          </td>
+
+        </tr>
+      `;
+
+
+    try{
+
+      const saqueQuery =
+        query(
+          collection(
+            db,
+            "saques"
+          )
+        );
+
+
+      const snapshot =
+        await getDocs(
+          saqueQuery
+        );
+
+
+      todosSaques =
+        snapshot.docs.map(
+          item => ({
+
+            id:
+              item.id,
+
+            ...item.data()
+
+          })
+        );
+
+
+      todosSaques.sort(
+        (a,b) => {
+
+          const aTime =
+            obterMillis(
+              a.criadoEm
+            );
+
+
+          const bTime =
+            obterMillis(
+              b.criadoEm
+            );
+
+
+          return bTime - aTime;
+
+        }
+      );
+
+
+      atualizarResumoSaques();
+
+
+      renderWithdrawals(
+        document
+        .querySelector(
+          "#withdrawSearch"
+        )
+        .value
+        ||
+        ""
+      );
+
+
+      renderDashboard();
+
+
+    }
+    catch(error){
+
+      console.error(
+        "Erro ao carregar saques:",
+        error
+      );
+
+
+      table.innerHTML =
+        `
+          <tr>
+
+            <td colspan="7">
+
+              <div class="empty">
+                Não foi possível carregar os pedidos de saque.
+              </div>
+
+            </td>
+
+          </tr>
+        `;
+
+
+      mostrarErroSaque(
+        "Erro ao carregar os saques. Verifica as Firestore Rules e a permissão do administrador."
+      );
+
+    }
+
+  }
+
+
+  function obterMillis(
+    timestamp
+  ){
+
+    if(
+      !timestamp
+    ){
+
+      return 0;
+
+    }
+
+
+    if(
+      typeof timestamp.toMillis ===
+      "function"
+    ){
+
+      return timestamp.toMillis();
+
+    }
+
+
+    if(
+      timestamp.seconds
+    ){
+
+      return Number(
+        timestamp.seconds
+      ) * 1000;
+
+    }
+
+
+    const value =
+      new Date(
+        timestamp
+      )
+      .getTime();
+
+
+    return isNaN(value)
+      ? 0
+      : value;
+
+  }
+
+
+  function atualizarResumoSaques(){
+
+    let pending =
+      0;
+
+    let paid =
+      0;
+
+    let cancelled =
+      0;
+
+
+    let pendingCount =
+      0;
+
+
+    todosSaques.forEach(
+      saque => {
+
+        const valor =
+          Number(
+            saque.valor || 0
+          );
+
+
+        if(
+          saque.status ===
+          "pendente"
+        ){
+
+          pending +=
+            valor;
+
+          pendingCount++;
+
+        }
+
+
+        if(
+          saque.status ===
+          "pago"
+        ){
+
+          paid +=
+            valor;
+
+        }
+
+
+        if(
+          saque.status ===
+          "cancelado"
+        ){
+
+          cancelled +=
+            valor;
+
+        }
+
+      }
+    );
+
+
+    document
+      .querySelector(
+        "#withdrawPendingAmount"
+      )
+      .textContent =
+        formatarKz(
+          pending
+        );
+
+
+    document
+      .querySelector(
+        "#withdrawPaidAmount"
+      )
+      .textContent =
+        formatarKz(
+          paid
+        );
+
+
+    document
+      .querySelector(
+        "#withdrawCancelledAmount"
+      )
+      .textContent =
+        formatarKz(
+          cancelled
+        );
+
+
+    document
+      .querySelector(
+        "#pendingWithdrawals"
+      )
+      .textContent =
+        pendingCount;
+
+
+    const menuCount =
+      document.querySelector(
+        "#withdrawMenuCount"
+      );
+
+
+    menuCount.textContent =
+      pendingCount;
+
+
+    if(
+      pendingCount > 0
+    ){
+
+      menuCount.classList.add(
+        "show"
+      );
+
+    }
+    else{
+
+      menuCount.classList.remove(
+        "show"
+      );
+
+    }
+
+  }
+
+
+  window.renderWithdrawals =
+  function(filter = ""){
+
+    const normalized =
+      String(
+        filter || ""
+      )
+      .toLowerCase()
+      .trim();
+
+
+    const saques =
+      todosSaques
+      .filter(
+        saque => {
+
+          if(
+            !normalized
+          ){
+
+            return true;
+
+          }
+
+
+          const texto =
+            [
+
+              saque.usuarioEmail,
+
+              saque.metodo,
+
+              saque.destino,
+
+              saque.status,
+
+              saque.usuarioId
+
+            ]
+            .join(" ")
+            .toLowerCase();
+
+
+          return texto.includes(
+            normalized
           );
 
         }
       );
 
 
-      if(
-        recent.length === 0
-      ){
-
-        activity.innerHTML =
-          `
-            <div
-              style="
-                padding:30px 0;
-                color:#777;
-                font-size:11px
-              "
-            >
-              Ainda não existe atividade.
-            </div>
-          `;
-
-        return;
-
-      }
+    const table =
+      document.querySelector(
+        "#withdrawalsTable"
+      );
 
 
-      activity.innerHTML =
-        recent
-        .slice(0,6)
-        .map(
-          item => `
+    if(
+      saques.length === 0
+    ){
 
-            <div class="list-item">
+      table.innerHTML =
+        `
+          <tr>
 
-              <div class="avatar">
-                ${item.icon}
-              </div>
+            <td colspan="7">
 
-              <div class="item-info">
+              <div class="empty">
 
-                <strong>
-                  ${item.title}
-                </strong>
-
-                <span>
-                  ${item.text}
-                </span>
+                ${
+                  todosSaques.length === 0
+                  ?
+                  "Ainda não existem pedidos de saque."
+                  :
+                  "Nenhum saque corresponde à pesquisa."
+                }
 
               </div>
 
-            </div>
+            </td>
 
-          `
-        )
-        .join("");
+          </tr>
+        `;
+
+      return;
 
     }
 
 
-    /*
-      ARTISTAS
-    */
+    table.innerHTML =
+      saques
+      .map(
+        saque => {
 
-    function renderArtists(
-      filter = ""
-    ){
-
-      const artists =
-        getArtists()
-        .filter(
-          artist =>
-            artist.name
-            .toLowerCase()
-            .includes(
-              filter.toLowerCase()
+          const status =
+            String(
+              saque.status ||
+              "pendente"
             )
-        );
+            .toLowerCase();
 
 
-      const table =
-        document.querySelector(
-          "#artistsTable"
-        );
+          let statusClass =
+            "pending";
 
 
-      table.innerHTML =
-        artists
-        .map(
-          artist => `
+          let statusText =
+            "Pendente";
+
+
+          if(
+            status ===
+            "pago"
+          ){
+
+            statusClass =
+              "approved";
+
+            statusText =
+              "Pago";
+
+          }
+
+
+          if(
+            status ===
+            "cancelado"
+          ){
+
+            statusClass =
+              "rejected";
+
+            statusText =
+              "Cancelado";
+
+          }
+
+
+          return `
 
             <tr>
 
@@ -1787,661 +3429,910 @@
                 <div class="table-user">
 
                   <div class="small-avatar">
-
-                    ${
-                      artist.photo
-                      ? `
-                        <img
-                          src="${artist.photo}"
-                          alt=""
-                        >
-                      `
-                      : "👤"
-                    }
-
+                    👤
                   </div>
 
-                  <strong>
-                    ${artist.name}
-                  </strong>
+                  <div>
+
+                    <strong>
+                      ${escapeHtml(
+                        saque.usuarioEmail ||
+                        "Utilizador"
+                      )}
+                    </strong>
+
+                    <span
+                      style="
+                        display:block;
+                        margin-top:4px;
+                        color:#666;
+                        font-size:8px
+                      "
+                    >
+                      ${escapeHtml(
+                        saque.usuarioId ||
+                        ""
+                      )}
+                    </span>
+
+                  </div>
 
                 </div>
 
               </td>
 
-              <td>
-                ${artist.contact}
-              </td>
 
               <td>
 
-                <span class="badge approved">
-                  ● ${artist.status}
+                <span class="amount">
+                  ${formatarKz(
+                    saque.valor
+                  )}
                 </span>
 
               </td>
 
+
+              <td>
+                ${escapeHtml(
+                  saque.metodo ||
+                  "—"
+                )}
+              </td>
+
+
               <td>
 
-                <button
-                  class="btn small red"
-                  onclick="
-                    deleteArtist(
-                      ${artist.id}
-                    )
-                  "
+                <div
+                  class="withdraw-destination"
+                  title="${escapeAttribute(
+                    saque.destino ||
+                    ""
+                  )}"
                 >
-                  REMOVER
-                </button>
+                  ${escapeHtml(
+                    saque.destino ||
+                    "—"
+                  )}
+                </div>
 
               </td>
 
-            </tr>
-
-          `
-        )
-        .join("");
-
-    }
-
-
-    function searchArtists(
-      value
-    ){
-
-      renderArtists(
-        value
-      );
-
-    }
-
-
-    function openArtistModal(){
-
-      document
-        .querySelector(
-          "#artistModal"
-        )
-        .classList
-        .add("show");
-
-    }
-
-
-    function closeArtistModal(){
-
-      document
-        .querySelector(
-          "#artistModal"
-        )
-        .classList
-        .remove("show");
-
-    }
-
-
-    function saveArtist(
-      event
-    ){
-
-      event.preventDefault();
-
-
-      const artists =
-        getArtists();
-
-
-      artists.push(
-        {
-          id:Date.now(),
-
-          name:
-            document
-            .querySelector(
-              "#newArtistName"
-            )
-            .value,
-
-          contact:
-            document
-            .querySelector(
-              "#newArtistContact"
-            )
-            .value
-            ||
-            "Sem contacto",
-
-          status:"Ativo",
-
-          photo:""
-        }
-      );
-
-
-      localStorage.setItem(
-        "kpAdminArtists",
-        JSON.stringify(
-          artists
-        )
-      );
-
-
-      event.target.reset();
-
-
-      closeArtistModal();
-
-
-      renderAll();
-
-    }
-
-
-    function deleteArtist(
-      id
-    ){
-
-      if(
-        !confirm(
-          "Remover este artista?"
-        )
-      ){
-
-        return;
-
-      }
-
-
-      const artists =
-        getArtists()
-        .filter(
-          artist =>
-            artist.id !== id
-        );
-
-
-      localStorage.setItem(
-        "kpAdminArtists",
-        JSON.stringify(
-          artists
-        )
-      );
-
-
-      renderAll();
-
-    }
-
-
-    /*
-      MÚSICAS
-    */
-
-    function renderSongs(
-      filter = ""
-    ){
-
-      const songs =
-        getSongs()
-        .filter(
-          song =>
-            String(
-              song.title
-              ||
-              song.name
-              ||
-              ""
-            )
-            .toLowerCase()
-            .includes(
-              filter.toLowerCase()
-            )
-        );
-
-
-      const table =
-        document.querySelector(
-          "#songsTable"
-        );
-
-
-      if(
-        songs.length === 0
-      ){
-
-        table.innerHTML =
-          `
-            <tr>
-
-              <td
-                colspan="5"
-                style="
-                  text-align:center;
-                  padding:35px;
-                  color:#777
-                "
-              >
-                Ainda não existem músicas publicadas.
-              </td>
-
-            </tr>
-          `;
-
-        return;
-
-      }
-
-
-      table.innerHTML =
-        songs
-        .map(
-          song => `
-
-            <tr>
 
               <td>
-                <strong>
-                  ${
-                    song.title
-                    ||
-                    song.name
-                    ||
-                    "Sem título"
-                  }
-                </strong>
+                ${formatarData(
+                  saque.criadoEm
+                )}
               </td>
 
-              <td>
-                ${
-                  song.artist
-                  ||
-                  song.artistName
-                  ||
-                  "Artista"
-                }
-              </td>
-
-              <td>
-                🎵 Música
-              </td>
 
               <td>
 
-                <span class="badge approved">
-                  ● Publicada
+                <span class="badge ${statusClass}">
+                  ● ${statusText}
                 </span>
 
               </td>
 
-              <td>
-
-                <button
-                  class="btn small red"
-                  onclick="
-                    deleteSong(
-                      '${song.id}'
-                    )
-                  "
-                >
-                  REMOVER
-                </button>
-
-              </td>
-
-            </tr>
-
-          `
-        )
-        .join("");
-
-    }
-
-
-    function searchSongs(
-      value
-    ){
-
-      renderSongs(
-        value
-      );
-
-    }
-
-
-    function deleteSong(
-      id
-    ){
-
-      if(
-        !confirm(
-          "Remover esta música?"
-        )
-      ){
-
-        return;
-
-      }
-
-
-      const songs =
-        getSongs()
-        .filter(
-          song =>
-            String(
-              song.id
-            )
-            !==
-            String(
-              id
-            )
-        );
-
-
-      localStorage.setItem(
-        "kpSongs",
-        JSON.stringify(
-          songs
-        )
-      );
-
-
-      renderAll();
-
-    }
-
-
-    /*
-      PAGAMENTOS
-    */
-
-    function renderPayments(
-      filter = ""
-    ){
-
-      const payments =
-        getPayments()
-        .filter(
-          payment =>
-            (
-              payment.plan +
-              " " +
-              payment.method
-            )
-            .toLowerCase()
-            .includes(
-              filter.toLowerCase()
-            )
-        );
-
-
-      const table =
-        document.querySelector(
-          "#paymentsTable"
-        );
-
-
-      if(
-        payments.length === 0
-      ){
-
-        table.innerHTML =
-          `
-            <tr>
-
-              <td
-                colspan="6"
-                style="
-                  text-align:center;
-                  padding:35px;
-                  color:#777
-                "
-              >
-                Ainda não existem pagamentos.
-              </td>
-
-            </tr>
-          `;
-
-        return;
-
-      }
-
-
-      table.innerHTML =
-        payments
-        .map(
-          payment => `
-
-            <tr>
-
-              <td>
-                <strong>
-                  ${payment.plan}
-                </strong>
-              </td>
-
-              <td>
-                ${payment.price}
-              </td>
-
-              <td>
-                ${payment.method}
-              </td>
-
-              <td>
-                ${payment.date}
-              </td>
-
-              <td>
-
-                <span
-                  class="
-                    badge
-                    ${
-                      payment.status ===
-                      "Aprovado"
-                      ? "approved"
-                      : payment.status ===
-                      "Rejeitado"
-                      ? "rejected"
-                      : "pending"
-                    }
-                  "
-                >
-                  ● ${payment.status}
-                </span>
-
-              </td>
 
               <td>
 
                 ${
-                  payment.status ===
-                  "Pendente"
+                  status ===
+                  "pendente"
 
-                  ? `
+                  ?
+
+                  `
 
                     <button
                       class="btn small green"
-                      onclick="
-                        approvePayment(
-                          ${payment.id}
-                        )
-                      "
+                      onclick="confirmarPagamentoSaque('${escapeAttribute(
+                        saque.id
+                      )}')"
                     >
-                      APROVAR
+                      PAGAR E CONFIRMAR
                     </button>
+
 
                     <button
                       class="btn small red"
-                      onclick="
-                        rejectPayment(
-                          ${payment.id}
-                        )
-                      "
+                      onclick="cancelarSaque('${escapeAttribute(
+                        saque.id
+                      )}')"
                     >
-                      RECUSAR
+                      CANCELAR
                     </button>
 
                   `
 
-                  : "—"
+                  :
+
+                  status ===
+                  "pago"
+
+                  ?
+
+                  `
+                    <span
+                      style="
+                        color:#48d597;
+                        font-size:9px;
+                        font-weight:900
+                      "
+                    >
+                      ✓ PROCESSADO
+                    </span>
+                  `
+
+                  :
+
+                  `
+                    <span
+                      style="
+                        color:#777;
+                        font-size:9px
+                      "
+                    >
+                      —
+                    </span>
+                  `
+
                 }
 
               </td>
 
             </tr>
 
-          `
-        )
-        .join("");
+          `;
 
-    }
+        }
+      )
+      .join("");
+
+  };
 
 
-    function searchPayments(
-      value
-    ){
+  /* =========================================================
+     PAGAR SAQUE
+  ========================================================== */
 
-      renderPayments(
-        value
+  window.confirmarPagamentoSaque =
+  async function(
+    saqueId
+  ){
+
+    const saque =
+      todosSaques.find(
+        item =>
+          item.id ===
+          saqueId
       );
 
-    }
 
+    if(!saque){
 
-    function approvePayment(
-      id
-    ){
-
-      updatePayment(
-        id,
-        "Aprovado"
+      alert(
+        "Pedido de saque não encontrado."
       );
 
+      return;
+
     }
 
 
-    function rejectPayment(
-      id
+    if(
+      saque.status !==
+      "pendente"
     ){
+
+      alert(
+        "Este saque já foi processado."
+      );
+
+      return;
+
+    }
+
+
+    const valor =
+      Number(
+        saque.valor || 0
+      );
+
+
+    if(
+      valor <= 0
+    ){
+
+      alert(
+        "O valor deste saque é inválido."
+      );
+
+      return;
+
+    }
+
+
+    const destino =
+      saque.destino ||
+      "destino não informado";
+
+
+    const confirmar =
+      confirm(
+
+        "CONFIRMAR PAGAMENTO\n\n" +
+
+        "Valor: " +
+        formatarKz(valor) +
+        "\n" +
+
+        "Método: " +
+        (saque.metodo || "—") +
+        "\n" +
+
+        "Destino: " +
+        destino +
+        "\n\n" +
+
+        "Confirma que já efetuaste o pagamento manual ao utilizador?"
+
+      );
+
+
+    if(!confirmar){
+
+      return;
+
+    }
+
+
+    try{
+
+      mostrarProcessando(
+        saqueId,
+        true
+      );
+
+
+      /*
+        TRANSAÇÃO:
+
+        1. Lê o saque.
+        2. Confirma que ainda está pendente.
+        3. Lê a carteira do utilizador.
+        4. Confirma saldo suficiente.
+        5. Desconta o saldo.
+        6. Incrementa totalSacado.
+        7. Marca o saque como pago.
+
+        Tudo acontece numa única transação.
+      */
+
+      const saqueRef =
+        doc(
+          db,
+          "saques",
+          saqueId
+        );
+
+
+      await runTransaction(
+        db,
+        async transaction => {
+
+          const saqueSnap =
+            await transaction.get(
+              saqueRef
+            );
+
+
+          if(
+            !saqueSnap.exists()
+          ){
+
+            throw new Error(
+              "SAQUE_NAO_EXISTE"
+            );
+
+          }
+
+
+          const saqueData =
+            saqueSnap.data();
+
+
+          if(
+            saqueData.status !==
+            "pendente"
+          ){
+
+            throw new Error(
+              "SAQUE_JA_PROCESSADO"
+            );
+
+          }
+
+
+          const valorSaque =
+            Number(
+              saqueData.valor || 0
+            );
+
+
+          if(
+            valorSaque <= 0
+          ){
+
+            throw new Error(
+              "VALOR_INVALIDO"
+            );
+
+          }
+
+
+          const usuarioId =
+            saqueData.usuarioId;
+
+
+          if(!usuarioId){
+
+            throw new Error(
+              "USUARIO_NAO_ENCONTRADO"
+            );
+
+          }
+
+
+          const carteiraRef =
+            doc(
+              db,
+              "carteiras",
+              usuarioId
+            );
+
+
+          const carteiraSnap =
+            await transaction.get(
+              carteiraRef
+            );
+
+
+          if(
+            !carteiraSnap.exists()
+          ){
+
+            throw new Error(
+              "CARTEIRA_NAO_EXISTE"
+            );
+
+          }
+
+
+          const carteira =
+            carteiraSnap.data();
+
+
+          const saldo =
+            Number(
+              carteira.saldo || 0
+            );
+
+
+          if(
+            saldo <
+            valorSaque
+          ){
+
+            throw new Error(
+              "SALDO_INSUFICIENTE"
+            );
+
+          }
+
+
+          transaction.update(
+            carteiraRef,
+            {
+
+              saldo:
+                increment(
+                  -valorSaque
+                ),
+
+              totalSacado:
+                increment(
+                  valorSaque
+                ),
+
+              atualizadoEm:
+                serverTimestamp()
+
+            }
+          );
+
+
+          transaction.update(
+            saqueRef,
+            {
+
+              status:
+                "pago",
+
+              pagoEm:
+                serverTimestamp(),
+
+              processadoPor:
+                adminAtual
+                ?
+                adminAtual.uid
+                :
+                "",
+
+              processadoPorEmail:
+                adminAtual
+                ?
+                (
+                  adminAtual.email ||
+                  ""
+                )
+                :
+                "",
+
+              observacaoAdmin:
+                "Pagamento manual confirmado pelo administrador."
+
+            }
+          );
+
+        }
+      );
+
+
+      alert(
+        "✅ Saque pago e confirmado com sucesso."
+      );
+
+
+      await carregarSaques();
+
+    }
+    catch(error){
+
+      console.error(
+        "Erro ao processar saque:",
+        error
+      );
+
+
+      let mensagem =
+        "Não foi possível processar o saque.";
+
 
       if(
-        !confirm(
-          "Recusar este pagamento?"
-        )
+        error.message ===
+        "SALDO_INSUFICIENTE"
       ){
+
+        mensagem =
+          "❌ O saldo disponível na carteira é inferior ao valor do saque.";
+
+      }
+      else if(
+        error.message ===
+        "CARTEIRA_NAO_EXISTE"
+      ){
+
+        mensagem =
+          "❌ A carteira deste utilizador não existe.";
+
+      }
+      else if(
+        error.message ===
+        "SAQUE_JA_PROCESSADO"
+      ){
+
+        mensagem =
+          "⚠️ Este saque já foi processado por outro administrador.";
+
+      }
+      else if(
+        error.message ===
+        "SAQUE_NAO_EXISTE"
+      ){
+
+        mensagem =
+          "❌ Este pedido de saque não existe.";
+
+      }
+      else if(
+        error.code ===
+        "permission-denied"
+      ){
+
+        mensagem =
+          "🔐 A operação foi bloqueada pelas Firestore Rules. O administrador precisa de permissão para processar saques.";
+
+      }
+
+
+      alert(
+        mensagem
+      );
+
+
+      mostrarErroSaque(
+        mensagem
+      );
+
+    }
+    finally{
+
+      mostrarProcessando(
+        saqueId,
+        false
+      );
+
+    }
+
+  };
+
+
+  function mostrarProcessando(
+    saqueId,
+    processando
+  ){
+
+    const botoes =
+      document.querySelectorAll(
+        `button[onclick*="${saqueId}"]`
+      );
+
+
+    botoes.forEach(
+      botao => {
+
+        if(
+          processando
+        ){
+
+          botao.disabled =
+            true;
+
+        }
+        else{
+
+          botao.disabled =
+            false;
+
+        }
+
+      }
+    );
+
+  }
+
+
+  /* =========================================================
+     CANCELAR SAQUE
+  ========================================================== */
+
+  window.cancelarSaque =
+  async function(
+    saqueId
+  ){
+
+    const saque =
+      todosSaques.find(
+        item =>
+          item.id ===
+          saqueId
+      );
+
+
+    if(!saque){
+
+      alert(
+        "Pedido de saque não encontrado."
+      );
+
+      return;
+
+    }
+
+
+    if(
+      saque.status !==
+      "pendente"
+    ){
+
+      alert(
+        "Este saque já foi processado."
+      );
+
+      return;
+
+    }
+
+
+    const motivo =
+      prompt(
+        "Motivo do cancelamento do saque:",
+        "Pedido cancelado pelo administrador."
+      );
+
+
+    if(
+      motivo ===
+      null
+    ){
+
+      return;
+
+    }
+
+
+    try{
+
+      const saqueRef =
+        doc(
+          db,
+          "saques",
+          saqueId
+        );
+
+
+      await updateDoc(
+        saqueRef,
+        {
+
+          status:
+            "cancelado",
+
+          processadoPor:
+            adminAtual
+            ?
+            adminAtual.uid
+            :
+            "",
+
+          processadoPorEmail:
+            adminAtual
+            ?
+            (
+              adminAtual.email ||
+              ""
+            )
+            :
+            "",
+
+          observacaoAdmin:
+            motivo.trim()
+            ||
+            "Saque cancelado pelo administrador.",
+
+          processadoEm:
+            serverTimestamp()
+
+        }
+      );
+
+
+      /*
+        IMPORTANTE:
+
+        Não devolvemos saldo automaticamente
+        nesta versão.
+
+        Isso evita criar dinheiro artificialmente
+        ou devolver um valor que eventualmente
+        tenha sido reservado por outro processo.
+
+        A política de reembolso será implementada
+        separadamente.
+      */
+
+
+      alert(
+        "Saque cancelado."
+      );
+
+
+      await carregarSaques();
+
+    }
+    catch(error){
+
+      console.error(
+        "Erro ao cancelar saque:",
+        error
+      );
+
+
+      alert(
+        "Não foi possível cancelar o saque."
+      );
+
+    }
+
+  };
+
+
+  /* =========================================================
+     RENDER GERAL
+  ========================================================== */
+
+  function renderAll(){
+
+    renderDashboard();
+
+    renderArtists();
+
+    renderSongs();
+
+    renderPayments();
+
+    atualizarResumoSaques();
+
+  }
+
+
+  /* =========================================================
+     MOBILE
+  ========================================================== */
+
+  window.toggleMenu =
+  function(){
+
+    document
+      .querySelector(
+        "#sidebar"
+      )
+      .classList.toggle(
+        "show"
+      );
+
+  };
+
+
+  /* =========================================================
+     LOGOUT
+  ========================================================== */
+
+  window.logout =
+  async function(){
+
+    if(
+      !confirm(
+        "Terminar sessão de administrador?"
+      )
+    ){
+
+      return;
+
+    }
+
+
+    try{
+
+      await signOut(
+        auth
+      );
+
+      window.location.href =
+        "index.html";
+
+    }
+    catch(error){
+
+      console.error(
+        error
+      );
+
+      window.location.href =
+        "index.html";
+
+    }
+
+  };
+
+
+  /* =========================================================
+     SEGURANÇA BÁSICA DE SESSÃO
+  ========================================================== */
+
+  onAuthStateChanged(
+    auth,
+    async user => {
+
+      if(!user){
+
+        /*
+          Se o admin.html já era acessível
+          sem login, agora exigimos login.
+        */
+
+        window.location.href =
+          "area-do-artista.html";
 
         return;
 
       }
 
 
-      updatePayment(
-        id,
-        "Rejeitado"
-      );
-
-    }
+      adminAtual =
+        user;
 
 
-    function updatePayment(
-      id,
-      status
-    ){
-
-      const payments =
-        getPayments();
+      /*
+        IMPORTANTE:
+        As Firestore Rules devem confirmar
+        que este utilizador é realmente administrador.
+      */
 
 
-      const payment =
-        payments.find(
-          item =>
-            item.id === id
-        );
-
-
-      if(
-        payment
-      ){
-
-        payment.status =
-          status;
-
-      }
-
-
-      localStorage.setItem(
-        "kpPayments",
-        JSON.stringify(
-          payments
-        )
-      );
-
+      await carregarSaques();
 
       renderAll();
 
     }
+  );
 
 
-    /*
-      RENDER GERAL
-    */
+  /* =========================================================
+     UTILITÁRIOS
+  ========================================================== */
 
-    function renderAll(){
+  function escapeHtml(
+    value
+  ){
 
-      renderDashboard();
+    return String(
+      value ?? ""
+    )
+    .replace(
+      /&/g,
+      "&amp;"
+    )
+    .replace(
+      /</g,
+      "&lt;"
+    )
+    .replace(
+      />/g,
+      "&gt;"
+    )
+    .replace(
+      /"/g,
+      "&quot;"
+    )
+    .replace(
+      /'/g,
+      "&#039;"
+    );
 
-      renderArtists();
-
-      renderSongs();
-
-      renderPayments();
-
-    }
-
-
-    /*
-      MOBILE
-    */
-
-    function toggleMenu(){
-
-      document
-        .querySelector("#sidebar")
-        .classList
-        .toggle("show");
-
-    }
-
-
-    /*
-      LOGOUT ADMIN
-    */
-
-    function logout(){
-
-      if(
-        confirm(
-          "Terminar sessão de administrador?"
-        )
-      ){
-
-        window.location.href =
-          "index.html";
-
-      }
-
-    }
+  }
 
 
-    /*
-      INICIAR
-    */
+  function escapeAttribute(
+    value
+  ){
 
-    renderAll();
+    return escapeHtml(
+      value
+    );
 
-  </script>
+  }
+
+
+  /* =========================================================
+     INICIAR
+  ========================================================== */
+
+  renderAll();
+
+</script>
 
 </body>
 </html>
