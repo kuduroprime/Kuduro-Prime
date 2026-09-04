@@ -1936,133 +1936,128 @@ onAuthStateChanged(
       );
 
 
-      /* =========================
-         ADMIN
-      ========================= */
+      //* =========================
+   ADMIN
+========================= */
+
+adminBtn.style.display = "none";
+
+try{
+
+  console.log(
+    "A verificar admin..."
+  );
+
+
+  // 1. Procurar primeiro pelo UID
+  const adminRef =
+    doc(
+      db,
+      "artistas",
+      user.uid
+    );
+
+
+  const adminSnap =
+    await getDoc(
+      adminRef
+    );
+
+
+  if(adminSnap.exists()){
+
+    const dadosAdmin =
+      adminSnap.data();
+
+
+    console.log(
+      "Documento encontrado:",
+      dadosAdmin
+    );
+
+
+    console.log(
+      "Valor admin:",
+      dadosAdmin.admin
+    );
+
+
+    console.log(
+      "Tipo:",
+      typeof dadosAdmin.admin
+    );
+
+
+    // Aceita:
+    // true
+    // "true"
+    // "verdadeiro"
+    const valorAdmin =
+      dadosAdmin.admin;
+
+
+    const ehAdmin =
+
+      valorAdmin === true ||
+
+      String(
+        valorAdmin ?? ""
+      )
+        .trim()
+        .toLowerCase() === "true" ||
+
+      String(
+        valorAdmin ?? ""
+      )
+        .trim()
+        .toLowerCase() === "verdadeiro";
+
+
+    if(ehAdmin){
+
+      console.log(
+        "👑 ADMIN DETETADO!"
+      );
+
 
       adminBtn.style.display =
-        "none";
+        "inline-flex";
+
+    }else{
+
+      console.log(
+        "❌ Campo admin não é verdadeiro."
+      );
+
+    }
 
 
-      try{
+  }else{
 
-        console.log(
-          "A verificar admin na coleção artistas..."
-        );
-
-
-        const adminRef =
-          doc(
-            db,
-            "artistas",
-            user.uid
-          );
+    console.log(
+      "❌ Não foi encontrado documento em:"
+    );
 
 
-        const adminSnap =
-          await getDoc(
-            adminRef
-          );
+    console.log(
+      "artistas/" + user.uid
+    );
+
+  }
 
 
-        if(!adminSnap.exists()){
+}catch(error){
 
-          console.log(
-            "Documento não encontrado em artistas/"
-            + user.uid
-          );
-
-          return;
-
-        }
+  console.error(
+    "❌ Erro ao verificar administrador:",
+    error
+  );
 
 
-        const dadosAdmin =
-          adminSnap.data();
+  adminBtn.style.display =
+    "none";
 
-
-        console.log(
-          "Documento do utilizador:",
-          dadosAdmin
-        );
-
-
-        console.log(
-          "Campo admin:",
-          dadosAdmin.admin
-        );
-
-
-        console.log(
-          "Tipo do campo admin:",
-          typeof dadosAdmin.admin
-        );
-
-
-        /*
-          Aceita:
-          true
-          "true"
-          "verdadeiro"
-        */
-
-        const eAdmin =
-
-          dadosAdmin.admin === true ||
-
-          dadosAdmin.admin === "true" ||
-
-          String(
-            dadosAdmin.admin ?? ""
-          )
-          .trim()
-          .toLowerCase() ===
-          "verdadeiro";
-
-
-        if(eAdmin){
-
-          console.log(
-            "👑 ADMIN DETETADO"
-          );
-
-
-          adminBtn.style.display =
-            "inline-flex";
-
-
-          adminBtn.style.visibility =
-            "visible";
-
-
-          adminBtn.style.opacity =
-            "1";
-
-        }else{
-
-          console.log(
-            "❌ Este utilizador não é admin."
-          );
-
-
-          adminBtn.style.display =
-            "none";
-
-        }
-
-
-      }catch(error){
-
-        console.error(
-          "ERRO AO VERIFICAR ADMIN:",
-          error
-        );
-
-
-        adminBtn.style.display =
-          "none";
-
-      }
+}
 
 
     }else{
