@@ -1911,30 +1911,85 @@ onAuthStateChanged(
 
     if(user){
 
-      console.log(
-        "Utilizador logado:",
-        user.uid
-      );
+  // ÁREA DO ARTISTA
+  areaArtistaBtn.href =
+    "feed.html";
+
+  areaArtistaBtn.innerHTML =
+    "👤 ENTRAR NO FEED";
 
 
-      /* =========================
-         ÁREA DO ARTISTA
-      ========================= */
-
-      areaArtistaBtn.href =
-        "feed.html";
-
-      areaArtistaBtn.innerHTML =
-        "👤 ENTRAR NO FEED";
+  // NOTIFICAÇÕES
+  notificationBtn.classList.add(
+    "show"
+  );
 
 
-      /* =========================
-         NOTIFICAÇÕES
-      ========================= */
+  // ADMIN
+  adminBtn.style.display = "none";
 
-      notificationBtn.classList.add(
-        "show"
-      );
+  try {
+
+    const adminRef = doc(
+      db,
+      "artistas",
+      user.uid
+    );
+
+    const adminSnap =
+      await getDoc(adminRef);
+
+    if(adminSnap.exists()){
+
+      const dadosAdmin =
+        adminSnap.data();
+
+      const valorAdmin =
+        dadosAdmin.admin;
+
+      const ehAdmin =
+        valorAdmin === true ||
+        String(valorAdmin ?? "")
+          .trim()
+          .toLowerCase() === "true" ||
+        String(valorAdmin ?? "")
+          .trim()
+          .toLowerCase() === "verdadeiro";
+
+      if(ehAdmin){
+
+        adminBtn.style.display =
+          "inline-flex";
+
+      }
+
+    }
+
+  } catch(error){
+
+    console.error(
+      "Erro ADMIN:",
+      error
+    );
+
+  }
+
+}else{
+
+  areaArtistaBtn.href =
+    "area-do-artista.html";
+
+  areaArtistaBtn.innerHTML =
+    "👤 ÁREA DO ARTISTA";
+
+  notificationBtn.classList.remove(
+    "show"
+  );
+
+  adminBtn.style.display =
+    "none";
+
+}
 
 
       /* =========================
@@ -1943,157 +1998,87 @@ onAuthStateChanged(
 
 adminBtn.style.display = "none";
 
-try{
+try {
 
-  console.log(
-    "A verificar administrador..."
+  console.log("A verificar administrador...");
+
+  const adminRef = doc(
+    db,
+    "artistas",
+    user.uid
   );
 
+  const adminSnap = await getDoc(adminRef);
 
-  let ehAdmin =
-    false;
-
-
-  /* =========================
-     1. TENTAR PELO ID DO DOCUMENTO
-  ========================= */
-
-  const adminRef =
-    doc(
-      db,
-      "artistas",
-      user.uid
-    );
-
-
-  const adminSnap =
-    await getDoc(
-      adminRef
-    );
-
-
-  if(adminSnap.exists()){
-
-    const dados =
-      adminSnap.data();
-
+  if (!adminSnap.exists()) {
 
     console.log(
-      "Perfil encontrado pelo UID:",
-      dados
+      "❌ Não existe documento em artistas/" + user.uid
     );
 
+  } else {
 
-    ehAdmin =
-      dados.admin === true ||
-      String(dados.admin ?? "")
+    const dadosAdmin = adminSnap.data();
+
+    console.log(
+      "Documento do artista:",
+      dadosAdmin
+    );
+
+    const valorAdmin = dadosAdmin.admin;
+
+    const ehAdmin =
+      valorAdmin === true ||
+      String(valorAdmin ?? "")
         .trim()
         .toLowerCase() === "true" ||
-      String(dados.admin ?? "")
+      String(valorAdmin ?? "")
         .trim()
         .toLowerCase() === "verdadeiro";
 
-  }
+    console.log(
+      "Campo admin:",
+      valorAdmin
+    );
 
+    console.log(
+      "É administrador?",
+      ehAdmin
+    );
 
-  /* =========================
-     2. PROCURAR PELO CAMPO UID
-  ========================= */
+    if (ehAdmin) {
 
-  if(!ehAdmin){
-
-    const artistasRef =
-      collection(
-        db,
-        "artistas"
-      );
-
-
-    const q =
-      query(
-        artistasRef,
-        where(
-          "uid",
-          "==",
-          user.uid
-        ),
-        limit(1)
-      );
-
-
-    const resultado =
-      await getDocs(
-        q
-      );
-
-
-    if(!resultado.empty){
-
-      const dados =
-        resultado.docs[0].data();
-
+      adminBtn.style.display =
+        "inline-flex";
 
       console.log(
-        "Perfil encontrado pelo campo uid:",
-        dados
+        "👑 BOTÃO ADMIN ATIVADO!"
       );
 
+    } else {
 
-      ehAdmin =
-        dados.admin === true ||
-        String(dados.admin ?? "")
-          .trim()
-          .toLowerCase() === "true" ||
-        String(dados.admin ?? "")
-          .trim()
-          .toLowerCase() === "verdadeiro";
+      adminBtn.style.display =
+        "none";
+
+      console.log(
+        "❌ Este utilizador não é admin."
+      );
 
     }
 
   }
 
-
-  /* =========================
-     MOSTRAR BOTÃO
-  ========================= */
-
-  if(ehAdmin){
-
-    console.log(
-      "👑 ADMIN DETETADO!"
-    );
-
-
-    adminBtn.style.display =
-      "inline-flex";
-
-
-    adminBtn.style.visibility =
-      "visible";
-
-
-  }else{
-
-    console.log(
-      "❌ Este utilizador não é administrador."
-    );
-
-  }
-
-
-}catch(error){
+} catch (error) {
 
   console.error(
     "❌ Erro ao verificar administrador:",
     error
   );
 
-
   adminBtn.style.display =
     "none";
 
 }
-
 
     }else{
 
