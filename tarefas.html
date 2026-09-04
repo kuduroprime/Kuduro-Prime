@@ -619,21 +619,27 @@
 
     import {
 
-      getFirestore,
+  getFirestore,
 
-      collection,
+  collection,
 
-      query,
+  query,
 
-      where,
+  where,
 
-      getDocs,
+  getDocs,
 
-      addDoc,
+  addDoc,
 
-      serverTimestamp
+  updateDoc,
 
-    }
+  doc,
+
+  increment,
+
+  serverTimestamp
+
+}
 
     from
 
@@ -949,92 +955,291 @@
 
 
     // =====================================
-    // PARTICIPAR
-    // =====================================
+// PARTICIPAR NA TAREFA
+// =====================================
 
-    async function participarTarefa(
-      tarefaId,
-      tarefa
+async function participarTarefa(
+  tarefaId,
+  tarefa
+){
+
+  const user =
+    auth.currentUser;
+
+
+  // -------------------------------------
+  // VERIFICAR LOGIN
+  // -------------------------------------
+
+  if(!user){
+
+    alert(
+      "Precisas iniciar sessão."
+    );
+
+    return;
+
+  }
+
+
+  try{
+
+
+    // -----------------------------------
+    // VERIFICAR SE JÁ PARTICIPOU
+    // -----------------------------------
+
+    const participacoesRef =
+      collection(
+        db,
+        "participacoesTarefas"
+      );
+
+
+    const verificarQuery =
+      query(
+
+        participacoesRef,
+
+        where(
+          "tarefaId",
+          "==",
+          tarefaId
+        ),
+
+        where(
+          "usuarioId",
+          "==",
+          user.uid
+        )
+
+      );
+
+
+    const participacoesSnapshot =
+      await getDocs(
+        verificarQuery
+      );
+
+
+    if(
+      !participacoesSnapshot.empty
     ){
 
-      const user =
-        auth.currentUser;
+      alert(
+        "Já participaste nesta tarefa."
+      );
 
-
-      if(
-        !user
-      ){
-
-        alert(
-          "Precisas iniciar sessão."
-        );
-
-        return;
-
-      }
-
-
-      try{
-
-
-        await addDoc(
-
-          collection(
-            db,
-            "participacoesTarefas"
-          ),
-
-          {
-
-            tarefaId:
-              tarefaId,
-
-
-            usuarioId:
-              user.uid,
-
-
-            status:
-              "pendente",
-
-
-            valorRecebido:
-              0,
-
-
-            provaURL:
-              "",
-
-
-            createdAt:
-              serverTimestamp()
-
-          }
-
-        );
-
-
-        alert(
-          "Participação criada! Agora completa a tarefa."
-        );
-
-
-      }
-
-      catch(error){
-
-        console.error(
-          error
-        );
-
-
-        alert(
-          "Não foi possível participar na tarefa."
-        );
-
-      }
+      return;
 
     }
+
+
+    // -----------------------------------
+    // VERIFICAR LIMITE DE PARTICIPANTES
+    // -----------------------------------
+
+    const maxParticipantes =
+      Number(
+        tarefa.maxParticipantes || 0
+      );
+
+
+    const participantesAtuais =
+      Number(
+        tarefa.participantesAtuais || 0
+      );
+
+
+    if(
+      maxParticipantes > 0 &&
+      participantesAtuais >= maxParticipantes
+    ){
+
+      alert(
+        "Esta tarefa já atingiu o limite de participantes."
+      );
+
+      return;
+
+    }
+
+
+    // -----------------------------------
+    // CRIAR PARTICIPAÇÃO
+    // -----------------------------------
+
+    const novaParticipacao =
+      await addDoc(
+
+        participacoesRef,
+
+        {
+
+          // Identificação
+          tarefaId:
+            tarefaId,
+
+          usuarioId:
+            user.uid,
+
+
+          // Estado
+          status:
+            "pendente",
+
+
+          // Dinheiro
+          valorRecebido:
+            0,
+
+
+          // Prova
+          provaURL:
+            "",
+
+
+          // Rastreamento
+          cliques:
+            0,
+
+          partilhas:
+            0,
+
+          facebookGrupos:
+            0,
+
+          whatsappGrupos:
+            0,
+
+
+          // Vitória
+          vencedor:
+            false,
+
+
+          // Conteúdo promovido
+          musicaId:
+            tarefa.musicaId || "",
+
+          videoId:
+            tarefa.videoId || "",
+
+          perfilId:
+            tarefa.perfilId || "",
+
+
+          // Link será preenchido logo abaixo
+          linkRastreamento:
+            "",
+
+
+          // Data
+          createdAt:
+            serverTimestamp(),
+
+          concluidoEm:
+            null
+
+        }
+
+      );
+
+
+    // -----------------------------------
+    // CRIAR LINK EXCLUSIVO
+    // -----------------------------------
+
+    const linkRastreamento =
+      `${window.location.origin}/Kuduro-Prime/rastrear-tarefa.html?tarefa=${encodeURIComponent(tarefaId)}&participacao=${encodeURIComponent(novaParticipacao.id)}`;
+
+
+    // -----------------------------------
+    // ATUALIZAR PARTICIPAÇÃO COM LINK
+    // -----------------------------------
+
+    await updateDoc(
+
+      doc(
+        db,
+        "participacoesTarefas",
+        novaParticipacao.id
+      ),
+
+      {
+
+        linkRastreamento:
+          linkRastreamento
+
+      }
+
+    );
+
+
+    // -----------------------------------
+    // ATUALIZAR PARTICIPANTES DA TAREFA
+    // -----------------------------------
+
+    await updateDoc(
+
+      doc(
+        db,
+        "tarefas",
+        tarefaId
+      ),
+
+      {
+
+        participantesAtuais:
+          increment(1)
+
+      }
+
+    );
+
+
+    // -----------------------------------
+    // MOSTRAR LINK
+    // -----------------------------------
+
+    alert(
+
+      "Participação criada com sucesso!\n\n" +
+
+      "Agora tens um link exclusivo para divulgar esta tarefa."
+
+    );
+
+
+    console.log(
+      "Participação:",
+      novaParticipacao.id
+    );
+
+
+    console.log(
+      "Link de rastreamento:",
+      linkRastreamento
+    );
+
+
+  }
+
+  catch(error){
+
+    console.error(
+      "Erro ao participar:",
+      error
+    );
+
+
+    alert(
+      "Não foi possível participar na tarefa."
+    );
+
+  }
+
+}
 
 
 
