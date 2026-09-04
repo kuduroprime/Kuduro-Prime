@@ -1726,16 +1726,17 @@
 
 
     import {
-      getFirestore,
-      collection,
-      query,
-      orderBy,
-      limit,
-      getDocs,
-      onSnapshot
-    } from
-      "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
-
+  getFirestore,
+  collection,
+  doc,
+  getDoc,
+  query,
+  orderBy,
+  limit,
+  getDocs,
+  onSnapshot
+} from
+  "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 
     /* =========================
        FIREBASE
@@ -1899,12 +1900,14 @@
 
 
     /* =========================
-   AUTENTICAÇÃO
+   AUTENTICAÇÃO + ADMIN
 ========================= */
 
 onAuthStateChanged(
   auth,
   async (user) => {
+
+    console.log("Estado de autenticação:", user);
 
     if(user){
 
@@ -1938,7 +1941,16 @@ onAuthStateChanged(
          ADMIN
       ========================= */
 
+      adminBtn.style.display =
+        "none";
+
+
       try{
+
+        console.log(
+          "A verificar admin na coleção artistas..."
+        );
+
 
         const adminRef =
           doc(
@@ -1957,11 +1969,9 @@ onAuthStateChanged(
         if(!adminSnap.exists()){
 
           console.log(
-            "Perfil do artista não encontrado."
+            "Documento não encontrado em artistas/"
+            + user.uid
           );
-
-          adminBtn.style.display =
-            "none";
 
           return;
 
@@ -1973,37 +1983,82 @@ onAuthStateChanged(
 
 
         console.log(
-          "Dados do perfil:",
+          "Documento do utilizador:",
           dadosAdmin
         );
 
 
-        if(dadosAdmin.admin === true){
+        console.log(
+          "Campo admin:",
+          dadosAdmin.admin
+        );
+
+
+        console.log(
+          "Tipo do campo admin:",
+          typeof dadosAdmin.admin
+        );
+
+
+        /*
+          Aceita:
+          true
+          "true"
+          "verdadeiro"
+        */
+
+        const eAdmin =
+
+          dadosAdmin.admin === true ||
+
+          dadosAdmin.admin === "true" ||
+
+          String(
+            dadosAdmin.admin ?? ""
+          )
+          .trim()
+          .toLowerCase() ===
+          "verdadeiro";
+
+
+        if(eAdmin){
 
           console.log(
-            "ADMIN DETETADO 👑"
+            "👑 ADMIN DETETADO"
           );
+
 
           adminBtn.style.display =
             "inline-flex";
 
+
+          adminBtn.style.visibility =
+            "visible";
+
+
+          adminBtn.style.opacity =
+            "1";
+
         }else{
 
           console.log(
-            "Este utilizador não é administrador."
+            "❌ Este utilizador não é admin."
           );
+
 
           adminBtn.style.display =
             "none";
 
         }
 
+
       }catch(error){
 
         console.error(
-          "Erro ao verificar administrador:",
+          "ERRO AO VERIFICAR ADMIN:",
           error
         );
+
 
         adminBtn.style.display =
           "none";
@@ -2020,6 +2075,7 @@ onAuthStateChanged(
 
       areaArtistaBtn.href =
         "area-do-artista.html";
+
 
       areaArtistaBtn.innerHTML =
         "👤 ÁREA DO ARTISTA";
@@ -2042,7 +2098,6 @@ onAuthStateChanged(
 
   }
 );
-
 
     /* =========================
        NOTIFICAÇÕES
