@@ -367,24 +367,36 @@
 
     @media(max-width:700px){
 
-      nav{
-        display:none;
-      }
+  nav{
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
 
-      .stats{
-        grid-template-columns:1fr;
-      }
+  nav a:not(.back-feed){
+    display:none;
+  }
 
-      .task-card{
-        flex-direction:column;
-        align-items:stretch;
-      }
+  .back-feed{
+    display:inline-flex;
+    font-size:36px;
+    padding:5px 10px;
+  }
 
-      .reward-box{
-        width:100%;
-      }
+  .stats{
+    grid-template-columns:1fr;
+  }
 
-    }
+  .task-card{
+    flex-direction:column;
+    align-items:stretch;
+  }
+
+  .reward-box{
+    width:100%;
+  }
+
+}
 
   </style>
 
