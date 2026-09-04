@@ -1734,7 +1734,8 @@
   getDocs,
   getDoc,
   doc,
-  onSnapshot
+  onSnapshot,
+  where
 } from
   "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
     /* =========================
@@ -1936,7 +1937,7 @@ onAuthStateChanged(
       );
 
 
-      //* =========================
+      /* =========================
    ADMIN
 ========================= */
 
@@ -1945,11 +1946,18 @@ adminBtn.style.display = "none";
 try{
 
   console.log(
-    "A verificar admin..."
+    "A verificar administrador..."
   );
 
 
-  // 1. Procurar primeiro pelo UID
+  let ehAdmin =
+    false;
+
+
+  /* =========================
+     1. TENTAR PELO ID DO DOCUMENTO
+  ========================= */
+
   const adminRef =
     doc(
       db,
@@ -1966,81 +1974,108 @@ try{
 
   if(adminSnap.exists()){
 
-    const dadosAdmin =
+    const dados =
       adminSnap.data();
 
 
     console.log(
-      "Documento encontrado:",
-      dadosAdmin
+      "Perfil encontrado pelo UID:",
+      dados
     );
 
 
-    console.log(
-      "Valor admin:",
-      dadosAdmin.admin
-    );
-
-
-    console.log(
-      "Tipo:",
-      typeof dadosAdmin.admin
-    );
-
-
-    // Aceita:
-    // true
-    // "true"
-    // "verdadeiro"
-    const valorAdmin =
-      dadosAdmin.admin;
-
-
-    const ehAdmin =
-
-      valorAdmin === true ||
-
-      String(
-        valorAdmin ?? ""
-      )
+    ehAdmin =
+      dados.admin === true ||
+      String(dados.admin ?? "")
         .trim()
         .toLowerCase() === "true" ||
-
-      String(
-        valorAdmin ?? ""
-      )
+      String(dados.admin ?? "")
         .trim()
         .toLowerCase() === "verdadeiro";
 
+  }
 
-    if(ehAdmin){
 
-      console.log(
-        "👑 ADMIN DETETADO!"
+  /* =========================
+     2. PROCURAR PELO CAMPO UID
+  ========================= */
+
+  if(!ehAdmin){
+
+    const artistasRef =
+      collection(
+        db,
+        "artistas"
       );
 
 
-      adminBtn.style.display =
-        "inline-flex";
+    const q =
+      query(
+        artistasRef,
+        where(
+          "uid",
+          "==",
+          user.uid
+        ),
+        limit(1)
+      );
 
-    }else{
+
+    const resultado =
+      await getDocs(
+        q
+      );
+
+
+    if(!resultado.empty){
+
+      const dados =
+        resultado.docs[0].data();
+
 
       console.log(
-        "❌ Campo admin não é verdadeiro."
+        "Perfil encontrado pelo campo uid:",
+        dados
       );
+
+
+      ehAdmin =
+        dados.admin === true ||
+        String(dados.admin ?? "")
+          .trim()
+          .toLowerCase() === "true" ||
+        String(dados.admin ?? "")
+          .trim()
+          .toLowerCase() === "verdadeiro";
 
     }
+
+  }
+
+
+  /* =========================
+     MOSTRAR BOTÃO
+  ========================= */
+
+  if(ehAdmin){
+
+    console.log(
+      "👑 ADMIN DETETADO!"
+    );
+
+
+    adminBtn.style.display =
+      "inline-flex";
+
+
+    adminBtn.style.visibility =
+      "visible";
 
 
   }else{
 
     console.log(
-      "❌ Não foi encontrado documento em:"
-    );
-
-
-    console.log(
-      "artistas/" + user.uid
+      "❌ Este utilizador não é administrador."
     );
 
   }
