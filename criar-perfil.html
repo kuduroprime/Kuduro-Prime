@@ -902,12 +902,12 @@
     } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
 
     import {
-      getFirestore,
-      doc,
-      setDoc,
-      serverTimestamp
-    } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
-
+  getFirestore,
+  doc,
+  getDoc,
+  setDoc,
+  serverTimestamp
+} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 
     /* =====================================================
        FIREBASE CONFIG
@@ -985,14 +985,16 @@
 
     let currentUser = null;
 
-
+let fotoSelecionada = null;
+let fotoURLAtual = "";
+    
     /* =====================================================
        VERIFICAR LOGIN
        ===================================================== */
 
     onAuthStateChanged(
       auth,
-      user => {
+    async user => {
 
         if(!user){
 
@@ -1065,82 +1067,129 @@
 
         }
 
-      }
+      /*
+ * Tentar recuperar a foto pública
+ * guardada no Firestore.
+ */
+try{
+
+  const artistRef =
+    doc(
+      db,
+      "artistas",
+      user.uid
     );
+
+  const artistSnap =
+    await getDoc(artistRef);
+
+  if(artistSnap.exists()){
+
+    const artistData =
+      artistSnap.data();
+
+    const fotoFirestore =
+      artistData.fotoPerfil ||
+      artistData.foto ||
+      artistData.photoURL ||
+      artistData.imagem ||
+      "";
+
+    if(fotoFirestore){
+
+      fotoURLAtual =
+        fotoFirestore;
+
+      photoPreview.innerHTML =
+        `
+          <img
+            src="${fotoFirestore}"
+            alt="Foto do artista"
+          >
+        `;
+
+    }
+
+  }
+
+}
+catch(error){
+
+  console.warn(
+    "Não foi possível carregar a foto do Firestore:",
+    error
+  );
+
+}
 
 
     /* =====================================================
-       FOTO
-       ===================================================== */
+   FOTO
+   ===================================================== */
 
-    photoInput.addEventListener(
-      "change",
-      () => {
+photoInput.addEventListener(
+  "change",
+  () => {
 
-        const file =
-          photoInput.files[0];
+    const file =
+      photoInput.files[0];
 
-        if(!file){
-          return;
-        }
+    if(!file){
+      return;
+    }
 
+    if(!file.type.startsWith("image/")){
 
-        if(!file.type.startsWith("image/")){
+      showMessage(
+        "Seleciona uma imagem válida.",
+        "error"
+      );
 
-          showMessage(
-            "Seleciona uma imagem válida.",
-            "error"
-          );
+      photoInput.value = "";
 
-          photoInput.value = "";
+      return;
+    }
 
-          return;
+    /*
+     * Guardamos o ficheiro para fazer
+     * upload no Cloudinary quando
+     * o perfil for guardado.
+     */
+    fotoSelecionada = file;
 
-        }
+    const reader =
+      new FileReader();
 
+    reader.onload =
+      event => {
 
-        const reader =
-          new FileReader();
+        const imageData =
+          event.target.result;
 
+        photoPreview.innerHTML =
+          `
+            <img
+              src="${imageData}"
+              alt="Foto do artista"
+            >
+          `;
 
-        reader.onload =
-          event => {
+        /*
+         * Mantemos o Base64 no localStorage
+         * apenas para compatibilidade e
+         * pré-visualização local.
+         */
+        localStorage.setItem(
+          "kpArtistPhoto",
+          imageData
+        );
 
-            const imageData =
-              event.target.result;
+      };
 
+    reader.readAsDataURL(file);
 
-            photoPreview.innerHTML =
-              `
-                <img
-                  src="${imageData}"
-                  alt="Foto do artista"
-                >
-              `;
-
-
-            /*
-             * Guardamos a imagem localmente apenas para
-             * manter a pré-visualização.
-             *
-             * NÃO colocamos Base64 no Firestore,
-             * porque uma imagem pode ultrapassar o
-             * limite de tamanho de um documento Firestore.
-             */
-
-            localStorage.setItem(
-              "kpArtistPhoto",
-              imageData
-            );
-
-          };
-
-
-        reader.readAsDataURL(file);
-
-      }
-    );
-
+  }
+);
 
     /* =====================================================
        CONTADOR DA BIO
@@ -1296,6 +1345,74 @@
            * diretamente à sua conta Firebase Authentication.
            */
 
+/*
+ * =====================================================
+ * CLOUDINARY
+ * =====================================================
+ */
+
+let fotoURL = fotoURLAtual;
+
+if(fotoSelecionada){
+
+  submitBtn.textContent =
+    "A ENVIAR FOTO...";
+
+  const CLOUDINARY_CLOUD_NAME =
+    "ge1ntqqc";
+
+  const CLOUDINARY_UPLOAD_PRESET =
+    "kuduro_prime";
+
+  const formData =
+    new FormData();
+
+  formData.append(
+    "file",
+    fotoSelecionada
+  );
+
+  formData.append(
+    "upload_preset",
+    CLOUDINARY_UPLOAD_PRESET
+  );
+
+  const uploadResponse =
+    await fetch(
+      `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`,
+      {
+        method:"POST",
+        body:formData
+      }
+    );
+
+  if(!uploadResponse.ok){
+
+    throw new Error(
+      "Não foi possível enviar a foto para o Cloudinary."
+    );
+
+  }
+
+  const uploadData =
+    await uploadResponse.json();
+
+  if(!uploadData.secure_url){
+
+    throw new Error(
+      "O Cloudinary não devolveu o endereço da foto."
+    );
+
+  }
+
+  fotoURL =
+    uploadData.secure_url;
+
+  fotoURLAtual =
+    fotoURL;
+
+}
+          
           const artistRef =
             doc(
               db,
@@ -1366,11 +1483,28 @@
                 tiktok,
 
               email:
-                currentUser.email || "",
+  currentUser.email || "",
 
-              perfilCriado:
-                true,
+/*
+ * FOTO PÚBLICA DO ARTISTA
+ *
+ * Guardamos o endereço do Cloudinary,
+ * nunca o Base64.
+ */
+foto:
+  fotoURL,
 
+fotoPerfil:
+  fotoURL,
+
+photoURL:
+  fotoURL,
+
+imagem:
+  fotoURL,
+
+perfilCriado:
+  true,
               ativo:
                 true,
 
@@ -1394,10 +1528,14 @@
             "true"
           );
 
-          localStorage.setItem(
-            "kpArtistUID",
-            currentUser.uid
-          );
+          if(fotoURL){
+
+  localStorage.setItem(
+    "kpArtistPhotoURL",
+    fotoURL
+  );
+
+}
 
           localStorage.setItem(
             "kpArtistStageName",
