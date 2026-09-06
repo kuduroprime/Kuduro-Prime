@@ -627,6 +627,75 @@
       font-size:11px;
     }
 
+/* =====================================================
+   PUBLICAÇÕES DO PERFIL
+===================================================== */
+
+.profile-post{
+  overflow:hidden;
+  margin-bottom:18px;
+}
+
+.profile-post:last-child{
+  margin-bottom:0;
+}
+
+.profile-post-media{
+  width:100%;
+  max-height:600px;
+  background:#080808;
+  overflow:hidden;
+}
+
+.profile-post-media img,
+.profile-post-media video{
+  width:100%;
+  max-height:600px;
+  object-fit:cover;
+  display:block;
+}
+
+.profile-post-audio{
+  padding:0 15px 15px;
+}
+
+.profile-post-audio audio{
+  width:100%;
+  height:38px;
+}
+
+.profile-post-stats{
+  display:flex;
+  align-items:center;
+  gap:18px;
+  padding:12px 15px;
+  border-top:1px solid var(--line);
+  color:var(--muted);
+  font-size:10px;
+}
+
+.profile-post-description{
+  padding:0 15px 15px;
+  color:#ccc;
+  font-size:13px;
+  line-height:1.6;
+  white-space:pre-line;
+  word-break:break-word;
+}
+
+.profile-post-date{
+  color:var(--muted);
+  font-size:10px;
+  margin-top:4px;
+}
+
+.profile-post-empty{
+  padding:40px 20px;
+  text-align:center;
+  color:var(--muted);
+  font-size:12px;
+}
+    
     @media(max-width:850px){
 
       .links{display:none}
@@ -818,11 +887,20 @@
 
 <div class="tabs">
 
+  <div class="tabs">
+
   <button
     class="tab active"
     onclick="abrirTab('sobre',this)"
   >
     SOBRE
+  </button>
+
+  <button
+    class="tab"
+    onclick="abrirTab('publicacoes',this)"
+  >
+    📢 PUBLICAÇÕES
   </button>
 
   <button
@@ -861,6 +939,36 @@
 </div>
 
 <div
+  id="publicacoes"
+  class="tab-content panel"
+>
+
+  <div class="about">
+
+    <h2 class="section-title">
+      📢 PUBLICAÇÕES
+    </h2>
+
+  </div>
+
+  <div
+    id="profilePosts"
+    style="padding:0 20px 20px;"
+  >
+
+    <div class="loading">
+
+      <div class="loading-icon">
+        📢
+      </div>
+
+      A carregar publicações...
+
+    </div>
+
+  </div>
+
+</div>
   id="musicas"
   class="tab-content panel"
 >
@@ -2659,10 +2767,11 @@ await atualizarSeguidores();
 
 await verificarSeguimento();
 
+await carregarPublicacoes();
+
 await carregarMusicas();
 
 await carregarVideos();
-
 
 
   }
@@ -3154,7 +3263,495 @@ async function carregarMusicas(){
 
 }
 
+  /* =====================================================
+   CARREGAR PUBLICAÇÕES DO ARTISTA
+===================================================== */
 
+async function carregarPublicacoes(){
+
+  const container =
+    document.querySelector(
+      "#profilePosts"
+    );
+
+
+  if(!container){
+    return;
+  }
+
+
+  try{
+
+    console.log(
+      "📢 A carregar publicações do artista:",
+      artistId,
+      artistUid
+    );
+
+
+    const snapshot =
+      await getDocs(
+        collection(
+          db,
+          "publicacoes"
+        )
+      );
+
+
+    const identificadores = [
+
+      artistId,
+      artistUid,
+      requestedUser,
+
+      profileData?.username,
+
+      profileData?.name
+
+    ]
+    .filter(Boolean)
+    .map(
+      valor =>
+        normalizar(valor)
+    );
+
+
+    const publicacoes = [];
+
+
+    snapshot.forEach(
+      docSnap => {
+
+        const data =
+          docSnap.data();
+
+
+        const pertence =
+          documentoPertenceAoUtilizador(
+            data,
+            docSnap.id,
+            identificadores
+          );
+
+
+        if(!pertence){
+          return;
+        }
+
+
+        /*
+          Publicações públicas.
+          Se não tiver status,
+          consideramos publicada.
+        */
+
+        const status =
+          texto(
+            data.status
+          )
+          .toLowerCase();
+
+
+        const publicada = (
+
+          status === "" ||
+          status === "publicado" ||
+          status === "publicada" ||
+          status === "public" ||
+          status === "ativo" ||
+          status === "ativa" ||
+          status === "aprovado" ||
+          status === "aprovada"
+
+        );
+
+
+        if(!publicada){
+          return;
+        }
+
+
+        publicacoes.push({
+
+          id:
+            docSnap.id,
+
+          ...data
+
+        });
+
+      }
+    );
+
+
+    /*
+      Mais recentes primeiro.
+    */
+
+    publicacoes.sort(
+      (a,b) =>
+        dataCriacao(b) -
+        dataCriacao(a)
+    );
+
+
+    console.log(
+      "📢 TOTAL DE PUBLICAÇÕES DO ARTISTA:",
+      publicacoes.length
+    );
+
+
+    if(!publicacoes.length){
+
+      container.innerHTML =
+      `
+        <div class="profile-post-empty">
+
+          <strong
+            style="
+              display:block;
+              color:var(--gold);
+              font-size:15px;
+              margin-bottom:8px;
+            "
+          >
+            📢 Nenhuma publicação
+          </strong>
+
+          Este artista ainda não fez nenhuma
+          publicação no KUDURO PRIME.
+
+        </div>
+      `;
+
+      return;
+
+    }
+
+
+    container.innerHTML =
+      publicacoes
+      .map(
+        post =>
+          renderizarPublicacaoPerfil(post)
+      )
+      .join("");
+
+
+  }
+
+  catch(error){
+
+    console.error(
+      "❌ ERRO AO CARREGAR PUBLICAÇÕES:",
+      error
+    );
+
+
+    container.innerHTML =
+    `
+      <div class="profile-post-empty">
+
+        <strong
+          style="
+            display:block;
+            color:var(--gold);
+            font-size:15px;
+            margin-bottom:8px;
+          "
+        >
+          ⚠ Erro ao carregar publicações
+        </strong>
+
+        Tenta atualizar a página.
+
+      </div>
+    `;
+
+  }
+
+}
+
+  /* =====================================================
+   RENDERIZAR PUBLICAÇÃO NO PERFIL
+===================================================== */
+
+function renderizarPublicacaoPerfil(post){
+
+  const foto =
+    fotoArtista(post) ||
+    profileData.photo ||
+    "";
+
+
+  const nome =
+    texto(
+
+      post.artistaNome,
+      post.artistName,
+      post.nomeArtistico,
+      post.authorName,
+      post.nomeAutor,
+      post.nome,
+
+      profileData.name
+
+    );
+
+
+  const textoPublicacao =
+    texto(
+
+      post.texto,
+      post.text,
+      post.conteudo,
+      post.mensagem,
+      post.descricao,
+      post.description,
+      post.legenda,
+      post.caption
+
+    );
+
+
+  const imagem =
+    texto(
+
+      post.imagem,
+      post.imagemUrl,
+      post.image,
+      post.imageUrl,
+      post.foto,
+      post.fotoUrl,
+      post.mediaUrl,
+      post.urlImagem
+
+    );
+
+
+  const video =
+    texto(
+
+      post.video,
+      post.videoUrl,
+      post.videoURL,
+      post.mediaVideo,
+      post.urlVideo
+
+    );
+
+
+  const audio =
+    texto(
+
+      post.audio,
+      post.audioUrl,
+      post.audioURL,
+      post.musicUrl,
+      post.urlAudio
+
+    );
+
+
+  const views =
+    numero(
+
+      post.views,
+      post.visualizacoes,
+      post.viewCount
+
+    );
+
+
+  const likes =
+    numero(
+
+      post.ardes,
+      post.likes,
+      post.curtidas,
+      post.likeCount
+
+    );
+
+
+  const comments =
+    numero(
+
+      post.comments,
+      post.comentarios,
+      post.commentCount
+
+    );
+
+
+  const data =
+    dataCriacao(post);
+
+
+  const dataFormatada =
+    data
+      ? new Intl.DateTimeFormat(
+          "pt-PT",
+          {
+            dateStyle:"medium",
+            timeStyle:"short"
+          }
+        ).format(
+          new Date(data)
+        )
+      : "";
+
+
+  let mediaHTML = "";
+
+
+  if(imagem){
+
+    mediaHTML +=
+    `
+      <div class="profile-post-media">
+
+        <img
+          src="${escapeAttr(imagem)}"
+          alt=""
+          loading="lazy"
+        >
+
+      </div>
+    `;
+
+  }
+
+
+  if(video){
+
+    mediaHTML +=
+    `
+      <div class="profile-post-media">
+
+        <video
+          controls
+          preload="metadata"
+          src="${escapeAttr(video)}"
+        ></video>
+
+      </div>
+    `;
+
+  }
+
+
+  let audioHTML = "";
+
+
+  if(audio){
+
+    audioHTML =
+    `
+      <div class="profile-post-audio">
+
+        <audio
+          controls
+          preload="none"
+          src="${escapeAttr(audio)}"
+        ></audio>
+
+      </div>
+    `;
+
+  }
+
+
+  return `
+
+    <article class="post panel profile-post">
+
+      <div class="post-head">
+
+        <div class="mini-avatar">
+
+          ${
+            foto
+            ?
+            `
+              <img
+                src="${escapeAttr(foto)}"
+                alt=""
+                loading="lazy"
+              >
+            `
+            :
+            "👤"
+          }
+
+        </div>
+
+        <div>
+
+          <div class="post-name">
+
+            ${escapeHtml(nome)}
+
+          </div>
+
+          <div class="profile-post-date">
+
+            ${escapeHtml(
+              dataFormatada
+            )}
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      ${
+        textoPublicacao
+        ?
+        `
+          <div class="profile-post-description">
+
+            ${escapeHtml(
+              textoPublicacao
+            )}
+
+          </div>
+        `
+        :
+        ""
+      }
+
+
+      ${mediaHTML}
+
+
+      ${audioHTML}
+
+
+      <div class="profile-post-stats">
+
+        <span>
+          👁 ${formatNumber(views)}
+        </span>
+
+        <span>
+          🔥 ${formatNumber(likes)}
+        </span>
+
+        <span>
+          💬 ${formatNumber(comments)}
+        </span>
+
+      </div>
+
+    </article>
+
+  `;
+
+}
+  
 /* =====================================================
    CARREGAR VÍDEOS
 ===================================================== */
@@ -3607,38 +4204,7 @@ function(button){
 };
 
 
-/* =====================================================
-   SEGUIR
-===================================================== */
 
-window.seguir =
-function(){
-
-  const button =
-    document.querySelector(
-      "#followBtn"
-    );
-
-
-  if(
-    button.textContent.includes(
-      "SEGUIR"
-    )
-  ){
-
-    button.textContent =
-      "✓ A SEGUIR";
-
-  }
-
-  else{
-
-    button.textContent =
-      "+ SEGUIR";
-
-  }
-
-};
 
 
 /* =====================================================
