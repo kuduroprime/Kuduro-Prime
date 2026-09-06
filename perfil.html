@@ -4477,20 +4477,21 @@ function formatNumber(number){
    INICIAR
 ===================================================== */
 
-if(!requestedUser){
+(async function iniciarPerfil(){
 
-  mostrarErro(
-    "Perfil não encontrado",
-    "Nenhum artista foi selecionado."
-  );
+  if(!requestedUser){
 
-}
+    mostrarErro(
+      "Perfil não encontrado",
+      "Nenhum artista foi selecionado."
+    );
 
-else{
+    return;
+  }
 
-  carregarArtista();
+  await carregarArtista();
 
-}
+})();
 
 </script>
 
