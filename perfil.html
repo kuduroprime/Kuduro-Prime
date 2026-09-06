@@ -987,19 +987,31 @@
 
 <script type="module">
 
+```js
 import {
   initializeApp
 } from
 "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
 
 import {
+  getAuth,
+  onAuthStateChanged
+} from
+"https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+
+import {
   getFirestore,
   collection,
   getDocs,
   getDoc,
-  doc
+  doc,
+  setDoc,
+  deleteDoc,
+  serverTimestamp
 } from
 "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+```
+
 
 
 const firebaseConfig = {
@@ -1031,7 +1043,426 @@ const app =
 const db =
   getFirestore(app);
 
+```js
+/* =====================================================
+   AUTENTICAÇÃO / SEGUIDORES
+===================================================== */
 
+const auth =
+  getAuth(app);
+
+let utilizadorAtual =
+  null;
+
+let jaSegue =
+  false;
+
+
+/* =====================================================
+   VERIFICAR ESTADO DO SEGUIMENTO
+===================================================== */
+
+async function verificarSeguimento(){
+
+  const button =
+    document.querySelector(
+      "#followBtn"
+    );
+
+  if(!button){
+    return;
+  }
+
+  /*
+    Se não existe utilizador autenticado,
+    não permite seguir.
+  */
+
+  if(!utilizadorAtual){
+
+    button.textContent =
+      "+ SEGUIR";
+
+    button.disabled =
+      false;
+
+    return;
+
+  }
+
+
+  /*
+    Não pode seguir o próprio perfil.
+  */
+
+  if(
+    utilizadorAtual.uid === artistUid ||
+    utilizadorAtual.uid === artistId
+  ){
+
+    button.textContent =
+      "✓ É O TEU PERFIL";
+
+    button.disabled =
+      true;
+
+    return;
+
+  }
+
+
+  if(!artistId){
+
+    return;
+
+  }
+
+
+  try{
+
+    const referencia =
+      doc(
+        db,
+        "artistas",
+        artistId,
+        "seguidores",
+        utilizadorAtual.uid
+      );
+
+
+    const snapshot =
+      await getDoc(
+        referencia
+      );
+
+
+    jaSegue =
+      snapshot.exists();
+
+
+    if(jaSegue){
+
+      button.textContent =
+        "✓ A SEGUIR";
+
+    }
+
+    else{
+
+      button.textContent =
+        "+ SEGUIR";
+
+    }
+
+  }
+
+  catch(error){
+
+    console.error(
+      "❌ ERRO AO VERIFICAR SEGUIMENTO:",
+      error
+    );
+
+  }
+
+}
+
+
+/* =====================================================
+   ATUALIZAR CONTADOR DE SEGUIDORES
+===================================================== */
+
+async function atualizarSeguidores(){
+
+  if(!artistId){
+    return;
+  }
+
+
+  try{
+
+    const referencia =
+      collection(
+        db,
+        "artistas",
+        artistId,
+        "seguidores"
+      );
+
+
+    const snapshot =
+      await getDocs(
+        referencia
+      );
+
+
+    const total =
+      snapshot.size;
+
+
+    profileData.followers =
+      total;
+
+
+    const elemento =
+      document.querySelector(
+        "#followers"
+      );
+
+
+    if(elemento){
+
+      elemento.textContent =
+        formatNumber(total);
+
+    }
+
+
+    console.log(
+      "👥 TOTAL DE SEGUIDORES:",
+      total
+    );
+
+  }
+
+  catch(error){
+
+    console.error(
+      "❌ ERRO AO CONTAR SEGUIDORES:",
+      error
+    );
+
+  }
+
+}
+
+
+/* =====================================================
+   SEGUIR / DEIXAR DE SEGUIR
+===================================================== */
+
+window.seguir =
+async function(){
+
+  const button =
+    document.querySelector(
+      "#followBtn"
+    );
+
+
+  if(
+    !button ||
+    !artistId
+  ){
+
+    return;
+
+  }
+
+
+  /*
+    Obriga o utilizador a estar autenticado.
+  */
+
+  if(!utilizadorAtual){
+
+    alert(
+      "Precisas iniciar sessão para seguir este artista."
+    );
+
+    return;
+
+  }
+
+
+  /*
+    Não permite seguir o próprio perfil.
+  */
+
+  if(
+    utilizadorAtual.uid === artistUid ||
+    utilizadorAtual.uid === artistId
+  ){
+
+    alert(
+      "Não podes seguir o teu próprio perfil."
+    );
+
+    return;
+
+  }
+
+
+  /*
+    Evita vários cliques ao mesmo tempo.
+  */
+
+  if(button.disabled){
+
+    return;
+
+  }
+
+
+  button.disabled =
+    true;
+
+
+  try{
+
+    const referencia =
+      doc(
+        db,
+        "artistas",
+        artistId,
+        "seguidores",
+        utilizadorAtual.uid
+      );
+
+
+    if(!jaSegue){
+
+      /*
+        ================================
+        SEGUIR
+        ================================
+      */
+
+      await setDoc(
+        referencia,
+        {
+          uid:
+            utilizadorAtual.uid,
+
+          nome:
+            utilizadorAtual.displayName ||
+            utilizadorAtual.email ||
+            "Utilizador",
+
+          email:
+            utilizadorAtual.email || "",
+
+          criadoEm:
+            serverTimestamp()
+        }
+      );
+
+
+      jaSegue =
+        true;
+
+
+      button.textContent =
+        "✓ A SEGUIR";
+
+
+      console.log(
+        "✅ AGORA SEGUE:",
+        artistId
+      );
+
+    }
+
+    else{
+
+      /*
+        ================================
+        DEIXAR DE SEGUIR
+        ================================
+      */
+
+      await deleteDoc(
+        referencia
+      );
+
+
+      jaSegue =
+        false;
+
+
+      button.textContent =
+        "+ SEGUIR";
+
+
+      console.log(
+        "✅ DEIXOU DE SEGUIR:",
+        artistId
+      );
+
+    }
+
+
+    /*
+      Atualiza o número real.
+    */
+
+    await atualizarSeguidores();
+
+  }
+
+  catch(error){
+
+    console.error(
+      "❌ ERRO AO SEGUIR ARTISTA:",
+      error
+    );
+
+
+    alert(
+      "Não foi possível atualizar o seguimento. Tenta novamente."
+    );
+
+  }
+
+  finally{
+
+    button.disabled =
+      false;
+
+  }
+
+};
+
+
+/* =====================================================
+   OUVIR LOGIN
+===================================================== */
+
+onAuthStateChanged(
+  auth,
+  async user => {
+
+    utilizadorAtual =
+      user || null;
+
+
+    console.log(
+      "👤 UTILIZADOR ATUAL:",
+      utilizadorAtual
+        ? utilizadorAtual.uid
+        : "não autenticado"
+    );
+
+
+    /*
+      Se o perfil já estiver carregado,
+      atualiza imediatamente o botão.
+    */
+
+    if(
+      artistId &&
+      profileData
+    ){
+
+      await verificarSeguimento();
+
+    }
+
+  }
+);
+```
+
+  
 /* =====================================================
    IDENTIFICADOR RECEBIDO
 ===================================================== */
@@ -2216,12 +2647,23 @@ async function carregarArtista(){
     };
 
 
-    mostrarPerfil();
+    
+mostrarPerfil();
+
+/*
+  Carrega o número real de seguidores
+  e verifica se o utilizador atual segue este artista.
+*/
+
+await atualizarSeguidores();
+
+await verificarSeguimento();
+
+await carregarMusicas();
+
+await carregarVideos();
 
 
-    await carregarMusicas();
-
-    await carregarVideos();
 
   }
 
