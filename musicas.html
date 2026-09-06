@@ -461,6 +461,83 @@ function formatNumber(number){
 
 
 /* =========================================
+   DATA PARA ORDENAÇÃO
+========================================= */
+
+function getSongDate(song){
+
+  /*
+     Tentamos vários campos de data
+     para também encontrar músicas
+     antigas criadas por versões
+     anteriores do sistema.
+  */
+
+  const timestamp =
+    song.criadoEm ||
+    song.atualizadoEm ||
+    song.dataPublicacao ||
+    song.dataLancamento ||
+    song.createdAt ||
+    song.created_at ||
+    null;
+
+
+  if(!timestamp){
+    return 0;
+  }
+
+
+  if(
+    typeof timestamp.toMillis ===
+    "function"
+  ){
+
+    return timestamp.toMillis();
+
+  }
+
+
+  if(
+    timestamp.seconds
+  ){
+
+    return (
+      Number(timestamp.seconds) * 1000
+    );
+
+  }
+
+
+  if(
+    typeof timestamp === "number"
+  ){
+
+    return timestamp;
+
+  }
+
+
+  if(
+    typeof timestamp === "string"
+  ){
+
+    const time =
+      new Date(timestamp).getTime();
+
+    return Number.isNaN(time)
+      ? 0
+      : time;
+
+  }
+
+
+  return 0;
+
+}
+
+
+/* =========================================
    CARREGAR MÚSICAS
 ========================================= */
 
@@ -468,22 +545,36 @@ async function loadSongs(){
 
   try{
 
-    const musicQuery =
-      query(
-        collection(
-          db,
-          "musicas"
-        ),
-        orderBy(
-          "criadoEm",
-          "desc"
-        )
+    /*
+       IMPORTANTE:
+
+       Não usamos orderBy("criadoEm")
+       diretamente na consulta.
+
+       Motivo:
+
+       Algumas músicas antigas podem
+       não possuir o campo "criadoEm".
+
+       Se usarmos orderBy no Firestore,
+       esses documentos podem ficar fora
+       do resultado.
+
+       Aqui buscamos TODOS os documentos
+       da coleção "musicas".
+
+    */
+
+    const musicCollection =
+      collection(
+        db,
+        "musicas"
       );
 
 
     const snapshot =
       await getDocs(
-        musicQuery
+        musicCollection
       );
 
 
@@ -514,6 +605,11 @@ async function loadSongs(){
     }
 
 
+    /*
+       Convertemos TODOS os documentos
+       encontrados em objetos.
+    */
+
     const songs =
       snapshot.docs.map(
         musicDoc => ({
@@ -525,6 +621,34 @@ async function loadSongs(){
 
         })
       );
+
+
+    /*
+       Ordenamos apenas depois de
+       carregar todos os documentos.
+
+       As músicas mais recentes ficam
+       primeiro.
+
+       As que não têm data ficam no fim.
+    */
+
+    songs.sort(
+      (a,b) => {
+
+        return (
+          getSongDate(b) -
+          getSongDate(a)
+        );
+
+      }
+    );
+
+
+    console.log(
+      "Total de músicas encontradas:",
+      songs.length
+    );
 
 
     renderSongs(
@@ -579,6 +703,10 @@ function renderSongs(songs){
           ||
           song.title
           ||
+          song.nomeMusica
+          ||
+          song.nome
+          ||
           "Música sem título";
 
 
@@ -589,6 +717,10 @@ function renderSongs(songs){
           ||
           song.nomeArtistico
           ||
+          song.artista
+          ||
+          song.nomeArtista
+          ||
           "Artista Prime";
 
 
@@ -596,6 +728,8 @@ function renderSongs(songs){
           song.descricao
           ||
           song.description
+          ||
+          song.bio
           ||
           "Novo lançamento no KUDURO PRIME.";
 
@@ -606,6 +740,12 @@ function renderSongs(songs){
           song.cover
           ||
           song.coverUrl
+          ||
+          song.capaUrl
+          ||
+          song.imagem
+          ||
+          song.imagemCapa
           ||
           "";
 
@@ -618,6 +758,8 @@ function renderSongs(songs){
           song.url
           ||
           song.musicUrl
+          ||
+          song.musicaUrl
           ||
           "";
 
@@ -633,6 +775,8 @@ function renderSongs(songs){
         const date =
           song.dataLancamento
           ||
+          song.dataPublicacao
+          ||
           formatDate(
             song.criadoEm
           );
@@ -646,6 +790,8 @@ function renderSongs(songs){
           song.userId
           ||
           song.uid
+          ||
+          song.artistaUID
           ||
           "";
 
