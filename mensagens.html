@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 
 <html lang="pt">
@@ -8,7 +9,6 @@
 <meta
 name="viewport"
 content="width=device-width, initial-scale=1.0"
-
 >
 
 <title>Mensagens — KUDURO PRIME</title>
@@ -1421,6 +1421,30 @@ body::after{
 
 <body>
 
+
+<!-- =====================================================
+     LOADING
+===================================================== -->
+
+<div
+  class="loading"
+  id="loadingScreen"
+>
+
+  <div class="loading-logo">
+    👑 KUDURO PRIME
+  </div>
+
+  <div
+    class="loading-text"
+    id="loadingText"
+  >
+    A iniciar...
+  </div>
+
+</div>
+
+
 <!-- =====================================================
      APP
 ===================================================== -->
@@ -1439,32 +1463,32 @@ body::after{
 
   <div class="header-right">
 
+    <a
+      href="feed.html"
+      class="header-link"
+    >
+      ← FEED
+    </a>
 
-<a
-  href="feed.html"
-  class="header-link"
->
-  ← FEED
-</a>
-
-<button
-  type="button"
-  class="logout-btn"
-  id="logoutBtn"
->
-  SAIR
-</button>
-
+    <button
+      type="button"
+      class="logout-btn"
+      id="logoutBtn"
+    >
+      SAIR
+    </button>
 
   </div>
 
 </header>
+
 
 <!-- =====================================================
      MAIN
 ===================================================== -->
 
 <main class="main">
+
 
 <!-- =====================================================
      SIDEBAR
@@ -1474,43 +1498,41 @@ body::after{
 
   <div class="sidebar-top">
 
+    <button
+      type="button"
+      class="new-message-btn"
+      id="newMessageBtn"
+    >
+      ✉️ NOVA MENSAGEM
+    </button>
 
-<button
-  type="button"
-  class="new-message-btn"
-  id="newMessageBtn"
->
-  ✉️ NOVA MENSAGEM
-</button>
+    <div class="conversation-search">
 
-<div class="conversation-search">
+      <input
+        type="text"
+        id="conversationSearch"
+        placeholder="Pesquisar conversas..."
+        autocomplete="off"
+      >
 
-  <input
-    type="text"
-    id="conversationSearch"
-    placeholder="Pesquisar conversas..."
-    autocomplete="off"
-  >
-
-</div>
-
+    </div>
 
   </div>
+
 
   <div
     class="conversation-list"
     id="conversationList"
   >
 
-
-<div class="empty-conversations">
-  A carregar conversas...
-</div>
-
+    <div class="empty-conversations">
+      A carregar conversas...
+    </div>
 
   </div>
 
 </aside>
+
 
 <!-- =====================================================
      CHAT
@@ -1523,156 +1545,153 @@ body::after{
     id="chatEmpty"
   >
 
+    <div class="chat-empty-box">
 
-<div class="chat-empty-box">
+      <div class="chat-empty-icon">
+        💬
+      </div>
 
-  <div class="chat-empty-icon">
-    💬
-  </div>
+      <h2>
+        Mensagens PRIME
+      </h2>
 
-  <h2>
-    Mensagens PRIME
-  </h2>
+      <p>
+        Escolhe uma conversa ou começa uma nova mensagem
+        com outro artista do KUDURO PRIME.
+      </p>
 
-  <p>
-    Escolhe uma conversa ou começa uma nova mensagem
-    com outro artista do KUDURO PRIME.
-  </p>
-
-</div>
-
+    </div>
 
   </div>
+
 
   <div
     class="chat-header"
     id="chatHeader"
   >
 
+    <div
+      class="avatar"
+      id="chatAvatar"
+    >
+      👤
+    </div>
 
-<div
-  class="avatar"
-  id="chatAvatar"
->
-  👤
-</div>
+    <div class="chat-user">
 
-<div class="chat-user">
+      <div
+        class="chat-user-name"
+        id="chatUserName"
+      >
+        Artista
+      </div>
 
-  <div
-    class="chat-user-name"
-    id="chatUserName"
-  >
-    Artista
-  </div>
+      <div
+        class="chat-user-status"
+        id="chatUserStatus"
+      >
+        Offline
+      </div>
 
-  <div
-    class="chat-user-status"
-    id="chatUserStatus"
-  >
-    Offline
-  </div>
+    </div>
 
-</div>
-
-<button
-  type="button"
-  class="chat-profile-btn"
-  id="chatProfileBtn"
->
-  👤 PERFIL
-</button>
-
+    <button
+      type="button"
+      class="chat-profile-btn"
+      id="chatProfileBtn"
+    >
+      👤 PERFIL
+    </button>
 
   </div>
+
 
   <div
     class="messages"
     id="messages"
   ></div>
 
+
   <div
     class="composer"
     id="composer"
   >
 
+    <div class="temporary-bar">
 
-<div class="temporary-bar">
+      <span class="temporary-label">
+        ⏳ MENSAGEM TEMPORÁRIA
+      </span>
 
-  <span class="temporary-label">
-    ⏳ MENSAGEM TEMPORÁRIA
-  </span>
+      <select
+        class="temporary-select"
+        id="temporaryMode"
+      >
 
-  <select
-    class="temporary-select"
-    id="temporaryMode"
-  >
+        <option value="off">
+          Desativada
+        </option>
 
-    <option value="off">
-      Desativada
-    </option>
+        <option value="24h">
+          24 horas
+        </option>
 
-    <option value="24h">
-      24 horas
-    </option>
+        <option value="7d">
+          7 dias
+        </option>
 
-    <option value="7d">
-      7 dias
-    </option>
+        <option value="90d">
+          90 dias
+        </option>
 
-    <option value="90d">
-      90 dias
-    </option>
+      </select>
 
-  </select>
-
-</div>
-
-
-<div class="composer-row">
-
-  <div class="composer-actions">
-
-    <button
-      type="button"
-      class="icon-btn"
-      id="imageBtn"
-      title="Enviar imagem"
-    >
-      🖼️
-    </button>
-
-    <button
-      type="button"
-      class="icon-btn"
-      id="fileBtn"
-      title="Enviar ficheiro"
-    >
-      📎
-    </button>
-
-  </div>
+    </div>
 
 
-  <textarea
-    class="message-input"
-    id="messageInput"
-    placeholder="Escreve uma mensagem..."
-    rows="1"
-  ></textarea>
+    <div class="composer-row">
+
+      <div class="composer-actions">
+
+        <button
+          type="button"
+          class="icon-btn"
+          id="imageBtn"
+          title="Enviar imagem"
+        >
+          🖼️
+        </button>
+
+        <button
+          type="button"
+          class="icon-btn"
+          id="fileBtn"
+          title="Enviar ficheiro"
+        >
+          📎
+        </button>
+
+      </div>
 
 
-  <button
-    type="button"
-    class="send-btn"
-    id="sendBtn"
-    title="Enviar"
-  >
-    ➤
-  </button>
+      <textarea
+        class="message-input"
+        id="messageInput"
+        placeholder="Escreve uma mensagem..."
+        rows="1"
+      ></textarea>
 
-</div>
 
+      <button
+        type="button"
+        class="send-btn"
+        id="sendBtn"
+        title="Enviar"
+      >
+        ➤
+      </button>
+
+    </div>
 
   </div>
 
@@ -1681,6 +1700,7 @@ body::after{
 </main>
 
 </div>
+
 
 <!-- =====================================================
      MODAL NOVA MENSAGEM
@@ -1693,51 +1713,50 @@ body::after{
 
   <div class="modal">
 
+    <div class="modal-header">
 
-<div class="modal-header">
+      <div class="modal-title">
+        ✉️ Nova mensagem
+      </div>
 
-  <div class="modal-title">
-    ✉️ Nova mensagem
-  </div>
+      <button
+        type="button"
+        class="modal-close"
+        id="closeNewMessage"
+      >
+        ×
+      </button>
 
-  <button
-    type="button"
-    class="modal-close"
-    id="closeNewMessage"
-  >
-    ×
-  </button>
-
-</div>
-
-
-<div class="modal-search">
-
-  <input
-    type="text"
-    id="artistSearch"
-    placeholder="Pesquisar artista..."
-    autocomplete="off"
-  >
-
-</div>
+    </div>
 
 
-<div
-  class="artist-results"
-  id="artistResults"
->
+    <div class="modal-search">
 
-  <div class="artist-empty">
-    A carregar artistas...
-  </div>
+      <input
+        type="text"
+        id="artistSearch"
+        placeholder="Pesquisar artista..."
+        autocomplete="off"
+      >
 
-</div>
+    </div>
 
+
+    <div
+      class="artist-results"
+      id="artistResults"
+    >
+
+      <div class="artist-empty">
+        A carregar artistas...
+      </div>
+
+    </div>
 
   </div>
 
 </div>
+
 
 <!-- =====================================================
      TOAST
@@ -1748,30 +1767,31 @@ body::after{
   id="toast"
 ></div>
 
+
 <!-- =====================================================
      INPUTS OCULTOS
 ===================================================== -->
 
 <input
-type="file"
-id="imageInput"
-accept="image/*"
-hidden
-
+  type="file"
+  id="imageInput"
+  accept="image/*"
+  hidden
 >
 
 <input
-type="file"
-id="fileInput"
-hidden
-
+  type="file"
+  id="fileInput"
+  hidden
 >
+
 
 <!-- =====================================================
      FIREBASE
 ===================================================== -->
 
 <script type="module">
+
 
 /* =====================================================
    FIREBASE APP
@@ -3751,6 +3771,123 @@ function getExpirationDate(){
 
 
 /* =====================================================
+   CRIAR NOTIFICAÇÃO DE NOVA MENSAGEM
+===================================================== */
+
+async function criarNotificacaoMensagem({
+
+  destinatarioId,
+  tipo = "text",
+  preview = "",
+  conversaId
+
+}){
+
+  if(
+    !firebaseUser ||
+    !destinatarioId ||
+    destinatarioId ===
+    firebaseUser.uid
+  ){
+
+    return;
+
+  }
+
+  try{
+
+    const notificacaoRef =
+      doc(
+        collection(
+          db,
+          "notificacoes"
+        )
+      );
+
+    await setDoc(
+      notificacaoRef,
+      {
+
+        usuarioId:
+          destinatarioId,
+
+        destinatarioId:
+          destinatarioId,
+
+        remetenteId:
+          firebaseUser.uid,
+
+        remetenteNome:
+          getArtistName(
+            currentUserProfile
+          ),
+
+        remetenteUsername:
+          getArtistUsername(
+            currentUserProfile
+          ),
+
+        tipo:
+          "mensagem",
+
+        tipoMensagem:
+          tipo,
+
+        mensagem:
+          preview,
+
+        texto:
+          preview,
+
+        conversaId:
+          conversaId,
+
+        url:
+          "mensagens.html?uid=" +
+          encodeURIComponent(
+            firebaseUser.uid
+          ),
+
+        link:
+          "mensagens.html?uid=" +
+          encodeURIComponent(
+            firebaseUser.uid
+          ),
+
+        lida:
+          false,
+
+        visualizada:
+          false,
+
+        createdAt:
+          serverTimestamp(),
+
+        timestamp:
+          serverTimestamp()
+
+      }
+    );
+
+    console.log(
+      "Notificação de mensagem criada para:",
+      destinatarioId
+    );
+
+  }
+  catch(error){
+
+    console.warn(
+      "Não foi possível criar a notificação:",
+      error
+    );
+
+  }
+
+}
+
+
+/* =====================================================
    ENVIAR MENSAGEM FIREBASE
 ===================================================== */
 
@@ -3896,6 +4033,28 @@ async function sendFirebaseMessage(
     );
 
     await batch.commit();
+
+
+    /* =================================================
+       NOTIFICAÇÃO DA MENSAGEM DE TEXTO
+    ================================================= */
+
+    await criarNotificacaoMensagem({
+
+      destinatarioId:
+        currentChatUID,
+
+      tipo:
+        "text",
+
+      preview:
+        cleanText,
+
+      conversaId:
+        currentChatID
+
+    });
+
 
     messageInput.value =
       "";
@@ -4371,7 +4530,30 @@ imageInput.addEventListener(
         }
       );
 
+
       await batch.commit();
+
+
+      /* =================================================
+         NOTIFICAÇÃO DA IMAGEM
+      ================================================= */
+
+      await criarNotificacaoMensagem({
+
+        destinatarioId:
+          currentChatUID,
+
+        tipo:
+          "image",
+
+        preview:
+          "🖼️ Imagem",
+
+        conversaId:
+          currentChatID
+
+      });
+
 
       showToast(
         "Imagem enviada."
@@ -4806,3 +4988,4 @@ window.addEventListener(
 
 </body>
 </html>
+```
