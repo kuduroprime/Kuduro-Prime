@@ -3380,13 +3380,15 @@ function listenPresence(
 
 /* =====================================================
    LISTENER MENSAGENS
+   CORRIGIDO — LEITURA POR REMETENTE / DESTINATÁRIO
 ===================================================== */
 
 function listenMessages(){
 
   if(
     !firebaseUser ||
-    !currentChatID
+    !currentChatID ||
+    !currentChatUID
   ){
 
     return;
@@ -3399,32 +3401,170 @@ function listenMessages(){
 
     unsubscribeMessages();
 
+    unsubscribeMessages =
+      null;
+
   }
 
-  const q =
+  const mensagensMap =
+    new Map();
+
+  let unsubscribeEnviadas =
+    null;
+
+  let unsubscribeRecebidas =
+    null;
+
+
+  function renderizarMensagens(){
+
+    const lista =
+      Array.from(
+        mensagensMap.values()
+      );
+
+
+    lista.sort(
+      (
+        a,
+        b
+      ) => {
+
+        function getTime(
+          timestamp
+        ){
+
+          if(
+            !timestamp
+          ){
+
+            return 0;
+
+          }
+
+          if(
+            typeof timestamp.toMillis ===
+            "function"
+          ){
+
+            return timestamp.toMillis();
+
+          }
+
+          if(
+            typeof timestamp.toDate ===
+            "function"
+          ){
+
+            return timestamp.toDate().getTime();
+
+          }
+
+          const date =
+            new Date(
+              timestamp
+            );
+
+          const time =
+            date.getTime();
+
+          return Number.isNaN(
+            time
+          )
+            ? 0
+            : time;
+
+        }
+
+
+        return (
+          getTime(
+            a.createdAt
+          ) -
+          getTime(
+            b.createdAt
+          )
+        );
+
+      }
+    );
+
+
+    messages.innerHTML =
+      "";
+
+
+    if(
+      !lista.length
+    ){
+
+      messages.innerHTML = `
+
+        <div
+          class="message-expired"
+          style="
+            text-align:center;
+            padding:30px;
+          "
+        >
+
+          Ainda não existem mensagens nesta conversa.
+
+        </div>
+
+      `;
+
+      return;
+
+    }
+
+
+    lista.forEach(
+      data => {
+
+        renderMessage(
+          data
+        );
+
+      }
+    );
+
+
+    scrollMessagesToBottom();
+
+  }
+
+
+  /* =================================================
+     MENSAGENS ENVIADAS PELO UTILIZADOR
+  ================================================= */
+
+  const queryEnviadas =
     query(
       collection(
         db,
         "mensagens"
       ),
+
       where(
         "conversaId",
         "==",
         currentChatID
       ),
-      orderBy(
-        "createdAt",
-        "asc"
+
+      where(
+        "remetenteId",
+        "==",
+        firebaseUser.uid
       )
     );
 
-  unsubscribeMessages =
-    onSnapshot(
-      q,
-      snapshot => {
 
-        messages.innerHTML =
-          "";
+  unsubscribeEnviadas =
+    onSnapshot(
+      queryEnviadas,
+
+      snapshot => {
 
         snapshot.forEach(
           messageSnap => {
@@ -3432,29 +3572,34 @@ function listenMessages(){
             const data =
               messageSnap.data();
 
-            renderMessage(
+            mensagensMap.set(
+              messageSnap.id,
               {
                 id:
                   messageSnap.id,
 
                 ...data
+
               }
             );
 
           }
         );
 
-        scrollMessagesToBottom();
+
+        renderizarMensagens();
 
       },
+
       error => {
 
         console.error(
-          "Erro nas mensagens:",
+          "Erro nas mensagens enviadas:",
           error
         );
 
         messages.innerHTML = `
+
           <div
             class="message-expired"
             style="
@@ -3462,18 +3607,156 @@ function listenMessages(){
               padding:30px;
             "
           >
+
             ⚠️ Não foi possível carregar as mensagens.
+
             <br><br>
+
             ${escapeHTML(
               error.message
             )}
+
           </div>
+
         `;
 
       }
+
     );
 
+
+  /* =================================================
+     MENSAGENS RECEBIDAS PELO UTILIZADOR
+  ================================================= */
+
+  const queryRecebidas =
+    query(
+      collection(
+        db,
+        "mensagens"
+      ),
+
+      where(
+        "conversaId",
+        "==",
+        currentChatID
+      ),
+
+      where(
+        "destinatarioId",
+        "==",
+        firebaseUser.uid
+      )
+    );
+
+
+  unsubscribeRecebidas =
+    onSnapshot(
+      queryRecebidas,
+
+      snapshot => {
+
+        snapshot.forEach(
+          messageSnap => {
+
+            const data =
+              messageSnap.data();
+
+            mensagensMap.set(
+              messageSnap.id,
+              {
+                id:
+                  messageSnap.id,
+
+                ...data
+
+              }
+            );
+
+          }
+        );
+
+
+        renderizarMensagens();
+
+      },
+
+      error => {
+
+        console.error(
+          "Erro nas mensagens recebidas:",
+          error
+        );
+
+        if(
+          mensagensMap.size === 0
+        ){
+
+          messages.innerHTML = `
+
+            <div
+              class="message-expired"
+              style="
+                text-align:center;
+                padding:30px;
+              "
+            >
+
+              ⚠️ Não foi possível carregar as mensagens.
+
+              <br><br>
+
+              ${escapeHTML(
+                error.message
+              )}
+
+            </div>
+
+          `;
+
+        }
+
+      }
+
+    );
+
+
+  /* =================================================
+     CANCELAR OS DOIS LISTENERS
+  ================================================= */
+
+  unsubscribeMessages =
+    () => {
+
+      if(
+        unsubscribeEnviadas
+      ){
+
+        unsubscribeEnviadas();
+
+        unsubscribeEnviadas =
+          null;
+
+      }
+
+
+      if(
+        unsubscribeRecebidas
+      ){
+
+        unsubscribeRecebidas();
+
+        unsubscribeRecebidas =
+          null;
+
+      }
+
+    };
+
 }
+
+  
+  
 
 
 /* =====================================================
