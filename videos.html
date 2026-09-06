@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="pt">
 <head>
 
@@ -6,10 +7,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Vídeos | KUDURO PRIME</title>
-
-<!-- =========================================
-     CLOUDINARY VIDEO PLAYER
-========================================= -->
 
 <link
   rel="stylesheet"
@@ -19,7 +16,6 @@
 <script
   src="https://cdn.jsdelivr.net/npm/cloudinary-video-player/dist/player.min.js"
 ></script>
-
 
 <style>
 
@@ -33,10 +29,6 @@ body{
   color:#fff;
   font-family:Arial,Helvetica,sans-serif;
 }
-
-/* ==============================
-   HEADER
-============================== */
 
 header{
   background:#0d0d0d;
@@ -74,10 +66,6 @@ nav a:hover{
   color:#d4af37;
 }
 
-/* ==============================
-   HERO
-============================== */
-
 .hero{
   text-align:center;
   padding:55px 20px 20px;
@@ -95,10 +83,6 @@ h1{
   font-size:14px;
 }
 
-/* ==============================
-   VÍDEOS
-============================== */
-
 .videos{
   max-width:1200px;
   margin:35px auto 70px;
@@ -114,10 +98,6 @@ h1{
 
   gap:22px;
 }
-
-/* ==============================
-   CARD
-============================== */
 
 .video-card{
 
@@ -146,10 +126,6 @@ h1{
   transform:translateY(-5px);
 }
 
-/* ==============================
-   PLAYER
-============================== */
-
 .video-container{
 
   width:100%;
@@ -167,14 +143,6 @@ h1{
   position:relative;
 }
 
-
-/*
-   PLAYER CLOUDINARY
-
-   O vídeo fica dentro
-   do KUDURO PRIME.
-*/
-
 .video-container .cld-video-player{
 
   width:100% !important;
@@ -186,11 +154,6 @@ h1{
   background:#000;
 }
 
-
-/* ==============================
-   CLOUDINARY PLAYER
-============================== */
-
 .video-js{
 
   width:100% !important;
@@ -199,11 +162,6 @@ h1{
 
   font-family:Arial,Helvetica,sans-serif;
 }
-
-
-/*
-   Cor principal do player
-*/
 
 .video-js .vjs-control-bar{
 
@@ -214,28 +172,20 @@ h1{
     );
 }
 
-
 .video-js .vjs-play-progress{
 
   background:#d4af37;
 }
-
 
 .video-js .vjs-volume-level{
 
   background:#d4af37;
 }
 
-
 .video-js .vjs-slider{
 
   background:rgba(255,255,255,.25);
 }
-
-
-/* ==============================
-   TEXTOS
-============================== */
 
 .video-card h2{
 
@@ -286,10 +236,6 @@ h1{
 
   margin-bottom:10px;
 }
-
-/* ==============================
-   INFORMAÇÕES
-============================== */
 
 .info{
 
@@ -342,10 +288,6 @@ h1{
   text-decoration:underline;
 }
 
-/* ==============================
-   STATUS
-============================== */
-
 .view-status{
 
   min-height:15px;
@@ -356,10 +298,6 @@ h1{
 
   font-size:10px;
 }
-
-/* ==============================
-   LOADING
-============================== */
 
 .loading{
 
@@ -379,10 +317,6 @@ h1{
   margin-bottom:10px;
 }
 
-/* ==============================
-   EMPTY
-============================== */
-
 .empty{
 
   grid-column:1/-1;
@@ -401,10 +335,6 @@ h1{
   margin-bottom:15px;
 }
 
-/* ==============================
-   ERROR
-============================== */
-
 .error{
 
   grid-column:1/-1;
@@ -422,10 +352,6 @@ h1{
   border-radius:12px;
 }
 
-/* ==============================
-   FOOTER
-============================== */
-
 footer{
 
   margin-top:50px;
@@ -440,10 +366,6 @@ footer{
 
   font-size:12px;
 }
-
-/* ==============================
-   MOBILE
-============================== */
 
 @media(max-width:600px){
 
@@ -481,9 +403,7 @@ footer{
 
 </head>
 
-
 <body>
-
 
 <header>
 
@@ -491,37 +411,37 @@ footer{
     👑 KUDURO PRIME
   </div>
 
-
   <nav>
 
-    <a href="index.html">
-      INÍCIO
-    </a>
+```
+<a href="index.html">
+  INÍCIO
+</a>
 
-    <a href="artistas.html">
-      ARTISTAS
-    </a>
+<a href="artistas.html">
+  ARTISTAS
+</a>
 
-    <a href="musicas.html">
-      MÚSICAS
-    </a>
+<a href="musicas.html">
+  MÚSICAS
+</a>
 
-    <a href="ranking.html">
-      RANKING
-    </a>
+<a href="ranking.html">
+  RANKING
+</a>
 
-    <a href="eventos.html">
-      EVENTOS
-    </a>
+<a href="eventos.html">
+  EVENTOS
+</a>
 
-    <a href="videos.html">
-      VÍDEOS
-    </a>
+<a href="videos.html">
+  VÍDEOS
+</a>
+```
 
   </nav>
 
 </header>
-
 
 <section class="hero">
 
@@ -535,7 +455,6 @@ footer{
 
 </section>
 
-
 <section
   class="videos"
   id="videosContainer"
@@ -543,23 +462,23 @@ footer{
 
   <div class="loading">
 
-    <div class="loading-icon">
-      ⏳
-    </div>
+```
+<div class="loading-icon">
+  ⏳
+</div>
 
-    A carregar vídeos...
+A carregar vídeos...
+```
 
   </div>
 
 </section>
-
 
 <footer>
 
 © 2026 KUDURO PRIME — O KUDURO VIVE AQUI 👑
 
 </footer>
-
 
 <script type="module">
 
@@ -592,8 +511,6 @@ import {
   setDoc,
   updateDoc,
   increment,
-  query,
-  orderBy,
   serverTimestamp
 }
 from
@@ -688,7 +605,9 @@ function formatDate(timestamp){
   }
 
 
-  if(timestamp.seconds){
+  if(
+    timestamp.seconds
+  ){
 
     const date =
       new Date(
@@ -699,6 +618,29 @@ function formatDate(timestamp){
     return date.toLocaleDateString(
       "pt-PT"
     );
+
+  }
+
+
+  if(
+    typeof timestamp === "string"
+  ){
+
+    const date =
+      new Date(timestamp);
+
+
+    if(
+      !Number.isNaN(
+        date.getTime()
+      )
+    ){
+
+      return date.toLocaleDateString(
+        "pt-PT"
+      );
+
+    }
 
   }
 
@@ -797,6 +739,100 @@ function formatDuration(seconds){
 
 
 /* =========================================
+   DATA PARA ORDENAÇÃO
+========================================= */
+
+function getVideoDate(video){
+
+  const timestamp =
+    video.criadoEm
+    ||
+    video.atualizadoEm
+    ||
+    video.dataPublicacao
+    ||
+    video.dataLancamento
+    ||
+    video.createdAt
+    ||
+    video.created_at
+    ||
+    null;
+
+
+  if(!timestamp){
+    return 0;
+  }
+
+
+  /*
+     Timestamp do Firestore
+  */
+
+  if(
+    typeof timestamp.toMillis ===
+    "function"
+  ){
+
+    return timestamp.toMillis();
+
+  }
+
+
+  /*
+     Timestamp antigo
+  */
+
+  if(
+    timestamp.seconds
+  ){
+
+    return (
+      Number(timestamp.seconds) *
+      1000
+    );
+
+  }
+
+
+  /*
+     Número
+  */
+
+  if(
+    typeof timestamp === "number"
+  ){
+
+    return timestamp;
+
+  }
+
+
+  /*
+     Data em texto
+  */
+
+  if(
+    typeof timestamp === "string"
+  ){
+
+    const time =
+      new Date(timestamp).getTime();
+
+
+    return Number.isNaN(time)
+      ? 0
+      : time;
+
+  }
+
+
+  return 0;
+
+}
+
+
+/* =========================================
    PEGAR PUBLIC ID
 ========================================= */
 
@@ -836,6 +872,10 @@ function getPublicId(video){
     video.video
     ||
     video.url
+    ||
+    video.videoURL
+    ||
+    video.urlVideo
     ||
     "";
 
@@ -882,11 +922,6 @@ function getPublicId(video){
       );
 
 
-    /*
-       Remove transformações
-       e versão.
-    */
-
     const parts =
       path.split("/");
 
@@ -896,7 +931,9 @@ function getPublicId(video){
       (
         parts[0].startsWith("v")
         &&
-        /^v\d+$/.test(parts[0])
+        /^v\d+$/.test(
+          parts[0]
+        )
       )
     ){
 
@@ -904,11 +941,6 @@ function getPublicId(video){
 
     }
 
-
-    /*
-       Remove possíveis
-       transformações do Cloudinary.
-    */
 
     const transformationWords = [
 
@@ -927,11 +959,15 @@ function getPublicId(video){
       parts.length &&
 
       (
+
         parts[0].includes(",")
+
         ||
+
         transformationWords.includes(
           parts[0]
         )
+
       )
 
     ){
@@ -944,10 +980,6 @@ function getPublicId(video){
     let publicId =
       parts.join("/");
 
-
-    /*
-       Remove extensão.
-    */
 
     publicId =
       publicId.replace(
@@ -984,63 +1016,122 @@ async function loadVideos(){
 
   try{
 
-    const videoQuery =
-      query(
+    /*
+       IMPORTANTE:
 
-        collection(
-          db,
-          "videos"
-        ),
+       Não usamos:
 
-        orderBy(
-          "criadoEm",
-          "desc"
-        )
+       orderBy("criadoEm","desc")
 
+       diretamente no Firestore.
+
+       Alguns vídeos antigos podem não
+       possuir "criadoEm".
+
+       Nesse caso o orderBy pode impedir
+       esses documentos de aparecerem.
+
+       Agora buscamos TODOS os documentos
+       da coleção "videos".
+    */
+
+    const videoCollection =
+      collection(
+        db,
+        "videos"
       );
 
 
     const snapshot =
       await getDocs(
-        videoQuery
+        videoCollection
       );
 
 
+    /*
+       TODOS os documentos são transformados
+       em objetos.
+    */
+
+    const allVideos =
+      snapshot.docs.map(
+        videoDoc => ({
+
+          id:
+            videoDoc.id,
+
+          ...videoDoc.data()
+
+        })
+      );
+
+
+    /*
+       Mantemos o filtro existente:
+
+       publicado
+       publicada
+       ou sem status.
+
+       Portanto não retiramos a regra
+       de publicação que já existia.
+    */
+
     const videos =
-      snapshot.docs
+      allVideos.filter(
+        video => {
 
-        .map(
-          videoDoc => ({
+          return (
 
-            id:
-              videoDoc.id,
+            video.status ===
+              "publicado"
 
-            ...videoDoc.data()
+            ||
 
-          })
-        )
+            video.status ===
+              "publicada"
 
-        .filter(
-          video => {
+            ||
 
-            return (
+            !video.status
 
-              video.status ===
-                "publicado"
+          );
 
-              ||
+        }
+      );
 
-              video.status ===
-                "publicada"
 
-              ||
+    /*
+       Ordenamos depois de carregar
+       todos os vídeos.
 
-              !video.status
+       Mais recentes primeiro.
 
-            );
+       Vídeos sem data ficam no fim.
+    */
 
-          }
+    videos.sort(
+      (a,b) => {
+
+        return (
+          getVideoDate(b) -
+          getVideoDate(a)
         );
+
+      }
+    );
+
+
+    console.log(
+      "Total de documentos na coleção videos:",
+      allVideos.length
+    );
+
+
+    console.log(
+      "Total de vídeos publicados:",
+      videos.length
+    );
 
 
     if(
@@ -1131,6 +1222,10 @@ function renderVideos(videos){
           ||
           video.title
           ||
+          video.nomeVideo
+          ||
+          video.nome
+          ||
           "Vídeo sem título";
 
 
@@ -1140,6 +1235,10 @@ function renderVideos(videos){
           video.artistName
           ||
           video.nomeArtistico
+          ||
+          video.artista
+          ||
+          video.nomeArtista
           ||
           "Artista Prime";
 
@@ -1157,6 +1256,8 @@ function renderVideos(videos){
           ||
           video.tipo
           ||
+          video.category
+          ||
           "Kuduro";
 
 
@@ -1166,6 +1267,12 @@ function renderVideos(videos){
           video.cover
           ||
           video.coverUrl
+          ||
+          video.capaUrl
+          ||
+          video.imagem
+          ||
+          video.thumbnail
           ||
           "";
 
@@ -1211,6 +1318,9 @@ function renderVideos(videos){
           video.dataLancamento
           ||
 
+          video.dataPublicacao
+          ||
+
           formatDate(
             video.criadoEm
           );
@@ -1225,6 +1335,8 @@ function renderVideos(videos){
           ||
           video.uid
           ||
+          video.artistaUID
+          ||
           "";
 
 
@@ -1233,13 +1345,6 @@ function renderVideos(videos){
             video
           );
 
-
-        /*
-           Se não encontramos
-           o Public ID, mostramos
-           erro em vez de criar
-           um link para o MP4.
-        */
 
         let playerHTML;
 
@@ -1511,14 +1616,6 @@ function initializeCloudinaryPlayers(){
           );
 
 
-        /*
-           Carrega o vídeo
-           pelo Public ID.
-
-           Não criamos <a href>
-           para o MP4.
-        */
-
         player.source(
           publicId,
           {
@@ -1530,14 +1627,6 @@ function initializeCloudinaryPlayers(){
           }
         );
 
-
-        /*
-           Detectar PLAY.
-
-           A view só é registrada
-           quando o vídeo realmente
-           começa a reproduzir.
-        */
 
         player.on(
           "play",
