@@ -2457,18 +2457,36 @@
     }
 
 
-    /* ==============================
-       START NEW CONVERSATION
-    =============================== */
+    
+/* ==============================
+   START NEW CONVERSATION
+============================== */
 
-    async function startNewConversation(artist){
+async function startNewConversation(artist){
 
   if(!artist || !artist.uid){
+
     showToast(
       "Artista inválido.",
       "error"
     );
+
     return;
+
+  }
+
+
+  if(
+    !firebaseUser
+  ){
+
+    showToast(
+      "Precisas estar autenticado.",
+      "error"
+    );
+
+    return;
+
   }
 
 
@@ -2502,14 +2520,8 @@
     );
 
 
-  /*
-   * Primeiro tentamos criar.
-   *
-   * Não usamos getDoc(), porque uma conversa
-   * inexistente não pode ser lida pelas Rules.
-   */
-
   const participantNames = {};
+
 
   participantNames[
     firebaseUser.uid
@@ -2517,6 +2529,7 @@
     getArtistName(
       currentUserProfile
     );
+
 
   participantNames[
     artist.uid
@@ -2527,6 +2540,14 @@
 
 
   try{
+
+    /*
+     * Cria a conversa caso não exista.
+     *
+     * merge:true é importante porque, se a conversa
+     * já existir, não apaga mensagens nem dados
+     * existentes.
+     */
 
     await setDoc(
       conversationRef,
@@ -2564,32 +2585,40 @@
 
         }
 
+      },
+      {
+        merge:true
       }
     );
 
 
     console.log(
-      "Nova conversa criada:",
+      "Conversa aberta/criada:",
       chatID
     );
 
 
   }catch(error){
 
-    /*
-     * Se já existe, não tentamos recriá-la.
-     * Apenas abrimos a conversa.
-     */
-
-    console.warn(
-      "Conversa provavelmente já existe:",
-      error.message
+    console.error(
+      "Erro ao criar conversa:",
+      error
     );
+
+
+    showToast(
+      "Não foi possível criar a conversa: " +
+      error.message,
+      "error"
+    );
+
+
+    return;
 
   }
 
 
-  await openRealChat(
+    await openRealChat(
     artist,
     chatID
   );
@@ -2597,33 +2626,16 @@
 }
 
 
-      }catch(error){
+/* ==============================
+   OPEN CHAT
+============================== */
 
-        console.error(
-          "Erro ao criar conversa:",
-          error
-        );
+async function openRealChat(
+  artist,
+  chatID
+){
 
-        showToast(
-          "Não foi possível criar a conversa: " +
-          error.message,
-          "error"
-        );
-
-      }
-
-    }
-
-
-    /* ==============================
-       OPEN CHAT
-    =============================== */
-
-    async function openRealChat(
-      artist,
-      chatID
-    ){
-
+    
       if(!artist){
         return;
       }
