@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="pt">
 <head>
   <meta charset="UTF-8">
@@ -44,8 +43,7 @@
 
     button,
     input,
-    textarea,
-    select{
+    textarea{
       font:inherit;
     }
 
@@ -57,6 +55,10 @@
       color:inherit;
       text-decoration:none;
     }
+
+    /* ==============================
+       HEADER
+    =============================== */
 
     .topbar{
       height:70px;
@@ -101,12 +103,20 @@
       color:var(--gold);
     }
 
+    /* ==============================
+       LAYOUT
+    =============================== */
+
     .page{
       height:calc(100vh - 70px);
       display:grid;
       grid-template-columns:300px minmax(0,1fr);
       overflow:hidden;
     }
+
+    /* ==============================
+       LEFT
+    =============================== */
 
     .sidebar{
       border-right:1px solid var(--line);
@@ -268,6 +278,10 @@
       line-height:1.5;
     }
 
+    /* ==============================
+       CHAT
+    =============================== */
+
     .chat{
       min-width:0;
       display:flex;
@@ -362,6 +376,10 @@
       color:var(--gold);
     }
 
+    /* ==============================
+       MESSAGES
+    =============================== */
+
     .messages{
       flex:1;
       overflow-y:auto;
@@ -429,7 +447,6 @@
 
     .message-image{
       max-height:350px;
-      cursor:pointer;
     }
 
     .message-video{
@@ -451,21 +468,15 @@
       font-weight:700;
     }
 
-    .file-link:hover{
-      opacity:.8;
-    }
-
     .loading-messages{
       text-align:center;
       color:var(--muted);
       padding:20px;
     }
 
-    .expired-message{
-      font-size:12px;
-      opacity:.6;
-      font-style:italic;
-    }
+    /* ==============================
+       COMPOSER
+    =============================== */
 
     .composer{
       border-top:1px solid var(--line);
@@ -557,11 +568,6 @@
       color:var(--gold);
     }
 
-    .media-btn:disabled{
-      opacity:.45;
-      cursor:not-allowed;
-    }
-
     .upload-status{
       display:none;
       margin-top:8px;
@@ -572,6 +578,10 @@
     .upload-status.show{
       display:block;
     }
+
+    /* ==============================
+       MODAL
+    =============================== */
 
     .modal{
       position:fixed;
@@ -679,6 +689,10 @@
       border-color:var(--danger);
     }
 
+    /* ==============================
+       MOBILE
+    =============================== */
+
     @media(max-width:850px){
 
       .page{
@@ -704,960 +718,931 @@
       .brand{
         font-size:17px;
       }
-
-      .chat-action{
-        padding:8px;
-        font-size:12px;
-      }
-
-      .messages{
-        padding:12px;
-      }
-
-      .composer{
-        padding:8px;
-      }
-
-      .media-btn{
-        width:36px;
-        height:40px;
-      }
-
-      .send-btn{
-        width:44px;
-      }
     }
   </style>
-
 </head>
 
 <body>
 
-<header class="topbar">
+  <!-- ==============================
+       HEADER
+  =============================== -->
 
-  <a href="feed.html" class="brand">
-    ♕ KUDURO <span>PRIME</span>
-  </a>
+  <header class="topbar">
 
-  <div class="top-actions">
+    <a href="feed.html" class="brand">
+      ♕ KUDURO <span>PRIME</span>
+    </a>
 
-```
-<a href="feed.html" class="top-btn">
-  ← Feed
-</a>
+    <div class="top-actions">
 
-<button
-  type="button"
-  class="top-btn"
-  id="logoutBtn">
-  Sair
-</button>
-```
+      <a href="feed.html" class="top-btn">
+        ← Feed
+      </a>
 
-  </div>
+      <button
+        type="button"
+        class="top-btn"
+        id="logoutBtn">
+        Sair
+      </button>
 
-</header>
-
-<main class="page">
-
-  <aside class="sidebar">
-
-```
-<div class="sidebar-head">
-
-  <div class="sidebar-title">
-    Mensagens
-  </div>
-
-  <button
-    type="button"
-    class="new-message-btn"
-    id="newMessageBtn">
-    ＋ Nova mensagem
-  </button>
-
-</div>
-
-<div class="search-box">
-
-  <input
-    type="search"
-    id="conversationSearch"
-    placeholder="Pesquisar conversas...">
-
-</div>
-
-<div
-  class="conversation-list"
-  id="conversationList">
-
-  <div class="empty-conversations">
-    A carregar conversas...
-  </div>
-
-</div>
-```
-
-  </aside>
-
-  <section class="chat">
-
-```
-<div
-  class="chat-empty"
-  id="chatEmpty">
-
-  <div>
-
-    <strong>
-      💬 As tuas mensagens
-    </strong>
-
-    Escolhe uma conversa ou começa uma nova mensagem.
-
-  </div>
-
-</div>
-
-
-<div
-  id="chatContent"
-  style="display:none;height:100%;min-height:0;flex-direction:column;">
-
-  <div class="chat-header">
-
-    <div
-      class="avatar"
-      id="chatAvatar">
-      👤
     </div>
 
-    <div class="chat-user-info">
+  </header>
+
+
+  <!-- ==============================
+       PAGE
+  =============================== -->
+
+  <main class="page">
+
+    <!-- ==============================
+         SIDEBAR
+    =============================== -->
+
+    <aside class="sidebar">
+
+      <div class="sidebar-head">
+
+        <div class="sidebar-title">
+          Mensagens
+        </div>
+
+        <button
+          type="button"
+          class="new-message-btn"
+          id="newMessageBtn">
+          ＋ Nova mensagem
+        </button>
+
+      </div>
+
+
+      <div class="search-box">
+
+        <input
+          type="search"
+          id="conversationSearch"
+          placeholder="Pesquisar conversas...">
+
+      </div>
+
 
       <div
-        class="chat-user-name"
-        id="chatUserName">
-        Utilizador
+        class="conversation-list"
+        id="conversationList">
+
+        <div class="empty-conversations">
+          A carregar conversas...
+        </div>
+
       </div>
 
-      <div class="chat-status-row">
+    </aside>
 
-        <span
-          class="online-lamp offline"
-          id="chatOnline">
-        </span>
+
+    <!-- ==============================
+         CHAT
+    =============================== -->
+
+    <section class="chat">
+
+      <div
+        class="chat-empty"
+        id="chatEmpty">
+
+        <div>
+
+          <strong>
+            💬 As tuas mensagens
+          </strong>
+
+          Escolhe uma conversa ou começa uma nova mensagem.
+
+        </div>
+
+      </div>
+
+
+      <div
+        id="chatContent"
+        style="display:none;height:100%;min-height:0;flex-direction:column;">
+
+        <!-- CHAT HEADER -->
+
+        <div class="chat-header">
+
+          <div
+            class="avatar"
+            id="chatAvatar">
+            👤
+          </div>
+
+
+          <div class="chat-user-info">
+
+            <div
+              class="chat-user-name"
+              id="chatUserName">
+              Utilizador
+            </div>
+
+
+            <div class="chat-status-row">
+
+              <span
+                class="online-lamp offline"
+                id="chatOnline">
+              </span>
+
+              <div
+                class="chat-status"
+                id="chatStatus">
+                Offline
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <div class="chat-actions">
+
+            <button
+              type="button"
+              class="chat-action"
+              id="profileBtn">
+              👤 Perfil
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <!-- MESSAGES -->
 
         <div
-          class="chat-status"
-          id="chatStatus">
-          Offline
+          class="messages"
+          id="messages">
+
+          <div class="loading-messages">
+            A carregar mensagens...
+          </div>
+
+        </div>
+
+
+        <!-- COMPOSER -->
+
+        <div class="composer">
+
+          <div class="temporary-bar">
+
+            <span class="temporary-label">
+              ⏳ Mensagem temporária:
+            </span>
+
+            <select
+              class="temporary-select"
+              id="temporaryMode">
+
+              <option value="off">
+                Normal
+              </option>
+
+              <option value="24h">
+                24 horas
+              </option>
+
+              <option value="7d">
+                7 dias
+              </option>
+
+              <option value="90d">
+                90 dias
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <div class="composer-row">
+
+            <div class="media-actions">
+
+              <button
+                type="button"
+                class="media-btn"
+                id="imageBtn"
+                title="Imagem">
+                🖼️
+              </button>
+
+              <button
+                type="button"
+                class="media-btn"
+                id="fileBtn"
+                title="Ficheiro">
+                📎
+              </button>
+
+            </div>
+
+
+            <textarea
+              id="messageInput"
+              class="message-input"
+              rows="1"
+              placeholder="Escreve uma mensagem..."></textarea>
+
+
+            <button
+              type="button"
+              class="send-btn"
+              id="sendBtn">
+              ➤
+            </button>
+
+          </div>
+
+
+          <div
+            class="upload-status"
+            id="uploadStatus">
+            A enviar...
+          </div>
+
         </div>
 
       </div>
 
-    </div>
+    </section>
 
-    <div class="chat-actions">
+  </main>
 
-      <button
-        type="button"
-        class="chat-action"
-        id="profileBtn">
-        👤 Perfil
-      </button>
 
-    </div>
-
-  </div>
-
+  <!-- ==============================
+       MODAL NOVA MENSAGEM
+  =============================== -->
 
   <div
-    class="messages"
-    id="messages">
+    class="modal"
+    id="artistModal">
 
-    <div class="loading-messages">
-      A carregar mensagens...
-    </div>
+    <div class="modal-box">
 
-  </div>
+      <div class="modal-head">
 
-
-  <div class="composer">
-
-    <div class="temporary-bar">
-
-      <span class="temporary-label">
-        ⏳ Mensagem temporária:
-      </span>
-
-      <select
-        class="temporary-select"
-        id="temporaryMode">
-
-        <option value="off">
-          Normal
-        </option>
-
-        <option value="24h">
-          24 horas
-        </option>
-
-        <option value="7d">
-          7 dias
-        </option>
-
-        <option value="90d">
-          90 dias
-        </option>
-
-      </select>
-
-    </div>
-
-
-    <div class="composer-row">
-
-      <div class="media-actions">
+        <div class="modal-title">
+          Nova mensagem
+        </div>
 
         <button
           type="button"
-          class="media-btn"
-          id="imageBtn"
-          title="Imagem">
-          🖼️
-        </button>
-
-        <button
-          type="button"
-          class="media-btn"
-          id="fileBtn"
-          title="Ficheiro">
-          📎
+          class="close-modal"
+          id="closeArtistModal">
+          ×
         </button>
 
       </div>
 
 
-      <textarea
-        id="messageInput"
-        class="message-input"
-        rows="1"
-        placeholder="Escreve uma mensagem..."></textarea>
+      <div
+        class="search-box"
+        style="border-bottom:1px solid var(--line);">
 
+        <input
+          type="search"
+          id="artistSearch"
+          placeholder="Pesquisar artista...">
 
-      <button
-        type="button"
-        class="send-btn"
-        id="sendBtn">
-        ➤
-      </button>
+      </div>
 
-    </div>
 
+      <div
+        class="artist-list"
+        id="artistList">
 
-    <div
-      class="upload-status"
-      id="uploadStatus">
-      A enviar...
-    </div>
-
-  </div>
-
-</div>
-```
-
-  </section>
-
-</main>
-
-<div
-  class="modal"
-  id="artistModal">
-
-  <div class="modal-box">
-
-```
-<div class="modal-head">
-
-  <div class="modal-title">
-    Nova mensagem
-  </div>
-
-  <button
-    type="button"
-    class="close-modal"
-    id="closeArtistModal">
-    ×
-  </button>
-
-</div>
-
-
-<div
-  class="search-box"
-  style="border-bottom:1px solid var(--line);">
-
-  <input
-    type="search"
-    id="artistSearch"
-    placeholder="Pesquisar artista...">
-
-</div>
-
-
-<div
-  class="artist-list"
-  id="artistList">
-
-  <div class="empty-conversations">
-    A carregar artistas...
-  </div>
-
-</div>
-```
-
-  </div>
-
-</div>
-
-<input
-type="file"
-id="imageInput"
-accept="image/*"
-hidden>
-
-<input
-type="file"
-id="fileInput"
-hidden>
-
-<div
-  class="toast-container"
-  id="toastContainer">
-</div>
-
-<script type="module">
-
-  import {
-    initializeApp
-  } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
-
-  import {
-    getAuth,
-    onAuthStateChanged,
-    signOut
-  } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
-
-  import {
-    getFirestore,
-    collection,
-    doc,
-    getDoc,
-    getDocs,
-    query,
-    where,
-    orderBy,
-    onSnapshot,
-    setDoc,
-    updateDoc,
-    serverTimestamp,
-    writeBatch,
-    increment
-  } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
-
-
-  /* =========================================
-     FIREBASE
-  ========================================== */
-
-  const firebaseConfig = {
-
-    apiKey:
-      "AIzaSyDoitCcLeLDNBNPCP6f1Gs1_xbHr4UmohSo",
-
-    authDomain:
-      "kuduro-prime.firebaseapp.com",
-
-    projectId:
-      "kuduro-prime",
-
-    storageBucket:
-      "kuduro-prime.firebasestorage.app",
-
-    messagingSenderId:
-      "299776559545",
-
-    appId:
-      "1:299776559545:web:04aced1ba25391eb3fce68"
-
-  };
-
-
-  const app =
-    initializeApp(firebaseConfig);
-
-  const auth =
-    getAuth(app);
-
-  const db =
-    getFirestore(app);
-
-
-  /* =========================================
-     CLOUDINARY
-  ========================================== */
-
-  const CLOUDINARY_CLOUD_NAME =
-    "ge1ntqqc";
-
-  const CLOUDINARY_UPLOAD_PRESET =
-    "kuduro_prime";
-
-
-  const CLOUDINARY_IMAGE_URL =
-    `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`;
-
-
-  const CLOUDINARY_RAW_URL =
-    `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/raw/upload`;
-
-
-  /* =========================================
-     ESTADO
-  ========================================== */
-
-  let firebaseUser = null;
-
-  let currentUserProfile = null;
-
-  let currentChatUID = null;
-
-  let currentChatID = null;
-
-  let currentChatArtist = null;
-
-  let unsubscribeMessages = null;
-
-  let unsubscribePresence = null;
-
-  let unsubscribeConversations = null;
-
-  let allArtists = [];
-
-  let allConversations = [];
-
-  let sendingMessage = false;
-
-  let uploadingFile = false;
-
-
-  /* =========================================
-     ELEMENTOS
-  ========================================== */
-
-  const conversationList =
-    document.getElementById(
-      "conversationList"
-    );
-
-  const conversationSearch =
-    document.getElementById(
-      "conversationSearch"
-    );
-
-  const newMessageBtn =
-    document.getElementById(
-      "newMessageBtn"
-    );
-
-  const artistModal =
-    document.getElementById(
-      "artistModal"
-    );
-
-  const closeArtistModal =
-    document.getElementById(
-      "closeArtistModal"
-    );
-
-  const artistList =
-    document.getElementById(
-      "artistList"
-    );
-
-  const artistSearch =
-    document.getElementById(
-      "artistSearch"
-    );
-
-  const chatEmpty =
-    document.getElementById(
-      "chatEmpty"
-    );
-
-  const chatContent =
-    document.getElementById(
-      "chatContent"
-    );
-
-  const chatAvatar =
-    document.getElementById(
-      "chatAvatar"
-    );
-
-  const chatUserName =
-    document.getElementById(
-      "chatUserName"
-    );
-
-  const chatOnline =
-    document.getElementById(
-      "chatOnline"
-    );
-
-  const chatStatus =
-    document.getElementById(
-      "chatStatus"
-    );
-
-  const messages =
-    document.getElementById(
-      "messages"
-    );
-
-  const messageInput =
-    document.getElementById(
-      "messageInput"
-    );
-
-  const sendBtn =
-    document.getElementById(
-      "sendBtn"
-    );
-
-  const temporaryMode =
-    document.getElementById(
-      "temporaryMode"
-    );
-
-  const profileBtn =
-    document.getElementById(
-      "profileBtn"
-    );
-
-  const logoutBtn =
-    document.getElementById(
-      "logoutBtn"
-    );
-
-  const imageBtn =
-    document.getElementById(
-      "imageBtn"
-    );
-
-  const fileBtn =
-    document.getElementById(
-      "fileBtn"
-    );
-
-  const imageInput =
-    document.getElementById(
-      "imageInput"
-    );
-
-  const fileInput =
-    document.getElementById(
-      "fileInput"
-    );
-
-  const uploadStatus =
-    document.getElementById(
-      "uploadStatus"
-    );
-
-  const toastContainer =
-    document.getElementById(
-      "toastContainer"
-    );
-
-
-  /* =========================================
-     TOAST
-  ========================================== */
-
-  function showToast(
-    text,
-    type = ""
-  ){
-
-    const toast =
-      document.createElement(
-        "div"
-      );
-
-    toast.className =
-      "toast " + type;
-
-    toast.textContent =
-      text;
-
-    toastContainer.appendChild(
-      toast
-    );
-
-    setTimeout(
-      () => toast.remove(),
-      3500
-    );
-
-  }
-
-
-  /* =========================================
-     ESCAPE
-  ========================================== */
-
-  function escapeHTML(value){
-
-    return String(
-      value ?? ""
-    )
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
-
-  }
-
-
-  /* =========================================
-     CHAT ID
-  ========================================== */
-
-  function createChatID(
-    uid1,
-    uid2
-  ){
-
-    return [
-      uid1,
-      uid2
-    ]
-    .sort()
-    .join("_");
-
-  }
-
-
-  /* =========================================
-     PHOTO
-  ========================================== */
-
-  function getProfilePhoto(
-    artist
-  ){
-
-    if(!artist){
-      return "";
-    }
-
-    return (
-      artist.foto ||
-      artist.fotoPerfil ||
-      artist.photoURL ||
-      artist.avatar ||
-      artist.imagem ||
-      artist.profilePicture ||
-      artist.photo ||
-      artist.profilePhoto ||
-      artist.image ||
-      ""
-    );
-
-  }
-
-
-  /* =========================================
-     NAME
-  ========================================== */
-
-  function getArtistName(
-    artist
-  ){
-
-    if(!artist){
-      return "Utilizador";
-    }
-
-    return (
-      artist.nome ||
-      artist.name ||
-      artist.nomeArtistico ||
-      artist.nome_artista ||
-      artist.displayName ||
-      artist.username ||
-      artist.email ||
-      "Utilizador"
-    );
-
-  }
-
-
-  /* =========================================
-     AVATAR
-  ========================================== */
-
-  function avatarHTML(
-    artist
-  ){
-
-    const photo =
-      getProfilePhoto(
-        artist
-      );
-
-    const name =
-      getArtistName(
-        artist
-      );
-
-    const initial =
-      name
-        .trim()
-        .charAt(0)
-        .toUpperCase() ||
-      "U";
-
-
-    if(photo){
-
-      return `
-
-        <div class="avatar">
-
-          <img
-            src="${escapeHTML(photo)}"
-            alt="${escapeHTML(name)}"
-            onerror="this.style.display='none';this.parentElement.textContent='${escapeHTML(initial)}';">
-
+        <div class="empty-conversations">
+          A carregar artistas...
         </div>
 
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- ==============================
+       INPUTS ESCONDIDOS
+  =============================== -->
+
+  <input
+    type="file"
+    id="imageInput"
+    accept="image/*"
+    hidden>
+
+  <input
+    type="file"
+    id="fileInput"
+    hidden>
+
+
+  <!-- TOAST -->
+
+  <div
+    class="toast-container"
+    id="toastContainer">
+  </div>
+
+
+  <!-- ==============================
+       FIREBASE
+  =============================== -->
+
+  <script type="module">
+
+    import {
+      initializeApp
+    } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+
+    import {
+      getAuth,
+      onAuthStateChanged,
+      signOut
+    } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+
+    import {
+      getFirestore,
+      collection,
+      doc,
+      getDoc,
+      getDocs,
+      query,
+      where,
+      orderBy,
+      onSnapshot,
+      setDoc,
+      updateDoc,
+      serverTimestamp,
+      writeBatch,
+      increment
+    } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+
+
+    /* ==============================
+       FIREBASE CONFIG
+    =============================== */
+
+    const firebaseConfig = {
+
+      apiKey:
+        "AIzaSyDoitCcLeLDNBNPCP6fG1s_xbHr4UmohSo",
+
+      authDomain:
+        "kuduro-prime.firebaseapp.com",
+
+      projectId:
+        "kuduro-prime",
+
+      storageBucket:
+        "kuduro-prime.firebasestorage.app",
+
+      messagingSenderId:
+        "299776559545",
+
+      appId:
+        "1:299776559545:web:04aced1ba25391eb3fce68"
+
+    };
+
+
+    const app =
+      initializeApp(firebaseConfig);
+
+    const auth =
+      getAuth(app);
+
+    const db =
+      getFirestore(app);
+
+
+    /* ==============================
+       ESTADO
+    =============================== */
+
+    let firebaseUser = null;
+
+    let currentUserProfile = null;
+
+    let currentChatUID = null;
+
+    let currentChatID = null;
+
+    let currentChatArtist = null;
+
+    let unsubscribeMessages = null;
+
+    let unsubscribePresence = null;
+
+    let unsubscribeConversations = null;
+
+    let allArtists = [];
+
+    let allConversations = [];
+
+    let sendingMessage = false;
+
+    let currentAudioButton = null;
+
+
+    /* ==============================
+       ELEMENTOS
+    =============================== */
+
+    const conversationList =
+      document.getElementById(
+        "conversationList"
+      );
+
+    const conversationSearch =
+      document.getElementById(
+        "conversationSearch"
+      );
+
+    const newMessageBtn =
+      document.getElementById(
+        "newMessageBtn"
+      );
+
+    const artistModal =
+      document.getElementById(
+        "artistModal"
+      );
+
+    const closeArtistModal =
+      document.getElementById(
+        "closeArtistModal"
+      );
+
+    const artistList =
+      document.getElementById(
+        "artistList"
+      );
+
+    const artistSearch =
+      document.getElementById(
+        "artistSearch"
+      );
+
+    const chatEmpty =
+      document.getElementById(
+        "chatEmpty"
+      );
+
+    const chatContent =
+      document.getElementById(
+        "chatContent"
+      );
+
+    const chatAvatar =
+      document.getElementById(
+        "chatAvatar"
+      );
+
+    const chatUserName =
+      document.getElementById(
+        "chatUserName"
+      );
+
+    const chatOnline =
+      document.getElementById(
+        "chatOnline"
+      );
+
+    const chatStatus =
+      document.getElementById(
+        "chatStatus"
+      );
+
+    const messages =
+      document.getElementById(
+        "messages"
+      );
+
+    const messageInput =
+      document.getElementById(
+        "messageInput"
+      );
+
+    const sendBtn =
+      document.getElementById(
+        "sendBtn"
+      );
+
+    const temporaryMode =
+      document.getElementById(
+        "temporaryMode"
+      );
+
+    const profileBtn =
+      document.getElementById(
+        "profileBtn"
+      );
+
+    const logoutBtn =
+      document.getElementById(
+        "logoutBtn"
+      );
+
+    const imageBtn =
+      document.getElementById(
+        "imageBtn"
+      );
+
+    const fileBtn =
+      document.getElementById(
+        "fileBtn"
+      );
+
+    const imageInput =
+      document.getElementById(
+        "imageInput"
+      );
+
+    const fileInput =
+      document.getElementById(
+        "fileInput"
+      );
+
+    const uploadStatus =
+      document.getElementById(
+        "uploadStatus"
+      );
+
+    const toastContainer =
+      document.getElementById(
+        "toastContainer"
+      );
+
+
+    /* ==============================
+       TOAST
+    =============================== */
+
+    function showToast(
+      text,
+      type = ""
+    ){
+
+      const toast =
+        document.createElement(
+          "div"
+        );
+
+      toast.className =
+        "toast " + type;
+
+      toast.textContent =
+        text;
+
+      toastContainer.appendChild(
+        toast
+      );
+
+      setTimeout(() => {
+
+        toast.remove();
+
+      }, 3500);
+    }
+
+
+    /* ==============================
+       ESCAPE HTML
+    =============================== */
+
+    function escapeHTML(value){
+
+      return String(
+        value ?? ""
+      )
+      .replaceAll("&","&amp;")
+      .replaceAll("<","&lt;")
+      .replaceAll(">","&gt;")
+      .replaceAll('"',"&quot;")
+      .replaceAll("'","&#039;");
+    }
+
+
+    /* ==============================
+       CHAT ID
+    =============================== */
+
+    function createChatID(
+      uid1,
+      uid2
+    ){
+
+      return [
+        uid1,
+        uid2
+      ]
+      .sort()
+      .join("_");
+
+    }
+
+
+    /* ==============================
+       PROFILE PHOTO
+    =============================== */
+
+    function getProfilePhoto(
+      artist
+    ){
+
+      if(!artist){
+        return "";
+      }
+
+      return (
+        artist.foto ||
+        artist.photoURL ||
+        artist.avatar ||
+        artist.imagem ||
+        artist.fotoPerfil ||
+        artist.profilePicture ||
+        artist.photo ||
+        artist.profilePhoto ||
+        artist.image ||
+        ""
+      );
+
+    }
+
+
+    /* ==============================
+       ARTIST NAME
+    =============================== */
+
+    function getArtistName(
+      artist
+    ){
+
+      if(!artist){
+        return "Utilizador";
+      }
+
+      return (
+        artist.nome ||
+        artist.name ||
+        artist.nomeArtistico ||
+        artist.nome_artista ||
+        artist.displayName ||
+        artist.username ||
+        artist.email ||
+        "Utilizador"
+      );
+
+    }
+
+
+    /* ==============================
+       AVATAR HTML
+    =============================== */
+
+    function avatarHTML(
+      artist,
+      sizeClass = ""
+    ){
+
+      const photo =
+        getProfilePhoto(
+          artist
+        );
+
+      const name =
+        getArtistName(
+          artist
+        );
+
+      const initial =
+        name
+          .trim()
+          .charAt(0)
+          .toUpperCase() || "U";
+
+
+      if(photo){
+
+        return `
+          <div class="avatar ${sizeClass}">
+            <img
+              src="${escapeHTML(photo)}"
+              alt="${escapeHTML(name)}"
+              onerror="this.parentElement.innerHTML='${initial}'">
+          </div>
+        `;
+
+      }
+
+      return `
+        <div class="avatar ${sizeClass}">
+          ${escapeHTML(initial)}
+        </div>
       `;
 
     }
 
 
-    return `
+    /* ==============================
+       FORMAT DATE
+    =============================== */
 
-      <div class="avatar">
-        ${escapeHTML(initial)}
-      </div>
-
-    `;
-
-  }
-
-
-  /* =========================================
-     DATE
-  ========================================== */
-
-  function formatDate(
-    timestamp
-  ){
-
-    if(!timestamp){
-      return "";
-    }
-
-    let date = null;
-
-
-    if(
-      typeof timestamp.toDate ===
-      "function"
+    function formatDate(
+      timestamp
     ){
 
-      date =
-        timestamp.toDate();
+      if(!timestamp){
+        return "";
+      }
 
-    }else if(
-      timestamp instanceof Date
-    ){
+      let date = null;
 
-      date =
-        timestamp;
+      if(
+        typeof timestamp.toDate ===
+        "function"
+      ){
 
-    }else{
+        date =
+          timestamp.toDate();
 
-      return "";
+      }else if(
+        timestamp instanceof Date
+      ){
 
-    }
+        date =
+          timestamp;
+
+      }else{
+
+        return "";
+
+      }
 
 
-    const now =
-      new Date();
+      const now =
+        new Date();
+
+      const sameDay =
+        date.toDateString() ===
+        now.toDateString();
 
 
-    const sameDay =
-      date.toDateString() ===
-      now.toDateString();
+      if(sameDay){
+
+        return date.toLocaleTimeString(
+          "pt-PT",
+          {
+            hour:"2-digit",
+            minute:"2-digit"
+          }
+        );
+
+      }
 
 
-    if(sameDay){
-
-      return date.toLocaleTimeString(
+      return date.toLocaleDateString(
         "pt-PT",
         {
-          hour:"2-digit",
-          minute:"2-digit"
+          day:"2-digit",
+          month:"2-digit"
         }
       );
 
     }
 
 
-    return date.toLocaleDateString(
-      "pt-PT",
-      {
-        day:"2-digit",
-        month:"2-digit"
+    /* ==============================
+       MESSAGE PREVIEW
+    =============================== */
+
+    function getMessagePreview(
+      data
+    ){
+
+      if(!data){
+        return "";
       }
-    );
 
-  }
+      if(
+        data.type === "image"
+      ){
+        return "🖼️ Imagem";
+      }
 
+      if(
+        data.type === "video"
+      ){
+        return "🎥 Vídeo";
+      }
 
-  /* =========================================
-     PREVIEW
-  ========================================== */
+      if(
+        data.type === "audio"
+      ){
+        return "🎵 Áudio";
+      }
 
-  function getMessagePreview(
-    data
-  ){
+      if(
+        data.type === "file"
+      ){
+        return "📎 Ficheiro";
+      }
 
-    if(!data){
-      return "";
-    }
-
-
-    if(data.type === "image"){
-      return "🖼️ Imagem";
-    }
-
-    if(data.type === "video"){
-      return "🎥 Vídeo";
-    }
-
-    if(data.type === "audio"){
-      return "🎵 Áudio";
-    }
-
-    if(data.type === "file"){
-      return "📎 " +
-        (
-          data.fileName ||
-          data.name ||
-          "Ficheiro"
-        );
-    }
-
-
-    return (
-      data.text ||
-      data.lastMessage ||
-      ""
-    );
-
-  }
-
-
-  /* =========================================
-     EXPIRATION
-  ========================================== */
-
-  function isMessageExpired(
-    data
-  ){
-
-    if(!data){
-      return false;
-    }
-
-
-    if(!data.expirationAt){
-      return false;
-    }
-
-
-    let expirationDate = null;
-
-
-    if(
-      typeof data.expirationAt.toDate ===
-      "function"
-    ){
-
-      expirationDate =
-        data.expirationAt.toDate();
-
-    }else if(
-      data.expirationAt instanceof Date
-    ){
-
-      expirationDate =
-        data.expirationAt;
+      return (
+        data.text ||
+        data.lastMessage ||
+        ""
+      );
 
     }
 
 
-    if(!expirationDate){
-      return false;
-    }
+    /* ==============================
+       LOAD CURRENT PROFILE
+    =============================== */
 
+    async function loadCurrentProfile(){
 
-    return expirationDate.getTime() <=
-      Date.now();
+      if(!firebaseUser){
+        return;
+      }
 
-  }
+      try{
 
-
-  /* =========================================
-     LOAD PROFILE
-  ========================================== */
-
-  async function loadCurrentProfile(){
-
-    if(!firebaseUser){
-      return;
-    }
-
-
-    try{
-
-      const snap =
-        await getDoc(
+        const ref =
           doc(
             db,
             "artistas",
             firebaseUser.uid
-          )
+          );
+
+        const snap =
+          await getDoc(ref);
+
+
+        if(snap.exists()){
+
+          currentUserProfile = {
+            uid:firebaseUser.uid,
+            ...snap.data()
+          };
+
+        }else{
+
+          currentUserProfile = {
+
+            uid:
+              firebaseUser.uid,
+
+            nome:
+              firebaseUser.displayName ||
+              firebaseUser.email ||
+              "Utilizador",
+
+            displayName:
+              firebaseUser.displayName ||
+              "",
+
+            email:
+              firebaseUser.email ||
+              "",
+
+            foto:
+              firebaseUser.photoURL ||
+              "",
+
+            photoURL:
+              firebaseUser.photoURL ||
+              ""
+
+          };
+
+        }
+
+      }catch(error){
+
+        console.error(
+          "Erro ao carregar perfil:",
+          error
         );
-
-
-      if(snap.exists()){
-
-        currentUserProfile = {
-
-          uid:
-            firebaseUser.uid,
-
-          ...snap.data()
-
-        };
-
-      }else{
 
         currentUserProfile = {
 
@@ -1669,1323 +1654,1161 @@ hidden>
             firebaseUser.email ||
             "Utilizador",
 
-          displayName:
-            firebaseUser.displayName ||
-            "",
-
           email:
             firebaseUser.email ||
-            "",
-
-          foto:
-            firebaseUser.photoURL ||
-            "",
-
-          photoURL:
-            firebaseUser.photoURL ||
             ""
 
         };
 
       }
 
-    }catch(error){
-
-      console.error(
-        "Erro ao carregar perfil:",
-        error
-      );
-
-
-      currentUserProfile = {
-
-        uid:
-          firebaseUser.uid,
-
-        nome:
-          firebaseUser.displayName ||
-          firebaseUser.email ||
-          "Utilizador",
-
-        email:
-          firebaseUser.email ||
-          ""
-
-      };
-
-    }
-
-  }
-
-
-  /* =========================================
-     ONLINE
-  ========================================== */
-
-  async function setOnline(){
-
-    if(!firebaseUser){
-      return;
     }
 
 
-    try{
+    /* ==============================
+       ONLINE
+    =============================== */
 
-      await setDoc(
-        doc(
-          db,
-          "perfis",
-          firebaseUser.uid
-        ),
-        {
+    async function setOnline(){
 
-          online:true,
-
-          lastSeen:
-            serverTimestamp()
-
-        },
-        {
-          merge:true
-        }
-      );
-
-    }catch(error){
-
-      console.warn(
-        "Não foi possível marcar online:",
-        error
-      );
-
-    }
-
-  }
-
-
-  async function setOffline(){
-
-    if(!firebaseUser){
-      return;
-    }
-
-
-    try{
-
-      await setDoc(
-        doc(
-          db,
-          "perfis",
-          firebaseUser.uid
-        ),
-        {
-
-          online:false,
-
-          lastSeen:
-            serverTimestamp()
-
-        },
-        {
-          merge:true
-        }
-      );
-
-    }catch(error){
-
-      console.warn(
-        "Erro ao marcar offline:",
-        error
-      );
-
-    }
-
-  }
-
-
-  /* =========================================
-     LOAD ARTISTS
-  ========================================== */
-
-  async function loadArtists(){
-
-    if(!firebaseUser){
-      return;
-    }
-
-
-    try{
-
-      const snap =
-        await getDocs(
-          collection(
-            db,
-            "artistas"
-          )
-        );
-
-
-      allArtists = [];
-
-
-      snap.forEach(
-        docSnap => {
-
-          if(
-            docSnap.id ===
-            firebaseUser.uid
-          ){
-            return;
-          }
-
-
-          const data =
-            docSnap.data();
-
-
-          if(
-            data.ativo === false
-          ){
-            return;
-          }
-
-
-          allArtists.push({
-
-            uid:
-              docSnap.id,
-
-            ...data
-
-          });
-
-        }
-      );
-
-
-      allArtists.sort(
-        (a,b) =>
-          getArtistName(a)
-            .localeCompare(
-              getArtistName(b),
-              "pt"
-            )
-      );
-
-
-    }catch(error){
-
-      console.error(
-        "Erro ao carregar artistas:",
-        error
-      );
-
-
-      showToast(
-        "Não foi possível carregar os artistas.",
-        "error"
-      );
-
-    }
-
-  }
-
-
-  /* =========================================
-     RENDER ARTISTS
-  ========================================== */
-
-  function renderArtists(
-    search = ""
-  ){
-
-    const term =
-      search
-        .trim()
-        .toLowerCase();
-
-
-    const filtered =
-      allArtists.filter(
-        artist => {
-
-          if(!term){
-            return true;
-          }
-
-
-          const name =
-            getArtistName(
-              artist
-            ).toLowerCase();
-
-
-          const username =
-            String(
-              artist.username ||
-              ""
-            ).toLowerCase();
-
-
-          const email =
-            String(
-              artist.email ||
-              ""
-            ).toLowerCase();
-
-
-          return (
-            name.includes(term) ||
-            username.includes(term) ||
-            email.includes(term)
-          );
-
-        }
-      );
-
-
-    if(!filtered.length){
-
-      artistList.innerHTML = `
-
-        <div class="empty-conversations">
-          Nenhum artista encontrado.
-        </div>
-
-      `;
-
-      return;
-
-    }
-
-
-    artistList.innerHTML =
-      filtered.map(
-        artist => {
-
-          const name =
-            getArtistName(
-              artist
-            );
-
-          const photo =
-            getProfilePhoto(
-              artist
-            );
-
-          const initial =
-            name
-              .charAt(0)
-              .toUpperCase() ||
-            "U";
-
-
-          return `
-
-            <div
-              class="artist-option"
-              data-uid="${escapeHTML(artist.uid)}">
-
-              ${
-                photo
-
-                ?
-
-                `
-
-                <div class="avatar">
-
-                  <img
-                    src="${escapeHTML(photo)}"
-                    alt="${escapeHTML(name)}">
-
-                </div>
-
-                `
-
-                :
-
-                `
-
-                <div class="avatar">
-                  ${escapeHTML(initial)}
-                </div>
-
-                `
-              }
-
-
-              <div class="artist-option-info">
-
-                <div class="artist-option-name">
-                  ${escapeHTML(name)}
-                </div>
-
-                <div class="artist-option-email">
-                  ${escapeHTML(
-                    artist.username ||
-                    artist.email ||
-                    ""
-                  )}
-                </div>
-
-              </div>
-
-            </div>
-
-          `;
-
-        }
-      ).join("");
-
-
-    document
-      .querySelectorAll(
-        ".artist-option"
-      )
-      .forEach(
-        element => {
-
-          element.addEventListener(
-            "click",
-            async () => {
-
-              const uid =
-                element.dataset.uid;
-
-
-              const artist =
-                allArtists.find(
-                  a =>
-                    a.uid === uid
-                );
-
-
-              if(!artist){
-                return;
-              }
-
-
-              closeArtistModalWindow();
-
-
-              await startNewConversation(
-                artist
-              );
-
-            }
-          );
-
-        }
-      );
-
-  }
-
-
-  /* =========================================
-     START CONVERSATION
-  ========================================== */
-
-  async function startNewConversation(
-    artist
-  ){
-
-    if(
-      !artist ||
-      !artist.uid
-    ){
-
-      showToast(
-        "Artista inválido.",
-        "error"
-      );
-
-      return;
-
-    }
-
-
-    if(!firebaseUser){
-
-      showToast(
-        "Precisas estar autenticado.",
-        "error"
-      );
-
-      return;
-
-    }
-
-
-    if(
-      artist.uid ===
-      firebaseUser.uid
-    ){
-
-      showToast(
-        "Não podes enviar mensagem para ti mesmo.",
-        "error"
-      );
-
-      return;
-
-    }
-
-
-    const chatID =
-      createChatID(
-        firebaseUser.uid,
-        artist.uid
-      );
-
-
-    const conversationRef =
-      doc(
-        db,
-        "conversas",
-        chatID
-      );
-
-
-    const participantNames = {};
-
-
-    participantNames[
-      firebaseUser.uid
-    ] =
-      getArtistName(
-        currentUserProfile
-      );
-
-
-    participantNames[
-      artist.uid
-    ] =
-      getArtistName(
-        artist
-      );
-
-
-    try{
-
-      const existing =
-        await getDoc(
-          conversationRef
-        );
-
-
-      if(existing.exists()){
-
-        const existingData =
-          existing.data();
-
-
-        const participants =
-          Array.isArray(
-            existingData.participants
-          )
-          ? existingData.participants
-          : [];
-
-
-        if(
-          !participants.includes(
-            firebaseUser.uid
-          ) ||
-          !participants.includes(
-            artist.uid
-          )
-        ){
-
-          throw new Error(
-            "Esta conversa não pertence aos participantes."
-          );
-
-        }
-
-
-        await updateDoc(
-          conversationRef,
-          {
-
-            [`participantNames.${firebaseUser.uid}`]:
-              getArtistName(
-                currentUserProfile
-              ),
-
-            [`participantNames.${artist.uid}`]:
-              getArtistName(
-                artist
-              )
-
-          }
-        );
-
-      }else{
-
-        await setDoc(
-          conversationRef,
-          {
-
-            participants:[
-              firebaseUser.uid,
-              artist.uid
-            ],
-
-            participantNames,
-
-            createdAt:
-              serverTimestamp(),
-
-            lastMessage:
-              "",
-
-            lastMessageType:
-              "",
-
-            lastMessageAt:
-              serverTimestamp(),
-
-            temporaryMode:
-              "off",
-
-            unreadCount:{
-
-              [firebaseUser.uid]:
-                0,
-
-              [artist.uid]:
-                0
-
-            }
-
-          }
-        );
-
-      }
-
-
-      console.log(
-        "Conversa aberta:",
-        chatID
-      );
-
-
-    }catch(error){
-
-      console.error(
-        "Erro ao criar/abrir conversa:",
-        error
-      );
-
-
-      showToast(
-        "Não foi possível abrir a conversa: " +
-        error.message,
-        "error"
-      );
-
-
-      return;
-
-    }
-
-
-    await openRealChat(
-      artist,
-      chatID
-    );
-
-  }
-
-
-  /* =========================================
-     OPEN CHAT
-  ========================================== */
-
-  async function openRealChat(
-    artist,
-    chatID
-  ){
-
-    if(!artist){
-      return;
-    }
-
-
-    currentChatArtist =
-      artist;
-
-
-    currentChatUID =
-      artist.uid;
-
-
-    currentChatID =
-      chatID ||
-      createChatID(
-        firebaseUser.uid,
-        artist.uid
-      );
-
-
-    chatEmpty.style.display =
-      "none";
-
-
-    chatContent.style.display =
-      "flex";
-
-
-    chatUserName.textContent =
-      getArtistName(
-        artist
-      );
-
-
-    const photo =
-      getProfilePhoto(
-        artist
-      );
-
-
-    if(photo){
-
-      chatAvatar.innerHTML = `
-
-        <img
-          src="${escapeHTML(photo)}"
-          alt="${escapeHTML(
-            getArtistName(artist)
-          )}"
-          onerror="this.style.display='none';">
-
-      `;
-
-    }else{
-
-      chatAvatar.textContent =
-        getArtistName(
-          artist
-        )
-        .charAt(0)
-        .toUpperCase() ||
-        "U";
-
-    }
-
-
-    document
-      .querySelectorAll(
-        ".conversation-item"
-      )
-      .forEach(
-        element => {
-
-          element.classList.toggle(
-            "active",
-            element.dataset.chatId ===
-            currentChatID
-          );
-
-        }
-      );
-
-
-    listenPresence(
-      currentChatUID
-    );
-
-
-    await loadConversationSettings(
-      currentChatID
-    );
-
-
-    listenMessages(
-      currentChatID
-    );
-
-
-    await markConversationRead(
-      currentChatID
-    );
-
-
-    renderConversations(
-      conversationSearch.value
-    );
-
-
-    messageInput.focus();
-
-  }
-
-
-  /* =========================================
-     LOAD CONVERSATION SETTINGS
-  ========================================== */
-
-  async function loadConversationSettings(
-    chatID
-  ){
-
-    try{
-
-      const snap =
-        await getDoc(
-          doc(
-            db,
-            "conversas",
-            chatID
-          )
-        );
-
-
-      if(!snap.exists()){
+      if(!firebaseUser){
         return;
       }
 
+      try{
 
-      const data =
-        snap.data();
+        await setDoc(
+          doc(
+            db,
+            "perfis",
+            firebaseUser.uid
+          ),
+          {
+            online:true,
+            lastSeen:
+              serverTimestamp()
+          },
+          {
+            merge:true
+          }
+        );
 
+      }catch(error){
 
-      const mode =
-        data.temporaryMode;
-
-
-      if(
-        mode === "off" ||
-        mode === "24h" ||
-        mode === "7d" ||
-        mode === "90d"
-      ){
-
-        temporaryMode.value =
-          mode;
-
-      }else{
-
-        temporaryMode.value =
-          "off";
+        console.warn(
+          "Não foi possível marcar online:",
+          error
+        );
 
       }
 
-    }catch(error){
-
-      console.warn(
-        "Erro ao carregar configuração:",
-        error
-      );
-
-    }
-
-  }
-
-
-  /* =========================================
-     CONVERSATIONS
-  ========================================== */
-
-  function listenConversations(){
-
-    if(
-      unsubscribeConversations
-    ){
-
-      unsubscribeConversations();
-
-      unsubscribeConversations =
-        null;
-
     }
 
 
-    if(!firebaseUser){
-      return;
+    async function setOffline(){
+
+      if(!firebaseUser){
+        return;
+      }
+
+      try{
+
+        await setDoc(
+          doc(
+            db,
+            "perfis",
+            firebaseUser.uid
+          ),
+          {
+            online:false,
+            lastSeen:
+              serverTimestamp()
+          },
+          {
+            merge:true
+          }
+        );
+
+      }catch(error){
+
+        console.warn(
+          "Erro ao marcar offline:",
+          error
+        );
+
+      }
+
     }
 
 
-    const q =
-      query(
-        collection(
-          db,
-          "conversas"
-        ),
-        where(
-          "participants",
-          "array-contains",
-          firebaseUser.uid
-        )
-      );
+    /* ==============================
+       LOAD ARTISTS
+    =============================== */
+
+    async function loadArtists(){
+
+      if(!firebaseUser){
+        return;
+      }
+
+      try{
+
+        const snap =
+          await getDocs(
+            collection(
+              db,
+              "artistas"
+            )
+          );
 
 
-    unsubscribeConversations =
-      onSnapshot(
-        q,
-        async snapshot => {
-
-          const conversations =
-            [];
+        allArtists = [];
 
 
-          for(
-            const docSnap
-            of snapshot.docs
-          ){
+        snap.forEach(
+          docSnap => {
+
+            if(
+              docSnap.id ===
+              firebaseUser.uid
+            ){
+              return;
+            }
+
 
             const data =
               docSnap.data();
 
 
-            const participants =
-              Array.isArray(
-                data.participants
-              )
-              ? data.participants
-              : [];
-
-
-            const otherUID =
-              participants.find(
-                uid =>
-                  uid !==
-                  firebaseUser.uid
-              );
-
-
-            if(!otherUID){
-              continue;
+            if(
+              data.ativo === false
+            ){
+              return;
             }
 
 
-            let artist =
-              allArtists.find(
-                a =>
-                  a.uid ===
-                  otherUID
-              );
+            allArtists.push({
 
-
-            if(!artist){
-
-              try{
-
-                const artistSnap =
-                  await getDoc(
-                    doc(
-                      db,
-                      "artistas",
-                      otherUID
-                    )
-                  );
-
-
-                if(
-                  artistSnap.exists()
-                ){
-
-                  artist = {
-
-                    uid:
-                      otherUID,
-
-                    ...artistSnap.data()
-
-                  };
-
-                }
-
-              }catch(error){
-
-                console.warn(
-                  "Erro ao buscar artista:",
-                  error
-                );
-
-              }
-
-            }
-
-
-            if(!artist){
-
-              const names =
-                data.participantNames ||
-                {};
-
-
-              artist = {
-
-                uid:
-                  otherUID,
-
-                nome:
-                  names[otherUID] ||
-                  "Utilizador"
-
-              };
-
-            }
-
-
-            conversations.push({
-
-              id:
+              uid:
                 docSnap.id,
 
-              data,
-
-              artist,
-
-              otherUID
+              ...data
 
             });
 
           }
+        );
 
 
-          conversations.sort(
-            (a,b) => {
-
-              const aTime =
-                a.data.lastMessageAt
-                  ?.toMillis?.() ||
-                a.data.createdAt
-                  ?.toMillis?.() ||
-                0;
-
-
-              const bTime =
-                b.data.lastMessageAt
-                  ?.toMillis?.() ||
-                b.data.createdAt
-                  ?.toMillis?.() ||
-                0;
+        allArtists.sort(
+          (a,b) =>
+            getArtistName(a)
+              .localeCompare(
+                getArtistName(b),
+                "pt"
+              )
+        );
 
 
-              return bTime - aTime;
+      }catch(error){
 
-            }
-          );
+        console.error(
+          "Erro ao carregar artistas:",
+          error
+        );
 
+        showToast(
+          "Não foi possível carregar os artistas.",
+          "error"
+        );
 
-          allConversations =
-            conversations;
-
-
-          renderConversations(
-            conversationSearch.value
-          );
-
-        },
-        error => {
-
-          console.error(
-            "Erro no listener de conversas:",
-            error
-          );
-
-
-          conversationList.innerHTML = `
-
-            <div class="empty-conversations">
-
-              Não foi possível carregar
-              as conversas.
-
-            </div>
-
-          `;
-
-
-          showToast(
-            "Erro ao carregar conversas. Verifica as Rules.",
-            "error"
-          );
-
-        }
-      );
-
-  }
-
-
-  /* =========================================
-     RENDER CONVERSATIONS
-  ========================================== */
-
-  function renderConversations(
-    search = ""
-  ){
-
-    const term =
-      search
-        .trim()
-        .toLowerCase();
-
-
-    const filtered =
-      allConversations.filter(
-        conversation => {
-
-          if(!term){
-            return true;
-          }
-
-
-          const name =
-            getArtistName(
-              conversation.artist
-            ).toLowerCase();
-
-
-          const preview =
-            getMessagePreview(
-              conversation.data
-            ).toLowerCase();
-
-
-          return (
-            name.includes(term) ||
-            preview.includes(term)
-          );
-
-        }
-      );
-
-
-    if(!filtered.length){
-
-      conversationList.innerHTML = `
-
-        <div class="empty-conversations">
-
-          Ainda não tens conversas.
-
-          <br><br>
-
-          Clica em
-          <strong>
-            ＋ Nova mensagem
-          </strong>
-          para começar.
-
-        </div>
-
-      `;
-
-      return;
+      }
 
     }
 
 
-    conversationList.innerHTML =
-      filtered.map(
-        conversation => {
+    /* ==============================
+       RENDER ARTISTS
+    =============================== */
 
-          const artist =
-            conversation.artist;
+    function renderArtists(
+      search = ""
+    ){
+
+      const term =
+        search
+          .trim()
+          .toLowerCase();
 
 
-          const name =
-            getArtistName(
-              artist
+      const filtered =
+        allArtists.filter(
+          artist => {
+
+            if(!term){
+              return true;
+            }
+
+            const name =
+              getArtistName(
+                artist
+              ).toLowerCase();
+
+            const email =
+              String(
+                artist.email || ""
+              ).toLowerCase();
+
+            const username =
+              String(
+                artist.username || ""
+              ).toLowerCase();
+
+
+            return (
+              name.includes(term) ||
+              email.includes(term) ||
+              username.includes(term)
             );
 
-
-          const preview =
-            getMessagePreview(
-              conversation.data
-            ) ||
-            "Nenhuma mensagem";
+          }
+        );
 
 
-          const time =
-            formatDate(
-              conversation.data.lastMessageAt
-            );
+      if(!filtered.length){
+
+        artistList.innerHTML = `
+          <div class="empty-conversations">
+            Nenhum artista encontrado.
+          </div>
+        `;
+
+        return;
+
+      }
 
 
-          const unreadObj =
-            conversation.data.unreadCount ||
-            {};
+      artistList.innerHTML =
+        filtered
+          .map(
+            artist => {
+
+              const photo =
+                getProfilePhoto(
+                  artist
+                );
+
+              const name =
+                getArtistName(
+                  artist
+                );
 
 
-          const unread =
-            Number(
-              unreadObj[
-                firebaseUser.uid
-              ] || 0
-            );
+              return `
 
-
-          const active =
-            conversation.id ===
-            currentChatID
-              ? "active"
-              : "";
-
-
-          return `
-
-            <div
-              class="conversation-item ${active}"
-              data-chat-id="${escapeHTML(conversation.id)}"
-              data-uid="${escapeHTML(artist.uid)}">
-
-              ${avatarHTML(artist)}
-
-              <div class="conversation-info">
-
-                <div class="conversation-top">
-
-                  <div class="conversation-name">
-                    ${escapeHTML(name)}
-                  </div>
-
-                  <div class="conversation-time">
-                    ${escapeHTML(time)}
-                  </div>
-
-                </div>
-
-
-                <div class="conversation-bottom">
-
-                  <div class="conversation-preview">
-                    ${escapeHTML(preview)}
-                  </div>
+                <div
+                  class="artist-option"
+                  data-uid="${escapeHTML(artist.uid)}">
 
                   ${
-                    unread > 0
+                    photo
 
-                    ?
+                    ? `
+
+                      <div class="avatar">
+
+                        <img
+                          src="${escapeHTML(photo)}"
+                          alt="${escapeHTML(name)}">
+
+                      </div>
 
                     `
 
-                    <div class="unread-badge">
-                      ${
-                        unread > 99
-                          ? "99+"
-                          : unread
-                      }
+                    : `
+
+                      <div class="avatar">
+                        ${escapeHTML(
+                          name
+                            .charAt(0)
+                            .toUpperCase()
+                        )}
+                      </div>
+
+                    `
+                  }
+
+
+                  <div
+                    class="artist-option-info">
+
+                    <div
+                      class="artist-option-name">
+
+                      ${escapeHTML(name)}
+
                     </div>
 
-                    `
+                    <div
+                      class="artist-option-email">
 
-                    :
+                      ${escapeHTML(
+                        artist.username ||
+                        artist.email ||
+                        ""
+                      )}
 
-                    ""
+                    </div>
 
-                  }
+                  </div>
 
                 </div>
 
-              </div>
+              `;
 
-            </div>
-
-          `;
-
-        }
-      ).join("");
+            }
+          )
+          .join("");
 
 
-    document
-      .querySelectorAll(
-        ".conversation-item"
-      )
-      .forEach(
-        element => {
+      document
+        .querySelectorAll(
+          ".artist-option"
+        )
+        .forEach(
+          element => {
 
-          element.addEventListener(
-            "click",
-            async () => {
+            element.addEventListener(
+              "click",
+              async () => {
 
-              const uid =
-                element.dataset.uid;
+                const uid =
+                  element.dataset.uid;
+
+                const artist =
+                  allArtists.find(
+                    a =>
+                      a.uid === uid
+                  );
 
 
-              const chatID =
-                element.dataset.chatId;
+                if(artist){
+
+                  closeArtistModalWindow();
+
+                  await startNewConversation(
+                    artist
+                  );
+
+                }
+
+              }
+            );
+
+          }
+        );
+
+    }
+
+
+    /* ==============================
+       CONVERSATIONS LISTENER
+    =============================== */
+
+    function listenConversations(){
+
+      if(
+        unsubscribeConversations
+      ){
+
+        unsubscribeConversations();
+
+        unsubscribeConversations =
+          null;
+
+      }
+
+
+      const q =
+        query(
+          collection(
+            db,
+            "conversas"
+          ),
+          where(
+            "participants",
+            "array-contains",
+            firebaseUser.uid
+          )
+        );
+
+
+      unsubscribeConversations =
+        onSnapshot(
+          q,
+          async snapshot => {
+
+            const conversations =
+              [];
+
+
+            for(
+              const docSnap
+              of snapshot.docs
+            ){
+
+              const data =
+                docSnap.data();
+
+
+              const participants =
+                Array.isArray(
+                  data.participants
+                )
+                ? data.participants
+                : [];
+
+
+              const otherUID =
+                participants.find(
+                  uid =>
+                    uid !==
+                    firebaseUser.uid
+                );
+
+
+              if(!otherUID){
+                continue;
+              }
 
 
               let artist =
                 allArtists.find(
                   a =>
-                    a.uid === uid
+                    a.uid ===
+                    otherUID
                 );
 
 
               if(!artist){
 
-                const conversation =
-                  allConversations.find(
-                    c =>
-                      c.id === chatID
+                try{
+
+                  const artistSnap =
+                    await getDoc(
+                      doc(
+                        db,
+                        "artistas",
+                        otherUID
+                      )
+                    );
+
+
+                  if(
+                    artistSnap.exists()
+                  ){
+
+                    artist = {
+
+                      uid:
+                        otherUID,
+
+                      ...artistSnap.data()
+
+                    };
+
+                  }
+
+                }catch(error){
+
+                  console.warn(
+                    "Erro ao buscar artista:",
+                    error
                   );
 
-
-                artist =
-                  conversation?.artist ||
-                  {
-
-                    uid,
-
-                    nome:
-                      "Utilizador"
-
-                  };
+                }
 
               }
 
 
-              await openRealChat(
+              if(!artist){
+
+                const names =
+                  data.participantNames ||
+                  {};
+
+                artist = {
+
+                  uid:
+                    otherUID,
+
+                  nome:
+                    names[otherUID] ||
+                    "Utilizador"
+
+                };
+
+              }
+
+
+              conversations.push({
+
+                id:
+                  docSnap.id,
+
+                data,
+
                 artist,
-                chatID
-              );
+
+                otherUID
+
+              });
 
             }
-          );
-
-        }
-      );
-
-  }
 
 
-  /* =========================================
-     PRESENCE
-  ========================================== */
+            conversations.sort(
+              (a,b) => {
 
-  function listenPresence(
-    uid
-  ){
+                const aTime =
+                  a.data.lastMessageAt
+                    ?.toMillis?.() ||
+                  a.data.createdAt
+                    ?.toMillis?.() ||
+                  0;
 
-    if(
-      unsubscribePresence
-    ){
+                const bTime =
+                  b.data.lastMessageAt
+                    ?.toMillis?.() ||
+                  b.data.createdAt
+                    ?.toMillis?.() ||
+                  0;
 
-      unsubscribePresence();
+                return bTime - aTime;
 
-      unsubscribePresence =
-        null;
+              }
+            );
+
+
+            allConversations =
+              conversations;
+
+
+            renderConversations(
+              conversationSearch.value
+            );
+
+          },
+
+          error => {
+
+            console.error(
+              "Erro no listener de conversas:",
+              error
+            );
+
+            conversationList.innerHTML = `
+
+              <div class="empty-conversations">
+
+                Não foi possível carregar
+                as conversas.
+
+              </div>
+
+            `;
+
+            showToast(
+              "Erro ao carregar conversas. Verifica as Rules.",
+              "error"
+            );
+
+          }
+        );
 
     }
 
 
-    unsubscribePresence =
-      onSnapshot(
-        doc(
-          db,
-          "perfis",
-          uid
-        ),
-        snapshot => {
+    /* ==============================
+       RENDER CONVERSATIONS
+    =============================== */
 
-          if(
-            !snapshot.exists()
-          ){
+    function renderConversations(
+      search = ""
+    ){
+
+      const term =
+        search
+          .trim()
+          .toLowerCase();
+
+
+      const filtered =
+        allConversations.filter(
+          conversation => {
+
+            if(!term){
+              return true;
+            }
+
+
+            const name =
+              getArtistName(
+                conversation.artist
+              ).toLowerCase();
+
+
+            const preview =
+              getMessagePreview(
+                conversation.data
+              ).toLowerCase();
+
+
+            return (
+              name.includes(term) ||
+              preview.includes(term)
+            );
+
+          }
+        );
+
+
+      if(!filtered.length){
+
+        conversationList.innerHTML = `
+
+          <div class="empty-conversations">
+
+            Ainda não tens conversas.
+
+            <br><br>
+
+            Clica em
+            <strong>
+              ＋ Nova mensagem
+            </strong>
+            para começar.
+
+          </div>
+
+        `;
+
+        return;
+
+      }
+
+
+      conversationList.innerHTML =
+        filtered
+          .map(
+            conversation => {
+
+              const artist =
+                conversation.artist;
+
+              const name =
+                getArtistName(
+                  artist
+                );
+
+              const preview =
+                getMessagePreview(
+                  conversation.data
+                ) ||
+                "Nenhuma mensagem";
+
+              const time =
+                formatDate(
+                  conversation.data.lastMessageAt
+                );
+
+
+              const unreadObj =
+                conversation.data.unreadCount ||
+                {};
+
+              const unread =
+                Number(
+                  unreadObj[
+                    firebaseUser.uid
+                  ] || 0
+                );
+
+
+              const active =
+                conversation.id ===
+                currentChatID
+                ? "active"
+                : "";
+
+
+              return `
+
+                <div
+                  class="conversation-item ${active}"
+                  data-chat-id="${escapeHTML(conversation.id)}"
+                  data-uid="${escapeHTML(artist.uid)}">
+
+                  ${avatarHTML(artist)}
+
+                  <div class="conversation-info">
+
+                    <div class="conversation-top">
+
+                      <div class="conversation-name">
+                        ${escapeHTML(name)}
+                      </div>
+
+                      <div class="conversation-time">
+                        ${escapeHTML(time)}
+                      </div>
+
+                    </div>
+
+
+                    <div class="conversation-bottom">
+
+                      <div class="conversation-preview">
+                        ${escapeHTML(preview)}
+                      </div>
+
+                      ${
+                        unread > 0
+
+                        ? `
+
+                          <div class="unread-badge">
+                            ${unread > 99 ? "99+" : unread}
+                          </div>
+
+                        `
+
+                        : ""
+
+                      }
+
+                    </div>
+
+                  </div>
+
+                </div>
+
+              `;
+
+            }
+          )
+          .join("");
+
+
+      document
+        .querySelectorAll(
+          ".conversation-item"
+        )
+        .forEach(
+          element => {
+
+            element.addEventListener(
+              "click",
+              async () => {
+
+                const uid =
+                  element.dataset.uid;
+
+                const chatID =
+                  element.dataset.chatId;
+
+
+                let artist =
+                  allArtists.find(
+                    a =>
+                      a.uid === uid
+                  );
+
+
+                if(!artist){
+
+                  const conversation =
+                    allConversations.find(
+                      c =>
+                        c.id === chatID
+                    );
+
+                  artist =
+                    conversation?.artist ||
+                    {
+                      uid,
+                      nome:"Utilizador"
+                    };
+
+                }
+
+
+                await openRealChat(
+                  artist,
+                  chatID
+                );
+
+              }
+            );
+
+          }
+        );
+
+    }
+
+
+    
+/* ==============================
+   START NEW CONVERSATION
+============================== */
+
+async function startNewConversation(artist){
+
+  if(!artist || !artist.uid){
+
+    showToast(
+      "Artista inválido.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  if(
+    !firebaseUser
+  ){
+
+    showToast(
+      "Precisas estar autenticado.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  if(
+    artist.uid ===
+    firebaseUser.uid
+  ){
+
+    showToast(
+      "Não podes enviar mensagem para ti mesmo.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  const chatID =
+    createChatID(
+      firebaseUser.uid,
+      artist.uid
+    );
+
+
+  const conversationRef =
+    doc(
+      db,
+      "conversas",
+      chatID
+    );
+
+
+  const participantNames = {};
+
+
+  participantNames[
+    firebaseUser.uid
+  ] =
+    getArtistName(
+      currentUserProfile
+    );
+
+
+  participantNames[
+    artist.uid
+  ] =
+    getArtistName(
+      artist
+    );
+
+
+  try{
+
+    /*
+     * Cria a conversa caso não exista.
+     *
+     * merge:true é importante porque, se a conversa
+     * já existir, não apaga mensagens nem dados
+     * existentes.
+     */
+
+    await setDoc(
+      conversationRef,
+      {
+
+        participants:[
+          firebaseUser.uid,
+          artist.uid
+        ],
+
+        participantNames,
+
+        createdAt:
+          serverTimestamp(),
+
+        lastMessage:
+          "",
+
+        lastMessageType:
+          "",
+
+        lastMessageAt:
+          serverTimestamp(),
+
+        temporaryMode:
+          "off",
+
+        unreadCount:{
+
+          [firebaseUser.uid]:
+            0,
+
+          [artist.uid]:
+            0
+
+        }
+
+      },
+      {
+        merge:true
+      }
+    );
+
+
+    console.log(
+      "Conversa aberta/criada:",
+      chatID
+    );
+
+
+  }catch(error){
+
+    console.error(
+      "Erro ao criar conversa:",
+      error
+    );
+
+
+    showToast(
+      "Não foi possível criar a conversa: " +
+      error.message,
+      "error"
+    );
+
+
+    return;
+
+  }
+
+
+    await openRealChat(
+    artist,
+    chatID
+  );
+
+}
+
+
+/* ==============================
+   OPEN CHAT
+============================== */
+
+async function openRealChat(
+  artist,
+  chatID
+){
+
+    
+      if(!artist){
+        return;
+      }
+
+
+      currentChatArtist =
+        artist;
+
+      currentChatUID =
+        artist.uid;
+
+      currentChatID =
+        chatID ||
+        createChatID(
+          firebaseUser.uid,
+          artist.uid
+        );
+
+
+      chatEmpty.style.display =
+        "none";
+
+      chatContent.style.display =
+        "flex";
+
+
+      chatUserName.textContent =
+        getArtistName(
+          artist
+        );
+
+
+      const photo =
+        getProfilePhoto(
+          artist
+        );
+
+
+      if(photo){
+
+        chatAvatar.innerHTML = `
+
+          <img
+            src="${escapeHTML(photo)}"
+            alt="${escapeHTML(
+              getArtistName(artist)
+            )}">
+
+        `;
+
+      }else{
+
+        chatAvatar.textContent =
+          getArtistName(
+            artist
+          )
+          .charAt(0)
+          .toUpperCase() ||
+          "U";
+
+      }
+
+
+      document
+        .querySelectorAll(
+          ".conversation-item"
+        )
+        .forEach(
+          el => {
+
+            el.classList.toggle(
+              "active",
+              el.dataset.chatId ===
+              currentChatID
+            );
+
+          }
+        );
+
+
+      listenPresence(
+        currentChatUID
+      );
+
+
+      listenMessages(
+        currentChatID
+      );
+
+
+      await markConversationRead(
+        currentChatID
+      );
+
+
+      renderConversations(
+        conversationSearch.value
+      );
+
+    }
+
+
+    /* ==============================
+       PRESENCE
+    =============================== */
+
+    function listenPresence(
+      uid
+    ){
+
+      if(
+        unsubscribePresence
+      ){
+
+        unsubscribePresence();
+
+        unsubscribePresence =
+          null;
+
+      }
+
+
+      unsubscribePresence =
+        onSnapshot(
+          doc(
+            db,
+            "perfis",
+            uid
+          ),
+          snapshot => {
+
+            if(
+              !snapshot.exists()
+            ){
+
+              chatOnline.className =
+                "online-lamp offline";
+
+              chatStatus.textContent =
+                "Offline";
+
+              return;
+
+            }
+
+
+            const data =
+              snapshot.data();
+
+
+            const online =
+              data.online === true;
+
+
+            chatOnline.className =
+              online
+                ? "online-lamp online"
+                : "online-lamp offline";
+
+
+            chatStatus.textContent =
+              online
+                ? "Online"
+                : "Offline";
+
+          },
+
+          error => {
+
+            console.warn(
+              "Erro no estado online:",
+              error
+            );
 
             chatOnline.className =
               "online-lamp offline";
@@ -2993,1534 +2816,367 @@ hidden>
             chatStatus.textContent =
               "Offline";
 
-            return;
-
           }
-
-
-          const data =
-            snapshot.data();
-
-
-          const online =
-            data.online === true;
-
-
-          chatOnline.className =
-            online
-              ? "online-lamp online"
-              : "online-lamp offline";
-
-
-          chatStatus.textContent =
-            online
-              ? "Online"
-              : "Offline";
-
-        },
-        error => {
-
-          console.warn(
-            "Erro no estado online:",
-            error
-          );
-
-
-          chatOnline.className =
-            "online-lamp offline";
-
-
-          chatStatus.textContent =
-            "Offline";
-
-        }
-      );
-
-  }
-
-
-  /* =========================================
-     MESSAGES LISTENER
-  ========================================== */
-
-  function listenMessages(
-    chatID
-  ){
-
-    if(
-      unsubscribeMessages
-    ){
-
-      unsubscribeMessages();
-
-      unsubscribeMessages =
-        null;
+        );
 
     }
 
 
-    messages.innerHTML = `
+    /* ==============================
+       LISTEN MESSAGES
+    =============================== */
 
-      <div class="loading-messages">
-        A carregar mensagens...
-      </div>
+    function listenMessages(
+      chatID
+    ){
 
-    `;
+      if(
+        unsubscribeMessages
+      ){
 
+        unsubscribeMessages();
 
-    const messagesRef =
-      collection(
-        db,
-        "conversas",
-        chatID,
-        "mensagens"
-      );
+        unsubscribeMessages =
+          null;
 
-
-    const q =
-      query(
-        messagesRef,
-        orderBy(
-          "createdAt",
-          "asc"
-        )
-      );
+      }
 
 
-    unsubscribeMessages =
-      onSnapshot(
-        q,
-        snapshot => {
+      messages.innerHTML = `
 
-          messages.innerHTML = "";
+        <div class="loading-messages">
+          A carregar mensagens...
+        </div>
 
-
-          let visibleMessages = 0;
+      `;
 
 
-          snapshot.forEach(
-            messageDoc => {
-
-              const data =
-                messageDoc.data();
-
-
-              if(
-                isMessageExpired(data)
-              ){
-
-                return;
-
-              }
+      const messagesRef =
+        collection(
+          db,
+          "conversas",
+          chatID,
+          "mensagens"
+        );
 
 
-              visibleMessages++;
+      const q =
+        query(
+          messagesRef,
+          orderBy(
+            "createdAt",
+            "asc"
+          )
+        );
 
 
-              renderMessage(
-                messageDoc.id,
-                data
-              );
+      unsubscribeMessages =
+        onSnapshot(
+          q,
+          snapshot => {
+
+            if(snapshot.empty){
+
+              messages.innerHTML = `
+
+                <div class="loading-messages">
+                  Nenhuma mensagem ainda.
+                  <br>
+                  Envia a primeira mensagem. 🔥
+                </div>
+
+              `;
+
+              return;
 
             }
-          );
 
 
-          if(
-            visibleMessages === 0
-          ){
+            messages.innerHTML = "";
+
+
+            snapshot.forEach(
+              messageDoc => {
+
+                renderMessage(
+                  messageDoc.id,
+                  messageDoc.data()
+                );
+
+              }
+            );
+
+
+            scrollMessagesToBottom();
+
+          },
+
+          error => {
+
+            console.error(
+              "Erro ao carregar mensagens:",
+              error
+            );
 
             messages.innerHTML = `
 
               <div class="loading-messages">
 
-                Nenhuma mensagem ainda.
-
-                <br>
-
-                Envia a primeira mensagem. 🔥
+                Não foi possível carregar
+                as mensagens.
 
               </div>
 
             `;
 
-            return;
-
-          }
-
-
-          scrollMessagesToBottom();
-
-        },
-        error => {
-
-          console.error(
-            "Erro ao carregar mensagens:",
-            error
-          );
-
-
-          messages.innerHTML = `
-
-            <div class="loading-messages">
-
-              Não foi possível carregar
-              as mensagens.
-
-            </div>
-
-          `;
-
-
-          showToast(
-            "Erro ao carregar mensagens.",
-            "error"
-          );
-
-        }
-      );
-
-  }
-
-
-  /* =========================================
-     RENDER MESSAGE
-  ========================================== */
-
-  function renderMessage(
-    messageID,
-    data
-  ){
-
-    const mine =
-      data.senderId ===
-      firebaseUser.uid;
-
-
-    const row =
-      document.createElement(
-        "div"
-      );
-
-
-    row.className =
-      "message-row " +
-      (
-        mine
-          ? "mine"
-          : "theirs"
-      );
-
-
-    const bubble =
-      document.createElement(
-        "div"
-      );
-
-
-    bubble.className =
-      "message-bubble";
-
-
-    const type =
-      data.type ||
-      "text";
-
-
-    /* TEXT */
-
-    if(type === "text"){
-
-      const text =
-        document.createElement(
-          "div"
-        );
-
-
-      text.className =
-        "message-text";
-
-
-      text.textContent =
-        data.text ||
-        "";
-
-
-      bubble.appendChild(
-        text
-      );
-
-    }
-
-
-    /* IMAGE */
-
-    else if(type === "image"){
-
-      const url =
-        data.url ||
-        data.mediaURL ||
-        "";
-
-
-      if(url){
-
-        const image =
-          document.createElement(
-            "img"
-          );
-
-
-        image.className =
-          "message-media message-image";
-
-
-        image.src =
-          url;
-
-
-        image.alt =
-          data.fileName ||
-          "Imagem";
-
-
-        image.loading =
-          "lazy";
-
-
-        image.addEventListener(
-          "click",
-          () => {
-
-            window.open(
-              url,
-              "_blank",
-              "noopener"
+            showToast(
+              "Erro ao carregar mensagens.",
+              "error"
             );
 
           }
         );
 
-
-        bubble.appendChild(
-          image
-        );
-
-      }
-
     }
 
 
-    /* VIDEO */
+    /* ==============================
+       RENDER MESSAGE
+    =============================== */
 
-    else if(type === "video"){
+    function renderMessage(
+      messageID,
+      data
+    ){
 
-      const url =
-        data.url ||
-        data.mediaURL ||
-        "";
+      const mine =
+        data.senderId ===
+        firebaseUser.uid;
 
 
-      if(url){
-
-        const video =
-          document.createElement(
-            "video"
-          );
-
-
-        video.className =
-          "message-media message-video";
-
-
-        video.controls =
-          true;
-
-
-        video.preload =
-          "metadata";
-
-
-        const source =
-          document.createElement(
-            "source"
-          );
-
-
-        source.src =
-          url;
-
-
-        video.appendChild(
-          source
-        );
-
-
-        bubble.appendChild(
-          video
-        );
-
-      }
-
-    }
-
-
-    /* AUDIO */
-
-    else if(type === "audio"){
-
-      const url =
-        data.url ||
-        data.mediaURL ||
-        "";
-
-
-      if(url){
-
-        const audio =
-          document.createElement(
-            "audio"
-          );
-
-
-        audio.className =
-          "message-audio";
-
-
-        audio.controls =
-          true;
-
-
-        const source =
-          document.createElement(
-            "source"
-          );
-
-
-        source.src =
-          url;
-
-
-        audio.appendChild(
-          source
-        );
-
-
-        bubble.appendChild(
-          audio
-        );
-
-      }
-
-    }
-
-
-    /* FILE */
-
-    else if(type === "file"){
-
-      const url =
-        data.url ||
-        data.mediaURL ||
-        "";
-
-
-      const fileName =
-        data.fileName ||
-        data.name ||
-        "Ficheiro";
-
-
-      if(url){
-
-        const link =
-          document.createElement(
-            "a"
-          );
-
-
-        link.className =
-          "file-link";
-
-
-        link.href =
-          url;
-
-
-        link.target =
-          "_blank";
-
-
-        link.rel =
-          "noopener noreferrer";
-
-
-        link.textContent =
-          "📎 " +
-          fileName;
-
-
-        bubble.appendChild(
-          link
-        );
-
-      }
-
-    }
-
-
-    /* FALLBACK */
-
-    else{
-
-      const text =
+      const row =
         document.createElement(
           "div"
         );
 
+      row.className =
+        "message-row " +
+        (
+          mine
+            ? "mine"
+            : "theirs"
+        );
 
-      text.className =
-        "message-text";
+
+      const bubble =
+        document.createElement(
+          "div"
+        );
+
+      bubble.className =
+        "message-bubble";
 
 
-      text.textContent =
-        data.text ||
-        "";
+      if(
+        data.type ===
+        "text"
+      ){
+
+        bubble.innerHTML = `
+
+          <div class="message-text">
+            ${escapeHTML(
+              data.text || ""
+            )}
+          </div>
+
+        `;
+
+      }else if(
+        data.type ===
+        "image"
+      ){
+
+        bubble.innerHTML = `
+
+          <img
+            class="message-media message-image"
+            src="${escapeHTML(
+              data.url ||
+              data.mediaURL ||
+              ""
+            )}"
+            alt="Imagem">
+
+        `;
+
+      }else if(
+        data.type ===
+        "video"
+      ){
+
+        bubble.innerHTML = `
+
+          <video
+            class="message-media message-video"
+            controls
+            preload="metadata">
+
+            <source
+              src="${escapeHTML(
+                data.url ||
+                data.mediaURL ||
+                ""
+              )}">
+
+          </video>
+
+        `;
+
+      }else if(
+        data.type ===
+        "audio"
+      ){
+
+        bubble.innerHTML = `
+
+          <audio
+            class="message-audio"
+            controls>
+
+            <source
+              src="${escapeHTML(
+                data.url ||
+                data.mediaURL ||
+                ""
+              )}">
+
+          </audio>
+
+        `;
+
+      }else if(
+        data.type ===
+        "file"
+      ){
+
+        const url =
+          data.url ||
+          data.mediaURL ||
+          "";
+
+        const name =
+          data.fileName ||
+          data.name ||
+          "Ficheiro";
+
+
+        bubble.innerHTML = `
+
+          <a
+            class="file-link"
+            href="${escapeHTML(url)}"
+            target="_blank"
+            rel="noopener">
+
+            📎
+            ${escapeHTML(name)}
+
+          </a>
+
+        `;
+
+      }else{
+
+        bubble.innerHTML = `
+
+          <div class="message-text">
+            ${escapeHTML(
+              data.text ||
+              data.lastMessage ||
+              ""
+            )}
+          </div>
+
+        `;
+
+      }
+
+
+      const time =
+        formatDate(
+          data.createdAt
+        );
+
+
+      const meta =
+        document.createElement(
+          "div"
+        );
+
+      meta.className =
+        "message-meta";
+
+
+      meta.innerHTML =
+        escapeHTML(
+          time
+        );
+
+
+      if(
+        mine &&
+        data.readBy
+      ){
+
+        meta.innerHTML +=
+          " ✓";
+
+      }
 
 
       bubble.appendChild(
-        text
+        meta
+      );
+
+      row.appendChild(
+        bubble
+      );
+
+      messages.appendChild(
+        row
       );
 
     }
 
 
-    const time =
-      formatDate(
-        data.createdAt
-      );
+    /* ==============================
+       SCROLL
+    =============================== */
 
+    function scrollMessagesToBottom(){
 
-    const meta =
-      document.createElement(
-        "div"
-      );
+      requestAnimationFrame(
+        () => {
 
-
-    meta.className =
-      "message-meta";
-
-
-    meta.textContent =
-      time;
-
-
-    if(
-      mine &&
-      data.readBy
-    ){
-
-      meta.textContent +=
-        " ✓";
-
-    }
-
-
-    if(
-      data.temporary &&
-      data.temporary !==
-      "off"
-    ){
-
-      meta.textContent +=
-        " ⏳";
-
-    }
-
-
-    bubble.appendChild(
-      meta
-    );
-
-
-    row.appendChild(
-      bubble
-    );
-
-
-    messages.appendChild(
-      row
-    );
-
-  }
-
-
-  /* =========================================
-     SCROLL
-  ========================================== */
-
-  function scrollMessagesToBottom(){
-
-    requestAnimationFrame(
-      () => {
-
-        messages.scrollTop =
-          messages.scrollHeight;
-
-      }
-    );
-
-  }
-
-
-  /* =========================================
-     MARK READ
-  ========================================== */
-
-  async function markConversationRead(
-    chatID
-  ){
-
-    if(
-      !firebaseUser ||
-      !chatID
-    ){
-      return;
-    }
-
-
-    try{
-
-      await updateDoc(
-        doc(
-          db,
-          "conversas",
-          chatID
-        ),
-        {
-
-          [`unreadCount.${firebaseUser.uid}`]:
-            0
+          messages.scrollTop =
+            messages.scrollHeight;
 
         }
       );
 
-    }catch(error){
-
-      console.warn(
-        "Erro ao marcar conversa como lida:",
-        error
-      );
-
-    }
-
-  }
-
-
-  /* =========================================
-     EXPIRATION DATE
-  ========================================== */
-
-  function getExpirationDate(){
-
-    const mode =
-      temporaryMode.value;
-
-
-    if(mode === "off"){
-      return null;
     }
 
 
-    const date =
-      new Date();
+    /* ==============================
+       MARK READ
+    =============================== */
 
-
-    if(mode === "24h"){
-
-      date.setHours(
-        date.getHours() + 24
-      );
-
-    }
-
-    else if(mode === "7d"){
-
-      date.setDate(
-        date.getDate() + 7
-      );
-
-    }
-
-    else if(mode === "90d"){
-
-      date.setDate(
-        date.getDate() + 90
-      );
-
-    }
-
-
-    return date;
-
-  }
-
-
-  /* =========================================
-     SEND TEXT
-  ========================================== */
-
-  async function sendTextMessage(){
-
-    if(sendingMessage){
-      return;
-    }
-
-
-    if(!firebaseUser){
-
-      showToast(
-        "Precisas estar autenticado.",
-        "error"
-      );
-
-      return;
-
-    }
-
-
-    if(
-      !currentChatUID ||
-      !currentChatID
+    async function markConversationRead(
+      chatID
     ){
 
-      showToast(
-        "Escolhe uma conversa primeiro.",
-        "error"
-      );
-
-      return;
-
-    }
-
-
-    const text =
-      messageInput.value.trim();
-
-
-    if(!text){
-      return;
-    }
-
-
-    if(text.length > 5000){
-
-      showToast(
-        "A mensagem é demasiado grande.",
-        "error"
-      );
-
-      return;
-
-    }
-
-
-    sendingMessage =
-      true;
-
-
-    sendBtn.disabled =
-      true;
-
-
-    try{
-
-      await sendFirebaseMessage({
-
-        type:
-          "text",
-
-        text
-
-      });
-
-
-      messageInput.value =
-        "";
-
-
-      autoResizeTextarea();
-
-
-    }catch(error){
-
-      console.error(
-        "Erro ao enviar:",
-        error
-      );
-
-
-      showToast(
-        "Não foi possível enviar: " +
-        error.message,
-        "error"
-      );
-
-    }finally{
-
-      sendingMessage =
-        false;
-
-
-      sendBtn.disabled =
-        false;
-
-
-      messageInput.focus();
-
-    }
-
-  }
-
-
-  window.sendMessage =
-    sendTextMessage;
-
-
-  /* =========================================
-     SEND FIREBASE MESSAGE
-  ========================================== */
-
-  async function sendFirebaseMessage(
-    data
-  ){
-
-    if(
-      !firebaseUser ||
-      !currentChatUID ||
-      !currentChatID
-    ){
-
-      throw new Error(
-        "Conversa inválida."
-      );
-
-    }
-
-
-    const conversationRef =
-      doc(
-        db,
-        "conversas",
-        currentChatID
-      );
-
-
-    const conversationSnap =
-      await getDoc(
-        conversationRef
-      );
-
-
-    if(
-      !conversationSnap.exists()
-    ){
-
-      throw new Error(
-        "A conversa não existe."
-      );
-
-    }
-
-
-    const conversation =
-      conversationSnap.data();
-
-
-    const participants =
-      Array.isArray(
-        conversation.participants
-      )
-      ? conversation.participants
-      : [];
-
-
-    if(
-      !participants.includes(
-        firebaseUser.uid
-      )
-    ){
-
-      throw new Error(
-        "Não és participante desta conversa."
-      );
-
-    }
-
-
-    if(
-      !participants.includes(
-        currentChatUID
-      )
-    ){
-
-      throw new Error(
-        "Destinatário inválido."
-      );
-
-    }
-
-
-    const messageRef =
-      doc(
-        collection(
-          db,
-          "conversas",
-          currentChatID,
-          "mensagens"
-        )
-      );
-
-
-    const expiration =
-      getExpirationDate();
-
-
-    const preview =
-      getMessagePreview(
-        data
-      );
-
-
-    const messageData = {
-
-      type:
-        data.type,
-
-      senderId:
-        firebaseUser.uid,
-
-      receiverId:
-        currentChatUID,
-
-      temporary:
-        temporaryMode.value,
-
-      createdAt:
-        serverTimestamp(),
-
-      expirationAt:
-        expiration ||
-        null
-
-    };
-
-
-    if(data.text){
-
-      messageData.text =
-        data.text;
-
-    }
-
-
-    if(data.url){
-
-      messageData.url =
-        data.url;
-
-    }
-
-
-    if(data.fileName){
-
-      messageData.fileName =
-        data.fileName;
-
-    }
-
-
-    if(data.name){
-
-      messageData.name =
-        data.name;
-
-    }
-
-
-    if(data.bytes){
-
-      messageData.bytes =
-        data.bytes;
-
-    }
-
-
-    if(data.format){
-
-      messageData.format =
-        data.format;
-
-    }
-
-
-    if(data.resourceType){
-
-      messageData.resourceType =
-        data.resourceType;
-
-    }
-
-
-    const batch =
-      writeBatch(
-        db
-      );
-
-
-    batch.set(
-      messageRef,
-      messageData
-    );
-
-
-    const receiverUnreadPath =
-      `unreadCount.${currentChatUID}`;
-
-
-    const senderUnreadPath =
-      `unreadCount.${firebaseUser.uid}`;
-
-
-    batch.update(
-      conversationRef,
-      {
-
-        lastMessage:
-          preview,
-
-        lastMessageType:
-          data.type,
-
-        lastMessageAt:
-          serverTimestamp(),
-
-        temporaryMode:
-          temporaryMode.value,
-
-        [senderUnreadPath]:
-          0,
-
-        [receiverUnreadPath]:
-          increment(1)
-
-      }
-    );
-
-
-    await batch.commit();
-
-  }
-
-
-  /* =========================================
-     CLOUDINARY UPLOAD
-  ========================================== */
-
-  async function uploadToCloudinary(
-    file,
-    type
-  ){
-
-    if(!file){
-
-      throw new Error(
-        "Ficheiro inválido."
-      );
-
-    }
-
-
-    if(type === "image"){
-
-      if(
-        !file.type.startsWith(
-          "image/"
-        )
-      ){
-
-        throw new Error(
-          "O ficheiro selecionado não é uma imagem."
-        );
-
-      }
-
-
-      if(
-        file.size >
-        10 * 1024 * 1024
-      ){
-
-        throw new Error(
-          "A imagem não pode ultrapassar 10 MB."
-        );
-
-      }
-
-    }else{
-
-      if(
-        file.size >
-        50 * 1024 * 1024
-      ){
-
-        throw new Error(
-          "O ficheiro não pode ultrapassar 50 MB."
-        );
-
-      }
-
-    }
-
-
-    const endpoint =
-      type === "image"
-        ? CLOUDINARY_IMAGE_URL
-        : CLOUDINARY_RAW_URL;
-
-
-    const formData =
-      new FormData();
-
-
-    formData.append(
-      "file",
-      file
-    );
-
-
-    formData.append(
-      "upload_preset",
-      CLOUDINARY_UPLOAD_PRESET
-    );
-
-
-    uploadStatus.textContent =
-      "A enviar " +
-      (
-        type === "image"
-          ? "imagem"
-          : "ficheiro"
-      ) +
-      "...";
-
-
-    uploadStatus.classList.add(
-      "show"
-    );
-
-
-    const response =
-      await fetch(
-        endpoint,
-        {
-          method:"POST",
-          body:formData
-        }
-      );
-
-
-    let result = null;
-
-
-    try{
-
-      result =
-        await response.json();
-
-    }catch(error){
-
-      result =
-        {};
-
-    }
-
-
-    if(
-      !response.ok ||
-      !result.secure_url
-    ){
-
-      console.error(
-        "Cloudinary:",
-        result
-      );
-
-
-      throw new Error(
-        result.error?.message ||
-        "Falha no upload para o Cloudinary."
-      );
-
-    }
-
-
-    return result;
-
-  }
-
-
-  /* =========================================
-     SEND MEDIA
-  ========================================== */
-
-  async function sendMediaFile(
-    file,
-    type
-  ){
-
-    if(uploadingFile){
-      return;
-    }
-
-
-    if(
-      !firebaseUser ||
-      !currentChatID ||
-      !currentChatUID
-    ){
-
-      showToast(
-        "Escolhe uma conversa primeiro.",
-        "error"
-      );
-
-      return;
-
-    }
-
-
-    uploadingFile =
-      true;
-
-
-    imageBtn.disabled =
-      true;
-
-
-    fileBtn.disabled =
-      true;
-
-
-    try{
-
-      const result =
-        await uploadToCloudinary(
-          file,
-          type
-        );
-
-
-      let messageType =
-        "file";
-
-
-      if(
-        file.type.startsWith(
-          "image/"
-        )
-      ){
-
-        messageType =
-          "image";
-
-      }
-
-      else if(
-        file.type.startsWith(
-          "video/"
-        )
-      ){
-
-        messageType =
-          "video";
-
-      }
-
-      else if(
-        file.type.startsWith(
-          "audio/"
-        )
-      ){
-
-        messageType =
-          "audio";
-
-      }
-
-
-      await sendFirebaseMessage({
-
-        type:
-          messageType,
-
-        url:
-          result.secure_url,
-
-        fileName:
-          file.name,
-
-        name:
-          file.name,
-
-        bytes:
-          file.size,
-
-        format:
-          result.format ||
-          "",
-
-        resourceType:
-          result.resource_type ||
-          ""
-
-      });
-
-
-      showToast(
-        "Ficheiro enviado.",
-        "success"
-      );
-
-
-    }catch(error){
-
-      console.error(
-        "Erro no envio do ficheiro:",
-        error
-      );
-
-
-      showToast(
-        "Não foi possível enviar: " +
-        error.message,
-        "error"
-      );
-
-    }finally{
-
-      uploadingFile =
-        false;
-
-
-      imageBtn.disabled =
-        false;
-
-
-      fileBtn.disabled =
-        false;
-
-
-      uploadStatus.classList.remove(
-        "show"
-      );
-
-
-      uploadStatus.textContent =
-        "A enviar...";
-
-    }
-
-  }
-
-
-  /* =========================================
-     PROFILE
-  ========================================== */
-
-  profileBtn.addEventListener(
-    "click",
-    () => {
-
-      if(
-        !currentChatUID
-      ){
-        return;
-      }
-
-
-      window.location.href =
-        "perfil.html?id=" +
-        encodeURIComponent(
-          currentChatUID
-        );
-
-    }
-  );
-
-
-  /* =========================================
-     MODAL
-  ========================================== */
-
-  function openArtistModal(){
-
-    renderArtists(
-      artistSearch.value
-    );
-
-
-    artistModal.classList.add(
-      "show"
-    );
-
-
-    setTimeout(
-      () =>
-        artistSearch.focus(),
-      50
-    );
-
-  }
-
-
-  function closeArtistModalWindow(){
-
-    artistModal.classList.remove(
-      "show"
-    );
-
-  }
-
-
-  newMessageBtn.addEventListener(
-    "click",
-    openArtistModal
-  );
-
-
-  closeArtistModal.addEventListener(
-    "click",
-    closeArtistModalWindow
-  );
-
-
-  artistModal.addEventListener(
-    "click",
-    event => {
-
-      if(
-        event.target ===
-        artistModal
-      ){
-
-        closeArtistModalWindow();
-
-      }
-
-    }
-  );
-
-
-  artistSearch.addEventListener(
-    "input",
-    () => {
-
-      renderArtists(
-        artistSearch.value
-      );
-
-    }
-  );
-
-
-  /* =========================================
-     CONVERSATION SEARCH
-  ========================================== */
-
-  conversationSearch.addEventListener(
-    "input",
-    () => {
-
-      renderConversations(
-        conversationSearch.value
-      );
-
-    }
-  );
-
-
-  /* =========================================
-     SEND BUTTON
-  ========================================== */
-
-  sendBtn.addEventListener(
-    "click",
-    sendTextMessage
-  );
-
-
-  /* =========================================
-     ENTER
-  ========================================== */
-
-  messageInput.addEventListener(
-    "keydown",
-    event => {
-
-      if(
-        event.key === "Enter" &&
-        !event.shiftKey
-      ){
-
-        event.preventDefault();
-
-        sendTextMessage();
-
-      }
-
-    }
-  );
-
-
-  /* =========================================
-     AUTO RESIZE
-  ========================================== */
-
-  function autoResizeTextarea(){
-
-    messageInput.style.height =
-      "auto";
-
-
-    messageInput.style.height =
-      Math.min(
-        messageInput.scrollHeight,
-        140
-      ) +
-      "px";
-
-  }
-
-
-  messageInput.addEventListener(
-    "input",
-    autoResizeTextarea
-  );
-
-
-  /* =========================================
-     TEMPORARY MODE
-  ========================================== */
-
-  temporaryMode.addEventListener(
-    "change",
-    async () => {
-
-      if(
-        !currentChatID ||
-        !firebaseUser
-      ){
+      if(!firebaseUser){
         return;
       }
 
@@ -4531,375 +3187,874 @@ hidden>
           doc(
             db,
             "conversas",
-            currentChatID
+            chatID
           ),
           {
 
-            temporaryMode:
-              temporaryMode.value
+            [`unreadCount.${firebaseUser.uid}`]:
+              0
 
           }
         );
 
-
-        showToast(
-          temporaryMode.value === "off"
-            ? "Mensagens normais ativadas."
-            : "Modo temporário ativado.",
-          "success"
-        );
-
-
       }catch(error){
 
         console.warn(
-          "Erro ao atualizar modo:",
+          "Erro ao marcar conversa como lida:",
           error
         );
 
+      }
 
-        showToast(
-          "Não foi possível alterar o modo temporário.",
-          "error"
+    }
+
+
+    /* ==============================
+       TEMPORARY EXPIRATION
+    =============================== */
+
+    function getExpirationDate(){
+
+      const mode =
+        temporaryMode.value;
+
+
+      if(mode === "off"){
+        return null;
+      }
+
+
+      const date =
+        new Date();
+
+
+      if(mode === "24h"){
+
+        date.setHours(
+          date.getHours() + 24
+        );
+
+      }else if(
+        mode === "7d"
+      ){
+
+        date.setDate(
+          date.getDate() + 7
+        );
+
+      }else if(
+        mode === "90d"
+      ){
+
+        date.setDate(
+          date.getDate() + 90
         );
 
       }
 
-    }
-  );
 
-
-  /* =========================================
-     IMAGE
-  ========================================== */
-
-  imageBtn.addEventListener(
-    "click",
-    () => {
-
-      if(uploadingFile){
-        return;
-      }
-
-
-      imageInput.click();
+      return date;
 
     }
-  );
 
 
-  imageInput.addEventListener(
-    "change",
-    async () => {
+    /* ==============================
+       SEND MESSAGE
+    =============================== */
 
-      const file =
-        imageInput.files?.[0];
-
-
-      if(!file){
-        return;
-      }
-
-
-      imageInput.value =
-        "";
-
-
-      await sendMediaFile(
-        file,
-        "image"
-      );
-
-    }
-  );
-
-
-  /* =========================================
-     FILE
-  ========================================== */
-
-  fileBtn.addEventListener(
-    "click",
-    () => {
-
-      if(uploadingFile){
-        return;
-      }
-
-
-      fileInput.click();
-
-    }
-  );
-
-
-  fileInput.addEventListener(
-    "change",
-    async () => {
-
-      const file =
-        fileInput.files?.[0];
-
-
-      if(!file){
-        return;
-      }
-
-
-      fileInput.value =
-        "";
-
-
-      await sendMediaFile(
-        file,
-        "file"
-      );
-
-    }
-  );
-
-
-  /* =========================================
-     LOGOUT
-  ========================================== */
-
-  logoutBtn.addEventListener(
-    "click",
-    async () => {
-
-      try{
-
-        await setOffline();
-
-      }catch(error){}
-
-
-      try{
+    window.sendMessage =
+      async function(){
 
         if(
-          unsubscribeMessages
+          sendingMessage
         ){
-
-          unsubscribeMessages();
-
-          unsubscribeMessages =
-            null;
-
+          return;
         }
 
 
         if(
-          unsubscribePresence
+          !firebaseUser
         ){
 
-          unsubscribePresence();
-
-          unsubscribePresence =
-            null;
-
-        }
-
-
-        if(
-          unsubscribeConversations
-        ){
-
-          unsubscribeConversations();
-
-          unsubscribeConversations =
-            null;
-
-        }
-
-
-        await signOut(
-          auth
-        );
-
-
-        window.location.href =
-          "area-do-artista.html";
-
-
-      }catch(error){
-
-        console.error(
-          error
-        );
-
-
-        showToast(
-          "Erro ao sair.",
-          "error"
-        );
-
-      }
-
-    }
-  );
-
-
-  /* =========================================
-     AUTH
-  ========================================== */
-
-  onAuthStateChanged(
-    auth,
-    async user => {
-
-      if(!user){
-
-        window.location.href =
-          "area-do-artista.html";
-
-        return;
-
-      }
-
-
-      firebaseUser =
-        user;
-
-
-      await loadCurrentProfile();
-
-
-      await setOnline();
-
-
-      await loadArtists();
-
-
-      listenConversations();
-
-
-      /* =====================================
-         OPEN PROFILE DIRECTLY
-      ====================================== */
-
-      const params =
-        new URLSearchParams(
-          window.location.search
-        );
-
-
-      const targetUID =
-        params.get("uid") ||
-        params.get("id") ||
-        params.get("artistId") ||
-        params.get("userId");
-
-
-      if(targetUID){
-
-        if(
-          targetUID ===
-          firebaseUser.uid
-        ){
+          showToast(
+            "Precisas estar autenticado.",
+            "error"
+          );
 
           return;
 
         }
 
 
-        let artist =
-          allArtists.find(
-            a =>
-              a.uid ===
-              targetUID
+        if(
+          !currentChatUID ||
+          !currentChatID
+        ){
+
+          showToast(
+            "Escolhe uma conversa primeiro.",
+            "error"
+          );
+
+          return;
+
+        }
+
+
+        const text =
+          messageInput.value
+            .trim();
+
+
+        if(!text){
+          return;
+        }
+
+
+        if(text.length > 5000){
+
+          showToast(
+            "A mensagem é demasiado grande.",
+            "error"
+          );
+
+          return;
+
+        }
+
+
+        sendingMessage =
+          true;
+
+        sendBtn.disabled =
+          true;
+
+
+        try{
+
+          await sendFirebaseMessage({
+
+            type:
+              "text",
+
+            text
+
+          });
+
+
+          messageInput.value =
+            "";
+
+          autoResizeTextarea();
+
+        }catch(error){
+
+          console.error(
+            "ERRO AO ENVIAR TEXTO:",
+            error
+          );
+
+          showToast(
+            "Não foi possível enviar a mensagem: " +
+            error.message,
+            "error"
+          );
+
+        }finally{
+
+          sendingMessage =
+            false;
+
+          sendBtn.disabled =
+            false;
+
+          messageInput.focus();
+
+        }
+
+      };
+
+
+    /* ==============================
+       SEND FIREBASE MESSAGE
+    =============================== */
+
+    async function sendFirebaseMessage(
+      data
+    ){
+
+      if(
+        !firebaseUser ||
+        !currentChatUID ||
+        !currentChatID
+      ){
+
+        throw new Error(
+          "Conversa inválida."
+        );
+
+      }
+
+
+      const conversationRef =
+        doc(
+          db,
+          "conversas",
+          currentChatID
+        );
+
+
+      const messageRef =
+        doc(
+          collection(
+            db,
+            "conversas",
+            currentChatID,
+            "mensagens"
+          )
+        );
+
+
+      const conversationSnap =
+        await getDoc(
+          conversationRef
+        );
+
+
+      if(
+        !conversationSnap.exists()
+      ){
+
+        throw new Error(
+          "A conversa não existe."
+        );
+
+      }
+
+
+      const conversation =
+        conversationSnap.data();
+
+
+      const participants =
+        Array.isArray(
+          conversation.participants
+        )
+        ? conversation.participants
+        : [];
+
+
+      if(
+        !participants.includes(
+          firebaseUser.uid
+        )
+      ){
+
+        throw new Error(
+          "Não és participante desta conversa."
+        );
+
+      }
+
+
+      if(
+        !participants.includes(
+          currentChatUID
+        )
+      ){
+
+        throw new Error(
+          "Destinatário inválido."
+        );
+
+      }
+
+
+      const receiverID =
+        currentChatUID;
+
+
+      const preview =
+        getMessagePreview(
+          data
+        );
+
+
+      const expiration =
+        getExpirationDate();
+
+
+      const batch =
+        writeBatch(
+          db
+        );
+
+
+      const messageData = {
+
+        type:
+          data.type,
+
+        senderId:
+          firebaseUser.uid,
+
+        receiverId:
+          receiverID,
+
+        temporary:
+          temporaryMode.value,
+
+        createdAt:
+          serverTimestamp(),
+
+        expirationAt:
+          expiration
+            ? expiration
+            : null
+
+      };
+
+
+      if(
+        data.type ===
+        "text"
+      ){
+
+        messageData.text =
+          data.text;
+
+      }
+
+
+      if(data.url){
+
+        messageData.url =
+          data.url;
+
+      }
+
+
+      if(data.fileName){
+
+        messageData.fileName =
+          data.fileName;
+
+      }
+
+
+      if(data.name){
+
+        messageData.name =
+          data.name;
+
+      }
+
+
+      batch.set(
+        messageRef,
+        messageData
+      );
+
+
+      const unreadPath =
+        `unreadCount.${receiverID}`;
+
+
+      const senderUnreadPath =
+        `unreadCount.${firebaseUser.uid}`;
+
+
+      batch.update(
+        conversationRef,
+        {
+
+          lastMessage:
+            preview,
+
+          lastMessageType:
+            data.type,
+
+          lastMessageAt:
+            serverTimestamp(),
+
+          temporaryMode:
+            temporaryMode.value,
+
+          [senderUnreadPath]:
+            0,
+
+          [unreadPath]:
+            increment(1)
+
+        }
+      );
+
+
+      await batch.commit();
+
+    }
+
+
+    /* ==============================
+       PROFILE BUTTON
+    =============================== */
+
+    profileBtn.addEventListener(
+      "click",
+      () => {
+
+        if(
+          !currentChatUID
+        ){
+          return;
+        }
+
+
+        window.location.href =
+          "perfil.html?id=" +
+          encodeURIComponent(
+            currentChatUID
+          );
+
+      }
+    );
+
+
+    /* ==============================
+       NEW MESSAGE MODAL
+    =============================== */
+
+    function openArtistModal(){
+
+      renderArtists(
+        artistSearch.value
+      );
+
+      artistModal.classList.add(
+        "show"
+      );
+
+      setTimeout(
+        () =>
+          artistSearch.focus(),
+        50
+      );
+
+    }
+
+
+    function closeArtistModalWindow(){
+
+      artistModal.classList.remove(
+        "show"
+      );
+
+    }
+
+
+    newMessageBtn.addEventListener(
+      "click",
+      openArtistModal
+    );
+
+
+    closeArtistModal.addEventListener(
+      "click",
+      closeArtistModalWindow
+    );
+
+
+    artistModal.addEventListener(
+      "click",
+      event => {
+
+        if(
+          event.target ===
+          artistModal
+        ){
+
+          closeArtistModalWindow();
+
+        }
+
+      }
+    );
+
+
+    artistSearch.addEventListener(
+      "input",
+      () => {
+
+        renderArtists(
+          artistSearch.value
+        );
+
+      }
+    );
+
+
+    /* ==============================
+       CONVERSATION SEARCH
+    =============================== */
+
+    conversationSearch.addEventListener(
+      "input",
+      () => {
+
+        renderConversations(
+          conversationSearch.value
+        );
+
+      }
+    );
+
+
+    /* ==============================
+       SEND BUTTON
+    =============================== */
+
+    sendBtn.addEventListener(
+      "click",
+      () => {
+
+        window.sendMessage();
+
+      }
+    );
+
+
+    /* ==============================
+       ENTER TO SEND
+    =============================== */
+
+    messageInput.addEventListener(
+      "keydown",
+      event => {
+
+        if(
+          event.key === "Enter" &&
+          !event.shiftKey
+        ){
+
+          event.preventDefault();
+
+          window.sendMessage();
+
+        }
+
+      }
+    );
+
+
+    /* ==============================
+       AUTO RESIZE
+    =============================== */
+
+    function autoResizeTextarea(){
+
+      messageInput.style.height =
+        "auto";
+
+      messageInput.style.height =
+        Math.min(
+          messageInput.scrollHeight,
+          140
+        ) + "px";
+
+    }
+
+
+    messageInput.addEventListener(
+      "input",
+      autoResizeTextarea
+    );
+
+
+    /* ==============================
+       TEMPORARY MODE
+    =============================== */
+
+    temporaryMode.addEventListener(
+      "change",
+      async () => {
+
+        if(
+          !currentChatID ||
+          !firebaseUser
+        ){
+          return;
+        }
+
+
+        try{
+
+          await updateDoc(
+            doc(
+              db,
+              "conversas",
+              currentChatID
+            ),
+            {
+
+              temporaryMode:
+                temporaryMode.value
+
+            }
+          );
+
+        }catch(error){
+
+          console.warn(
+            "Erro ao atualizar modo temporário:",
+            error
+          );
+
+        }
+
+      }
+    );
+
+
+    /* ==============================
+       MEDIA BUTTONS
+    =============================== */
+
+    imageBtn.addEventListener(
+      "click",
+      () => {
+
+        imageInput.click();
+
+      }
+    );
+
+
+    fileBtn.addEventListener(
+      "click",
+      () => {
+
+        fileInput.click();
+
+      }
+    );
+
+
+    imageInput.addEventListener(
+      "change",
+      () => {
+
+        if(
+          imageInput.files.length
+        ){
+
+          showToast(
+            "O envio de imagens será ativado na próxima etapa."
+          );
+
+          imageInput.value =
+            "";
+
+        }
+
+      }
+    );
+
+
+    fileInput.addEventListener(
+      "change",
+      () => {
+
+        if(
+          fileInput.files.length
+        ){
+
+          showToast(
+            "O envio de ficheiros será ativado na próxima etapa."
+          );
+
+          fileInput.value =
+            "";
+
+        }
+
+      }
+    );
+
+
+    /* ==============================
+       LOGOUT
+    =============================== */
+
+    logoutBtn.addEventListener(
+      "click",
+      async () => {
+
+        try{
+
+          await setOffline();
+
+        }catch(error){}
+
+
+        try{
+
+          await signOut(
+            auth
+          );
+
+          window.location.href =
+            "area-do-artista.html";
+
+        }catch(error){
+
+          console.error(
+            error
+          );
+
+          showToast(
+            "Erro ao sair.",
+            "error"
+          );
+
+        }
+
+      }
+    );
+
+
+    /* ==============================
+       AUTH
+    =============================== */
+
+    onAuthStateChanged(
+      auth,
+      async user => {
+
+        if(!user){
+
+          window.location.href =
+            "area-do-artista.html";
+
+          return;
+
+        }
+
+
+        firebaseUser =
+          user;
+
+
+        await loadCurrentProfile();
+
+        await setOnline();
+
+        await loadArtists();
+
+        listenConversations();
+
+
+        /* ==========================
+           ABRIR PERFIL DIRETO
+        ========================== */
+
+        const params =
+          new URLSearchParams(
+            window.location.search
           );
 
 
-        if(!artist){
+        const targetUID =
+          params.get("uid") ||
+          params.get("id") ||
+          params.get("artistId") ||
+          params.get("userId");
 
-          try{
 
-            const snap =
-              await getDoc(
-                doc(
-                  db,
-                  "artistas",
-                  targetUID
-                )
+        if(targetUID){
+
+          let artist =
+            allArtists.find(
+              a =>
+                a.uid ===
+                targetUID
+            );
+
+
+          if(!artist){
+
+            try{
+
+              const snap =
+                await getDoc(
+                  doc(
+                    db,
+                    "artistas",
+                    targetUID
+                  )
+                );
+
+
+              if(
+                snap.exists()
+              ){
+
+                artist = {
+
+                  uid:
+                    targetUID,
+
+                  ...snap.data()
+
+                };
+
+              }
+
+            }catch(error){
+
+              console.error(
+                error
               );
-
-
-            if(
-              snap.exists()
-            ){
-
-              artist = {
-
-                uid:
-                  targetUID,
-
-                ...snap.data()
-
-              };
 
             }
 
-          }catch(error){
+          }
 
-            console.error(
-              "Erro ao abrir artista:",
-              error
+
+          if(artist){
+
+            const chatID =
+              createChatID(
+                firebaseUser.uid,
+                artist.uid
+              );
+
+
+            await startNewConversation(
+              artist
             );
 
           }
 
         }
 
+      }
+    );
 
-        if(artist){
 
-          await startNewConversation(
-            artist
-          );
+    /* ==============================
+       BEFORE UNLOAD
+    =============================== */
 
-        }
+    window.addEventListener(
+      "beforeunload",
+      () => {
+
+        setOffline();
 
       }
+    );
 
-    }
-  );
-
-
-  /* =========================================
-     BEFORE UNLOAD
-  ========================================== */
-
-  window.addEventListener(
-    "beforeunload",
-    () => {
-
-      setOffline();
-
-    }
-  );
-
-
-  /* =========================================
-     VISIBILITY
-  ========================================== */
-
-  document.addEventListener(
-    "visibilitychange",
-    () => {
-
-      if(
-        document.visibilityState ===
-        "visible"
-      ){
-
-        setOnline();
-
-      }
-
-    }
-  );
-
-</script>
+  </script>
 
 </body>
 </html>
