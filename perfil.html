@@ -1854,13 +1854,30 @@ function fotoArtista(data){
 function capaMusica(data){
 
   return texto(
+
     data.cover,
     data.coverUrl,
+    data.coverURL,
+
     data.capa,
     data.capaUrl,
+    data.capaURL,
+
     data.image,
     data.imageUrl,
-    data.imagem
+    data.imageURL,
+
+    data.imagem,
+    data.imagemUrl,
+    data.imagemURL,
+
+    data.fotoCapa,
+    data.fotoCapaUrl,
+    data.fotoCapaURL,
+
+    data.urlCapa,
+    data.urlCapaImagem
+
   );
 
 }
@@ -1873,12 +1890,24 @@ function capaMusica(data){
 function audioMusica(data){
 
   return texto(
+
     data.audioUrl,
+    data.audioURL,
+
     data.audio,
-    data.url,
+
+    data.urlAudio,
+    data.urlAudioURL,
+
     data.musicUrl,
+    data.musicURL,
+
     data.file,
+    data.fileUrl,
+    data.fileURL,
+
     data.src
+
   );
 
 }
@@ -1920,13 +1949,31 @@ function tituloVideo(data){
 function capaVideo(data){
 
   return texto(
+
     data.capa,
+    data.capaUrl,
+    data.capaURL,
+
     data.cover,
     data.coverUrl,
+    data.coverURL,
+
     data.thumbnail,
     data.thumbnailUrl,
+    data.thumbnailURL,
+
     data.image,
-    data.imageUrl
+    data.imageUrl,
+    data.imageURL,
+
+    data.imagem,
+    data.imagemUrl,
+    data.imagemURL,
+
+    data.foto,
+    data.fotoUrl,
+    data.fotoURL
+
   );
 
 }
@@ -3355,24 +3402,44 @@ async function carregarPublicacoes(){
 
 
     snapshot.forEach(
-      docSnap => {
+  docSnap => {
 
-        const data =
-          docSnap.data();
+    const data =
+      docSnap.data();
 
+    const pertence =
+      documentoPertenceAoUtilizador(
+        data,
+        docSnap.id,
+        [
+          artistId,
+          artistUid,
+          requestedUser,
+          profileData.username,
+          profileData.name
+        ]
+        .filter(Boolean)
+      );
 
-        const pertence =
-          documentoPertenceAoUtilizador(
-            data,
-            docSnap.id,
-            identificadores
-          );
+    if(!pertence){
+      return;
+    }
 
+    if(!isPublicado(data)){
+      return;
+    }
 
-        if(!pertence){
-          return;
-        }
+    artistSongs.push({
 
+      id:
+        docSnap.id,
+
+      ...data
+
+    });
+
+  }
+);
 
         /*
           Publicações públicas.
@@ -3549,43 +3616,52 @@ function renderizarPublicacaoPerfil(post){
     );
 
 
-  const imagem =
-    texto(
-
-      post.imagem,
-      post.imagemUrl,
-      post.image,
-      post.imageUrl,
-      post.foto,
-      post.fotoUrl,
-      post.mediaUrl,
-      post.urlImagem
-
-    );
+ const imagem =
+  texto(
+    post.imagem,
+    post.imagemUrl,
+    post.imagemURL,
+    post.image,
+    post.imageUrl,
+    post.imageURL,
+    post.foto,
+    post.fotoUrl,
+    post.fotoURL,
+    post.mediaUrl,
+    post.mediaURL,
+    post.mediaUrl,
+    post.urlImagem,
+    post.urlImagemURL
+  );
 
 
   const video =
-    texto(
-
-      post.video,
-      post.videoUrl,
-      post.videoURL,
-      post.mediaVideo,
-      post.urlVideo
-
-    );
+  texto(
+    post.video,
+    post.videoUrl,
+    post.videoURL,
+    post.mediaVideo,
+    post.mediaVideoUrl,
+    post.mediaVideoURL,
+    post.mediaUrl,
+    post.mediaURL,
+    post.urlVideo
+  );
 
 
   const audio =
-    texto(
-
-      post.audio,
-      post.audioUrl,
-      post.audioURL,
-      post.musicUrl,
-      post.urlAudio
-
-    );
+  texto(
+    post.audio,
+    post.audioUrl,
+    post.audioURL,
+    post.musicUrl,
+    post.musicURL,
+    post.urlAudio,
+    post.urlAudioURL,
+    post.mediaAudio,
+    post.mediaAudioUrl,
+    post.mediaAudioURL
+  );
 
 
   const views =
@@ -3814,32 +3890,40 @@ async function carregarVideos(){
 
 
     snapshot.forEach(
-      docSnap => {
+  docSnap => {
 
-        const data =
-          docSnap.data();
+    const data =
+      docSnap.data();
 
+    const pertence =
+      documentoPertenceAoUtilizador(
+        data,
+        docSnap.id,
+        [
+          artistId,
+          artistUid,
+          requestedUser,
+          profileData.username,
+          profileData.name
+        ]
+        .filter(Boolean)
+      );
 
-        const idArtista =
-          texto(
+    if(!pertence){
+      return;
+    }
 
-            data.artistaId,
-            data.artistId,
+    artistVideos.push({
 
-            data.userId,
-            data.uid,
+      id:
+        docSnap.id,
 
-            data.artistaUID,
-            data.artistaUid,
+      ...data
 
-            data.ownerId,
-            data.ownerUid,
+    });
 
-            data.authorId,
-            data.authorUid
-
-          );
-
+  }
+);
 
         const idsValidos = [
 
