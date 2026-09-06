@@ -51,6 +51,179 @@ body{
   overflow:hidden;
 }
 
+
+/* =====================================================
+   FUNDO ANIMADO — ESTILO WHATSAPP
+===================================================== */
+
+body::before{
+  content:"";
+
+  position:fixed;
+
+  inset:0;
+
+  z-index:-3;
+
+  pointer-events:none;
+
+  background:
+    radial-gradient(
+      circle at 15% 20%,
+      rgba(244,191,49,.055),
+      transparent 24%
+    ),
+    radial-gradient(
+      circle at 85% 75%,
+      rgba(244,191,49,.035),
+      transparent 28%
+    ),
+    #070707;
+}
+
+
+/* =====================================================
+   PADRÃO DE FUNDO
+===================================================== */
+
+body::after{
+  content:"";
+
+  position:fixed;
+
+  inset:-120px;
+
+  z-index:-2;
+
+  pointer-events:none;
+
+  opacity:.16;
+
+  background-image:
+
+    radial-gradient(
+      circle,
+      rgba(244,191,49,.22) 1px,
+      transparent 1.5px
+    );
+
+  background-size:
+    42px 42px;
+
+  transform:
+    rotate(-7deg);
+
+  animation:
+    backgroundPatternMove
+    28s
+    linear
+    infinite;
+}
+
+
+@keyframes backgroundPatternMove{
+
+  0%{
+    transform:
+      translate3d(0,0,0)
+      rotate(-7deg);
+  }
+
+  50%{
+    transform:
+      translate3d(25px,18px,0)
+      rotate(-7deg);
+  }
+
+  100%{
+    transform:
+      translate3d(0,0,0)
+      rotate(-7deg);
+  }
+
+}
+
+
+/* =====================================================
+   SÍMBOLOS FLUTUANTES
+===================================================== */
+
+.app::before{
+  content:
+    "♩  ♪  ♫  ♬  👑  ♩  ♪  ♫  🎧  ♬  🔥  ♪  ♩  ♫";
+
+  position:fixed;
+
+  top:-80px;
+  left:-10%;
+
+  width:120%;
+
+  height:120%;
+
+  z-index:-1;
+
+  pointer-events:none;
+
+  color:
+    rgba(244,191,49,.055);
+
+  font-size:26px;
+
+  line-height:100px;
+
+  letter-spacing:32px;
+
+  word-spacing:35px;
+
+  white-space:normal;
+
+  transform:
+    rotate(-8deg);
+
+  animation:
+    symbolsFloat
+    35s
+    ease-in-out
+    infinite;
+}
+
+
+@keyframes symbolsFloat{
+
+  0%{
+    transform:
+      translate3d(0,0,0)
+      rotate(-8deg);
+  }
+
+  25%{
+    transform:
+      translate3d(-18px,25px,0)
+      rotate(-7deg);
+  }
+
+  50%{
+    transform:
+      translate3d(12px,50px,0)
+      rotate(-9deg);
+  }
+
+  75%{
+    transform:
+      translate3d(-10px,25px,0)
+      rotate(-7deg);
+  }
+
+  100%{
+    transform:
+      translate3d(0,0,0)
+      rotate(-8deg);
+  }
+
+}
+
+
 /* =====================================================
    APP
 ===================================================== */
@@ -59,7 +232,10 @@ body{
   height:100vh;
   display:flex;
   flex-direction:column;
+
+  position:relative;
 }
+
 
 /* =====================================================
    HEADER
@@ -67,7 +243,16 @@ body{
 
 .header{
   height:64px;
-  background:#0b0b0b;
+
+  background:
+    rgba(11,11,11,.94);
+
+  backdrop-filter:
+    blur(10px);
+
+  -webkit-backdrop-filter:
+    blur(10px);
+
   border-bottom:1px solid var(--line);
 
   display:flex;
@@ -77,6 +262,9 @@ body{
   padding:0 22px;
 
   flex-shrink:0;
+
+  position:relative;
+  z-index:5;
 }
 
 .logo{
@@ -127,6 +315,7 @@ body{
   cursor:pointer;
 }
 
+
 /* =====================================================
    MAIN
 ===================================================== */
@@ -139,14 +328,26 @@ body{
   grid-template-columns:300px minmax(0,1fr);
 
   overflow:hidden;
+
+  position:relative;
+  z-index:1;
 }
+
 
 /* =====================================================
    SIDEBAR
 ===================================================== */
 
 .sidebar{
-  background:#0b0b0b;
+  background:
+    rgba(11,11,11,.88);
+
+  backdrop-filter:
+    blur(12px);
+
+  -webkit-backdrop-filter:
+    blur(12px);
+
   border-right:1px solid var(--line);
 
   display:flex;
@@ -154,6 +355,9 @@ body{
 
   min-width:0;
   min-height:0;
+
+  position:relative;
+  z-index:2;
 }
 
 .sidebar-top{
@@ -199,7 +403,8 @@ body{
 .conversation-search input{
   width:100%;
 
-  background:#151515;
+  background:
+    rgba(21,21,21,.88);
 
   border:1px solid var(--line);
 
@@ -333,7 +538,9 @@ body{
 
 .online-dot.online{
   background:var(--green);
-  box-shadow:0 0 7px rgba(53,212,111,.45);
+  box-shadow:
+    0 0 7px
+    rgba(53,212,111,.45);
 }
 
 .conversation-preview{
@@ -356,6 +563,7 @@ body{
   flex-shrink:0;
 }
 
+
 /* =====================================================
    CHAT
 ===================================================== */
@@ -367,8 +575,67 @@ body{
   display:flex;
   flex-direction:column;
 
-  background:#080808;
+  background:
+    rgba(8,8,8,.72);
+
+  position:relative;
+  z-index:2;
 }
+
+
+/* =====================================================
+   PADRÃO DENTRO DO CHAT
+===================================================== */
+
+.chat::before{
+  content:"";
+
+  position:absolute;
+
+  inset:0;
+
+  pointer-events:none;
+
+  z-index:-1;
+
+  opacity:.18;
+
+  background-image:
+    radial-gradient(
+      circle,
+      rgba(244,191,49,.16) 1px,
+      transparent 1.5px
+    );
+
+  background-size:
+    55px 55px;
+
+  animation:
+    chatPattern
+    32s
+    linear
+    infinite;
+}
+
+
+@keyframes chatPattern{
+
+  from{
+    background-position:
+      0 0;
+  }
+
+  to{
+    background-position:
+      110px 80px;
+  }
+
+}
+
+
+/* =====================================================
+   CHAT EMPTY
+===================================================== */
 
 .chat-empty{
   flex:1;
@@ -384,11 +651,47 @@ body{
 
 .chat-empty-box{
   max-width:420px;
+
+  padding:25px;
+
+  border-radius:18px;
+
+  background:
+    rgba(10,10,10,.58);
+
+  border:
+    1px solid
+    rgba(244,191,49,.10);
+
+  backdrop-filter:
+    blur(5px);
 }
 
 .chat-empty-icon{
   font-size:55px;
   margin-bottom:15px;
+
+  animation:
+    emptyFloat
+    4s
+    ease-in-out
+    infinite;
+}
+
+
+@keyframes emptyFloat{
+
+  0%,
+  100%{
+    transform:
+      translateY(0);
+  }
+
+  50%{
+    transform:
+      translateY(-7px);
+  }
+
 }
 
 .chat-empty h2{
@@ -403,6 +706,7 @@ body{
   line-height:1.6;
 }
 
+
 /* =====================================================
    CHAT HEADER
 ===================================================== */
@@ -412,7 +716,14 @@ body{
 
   border-bottom:1px solid var(--line);
 
-  background:#0c0c0c;
+  background:
+    rgba(12,12,12,.92);
+
+  backdrop-filter:
+    blur(12px);
+
+  -webkit-backdrop-filter:
+    blur(12px);
 
   padding:0 20px;
 
@@ -422,6 +733,9 @@ body{
   gap:12px;
 
   flex-shrink:0;
+
+  position:relative;
+  z-index:3;
 }
 
 .chat-header.show{
@@ -471,6 +785,7 @@ body{
   color:var(--gold);
 }
 
+
 /* =====================================================
    MESSAGES
 ===================================================== */
@@ -489,6 +804,9 @@ body{
   flex-direction:column;
 
   gap:9px;
+
+  position:relative;
+  z-index:2;
 }
 
 .messages.show{
@@ -515,7 +833,8 @@ body{
 
   border-radius:14px;
 
-  background:#171717;
+  background:
+    rgba(23,23,23,.94);
 
   border:1px solid #262626;
 
@@ -526,14 +845,18 @@ body{
   line-height:1.45;
 
   word-break:break-word;
+
+  box-shadow:
+    0 4px 18px
+    rgba(0,0,0,.12);
 }
 
 .message-row.mine .message-bubble{
   background:
     linear-gradient(
       135deg,
-      #4e3c0e,
-      #2c220c
+      rgba(78,60,14,.97),
+      rgba(44,34,12,.97)
     );
 
   border-color:#70591e;
@@ -607,6 +930,7 @@ body{
   font-style:italic;
 }
 
+
 /* =====================================================
    COMPOSER
 ===================================================== */
@@ -616,11 +940,21 @@ body{
 
   border-top:1px solid var(--line);
 
-  background:#0c0c0c;
+  background:
+    rgba(12,12,12,.94);
+
+  backdrop-filter:
+    blur(12px);
+
+  -webkit-backdrop-filter:
+    blur(12px);
 
   padding:12px 15px;
 
   flex-shrink:0;
+
+  position:relative;
+  z-index:3;
 }
 
 .composer.show{
@@ -757,6 +1091,7 @@ body{
   cursor:not-allowed;
 }
 
+
 /* =====================================================
    MODAL
 ===================================================== */
@@ -798,7 +1133,9 @@ body{
 
   border-radius:15px;
 
-  box-shadow:0 25px 80px rgba(0,0,0,.6);
+  box-shadow:
+    0 25px 80px
+    rgba(0,0,0,.6);
 }
 
 .modal-header{
@@ -920,6 +1257,7 @@ body{
   font-size:12px;
 }
 
+
 /* =====================================================
    TOAST
 ===================================================== */
@@ -940,7 +1278,9 @@ body{
 
   border-radius:10px;
 
-  box-shadow:0 15px 40px rgba(0,0,0,.5);
+  box-shadow:
+    0 15px 40px
+    rgba(0,0,0,.5);
 
   color:var(--text);
 
@@ -970,6 +1310,7 @@ body{
   border-color:#6b3029;
   color:#ffb2a7;
 }
+
 
 /* =====================================================
    LOADING
@@ -1013,6 +1354,7 @@ body{
   font-size:11px;
 }
 
+
 /* =====================================================
    RESPONSIVO
 ===================================================== */
@@ -1053,6 +1395,26 @@ body{
 
 }
 
+
+/* =====================================================
+   REDUZIR ANIMAÇÕES SE O SISTEMA PEDIR
+===================================================== */
+
+@media(
+  prefers-reduced-motion:reduce
+){
+
+  body::after,
+  .app::before,
+  .chat::before,
+  .chat-empty-icon{
+
+    animation:none !important;
+
+  }
+
+}
+
 </style>
 
 </head>
@@ -1060,26 +1422,8 @@ body{
 <body>
 
 <!-- =====================================================
-     LOADING
+     APP
 ===================================================== -->
-
-<div
-  class="loading"
-  id="loadingScreen"
->
-
-  <div class="loading-logo">
-    👑 KUDURO PRIME
-  </div>
-
-  <div
-    class="loading-text"
-    id="loadingText"
-  >
-    A iniciar mensagens...
-  </div>
-
-</div>
 
 <div class="app">
 
@@ -4139,8 +4483,7 @@ logoutBtn.addEventListener(
 
 /* =====================================================
    AUTENTICAÇÃO
-   IMPORTANTE:
-   ESTE É O ÚNICO onAuthStateChanged DA PÁGINA.
+   ÚNICO onAuthStateChanged
 ===================================================== */
 
 let authInicializado =
@@ -4154,14 +4497,6 @@ let authInicializado =
 async function iniciarAutenticacao(){
 
   try{
-
-    /*
-     * Mantém a sessão Firebase no navegador.
-     *
-     * Assim, quando o utilizador sai do feed
-     * para mensagens.html, o Firebase tenta
-     * recuperar automaticamente a sessão.
-     */
 
     await setPersistence(
       auth,
@@ -4201,14 +4536,6 @@ async function iniciarAutenticacao(){
       =============================================== */
 
       if(!user){
-
-        /*
-         * O Firebase pode ainda estar a restaurar
-         * a sessão no primeiro carregamento.
-         *
-         * Só fazemos o redirecionamento depois
-         * de o estado inicial ter sido processado.
-         */
 
         if(
           !authInicializado
@@ -4299,8 +4626,6 @@ async function iniciarAutenticacao(){
 
         /* =============================================
            ABRIR PERFIL DIRETO
-           Exemplo:
-           mensagens.html?uid=UID_DO_ARTISTA
         ============================================= */
 
         const params =
@@ -4444,11 +4769,6 @@ iniciarAutenticacao();
 window.addEventListener(
   "beforeunload",
   () => {
-
-    /*
-     * Não aguardamos esta Promise porque
-     * beforeunload não garante operações assíncronas.
-     */
 
     setOffline();
 
