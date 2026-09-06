@@ -1947,35 +1947,32 @@ function tituloVideo(data){
 
 
 function capaVideo(data){
-
   return texto(
-
     data.capa,
-    data.capaUrl,
-    data.capaURL,
-
     data.cover,
     data.coverUrl,
-    data.coverURL,
-
     data.thumbnail,
     data.thumbnailUrl,
-    data.thumbnailURL,
-
     data.image,
-    data.imageUrl,
-    data.imageURL,
-
-    data.imagem,
-    data.imagemUrl,
-    data.imagemURL,
-
-    data.foto,
-    data.fotoUrl,
-    data.fotoURL
-
+    data.imageUrl
   );
+}
 
+function urlVideo(data){
+  return texto(
+    data.video,
+    data.videoUrl,
+    data.videoURL,
+    data.urlVideo,
+    data.urlVideoURL,
+    data.mediaVideo,
+    data.mediaVideoUrl,
+    data.mediaVideoURL,
+    data.mediaUrl,
+    data.mediaURL,
+    data.url,
+    data.src
+  );
 }
 
 
