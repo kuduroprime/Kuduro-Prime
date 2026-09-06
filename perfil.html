@@ -1036,37 +1036,7 @@
 </div>
 
 <div
-  id="videos"
-  class="tab-content panel"
->
-
-  <div class="about">
-
-    <h2 class="section-title">
-      🎬 VÍDEOS
-    </h2>
-
-  </div>
-
-  <div
-    class="video-grid"
-    id="videoGrid"
-  >
-
-    <div class="loading">
-
-      <div class="loading-icon">
-        ▶
-      </div>
-
-      A carregar vídeos...
-
-    </div>
-
-  </div>
-
-</div>
-
+  
 
   </section>
 
@@ -3070,6 +3040,7 @@ function mostrarPerfil(){
 }
 
 
+
 /* =====================================================
    CARREGAR MÚSICAS
 ===================================================== */
@@ -3077,23 +3048,26 @@ function mostrarPerfil(){
 async function carregarMusicas(){
 
   const list =
-    document.querySelector(
-      "#songList"
-    );
-
+    document.querySelector("#songList");
 
   try{
 
     const snapshot =
       await getDocs(
-        collection(
-          db,
-          "musicas"
-        )
+        collection(db, "musicas")
       );
 
-
     artistSongs = [];
+
+    const identificadores = [
+
+      artistId,
+      artistUid,
+      requestedUser,
+      profileData?.username,
+      profileData?.name
+
+    ].filter(Boolean);
 
 
     snapshot.forEach(
@@ -3103,59 +3077,32 @@ async function carregarMusicas(){
           docSnap.data();
 
 
-        const idArtista =
-          texto(
-
-            data.artistaId,
-            data.artistId,
-
-            data.userId,
-            data.uid,
-
-            data.artistaUID,
-            data.artistaUid,
-
-            data.ownerId,
-            data.ownerUid,
-
-            data.authorId,
-            data.authorUid
-
+        const pertence =
+          documentoPertenceAoUtilizador(
+            data,
+            docSnap.id,
+            identificadores
           );
 
 
-        const idsValidos = [
-
-          artistId,
-          artistUid,
-          requestedUser,
-          profileData.username
-
-        ]
-        .filter(Boolean)
-        .map(
-          valor =>
-            normalizar(valor)
-        );
-
-
-        if(
-          idsValidos.includes(
-            normalizar(idArtista)
-          ) &&
-          isPublicado(data)
-        ){
-
-          artistSongs.push({
-
-            id:
-              docSnap.id,
-
-            ...data
-
-          });
-
+        if(!pertence){
+          return;
         }
+
+
+        if(!isPublicado(data)){
+          return;
+        }
+
+
+        artistSongs.push({
+
+          id:
+            docSnap.id,
+
+          ...data
+
+        });
 
       }
     );
@@ -3214,11 +3161,9 @@ async function carregarMusicas(){
 
           const views =
             numero(
-
               song.views,
               song.visualizacoes,
               song.viewCount
-
             );
 
 
@@ -3320,7 +3265,7 @@ async function carregarMusicas(){
   catch(error){
 
     console.error(
-      "Erro nas músicas:",
+      "❌ ERRO NAS MÚSICAS:",
       error
     );
 
@@ -3342,16 +3287,15 @@ async function carregarMusicas(){
 
 }
 
-  /* =====================================================
+
+/* =====================================================
    CARREGAR PUBLICAÇÕES DO ARTISTA
 ===================================================== */
 
 async function carregarPublicacoes(){
 
   const container =
-    document.querySelector(
-      "#profilePosts"
-    );
+    document.querySelector("#profilePosts");
 
 
   if(!container){
@@ -3362,7 +3306,7 @@ async function carregarPublicacoes(){
   try{
 
     console.log(
-      "📢 A carregar publicações do artista:",
+      "📢 A CARREGAR PUBLICAÇÕES:",
       artistId,
       artistUid
     );
@@ -3382,90 +3326,49 @@ async function carregarPublicacoes(){
       artistId,
       artistUid,
       requestedUser,
-
       profileData?.username,
-
       profileData?.name
 
-    ]
-    .filter(Boolean)
-    .map(
-      valor =>
-        normalizar(valor)
-    );
+    ].filter(Boolean);
 
 
     const publicacoes = [];
 
 
+    /*
+      UMA ÚNICA LEITURA DOS DOCUMENTOS
+    */
+
     snapshot.forEach(
-  docSnap => {
+      docSnap => {
 
-    const data =
-      docSnap.data();
+        const data =
+          docSnap.data();
 
-    const pertence =
-      documentoPertenceAoUtilizador(
-        data,
-        docSnap.id,
-        [
-          artistId,
-          artistUid,
-          requestedUser,
-          profileData.username,
-          profileData.name
-        ]
-        .filter(Boolean)
-      );
-
-    if(!pertence){
-      return;
-    }
-
-    if(!isPublicado(data)){
-      return;
-    }
-
-    artistSongs.push({
-
-      id:
-        docSnap.id,
-
-      ...data
-
-    });
-
-  }
-);
 
         /*
-          Publicações públicas.
-          Se não tiver status,
-          consideramos publicada.
+          VERIFICA SE A PUBLICAÇÃO
+          PERTENCE AO ARTISTA
         */
 
-        const status =
-          texto(
-            data.status
-          )
-          .toLowerCase();
+        const pertence =
+          documentoPertenceAoUtilizador(
+            data,
+            docSnap.id,
+            identificadores
+          );
 
 
-        const publicada = (
-
-          status === "" ||
-          status === "publicado" ||
-          status === "publicada" ||
-          status === "public" ||
-          status === "ativo" ||
-          status === "ativa" ||
-          status === "aprovado" ||
-          status === "aprovada"
-
-        );
+        if(!pertence){
+          return;
+        }
 
 
-        if(!publicada){
+        /*
+          APENAS PUBLICAÇÕES PÚBLICAS
+        */
+
+        if(!isPublicado(data)){
           return;
         }
 
@@ -3484,7 +3387,7 @@ async function carregarPublicacoes(){
 
 
     /*
-      Mais recentes primeiro.
+      MAIS RECENTES PRIMEIRO
     */
 
     publicacoes.sort(
@@ -3495,7 +3398,7 @@ async function carregarPublicacoes(){
 
 
     console.log(
-      "📢 TOTAL DE PUBLICAÇÕES DO ARTISTA:",
+      "📢 TOTAL DE PUBLICAÇÕES:",
       publicacoes.length
     );
 
@@ -3571,7 +3474,8 @@ async function carregarPublicacoes(){
 
 }
 
-  /* =====================================================
+
+/* =====================================================
    RENDERIZAR PUBLICAÇÃO NO PERFIL
 ===================================================== */
 
@@ -3613,52 +3517,67 @@ function renderizarPublicacaoPerfil(post){
     );
 
 
- const imagem =
-  texto(
-    post.imagem,
-    post.imagemUrl,
-    post.imagemURL,
-    post.image,
-    post.imageUrl,
-    post.imageURL,
-    post.foto,
-    post.fotoUrl,
-    post.fotoURL,
-    post.mediaUrl,
-    post.mediaURL,
-    post.mediaUrl,
-    post.urlImagem,
-    post.urlImagemURL
-  );
+  const imagem =
+    texto(
+
+      post.imagem,
+      post.imagemUrl,
+      post.imagemURL,
+
+      post.image,
+      post.imageUrl,
+      post.imageURL,
+
+      post.foto,
+      post.fotoUrl,
+      post.fotoURL,
+
+      post.mediaUrl,
+      post.mediaURL,
+
+      post.urlImagem,
+      post.urlImagemURL
+
+    );
 
 
   const video =
-  texto(
-    post.video,
-    post.videoUrl,
-    post.videoURL,
-    post.mediaVideo,
-    post.mediaVideoUrl,
-    post.mediaVideoURL,
-    post.mediaUrl,
-    post.mediaURL,
-    post.urlVideo
-  );
+    texto(
+
+      post.video,
+      post.videoUrl,
+      post.videoURL,
+
+      post.mediaVideo,
+      post.mediaVideoUrl,
+      post.mediaVideoURL,
+
+      post.mediaUrl,
+      post.mediaURL,
+
+      post.urlVideo
+
+    );
 
 
   const audio =
-  texto(
-    post.audio,
-    post.audioUrl,
-    post.audioURL,
-    post.musicUrl,
-    post.musicURL,
-    post.urlAudio,
-    post.urlAudioURL,
-    post.mediaAudio,
-    post.mediaAudioUrl,
-    post.mediaAudioURL
-  );
+    texto(
+
+      post.audio,
+      post.audioUrl,
+      post.audioURL,
+
+      post.musicUrl,
+      post.musicURL,
+
+      post.urlAudio,
+      post.urlAudioURL,
+
+      post.mediaAudio,
+      post.mediaAudioUrl,
+      post.mediaAudioURL
+
+    );
 
 
   const views =
@@ -3859,7 +3778,8 @@ function renderizarPublicacaoPerfil(post){
   `;
 
 }
-  
+
+
 /* =====================================================
    CARREGAR VÍDEOS
 ===================================================== */
@@ -3872,7 +3792,19 @@ async function carregarVideos(){
     );
 
 
+  if(!grid){
+    return;
+  }
+
+
   try{
+
+    console.log(
+      "🎬 A CARREGAR VÍDEOS:",
+      artistId,
+      artistUid
+    );
+
 
     const snapshot =
       await getDocs(
@@ -3886,82 +3818,78 @@ async function carregarVideos(){
     artistVideos = [];
 
 
+    const identificadores = [
+
+      artistId,
+      artistUid,
+      requestedUser,
+      profileData?.username,
+      profileData?.name
+
+    ].filter(Boolean);
+
+
+    /*
+      UMA ÚNICA LEITURA
+      DOS VÍDEOS
+    */
+
     snapshot.forEach(
-  docSnap => {
+      docSnap => {
 
-    const data =
-      docSnap.data();
-
-    const pertence =
-      documentoPertenceAoUtilizador(
-        data,
-        docSnap.id,
-        [
-          artistId,
-          artistUid,
-          requestedUser,
-          profileData.username,
-          profileData.name
-        ]
-        .filter(Boolean)
-      );
-
-    if(!pertence){
-      return;
-    }
-
-    artistVideos.push({
-
-      id:
-        docSnap.id,
-
-      ...data
-
-    });
-
-  }
-);
-
-        const idsValidos = [
-
-          artistId,
-          artistUid,
-          requestedUser,
-          profileData.username
-
-        ]
-        .filter(Boolean)
-        .map(
-          valor =>
-            normalizar(valor)
-        );
+        const data =
+          docSnap.data();
 
 
-        if(
-          idsValidos.includes(
-            normalizar(idArtista)
-          )
-        ){
+        const pertence =
+          documentoPertenceAoUtilizador(
+            data,
+            docSnap.id,
+            identificadores
+          );
 
-          artistVideos.push({
 
-            id:
-              docSnap.id,
-
-            ...data
-
-          });
-
+        if(!pertence){
+          return;
         }
+
+
+        /*
+          APENAS VÍDEOS PUBLICADOS
+        */
+
+        if(!isPublicado(data)){
+          return;
+        }
+
+
+        artistVideos.push({
+
+          id:
+            docSnap.id,
+
+          ...data
+
+        });
 
       }
     );
 
 
+    /*
+      MAIS RECENTES PRIMEIRO
+    */
+
     artistVideos.sort(
       (a,b) =>
         dataCriacao(b) -
         dataCriacao(a)
+    );
+
+
+    console.log(
+      "🎬 TOTAL DE VÍDEOS:",
+      artistVideos.length
     );
 
 
@@ -4079,7 +4007,7 @@ async function carregarVideos(){
   catch(error){
 
     console.error(
-      "Erro nos vídeos:",
+      "❌ ERRO NOS VÍDEOS:",
       error
     );
 
@@ -4095,12 +4023,16 @@ async function carregarVideos(){
           ⚠ Erro ao carregar vídeos
         </strong>
 
+        Tenta atualizar a página.
+
       </div>
     `;
 
   }
 
 }
+
+
 
 
 /* =====================================================
